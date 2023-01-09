@@ -1,0 +1,435 @@
+
+
+
+
+
+
+---> OK... 
+
+
+
+
+
+
+NOSSO CÓDIGO ATÉ AGORA ESTÁ ASSIM:
+
+
+
+
+
+
+blockchain = [1]
+
+
+
+def add_value():
+    blockchain.append([0], 5.3)
+    print(blockchain)
+
+
+
+
+
+
+add_value()
+add_value()
+add_value()
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS ATÉ AGORA SEMPRE NOS REFIRIMOS AO VALOR DE '1' da blockchain,
+
+
+pq é com isso que nós começamos...
+
+
+
+
+
+
+
+-----> MAS SE QUISERMOS _ O ÚLTIMO VALOR_ _ DA NOSSA 'BLOCKCHAIN',
+
+
+o que podemos usar 
+
+
+
+É 
+
+
+O INDEXADOR DE '-1'
+
+em vez de '0'...
+
+
+
+
+
+
+
+--> ESSA É UMA TRICK CONVENIENTE DO PYTHON ------> NÃO É UM 'TRUQUE',
+
+E SIM UMA FUNCIONALIDADE,
+
+
+
+
+FUNCIONALIDADE DO PYTHON QUE NOS DEIXA ACESSAR VALORES EM UM __ ARRAY__ DO LADO __ DA 
+
+
+DIREITA... (começando pela direita)...
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE '-1' 
+
+
+vai sempre acessar o 
+
+
+
+
+ELEMENTO MAIS DA DIREITA (mais recente)...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+blockchain = [1]
+
+
+
+def add_value():
+    blockchain.append(blockchain[-1], 5.3)
+    print(blockchain)
+
+
+
+
+
+
+add_value()
+add_value()
+add_value()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS USAR '-2' SE QUERMEOS O PENÚLTIMO ELEMENTO,
+
+
+MAS 
+
+
+
+
+
+VAMOS QUERER -1 PARA PEGAR O _ ÚLTIMO_...
+
+
+
+
+
+
+
+
+
+
+
+O RESULTADO DESSE CÓDIGO TODO SERÁ:
+
+
+
+
+
+
+
+
+blockchain = [1]
+
+
+
+
+
+
+def add_value():
+    blockchain.append([blockchain[-1], 5.3])
+    print(blockchain)
+
+
+
+
+
+
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+
+
+
+
+
+
+
+
+SERÁ:
+
+
+
+
+
+
+STARTED
+[1, [1, 5.3]]
+[1, [1, 5.3], [[1, 5.3], 5.3]]
+[1, [1, 5.3], [[1, 5.3], 5.3], [[[1, 5.3], 5.3], 5.3]]
+[1, [1, 5.3], [[1, 5.3], 5.3], [[[1, 5.3], 5.3], 5.3], [[[[1, 5.3], 5.3], 5.3], 5.3]]
+[1, [1, 5.3], [[1, 5.3], 5.3], [[[1, 5.3], 5.3], 5.3], [[[[1, 5.3], 5.3], 5.3], 5.3], [[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3]]
+[1, [1, 5.3], [[1, 5.3], 5.3], [[[1, 5.3], 5.3], 5.3], [[[[1, 5.3], 5.3], 5.3], 5.3], [[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3]]
+[1, [1, 5.3], [[1, 5.3], 5.3], [[[1, 5.3], 5.3], 5.3], [[[[1, 5.3], 5.3], 5.3], 5.3], [[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3]]
+[1, [1, 5.3], [[1, 5.3], 5.3], [[[1, 5.3], 5.3], 5.3], [[[[1, 5.3], 5.3], 5.3], 5.3], [[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3]]
+[1, [1, 5.3], [[1, 5.3], 5.3], [[[1, 5.3], 5.3], 5.3], [[[[1, 5.3], 5.3], 5.3], 5.3], [[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], [[[[[[[[[1, 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3], 5.3]]
+PS A:\projeto7-PYTHON\MODULO2-MERGULHANDONOBASICODOPYTHON\novoprojeto>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> mas o professor explica que fizemos algo errado, que o primeiro elemento/valor deve ser '[1]' (1 wrappado),
+
+
+
+
+para que ele seja uma 'LIST COM APENAS 1 ELEMENTO', e as lists posteriores apenas expandam sobre isso:
+
+
+
+
+
+
+
+
+
+
+
+blockchain = [[1]]
+
+
+def add_value():
+    blockchain.append([blockchain[-1], 5.3])
+    print(blockchain)
+
+
+
+
+
+
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+add_value()
+
+
+
+
+
+
+
+
+
+
+
+
+
+O RESULTADO DESSA NOVA VERSÃO FICA ASSIM:
+
+
+
+
+
+
+STARTED
+[[1], [[1], 5.3]]
+[[1], [[1], 5.3], [[[1], 5.3], 5.3]]
+[[1], [[1], 5.3], [[[1], 5.3], 5.3], [[[[1], 5.3], 5.3], 5.3]]
+[[1], [[1], 5.3], [[[1], 5.3], 5.3], [[[[1], 5.3], 5.3], 5.3], [[[[[1], 5.3], 5.3], 5.3], 5.3]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ou seja, vamos adicionando 1 NÍVEL EXTRA DE NESTING cada vez que adicioanmos um novo elmeneto ao array....
+
+
+[[[[[]]]]]
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, ESSA É A LÓGICA QUE RECÉM ADICIONAMOS:
+
+
+
+
+CADA BLOCK QUE ADICIONAMOS CONTÉM A DATA __ DO VELHO BLOCK,
+
+
+
+QUE É COLOCADA JUNTO DA 'NEW DATA' de cada call.........
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O NOSSO PROBLEMA, AQUI, É QUE 
+
+
+
+
+
+
+O 
+
+
+
+VALOR DA NEW DATA SEMPRE ESTÁ COMO A MESMA COISA, SEMPRE COMO '5.3'..
+
+
+
+
+
+
+
+
+
+
+
+--> seria 
+
+legal se fosse possível 
+
+
+
+
+
+
+COLOCAR DIFERENTES VALORES ALI,
+
+
+DIZER AO 
+
+
+
+
+NOSSO CÓDIGO QUE 'QUEREMOS QUE DIFERNETES VALORES SEJAM ARMAZENADOS'...
+
+
+
+
+
+
+
+
+
+
+
+
+-- >para isso, poderíamos encontrar alguma function como 'Math.random()',
+
+
+
+OU ENTÃO 
+
+
+USAR UM PARÂMETRO NESSA FUNCTION...
+
+
+(
+
+    é exatamente isso que faremos na próxima aula....
+)

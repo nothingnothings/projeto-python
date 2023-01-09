@@ -1,0 +1,898 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA TRABALHAR COM NUMBERS,
+
+VOLTAMOS AO REPL...
+
+
+
+
+
+
+
+
+
+
+escrvemos 'python' no 
+
+
+
+commandl ine...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+Python 3.10.0 (tags/v3.10.0:b494f59, Oct  4 2021, 19:00:18) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEITO,
+
+ESTAMOS NO PYTHON REPL....
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PYTHON TEM UMA FORMA BEM ESTRANHA DE EXITAR O 'REPL',
+
+
+
+É 
+
+
+
+
+CTRL + Z, depois ENTER....
+
+
+
+
+
+
+
+
+
+
+CONTROL ZET ....
+
+
+
+
+
+
+
+
+
+
+
+DIGITAMOS '2'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE DIGITAMOS '2',
+
+
+ELE SÓ 
+
+COSPE DE VOLTA O QUE EU DIGITEI...
+
+
+
+
+
+
+
+
+
+--> vocÊ trabalha com data 
+
+POR MEIO DO STORE 
+
+
+DESSA DATA EM VARIABLES...
+
+
+
+
+
+EX:
+
+
+
+
+
+
+>>> number = 2
+>>> number
+2
+>>>
+
+
+
+
+
+
+
+
+
+
+
+-------> certo... 
+
+
+
+
+
+
+isso funciona....
+
+
+
+
+
+
+
+
+
+é O NOME DA VARIABLE,
+
+AÍ '=',
+
+
+e aí 
+
+um valor....
+
+
+
+
+
+
+
+
+
+----> UM VARIABLE É BASICAMENTE 
+
+
+UM 
+
+'ADDRESS',
+
+
+COMO 
+
+O NÚMERO DE SUA CASA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, É BASICAMENTE UM POINTER/ADDRESS AO NÚMERO 2,
+
+essencialmente...
+
+
+
+
+
+
+
+
+
+
+--> ESSA JÁ É UMA PARTE BEM IMPORTANTE QUE VOCê TEM QUE ENTENDER...
+
+
+
+
+
+--> TODO PROGRAMA USA VARIABLES, 
+
+
+
+PQ 
+
+
+ELAS TE DEIXAM FAZER 'DYNAMIC CALCULATIONS'...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> VOCÊ PODE 
+
+FAZER MAIS DO QUE O HARDCODE DE UM VALOR ALI NA VARIABLE... --> VOCÊ TAMBÉM 
+
+
+
+PODE MANIPULAR O VALOR 
+
+
+
+DELE __ ENQUANTO__ O PROGRAMA 
+
+
+ESTÁ 
+
+RODANDO...
+
+
+
+
+
+
+
+
+
+
+
+-> BASTA ESCREVER ASSIM:
+
+
+>>> 2
+2
+>>> number = 2
+>>> number
+2
+>>> number = 5
+>>> number
+5
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+---------> é como 
+
+o 
+
+javascript,
+
+pq 
+
+aqui 
+
+OVERWRITTAMOS O VALOR 
+
+DESSE 
+
+NEGÓCIO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> E PODEMOS FAZER A MESMA COISA COM 
+
+O USO DESSA VARIABLE....
+
+
+
+
+EX:
+
+
+
+>>> number = number - 2
+>>> number
+3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, mas o que acontece se eu escrevo uma variável que não existe?
+
+
+
+ACONTECE ISTO:
+
+
+>>> number = number - age
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'age' is not defined
+
+
+
+
+
+
+
+
+
+--> ok, e se eu tentar decrescer uma string de um number?
+
+
+
+
+ex:
+
+
+
+
+
+>>> number = number - 'age'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unsupported operand type(s) for -: 'int' and 'str'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+INT E STR,
+
+
+
+
+
+ESSAS COISAS NÃO COMBINAM...
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA É A UTILIDADE DE VARIABLES,
+
+PODEMOS FAZER UM MONTE DE COISAS COM ELAS,
+
+
+
+
+
+
+
+
+PODEMOS __ RODAR TODOS TIPOS DE CALCULATIONS,
+
+
+
+ARMAZENAR 
+
+'IN-BETWEEN RESULTS',
+
+que 
+
+talvez
+ 
+
+ necessitaremos 
+
+
+ em um momento posterior,
+
+ no nosso programa,
+
+
+ e aí 
+
+
+
+ O OUTPUTTAR AOS USERS...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ATÉ AGORA, É CLARO,
+
+ SÓ TRABALHAMOS COM INTEGERS,
+
+
+ COM 
+
+ NUMBERS 
+ QUE 
+
+ NÃO POSSUEM 
+
+
+
+ CASAS DECIMAIS... 
+
+
+
+
+
+
+
+
+
+ --> MAS VOCÊ PODE INSERIR FLOATS EM VARIABLES....
+
+
+
+
+
+
+ EX:
+
+
+ >>> number = 25.5
+>>> nubmer
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'nubmer' is not defined. Did you mean: 'number'?
+>>> number
+25.5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ TAMBÉM 
+
+PODE 
+
+
+
+
+ARMAZENAR 
+
+
+
+___ STRINGS__ --> QUANDO VOCÊ 
+
+
+ARMAZENA 
+
+COISAS 
+
+
+NO PYTHON,
+EM VARIABLES,
+
+
+
+A 
+
+NAMING CONVENTION 
+
+
+
+
+
+
+
+
+
+
+é 
+
+
+
+
+usar 
+
+
+
+'multiple_words' 
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ TIVER MÚLTIPLAS PALAVRAS,
+
+
+
+
+USE um '_" 
+
+
+PARA DIVIDIR O ESPAÇO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VOCÊ NÃO PODE ESCREVER 
+
+
+
+is old = 'a guy' ,
+
+
+
+
+PQ 
+
+
+
+
+VARIABLES NÃO PODEM TER ESPAÇOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OUTRO DETALHE:
+
+
+
+
+
+
+
+
+
+BOOLEANS NO PYTHON ___ DEVEM _ SER OBRIGATORIAMENTE ARMAZENADOS/ESCRITOS COMO 
+
+
+'True' 
+
+e 
+
+
+'False' ( ou seja, COM UMA MAIÚSCULA...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK....
+
+
+
+
+
+
+
+NOMES ASSIM:
+
+
+
+
+
+arthur_panazolo ....
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É SINTAXE VÁLIDA PYTHON...
+
+
+
+
+
+
+
+
+
+
+--> True 
+
+
+
+--> False ---> 
+
+SÃO BOOLEANS....
+
+
+
+
+
+
+
+
+
+
+
+VEJA O EXEMPLO:
+
+
+
+>>> is_old = True
+>>> is_old
+True
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA,
+
+SE EU ESCREVO 'is_old'
+
+mais uma vez,
+
+ELE ME RETORNA 'True'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAIS TARDE, QUANDO APRENDERMOS SOBRE CONDITIONAL CHECKS,
+
+
+PODEREMOS CHECAR 
+
+
+
+
+
+
+
+'if is_old' 
+
+
+ou algo assim,
+
+CHECAR SE ISSO 
+
+É 
+
+TRUE,
+
+
+E AÍ 
+
+
+RODAR 
+
+
+
+UM CÓDIGO 
+
+DIFERENTE 
+
+SE 
+
+ELE 
+FOR TRUE,
+
+ETC ETC...
+
+
+
+
+
+
+
+
+
+>>> name = "Arthur"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> certo.... 
+
+
+
+
+>>> name = "Arthur"
+>>> name
+'Arthur'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--_> OK, 
+
+ESSES 
+
+SÃO OS 3 CORE TYPES COM QUE TRABALHAMOS, NO PYTHON...
+
+
+
+

@@ -1,0 +1,380 @@
+
+
+
+
+
+
+
+
+
+DEVEMOS RECONSTRUIR 
+
+
+
+A LÓGICA LENTAMENTE,
+
+
+
+E VER 
+
+TUDO DE NOVO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DELETAMOS OS BLOCKCHAINS E AS WALLETS,
+
+REINICIAMOS OS SERVER...
+
+
+
+
+
+
+
+
+
+
+
+--> vamos no node número 1...
+
+
+
+
+
+
+1) MINERAMOS 3 BLOCKS...
+
+
+
+
+
+
+
+
+2) AÍ, O PROFESSOR VAI ATÉ O 'PEER NODE',
+
+
+
+E LÁ _ ELE TAMBÉM ADICIONA 3 BLOCKS...
+
+
+
+
+
+
+
+3) AÍ VOLTAMOS AO PRIMEIRO NODE,
+
+E FINALMENTE ADICIONAMOS O SEGUNDO NODE COMO UM 'PEER NODE/PEER AMIGO' na network...
+
+
+
+
+
+
+4) AÍ MINERAMOS UM NOVO BLOCK NO NODE N1,
+
+
+E AÍ TENTAMOS MINERAR DE NOVO,
+
+MAS AÍ GANHAMOS 
+
+'conflicts to resolve'...
+
+
+
+
+
+
+
+5) POR OUTRO LADO, SE MINERAMOS, DEPOIS DISSO,
+
+BLOCKS __ NO PEER NODE (node N2), podemos 
+CONSEGUÍ-LOS,
+
+
+
+PODEMOS CONTINUAR....
+
+
+
+
+
+
+
+
+6) SE VOLTAMOS AO NODE n1 E CLICAMOS EM 'resolve conflicts',
+
+
+A CHAIN SERÁ IMEDIATAMENTE 'REPLACEd' (a chain do node n1) ,
+
+
+
+
+E COMEÇAREMOS 'FROM SCRATCH'..
+
+
+
+
+
+
+
+
+
+
+A PERGUNTA É:
+
+PQ DIABOS O PEER NODE (n2 )
+
+
+
+GANHA ESSA DISPUTA? 
+
+
+
+
+
+
+
+
+
+
+--> BEM, ISSO FAZ SENTIDO PQ:
+
+
+
+
+
+
+
+
+1) NÓS COMEÇAMOS A MINERAR NO NOSSO NOODE 1.... 
+
+
+2) COMEÇAMOS A MINERAR NO NODE 2 TBM...
+
+(ambos estavam DESLIGADOS 1 DO OUTRO)
+
+
+
+
+3) AÍ CONECTAMOS OS 2 NODES 
+
+POR MEIO DO ADD DE 'node 2 'como 
+
+um peer node 
+
+do primeiro node...
+
+
+
+
+4) AÍ DESCOBRIMOS QUE EXISTIA UM CONFLICT ENTRE OS 2,
+
+MAS AÍ 
+
+
+
+
+CONTINUAMOS MINERANDO NO NODE 2... --> E AÍ, QUANDO RESOLVEMOS O CONFLICT NO NODE1,
+
+
+O NODE2 
+
+ERA SIMPLESMENTE MAIOR, 
+
+
+TINHA MAIS BLOCKS...  -------> E ESSE É SIMPLESMENTE O JEITO QUE O NEGÓCIO FUNCIONA:
+
+
+
+
+
+O NODE 2 FOI MAIS RÁPIDO, E TEVE 1 LONGER CHAIN MAIS CEDO,
+
+
+POR ISSO ELE VENCEU....
+
+
+
+
+
+
+
+
+
+--> POR OUTRO LADO, SE DELETARMOS ESSES ARQUIVOS DE TEXTO E REINICIARMOS O SERVER,
+
+
+SE 
+
+
+
+MINERARMOS 
+
+
+
+BLOCKS DE NOVO 
+
+
+
+E ADICIONARMOS 
+
+
+
+
+O NODE 2 COMO PEER.... --> E SE ENTÃO FORMOS 
+
+ATÉ O NODE 2 E ENTÃO 
+
+
+
+TAMBÉM MINERAMOS 
+
+
+1 ÚNICO BLOCK.... ----> SE AÍ VOLTAMOS AO NODE1 
+
+
+
+e mineramos 
+
+1 único coin,
+
+
+NÓS PODEREMOS CONTINUAR.... --> NO NODE 2,
+
+
+
+
+
+entretnato,
+
+se carregamos 
+
+
+
+
+
+NOSSA BLOCKCHAIN E MINERAMOS COINS,
+
+
+vamos ter 'resolve your conflicts',
+
+
+E SE 
+
+EU 
+
+COLOCAR 'RESOLVE CONFLCITS',
+
+
+VAMOS VER QUE 
+
+
+
+O NEGÓCIO VAI 'KEEP ITS LOCAL CHAIN' (
+
+
+o que será estranho,
+
+
+pq a local chain do 
+
+NODE 2 TERÁ TIDO 
+
+SÓ 
+
+
+2 BLOCKS,
+
+E 
+O 
+
+NODE 1 TINHA 6 BLOCKS... --------> OK, 
+
+
+
+O QUE HÁ DE ERRADO AQUI? 
+
+
+
+
+
+
+--> A RAZÃO É BEM SIMPLES:
+
+
+
+
+
+
+
+
+
+''O NODE 2 NÃO SABE NADA SOBRE O NODE 1.... --> QUANDO 
+
+CLICAMOS EM 
+
+RESOLVE CONFLICTS,
+
+ELE NÃO TEM NENHUM PEER NODE A QUE SE COMPARAR''... --> 
+
+
+
+
+é por isso que 
+
+PRECISAMOS ADICIONAR 
+
+
+
+OS 2 NODES EM AMBOS 
+
+
+os 
+
+peer nodes...
+
+
+
+
+
+
+
+
+
+
+)
+
+
+
+
+
+
+
+ok.... --> isso significa que 
+
+
+
+
+NOSSA CHAIN ESTÁ FUNCIONANDO,
+
+
+
+era só uma IMPRESSÃO DE QUE AS COISAS ESTAVAM ERRADAS...
+
+
+
+
+
+--> quando existirem conflicts, a chain mais longa ganhará...

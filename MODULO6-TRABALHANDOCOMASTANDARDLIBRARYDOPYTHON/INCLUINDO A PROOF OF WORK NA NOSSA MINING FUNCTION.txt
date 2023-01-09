@@ -1,0 +1,1306 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+meu código de 'proof of work' atualmente está assim:
+
+
+
+def proof_of_work():
+    last_block = blockchain[-1]
+    last_hash = hash_block(last_block)
+    proof = 0
+    while not valid_proof(open_transactions, last_hash, proof):
+        proof += 1
+    return proof
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> É UM WHILE LOOP que interrompe nossa execução..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem, pelo menos agora estamos  FICANDO COM ESSA 'proof' DENTRO DE CADA
+
+
+
+BLOCK...
+
+
+ESTÁ FICANDO TIPO ASSIM:
+
+
+
+
+{'previous_block_hash': 'a63b527d0cf682f948518fa3eaf1d0e9fdd81164b3d83de733d58927a2f1058b', 'index': 1, 'processed_transactions': [{'sender': 'ourApp', 'recipient': 'Arthur', 'amount': 10}], 'proof': 107741}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> O PROOF OF WORK PASSARÁ __ A FAZER__ PARTE __ DA METADA DE NOSSO 
+
+BLOCK....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> é por isso que o professor  vai querer 
+
+
+
+CHAMAR O 
+
+
+
+
+'proof_of_work()' --------> ENTRETANTO,
+
+
+
+
+
+ELE NOS DIZ QUE 
+
+
+
+
+__ ESSE CÓDIGO DE 'proof_of_work'
+
+
+
+DEVERÁ _ SER EXECUTADO ___ ANTES_ DO ADD __ DE 
+
+'reward_transaction'
+
+
+
+
+
+AO NOSSO 
+
+'copied_transactions',
+
+
+
+
+
+
+
+PQ ELE _ NÃO DEVERÁ __ CONTER A 'REWARD TRANSACTION'...
+
+
+
+
+
+
+
+
+
+
+
+
+isso fica tipo assim:
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    previous_block = blockchain[-1]
+    hashed_block = hash_block(previous_block)
+    proof = 0
+    # print(hashed_block)
+    print(hashed_block, 'LINE51251')
+
+
+    proof = proof_of_work()
+
+    reward_transaction = {
+        'sender': 'ourApp',
+        'recipient': owner,
+        'amount': MINING_REWARD
+
+    }
+    copied_transactions = open_transactions[:]
+    copied_transactions.append(reward_transaction)
+
+    block = {'previous_block_hash': hashed_block,
+             'index': len(blockchain),
+             #  'processed_transactions': open_transactions,
+             'processed_transactions': copied_transactions,
+             'proof': proof
+             }
+    blockchain.append(block)
+    print(blockchain, 'TRIED TO MINE BLOCK')
+    return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO NOS DÁ UM 'VALID HASH' para esse proof of work...
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, QUANDO CRIARMOS UM NOVO BLOCK,
+
+
+VAMOS QUERER _ INSERIR ___ ESSA 'proof'
+
+
+em 1 field de 'proof',
+
+
+
+
+
+
+EXATAMENTE COMO EU FIZ:
+
+
+
+
+    block = {'previous_block_hash': hashed_block,
+             'index': len(blockchain),
+             #  'processed_transactions': open_transactions,
+             'processed_transactions': copied_transactions,
+             'proof': proof
+             }
+
+
+
+
+
+
+
+
+
+
+-------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS AÍ SURGE UMA PERGUNTA: 
+
+
+
+
+E QUANTO AO 'GENESIS BLOCK',
+
+ele naõ deve ter uma proof dessas, também?
+
+
+
+
+
+
+
+
+
+--> o valor dessa proof, no genesis block,
+
+s
+erá um 
+
+
+DUMMY VALUE,
+
+
+por isso o professor coloca '100'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM A PROOF OF WORK ADICIONADA,
+
+
+
+
+
+
+
+
+
+AGORA PRECISAMOS _ ALTERAR UM POUCO TAMBÉM A 'MANEIRA PELA QUAL E´VERIFICADA NOSSA CHAIN',
+
+
+
+
+lá 
+
+em 
+
+
+'verify_chain()'....
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ATUAL É ESTE:
+
+
+
+
+
+
+
+def verify_chain():
+    is_valid = True
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        if block['previous_block_hash'] == hash_block(blockchain[index - 1]):
+            print('valid block')
+        else:
+            print('invalid block')
+            is_valid = False
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    antes, checávamos só se 
+
+
+
+
+    NOSSO 'STORED PREVIOUS HASH'
+
+
+    era igual ao 
+
+    'RECALCULATED PREVIOUS HASH':
+
+
+    if block['previous_block_hash'] == hash_block(blockchain[index - 1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO NÃO É MAIS O BASTANTE, PQ AGORA VOCÊ PODE TEORICAMENTE ALTERAR/MANIPULAR UM BLOCK 
+
+
+ANTIGAO 
+
+
+
+
+
+E __ AÍ __ SIMPLESMNETE_  MANIPULAR _ OS PRÓXIJMOS BLOCKS NA CHAIN,
+E AÍ 
+
+FAZER ISSO PARA __ TODOS OS BLOCKS NA CHAIN,
+
+
+
+
+
+FAZENDO CMO QUE 
+
+
+
+
+FIQUEMOS COM UM 'VALID CHAIN'
+
+
+quando 
+
+o 
+
+assunto for a 'relaçaõ entre o hash armazenado e o valor do hash formatado anteriormente'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROOF OF WORK __ VAI NOS AJUDAR COM ISSO..
+
+
+
+
+
+
+
+
+
+--> COM HASHES, O MESMO INPUT RESULTA EM UM MESMO 
+
+
+
+OUTPUT..
+
+
+
+
+
+
+
+
+
+
+
+
+--. não vamos CHECAR PELA EXISTÊNCIA DE 
+
+'00' NO INÍCIO DE UMA STRING NESSA FUNÇÃO DE 'verify_chain',
+
+
+
+
+
+ E SIM VAMOS CHECAr  __ SE OS HASHES__ (o 'block['previous_hash']' e o 'hash_block(blockchain[index - 1]) ' )
+
+
+
+
+
+ __ QUE ESTÃO AÍ _ 
+
+
+SÃO CAPAZES DE 'FULFILL'
+ 
+
+ o nosso ALGORITMO DE 
+
+
+
+ 'proof of work'.. ----> É UM CHECK ADICIONAL QUE TEMOS QUE COLOCAR..
+
+
+
+
+
+
+
+
+
+ --> para isso, VAMOS PRECISAR DO NOSSO 'proof of work' em ALGUMA VARIÁVEL....
+
+
+
+
+
+
+
+ OU SEJA, PRECISAMOS CHECAR_ _ SE O 'PROOF' QUE LEVOU A ESSE HASH _ _LEVA A UM VALID HASH ('que tem 2 zeroes)....
+
+
+
+
+
+
+
+
+
+
+
+
+ -> É POR ISSO QUE O PROFESSOR VAI COLOCAR UM OUTRO IF CHECK, SEGUINTE AO PRIMEIRO...
+
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+
+
+ def verify_chain():
+    is_valid = True
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        if block['previous_hash'] != hash_block(blockchain[index - 1]):
+            return False
+        if  ////eis o código em questaõ.
+    return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> porra, eu sou mt burro... --> o professor vai usar aqui aquela helper function de 'valid_proof',
+
+
+
+que é AQUELA FUNCTION QUE CHECA SE NOSSA PROOF É VÁLIDA...
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO DO 'valid_proof':
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof):
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+    print(guess_hash)
+    return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+
+
+--> VAMOS CHAMAR ESSA HELPER FUNCTION LÁ NO IF CHECK, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+def verify_chain():
+    is_valid = True
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        if block['previous_block_hash'] != hash_block(blockchain[index - 1]):
+            return False
+        if not valid_proof(open_transactions, block['previous_block_hash'], block['proof']):
+            return False
+    return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> mas aqui temos um problema:
+
+
+nosso 'open_transactions'
+
+
+
+AINDA TERÁ 
+AQUELA 
+
+
+'reward_transaction' inserida no meio da transaction, o que vai realmente ATRAPALHAR BASTANTE AS COISAS (vai atrapalhar esse nosso verify)..
+
+
+
+
+
+
+
+
+-> precisamos EXCLUIR ESSA 'reward_transaction' de nossa lista de 'open_transactions' para conseguir 
+
+passar esse parâmetro validamente a 'valid_proof'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> bem, eu acho que a minha listas de transactions vai ter a 'reward_transaction'
+
+
+
+COMO __ O ÚLTIMO ELEMENTO QUE FOI ADICIONADO...
+
+
+
+
+
+
+
+
+
+----> não, espere.... isso é idiota... eu nunca havia feito 'append' de minha 'reward_transaction' 
+
+
+
+dentro da 'open_transactions'....
+
+
+
+
+
+
+
+
+
+
+
+--> não, errado.. --> eu havia feito append disso, sim , em 
+
+'copied_transactions',
+
+
+
+que entaõ foi colocado como 
+
+'processed_transactions' 
+
+
+dentro do meu block.... --> por isso REALMENTE PRECISO EXCLUIR ESSE NEGÓCIO..
+
+
+
+
+
+
+
+
+
+--> COMO EXCLUO ESSA TRANSACTION? 
+
+
+talvez com pop...
+
+
+
+
+
+
+
+--> primeiro tenho que printar essa list....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TENTEI ESCREVER ESTE CÓDIGO, MAS NÃO FUNCIONOU:
+
+
+
+
+
+
+
+def verify_chain():
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        if block['previous_block_hash'] != hash_block(blockchain[index - 1]):
+            return False
+        full_transactions = block['processed_transactions']
+        del full_transactions[-1]
+        print(full_transactions, 'EDITED TRANSACTIONS')
+        if not valid_proof(full_transactions, block['previous_block_hash'], block['proof']):
+            return False
+    return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> USEI ESTE CÓDIGO PARA REMOVER O ÚLTIMO ELEMENTO (reward_transacton),
+
+
+
+MAS NÃO SEI SE É REALMENTE O CORRETO:
+
+
+
+       full_transactions = block['processed_transactions']
+        del full_transactions[-1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR __ 
+
+
+UTILIZA __ OUTRA_ ESCRITA...
+
+
+
+
+
+
+
+
+
+--> ELE ESCREVE 
+
+
+
+block['processed_transactions'][:-1]
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, ELE __ USA _ ESSE RANGE SELECTOR (':') 
+
+
+
+
+
+Com '-1'
+
+
+PARA __ SELECIONAR_ _tODAS 
+
+
+
+AS 
+
+
+PARTES DA LIST 
+
+EXCETO O ÚLTIMO ELEMENT... ------> COM ISSO, ELE NÃO PRECISA ESCREVER MAIS NADA... (vai querer TODAS AS TRANSACTIONS MENOS A ÚLTIMA)...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, O CÓDIGO DEU CERTO, E FICOU ASSIM:
+
+
+
+
+
+
+
+def verify_chain():
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        if block['previous_block_hash'] != hash_block(blockchain[index - 1]):
+            return False
+        if not valid_proof(block['processed_transactions'][:-1], block['previous_block_hash'], block['proof']):  # block['processed_transactions'][:-1] -----> ISSO VAI SELECIOANR 'TODOS OS ELEMENTS DESSA LIST, EXCETO O __ ÚLTIMO ELEMENT' (indexador -1)
+            return False
+    return True
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO TERCEIRO PARâMETRO, temos a 'proof',
+
+
+
+E ESSE É O MOMENTO DA VERDADE,
+PQ 
+
+
+
+__aPENAS_ UMA _ PROOF QUE __ LEVA A '2 zeros no início da hash' 
+
+
+
+SERÁ TIDA COMO UMA _ PROOF VÁLIDA....  (pela function de 'valid_proof')...
+
+
+
+
+
+
+
+
+
+
+
+--> SE ISSO FOR NOT TRUE, QUEREMOS RETORNAR 'FALSE'..
+
+
+
+
+
+
+
+--> SE FOR TRUE,
+
+RETORNAMOS 'True'...
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA TESTAMOS NOSSO ARQUIVO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok.... até agora, tudo bem..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A QUANTIDADE DE HASHES JÁ MOSTRA UM POUCO DA DIFICULDADE EM MINERAR 
+
+
+
+BLOCKS... ---> ELE TENTA TODOS OS TIPOS DE COMBINAÇÃO, E AÍ BEM NO FINAL 
+
+
+
+
+
+ELE DESCOBRE QUAL OUTPUT É COMPATÍVEL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS MINERAR MAIS DE 1 BLOCK 
+
+
+
+SEGUIDO,
+
+
+
+
+
+e aí 
+
+
+
+
+OS PROOFS FICAM SEMPRE DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+[{'previous_ block_hash': '', 'index': 0, 'processed_transactions': [], 'proof': 100}, {'previous_block_hash': '7f057737924d0aed24bed221d861b8226b824f7a7a5bbd9f9f3784e2fd1b3447', 'index': 1, 'processed_transactions': [{'sender': 'ourApp', 'recipient': 'Arthur', 'amount': 10}], 'proof': 18745}, {'previous_block_hash': '7d15e763a6046e5be522d60570e265c888224fd912d35d085407d50ad37e6a89', 'index': 2, 'processed_transactions': [{'sender': 'ourApp', 'recipient': 'Arthur', 'amount': 10}], 'proof': 15592}] TRIED TO MINE BLOCK
+ MINED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> agora temos esse 'proof of work'' adicionado,,
+
+
+
+
+
+ de forma 
+
+ QUE 
+
+ NÓS 
+
+ NÃO ESTAMOS 'APENAS CHECANDO SE 2 HASHES SÃO IGUAIS',
+
+
+MAS _ TAMBÉM_ CHECAMOS  SE O HASH __ __ FOI CALCULADO __ DE 
+
+
+
+_ ACORDO  COM NOSSO ALGORITMOS (a partir das PROCESSED_TRANSACTIONS do nosso block, a partir do 'previous_block_hash' desse block E A PARTIR DA 'proof' DESSE BLOCk... )
+
+
+
+
+
+
+
+-------> é a function de 'valid_proof' que realiza esse check.... -----> 
+
+
+
+
+
+
+
+
+E ISSO É SUPER IMPORTANET...
+
+
+
+
+
+
+
+
+
+
+
+
+->  OK.... PARA ACABAR, O PROFESSOR RESSALTA ALGO SUPER IMPORTANTE:
+
+
+
+
+
+
+
+
+
+O HASH QUE ESTAMOS CALCULAWNDO NO 'PROOF OF WORK ALGORITHM',
+
+
+
+
+
+
+
+por meio daquele código de 
+
+
+
+
+'guess_hash = hashlib.sha256(guess).hexdigest()'
+
+
+
+
+
+
+
+
+
+
+
+______ NÃO É _ O MESMO  hash 
+
+
+QUE AQUELE HASH de 'previosu_block_hash',
+
+
+
+PQ NESSE PREVIOUS BLOCK HASH NÓS
+
+
+
+
+
+CONSIDERAMOS OUTRAS INFORMAÇÕES,
+
+COMO 
+O 
+
+
+'index'...
+
+
+
+
+
+
+
+
+
+
+-> OS CÓDIGOS DE CRIAÇAÕ DE HASH SÃO BEM DISTINTOS, VEJA:
+
+
+
+
+
+    def valid_proof(transactions, previous_block_hash, proof):
+
+        guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+
+
+
+
+
+
+
+
+
+
+
+    --> ESSE É O HASH DA 'PROOF'...
+
+
+
+
+
+
+
+
+
+
+    ---> e o OUTRO HASH:
+
+
+    hash_block(block):
+
+    return hashlib.sha256(json.dumps(block).encode()).hexdigest()
+
+
+
+
+
+
+
+    (
+
+        ou seja, esse hash aí considera o CONTEÚDO DO BLOCK ANTERIOR INTEIRO...
+    )
+
+
+
+
+
+
+
+
+
+ESSE 'OUTRO HASH' (criado a partir do BLOCK ANTERIOR INTEIRo)
+
+
+
+é realmente APENAS UMA _ PARTE__ DO ALGORITMO DE 'valid_proof()'
+
+que estamos usando,
+
+
+MAS 
+ESSE ALGORITMO 
+
+
+
+
+É O QUE ESTAMOS EFETIVAMENTE USANDO (o de proof of work)
+
+
+
+PARA 
+
+
+
+VERIFICAR 
+
+
+
+A NOSSA BLOCKCHAIN...

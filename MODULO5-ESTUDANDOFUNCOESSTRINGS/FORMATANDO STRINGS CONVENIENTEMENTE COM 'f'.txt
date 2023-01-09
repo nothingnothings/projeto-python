@@ -1,0 +1,340 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE VOCê ESTÁ USANDO PYTHON 3.6+ ,
+
+
+QUE VOCê PROVAVELMENTE ESTÁ,
+
+
+
+HÁ 
+
+
+
+TAMBÉM UMA MANEIRA 
+
+MAIS CONVENIENTE 
+
+DE 
+
+
+
+
+FORMATAR STRINGS...
+
+
+
+
+
+
+
+
+
+
+--> digamos que temos:
+
+
+
+
+
+>>> name = 'Max'
+>>> age = 29
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AGORA DIGAMOS QUE QUEREMOS DIZER:
+
+
+
+
+
+'I am {} and I am {} years old'. 
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS USAR O FORMAT NISSO:
+
+
+'I am {} and I am {} years old'.format('Max', 29)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS COM O PYTHON 3.6+ 
+
+
+VOCê PODE USAR UMA SINTAXE EXTRA...
+
+
+
+
+
+
+
+
+
+
+--> É UM CARACTER NA _ fRENTE_ DA STRING,
+
+ANTES 
+
+DO QUOTATION MARK.... ---> 
+
+
+
+
+
+o caracter SERÁ 
+
+'f'...
+
+
+
+
+
+
+ex:
+
+
+name = 'Max' 
+age = 29
+
+
+f'I am {} and I am {} years old'.format
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> SE VOCÊ FIZER ISSO,
+
+
+
+
+O PYTHON VAI _ AUTOMATICAMENTE 'PROCURAR NAS SURROUNDINGs' POR VARIÁVEIS 
+
+
+COMO ESSE 'name' e 'age'...
+
+
+
+
+
+
+
+--> AÍ VOCÊ PODERÁ REFERENCIAR DIRETAMENTE SUAS VARIABLES,
+
+tipo assim:
+
+
+
+
+name = 'Max' 
+age = 29
+
+
+f'I am {name} and I am {age} years old'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... --> ISSO SIGNIFICA QUE 
+
+VOCê PODE AS ENFIAR DIRETAMENTE ALI.. .-> 
+
+
+
+
+
+ALÉM DISSO,
+
+
+
+IMPORTANTE:
+
+
+
+
+
+
+
+
+
+a 'age',
+
+
+QUE ESTÁ COMO UM NUMBER,
+
+
+
+POR MEIO DESSA SINTAXE ELA É _ AUTOMATICAMENTE CONVERTIDA EM UMA STRING... (aí não ganhamos um error por n converter)..
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK ... ISSO TE DEIXA REFEERNCIAR VARIABLE NAMES  E SEUS VALUES __ DIRETAMETNE NA SUA STRING....
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS PODEMOS TAMBÉM FORMATAR COISAS COMO 
+
+
+
+
+'age',
+
+nesse exemplo aí? 
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, BASTA OBSERVAR:
+
+
+name = 'Max' 
+age = 29
+
+
+f'I am {name} and I am {age:.2f} years old'
+
+
+
+
+
+
+
+
+RESULTADO:
+
+>>> name = 'Max'
+>>> age = 29
+>>> f'I am {name} and I am {age:.2f} years old'
+'I am Max and I am 29.00 years old'
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO VOCÊ PODE VER,
+
+ISSO 
+TAMBÉM FUNCIONOU,
+
+
+OBTIVEMOS __ UMA STRING __ PARA age que É UM 2 DIGIT FLOAT....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO SIGNIFICA QUE AS FORMATTING OPTIONS AINDA SÃO APLICADAS, 
+
+MAS QUE 
+
+AGORA NÓS TEMOS UMA MANEIRA MAIS __ CONVENIENTE__ 
+
+
+DE ACESSAR VARIABLES que SURROUNDAM ESSA STRING  (é mais conveniente do que usar '.format()' e ter que escrever todo aquele mumbo jumbo...)

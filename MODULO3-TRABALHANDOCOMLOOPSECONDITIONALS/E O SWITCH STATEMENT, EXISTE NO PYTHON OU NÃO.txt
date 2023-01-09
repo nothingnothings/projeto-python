@@ -1,0 +1,121 @@
+
+
+
+
+
+
+
+
+
+
+---> AGORA QUE APRENDEMOS UM POUCO MAIS SOBRE TODOS ESSES BOOLEAN OPERATORS 
+
+
+
+
+E SOBRE O QUE PODEMOS FAZER COM ESSAS IF CONDITIONS,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__ HÁ 1 COISA QUE VOCê TVZ ESTEJA SE PERGUNTANDO SE VOCê ESTIVER OLHANDO PARA IF BLOCKS COMO ESTE:
+
+
+
+
+
+   user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    print('Choice registered')
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> POR ACASO HÁ ALGUM _ SWITCH STATEMENT 
+
+
+
+NO PYTHON, como em outras linguagens de programação?
+
+
+
+
+
+
+---> ''O QUE SÃO SWTICH STATEMENTS'' --> são uma MANEIRA DIFERENTE DE FAZER HANDLE DE MULTIPLE CASES,
+
+
+para 1 certa condição...
+
+
+
+
+
+
+
+
+
+
+
+--> A RESPOSTA É:
+
+
+
+
+
+__ NO___ -----> NÃO EXISTE SWITCH-CASE STATEMENT NO PYTHON... -------> VOCÊ SÓ USA 
+
+
+
+
+
+
+
+
+
+
+IF,
+ 
+
+
+ELIF 
+
+
+
+e 
+
+
+ELSE...

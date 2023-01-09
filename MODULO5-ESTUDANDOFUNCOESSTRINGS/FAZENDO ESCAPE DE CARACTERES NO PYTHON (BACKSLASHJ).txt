@@ -1,0 +1,281 @@
+
+
+
+
+
+
+
+
+
+--> ESTUDAMOS SOBRE COMO PODEMOS FORMATAR STRINGS, POR MEIO DA 
+
+
+
+
+
+
+FUNCTION DE 'format'...
+
+
+
+
+
+
+
+
+
+
+-----> MAS ÀS VEZES VOCÊ TAMBÉM TERÁ CHARACTERS EM UMA STRING _ QUE _ TERÃO UM SIGNIFICADO DIFERENTE, significado diferente do normal...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O MELHOR EXEMPLO DISSO É O 'n' com o ESCAPE DE CERTOS CARACTERES, COMO " ' " 
+
+
+
+
+
+
+
+-_> OU SEJA, SE QUEREMOS __ FAZER_ O OUTPUT __ DE QUOTATION MARKS 
+
+
+DENTRO DE '' 
+
+,
+
+
+
+SOMOS OBRIGADOS A USAR O ESCAPING, com 
+
+
+'/n' 
+
+
+
+
+
+
+
+
+
+
+
+
+---> ERA ALGO ASSIM...
+
+
+
+
+
+
+
+
+
+
+---> mas não é exatamente assim....
+
+
+
+
+
+
+
+
+SE QUEREMOS _ FAZER_ ESCAPE_ DE ALGUM CARACTER,
+
+
+
+
+fazemos isso com 
+
+
+
+BACKSLASH...
+
+
+
+
+\
+
+
+
+
+
+
+
+
+
+INPUTTAMOS O BACKSLASH, E AÍ O CARACTER QUE VAMOS QUERER FAZER 'ESCAPE'...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+'I\'m Max' 
+
+
+
+
+
+
+
+
+
+
+--> NO CASO, COLOCAMOS ',
+
+
+pq 
+
+É ISSO QUE QUEREMOS QUE O PYTHON IGNORE COMO 'SINTAXE NORMAL' do python.... 
+
+
+
+
+
+
+
+
+
+
+
+-------> ok...     ---------> 
+
+
+
+
+>>> 'I\'m Max' 
+"I'm Max"
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK.... MAS SE GOOGLARMOS POR 
+
+
+
+
+
+'python escape characters',
+
+ 
+
+
+
+
+
+
+
+ ACHAMOS DOCS PARA SPECIAL CHARACTERS...
+
+
+
+
+
+
+
+
+
+
+
+ --> 
+
+
+
+ ex:
+
+
+
+
+
+
+
+ 
+ \n -------> ISSO É UMA NJOVA __ LINHA_-....------> LINE BREAK... -> VOCÊ VERÁ ISSO SE ARMAZENARMOS ALGO EM UMA FILE, pq vai pular uma linha nessa file..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -------> VEREMOS '\n' 
+
+
+ MAIS TARDE 
+
+
+
+
+ NO CURSO, QUANDO FORMOS ARMAZENAR NOSSA BLOCKCHAIN EM ARQUIVOS...
+
+
+
+
+
+
+
+
+
+ \' 
+
+
+ e 
+
+
+
+ \" -------> ESSES SÃO OS USE-CASES MAIS USADOS,
+
+
+
+ A DEPENDER DE COMO VOCÊ CRIA SUAS STRINGS...

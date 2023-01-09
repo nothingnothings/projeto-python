@@ -1,0 +1,52 @@
+
+ 
+
+
+ FAREMOS ALGUMAS COISAS ALÉM DE 'INSTALAR O POSTMAN'
+
+ nessa aula....
+
+
+
+
+
+ --> o postman usaremos no início, mais tarde teremos uma visual interface para mandar requests...
+
+
+
+
+
+
+
+
+ --> escolha um type de request...
+
+
+
+
+
+
+
+
+ --> localhost:5000/chain ,
+
+
+
+ etc etc..
+
+
+
+
+
+
+
+
+
+ -> raw text -> versão de preview.
+
+
+
+
+
+
+ --> pretty --> melhor formataçaõ...

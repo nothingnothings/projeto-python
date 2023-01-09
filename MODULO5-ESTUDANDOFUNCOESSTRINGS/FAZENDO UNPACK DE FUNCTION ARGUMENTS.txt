@@ -1,0 +1,1409 @@
+
+
+
+
+
+
+
+
+
+
+
+
+-> PROFESSOR PERGUNTA SE AINDA NOS LEMBRAMOS DAQUELA FUNCTION DE 
+
+
+
+FORMAT... --> function usada PARA FORMATAR 1 TEXT...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+'Some text: {} {}'.format(1, 2)
+
+
+
+
+
+
+
+--> OUTPUT:
+
+
+>>> text = 'Some text: {} {}'.format(1, 2)
+>>> text
+'Some text: 1 2'
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+----> CERTO.... ---> A FUNÇÃO DE FORMAT É ALGO QUE VIMOS ANTES, SIM, MAS 
+
+NÃO É ESTRANHO que podemso __ PASSAR__ 
+
+
+
+
+
+
+
+ARGUMENTS INFINITOS A ESSA FUNCTION, ALI 
+
+
+
+
+em '.format()' ? 
+
+
+
+
+
+
+
+
+
+
+
+---> E MESMO ESCREVENDO QUANTOS ARGUMENTS QUISERMOS, O PYTHON AINDA É 
+
+
+CAPAZ DE HANDLAR ISSO AÍ... -->  O PROFESSOR EXPLICA QUE 
+
+
+
+
+PODEMOS __ ESCREVER UM METHOD COMO ESSE _ POR CONTA PRÓPRIA (? não sei do que ele está falando)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> PARA ISSO, ELE VAI ATÉ O NOSSO ARQUIVO DE 'datastructures.py',
+
+
+
+E AÍ 
+
+
+
+
+
+
+
+
+
+CRIA UMA NOVA FUNCTION, com 
+
+
+a keyword de 'def' ---------> 
+
+
+
+
+
+
+
+
+
+
+O NOME DESSA FUNCTION SERÁ 'unlimited_arguments' 
+
+
+
+
+
+
+
+
+
+
+
+def unlimited_arguments(): 
+
+
+
+
+
+
+
+
+
+
+-> O PROFESSOR VAI QUERER PODER _ CHAMAR ESSA FUNCTION E AÍ _ 
+
+
+
+
+
+
+__ VAI QUERER _ SER CAPAZ DE CHAMÁ-LA _ E ENTÃO OUTPUTTAR 
+
+
+'TODOS OS ARGUMENTS QUE TVZ EU QUEIRA PASSAR ÀQUELA FUNCTION DE 'text',
+
+
+
+
+
+
+MAS _ cOM 1 FOR LOOP TAMBÉM....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ué, mas como assim?
+
+
+
+
+
+
+
+
+
+
+-> tipo assim:
+
+
+
+
+
+
+
+
+
+
+def unlimited_arguments(args):
+    for argument in args:
+        print(argument)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> AÍ É CLARO QUE PODERÍAMOS/PODEMOS CHAMAR ESSA LIST de 'argumentos ilimitados'
+
+
+
+
+        COMO 
+
+
+
+
+
+
+
+
+        UMA FUNCTION, e é ISSO QUE O PROFESSOR FAZ:
+
+
+
+
+        
+def unlimited_arguments(args):
+    for argument in args:
+        print(argument)
+
+
+
+
+
+unlimited_arguments([1, 2, 3, 4])
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO VAI CRIAR UM OUTPUT, NO CONSOLE, QUE SERÁ ASSIM:
+
+
+
+ 
+
+
+ valid block
+valid block
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK, ISSO DEU CERTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS NÃO É ISSO AÍ QUE O PROFESSOR QUERIA NOS MOSTRAR. ... ---> 
+
+
+
+isso pq essa maneira  NÃO É A MANEIRA PELA QUAL CHAMAMOS '.format()'
+
+
+TRADICIONALMENTE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... MAS HÁ UMA SINTAXE ESPECIAL NESSE FUNCTIONM ARGUMENT __ QUE É __ UM BOM  COMEÇO...
+
+
+
+
+
+
+
+
+
+
+---> É O USO DE 'star' (* ) LÁ 
+
+
+
+
+
+
+
+
+
+
+
+
+NO ARGUMENTO DA FUNCAO 'unlimited_arguments'....
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+def unlimited_arguments( args):
+    for argument in args:
+        print(argument)
+
+
+
+
+
+unlimited_arguments([1, 2, 3 ,4])
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO5-ESTUDANDOFUNCOESSTRINGS\novoprojeto4> python functions.py 
+[1, 2, 3, 4]
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... MAS NÃO ERA ISSO QUE O PROFESSOR QUERIA NOS MOSTRAR...
+
+
+
+
+
+
+
+
+
+
+--> EM '.format()',
+
+
+
+TEMOS SEMPRE UMA _ LISTA__ DE ARGUMENTS SEPARADOS POR ',' ,
+
+
+
+MAS NÃO TEMOS PROPRIAMENTE UMA LIST....
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS SE TENTARMOS CHAMAR NOSSA FUNCTION ASSIM:
+
+
+
+def unlimited_arguments( args):
+    for argument in args:
+        print(argument)
+
+
+
+
+
+unlimited_arguments(1, 2, 3 ,4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI _ FALHAR_, PQ ESTAREMOS PASSANDO 4 ARGUMENTOS, QUANDO O MÁXIMO PERMITIDO É 1 SÓ ('args')..
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA FAZER COM QUE ISSO FUNCIONE, TEMOS UMA SINTAXE ESPECIAL, QUE NOS DEIXA PASSAR PARÂMETROS INFINITOS A NOSSA FUNCTION..
+
+
+
+
+
+
+
+
+--> É UMA SINTAXE SIMILAR AO 'rest operator' no javascript...
+
+
+
+
+
+
+
+
+
+
+--> MAS AQUI TEMOS A 'STAR'....
+
+
+
+
+
+
+
+
+
+
+--> ASSIM:
+
+
+
+def unlimited_arguments(*args):
+    for argument in args:
+        print(argument)
+
+
+
+
+
+unlimited_arguments(1, 2, 3 ,4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA, ELE __ VAI __ ACEITAR_ 
+
+
+
+
+
+PARAMETROS INFINITOS, E AÍ VAI CONVERTER __ TODOS _ ELES EM UMA __ LIST... --> É ISSO QUE FAZ 
+
+
+ESSA SINTAXE 
+
+DE 
+
+
+
+'*nome_do_parameter' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... MAS O QUE O PYTHON VAI FAZER, AQUI, 
+
+
+É __ __
+
+CRIAR UMA __ TUPLE __ A PARTIR DESSES ARGUMENTS (pq não vamos precisar editar esses valores)...
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE PODEMOS USAR ESSA LIST/TUPLE EM UM FOR LOOP...
+
+
+
+
+
+
+
+
+
+
+-----> É POR ISSO QUE ESSA É UMA SINTAXE MT ÚTIL DE SE TER:
+
+
+
+
+
+
+
+A SINTAXE DA ESTRELA __ TE DEIXA__ TRANSFORMAR __ 
+
+
+UMA QUANTIDADE INFINITA DE ARGUMENTS _ EM UMA TUPLE DESSES MESMOS ARGUMENTS,
+
+
+A QUAL VOCê PODE/PODERÁ USAR DENTRO DE SUA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E A SINTAXE _ TAMBÉM _ FUNCIONA 'THE OTHER WAY AROUND':
+
+
+
+
+DIGAMOS QUE VOCê TEM UMA LISTA __ DE ARGUMENTOS,
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+[1, 2, 3, 4, 5]
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AÍ VOCê QUER PASSAR ESSA LIST COMO UMA 'SEQUENCIA DE COMMA SEPARATED VALUES'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The *args and **kwargs is a common idiom to allow arbitrary number of arguments to functions as described in the section more on defining functions in the Python documentation.
+
+The *args will give you all function parameters as a tuple:
+
+def foo(*args):
+    for a in args:
+        print(a)        
+
+foo(1)
+# 1
+
+foo(1,2,3)
+# 1
+# 2
+# 3
+The **kwargs will give you all keyword arguments except for those corresponding to a formal parameter as a dictionary.
+
+def bar(**kwargs):
+    for a in kwargs:
+        print(a, kwargs[a])  
+
+bar(name='one', age=27)
+# name one
+# age 27
+Both idioms can be mixed with normal arguments to allow a set of fixed and some variable arguments:
+
+def foo(kind, *args, **kwargs):
+   pass
+It is also possible to use this the other way around:
+
+def foo(a, b, c):
+    print(a, b, c)
+
+obj = {'b':10, 'c':'lee'}
+
+foo(100,**obj)
+# 100 10 lee
+Another usage of the *l idiom is to unpack argument lists when calling a function.
+
+def foo(bar, lee):
+    print(bar, lee)
+
+l = [1,2]
+
+foo(*l)
+# 1 2
+In Python 3 it is possible to use *l on the left side of an assignment (Extended Iterable Unpacking), though it gives a list instead of a tuple in this context:
+
+first, *rest = [1,2,3,4]
+first, *l, last = [1,2,3,4]
+Also Python 3 adds new semantic (refer PEP 3102):
+
+def func(arg1, arg2, arg3, *, kwarg1, kwarg2):
+    pass
+Such function accepts only 3 positional arguments, and everything after * can only be passed as keyword arguments.
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+ok...
+
+
+
+
+
+
+
+*args é usado para CONSEGUIR TODOS OS VALUES/PARAMETERS COMO UMA TUPLE, DENTRO DA FUNÇÃO...
+
+
+
+
+
+
+
+
+E 
+
+
+*kwargs é usado PARA CONSEGUIR 'TODAS AS KEYWORD ARGUMENTS'
+
+
+
+
+
+# * tells Python to accept an unlimited amount of unnamed arguments and pass them into the function as a tuple
+# ** tells Python to accept and unlimited amount of named arguments and pass them into the function as a dictionary
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+def unlimited_arguments(*args, **keyword_args):
+    print(keyword_args)
+    for k, argument in keyword_args.items():
+        print(k, argument)
+
+
+unlimited_arguments(1,2,3,4, name='Max', age=29) 
+
+
+
+
+
+
+RESULTADO:
+
+
+
+
+{'name': 'Max', 'age': 29}
+name Max
+age 29
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OBS, KEYWORD ARGUMENTS SÃO ASSIM:
+
+
+
+name='Max', age=29
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO.... ACHO QUE ENTENDI.... --> ESSE É O UNPACKING DE FUNCTION ARGUMENTS.... --> TANTO DE 'arguments', como de 'keyword arguments'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O PROFESSOR EXPLICA QUE O UNPACKING DE FUNCTION ARGUMENTS É MT ÚTIL COM 
+
+
+
+O METHOD DE '.format()'...
+
+
+
+
+
+
+
+--> mas como usar isso? (estou sem vídeo)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'Some text: {} {}'.format(1, 2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+oK, MAS AGORA O VIDEO FUNCIONOU, POR ALGUMA RAZÃO....
+
+
+
+
+
+
+
+
+
+
+
+
+--> o exemplo do professor continua assim
+
+
+
+
+
+'Some text: {} {}'.format(1, 2)
+
+
+
+
+
+
+aí temos 
+
+
+
+uma LISTA, que é esta:
+
+
+
+
+
+
+a = [1, 2 , 3]
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCê QUER FAZER _ UNPACK__ DESSA LIST_ _ PARA 
+
+DENTRO 
+
+
+DE SEUS 
+
+
+SLOTS {} {} {},
+
+
+
+
+
+
+VOCê PODE SIMPLESMENTE USAR 
+o
+ 
+
+
+ '*a' ,
+
+
+
+
+
+
+
+ DENTRO  __ DE 'FORMAT', para fazer SPREAD DESSA LIST EM TODOS SEUS SLOTS..
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+
+a = [1, 2 , 3]
+
+
+
+
+ 'Some text: {} {} {}'.format(*a)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE o '*' 
+
+
+
+age _ QUASE_ COMO O REST/SPREAD OPERATOR 
+
+
+
+LÁ NO JAVASCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+RESULTADO:
+
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO5-ESTUDANDOFUNCOESSTRINGS\novoprojeto4> python functions2.py 
+{'name': 'Max', 'age': 29}
+name Max
+age 29
+Some text: 1 2 3
+PS A:\projeto7-PYTHON\MODULO5-ESTUDANDOFUNCOESSTRINGS\novoprojeto4> 
+    
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... --> É ISSO QUE ESTAMOS FAZENDO AQUI, ESTAMOS BASICAMENTE 'UNPACKING FUNCTION ARGUMENTS'...
+
+
+
+
+
+
+outro exemplo:
+
+
+
+def unlimited_arguments(*args, **keyword_args):
+    print(keyword_args)
+    for k, argument in keyword_args.items():
+        print(k, argument)
+
+
+
+
+
+unlimited_arguments(*[1, 2, 3, 4])  #o asterisco vai fazer com que essa list seja SPREAD/retirados os números de dentro da list e INSERIDOS COMO ARGUMENTOS NAQUELE '*args'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O OUTPUT FICOU ASSIM:
+
+
+
+
+{'name': 'Max', 'age': 29}
+name Max
+age 29
+1
+2
+3
+4
+{}
+1
+2
+3
+4
+Some text: 1 2 3
+
+
+
+
+
+
+
+
+
+
+
+--> mas o estranho é esse '{}', DE ONDE ELE ESTÁ SENDO OUTPUTTADO
+
+
+
+
+
+
+
+
+
+
+
+--> esse '{}'
+
+
+
+
+
+
+VEIO DO SEGUNDO CALL DE 'unlimited_arguments()', em que NAÕ PASSEI O ARGUMENTO/argumentos 'kwargs'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A SINTAXE DE '**kwargs'
+
+
+É USADA __ PARA FAZER _ UNPACK __DE DICTIONARIES..
+
+
+
+
+
+
+
+
+
+
+-> PARA USAR OS 'kwargs',
+
+
+SOMOS OBRIGAODS A USAR/PASSAR NAMED INPUTS NAS NOSSAS FUNCTIONS, TIPO ASSIM:
+
+
+
+
+
+def unlimited_arguments(*args, **keyword_args):
+    # print(keyword_args)
+    for k, argument in keyword_args.items():
+        print(k, argument)
+
+    for argument2 in args:
+        print(argument2)
+
+
+
+
+
+
+
+
+
+
+unlimited_arguments(1,2,3,4, name='Max', age=29)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O name e a age 
+
+VAO SER AUTOMATICMAENTE REGISTRAODS 
+
+
+
+
+NESSE ARGUMENTO 'kwargs'
+
+QUE TEMOS ALI,
+
+E CONVERTIDOS EM UM 'DICTIONARY' DENTRO DESSA FUNCTION... --> E AGORA PODEMOS USAR ESSE DICTIONARY, TUDO GRAÇAS À SINTAXE DAS 2 ESTRELAS (**  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+def unlimited_arguments(*args, **keyword_args):
+
+    for k, argument in keyword_args.items():
+        print(k, argument)
+
+    for argument2 in args:
+        print(argument2)
+
+
+
+
+
+
+
+
+
+
+unlimited_arguments(1,2,3,4, name='Max', age=29)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS, COMO QUALQUER OUTRO DICTIONARY, USAR AQUELA SINTAXE ESPECIAL DE LOOPS COM 'dict.items()'
+
+PARA CONSEGUIR OS KEYNAMES E VALUES 
+
+
+DESSE DICT...
+
+
+
+
+
+
+
+
+
+
+-> OK... -> ÀS VEZES VOCÊ vai precisar dessa flexibilidade,
+
+
+
+functions que 
+
+precisams usar 
+
+
+ARGUMENTOS 
+
+INFINITOS 
+
+
+
+
+NAMED OU UNNAMEED --> 
+
+
+
+
+
+
+
+NAMED ARGUMENTS SÃO HANDLADOS COM O '**',
+
+UNNAMED SERÃO HANDLADOS COM O '*'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ O PRIMEIRO TE DARÁ UM DICTIONARY, O SEGUNDO 
+
+ TE DARÁ UMA TUPLE... 

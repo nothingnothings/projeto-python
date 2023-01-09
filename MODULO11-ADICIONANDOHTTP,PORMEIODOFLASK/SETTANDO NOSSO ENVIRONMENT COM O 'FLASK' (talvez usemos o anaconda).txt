@@ -1,0 +1,1896 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA COMEÇAR, O PROFESSOR VAI CRIAR UM __ NOVO __ ARQUIVO 'node.py'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ __ O __ ARQUIVO ANTIGO, PROJETO ANTIGO,
+
+
+
+
+
+
+
+
+É UM 'LOCAL, TERMINAL-BASED CONSOLE',
+
+
+
+
+QUE CONTROLÁVAMOS POR MEIO  DAQUELE WHILE LOOP...
+
+
+
+
+
+
+
+
+
+
+----->  VAMOS FICAR COM ESSA VERSÃO 'LOCAL',
+
+
+
+
+
+
+'OLD_NODE.PY'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR VAI CRIAR UM __ ARQUIVO NODE COMPLETAMENTE NOVO,
+
+
+
+
+em que 
+
+VAMOS COMEÇAR A SETTAR NOSSO 'WEB SERVICE/SERVER'....
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA CRIAR ESSE SERVER,
+
+
+
+
+VAMOS __ USAR__ UM THIRD PARTY PACKAGE 
+
+QUE 
+
+
+
+FAZ ISSO 
+
+SER FÁCIL...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PYTHON NA VERDADE JÁ TEM UM HTTP MODULE,
+
+
+
+
+
+COM OFFICIAL DOCS...
+
+
+
+
+
+
+=--> ELE TAMBÉM TEM UMA PARTE DE 
+
+
+'http.server',
+
+
+
+QUE 
+
+TE 
+
+DEIXA 
+
+RODAR SEU PRÓPRIO SERVER E 
+
+
+
+'CODE THIS ALL FROM SCRATCH'....
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NÃO FAREMOS ISSO... --> NÃO VAMOS CONSTRUIR NOSSO PRÓPRIO HTTP SERVER E 'PARSE THE INCOMING REQUESTS' manualmente .... --> 
+
+
+ISSO SERIA UM MONTE DE TRABALHO QUE NÃO PRECISAMOS FAZER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VAMOS USAR O _ FLASK__.... ---> O FLASK 
+
+
+
+
+
+
+
+
+
+
+
+É UM __ THIRD PARTY PACKAGE QUE 
+
+
+
+NOS DÁ UM 
+WEB SERVER FÁCIL DE USAR,
+
+COM UM MONTE DE FEATURES LEGAIS,
+
+
+
+
+BASTA O INSTALAR...
+
+
+
+
+
+
+
+
+
+------> https://flask.palletsprojects.com/en/2.1.x/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK...
+
+
+
+
+
+
+
+
+
+
+-> ACTUALLY, USAREMOS O ANACONDA PARA SEU INSTALL (mas você poderia usar o PIP, sem problemas...)
+
+
+
+
+
+
+
+
+
+
+--> inicio a anaconda...
+
+
+
+
+
+
+
+
+
+
+----> VAMOS INSTALAR 
+
+
+
+O 'flask' EM UM VIRTUAL ENVIRONMENT À PARTE...
+
+
+
+
+
+
+
+
+
+
+-> basta criar um novo environment...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... INSTALEI O FLASK...
+
+
+
+
+
+
+
+
+
+
+
+-----> AGORA TENHO QUE ESCOLHER ESSE 'INTERPRETER' no visual studio code....
+
+
+
+
+
+-> onlineMyCoin...
+
+
+
+
+
+--> escolhi....
+
+
+
+
+
+
+
+
+
+
+--> ATIVE ESSE VIRTUAL ENVIRONMENT NO TERMINAL DO SEU PROJETo..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> ok, está ativado... .('conda activate onlineMyCoin')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, AGORA TEMOS O FLASK INSTALADO... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PRIMEIRA COISA QUE FAREMOS, EM 'node.py',
+
+
+É IMPORTAR 
+
+PACOTES DO FLASK....
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+from flask import Flask
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI ME DEIXAR __ SETUPPAR UMA 'FLASK APPLICATION',
+
+QUE É UM 
+
+SERVER 
+
+
+ 
+ PRONTO,
+
+
+
+
+ que te deixa 
+
+
+
+
+ RECEBER REQUESTS E ENVIAR RESPONSES,
+
+
+
+ E QUE 
+
+ TAMBÉM 
+
+
+
+ NOS DEIXA 
+
+ SETTAR 
+
+ 'ROUTES' (API ENDPOINTS)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> ok...
+
+
+
+
+
+
+
+
+
+
+ -> DEPOIS DISSO,
+
+ CRIAMOS NOSSO FLASK APP,
+
+
+
+ basta rodar assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+ app = Flask()
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+ from flask import Flask
+
+
+
+app = Flask()  ##devemos criar nosso APP FLASK, que vai nos permitir receber requests e enviar responses....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PARÂMETRO DE ESSE 'FLASK' é o 'NOME DE NOSSO APP'...
+
+
+
+
+
+
+
+
+
+-> 
+
+
+-----> O PROFESSOR DIZ QUE DEVEMOS USAR AQUELA VARIABLE ESPECIAL DE 
+
+'__name__'...
+
+
+
+
+
+
+
+
+
+--> VOCê TEM QUE ESCREVER ESSE '__name__' pq ISSO DIRÁ AO _ FLASK__
+
+
+
+EM __ QUAL__ 
+
+CONTEXT ELE DEVERÁ SER EXECUTADO...
+
+
+
+
+
+
+
+
+
+
+--> APÓS ISSO,
+
+
+O PROFESSOR SETTA A WALLET,
+
+
+
+
+
+
+POR ISSO  
+
+
+
+
+
+
+ele escreve:
+
+
+
+
+
+
+
+
+
+
+
+
+wallet = Wallet()...
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+from flask import Flask
+
+
+
+from wallet import Wallet
+
+
+
+app = Flask(__name__)  ##devemos criar nosso APP FLASK, que vai nos permitir receber requests e enviar responses....
+                        ##o argumento '__name__' (special variable) é usado para INFORMAR AO FLASK __ SOBRE __ 'EM QUE CONTEXT ELE DEVERÁ SER EXECUTADO'... -> é uma informação importante...
+
+
+
+wallet = Wallet()
+
+
+
+
+
+
+
+--------------------------------------------------------
+
+
+
+
+
+
+
+------> VAMOS QUERER TER UMA WALLET DIRETO DO INÍCIO, NO NOSSO APP.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TENHA EM MENTE QUE O SIMPLES CALL DE 'Wallet()'
+
+
+NÃO NOS ENTREGA PRIVATE E PUBLIC KEYS DE CARA,
+
+
+
+
+
+elas começam com values de 'None'...
+
+
+
+
+
+
+
+
+
+
+
+-> PRECISAMOS DO CALL DE 
+
+
+
+
+wallet.create_keys()
+
+ou 
+
+wallet.load_keys()
+
+
+PARA REALMENTE CONSEGUIR ESSAS KEYS....
+
+
+
+
+
+(
+
+    faremos isso mais tarde...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DISSO,
+
+
+
+PRECISAMOS __ DE OUTRA PACKAGE,
+
+
+ 
+
+
+
+
+ UMA PACKAGE ESSENCIAL, QUE É USADA PARA 
+
+ FAZER A 'REST API',
+
+ QUE 
+
+ SERÁ 
+
+
+ A 
+
+ PACKAGE 
+
+ DE 
+
+
+ 'cors'...
+
+
+
+
+
+
+
+ 'flask-cors'...
+
+
+
+
+
+
+
+
+
+ --> INSTALEI ESSA PACKAGE...
+
+
+
+
+
+
+
+
+
+
+---> VAMOS USAR ESSA PACKAGE PARA DEFINIR AS PERMISSÕES NOS NOSSOS REQUESTS (que podem ser enviados de um 
+
+FRONTEND DETTACHEADO de nosso BACKEND...)
+
+
+
+
+
+
+
+
+
+
+-> FLASK-CORS --> CORS --> É UM MECANISMO QUE CONTROLA QUE 
+
+
+'SÓ CLIENTS QUE RODAM EM UM MESMO SERVER PODEM ACESSAR ESSE SERVER' (
+
+
+
+feito para que 
+
+APENAS 
+
+
+
+WEBPAGES HTML RETORNADAS POR 1 SERVER POSSAM 
+
+
+ENVIAR REQUESTS DE VOLTA A ELE...
+
+
+
+) ------> mas como TEREMOS UM SETUP EM QUE 
+
+
+VAMOS QUERER QUE OUTROS NODES SE CONECTEM A NÓS,
+
+
+
+
+VAMOS QUERER PERMITIR ESSE 'CORS' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> COM O PACKAGE INSTALDO,
+
+
+improtamos com 
+
+
+
+
+
+
+
+
+
+'from flask_cors import CORS'...
+
+
+
+
+
+
+
+
+
+
+
+----> OK... 
+
+
+
+
+
+
+COM ISSO IMPORTADO,
+
+
+
+SIMPLESMENTE RODAMOS 
+
+
+
+
+'CORS()'.... --> finalmente,
+
+
+PASSAMOS 
+
+O 
+
+APP _ QUE _ ESTAMOS CRIANDO  COM O 'FLASK' em si...
+
+
+
+EX:
+
+]
+
+
+
+
+
+from flask import Flask
+
+from flask_cors import CORS #usado para RESOLVER PROBLEMAS DE CORS....
+
+
+from wallet import Wallet
+
+app = Flask(__name__)  ##devemos criar nosso APP FLASK, que vai nos permitir receber requests e enviar responses....
+                        ##o argumento '__name__' (special variable) é usado para INFORMAR AO FLASK __ SOBRE __ 'EM QUE CONTEXT ELE DEVERÁ SER EXECUTADO'... -> é uma informação importante...
+
+
+
+wallet = Wallet()   ###queremos ter uma Wallet LOGO DE INÍCIO...  OBS: só o call de 'Wallet()' não nos entrega private e public keys, precisamos de outros methods para isso...
+
+
+
+CORS(app)
+
+
+
+
+
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK.. ISSO SIGNIFICA QUE AGORA ESSE 'APP' (webApp)
+
+
+ESTÁ 
+
+ABERTO
+ 
+ A 
+ OUTROS 
+
+ CLIENTS,
+
+
+ CLIENTS QUE 
+
+ NÃO SÃO NOSSA LOCAL MACHINE...
+
+
+
+
+ 
+
+
+
+
+
+
+--> OK, ESSAS SÃO AS PRIMEIRAS ETAPAS BÁSICSA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA _ FAZER __ COM QUE __ ISSO RODE,
+
+
+
+
+E PARA SERMOS CAPAZES DE ENVIAR NOSSO PRIMEIRO REQUEST A ELE,
+
+
+O PROFESSOR 
+
+
+
+
+COLOCA 
+
+UM IF CHECK 
+
+
+
+em 
+
+'node.py',
+
+
+
+
+EM QUE 
+
+ELE 
+
+CHECA 
+
+
+
+
+__PRIMEIRAMENTE__ 
+SE 
+
+
+
+
+'__name__ = '__main__' 
+
+
+
+
+
+
+
+
+
+--> ELE FAZ ISSO __ PARA __ ASSEGURAR QUE A FILE 'node.py'
+
+
+ESTÁ SENDO EXECUTADA __ DIRETAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+------> pq isso é realmente necessário, assim como acontecia no 'OLD NODE'..]
+
+
+
+
+
+
+
+
+EX:
+
+
+
+if __name__ == '__main__':    ##queremos que esse 'node.py' SEJA EXECUTADO DIRETAMENTE, E NÃO QUE SEJA IMPORTADO...
+
+
+
+
+
+
+
+
+
+
+
+-> OK... NESSE IF CHECK,
+VAMOS 
+
+
+__STARTAr_ O SERVER EM QUESTÃO (fazer ele ficar 'listening to requests')
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PARA CONSEGUIR ISSO, PRECISAMOS EXECUTAR 
+
+'app.run()'
+
+
+
+(method de 'run' no objeto 'app')....
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+if __name__ == '__main__':    ##queremos que esse 'node.py' SEJA EXECUTADO DIRETAMENTE, E NÃO QUE SEJA IMPORTADO...
+    app.run() ##se essa condição é satisfeita, startamos nosso server...
+
+
+
+-----------------------
+
+
+
+
+
+
+
+
+OK... ESSA FUNCTION DE 'run' 
+
+ACEITA 2 
+ARGUMENTOS....
+
+
+
+
+
+
+
+
+
+1o argumento : o ip EM QUE QUEREMOS RODAR O SERVER....
+
+2o argumento: PORTA EM QUE QUEREMOS FAZER LISTEN....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+O PROFESSOR ESCREVE 
+
+'host="0.0.0.0"' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COLOCAMOS 0.0.0.0 COMO UM PLACEHOLDER... -> essencialmente significa 'localhost can be entered'...
+
+
+
+
+
+
+
+
+--> NA PORT, PROFESSOR COLOCA '5000'...
+
+
+
+
+
+
+
+-> professor coloca '5000' pq essa porta geralmente não é ocupada...
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO... AGORA, PARA SERMOS CAPAZES DE ENVIAR UM FIRST DUMMY REQUEST,
+
+
+PRECISAMOS SETTAR AQUILO QUE CHAMAMOS DE 'ENDPOINT'...
+
+
+
+
+
+
+
+
+
+--> O FLASK É BIZARRO:
+
+
+
+VOCÊ 
+
+ADICIONA ENDPOINTS POR MEIO DOS  'DECORATORS'
+
+que você 
+
+adiciona a suas functions...
+
+
+
+
+
+
+
+
+
+
+
+
+
+DETALHE: VOCÊ DEVE NOTAR QUE 
+
+
+O 
+
+PROFESSOR 
+
+
+NÃO ESTÁ CRIANDO UMA 'CLASS'
+
+
+LÁ 
+
+
+
+NO ARQUIVO 'node.py'... --> 
+
+
+
+
+
+
+
+
+
+o que ele vai fazer, na verdade,
+
+
+é 
+
+apenas 
+
+
+'DIRECTLY REGISTER A NEW FUNCTION',
+
+
+
+
+
+
+
+
+por meio da escrita 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def get_ui()
+
+
+
+
+
+
+
+
+
+
+---> ESSA FUNCTION SERÁ RESPONSÁVEL PELO SEND DE NOSSA UI AO USER (eu acho, provavelmente é isso)...
+
+
+
+
+
+
+
+
+
+--> É UMA FUNCTION PYTHON COMUM,
+
+E DENTRO DELA VAMOS QUERER RETORNAR UMA RESPONSE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS COMO RETORNAMOS UMA RESPONSE?
+
+
+
+
+--> É POR MEIO 
+
+
+da keyword de  'return'...
+
+
+
+
+
+
+
+---> LOGO LOGO ADICIONAREMOS ALGO PARA QUE 
+
+
+O FLASK FIQUE CAPAZ DE __HANDLAR__ ESSA FUNÇÃO 
+
+
+e então 
+
+fique 
+
+
+
+
+__ CAPAz__ DE AUTOMATICAMENTE 
+RETORNAR 
+
+ 
+ O QUE 
+
+ RETORNAMOS NESSA FUNCTION AQUI (de 'get_ui()')
+
+
+ COMO UMA 
+
+
+ RESPONSE... ------> É O FLASK QUE FAZ ESSA 'RESPONSE CONVERSION' para nós...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> A COISA QUE O PROFESSOR FARÁ, AQUI,
+
+ É 
+
+ APENAS RETORNAR UM TEXT, UMA STRING COMUM...
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+ def get_ui():
+    return 'This works!'
+
+
+
+
+
+
+
+
+
+
+    Ex:
+
+
+
+
+
+
+
+
+
+
+
+from flask import Flask
+
+from flask_cors import CORS #usado para RESOLVER PROBLEMAS DE CORS....
+
+
+from wallet import Wallet
+
+app = Flask(__name__)  ##devemos criar nosso APP FLASK, que vai nos permitir receber requests e enviar responses....
+                        ##o argumento '__name__' (special variable) é usado para INFORMAR AO FLASK __ SOBRE __ 'EM QUE CONTEXT ELE DEVERÁ SER EXECUTADO'... -> é uma informação importante...
+
+
+
+wallet = Wallet()   ###queremos ter uma Wallet LOGO DE INÍCIO...  OBS: só o call de 'Wallet()' não nos entrega private e public keys, precisamos de outros methods para isso...
+
+
+
+CORS(app)
+
+
+
+
+
+def get_ui():
+    return 'This works!'
+
+
+
+if __name__ == '__main__':    ##queremos que esse 'node.py' SEJA EXECUTADO DIRETAMENTE, E NÃO QUE SEJA IMPORTADO...  ##se essa condição é satisfeita, startamos nosso server...
+    app.run(host="0.0.0.0", port=5000)  ##0.0.0.0 é um placeholder... significa 'localhost'... 
+                # 1o argumento : o ip EM QUE QUEREMOS RODAR O SERVER....
+                # 2o argumento: PORTA EM QUE QUEREMOS  FAZER LISTEN
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+ok ,mas 
+
+
+COMO DIZEMOS AO FLASK QEU ELE DEVE FICAR 'AWARE' DE ESSA FUNCTION,
+
+
+E QUE 
+
+
+__ ELE __ DEVE 
+
+
+
+__ 
+__ A EXECUTAR__ 
+
+
+
+
+
+SEMPRE QUE UM REQUEST FOR LANÇADO ao nosso SERVER/flask?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+DEVEMOS __ ADICIONAR UM DECORATOR ESPECIAL A NOSSA FUNCTION,
+que 
+será 
+
+
+
+
+'@app.route'..
+
+
+
+
+
+
+
+
+
+---> ISSO VAI REGISTRAR UMA NOVA ROUTE NO NOSSO FLASK APP... -_> E UMA ROUTE É SIMPLESMENTE 
+
+
+
+UM ENDPOINT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> COMO ISSO __ SERÁ UM ENDPOINT,
+
+PRECISAMOS __ PASSAR, COMO PARÂMETROS,
+
+
+2 PIECES OF INFO:
+
+
+
+
+
+
+
+
+1) O IP/PATH no ip..
+
+
+
+
+
+
+
+
+
+
+2) O 'METHOD' (GET, POST, PUT, DELETE)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+@app.route('/', GET)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SERÁ '/' PQ 
+
+
+SEMPRE QUE 
+
+
+ENVIARMOS 
+
+
+
+UM REQUEST AO NOSSO 'localhost',
+
+
+
+
+
+SEJA __ ALCANÇADA ESSA ROUTE...
+
+
+
+
+
+
+
+
+
+
+
+-> JÁ O SEGUNDO PARÂMETRO SERÁ DE 
+
+'methods',
+
+
+
+
+E SERÁ UMA __ LIST__ DE TODOS OS METHODS QUE 
+
+
+SERÃO CAPAZES DE FAZER 'REACH' a essa route...
+
+
+
+
+
+
+
+
+
+--> VAMOS QUERER QUE APENAS REQUESTS DE TIPO 'GET'
+
+consigam reach...
+
+
+
+
+
+
+
+
+--> por isso escrevemos:
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/', methods=['GET'])
+def get_ui():
+    return 'This works!'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO,
+
+
+ESTAMOS DIZENDO AO 'FLASK',
+
+
+
+
+
+NOSSO FLASK APP,
+
+
+
+
+
+
+
+
+QUE 
+
+
+___ SEMPRE QUE _ 
+
+
+
+UM REQUEST 
+
+
+
+DE TIPO GET 
+
+ALCANÇAR SÓ NOSSO IP com 'slash nothing',
+
+
+
+ESSA FUNCTION AÍ DEVE SER EXECUTADA..
+
+
+
+
+
+
+
+
+
+
+--> E, POR ENQUANTO, ISSO VAI APENAS RETORNAR UMA STRING DE 'THIS WORKS'...
+
+
+
+
+
+
+
+
+
+
+
+---->O QUE O FLASK VVAI FAZER É PEGAR O VALUD/RETURN STATEMENT DESSA FUNCTION E ENTÃO VAI O WRAPPAR 
+
+EM UMA 
+
+HTTP RESPONSE...
+
+
+
+
+
+
+
+
+
+
+
+
+---> EXECUTAMOS NOSSO NODE.PY... ------->
+
+
+
+
+
+
+
+
+com nosso virtual environment...
+
+aí vemos o output:
+
+
+
+
+(OnlineMyCoin) A:\projeto7-PYTHON\MODULO11-ADICIONANDOHTTP,PORMEIODOFLASK\novonovoprojeto16,versaowebserver>python node.py
+ * Serving Flask app 'node' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.0.12:5000/ (Press CTRL+C to quit)
+
+
+
+
+
+
+
+
+
+
+
+
+ -> CERTO...
+
+
+
+
+
+
+
+ --> ISSO JÁ NOS DÁ ALGUMAS INFOs..
+
+
+
+
+
+
+ 'use a production wsgi server instead'..
+
+
+
+
+
+
+ EX:
+
+
+ WSGI servers handle processing requests from the web server and deciding how to communicate those requests to an application framework's process. The ...
+
+
+
+
+
+ -----------------
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK... MAS ESSE É UM ONGOING PROCESS, ELE VAI CONTINUAR FAZENDO 'LISTEN' A REQUESTS ATÉ NOS O QUITTARMOS..
+
+
+
+
+
+
+
+
+
+
+ -_> OK, AÍ ACESSAMOS 'localhost:3000' --> ISSO É UM PLACEHOLDER PARA O IP DE '0.0.0.0' que inputammos..
+
+
+
+
+
+
+
+
+ ----> isso vai funcionar..
+
+
+
+
+
+
+
+ --> É O NOSSO PRIMEIRO API ENDPOINT, JÁ SETTADO... 
+
+
+
+
+
+
+
+ -> VAMOS ADICIONAR MAIS ROUTES, PARA QUE CONSIGAMOS INTERAGIR COM NOSSA BLOCKCHAIN...
+
+
+
+
+
+ 

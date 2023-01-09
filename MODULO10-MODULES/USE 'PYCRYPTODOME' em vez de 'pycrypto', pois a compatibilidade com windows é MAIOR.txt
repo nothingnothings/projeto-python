@@ -1,0 +1,14 @@
+Instead of the "PyCrypto" package we installed, you can also use the "Pycryptodome" package
+
+
+
+
+ (http://pycryptodome.readthedocs.io/en/latest/index.html) now. Especially on Windows, 
+ 
+ 
+ 
+ "PyCrypto" can fail to run, "Pycryptodome" is a nice drop-in replacement 
+
+
+
+(i.e. no code changes required) that should solve any issues you might have.

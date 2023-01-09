@@ -1,0 +1,807 @@
+
+
+
+
+
+
+
+
+
+-> CHEGA DE STRINGS... --> 
+
+
+
+VAMOS VOLTAR A FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+--> NO ÚLTIMO MÓDULO APRENDEMOS SOBRE LIST COMPREHENSIONS... 
+
+
+
+
+
+
+
+
+
+
+-> APRENDEMOS SOBRE OS APPROACHES PARA PEGAR UMA MESMA LIST E CONVERTER EM UMA 
+
+
+VERSÃO __ DESSA LIST __ 
+
+
+
+
+COM OS MESMOS VALUES/ELEMENTS, MAS VEZES 2... ( ou então de outra forma, talvez pela metade, ou entaõ rodando checks, depende de nossa intenção)...]
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OS APPROACHES QUE VIMOS FORAM:
+
+
+
+1) FOR LOOP --> maneira tradicional, mais 'clunky' do que list comprehension..
+
+
+
+
+
+
+
+
+
+2) LIST COMPREHENSION --> APPROACH MAIS MODERNO E USADO POPULARMENTE.
+
+
+
+é uma 
+
+sintaxe 
+
+
+
+
+
+que é tipo 
+
+
+
+
+[element for element in simple_list]
+
+
+
+
+
+
+
+
+
+
+
+
+
+3) AGORA VEREMOS O TERCEIRO APPROACH __ DE MANIPULAÇÃO DE UMA LIST/ITERABLE NO PYTHON (copy dessa list)
+
+
+,
+
+
+QUE 
+
+É 
+
+O 
+
+'MAP'... --> 
+
+
+
+
+
+
+
+
+
+
+PARA ISSO, DEVEMOS COMEÇAR NOVAMENTE COM UMA LIST..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+simple_list = [1, 2, 3 ,4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUEREMOS CRIAR UMA LIST A PARTIR DISSO,
+
+
+MAS UMA LIST QUE TENHA 'CADA ELEMENT DESSE NEGÓCIO AÍ,
+
+MAS x2'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, PODEMOS USAR A FUNCTION DE 'map'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> USAMOS A MAP FUNCTION assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+map(xxx)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, SEU USO É BEM DISTINTO DO JAVASCRIPT, EM QUE É EXECUTADO ASSIM: 
+
+
+
+'array.map()'....
+
+
+
+
+
+
+
+
+
+
+NO PYTHON,
+
+
+
+ESSE NEGÓCIO É 
+
+
+EXECUTADO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+map(xxx, yyy) 
+
+
+
+
+
+
+
+
+
+
+-------> ok, MAS QUAIS SÃO OS 2 PARÂMETROS?
+
+
+
+
+
+
+
+
+
+
+
+
+
+1o argumento ----> É UMA __ REFERENCE__ A UMA FUNCTION, DEFINIDA POR NÓS_, QUE 
+
+
+SERÁ EXECUTADA __ PARA _ cADA ELEMENTO __ 
+
+
+
+NAQUELA LIST...
+
+
+
+
+
+
+
+
+2o ARGUMENTO --> é  A LIST_ SOBRE A QUAL _ O SEU 'MAP' 
+
+VAI SE BASEAR.... --> É A LIST UTILIZADA COMO BASE....
+
+
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+map( , simple_list)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO SIGNIFICA QUE TEREMOS DE DEFINIR UMA FUNCTION E AÍ PASSÁ-LA COMO 
+
+PRIMEIRO VALOR DESSA FUNCTION...
+
+
+
+
+
+E ESSA FUNCTION SERÁ EXECUTADA __ PARA CADA ELEMENT NAQUELA LIST QUE VOCÊ PASSOU COMO SEGUNDO PARÂMETRO...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+map(simple_function , simple_list)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> POR ENQUANTO, VAMOS CRIAR UMA NOVA FUNCTION:
+
+
+
+
+
+
+
+def multiply(el):
+    return el * 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> AÍ VAMOS USAR ESSA FUNCTION LÁ NO NOSSO MAP:
+
+
+
+
+
+
+
+
+
+    map(multiply, simple_list)
+
+
+
+
+
+
+
+
+
+
+
+    MAS ISSO __ NÃO DEU CERTO... 
+
+
+
+    EX:
+
+
+
+    >>> new_list = map(multiply, simple_list)     
+>>> 
+>>> 
+>>> 
+>>> 
+>>> new_list
+<map object at 0x000001DCC470DD50>
+>>>
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PROFESSOR FALA ALGO IMPORTANTE:
+
+
+
+
+não devemos chamar a function-argumento como se fosse uam function (ou seja, com '()'... não devemos colocar os '()"....)
+
+
+
+
+
+
+
+
+
+-----> CERTO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> DEVEMOS APENAS APONTAR O NOME DA FUNCTION QUE VAMOS QUERER QUE SEJA EXECUTADA 
+
+
+NESSA 'SIMPLE_LIST', para cada ELEMENTO NESSA LIST.. --> 
+
+
+
+
+
+
+
+
+
+
+
+--> SE EXECUTAMOS 
+
+
+''map(multiply, simple_list)'',
+
+
+
+
+O QUE __ VAMOS GANHAR DE VOLTA SERÁ _ ACTUALLY__ UM MAP OBJECT... ----> ESSE MAP  OBJECT __ SERÁ 
+
+
+
+TRANSFORMADO EM UMA LIST __ APENAS___ SE 
+
+O 
+
+WRAPPARMOS COM O WRAPPER DE 
+
+
+'list',
+
+
+que é 
+
+assim:
+
+
+
+
+
+list()....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+new_list = list(map(multiply, simple_list))
+
+
+
+
+
+
+
+
+
+-> E ISSO REALMENTE FUNCIONARÁ...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+>>> new_list = list(map(multiply, simple_list))
+>>> 
+>>> new_list
+[2, 4, 6, 8]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+--> só achei esse wrap de 'list()' meio burro.... despropositado...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... TEREMOS CONSEGUIDO UMA LIST DE TODOS OS VALUES, MULTIPLICADOS POR 2...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NOTA!!!!! ------> IMPORTANTE::: 
+
+
+
+
+PARA A GRANDE MAIORIA DOS USE-CASES,
+
+
+
+
+
+
+É PREFERÍVEL __ USAR__ UMA LIST COMPREHENSION, ISSO 
+
+
+
+PQ ELAS SÃO TIPICAMENTE MAIS RÁPIDAS 
+
+DO QUE 
+
+
+
+MAPs...
+
+
+
+
+
+
+
+
+
+-> AQUI NÓS NÃO VEMOS TANTA DIFERENÇA,
+
+MAS ISSO AÍ 
+
+
+
+__ PODE FAZER __ DIFERENÇA EM UM APP MAIOR, COM MILHARES DE LINHAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, SE VOCê TEM UM USE CASE MT SIMPLES,
+
+EM QUE 
+
+VOCê QUER FAZER ALGO COMO 
+
+
+
+
+''CONVERT EVERY VALUE NESSA LIST _ EM UMA _ STRING'' --> 
+
+
+
+
+
+
+OU SEJA,
+
+USE-CASES EM QUE USAMOS UMA BUILT-IN FUNCTION DO PYTHON,
+
+
+
+
+AÍ O 'MAP()'
+
+
+é uma boa opçãoo...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+DIGAMOS QUE QUEREMOS USAR A FUNÇÃO BUILTIN DE 'string' (str) 
+
+
+
+
+
+
+
+SOBRE TODOS OS ELEMENTS 
+
+
+DE 
+
+
+
+UM ARRAY...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+new_list = list(map(str, simple_list))
+
+
+
+
+
+
+EX:
+
+
+
+>>> new_list = list(map(str, simple_list))
+>>> new_list
+['1', '2', '3', '4']
+
+
+
+
+
+
+
+
+
+
+
+-> OK, SE VOCê FIZER ISSO,
+
+
+
+USAR  O MAP PODE SER UMA BOA OPÇÃO.. --> MAS GERALMENTE NAÕ HÁ MT DIFERENÇA 
+
+ENTRE 
+
+
+
+
+OS 2 APPROACHES... (mas prefira as list comprehensions, se possível)...
+
+
+
+
+
+
+
+MAS OS 'MAPS' POSSUEWM UM USE-CASE INTERESSANTE, QUE VEREMOS NA PRÓXIMA AULA, EM CONJUNTO COM OUTRO METHOD....

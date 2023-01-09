@@ -1,0 +1,548 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> JÁ PODEMOS PERCEBER QUE O 'BROADCASTING GERAL' 
+
+
+JÁ ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+--> ENTRETANTO, 
+
+PODEMOS TER CONFLICTS... ->  NOSSAS DIFERENETS BLOCKCHAINS, EM DIFERENTES NODES,
+
+
+PODEM ACABAR FICANDO EM _ DIREÇÕES DIFERENTES... -> 
+
+
+
+
+
+
+HIPÓTESES:
+
+
+
+
+1) SE ELAS COMEÇAM A MINERAR INDEPENDENTEMENTE (sem se conectar aos outros peer nodes) 
+
+
+
+
+
+
+
+
+2) ^^^^ essa é uma hipótese em que o  resultado do mine NÃO É BROADCASTZADO AOS OUTROS NODES...
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE PRECISAMOS ENCONTRAR 'CONSENSUS'
+
+ACERCA DE __ COMO __ O BLOCKCHAIN DEVE SE PARECER... -> E ESSE É O NOME DE OUTRA CORE FEATURE DAS 
+
+BLOCKCHAINS,
+
+
+BLOCKCHAIN TECHNOLOGY,
+
+
+
+
+
+
+..
+
+
+
+
+
+
+
+
+
+
+-> CONFLICTS SEMPRE ACONTECERÃO... -> E O 'consensus'
+
+
+É UMA IDEIA/CONCEITO QUE NOS AJUDA A RESOLVER 
+
+
+__ CONFLITOS COMO ESSES... --------> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DIGAMOS QUE TEMOS UM MONTE DE NODES NO NOSSO APP...
+
+
+
+
+
+
+
+
+
+
+
+
+
+1 desses nodes ADICIONA UM NOVO BLOCK... -----> 
+
+
+
+
+
+
+certo... agora digamos que um OUTRO NODE 
+
+
+ADICIONA OUTRO 
+
+
+
+BLOCK,
+
+COMPLETAMENTE DIFERENTE...
+
+
+
+
+
+
+
+-> AÍ TEMOS UM TERCEIRO NODE, QUE TAMBÉM FEZ O MINE DE UM 
+
+
+NOVO BLOCK,
+
+
+MAS SUA VERSÃO DA BLOCKCHAIN _ ESTÁ MENOR _ DO QUE AQUELA USADA PELOS OUTROS 2 NODES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O PRIMIERO NODE, 'A',
+
+
+COMEÇA A FAZER BROADCAST A TODOS SEUS PEER NODES (B, C e o RESTO)...
+ 
+
+
+
+
+
+
+
+
+
+--> O SEGUNDO NODE, B, 
+
+TAMBÉM COMEÇA A BROADCASTEAR, ELE TENTA BROADCASTEAR 
+
+AO NODE QUE ESTÁ curto ('C') e a UM OUTRO NODE que também é mais curto...
+
+
+
+
+
+
+
+
+
+
+
+-> BEM, O PLANO GERAL, AQUI, É QUE TEMOS UMA BAGUNÇA:
+
+
+
+
+
+
+TEMOS MÚLTIPLOS NODES,
+
+
+
+CADA UM COMPARTILHANDO DIFERENTES TIPOS DE INFO... 
+
+
+
+
+
+
+
+
+
+
+
+--> MAS HÁ _ UMA SIMPLES__ REGRA__ QUE É UTILIZADA __ PARA _ RESOLVER CONFLITOS:
+
+
+
+
+
+
+
+
+'''A CHAIN MAIS COMPRIDA E __ VÁLIDA__ SEMPRE VENCE'''... (o que significa que a versão 'C' seria completamente descartada)
+
+
+
+
+
+
+
+
+
+RESUMINDO:
+
+
+SE 2 PEDAÇOS DE INFO ('a new block!!!')'
+
+
+
+ATINGIREM UM NODE/ALCANÇAREM UM NODE,
+
+
+
+
+A _ CHAIN MAIS LONGA SIMPLESMENTE GANHARÁ 100% DAS VEZES... (no caso, é o NODE 'B', que ganha do 'C', nesse nosso exemplo)... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS NESSE NOSSO EXEMPLO NÓS AINDA FICAMOS COM 
+
+
+'2 CHAINS IGUALMENTE COMPRIDAS'... (de mesmo comprimento).. --> QUANDO ISSO ACONTECE,
+
+
+
+
+TEMOS _ OUTRA 
+
+
+REGRA BEM SIMPLES:
+
+
+
+
+
+''' A MAIORIA SEMPRE VENCE''. .. ->  ISSO SIGNIFICA QUE 
+
+
+SE O NODE 
+
+
+
+B _ É _ CAPAZ _ DE DISTRIBUIR 
+
+
+A 
+INFO SOBRE O NEW BLOCK __ MAIS 
+
+
+RAPIDAMENTE AO 
+
+
+'NODE NETWORK'  E AO NODE NETWORK DE SEUS 'PEER NODES',
+
+
+
+ELE VAI SIMPLESMENTE GANHAR __ PQ __ 
+
+
+ELE TERÁ _''''CONVENCIDO'''
+
+A MAIORIA DOS NODES DO SISTEMA __ SOBRE 
+
+A VALIDADE DE SUA CHAIN, preterida a chain rival, 'A'...
+
+
+
+
+
+
+
+
+
+
+MAJORITY WINS --> 
+
+
+'> 50%' wins...
+
+
+
+
+
+
+
+
+
+
+-> E AINDA QUE O OUTRO NODE, 'A',
+
+
+TENHA UMA CHAIN PERFEITAMENTE VÁLIDA,
+
+
+E UM PERFECTLY FINE BLOCK,
+
+
+
+
+
+
+
+
+O BLOCK MINERADO PELO NODE 'B'
+
+ainda 
+
+VAI GANHAR,
+
+
+
+
+PQ _ 
+
+ELE _ FICOU COM UMA CHAIN MAIS LONGA,
+
+
+válida,
+
+
+
+
+mais longa do que qualquer outro node na network... -----> E É A PRIMEIRA A ALCANÇAR a maioria (50% + 1 node )... 
+
+
+
+
+
+
+
+de 
+
+TODOS OS NODES EM UMA NETWORK....
+
+
+
+
+
+
+
+
+
+
+-> E ISSO É BEM SIMPLES, TEORICAMENTE...
+
+
+
+
+
+
+-> BEM, MAS ESSA 
+
+COISA DE 'MAJORITY'
+
+NÃO É ALGO QUE TEREMOS DE BUILD... ------> SE VOCÊ TEM NODES 
+
+E 
+
+
+
+OS NODES TEM SEUS PRÓPRIOS NODES REGISTRADOS,
+
+
+ISSO (esse comportamento)
+
+
+ACONTECERÁ __ SEM _ _VOCÊ PRECISAR FAZER COISA ALGUMA,
+
+
+PQ _ ELES _ VÃO 
+
+
+
+'SPREAD THEIR INFORMATION AROUND'
+
+
+e aí 
+
+VOCÊ SÓ SIMPLESMENTE TERÁ SUA INFORMAÇAÕ 'around'
+
+
+
+NA SUA BLOCKCHAIn...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS A COISA COM QUE DEVEMOS NOS IMPORTAR É A PARTE MAIS FÁCIL,
+ 
+ A 
+
+ DA 
+
+ 'CHAIN MAIS LONGA DO QUE A OUTRA'... --> ESSA É A LÓGICA _ QUE PRECISAMOS IMPLEMENTAR,
+
+
+ E É CLARO QUE TAMBÉM VAMOS QUERER IMPLEMENTAR UM 
+
+ 'WARNING',
+
+ AVISO QUE 
+
+
+ NOS DIGA, quando mineramos um novo block,
+
+ QUE NOSSO 
+
+ BLOCK NÃO FOI ACEITO PELAS OUTRAS CHAINS...
+
+
+
+
+
+
+
+
+
+
+ --> É ISSO QEU FAREMOS NA PRÓXIMA AULA...
+
+
+
+
+
+
+
+
+
+ --> mas não está funcionando, a lógica de 'checks' entre as 2 blockchains naõ está funcionando...
+
+
+
+
+
+
+
+
+
+
+ --> devemos testar isso com o add de peer nodes BEM DEPOIS....
+
+
+
+
+
+
+
+
+
+
+
+ --> não está dando certo... -> está sempre retornando 'local chain kept',
+
+ mesmo quando nossa chain é MENOR DO QUE A OUTRA...
+
+
+
+
+
+
+
+
+ --> ainda há algo errado no nosso código,
+
+ aparentemente...
+
+
+
+
+
+
+
+ este foi o problema:
+
+
+ TypeError: verify_chain() missing 1 required positional argument: 'blockchain'
+
+
+
+
+
+
+
+
+
+ --> AGORA FUNCIONOU.... MAS O PROFESSOR DIZ QUE AINDA TEMOS 1 ERRO FALTANDO...

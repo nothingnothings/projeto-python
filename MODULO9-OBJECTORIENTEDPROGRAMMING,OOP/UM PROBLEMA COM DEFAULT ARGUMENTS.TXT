@@ -1,0 +1,17 @@
+In the last lecture, we added the "Block" class and we used a default argument in its constructor: The time  argument is set to time()  by default.
+
+This actually always creates the same timestamp though - because time()  will only be evaluated once. 
+
+Default arguments in general will only be evaluated once. This means that the second block will receive the same timestamp as the first one.
+
+We don't actually use the timestamp in this course's Blockchain implementation and I again wanted to practice the usage of default arguments, but a better implementation would be the following one:
+
+from time import time
+
+class Block:
+    def __init__(self, index, previous_hash, transactions, proof, timestamp=None):
+        self.index = index
+        self.previous_hash = previous_hash
+        self.timestamp = time() if timestamp is None else timestamp
+        self.transactions = transactions
+        self.proof = proof

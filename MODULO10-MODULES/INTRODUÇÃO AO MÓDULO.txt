@@ -1,0 +1,205 @@
+
+
+
+
+
+
+
+
+
+
+
+-- TRABALHANDO COM MODULES E THIRD PARTY PACAKGES..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->  AGORA QUE TRABALHAMOS BASTANTE COM OOP,
+
+
+
+DEVEMOS DAR UMA OLHADA NOS NOSSOS DIFERENTES ARQUIVOS...
+
+
+
+
+
+
+
+
+
+
+----> CADA ARQUIVO DE NOSSO PROJECT WORKFLOW
+
+
+É CONSIDERADO COMO UM 'MODULE'...
+
+
+
+
+
+
+
+
+
+
+
+
+----> devemos ver o que podemos FAZER COM ELES,
+
+VER SE PODEMOS OS ORGANIZAR MELHOR NESSE MÓDULO (talvez ver se existe '../' no python),
+
+
+
+
+
+E AÍ FINALMENTE DAR UMA OLHADA EM THIRD PARTY PACKAGES (
+
+
+    PACKAGES QUE ACTUALLY 
+    NÃO 
+
+
+
+    VÊM INCLUÍDAS NA 
+
+    STANDARD LIBRARY DO PYTHON,
+
+
+    E QUE TEMOS QUE INSTALAR PARA CONSEGUIR USAR...
+
+
+)
+
+
+
+
+
+
+
+VEREMOS:
+
+
+
+
+
+
+
+
+
+1) COMO CRIAR 'CUSTOM MODULE BUNDLES' --> professor quer dizer ''como podemos organizar nossos arquivos de modo um pouco mais eficiente'...
+
+
+
+
+
+
+
+
+
+2) VEREMOS COMO __ PODEMOS 'CONTROLAR EXPORTS NOS NOSSOS ARQUIVOS' (é o chamado 'ADVANCED MODULE OPERATIONS') ---> VEREMOS O QUE PODEMOS CONTROLAR NOS EXPORTS DE NOSSOS MÓDULOS, E AQUILO QUE NÃO CONSEGUIMOS CONTROLAR...
+
+
+
+
+
+
+
+
+3) VEREMOS _ COMO PODEMOS _ INSTALAR E USAR THIRD PARTY PACKAGES..
+
+
+
+
+
+
+
+
+
+--> VAMOS PRECISAR DE TPPs
+ 
+
+
+ PQ NO NOSSO PROJETO FINALMENTE VAMOS CONSEGUIR ADICIONAR UMA 
+
+ 'BASIC WALLEt',
+
+
+
+ O QUE 
+
+ SIGNIFICA QUE 
+
+
+ __FINALMENTE__ VAMOS CONSEGUIR 
+
+
+
+
+
+ ALGUMAS 'REAL KEYS/DATA' pelas quais podemos 'SIGN' nossas TRANSACTIONS,
+
+
+
+ PARA QUE 
+ POSSAMOS 
+
+
+
+ __ ASSEGURAR_ QUE TRANSACTIONS podem/poderão ser 'mappeadas' a nós --------> PQ 
+
+
+
+
+ SE VOCê 
+
+
+
+ CONSIDERAR UM BITCOIN NETWORK,
+
+
+ POR EXEMPLO,
+
+
+  
+  VOCÊ PRECISA QUE UMA DETERMINADA WALLET 
+
+
+
+  'participe',
+
+
+  PQ 
+
+  CADA 
+
+  PESSOA QUE ENVIAR/RECEBER COINS _ VAI REALMENTE __ PRECISAR DE 
+
+
+  UM 
+
+
+
+  'CLARO IDENTIFICADOR',
+
+
+
+
+
+
+
+  UM IDENTIFICADOR IMPOSSÍVEL DE SER FAKED/COPIADO,
+
+
+  para que 
+
+  nossas transactions realmente ALCANÇEM AQUELA PESSOA...

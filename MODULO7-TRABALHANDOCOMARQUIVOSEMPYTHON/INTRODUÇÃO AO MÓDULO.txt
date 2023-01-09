@@ -1,0 +1,343 @@
+
+
+
+
+
+
+
+
+
+
+
+TRABALHANDO COM ARQUIVOS NO PYTTHON....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PQ DATA NEM SEMPRE _ DEVE _ SER DESCARTADA...
+
+
+
+
+
+
+
+
+
+--> ATÉ AGORA,
+
+
+
+NOSSA BLOCKCHAIN SEMPRE EXISTIU APENAS NA MEMÓRIAç:
+
+
+
+
+
+
+
+
+
+
+
+-> TRABALHAMOS NO TERMINAL,
+
+
+
+E AÍ 
+
+
+MANAGEAMOS NOSSA LIST QUE CONTÉM OS BLOCKS  (blockchain)
+
+
+
+
+
+
+
+
+
+LÁ NO TERMINAL..
+
+
+
+
+
+
+
+
+
+-> QUANDO 
+
+FECHAMOS 
+
+
+NOSSO TERMINAL 
+PYTHON, 
+
+
+COM NOSSO ESQUEMA ATUAL,
+
+
+
+TODA NOSSA DATA 'IS GONE'..
+
+
+
+
+
+
+
+
+
+
+
+--> NA GRANDE MAIORIA DOS PROGRAMAS VOCÊ VAI QUERER QUE 
+
+
+
+
+A DATA PERSISTa UM POUCO...
+
+
+
+
+
+
+
+
+
+
+
+--> NA MAIORIA DOS PROGRAMAS VOCÊ VAI QUERER TRABALHAR COM FILES... --> TVZ PORQUE VOCÊ QUER 
+
+
+ARMAZENAR DATA 
+
+
+
+
+DE SEU PROGRAMA 
+
+
+
+LÁ NESSE ARQUIVO,
+
+
+
+
+OU TVZ 
+
+
+PORQUE 
+
+VOCÊ 
+
+
+ESTÁ ESCREVENDO UM PROGRAMA QUE CONSEGUE LER _ ARQUIVOS '.csv'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU ENTÃO UM 
+PROGRAMA QUE CONSEGUE ESCREVER USER INPUT EM UM _ ARQUIVO DE TEXTo...
+
+
+
+
+A CSV is a comma-separated values file, which allows data to be saved in a tabular format. CSVs look like a garden-variety spreadsheet but with a . csv extension. CSV files can be used with most any spreadsheet program, such as Microsoft Excel or Google Spreadsheets.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PORTANTO, 
+
+
+
+NESSE MÓDULO VEREMOS __ COMO PODEMOS _ TRABALHAR COM ARQUIVOS NO PYTHOn...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE MÓDULO, VEREMOS:
+
+
+
+
+
+
+
+
+1) COMO ABRIR E FECHAR FILES NO PYTHON....
+
+
+
+
+
+
+
+2) COMO CRIAR _ ARQUIVOS NOVOS __ NO PYTHON, direto do seu  script..
+
+
+
+
+
+
+
+
+3) DEPOIS VEREMOS COMO PODEMOS FAZER 'READ'/'WRITE'  DE DATA NESSES ARQUIVOS....
+
+
+
+
+
+
+
+
+
+4) DEPOIS VEREMOS COMO PODEMOS USAR __ A KEYWORD DE 'with' PARA FAZER 
+O 
+
+
+
+
+___ACESSO_ _ A ARQUIVOS UM POUCO MAIS 'EASY' e 'SAFE'...
+
+
+
+
+
+
+
+
+
+5) FINALMENTE,
+
+
+
+DAREMOS UMA OLHADA EM 
+
+
+
+
+'COMO VOCÊ PODE SALVAR PYTHON DATA EM FILES',
+
+
+
+
+COM A AJUDA DAS LIBRARIES 'json' e/ou 'pickle'  -> ISSO PQ _ ALÉM __ DE 
+
+
+
+ESCRERVER 
+
+
+
+'LINES OF TEXT' _ DENTRO _dE ARQUIVOS (algo que veremos como fazer),
+
+
+ 
+
+ ESSAS LIBRARIES __ DEIXAM __ O STORE 
+
+
+
+
+ DE 
+
+
+
+ DATAS __ MAIS _ COMPLEXAs__ SER BEM MAIS FÁCIL,
+
+
+
+
+
+
+
+
+
+
+
+COISAS COMO NOSSA 'BLOCKCHAIN' ------> 
+
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE, ACERCA DE NOSSA BLOCKCHAIN,
+
+ 
+ CHEGAREMOS AO PONTO EM QUE 
+
+
+ ''SOMOS CAPAZES DE ARMAZENAR NOSSA BLOCKCHAIN LOCALMENTE'''.. ---> É ISSO QUE 
+
+
+ VAMOS CONSEGUIR FAZER, AO FINAL DESSE MÓDULo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --- >DEVEMOS DIVAR E VER 'COMO TRABALHAMSO COM ARQUIVOS, NO PYTHON'...

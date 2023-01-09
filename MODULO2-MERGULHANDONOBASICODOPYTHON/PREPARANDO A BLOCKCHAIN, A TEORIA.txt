@@ -1,0 +1,321 @@
+
+
+
+
+
+--> NOSSA BLOCKCHAIN....
+
+
+
+
+
+
+
+
+
+
+--> AGORA TEMOS O BASICÃO DO PYTHON....
+
+
+
+
+
+
+-> APRENDEMOS SOBRE OS CORE DATA TYPES,
+
+E SOBRE COMO 
+
+
+
+AS ARMAZENAMOS EM VARIABLES...
+
+
+
+
+
+
+
+
+
+
+--> aGORA VAMOS SAIR DO REPL E VAMOS ENTRAR EM UM 
+
+
+LOCAL 
+
+
+
+DEV ENVIRONMENT --> 
+
+
+
+
+
+
+
+VAMOS TRABLAHAR COM ARQUIVOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> VAMOS QUERER UMA CHAIN,
+
+
+EM QUE TEREMOS BLOCKS OF DATA (são elements)...
+
+
+
+
+
+
+
+
+--> E CADA 'BLOCK' SERÁ 
+
+
+
+1 
+
+
+__ LIST__ EM SI,
+
+
+
+
+E __ NAQUELA __ LIST DENTRO DO BLOCK/O BLOCK-LIST 
+
+
+
+
+
+
+
+TEREMOS OS VALUES.... ---->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+PARA O PRIMEIRO BLOCK,
+
+TEREMOS:
+
+
+
+'1' 
+
+
+como VALUE...
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ O SEGUNDO BLOCK PODERÁ TER 
+
+
+
+'1' e 'hi' 
+
+
+
+
+
+
+
+
+
+
+--> TERCEIRO :
+
+
+
+
+
+'1' 'hi' 'True'
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CADA NESTED LIST _ _SEMPRE_ TERÁ O 'PREVIOUS VALUE/previous values',
+
+
+
+TUDO PARA SIMULAR 
+
+
+AQUELA PARTE QUE O PROFESSOR MENCIONOU MAIS CEDO NO CURSO,
+
+
+AQUELA COISA DE 
+
+
+
+'EACH BLOCK KNOWS ABOUT THE PREVIOUS BLOCK __ BY__ ITS HASH' ----> E NÓS NÃO 
+
+
+
+
+VAMOS HASHEAR AQUI, AINDA,
+
+PQ 
+
+ISSO 
+
+NECESSITA DE UM CONHECIMENTO QUE AINDA NÃO TEMOS,
+
+
+
+
+
+
+
+MAS _ VAMOS KINDOF _ FAKE_ ESSE NEGÓCIO,
+
+
+
+
+POR MEIO 
+
+
+
+
+DA CONSTRUÇÃO DE CADA BLOCK COMO LISTS que sempre vao conter 'THE PREVIOUS VALUES', assim como o NOVO VALUE...
+
+
+
+
+
+
+ 
+
+
+--> cada block = A OLD  DATA + UMA NEW DATA..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->  É CLARO QUE 
+
+
+
+NÃO VAMOS 
+
+
+ARMAZENAR 'RANDOM DATA',
+
+
+
+
+
+
+
+
+como strings ou numbers... -> em vez disso,
+
+
+VAMOS ARMAZENAR 
+
+'TRANSACTION VALUES'...
+
+
+
+
+
+
+
+
+
+
+ALGO COMO 
+
+
+[1.5]   [1.5, 3]  [1.5, 3, 4.7]
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> É CLARO QUE VAMOS REFINAR ESSES VALUES 
+
+
+AO LONGO DO CURSO....
+
+
+
+
+
+
+
+
+
+--> MAS NÃO FAREMOS ISSO NO REPL...
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS USAR UM LOCAL IDE,
+
+E UM SETUP MAIS ELABORADO..

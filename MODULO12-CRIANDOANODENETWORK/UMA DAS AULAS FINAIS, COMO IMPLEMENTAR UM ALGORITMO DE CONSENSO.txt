@@ -1,0 +1,2671 @@
+
+
+
+
+
+
+
+
+
+
+
+--> O 'RESOLVE DE CONFLICTS' pode parecer super complexo,
+
+
+mas 
+
+devemos nos lembrar que, conforme dito no slide,
+
+
+a coisa da 'majority'
+
+
+
+JÁ VAI FUNCIONAR/FAZER SEU TRABALHO DE QUALQUER FORMA.... -> a única coisa que 
+
+
+você tem que 
+
+fazer é broadcastear 
+
+
+
+a info, info de que x node foi adicionado, a outros nodes...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A COISA COM QUE TEMOS QUE NOS PREOCUPAR, CODAR,
+
+É A LÓGICA DE 
+
+
+''A CHAIN MAIS LONGA É QUE VAI GANHAR''... ---->
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE VAMOS ATÉ blockchain.py
+
+E ADICIOANMOS UM NOVO METHOD..
+
+
+
+
+
+
+
+
+
+
+-> será o method de 
+
+
+
+
+
+def resolve():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SERÁ O METHOD QUE USAREMOS PARA _ 
+
+GARANTIR QUE 
+
+NOSSOS CONFLICTS __ 
+
+
+
+NÃO CONTINUEM COMO 'CONFLICTS.'.. --> 
+
+
+
+
+
+NO CÓDIGO DESSA FUNCTION,
+
+VAMOS IR POR DENTRO DE TODOS 
+
+
+
+
+OS PEER NODES (attribute em cada 1 de nossas blockchains, em cada peer node)... --> 
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+def resolve(): 
+    for node in self.__peer_nodes:
+
+
+
+,
+
+
+PROFESSOR FARÁ ISSO PQ ELE QUER 
+
+
+
+TER UMA SNAPSHOT _ DA _ BLOCKCHAIN __ EM 
+
+
+CADA 
+
+1 
+
+
+DOS PEER NODES DE NOSSO SISTEMA/NETWORK...
+
+
+
+
+
+
+
+
+
+
+-----> CERTO.. FAREMOS ISSO SIMPLESMENTE PARA CHECAR 
+
+
+''''QUAL PEER NODE TEM QUAL BLOCKCHAIN'''... -> 
+
+
+
+
+E COM ISSO CONSEGUIREMOS DESCOBRIR 'QUE BLOCKCHAIN É A CORRETA'.'..
+
+
+
+
+
+
+
+
+
+
+
+---> para isso,
+
+
+o professor vai construir a já clássica url de 
+
+
+
+
+
+
+
+
+url = f'http://{node}/chain',
+
+
+
+PARA 
+
+
+
+FAZER __ GET__ DA BLOCKCHAIN DE CADA UM DE NOSSOS NODES..
+
+
+
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def resolve():
+    for node in self.__peer_nodes:
+        url = f'http://{node}/chain'
+
+
+
+
+
+
+
+
+        EX:
+
+
+
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+
+
+
+
+
+
+
+
+
+
+
+
+
+            --> ISSO PQ EM 'node.py',
+
+
+            TEMOS AQUELA ROUTE 
+
+            de 
+
+
+
+
+@app.route('/chain', methods=['GET'])
+
+
+
+
+
+
+
+
+
+--> FAREMOS ISSO PARA PEGAR UMA __ SNAPSHOT__ DE CADA UMA 
+DAS BLOCKCHAINS NOS NODES....
+
+
+
+
+
+
+
+
+
+
+
+--> certo...
+
+
+
+
+
+
+
+isso feito,
+
+o professor vai tentar 
+
+
+enviar um REQUEST,
+
+
+POR ISSO 
+
+ELE USA 
+
+UM 
+
+try-except block....
+
+
+
+
+
+
+
+
+
+
+
+ele usa o clássico código:
+
+
+
+
+
+
+
+
+
+
+
+
+try:
+    response = requests.get(url)
+
+
+
+
+
+except:
+
+
+
+
+
+
+
+
+
+
+-> ISSO FEITO,
+
+VAMOS QUERER CHECAR 
+
+SE 
+
+
+
+A COISA QUE ESTÁ EM NOSSA RESPONSE É VÁLIDA/existe.... -->  O EXCEPT CASE 
+
+
+
+
+será 
+
+de 
+
+
+
+
+
+requests.exceptions.ConnectionError
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS QUERER ESSE EXCEPT DE 'ConnectionError'
+
+pq 
+
+ELE PODE ACONTECER SE ALGUM DOS NODES ESTIVER, POR EXEMPLO, OFFLINE...
+
+
+
+
+
+--> SE ESSE FOR O CASO, SE UM DOS PEER NODES ESTIVER OFFLINE,
+
+VAMOS QUERER SIMPLESMENTE COLOCAR 'continue,'
+
+PQ VAMOS QUERER CHECAR O PRÓXIMO PEER NODE...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+        try:
+            response = requests.get(url)
+
+        except requests.exception.ConnectionError:
+            continue
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A COISA QUE QUEREMOS FAZER, DENTRO DE ESSE 'try' block,
+
+
+
+É 
+
+
+
+CRIAR UMA 'node_chain',
+
+
+
+
+UMA VARIABLE DESSAS,
+
+QUE 
+
+SERÁ 
+
+
+
+
+PREENCHIDA PELO RESULTADO DE 
+
+
+'response.json()'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+'response.json()'
+
+É UM METHOD QUE VOCÊ PODE CHAMAR 
+
+
+
+EM CIMA 
+
+DO OBJETO  response (requests.get())
+
+
+
+QUE 
+
+VOCê OBTEVE 
+
+
+lá do method de 'requests.get'... ->   E ESSE METHOD 
+
+
+
+
+'response.json()'
+
+
+
+FUNCIONA DE FORMA UM POUCO SIMILAR A 'request.get_json()' (package do 'request', lá do ANACONDA/TPPs)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS LÁ COM O 'request',
+
+
+NÓS _ ESTÁVAMOS CHAMANDo '.get_json()"
+
+
+
+NO OBJETO DO INCOMING REQUEST,
+
+
+
+
+E 
+
+AQUI 
+
+
+ESTAMOS 
+
+CHAMANDO 
+
+
+'.json()'
+
+PARA CONSEGUIR A JSON DATA 
+
+
+
+NO OBJECT_ DA __ RESPONSE__ (o que é bem diferente)... (por isso que o código é 'response.json()')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> certo.... e ESSA DATA QUE RETORNAMOS POR MEIO DE 
+
+
+
+'response.json()'
+
+
+JÁ DEVERÁ SER UMA LIST,
+
+
+
+
+PQ 
+
+
+
+
+
+
+
+
+LÁ NA LÓGICA DE 'get_chain' 
+
+JÁ FAZEMOS O RETURN 
+
+DA 
+
+
+CHAIN,
+
+
+
+
+chain de blocks convertidos em dict,
+
+
+como observado:
+
+
+
+
+
+
+return jsonify(dict_chain), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK... É POR ISSO QUE 
+
+'node_chain' já vai imediatamente TER ESSA LIST AÍ....
+
+
+
+
+
+
+
+
+
+
+
+
+-> E COMO ISSO É/SERÁ UMA LIST,
+
+
+PODEMOS __ A TRANSFORMAR, por meio 
+
+
+
+DE LIST COMPREHENSION... --> vamos criar um novo block com o block constructor,
+
+PARA 
+
+CADA ELEMENTO DA LIST QUE 
+
+
+ESTAMOS RECEBENDO ALI..
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(xxx, yyy, zzz) for block in node_chain]
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(xxx, yyy, zzz) for block in node_chain]
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, TEREMOS UMA NOVA LIST,
+
+
+COM OBJECTS 'block' no seu interior.. (list de blocks criada a partir daquela LISTA DE DICTIONARIES)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS O PROBLEMA É QUE AQUELE 
+
+
+'block['processed_transactions']' 
+
+
+
+
+
+TAMBÉM VAI SURGIR COMO UMA LIST DE DICTIONARIES,
+
+POR ISSO 
+
+
+PROVAVELMENTE VAMOS QUERER CONVERTER ESSES DICTS EM OBJECTS 'Transaction', também....
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+-----> ok.... ISSO APARENTEMENTE FUNCIONARÁ ,
+
+MAS NA VERDADE NÃO (professor diz que não funcionará, e que logo veremos  a razão disso)..  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK .. AGORA TEMOS UMA NODE_CHAIN 
+
+
+
+
+
+
+
+
+com uma LIST DE BLOCKS QUE 
+
+TEM TRANSACTIONS QUE SÃO TRANSACTION OBJECTS...
+
+
+
+
+
+
+
+
+-> certo..
+
+
+
+
+
+
+
+
+
+-> AGORA QUE TEMOS ESSA 'EXTRACTED NODE CHAIN',
+
+
+podemos 
+
+1) PRIMEIRAMENTE,
+
+RETORNAR SUA LENGTH,
+
+USANDO ASSIM:
+
+
+
+
+
+
+
+
+
+node_chain_length = len(node_chain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> aí vamos querer 
+PEGAR A LENGTH DE NOSSA 'LOCAL BLOCKCAHIN',
+
+pq 
+
+vamos querer 
+
+COMPARAR AS 2..
+
+
+
+
+
+
+
+
+
+
+--> para isso, escrevemos:
+
+
+
+
+
+
+
+local_node_chain_length = len(self._chain)
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(self._chain)
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+
+
+
+
+
+------->  OK...
+
+
+
+
+
+
+
+
+
+
+-->  É CLARO QEU SÓ 
+
+
+
+A LENGTH __ NÃO É SUFICIENTE... -> TAMBÉM INTERESSA SABER SE 
+
+
+
+
+A BLOCKCHAIN EM QUESTAÕ É VÁLIDA OU NAÕ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+O PROFESSOR 
+VAI COLOCAR UM 
+
+
+
+IF BLOCK,
+
+E AÍ 
+
+VAI CHECAR 
+
+
+
+se 
+
+
+
+
+'node_chain_length' É MAIOR DO QUE NOSSA 'local_node_chain_length',
+
+
+E TAMBÉM 
+
+
+
+
+
+SE, 
+
+
+QUANDO É 
+
+CHAMADO 
+
+
+'Utility.verify_chain()'
+
+
+PARA 
+
+NOSSA 
+
+'node_chain',
+
+
+SE ISSO DÁ CERTO...
+
+
+
+
+
+
+
+--> O CÓDIGO DE verify_chain é assim, lembrando:
+
+
+
+
+
+
+    @staticmethod
+    def verify_chain(blockchain, valid_proof):
+
+        for(index, block) in enumerate(blockchain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain[index - 1]):  /////1
+                return False
+
+            if not valid_proof(block.processed_transactions[:-1], block.previous_block_hash, block.proof): ////2
+                print('Proof of work is invalid.')
+                return False
+        return True
+
+
+
+
+
+
+-------> OU SEJA,
+
+
+
+ELE 
+
+
+1) COMPARA HASHES 
+
+
+
+E 
+
+
+2) VERIFICA A 'PROOF OF WORK' de cada 
+
+BLOCK....
+
+
+
+
+
+
+
+
+
+
+
+-->  É POR ISSO que o professor também vai usar esse 'verify_chain'
+
+
+NESSE CHECK AÍ...
+
+
+
+
+
+
+ex:
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(self._chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> APENAS SE AMBAS AFIRMAÇÕES FOREM CORRETAS
+
+
+
+
+
+
+VAMOS __ QUERER__ 
+
+'CONTINUAR'... ----> PQ SE AMBAS FOREM CORRETAS,
+
+
+
+__
+
+
+VAMOS TER DESCOBERTO QUE 
+
+A CHAIN 
+
+DO OUTRO 
+
+'PEER NODE'
+
+
+É __ MAIOR __ DO QUE A NOSSA CHAIN,
+
+E QUE 
+
+É 
+VÁLIDA... --> NESSE CASO,
+
+
+
+VAMOS QUERER 
+
+
+
+USAR __ A BLOCKCHAIN DAQUELE PEER NODE, 'amigo',
+
+
+como nossa LOCAL BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+ ---> PARA USAR__ ESSA CHAIN _ 
+
+ DO 'PEER NODE',
+
+
+
+
+ O PROFESSOR VAI ACTUALLY ADICIONAR UMA _ NOVA VARIABLE,
+
+
+
+ NO LADO DE FORA DO NOSSO FOR LOOP em 'resolve',
+
+
+
+ QUE SERÁ 
+
+
+ 'winner_chain',
+
+ QUE INICIALMENTE SERÁ A 'local_blockchain'...
+
+
+
+
+
+
+
+ eX:
+
+
+
+
+
+
+ 
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        winner_chain = self._chain
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(self._chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O PROFESSOR TAMBÉM AJUSTA O CÓDIGO NO FOR LOOP --TODA VEZ QUE ELE FOR USAR 
+
+'self.chain',
+
+ELE VAI USAR AQUELE 
+
+
+'winner_chain'
+
+no lugar...
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+ 
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        winner_chain = self._chain
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(winner_chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+
+
+
+
+
+---> E SE EM ALGUM MOMENTO FOR CONCRETIZADO ESSE IF CHECK (blockchain do PEER NOED MAIS VÁLIDA DO QUE A NOSSA),
+
+
+
+
+VAMOS QUERER _ REDEFINIR O 'winner_chain' 
+
+COMO SENDO 
+
+
+
+'node_chain'... -------> MAS ISSO TBM SIGNIFICA QUE SE ENCONTRARMOS 
+
+
+UM NOVO PEER NODE,
+
+
+COM UMA 
+
+VALID 
+
+CHAIN _- AINDA_ MAIOR_,
+
+
+
+SERÁ 
+
+
+
+REDEFINIDA A 'winner_chain'
+
+ATUAL COM ESSA NOVA,
+
+
+
+recém recebida/constatada.. ->  ISSO FARÁ COM QUE, APÓS O FOR LOOP,
+
+
+SEJA MANTIDA _ APENAS A 'LONGEST VALID CHAIN' como vencedora....
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+ 
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        winner_chain = self._chain
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(winner_chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+                    winner_chain = node_chain
+
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            EX:
+
+
+
+            
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        winner_chain = self._chain
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(winner_chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+                    winner_chain = node_chain
+            except requests.exceptions.ConnectionError:
+                continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> FORA DO FOR LOOP,
+
+        AÍ,
+
+
+
+        VAMOS QUERER _ USAR_ ESSA 
+
+
+        'winner_chain'... -> É POR ISSO QUE O PROFESSOR 
+
+        ESCREVE 
+
+
+
+
+        'self.resolve_conflicts = False',
+
+
+        e então 
+
+
+
+        'self._chain = winner_chain'...
+
+
+
+
+
+
+
+
+        --> ISSO VAI SUBSTITUIR NOSSA CHAIN COMPLETAMENTE 
+
+        POR ESSA 
+
+
+        CHAIN QUE PODE OU NÃO SER A MESMA CHAIN QUE TÍNHAMOS ANTES... (
+
+                a winner chain sempre será uma VALID LIST OF BLOCKS,
+
+                COM VALID TRANSACTIONS NO SEU INTERIOR...
+
+        )
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        winner_chain = self._chain
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(winner_chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+                    winner_chain = node_chain
+            except requests.exceptions.ConnectionError:
+                continue
+        self.resolve_conflicts = False
+        self._chain = winner_chain
+
+
+
+
+
+
+
+
+
+
+
+
+    --> O PROFESSOR TAMBÉM ADICIONA UMA SEGUNDA VARIÁVEL,
+
+    DE NOME 
+
+
+
+'replace',
+
+E DEFINE 
+
+         
+
+
+    COMO 'False' inicialmente.. --> 
+
+
+
+
+
+    ESSA VARIÁVEL 
+
+
+
+
+    CONTROLA SE A 'CURRENT CHAIN' 
+
+    'IS GETTING REPLACED'... -> inicialmente, assume-se que NÃO..  ------> MAS 
+
+
+    SE 
+
+
+    FOR 
+
+    ENCONTRADA UMA 
+
+    WINNER CHAIN,
+
+
+
+    O 'replace' SERÁ DEFINIDO COMO 'True'...
+
+
+
+
+
+
+
+
+    --> OK, MAS QUAL É A UTILIDADE DE DEFINIR essa variable de 'replace'?
+
+
+
+
+
+
+
+
+
+    EX:
+
+
+
+
+
+
+
+
+    
+    def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        winner_chain = self._chain
+        replace = False
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(winner_chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+                    winner_chain = node_chain
+                    replace = True
+            except requests.exceptions.ConnectionError:
+                continue
+        self.resolve_conflicts = False
+        self._chain = winner_chain
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---- PQ ISSO É UMA BOA IDEIA?  --> É PQ 
+
+SE NÓS 
+
+DESCOBRIMOS QUE 
+
+'NÓS VAMOS SUBSTITUIR NOSSA BLOCKCHAIN',
+
+
+
+
+NÓS TAMBÉM VAMOS ASSUMIR QUE 
+
+
+
+'''NOSSAS TRANSACTIONS ESTÃO INCORRETAS'''-->  ISSO 
+
+
+PQ 
+
+PROVAVELMENTE __ 
+
+
+NÓS HAVÍAMOS TENTADO 
+
+
+'SEND MORE MONEY THAN WHAT WE CURRENTLY HAVE',
+
+
+
+por isso 
+
+
+essas 
+
+
+TRANSACTIONS DEVERÃO SER DESCARTADAS...
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE APÓS O LOOP INTEIRO,
+
+VAMOS QUERER 
+
+
+
+executar 
+
+
+
+'if replace:
+    self.__open_transactions',
+
+
+
+
+
+
+    E AÍ _ DEFINIR ESSAS OPEN TRANSACTIONS COMO UMA EMPTY LIST (deletadas todas as open transactions anteriores desse node)...
+
+
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+
+        def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        winner_chain = self._chain
+        replace = False
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(winner_chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+                    winner_chain = node_chain
+                    replace = True
+            except requests.exceptions.ConnectionError:
+                continue
+        self.resolve_conflicts = False
+        self._chain = winner_chain
+        if replace:
+            self.__open_transactions = []
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+----->  É CLARO QUE ESSE CÓDIGO SÓ VAI SER EXECUTADO SE 'replace' estiver como true,
+
+que é um case que SÓ ACONTECERÁ SE 
+
+
+
+FOR CONSTATADO QUE A BLOCKCHAIN 'recebida' (vinda lá do peer node)
+
+É VÁLIDA E AO MESMO TEMPO MAIOR DO QUE A NOSSA 'CURRENT BLOCKCHAIN'... 
+
+
+
+
+
+
+
+
+
+
+-----> COM ISSO TUDO ADICIONADO,
+
+
+O PROFESSOR 
+
+
+
+
+VAI CHAMAR TAMBÉM 'self.save_data()',
+
+
+
+PARA SALVAR ESSA UPDATED CHAIN E __TALVEZ__ TRANSACTION DATA... -> 
+
+
+
+E AÍ 
+
+VAMOS QUERER 
+
+RETORNAR A VARIABLE DE 
+
+'replace',
+
+    QUE SERÁ TRUE OU FALSE (
+        provavelmente usaremos esse boolean para a USER EXPERIENCE...
+    )
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+
+    
+
+        def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        winner_chain = self._chain
+        replace = False
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(winner_chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+                    winner_chain = node_chain
+                    replace = True
+            except requests.exceptions.ConnectionError:
+                continue
+        self.resolve_conflicts = False
+        self._chain = winner_chain
+        if replace:
+            self.__open_transactions = []
+        self.save_data()
+        return replace
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+COM ISSO,
+ 
+
+ ADICIONAMSO O METHOD DE 'resolve',
+
+ E AGORA 
+
+ SÓ FALTA ADICIONAR UMA 'MANEIRA DE CHAMAR/EXECUTAR ESSE CÓDIGo'...
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+     def resolve(self):
+        """Resolve os CONFLICTS em nossos peer nodes... 'THE LONGER VALID CHAIN WINS.' """
+        winner_chain = self._chain
+        replace = False
+        for node in self.__peer_nodes:
+            url = f'http://{node}/chain'
+            try:
+                response = requests.get(url)
+                node_chain = response.json()
+                node_chain = [Block(block['previous_block_hash'], block['index'], block['processed_transactions'],
+                block['proof'], block['timestamp']) for block in node_chain]
+                node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+                node_chain_length = len(node_chain)
+                local_node_chain_length = len(winner_chain)
+                if node_chain_length > local_node_chain_length and Utility.verify_chain(node_chain):
+                    winner_chain = node_chain
+                    replace = True
+            except requests.exceptions.ConnectionError:
+                continue
+        self.resolve_conflicts = False
+        self._chain = winner_chain
+        if replace:
+            self.__open_transactions = []
+        self.save_data()
+        return replace #true/false.
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> PARA CHAMAR NOSSO METHOD DE RESOLVE,
+
+    VAMOS ATÉ  O 
+
+    'node.py'....
+
+
+
+
+
+
+
+
+
+
+--> ASSIM COMO TODAS AS OUTRAS COISAS,
+
+O 
+
+RESOLVE 
+
+
+DE 
+
+CONFLICTS DEVERÁ SER UMA OPERAÇÃO __ TRIGGADA__ PELO USER,
+
+
+ATRAVÉS DE UM HTTP REQUEST... 
+
+
+
+
+
+
+
+
+
+-----> É POR ISSO QUE FAREMOS ISSO ATRAVÉS DE UMA NOVA FUNCTION,
+
+
+
+'resolve_conflicts()'
+
+
+
+,
+
+
+
+
+QUE O PROFESSOR ESCREVERÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/resolve-conflicts', methods=['POST'])
+def resolve_conflicts():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COLOCA UM METHOD DE POST PQ POSSIVELMENTE O USER VAI QUERER MODIFICAR/ADICIONAR ALGUMA COISA NO SERVER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PRIMEIRA COISA QUE O PROFESSOR VAI QUERER FAZER É CHAHMAR 
+
+
+
+'blockchain.resolve()',
+
+
+
+E AI´_ ARMAZENAR  O RESULTADO DESSA FUNCTION (True/False)
+ 
+
+
+ EM UMA 
+
+ NOVA VARIABLE, 
+
+ DE NOME 
+
+ 'replaced':
+
+
+
+
+
+ 
+
+
+
+
+@app.route('/resolve-conflicts', methods=['POST'])
+def resolve_conflicts():
+    replaced = blockchain.resolve()
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> OK... E SE NOSSA 'LOCAL_BLOCKCHAIN' 
+
+
+
+ REALMENTE FOI/SERÁ SUBSTITUÍDA,
+
+
+ VAMOS QUERER SABER NESSA FUNCTION AÍ,
+
+
+PQ 
+
+
+
+ISSO INFLUENCIA/INFLUENCIARÁ O RESULTADO QUE NÓS 'SEND BACK' ao user...
+
+
+
+
+
+
+
+
+
+--> PROFESSOR VAI CHECAR:
+
+
+
+
+
+
+
+
+SE REPLACEd for true,
+
+
+
+
+
+
+VAMOS QUERER 
+
+COLOCAR UMA MESSAGE NA RESPONSE DE 
+
+
+
+
+
+response = {'message': 'Chain was replaced!'}
+
+
+
+
+
+
+
+
+
+
+
+A OUTRA MENSAGEM, NO CASO DE 'replaced' FALSE,
+
+
+será 
+
+
+
+'Local chain kept!'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+@app.route('/resolve-conflicts', methods=['POST'])
+def resolve_conflicts():
+    replaced = blockchain.resolve()
+    if replaced:
+        response = {'message': 'Chain was replaced!'}
+    else:
+        response = {'message': 'Local chain kept!'}
+    
+    return jsonify(response), 200
+
+
+
+
+ 
+
+
+
+
+
+EX:
+
+
+
+
+@app.route('/resolve-conflicts', methods=['POST'])
+def resolve_conflicts():
+    replaced = blockchain.resolve()
+    if replaced:
+        response = {'message': 'Chain was replaced!'}
+    else:
+        response = {'message': 'Local chain kept!'}
+    
+    return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+
+
+--> O STATUS CODE SERÁ SEMPRE DE 200,
+
+PQ ELE SERÁ BEM SUCEDIDO EM AMBOS OS CASOS...
+
+
+
+(
+
+    tanto no caso de substituição ou não...
+)
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+@app.route('/resolve-conflicts', methods=['POST'])
+def resolve_conflicts():
+    replaced = blockchain.resolve()
+    if replaced:
+        response = {'message': 'Chain was replaced!'}
+    else:
+        response = {'message': 'Local chain kept!'}
+    
+    return jsonify(response), 200 ### isso pq o request-response será successful em ambos os casos, sempre (só a situação será distinta)...
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+-> COM ISSO NO LUGAR,
+
+DEVEMOS SER CAPAZES DE 
+
+
+
+RESOLVER QUAISQUER CONFLICTS QUE TIVERMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+---> PROFESSOR SIMULA UM CONFLICT... 
+
+
+
+
+
+
+
+
+--> ele fica com 2 
+
+
+blocks diferentes,
+
+1 maior do que o outro...
+
+
+
+
+
+-> OK..
+
+
+
+
+
+
+-> ELE 
+
+FICA COM UM CONFLITO,
+
+COISA PADRÃO..
+
+
+
+
+
+
+
+
+-> AÍ APARECE A MENSAGEM 
+
+
+'Resolve conflicts first, block not added!'
+
+
+
+
+
+
+
+
+
+
+--> PARA RESOLVER O CONFLICT,
+
+ADICIONAREMOS UM BUTTON DE 'resolve conflict',
+QUE VAI 
+
+DISPARAR UM REQUEST À ROUTE DE 
+
+
+
+
+'/resolve-conflicts',
+
+em que codamos o nosso method...
+
+
+
+
+
+
+
+
+
+
+
+--> ELE VAI ATÉ 'node.html'
+
+E ADICIONA UM BUTTON AO LADO DO BUTTON DE 'mine coins'...
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR DIZ QUE VOCÊ PODERIA SER MAIS FANCY,
+
+
+CONTROLAR 
+
+SE 'TEMOS UM CONFLICT OU NÃO' 
+
+
+no código html.... --> mas o professor faz o 
+approach mais relaxado, sem essa dinâmica...
+
+
+
+
+
+
+
+
+
+-> fica tipo 
+
+
+
+<button class="btn btn-warning" @click="onResolve">Resolve Conflicts</button>
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+          onResolve: function() {
+              axios.post('/resolve-conflicts')
+              .then(
+                (response) => {
+                    this.error = null;
+                    this.success = response.data.message;
+                }
+              )
+              .catch(
+                (err) => {
+                    this.success = null;
+                    this.error = error.response.data.message;
+                }
+              )
+
+          }
+
+
+
+
+
+
+
+
+
+
+--> OK..
+
+
+
+
+FICOU LEGAL...
+
+
+
+
+
+
+
+
+
+
+
+
+----> testamos o código com 2 instancias, 
+
+para ver se essa function funciona...
+
+
+
+
+
+
+
+
+-> encontrei um ERRO:
+
+
+
+É UM ERRO NAQUELA LINHA QUE O PROFESSOR DISSE QUE TÍNHAMOS UM PROBLEMA, ESTA AQUI:
+
+
+    node_chain['processed_transactions'] = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in node_chain['processed_transactions']]
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> NÃO SEI QUAL É O PROBLEMA...
+
+
+
+
+
+
+
+
+
+    --> o problema, pelo visto, 
+
+    é que 
+
+
+
+    'node_chain'
+
+    É UMA __ LIST__ DE BLOCKS,
+
+    E NAÕ UM 'SINGLE BLOCk'.... --------> É POR ISSO 
+
+    QUE ESSA LIST COMPREHENSION NÃO FUNCIONA...
+
+
+
+
+
+
+
+
+
+
+
+--> A SOLUÇÃO É CRIAR UMA 'NESTED LIST COMPREHENSION' em que 
+
+
+CRIAMOS NOSSOS BLOCKS E AQUI, EM QUE ADICIONAMOS AS TRANSACTIONS,
+
+
+
+
+ESSA DEVE SER UMA LIST COMPREHENSION EM QUE CRIAMOS UMA NOVA LIST OF TRANSACTIONS....
+
+
+
+
+
+--> É SÓ ADAPTARMOS UM POUCO O CÓDIGO, FUNDIR 2 DAS LINHAS, TIPO ASSIM:
+
+
+
+
+
+
+
+
+ex:
+
+
+
+ node_chain = [Block(block['previous_block_hash'], block['index'], [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']], block['proof'], block['timestamp']) for block in node_chain]
+
+
+
+
+
+
+
+ --> com isso resolvido,
+
+
+ SALVAMOS TUDO E TENTAMOS DE NOVO...

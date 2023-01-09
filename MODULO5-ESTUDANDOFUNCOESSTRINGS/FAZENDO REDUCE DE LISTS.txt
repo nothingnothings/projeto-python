@@ -1,0 +1,1338 @@
+
+
+
+
+
+
+
+
+REDUCING LISTS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VIMOS AS FUNCTIONS DE MAP E LAMBDA..
+
+
+
+
+
+ex:
+
+list(map(lambda element: element * 2 , simple_list))
+
+
+
+
+
+
+
+
+
+
+-> LAMBDA FUNCTIONS SÃO ARROW FUNCTIONS FEIAS..
+
+
+
+
+
+
+
+
+
+
+
+---> COM O CONHECIMENTO DE LAMBDA FUNCTIONS,
+
+
+
+NÓS AGORA PODEMOS VER UMA BUILT-IN FUNCTION MT ÚTIL DO PYTHON,
+
+QUE 
+É 
+
+O 
+
+'reduce()'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O QUE ESSA FUNCTION FAZ?
+
+
+
+
+
+
+
+
+
+-> bem, em PYTHON NÓS SEMPRE FAZEMOS REDUCE _ _DE LISTS...
+
+
+
+
+
+
+
+
+
+ex: 
+
+
+
+
+
+
+
+[1, 2,3 ,4 ,5 ,6 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... --> O REDUCING PODE SIGNIFICAR (e A LÓGICA DEPENDE DE VOCÊ, mas essa é a ideia inicial)
+
+
+
+
+QUE VOCê QUER  'SUM UP' TODOS OS VALUES... ------> MAS ISSO TAMBÉM PODE SIGNIIFCAR QUE VOCê QUER _ MULTIPLICAR TODOS ELES...
+
+
+
+
+
+--> DE NOVO, TUDO ISSO DEPENED DE VOCÊ, SE VOCe^QUER MULTIPLICAR/ADICIONAR TUDO JUNTO...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... --> PARA SUMMING, O VALOR RETORNADO POR NOSSA REDUCTION SERÁ 1 VALOR SINGULAR,
+
+
+tipo 21 (no caso desse array aí)....
+
+
+
+
+
+
+
+
+
+
+
+
+-> O NOSSO NEGÓCIO DEIXARÁ DE SER UMA LIST, PARA ENTAÕ PASSAR A SER AQUEEL VALUE ÚNICO, RETORNADO COMO 
+
+
+
+'AMÁLGAMA' DOS ELEMENTOS QUE EXISTEM/EXISTIAM NA LIST...
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM... MAS SE QUISÉSSEMOS FAZER ESSA CONVERSÃO DE 1 LIST EM 1 NUMBER SOMADO,
+
+
+PODERÍAMOS CERTAMENTE TER USADO UMA LIST COMPREHENSION, OU ENTÃO UM FOR LOOP (.append e etc)...
+
+
+
+
+
+
+
+->  E É EXATAMENTE ISSO QUE FAZEMOS ATUALMENTE NA FUNCTION DE 'get_balance',
+
+
+USAMOS UM FOR LOOP... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS TAMBÉM PODEMOS USAR ESSA FUNCTION BUILT-IN DE 'reduce'...
+
+
+
+
+
+
+
+
+--> ESSA FUNCTION VAI TER 2 
+
+VALUES,
+
+
+
+O 
+
+
+
+'currentValue' 
+e o 
+
+
+'last RESULT'...
+
+
+
+
+
+
+
+
+
+
+
+
+curValue + lastValue...
+
+
+
+
+
+
+
+
+
+
+--> 'curValue' é o valor EM QUE __ A FUNCTION DE REDUCE VAI ESTAR... ---> O REDUCE VAI RODAR NOSSA 'REDUCING LOGIC'
+
+
+EM CADA ELEMENTO, NO CASO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ O 'Last result' É NECESSÁRIO __ PARA __ SERMOS CAPAZES DE REDUCE,
+
+
+PQ 
+O 
+
+REDUCE SEMPRE VAI PEGAR O 
+
+
+'elemento atual' + 'elemento prévio'
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+1 2 3 4 5 6
+
+
+
+
+
+
+
+
+
+curValue do primeiro elemento é 1, o 'lastResult' é 0...
+
+
+
+
+
+
+
+
+
+--> no elemento '2', 
+
+
+
+
+O CURvALUE É 2, e o lastValue é 1 ----> SERÃO SOMADOS,
+
+
+
+
+e aí 
+
+,
+
+
+
+no number de '3',
+
+
+o last value PASSARÁ A ser 3, e o 
+
+
+curValue também será de 3..
+
+
+
+
+
+
+
+
+
+
+
+-> VOCê PODE ESCREVER QUALQUER LÓGICA DE REDUCE QUE VOCÊ QUISER...
+
+
+
+
+
+
+
+
+
+
+-> ESSA FUNÇÃO VAI CONTINUAR ATÉ EXAURIR A LIST QUE VOCê PASSOU A ESSE METHOD...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... MAS DEVEMOS VER ISSO NO NOSSO CÓDIGO..
+
+
+
+
+
+
+
+
+
+--> TEMOS A FUNCTION DE 'get_balance():'
+
+
+
+
+
+
+
+
+
+
+
+-> LÁ NÓS JÁ ESTAMOS FAZENDO O 'REDUCE' DE ALGO,
+
+
+PQ ESTAMOS REDUZINDO NOSSOS 'AMOUNTS' em 1 number único... 
+('amount_sent = 0')....
+
+
+
+
+
+
+
+
+
+-----> ESSE É UM ÓTIMO CASE PARA A FUNCTION DE reduce....
+
+
+
+
+
+
+
+
+-> VOU TENTAR FAZER ISSO SOZINHO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, EU NÃO CONSEGUI, MAS CHEGUEI LONGE... CÓDIGO FICVOU ASSIM>:
+
+
+
+def get_balance(participant): #versão COM O USO DE REDUCE NA NOSSA LIST...
+    transaction_sender = get_value('sender')
+    open_transactions_sender = [transaction['amount'] for transaction in open_transactions if transaction['sender'] == participant]
+    transaction_sender.append(open_transactions_sender)
+
+    # amount_sent = 0
+    # for tx in transaction_sender:
+    #     if len(tx) > 0:
+    #         amount_sent += tx[0]]
+    print(transaction_sender)
+
+    def reduce_function(curValue, lastResult):
+        print(curValue, lastResult)
+        if len(curValue) > 0:
+            return curValue + lastResult
+       
+
+
+    # amount_sent = reduce(reduce_function, transaction_sender)
+    amount_sent = reduce(reduce_function, transaction_sender)
+    print(amount_sent)
+   
+    transaction_recipient = get_value('recipient')
+    # amount_received = 0
+    # for tx in transaction_recipient:
+    #     if len(tx) > 0:
+    #         amount_received += tx[0]
+
+    amount_received = reduce(reduce_function, transaction_recipient)
+    print(amount_received)
+
+    return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PROFESSOR EXPLICA QUE PRECISAMOS IMPORTAR UMA COISINHA:
+
+
+
+
+importar functools 
+
+
+
+
+
+
+
+
+
+
+
+import functools from 
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS AINDA NÃO APRENDEMOS SOBRE IMPORT __ STATEMENTS---> PYTHON TEM UM MONTE 
+
+
+
+
+DE COISAS QUE VEM 'SHIPPED WITH HIM',
+
+
+MAS HÁ ALGUMAS COISAS/PÁCAKGES 
+
+
+QUE VOCÊ PRECISA IMPORTAR, COMO ESSA AÍ....---> 
+
+
+
+
+
+
+VOCÊ IMPORTA COM 'import' E AÍ A PACKAGE NAME... 
+
+
+
+
+
+
+
+
+
+--. VEREMOS MAIS SOBRE IMPORTS NO PRÓXIMO MÓDULO...
+
+
+
+
+
+
+
+
+
+-> mas O que interessa é o código 
+
+
+
+
+
+
+
+
+
+
+'from functools import reduce' -----> ISSO VAI NOS DAR ACESSO A ESSA FUNCTIOn..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... --> LÁ EM 'get_balance',
+
+
+
+O PROFESSOR DIZ QUE DEVEMOS CHAMAR 
+
+'functools.reduce()"
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS ISSO NÃO É NECESSÁRIO, PODEMOS SÓ CHAMAR 'reduce', como fiz...
+
+
+
+
+
+
+
+
+
+
+--> ok... 
+
+
+
+
+
+
+
+
+
+----> A FUNCTION DE REDUCE __ ACEITA__ NO MÍNIMO 2 ARGUMENTOS... 
+
+
+
+
+
+
+
+
+-> O PRIMEIRO ARGUMENT É A __ FUNCTION __ QUE ELE VAI EXECUTAR _ _PARA __ CADA 'STEP'....
+
+
+
+
+
+
+
+
+
+-> E ESSA FUNCTION VAI RECEBER OS argumentos 'LAST VALUE' E 'CURRENT VALUE'...
+
+
+
+
+
+
+
+
+-> o ide nos mostra um exemplo:
+
+
+
+
+
+
+
+reduce( lambda x,y: x+y       , list)
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA É A VERSÃO MAIS BÁSICA DO REDUCE.... -> claro que podemos colocar uns IF CHECKS 
+
+
+
+NESSA LAMBDA FUNCTION, 
+
+
+PARA ENTÃO 'PULAR A SOMA DO PRIMEIRO ELEMENTO, PQ ELE ESTARÁ VAZIO' (como antes)..
+
+
+
+
+
+
+EX:
+
+
+
+
+
+    amount_sent = reduce(lambda x, y: x+y, transaction_sender)
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> mas precisamos colocar aquele check de 
+
+
+    'len(transaction) > 0' 
+
+    DENTRO DESSE NEGÓCIO...
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ TAMBÉM PODE PASSAR UM 'VALOR INICIAL' ao reduce, para indicar POR QUAL VALOR VOCê VAI QUERER COMEÇAR O SUM UP..
+
+
+
+
+
+
+
+
+
+
+-----> a list será transaction_sender... s
+
+
+
+
+
+
+
+
+
+
+-> o 'initial', valor inicial, SERÁ DE 0, pq vou querer que ele comece do 0... (primeiro elemento)...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+amount_sent = reduce(lambda x, y: x+y, transaction_sender, 0) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS AÍ A FUNCTION DE 
+
+'reduce(
+)'
+
+
+
+VAI SEMPRE PASSAR, à function do primeiro parâmetro,
+
+
+
+2 
+
+
+
+VALORES COMO PARÂMETRO, QUE serão 
+
+
+
+
+
+'tx_sum' (O 'lastValue')
+
+
+
+
+E O CURRENT_VALUE 
+
+
+
+
+
+
+ex:
+
+amount_sent = reduce(lambda x, y: x+y, transaction_sender, 0) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+amount_sent = reduce(lambda transaction_sum,  transaction_amount: transaction_sum + transaction_amount, transaction_sender, 0) 
+
+
+
+
+
+
+
+
+
+
+------> ok... -----> o reduce VAI NOS DAR ACESSO A CADA ELEMENT NESSE 'transaction_amount',
+
+
+
+
+E AÍ __ VAI __ SOMAR ESSES AMOUNTS, 1 VEZ PARA CADA ELEMENT,
+
+
+
+
+
+
+
+LÁ NAQUELE VALOR DE 'transaction_amount'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> CERTO... MAS PRECISAMOS DO BODY DESSA LAMBDA FUNCTION,
+
+
+
+
+
+
+
+
+PQ QUEREMOS FAZER UMA SUM OPERATION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS PROFESSOR EXPLICA UQE DEVEMOS ACESSAR 
+
+
+'transaction_amount[0]',
+
+PQ 
+
+VAMOS QUERER _ APENAS_ O PRIMEIRO ELEMENTO 
+
+
+
+
+
+
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+
+
+
+amount_sent = reduce(lambda x, y: x+y, transaction_sender[0], 0) 
+
+
+
+
+
+
+
+
+
+
+---> O PROFESSOR ENTÃO NOS EXPLICA QUE 
+
+
+
+
+
+
+ O RESULTADO DESSA OPERATION SERÁ AUTOMATICAMENTE RETORNADO   -----> E, NO CASO  DO REDUCE, O 
+
+
+
+
+ RESULTADO DESSA FUNCTION VAI SER _ _USADO __ COMO O PRÓXIMO 'sum' (ou 'lastValue') 
+
+
+
+
+ do chain de executes.... (for the next call of your lambda function, for the next element of the list)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> CERTO.... MAS MESMO COM TUDO ISSO,
+
+
+ NÓS AINDA VAMOS _ FALHAR___ NO CASE __ DE 
+
+
+ ELEMENTS EM QUE _ NAÕ TEMOS _o PRIMEIRO ELEMENT... ---->   (
+
+
+
+     isso,
+
+
+
+     NAQUELE NOSSO FOR LOOP,
+
+     ERA VISTO 
+
+
+
+     NO CHECK DE 
+     'if len(tx) > 0'...
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PODEMOS ___ ADICIONAR __ UM CHECK __ DESSES AÍ _ __
+
+ TAMBÉM __ NA 
+
+ NOSSA LAMBDA FUNCTION, BASTA USAR AQUILO QUE CHAMAMSO DE 'TERNARY EXPRESSION' (e naõ if statements, pq if statements naõ funcionam com lambda functions)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> TERNARY EXPRESSIONS PODEM SER USADAS EM QUALQUER LUGAR DO SEU CÓDIGO PYTHOm,
+
+
+ SÃO USN 'ONE-LINE IF STATEMENT'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PROFESSOR vai querer dizer 
+
+
+ 'USE ESSE VALOR DE transaction_amount[0] 
+
+
+
+
+
+
+
+ _ APENAS/ IF _ 'len(transaction_amount > 0)' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ELSE (se esse n for o caso),
+
+VAMOS QUERER ADICIONAR '0' ( o que vai FAZER COM QUE NADA SEJA ADICIOANDO NESSE CASE DO PRIMEIRO ELEMENTO, que é o comportamento desejado)...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+ amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + tx_amt[0] if len(tx_amt) > 0 else 0, transaction_sender[0], 0) 
+
+
+
+
+
+
+
+
+ NA VERDADE, O CÓDIGO PODE SER LIDO ASSIM:
+
+
+  amount_sent = reduce(lambda tx_sum, tx_amt: 
+  
+  
+  tx_sum + tx_amt[0]  if len(tx_amt) > 0 
+                            else 0, 
+                            
+                            
+                            
+                            
+                    transaction_sender[0], 0) 
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+    # amount_sent = reduce(reduce_function, transaction_sender)
+    amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + tx_amt[0] if len(tx_amt) > 0 else 0, transaction_sender[0], 0)   #function a ser executada, LIST EM QUE EXECUTAR ESSA FUNCTION, e, por fim, o INDEX DO VALUE/ELEMENTO PELO QUAL QUEREMOS COMEÇAR O 'SUM UP'...
+                #obs: TERNARY EXPRESSIONS FUNCIONAM COM LAMBDA FUNCTIONS, MAS IF STATEMENTS, NAõ... ----> MAS TERNARY EXPRESSIONS TAMBÉM USAM 'if', no python....
+    
+    
+    print(amount_sent)
+   
+    transaction_recipient = get_value('recipient')
+    # amount_received = 0
+    # for tx in transaction_recipient:
+    #     if len(tx) > 0:
+    #         amount_received += tx[0]
+
+    amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + tx_amt[0] if len(tx_amt) > 0 else 0, transaction_recipient[0], 0)
+    print(amount_received)
+
+
+
+
+    return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--. CERTO, ESSA DEVERÁ SER NOSSA LÓGICA PARA CALCULAR O AMOUNT_SENT E AMOUNT_RECEIVED...
+
+
+
+
+
+
+
+
+
+
+
+-> certo, mas meu código está com um problema:
+
+
+
+
+
+
+
+ele está mostrando o balance como 0...
+
+
+
+
+
+
+
+
+
+
+--> tenho que consertar isso...
+
+
+
+
+
+
+
+
+
+--> consertei... a list objetivada era 'transaction_sender',
+
+
+e naõ 
+
+
+'transaction_sender[0]'
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+def get_balance(participant): #versão COM O USO DE REDUCE NA NOSSA LIST...
+    transaction_sender = get_value('sender')
+    open_transactions_sender = [transaction['amount'] for transaction in open_transactions if transaction['sender'] == participant]
+    transaction_sender.append(open_transactions_sender)
+
+    # amount_sent = 0
+    # for tx in transaction_sender:
+    #     if len(tx) > 0:
+    #         amount_sent += tx[0]]
+    print(transaction_sender[0])
+
+    # def reduce_function(curValue, lastResult):
+    #     print(curValue, lastResult)
+    #     if len(curValue) > 0:
+    #         return curValue + lastResult
+       
+
+
+    # amount_sent = reduce(reduce_function, transaction_sender)
+    amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + tx_amt[0] if len(tx_amt) > 0 else 0, transaction_sender, 0)   #function a ser executada, LIST EM QUE EXECUTAR ESSA FUNCTION, e, por fim, o INDEX DO VALUE/ELEMENTO PELO QUAL QUEREMOS COMEÇAR O 'SUM UP'...
+                #obs: TERNARY EXPRESSIONS FUNCIONAM COM LAMBDA FUNCTIONS, MAS IF STATEMENTS, NAõ... ----> MAS TERNARY EXPRESSIONS TAMBÉM USAM 'if', no python....
+    
+    
+    print(amount_sent)
+   
+    transaction_recipient = get_value('recipient')
+    # amount_received = 0
+    # for tx in transaction_recipient:
+    #     if len(tx) > 0:
+    #         amount_received += tx[0]
+
+    amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + tx_amt[0] if len(tx_amt) > 0 else 0, transaction_recipient, 0)
+    print(amount_received)
+    return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+
+
+
+
+
+
+
+    CERTO, AGORA ESTAMSO USANDO ESSA LÓGICA PARA CONSEGUIR O RESULTADO//SOMA DE NOSSOS VALUESDO USER...
+
+
+
+
+
+
+
+
+
+
+
+    --> ISSO MOSTRA O PODER DO REDUCE:
+
+
+
+
+
+
+
+
+
+
+    1) MAS ELE PODE FAZER FRASES BEM LONGAS.. ISSO PODE SER DIFÍCIL DE LER...
+
+
+
+
+    20 NÃO É  TÃO FÁCIL DE LER..
+
+
+
+
+
+
+
+
+    --> DEVEMOS USAR  ISSO MAIS ALGUMAS VEZES....
+
+
+
+
+
+
+
+
+
+    --> PODEMOS USAR TANTO ISSO COMO O FOR LOOP, PARA SOMAR (SUMUP)
+     
+     NOSSOS VALUES...

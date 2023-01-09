@@ -1,0 +1,2096 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> precisamos de um endpoint de 
+
+
+'http://{}/broadcast-transaction'
+
+
+
+
+
+
+
+
+
+
+--> VAMOS ATÉ 'node.py'
+
+
+
+E, LÁ,
+
+o professor 
+
+
+
+
+
+VAI QUERER ADICIONAR UM NOVO METHOD/FUNCTION,
+
+que será 
+
+
+'broadcast_transaction'..
+
+
+
+
+
+
+
+
+
+-> ISSO TAMBÉM VAI RECEBER UM DECORATOR,
+
+QUE SERÁ 
+
+
+
+
+
+
+
+
+
+@app.route('/broadcast-transaction', methods=['POST'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------- ESSA ROUTE DEVERÁ SER CAPAZ DE 'HANDLE' 
+
+
+
+
+
+
+
+A TRANSACTION QUE VAMOS ESTAR 'BROADCASTING'...
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DESSA FUNCTION, É CLARO,
+
+
+
+VOCê _ 
+
+
+
+
+VAI QUERER __TAMBÉM RETRIEVAR ALGUNS 'VALUES'
+
+
+de nosso 
+
+incoming request..
+
+
+
+
+
+
+
+--> é por isso que escrevemos assim:
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request
+
+
+
+
+
+
+
+
+
+
+
+
+    --> e aí vamos executar '.get_json()', eu acho...
+
+
+
+
+
+
+
+
+
+
+---> exato, fica assim:
+
+
+
+
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json() 
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+--> É CLARO QUE PODEMOS TER UMA SITUAÇÃO EM QUE 
+
+
+
+'NENHUM VALUE 
+
+
+
+EXISTE DENTRO DO request enviado ao  '/broadcast-transaction'..
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json() 
+    if not values:
+        response = {'message': 'No data found.'}
+
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json() 
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OUTRA HIPÓTESE É QUE 'RECEBEMOS OS VALUES, MAS NÃO TODOS OS VALUES/DATA DE QUE PRECISAMOS'....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json() 
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    required = ['amount', 'recipient', 'signature', 'sender']
+    
+    for value in values:
+
+
+
+
+
+
+--> USAMOS AQUELA LÓGICA DE CHECK DE 'if not all':
+
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+
+    required = ['sender', 'recipient', 'amount', 'signature']
+    if (not all(field in values for field in required)):
+        response = {'message': 'The request is missing important data.'}
+        return jsonify(response), 400
+
+
+
+
+
+
+
+
+
+
+
+--> se não caímos nesses 2 if cases,
+
+
+continuamos...
+
+
+
+
+
+
+
+
+-----> COM ISSO, COM ESSA DATA ADICIONADA NO REQUEST,
+
+QUEREMOS 
+
+A 
+
+VERIFICAR,
+
+VER SE REALMENTE É VÁLIDA ESSA TRANSACTION,
+
+
+E ENTÃO 
+
+A 
+ADICIONAR 
+
+
+à TRANSACTION LIST ...
+
+
+
+
+
+
+
+
+
+
+
+
+----> para isso, já nos basta aquele method de 'add_transaction' 
+
+
+
+lá 
+
+em 'blockchain.py',
+
+
+PQ 
+
+ELE 
+
+
+TEM ESTA LÓGICA:
+
+
+
+
+
+
+
+
+  def add_transaction(self, sender, recipient, signature, amount=1.0):
+        """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+            Arguments:
+        :sender: o sender da transaction (nome ou id)   
+        :recipient: o receiver da transaction (nome ou id)
+        :signature: a SIGNATURE DE CADA TRANSACTION
+        :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+        """
+
+
+
+
+
+
+        new_transaction = Transaction(amount, recipient, signature, sender)
+
+
+        # if (not Wallet.verify_transaction(new_transaction)): ##redundante (já temos esse check no method call logo abaixo, de 'Utility')..
+        #     return False
+
+        if not Utility.verify_transaction(new_transaction, self.get_balance):
+            # print('Your funds are not enough for the chosen operation')
+            print('INVALID')
+            return False
+        else:
+            print('VALID')
+            self.__open_transactions.append(new_transaction)
+            self.participants.add(sender)
+            self.participants.add(recipient)
+            print(self.__open_transactions)
+            
+            # FileAccess.save_data(self._chain, self.__open_transactions)
+            # FileAccess.save_data(self._chain, self.get_open_transactions())
+            self.save_data()
+            for node in self.__peer_nodes: ###loop que vai por dentro de TODOS OS PEER NODES para enviar HTTP REQUESTS/info de que nossa transaction foi adicionada, _ A TODOS ELES...
+                url = f'http://{node}/broadcast-transition'
+                try: #vai 'try' esse disparo de http request específico, dentro do loop
+                    response = requests.post(url, json={   ##1o argumento é a url, o segundo é a DATA...  ---> no nosso caso, a data será UM DICT, que será automaticamente convertido em json data por meio desse methjod 'requests.post'...
+                                            'sender': sender, 'recipient': recipient, 'amount': amount, 'signature': signature       }  
+                                )  
+                    if response.status_code == 400 or response.status_code == 500:  ##vamos definir esses status codes de erro LÁ NA NOSSA RESPOSTA DO BACKEND... ('node.py')...
+                        print('Transaction declined, resolving needed.')
+                        return True
+                except requests.exceptions.ConnectionError:
+                    continue  ### se esse ERROR DE CONEXÃO (falha de conexão) FOR DETECTADO EM ALGUM DOS NODES, vamos querer simplesmente continuar pq _ EMBORA ESSE NODE TENHA FALHADO, TVZ OUTROS FUNCIONEM... --> ISSO PQ __ A TRANSACTION NÃO FALHOU A VALIDAITON POR SI SÓ, E SIM __ APENAS __ 'NÃO CONSEGUIMOS ENVIAR O REQUEST para esse NODE ESPECÍFICO' -> mas ainda vamos querer continuar disparando requests para os outros nodes...
+            return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ----> ELE RECEBE 
+
+
+            'recipient',
+
+            'sender',
+
+            'signature' 
+
+            e 
+
+            'amount'... -> aí ele VERIFICA ESSA TRANSACITON,
+
+            E
+
+
+            SE 
+
+
+            ESSE VERIFY É SUCCESSFUL,
+
+
+            ELE 
+
+
+            adiciona 
+
+        essa transaction ao 'open_transactions'...
+
+
+
+
+
+
+
+
+        -> MAS A SEGUNDA PARTE DE 'add_transaction' é que 
+
+        ELE ACTUALLY _ INFORMA TODOS OS OUTROS PEER NODES SOBRE ESSE ADD,
+
+
+        pq ele tem o código de 
+
+
+
+        ''
+
+                    for node in self.__peer_nodes: ###loop que vai por dentro de TODOS OS PEER NODES para enviar HTTP REQUESTS/info de que nossa transaction foi adicionada, _ A TODOS ELES...
+                url = f'http://{node}/broadcast-transition'
+                try: #vai 'try' esse disparo de http request específico, dentro do loop
+                    response = requests.post(url, json={   ##1o argumento é a url, o segundo é a DATA...  ---> no nosso caso, a data será UM DICT, que será automaticamente convertido em json data por meio desse methjod 'requests.post'...
+                                            'sender': sender, 'recipient': recipient, 'amount': amount, 'signature': signature       }  
+                                )  
+                    if response.status_code == 400 or response.status_code == 500:  ##vamos definir esses status codes de erro LÁ NA NOSSA RESPOSTA DO BACKEND... ('node.py')...
+                        print('Transaction declined, resolving needed.')
+                        return True
+                except requests.exceptions.ConnectionError:
+                    continue  ### se esse ERROR DE CONEXÃO (falha de conexão) FOR DETECTADO EM ALGUM DOS NODES, vamos querer simplesmente continuar pq _ EMBORA ESSE NODE TENHA FALHADO, TVZ OUTROS FUNCIONEM... --> ISSO PQ __ A TRANSACTION NÃO FALHOU A VALIDAITON POR SI SÓ, E SIM __ APENAS __ 'NÃO CONSEGUIMOS ENVIAR O REQUEST para esse NODE ESPECÍFICO' -> mas ainda vamos querer continuar disparando requests para os outros nodes...
+            return True
+
+
+
+
+        '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ------> ok... --> é por isso que podemos adicionar nosso method de 
+
+
+    add_transaction 
+
+
+    la´
+
+    na route de 
+
+    'broadcast-transaction'..
+
+
+
+
+
+
+
+
+    EX:
+
+
+
+
+
+    @app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+
+    required = ['sender', 'recipient', 'amount', 'signature']
+    if (not all(field in values for field in required)):
+        response = {'message': 'The request is missing important data.'}
+        return jsonify(response), 400
+    
+    blockchain.add_transaction()
+
+
+
+
+
+    ------------------
+
+
+
+
+
+
+
+
+
+
+    COMO 
+
+    ARGUMENTOS, VAMOS PASSAR 
+
+    'sender',
+
+    'recipient',
+
+
+
+    'amount' 
+
+
+    e 
+
+    'signature'...
+
+
+
+
+
+
+    EX:
+
+
+
+
+
+
+
+
+
+
+    @app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+
+    required = ['sender', 'recipient', 'amount', 'signature']
+    if (not all(field in values for field in required)):
+        response = {'message': 'The request is missing important data.'}
+        return jsonify(response), 400
+    
+    blockchain.add_transaction(values['sender'], values['recipient'], values['signature'], values['amount'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE SERÁ O CÓDIGO QUE 'RECEBERÁ' 
+
+
+
+o disparo de http request feito lá 
+
+
+em 
+
+'add_transaction', naquelas linhas de 
+
+
+
+
+'''
+for node in self.__peer_nodes: ###loop que vai por dentro de TODOS OS PEER NODES para enviar HTTP REQUESTS/info de que nossa transaction foi adicionada, _ A TODOS ELES...
+                url = f'http://{node}/broadcast-transition'
+
+    
+
+    '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS PRECISAMOS RETORNAR UMA RESPONSE EM 'broadcast_transaction',
+
+NESSA HIPÓTESE AÍ, TAMBém..
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+    success = blockchain.add_transaction(values['sender'], values['recipient'], values['signature'], values['amount'])
+    response = {
+        'message': 'A new transaction was added.'
+    }
+    return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+
+
+
+--> é claro que esse resultado de 'add_transaction'
+
+SERÁ ARMAZENADO EM UMA VARIÁVEL,
+que 
+
+será true ou false... -> aí 
+
+
+RETORNAMOS RESPONSES DIFERENTES A PARTIR DO VALOR DESSE BOOLEAN..
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+
+    required = ['sender', 'recipient', 'amount', 'signature']
+    if (not all(field in values for field in required)):
+        response = {'message': 'The request is missing important data.'}
+        return jsonify(response), 400
+    
+    success = blockchain.add_transaction(values['sender'], values['recipient'], values['signature'], values['amount'])
+    
+    if success: 
+        response = {
+        'message': 'A new transaction was added.',
+        'transaction': {
+            'sender': values['sender'],
+            'recipient': values['recipient'],
+            'amount': values['amount'],
+            'signature': values['signature']
+        },
+    }
+        return jsonify(response), 200
+    else: 
+        response = {
+            'message': 'Creating a response failed'
+        }
+        return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ---> esta parte aqui é importante:
+
+
+
+                response = {
+            'message': 'Creating a response failed'
+        }
+        return jsonify(response), 500
+
+
+
+
+
+
+--> PQ ISSO AÍ SERÁ RECEPCIONADO LÁ NO CÓDIGO DE 
+
+'add_transaction',
+
+
+que 
+
+
+
+
+TEM ESTE TRECHO AQUI:
+
+
+
+
+
+  self.save_data()
+            for node in self.__peer_nodes: ###loop que vai por dentro de TODOS OS PEER NODES para enviar HTTP REQUESTS/info de que nossa transaction foi adicionada, _ A TODOS ELES...
+                url = f'http://{node}/broadcast-transition'
+                try: #vai 'try' esse disparo de http request específico, dentro do loop
+                    response = requests.post(url, json={   ##1o argumento é a url, o segundo é a DATA...  ---> no nosso caso, a data será UM DICT, que será automaticamente convertido em json data por meio desse methjod 'requests.post'...
+                                            'sender': sender, 'recipient': recipient, 'amount': amount, 'signature': signature       }  
+                                )  
+                    if response.status_code == 400 or response.status_code == 500:  ##vamos definir esses status codes de erro LÁ NA NOSSA RESPOSTA DO BACKEND... ('node.py')...
+                        print('Transaction declined, resolving needed.')
+                        return False
+                except requests.exceptions.ConnectionError:
+                    continue  ### se esse ERROR DE CONEXÃO (falha de conexão) FOR DETECTADO EM ALGUM DOS NODES, vamos querer simplesmente continuar pq _ EMBORA ESSE NODE TENHA FALHADO, TVZ OUTROS FUNCIONEM... --> ISSO PQ __ A TRANSACTION NÃO FALHOU A VALIDAITON POR SI SÓ, E SIM __ APENAS __ 'NÃO CONSEGUIMOS ENVIAR O REQUEST para esse NODE ESPECÍFICO' -> mas ainda vamos querer continuar disparando requests para os outros nodes...
+            return True
+
+
+
+
+
+
+
+
+
+
+
+
+            este trecho aqui:
+
+
+
+
+
+     if response.status_code == 400 or response.status_code == 500:  ##vamos definir esses status codes de erro LÁ NA NOSSA RESPOSTA DO BACKEND... ('node.py')...
+                        print('Transaction declined, resolving needed.')
+                        return False
+
+
+
+
+
+
+
+
+
+    --> se detectar que o status da response foi de invalid (500),
+
+
+
+    ele vai retornar False, O QUE VAI CANCELAR A OPERAÇÃO.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> com isso settado,
+
+    temos nossa function 
+
+    de 
+
+    'broadcast_transaction()'..
+
+
+
+
+
+
+
+
+    -----> OK, MAS AQUI TEMOS UM __ PROBLEMA.. --> O PROBLEMA É QUE 
+
+
+
+    ESSA FUNCTION DE 
+
+
+    'broadcast_transaction'
+
+
+    VAI _ CRIAR UM LOOP, EU ACHO..
+
+
+
+
+
+
+
+
+    --> MAS ISSO NÃO É NECESSARIAMENTE UM __ PROBLEMA MT GRANDE... -> 
+
+
+    PQ A ÚNICA COISA QUE REALMENTE FAZEMOS EM 'add_transaction'
+
+
+    É CHECAR SE TEMOS UMA 'PUBLIC KEY'...
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROBLEMA DE FATO É ENCONTRADO NO INTERIOR DE 
+
+'add_transaction',
+
+
+NAQUELE CÓDIGO DE 'verify_transaction',
+
+
+
+
+PQ O CÓDIGO É ASSIM:
+
+
+
+  if not Utility.verify_transaction(new_transaction, self.get_balance):
+
+
+
+
+
+
+
+
+
+
+  --> nós estamos passando o BALANCE DE 
+
+
+
+  CADA 'node'... --> E SE DERMOS UMA OLHADA 
+
+
+  Em 
+
+  'verify_transaction',
+
+
+
+
+  NÓS CHECAMOS SE 
+
+
+    sender_balance = get_balance()
+  'sender_balance >= transaction.amount and Wallet.verify
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -->MAS O PROBLEMA É JUSTAMENTE QUE ESSE 'get_balance()"
+  
+
+
+
+  SEMPRE UTILIZA A 'public_key'
+
+
+
+  DO NODE __ DO USER _ QUE _ ESTÁ _ RECEBENDO A TRANSACTion (
+
+
+
+      '''ESSA TRANSACTION, ERRONEAMENTE,
+      NÃO VAI 
+
+        SUCCEED SE O __PEER__NODE __ NÃO TIVER 
+
+        FUNDS SUPERIORES àQUELES QUE FORAM ENVIADOS NA TRANSACTION EM SI'''... 
+  ) -------> E É CLARO QUE 
+
+
+  ESSE É O CHECK ERRADO,
+
+
+  PQ NOSSO PEER NODE NÃO É 
+
+
+  O NODE ENVIANDO OS COINS,
+
+  E SIM SÓ AQUELE QUE ACABA OS __ RECEBENDO_.... ------> PROFESSOR 
+
+
+
+
+
+  DIZ QUE PODEMOS FACILMENTE _ CONSERTAR ESSE PROBLEMA POR MEIO 
+
+
+
+  DE TWEAKS NO 
+
+
+  METHOD DE 
+
+  'get_balance'...
+
+
+
+
+
+
+
+
+
+
+  --> lá em blockchain.py,
+
+
+  em que temos 'get_balance',
+
+
+
+
+
+
+  ___ PODEMOS __ EXPECT MAIS UM ARGUMENTO,
+
+
+
+  QUE VAMOS CHAMAR DE 
+
+  'sender'...
+
+
+
+
+
+
+  ----> SERÁ UM ARGUMENTO COM UM VALOR DEFAULT DE 'None' (case em que NÃO ESTAMOS ADICIONANDO ESSA TRANSACTION AOS OUTROS NODES... é o add default, NO PRÓPRIO NODE que está tentando fazer a transaction/faz a transaction)...
+
+
+
+
+
+
+
+
+  EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    def get_balance(self, sender=None):
+
+        participant = self.hosting_node
+
+
+        transaction_sender = self.get_value('sender')
+
+        print(transaction_sender, 'LINE2')
+
+        open_transactions_sender = [transaction.amount
+                                    for transaction in self.get_open_transactions() if transaction.sender == participant]
+
+        transaction_sender.append(open_transactions_sender)
+
+        # print(transaction_sender[0])
+
+        # print(transaction_sender)
+
+        amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                             if len(tx_amt) > 0 else tx_sum + 0, transaction_sender, 0)
+
+        
+
+        # print(amount_sent)
+
+        transaction_recipient = self.get_value('recipient')
+
+        amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                                 if len(tx_amt) > 0 else tx_sum + 0, transaction_recipient, 0)
+
+        print(amount_received - amount_sent, 'LINEr')
+        # print(amount_received)
+        return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+--> OK, SE O PARÂMETRO DE 'sender' NÃO FOR IGUAL A 'None',
+
+
+
+
+VAMOS QUERER DEFINIR O 'participant'
+
+
+
+
+
+COMO SENDO __ EQUIVALENTE __ ao parâmetro de 'sender'... (pq vamos procurar o balance do CARA QUE ESTÁ REALMENTE ENVIANDO OS COINS/fez a transaction)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> a lógica fica tipo assim:
+
+
+
+
+
+
+
+
+if sender == None:
+    if self.public_key == None:
+        return None
+    participant = self.public_key
+else:
+    participant = sender
+
+
+
+
+
+
+
+
+    -> COM ISSO, TEREMOS A MESMA FUNCIONALIDADE DE ANTES,
+
+
+
+MAS SE AGORA FORMOS ATÉ NOSSO 'verify_transaction',
+
+PODEMOS 
+
+SIMPLESMENTE PASSAR 
+
+
+'transaction.sender' 
+
+
+ao 
+
+
+
+'sender_balance = get_balance(transaction.sender)'
+
+
+
+
+
+
+--> PQ SABEMOS QUE __ O SENDER SEMPRE SERÁ A COISA CERTA A 'SE PROCURAR O BALANCE DE'... (
+
+    com isso, consertamos esse problema de 'checar o balance errado'...
+)
+
+
+
+
+
+
+
+
+
+
+-> certo.. ficamos com a mesma funcionalidade de antes, mas agora com essa distinção (
+
+
+
+
+
+    pq checamos a baklance em diferentes lugares,
+
+
+
+    o lugar de 'verify_transaction'
+
+
+    em que o executamos É BEM DIFRENTE DO LOCAL EM 'add_transaction',
+
+
+    pq em add_transaction
+
+
+    NÃO TEMOS O PASS DE UM PARÂMTRO 'sender' (o que resulta em 'None', que resulta na lógica alternativa de 'get_balance' sendo executada)...
+)
+
+
+
+
+
+
+
+
+
+
+--> AGORA SEMPRE SERÁ CHECADA A BALANCE DO 'TRANSACTION SENDER'
+
+
+
+antes de SER __ VERIFICADA_ A TRANSACTION....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSA É UMA COISA CONSERTADA..
+
+
+
+
+
+
+
+--> MAS E QUANTO AQUELE TRECHO DE 
+
+
+
+'Wallet.verify_transaction(transaction)?'
+
+
+
+
+
+
+
+
+
+
+--> ou seja,
+
+
+quanto 
+ao 
+VERIFY_TRANSACTION 
+
+LÁ 
+
+
+
+DE NOSSA 'WALLET'....
+
+
+ex:
+
+
+
+
+
+
+    def verify_transaction(transaction): 
+
+            public_key = RSA.importKey(binascii.unhexlify(transaction.sender)) ##key extraída da transaction, inicialmente formato string, é convertida em BINARY DATA por meio de 'unxexlify' e 'importKey'...
+            
+            verifier = PKCS1_v1_5.new(public_key)
+            payload_h = SHA256.new((str(transaction.amount) + str(transaction.recipient) + str(transaction.sender)).encode('utf8'))
+            
+            signature = binascii.unhexlify(transaction.signature)
+
+            return verifier.verify(payload_h, signature)
+
+
+        
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE METHOD, ESTAMOS SEMPRE EXTRAINDO O 'sender' COMO UMA PUBLIC KEY.. --> e isso é sempre 
+
+bem sucedido, não importa EM QUE NODE ESSE 'verify_transaction'
+
+está sendo executado...
+
+
+
+
+
+
+
+
+
+
+--> MAS HÁ OUTRA COISA QUE TEMOS QUE VER.... ---> LÁ EM 
+
+
+'add_transaction',
+
+
+
+
+QUE É O METHOD QUE 
+
+ESTAMOS EXECUTANDO 
+
+
+
+
+
+
+
+__TAMBÉM__ QUANDO ESTAMOS 
+
+
+
+
+
+RECEBENDO UM 'broadcast_transaction'... -> 
+
+
+
+
+
+
+POR MEIO DAQUELE CÓDIGO DE 
+
+
+''
+
+ for node in self.__peer_nodes: ###loop que vai por dentro de TODOS OS PEER NODES para enviar HTTP REQUESTS/info de que nossa transaction foi adicionada, _ A TODOS ELES...
+                url = f'http://{node}/broadcast-transition'
+                try: #vai 'try' esse disparo de http request específico, dentro do loop
+                    response = requests.post(url, json={   ##1o argumento é a url, o segundo é a DATA...  ---> no nosso caso, a data será UM DICT, que será automaticamente convertido em json data por meio desse methjod 'requests.post'...
+                                            'sender': sender, 'recipient': recipient, 'amount': amount, 'signature': signature       }  
+                                )  
+                    if response.status_code == 400 or response.status_code == 500:  ##vamos definir esses status codes de erro LÁ NA NOSSA RESPOSTA DO BACKEND... ('node.py')...
+                        print('Transaction declined, resolving needed.')
+                        return True
+                except requests.exceptions.ConnectionError:
+                    continue  ### se esse ERROR DE CONEXÃO (falha de conexão) FOR DETECTADO EM ALGUM DOS NODES, vamos querer simplesmente continuar pq _ EMBORA ESSE NODE TENHA FALHADO, TVZ OUTROS FUNCIONEM... --> ISSO PQ __ A TRANSACTION NÃO FALHOU A VALIDAITON POR SI SÓ, E SIM __ APENAS __ 'NÃO CONSEGUIMOS ENVIAR O REQUEST para esse NODE ESPECÍFICO' -> mas ainda vamos querer continuar disparando requests para os outros nodes...
+            return True
+
+
+
+
+
+
+'',
+
+
+
+
+TAMBÉM ESTAMOS CONTATANDO __ TODOS OS PEER NODES...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE 
+
+
+
+SE __ NÓS _ 
+
+BROADCASTARMOS __ NOSSA TRANSACTION A UM 'PEER NODE',
+
+
+
+AQUELE PEER NODE _ TAMBÉM __ VAI BROADCAST  
+
+
+
+
+
+
+A NOSSA TRANSACTION __ AOS OUTROS PEER NODES.... -> E, TEORICAMENTE,
+
+
+
+__ É __ _ESSE O COMPORTAMENTO QUE DESEJAMOS... -----> ENTRETANTO,
+
+
+
+NO MUNDO REAL,
+
+
+
+
+ESSE COMPORTAMENTO PODE ACABAR LEVANDO 
+
+
+A UM 
+
+
+REQUEST ______________MUUUUUUUUUUUUUUUUITO LONGO..... -> PQ QUANDO FOR ENVIADO 1 REQUEST 
+
+A 
+
+
+1 
+
+PEER NODE,
+
+
+O PEER NODE VAI ENVIAR OS REQUESTS 
+
+
+
+AOS SEUS PEER NODES,
+
+
+E AÍ 
+
+
+
+OS PEER NODES FAZEM UMA CHAIN INFINITA 
+
+
+DE REQUESTS 
+
+
+
+
+
+INDO E VINDO,
+
+
+E __ APENAS DEPOIS _ DE 
+
+CONSEGUIRMOS 
+
+UMA RESPONSE,
+
+
+
+
+SÓ DEPOIS DESSE PROCESSO IMENSO,
+
+É QUE 
+
+NOSSO 'FIRST NODE',
+
+
+
+O NODE QUE 
+
+ORIGINALMENTE CRIOU UMA TRANSACTION,
+
+
+
+VAI SER CAPAZ DE CONTINUAR.......... ---------> NO MUNDO REAL,
+
+
+
+
+VOCÊ SERIA CAPAZ DE 
+
+'WORK AROUND THAT' 
+
+
+POR MEIO 
+
+
+
+
+
+
+DO SEND __ DESSES REQUESTS_ _ DE FORMA __ ___sEPARADA__ DE QUANDO 
+
+
+VOCÊ ADICIONA UMA TRANSACTION NO 'ORIGINAL NODE'... ------->  ISSO É ALGO QUE VEREMOS 
+
+
+
+
+MAIS TARDE NO CURSO, QUANDO O PROFESSOR FALAR DO 
+
+
+'POLISH'
+
+desse código... (
+
+
+    e sobre como vocÊ poderia melhorar essa lógica...
+)
+
+
+
+
+
+
+
+--> POR ENQUANTO,
+
+VAMOS 
+
+
+TRABALHAR 
+
+
+SOBRE ESSE PROBLEMA AÍ,
+
+
+
+por meio 
+
+
+do 
+
+
+EXPECT DE UM 
+
+
+ARGUMENTO ADICIONAL 
+
+
+
+em 
+
+
+'add_transaction',
+
+
+UM ARGUMENTO COM UM VALOR  __DEFAULT,
+
+
+
+QUE SERÁ 
+
+
+
+'is_receiving' 
+
+
+
+
+
+
+
+
+--> O VALOR DEFAULT DISSO SERÁ DE 'false'..
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+is_receiving=false 
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+    def add_transaction(self, sender, recipient, signature, amount=1.0, is_receiving=False):
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO,
+
+
+O PROFESSOR QUER 
+
+
+
+'''MARCAR'''
+
+
+SE 
+
+ESTAMOS 
+
+
+
+1) CREATING A NEW TRANSACTION (user que COMEÇA A CHAIN DE 'criei uma transaction')
+
+
+
+2) ADICIONANDO ESSA TRANSACTION EM NODES QUE NÃO FORAM AQUELES QUE CRIARAM ESSA TRANSACTION... (''receiving a broadcast transaction''')..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ, A PARTIR DISSO,
+
+O PROFESSOR __ SÓ VAI QUERER_ 
+
+
+EXECUTAR A LÓGICA de 
+
+
+
+
+''
+
+
+
+
+ for node in self.__peer_nodes: ###loop que vai por dentro de TODOS OS PEER NODES para enviar HTTP REQUESTS/info de que nossa transaction foi adicionada, _ A TODOS ELES...
+                url = f'http://{node}/broadcast-transition'
+                try: #vai 'try' esse disparo de http request específico, dentro do loop
+                    response = requests.post(url, json={   ##1o argumento é a url, o segundo é a DATA...  ---> no nosso caso, a data será UM DICT, que será automaticamente convertido em json data por meio desse methjod 'requests.post'...
+                                            'sender': sender, 'recipient': recipient, 'amount': amount, 'signature': signature       }  
+                                )  
+                    if response.status_code == 400 or response.status_code == 500:  ##vamos definir esses status codes de erro LÁ NA NOSSA RESPOSTA DO BACKEND... ('node.py')...
+                        print('Transaction declined, resolving needed.')
+                        return True
+                except requests.exceptions.ConnectionError:
+                    continue  ### se esse ERROR DE CONEXÃO (falha de conexão) FOR DETECTADO EM ALGUM DOS NODES, vamos querer simplesmente continuar pq _ EMBORA ESSE NODE TENHA FALHADO, TVZ OUTROS FUNCIONEM... --> ISSO PQ __ A TRANSACTION NÃO FALHOU A VALIDAITON POR SI SÓ, E SIM __ APENAS __ 'NÃO CONSEGUIMOS ENVIAR O REQUEST para esse NODE ESPECÍFICO' -> mas ainda vamos querer continuar disparando requests para os outros nodes...
+            return True
+
+
+''',
+
+
+
+que 
+
+
+DISPARA 
+
+
+
+REQUESTS A TODOS OS OUTROS NODES,
+
+
+
+
+
+
+
+
+
+__ SOMENTE__ 
+
+
+NO NODE QUE EFETIVAMENTE CRIOU/ESCREVEU A TRANSACTION... ( ou seja,
+
+
+
+
+se o 'receiving' estiver como FALSE, que é o que acontece quando 'add_transaction' é chamado SEM ESSE ARGUMENTO AÍ)...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+def add_transaction(self, sender, recipient, signature, amount=1.0, is_receiving=False):
+        """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+            Arguments:
+        :sender: o sender da transaction (nome ou id)   
+        :recipient: o receiver da transaction (nome ou id)
+        :signature: a SIGNATURE DE CADA TRANSACTION
+        :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+        """
+
+
+
+
+
+
+        new_transaction = Transaction(amount, recipient, signature, sender)
+
+
+        # if (not Wallet.verify_transaction(new_transaction)): ##redundante (já temos esse check no method call logo abaixo, de 'Utility')..
+        #     return False
+
+        if not Utility.verify_transaction(new_transaction, self.get_balance):
+            # print('Your funds are not enough for the chosen operation')
+            print('INVALID')
+            return False
+        else:
+            print('VALID')
+            self.__open_transactions.append(new_transaction)
+            self.participants.add(sender)
+            self.participants.add(recipient)
+            print(self.__open_transactions)
+            
+            # FileAccess.save_data(self._chain, self.__open_transactions)
+            # FileAccess.save_data(self._chain, self.get_open_transactions())
+            self.save_data()
+            for node in self.__peer_nodes: ###loop que vai por dentro de TODOS OS PEER NODES para enviar HTTP REQUESTS/info de que nossa transaction foi adicionada, _ A TODOS ELES...
+                url = f'http://{node}/broadcast-transition'
+                try: #vai 'try' esse disparo de http request específico, dentro do loop
+                    response = requests.post(url, json={   ##1o argumento é a url, o segundo é a DATA...  ---> no nosso caso, a data será UM DICT, que será automaticamente convertido em json data por meio desse methjod 'requests.post'...
+                                            'sender': sender, 'recipient': recipient, 'amount': amount, 'signature': signature       }  
+                                )  
+                    if response.status_code == 400 or response.status_code == 500:  ##vamos definir esses status codes de erro LÁ NA NOSSA RESPOSTA DO BACKEND... ('node.py')...
+                        print('Transaction declined, resolving needed.')
+                        return True
+                except requests.exceptions.ConnectionError:
+                    continue  ### se esse ERROR DE CONEXÃO (falha de conexão) FOR DETECTADO EM ALGUM DOS NODES, vamos querer simplesmente continuar pq _ EMBORA ESSE NODE TENHA FALHADO, TVZ OUTROS FUNCIONEM... --> ISSO PQ __ A TRANSACTION NÃO FALHOU A VALIDAITON POR SI SÓ, E SIM __ APENAS __ 'NÃO CONSEGUIMOS ENVIAR O REQUEST para esse NODE ESPECÍFICO' -> mas ainda vamos querer continuar disparando requests para os outros nodes...
+            return True
+
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+OK, AÍ COLOCAMOS UM IF CHECK:
+
+
+
+
+
+
+
+
+
+
+
+if (not is_receiving):
+    for node in self.__peer_nodes: ###loop que vai por dentro de TODOS OS PEER NODES para enviar HTTP REQUESTS/info de que nossa transaction foi adicionada, _ A TODOS ELES...
+                url = f'http://{node}/broadcast-transition'
+                try: #vai 'try' esse disparo de http request específico, dentro do loop
+                    response = requests.post(url, json={   ##1o argumento é a url, o segundo é a DATA...  ---> no nosso caso, a data será UM DICT, que será automaticamente convertido em json data por meio desse methjod 'requests.post'...
+                                            'sender': sender, 'recipient': recipient, 'amount': amount, 'signature': signature       }  
+                                )  
+                    if response.status_code == 400 or response.status_code == 500:  ##vamos definir esses status codes de erro LÁ NA NOSSA RESPOSTA DO BACKEND... ('node.py')...
+                        print('Transaction declined, resolving needed.')
+                        return True
+                except requests.exceptions.ConnectionError:
+                    continue  ### se esse ERROR DE CONEXÃO (falha de conexão) FOR DETECTADO EM ALGUM DOS NODES, vamos querer simplesmente continuar pq _ EMBORA ESSE NODE TENHA FALHADO, TVZ OUTROS FUNCIONEM... --> ISSO PQ __ A TRANSACTION NÃO FALHOU A VALIDAITON POR SI SÓ, E SIM __ APENAS __ 'NÃO CONSEGUIMOS ENVIAR O REQUEST para esse NODE ESPECÍFICO' -> mas ainda vamos querer continuar disparando requests para os outros nodes...
+            return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def add_transaction(self, sender, recipient, signature, amount=1.0, is_receiving=False):
+
+
+
+
+                    if (not is_receiving):
+            for node in self.__peer_nodes: ###loop que vai por dentro de TODOS OS PEER NODES para enviar HTTP REQUESTS/info de que nossa transaction foi adicionada, _ A TODOS ELES...
+                url = f'http://{node}/broadcast-transition'
+                try: #vai 'try' esse disparo de http request específico, dentro do loop
+                    response = requests.post(url, json={   ##1o argumento é a url, o segundo é a DATA...  ---> no nosso caso, a data será UM DICT, que será automaticamente convertido em json data por meio desse methjod 'requests.post'...
+                                            'sender': sender, 'recipient': recipient, 'amount': amount, 'signature': signature       }  
+                                )  
+                    if response.status_code == 400 or response.status_code == 500:  ##vamos definir esses status codes de erro LÁ NA NOSSA RESPOSTA DO BACKEND... ('node.py')...
+                        print('Transaction declined, resolving needed.')
+                        return False
+                except requests.exceptions.ConnectionError:
+                    continue  ### se esse ERROR DE CONEXÃO (falha de conexão) FOR DETECTADO EM ALGUM DOS NODES, vamos querer simplesmente continuar pq _ EMBORA ESSE NODE TENHA FALHADO, TVZ OUTROS FUNCIONEM... --> ISSO PQ __ A TRANSACTION NÃO FALHOU A VALIDAITON POR SI SÓ, E SIM __ APENAS __ 'NÃO CONSEGUIMOS ENVIAR O REQUEST para esse NODE ESPECÍFICO' -> mas ainda vamos querer continuar disparando requests para os outros nodes...
+
+            return True
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+OK... AGORA ISSO SIGNIFICA QUE 
+
+SÓ VAMOS 'BROADCAST' isso a outros nodes SE 
+
+
+REALMENTE ESTIVERMOS NO 'ORIGINAL NODE' que criou essa transaction
+
+
+
+
+
+
+
+
+
+--> O valor de 'is_receiving'
+
+SERÁ DEFINIDO COMO 'true'
+
+QUANDO ESTIVERMOS CHAMANDO 
+
+'add_transaction' 
+
+LÁ 
+
+
+
+DE DENTRO 
+
+DA FUNCTION DE 
+
+'def broadcast_transaction()'....
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+
+    required = ['sender', 'recipient', 'amount', 'signature']
+    if (not all(field in values for field in required)):
+        response = {'message': 'The request is missing important data.'}
+        return jsonify(response), 400
+    
+    success = blockchain.add_transaction(values['sender'], values['recipient'], values['signature'], values['amount'], True)
+    
+    if success: 
+        response = {
+        'message': 'A new transaction was added.',
+        'transaction': {
+            'sender': values['sender'],
+            'recipient': values['recipient'],
+            'amount': values['amount'],
+            'signature': values['signature']
+        },
+    }
+        return jsonify(response), 200
+    else: 
+        response = {
+            'message': 'Creating a response failed'
+        }
+        return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ----> OK .... EVITAMOS ESSA INFINITE CHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+        --> NOSSA FUNCTION DE 'broadcast_transaction'
+
+
+        ESTÁ FICANDO NICE,
+
+
+        DEVEMOS TESTAR E A TERMINAR NA PRÓXIMA LECTURE...

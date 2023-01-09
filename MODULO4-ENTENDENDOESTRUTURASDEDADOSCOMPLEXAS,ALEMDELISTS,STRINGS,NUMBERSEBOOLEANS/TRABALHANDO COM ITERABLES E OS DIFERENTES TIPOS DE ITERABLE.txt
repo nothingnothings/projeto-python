@@ -1,0 +1,630 @@
+
+
+
+
+
+
+
+
+
+--> DEVEMOS VER AS DATA STRUCTURES DISPONÍVEIS NO PYTHON....
+
+
+
+
+
+
+
+--> VEREMOS AS DATA STRUCTURES QUE PODEMOS 'LOOP THROUGH'..
+
+
+
+
+
+
+
+
+
+--> ELAS COMPARTILHAM ALGUMAS FUNCIONALIDADES, A RESPEITO DE SEUS _ VALUES_...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PRIMEIRO TEMOS A LIST:
+
+
+
+
+
+
+
+
+
+1) LIST --> ['Milk', 'Honey', 'Milk']
+
+
+
+
+
+
+
+--> NESSE EXEMPLO TEMOS UMA LIST COM STRINGSF.... --> PODEMOS 
+
+TER NESTED 
+
+LISTS EM UMA LIST...
+
+
+
+
+
+
+
+--> LISTS SÃO _:
+
+A) MUTABLE 
+
+
+B) ORDERED 
+
+
+
+C) ACEITAM DUPLICADTAS...  (2 milk)....
+
+
+
+
+D)  GERALMENTE TEREMOS SÓ 1 TYPE DE DATA EM UMA STRING, SEM 'MISTUREBA'....
+
+
+--> MAS ESSE NÃO É UM HARDLIMIT...
+
+
+
+
+
+
+---> NO NOSSO BLOCKCHAIN ATUAL,
+
+
+
+TEMOS  MIXED TYPES, PQ TEMOS LISTS E FLOATS NO INTERIOR....
+
+
+
+
+
+
+
+
+
+
+
+-- >MAS NA GRANDE MAIORIA DOS CASOS VOCê UTILIZARÁ APENAS 1 TYPE DE DATA EM UMA LIST...
+
+
+
+
+
+
+
+
+
+
+---> OK.... MAS AGORA VEREMOS UM NOVO TIPO DE ITERABLE,
+
+
+
+QUE É O:
+
+
+
+
+
+
+
+
+
+2) SET ----> UM SET NÃO É [] e sim é {
+
+}....
+
+
+
+
+
+UM SET SEMPRE É:
+
+
+1) MUTABLE 
+
+
+
+
+2) DIFERENTEMENTE DA LIST, ELE É __ UNORDERED___ (ou seja, é como um OBJECT).... 
+
+
+
+
+3) BEM IMPORTANTE: _ NÃO É POSSÍVEL _ TER DUPLICATAS __ EM 1 'SET' (exatamente como um object)...
+
+
+
+
+
+
+4) por fim, ASSIM COMO A LIST COMUM, EM SETS ___ TEREMOS __ GERALMENTE __ APENAS 1 TYPE DE DATA..
+
+
+
+
+
+
+
+
+exemplo de 'set':
+
+
+
+
+
+
+{'Milk', 'Honey'}
+
+
+
+
+
+
+
+
+
+
+
+-------> OS SETS SÃO BONS QUANDO VOCê NÃO QUER TER DUPLICATES...
+
+
+
+
+
+
+
+
+--> MAS ASSIM COMO AS LISTS, NÃO HÁ UM HARD REQUIREMENT PARA APENAS 1 DATA TYPE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> DEPOIS DISSO, TEMOS AS ___ TUPLES_>.....
+
+
+
+
+
+----> 3) TUPLES
+
+
+
+
+ 
+
+ SÃO CRIADAS COM A SINTAXE DE 
+
+
+ ( 'Milk', 'Honey')
+
+
+
+
+
+
+
+
+ ----> PARÊNTESES NORMAIS....
+
+
+
+
+
+
+
+
+
+ --> PARTES IMPORTANTES:
+
+
+
+
+ A) SÃO __ IMMUTABLE (vocÊ as cria uma única vez, e aí nunca mais pode as alterar.... comportamento similar a de uma constante)...
+
+
+
+
+ --> ISSO PODE PARECER SUPER INFLEXÍVEL A PRIORI, MAS NA VERDADE TRAZ VANTAGENS EM ALGUNS USE CASES (
+     se vocÊ tem alguns hard-coded defaults, 
+
+     que vocÊ quer usar no seu app, que vocÊ nunca quer alterar,
+
+     vocÊ pode usar as tuples para o managear...
+ )
+
+
+
+ --> você também às vezes vai querer criar uma tuple para um conjunto user input, tipo user-password....  ---->
+
+
+
+ CASOS EM QUE VOCê NUNCA MAIS PRETENDE RECEBER USER INPUT PARA ISSO AÍ....
+  
+
+
+
+
+
+
+  B) TUPLES SÃO __ ORDERED__ (como normal lists) 
+
+
+
+
+
+
+  C) E PODEM  TER DUPLICATES, EXATAMENTE COMO NORMAL LISTS..
+
+
+
+
+
+
+
+D) SÃO FREQUENTEMENTE __ USADAS _ COM MIXED TYPES,
+
+MAS __ iSSO __ NÃO É UM REQUIREMENT (vocÊ pode ter mais de 1 tipo de data em uma tuple)....
+
+
+
+
+
+É BEM COMUM USAR UMA TUPLE _ PARA __ AGRUPAR_ _DATA, CONJUNTOS DE DATA...
+
+
+
+
+
+
+
+EX: TUPLE QUE GUARDA QUE GUARDA 'ITEM QUE VOCEÊ QUER COMPRAR' NO PRIMEIRO VALOR,
+
+E AÍ 
+
+NO SEGUNDO VALOR SERÁ A QUANTIDADE DAQUELE ITEM QUE VOCÊ QUER COMPRAR....
+
+
+
+
+
+
+
+
+
+
+--> TUPLES TAMBÉM SÃO IMPORTANTES PQ __ FUNCIONAM COM CERTA FEATURE QUE O PYTHON NOS PROVIDENCIA....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ÚLTIMA DATA STRUCTURE,
+
+
+O DICTIONARY:
+
+
+
+
+
+
+
+
+4) DICTIONARY ----->
+
+
+
+
+
+
+
+
+O FORMATO DELES É BEM PARECIDO COM UM OBJECT:
+
+
+{
+    'name': 'Milk', 
+    'n': 2
+}
+
+
+
+
+
+
+
+
+--> SE PARECE COM UM JAVASCRIPT OBJECT -->
+
+
+
+E, NO FINAL DAS CONTAS, PYTHON DICTIONARIES SÃO ESSENCIALMENTE 'MAPS'....
+
+
+
+
+
+
+
+A) SÃO MUTABLE 
+
+
+
+B) SÃO UNORDERED -----> A ORDER NÃO É GARANTIDA, COMO EM UM OBJECT...
+
+
+
+
+
+
+C) A COISA IMPORTANTE É __ QUE __ TEMOS KEY-VALUE PAIRS_ NO INTERIOR __ DESSE OBJECT/DICTIONARY...
+
+(
+
+    temos sempre um identifier e aí o value...
+)
+
+
+
+
+
+c.1) NÃO TEMOS UM INDEX OU QUALQUER COISA DO GÊNERO...      ]
+
+
+
+c.2) TEMOS SEMPRE UM IDENTIFIER, WRAPPADO POR '', como esse 'name'....
+
+
+c.3) e aí temos um VALUE ASSIGNADO A ESSE IDENTIFIER.... (como 'Milk')...
+
+
+
+
+
+
+
+
+
+--> ESSES IDENTIFIERS/KEYS _ NÃO PODEM SER DUPLICATE, MAS OS VALUES PODEM ACONTECER QUANTAS VEZES VOCê QUISER...
+
+
+
+
+
+
+
+
+
+
+D) MIXED TYPES -> SÃO PERMITIDOS.... ------> 
+
+
+
+
+
+
+
+VOCê USA DICTIONARIES PARA MIXED DATA TYPES..  (no exemplo, vemos tanto o 2 como 'Milk', uma stringg)...- -> MAS O QUE INTERESSA É QUE OS KEY-VALUE PAIRS SEMPRE DEVEM SER UTILIZADOS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RECAP:
+
+
+
+
+
+
+
+
+{
+     --> sempre será UNORDERED...
+}
+
+
+
+
+[
+
+
+]
+
+
+() --> coisas ORDERED...
+
+
+
+
+
+
+
+
+
+{
+    'EXEMPLO', 'EXEMPLO2'
+}
+
+
+
+
+
+isso é um SET .... --> set pq É UNORDERED, E NÃO ACEITA DUPLICATES....
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tuple2 = ('exemplo1', 2, 'exemplo2') # TUPLE --> ORDER IMPORTA, ACEITA DUPLICATES, mixed types frequentes.... E __É IMMUTABLE__....
+
+
+
+
+
+
+
+
+
+set2 = {
+    'exemplo', 2, 'exemplo2', 'exemplo'   #SET --> oRDER NÃO IMPORTA, ACEITA DUPLICATES, GERALMENTE TERÁ SÓ 1 TYPE (mas é flexível) ----> É MUTABLE....
+}
+
+
+
+
+
+
+
+list = ['exemplo1' , 'exemplo2', 'exemplo1', 2] #LIST --> ORDER IMPORTA, DUPLICATES SÃO POSSÍVEIS, MUTABLE, MIXED TYPES POSSÍVEIS (mas incomuns)...
+
+
+
+
+
+
+
+
+
+dictionary = { # order não importa, mutable, mixed data types possíveis (em diferentes keys), DUPLICATES NÃO PERMITIDAS...
+    'exemplo1': 'string',
+    'exemplo2': 12212
+    'exemplo1': 'xxx', #duplicatas não permitidas (no espaço 'key')
+    'exemplo3': 12212 #duplicates permitidas NO CAMPO DOS VALUES...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+('tuple', 'tuple2', 'tuple', 1212)  #immutable, order importa, duplicatas possíveis, mixed data types SÃO COMUNS...
+
+
+
+
+
+
+
+
+
+
+{  # set --> mutable, order não importa, mixed types (incomum), duplicates possíveis.....
+    'SET', 'SET2', 'SET'
+}
+
+
+
+
+
+{
+
+'dic': '1',  #duplicatas NAÕ POSSÍVEIS, MIXED DATA TYPES, MUTABLE, NÃO ORDERED...
+'dic2': 2,
+'dic': '1'
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AGORA DEVEMOS VER COMO APLICAR ISSO NA NOSSA BLOCKCHAIN...

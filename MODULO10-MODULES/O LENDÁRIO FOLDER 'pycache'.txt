@@ -1,0 +1,108 @@
+
+
+
+
+
+
+
+
+
+
+----> AGORA PODEMOS TER NOTADO AQUELE FOLDER DE '__pycache__',
+
+que JÁ TINHAMOS ANTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ESSE É UM FOLDER GERADO AUTOMATICAMENTE __ PELO PYTHON ... .------> O PYTHON, NO FINAL DAS CONTAS,
+
+
+
+
+
+
+
+É COMPILADO EM 'BYTE CODE' 
+
+
+
+QUANDO ELE __ RODA_ _ NA SUA MÁQUINA... ________--> E O FOLDER 
+
+
+
+'pycache'
+
+SIMPLESMNETE __ SEGURA __TOOO ESSE CÓDIGO COMPILADO... -----> ISSO É FEITO PARA QUE 
+
+
+
+QUANDO VOCÊ 
+
+
+
+INICIAR 
+
+
+
+
+SEU SCRIPT MAIS UMA VEZ,
+
+
+ELE NAÕ TERÁ DE 'COMPILAR TUDO DE NOVO',
+
+
+
+
+
+e sim 
+
+poderá usar 
+
+ESSE CÓDIGO PRÉ-COMPILADO,
+
+para 
+
+
+ser 
+
+
+
+mais rápido.... -------> E SE VOCÊ ALTERAR QUALQUER COISA NO SEU CÓDIGO,
+
+
+ESSE ARQUIVO VAI AUTOAMCAIEMNTE 
+
+
+SER RECOMPILADO, E AÍ __ 
+
+
+ARMAZENADO 
+
+NAQUELE FOLDER DE '
+
+
+
+
+'pycache' mais uma vez. .. -->  VOCê PROVAVELMENTE NUNCA TRABALHARÁ SOBRE ESSE FOLDER,
+
+
+
+
+
+MAS O PROFESSOR QUERIA MENCIONAR A IMPORTÂNCIA DELE, por isso 
+
+
+
+
+a explicaçaõ....

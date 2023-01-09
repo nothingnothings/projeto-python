@@ -1,0 +1,554 @@
+
+
+
+
+
+
+
+
+
+--> VOLTAMOS AO ESQUEMA  
+
+DE COMUNICAÇÃO  
+
+
+
+
+
+'CLIENT <-> SERVER'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+REQUESTS E RESPONSES.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> API ENDPOINT...
+
+
+
+
+
+
+
+
+
+
+
+-_> UM REQUEST TARGETTA 
+
+URLS, TIPICAMENTE,....
+
+
+
+
+
+
+
+
+
+
+
+
+--> WEBPAGES 
+
+TIPICAMENTE 
+
+SÃO 
+
+
+'domain + /algo'....
+
+
+
+
+
+
+
+
+
+
+/asdsaasas -----> ISSO É O PATH..
+
+
+
+
+
+
+
+--> O DOMAIN TARGETTA 1 SERVER ESPECÍFICO...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A ACTION REALIZADA NO SERVER 
+
+
+DEPENDE DO 'PATH',
+
+
+pq o path 
+
+TEM A 
+
+INFO CRUCIAL
+ 
+
+ DAQUILOP QUE 
+
+
+
+ VOCÊ VAI QUERER FAZER NO SERVER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ IMPORTANTE!!!!! --> 
+
+
+
+
+
+
+
+
+
+ O DOMAIN 
+
+
+
+
+
+
+ 'server.com' 
+
+
+ PODE TBM 
+
+
+
+ SER APENAS UM 'IP ADDRESS'' (192.168.0.1),
+
+
+
+  
+
+
+
+  E É O QUE ESSENCIALMENTE FAREMOS NESSE 
+
+
+
+
+  CURSO,
+
+
+  PQ 
+
+
+
+  NOSSO NODE 
+
+  NÃO VAI TER UM DOMAIN 
+
+  E 
+
+  
+
+  UM IP ADDRESS 
+
+  É 
+
+  TOTALMENTE 
+
+
+  SUFICIENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+  MAS HÁ MAIS UMA COISA QUEW 
+
+  TEMOS QUE 
+
+  CONSIDERAR QUANDO FALAMOS SOBRE API ENDPOINTS --> NÃO É APENAS SOBRE  O 
+
+
+
+  'PATH',
+
+
+  MAS TAMBÉM O 
+
+
+
+
+  _'TYPE'  DE 
+
+  HTTP REQUEST....
+
+
+
+
+
+
+
+
+  -> E É CLARO QUE EXISTEM DIFERENTES TYPES DE HTTP REUQESTS...
+
+
+
+
+
+
+
+
+
+
+
+  ---> POST GET DELETE 
+
+  PUT,
+
+
+
+  etc...
+
+
+
+
+
+
+
+
+
+  --> SÃO HTTP VERBS QUE DEFINEM QUE TIPO DE REQUEST É ENVIADO A UM PATH..
+
+
+
+
+
+
+
+
+
+  --> VOCÊ PODE ENVIAR REQUESTS A UM MESMO PATH COM DIFERENTES 'VERBS',
+
+  e aíp 
+
+
+  triggar AÇÕES TOTALMENTE DIFERENTES NO SERER..
+
+
+
+
+
+
+
+
+
+
+
+
+  --> UM EXEMPLO TÍPICO´E QUE 
+
+
+  VOCe^
+
+
+
+  ENVIA UM 
+
+  POST REQUEST 
+
+
+
+  PARA 
+
+
+
+
+  O CREATE DE UM USER 
+
+
+   
+   quando 
+
+   escreve
+
+
+
+   'domain.com/user',
+
+
+
+COM 
+
+
+
+O VERB DE 'POST',
+
+
+
+
+
+
+
+
+
+
+E AÍ _ UM 
+
+'GET REQUEST' 
+
+,
+
+
+A ESSE MESMO PATH,
+
+
+PARA 
+
+FAZER 
+
+O _ RETURN__ DA USER INFORMATION (isso se estamos faladno de um WEB APP, É CLARO)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> A MESMA COISA SE APLICA AO NOSSO PYTHON NODE SERVER --> TAMBÉM VAMOS CRIAR ENDPOINTS 
+
+
+QUE CONTÊM UM PATH (parte da url que vamos poder fazer 'handle'),
+
+
+E
+ TAMBÉM 
+
+ SUPPORTED
+  
+  request METHODS...
+
+
+
+
+
+
+
+
+
+  --> EX:
+
+
+
+
+
+  192.168.0.1/mine  -------> SOMENTE ACEITA DE TIPO 'POST'...
+
+
+
+
+
+
+
+
+192.168.0.1/transactions ------> 'POST' --> POSTAR UMA NOVA TRANSACTION 
+                        ----> 'GET' --> FAZER GET DE TODAS AS TRANSACTIONS DE NOSSO USER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É ASSIM QUE A WEB FUNCIONA,
+
+TEMOS 
+
+
+REQUESTS E RESOPNSES,
+
+
+
+
+E AÍ PODEMOS 
+
+
+ANEXAR 
+
+
+
+DATA ADICIONAL A UM POST REQUEST (request body),
+
+
+
+INFO SOBRE O USER QUE 
+
+
+VAI SER CRIADO ,
+
+ 
+ ETCE TC....
+
+
+
+
+
+
+
+
+
+
+ --> QUAIS TIPOS DE REQUEST TEMOS?
+
+
+
+
+
+
+
+
+ --> POST 
+
+
+
+ --> GET 
+
+
+
+
+ ---> DELETE 
+
+
+
+ --> PATCH 
+
+
+
+ --> PUT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ POST --> ADICIONA DATA NO SERVER, EM UMA FILE OU DATABAS.E..
+
+
+
+
+
+
+ GET -> retrieva data 
+
+
+
+
+ delete --> USADAS PARA DELETAR  DATA 
+
+
+
+
+
+
+ PATCH --> UPDATE DATA 
+
+
+
+
+
+
+
+ put --> REPLACE ENTIRELY EXISTING DATA WITH A NEW SET... (instead of parts)...
+
+
+
+
+
+
+
+
+
+
+ OUTROS HTTP VERBS, COMO 'OPTION'..

@@ -1,0 +1,704 @@
+
+
+
+
+
+
+
+
+
+ERROR HANDLING --> o nosso error handling está mt básico... --> feedback melhro ao user,
+
+
+
+store de error 
+
+em 
+
+LOGS....
+
+
+
+
+
+-> seu app pode ter pouco feedback, ou deve ter muito?
+
+
+
+
+
+
+
+
+
+--> 'SCALABILITY' -> NOSSO BLOCKCHAIN FUNCIONA,
+
+MAS NÃO É MT 'SCALEABLE'... ---> MUITOS BLOCKCHAINS
+ 
+
+
+ TEM ESSE PROBLEMA --> 
+
+
+
+
+ TIPO O BITCOIN --> 
+
+
+ O BITCOIN HOJE FUNCIONA,
+
+
+ MAS 
+
+
+ ELE CONTINUA 
+
+ ENCONTRANDO PROBLEMAS DE ESCALABILIDADE QUE 
+
+
+ DEVEM SER RESOLVIDOS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> A NOSSA BLOCKCHAIN ARMAZENA TODA A BLOCKCHAIN DATA EM UM 
+
+ ARQUIVO DE TEXTO... ->  QUANTO MAIOR FOR SUA DATA 
+
+ DO 
+
+ BLOCKCHAIN,
+
+ MAIS MEMÓRIA 
+
+ ISSO 
+
+ VAI 
+
+ OCUPAR 
+ NA LIST 
+
+
+ CARREGADA 
+
+ NO SEU APP... -> vai demorar mais tempo para processar essa list --> seu arquivo vasi ficar mt grande,
+
+
+ E 
+
+
+
+ LER ESSE ARQUIVO DE TEXTO TBM VAI DEMORAR UM MONTE... .-> PARA RESOLVER ISSO,
+
+ PODERÍAMOS USAR UMA DATABASE (sql )
+
+
+
+
+ EM  VEZ DE UM ARQUIVO DE TEXTO NO PRÓPRIO APP,
+
+
+ OU ENTÃO
+
+ CARREGAR 
+
+ SÓ PARTES 
+
+ DA BLOCKCHAIN NA MEMORY (
+
+
+     mas aí 
+
+     vocÊ teria 
+
+que encontrar uma solução para coisas como  
+
+
+O CÁLCULO DOS FUNDSM,
+
+E O VALIDATE 
+
+DA CHAIN INTEIRA,....
+
+
+
+
+
+
+
+
+
+
+
+
+ )
+
+
+
+
+
+
+
+
+ --> QUANTO MAIOR SUA BLOCKCHAIN FICA,
+
+ MAIS DATA SEUS 
+
+ USERS TEM QUE BAIXAR --> A CHAIN DO BITCOIN TEM MAIS DE 100GB.... ---> 
+
+
+
+
+
+
+
+
+ E É CLARO QUE CONTINUA CRESCENDO... -> E TODO MUNDO QUE 
+
+ RODA UM FULL NODE 
+
+ E 
+
+
+
+ PARTICIPA 
+
+
+
+
+TEM DE BAIXAR ESSE NEGÓCIO --> 
+
+
+
+TAMBÉM HÁ O CUSTO DE BANDA NO DOWNLOAD DESSA CHAIN INTEIRA..
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS TAMBÉM TEMOS ESSE PROBLEMA:
+
+
+
+
+NA NOSSA 
+
+FUNCTION DE 'RESOLVE CONFLICTS',
+
+
+
+NÓS ESTAMOS FAZENDO QUERY DE _ TODOS __ OS 
+
+
+
+PEER NODES,
+
+
+E AÍ 
+
+
+
+PEGANDO TODA A 'COMPLETE CHAIN DELES' --> não há problema 
+
+para nós,
+
+nessa escala 
+
+pequena,
+
+
+
+MAS SE VOCÊ TIVER UMA 
+
+
+CHAIN INTEIRA,
+
+IMAGINE TER DE BAIXAR CHAINS INTEIRAS 
+
+PARA 
+
+TODOS 
+
+
+
+
+OS USERS.... --> muita data...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OU SEJA,
+
+PEGAR SÓ 1 PEDAÇO DA CHAIN INTEIRA,
+
+ESSA É UMA SOLUÇÃO POSSÍVEL... ----> ESSAs discussões 
+
+APARECEM 
+
+NA 
+
+COMUNIDADE BITCOIN.. -----> PODEMOS VER COMO OUTROS PROJETOS SOLUCIONAM ESSES PROBLEMAS,
+
+
+
+
+
+
+
+
+
+e tudo mais...
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS TBM NÃO 
+
+TEMOS A MELHOR RELAÇÃO 
+
+'PEER-NETWORK CONNECTION' NA NOSSA BLOCKCHAIN ---> O BROADCASTING FUNCIONA,
+
+
+MAS SÓ EM UM NÍVEL BÁSICO... .--> VOCÊ 
+
+
+
+TALVEZ QUEIRA MELHORAR ISSO COM 
+
+
+'SCHEDULED BROADCASTING' 
+
+
+OU 
+
+ASYNC TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+
+-> PQ QUAL O PROBLEMA COM NOSSO APPROACH?
+
+
+
+
+
+
+
+
+
+
+1) NÓS CONTATAMOS TODOS OS PEER NODES __ PARA __ FAZER COM QUE SAIBAM 
+
+
+
+DO NOVO BLOCK.... -> MAS O PROBLEMA É QUE 
+
+ESSES PEER NODES __ DEVERIAM__ , NORMALMENTE,
+
+CONTATAR SEUS PRÓPRIOS PEER NODES 
+E GARANTIR QUE ELES SAIBAM
+
+DESSE NOVO BLOCK.... -----> MAS NÓS GARANTIMOS QUE ISSO NÃO VAI OCORRER,
+
+
+POR MEIO 
+
+
+DO 
+
+
+CHECK DE 
+
+'is_receiving'
+
+LÁ NA FUNCTION DE 
+
+'add_transaction'... --------> PQ LÁ
+
+
+
+
+
+
+
+NÓS NÃO IMPLEMENTAMOS 
+
+
+
+ESSA LÓGICA, PARA EVITAR COMPLICAÇÕES... -> ISSO LEVA A UMA CHAIN 
+
+
+MT LONGA DE 
+
+
+
+'NÓS DIZEMOS A UM 
+
+
+
+OTHER NODE QUE DEVE SE COMUNICAR COM OS OUTROS NODES, QUE DEVEM SE COMUNICAR COM OS OUTROS NODES, ETC ETC'... -> 
+
+
+
+isso 
+
+
+
+LEVA MT TEMPO.... ->  É POR ISSO QUE UM APPROACH COMUM É UM EM QUE 
+
+
+VOCÊ 
+
+FAZ UM 
+'SCHEDULE'
+
+
+
+
+DE UMA TASK QUE VAI FAZER A TRANSMISSAÕ DESSA INFO AOS PEER NODES... --> AÍ VOCÊ 
+NÃO 
+
+ESPERA
+ 
+ pelas responses desses negócios instantaneamente,
+
+ e sim 
+
+  
+  FAZ _ QUERy__ 
+
+
+
+  DELAS, POR SUA 'OPINIÃO',
+
+  EM UM MOMENTO POSTERIOR --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> OUTRA ALTERNATIVA É USAR UM TIPO DE 'WEBSOCKET CONNECTON' --> 
+
+  que 
+
+  leva a uma CONNECTION LIVE,
+
+E NÃO UMA 
+
+'PUSH CONNECTION' (que é a que temos, em que 
+
+
+fazemos push de uma 
+
+
+INFO AOS PEER NOEDS,
+
+E AÍ 
+
+
+OU 
+
+
+
+RECEBEMOS UMA RESPONSE IMEDIATAMENTE,
+ OU NÃO NOS IMPORTAMOS...
+
+) -----> EM UMA 
+
+PEER NETWORK DE VERDADE,
+
+ISSO 
+IMPORTA,
+
+E PODE SER MELHROADO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'MINING DIFFICULTY' --------> NA NOSSA BLOCKCHAIN, COMO O MINING FUNCIONA?
+
+
+
+
+
+
+
+
+
+
+--. FUNCIONA PELO GENERATE DE UM NOVO BLOCK...  ----> NO NOSSO APP,
+
+O QUE 
+LEVA 
+
+TEMPO É A GERAÇÃO DO 
+
+'PROOF OF WORK' -----> EM 
+
+
+'valid_proof',
+
+
+É GERADO UM NOVO PROOF OF WORK... 
+
+
+
+
+
+
+
+
+
+
+
+-> LÁ,
+
+
+
+NÓS _ OBTEMOS UM 'proof number'
+
+COMO  
+
+INPUT,
+
+E AÍ RETORNAMOS O RESULTADO (true ou false)
+
+SE ELE LEVA A UM 
+
+HASH VÁLIDO OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> A DIFICULDADE PODE SER 
+
+INCREMENTADA PELO 
+
+
+NÚMERO DE 0s...
+
+
+
+
+
+
+
+
+
+--> QUÃO MAIS LONGA FOR SUA BLOCKCHAIN,
+
+O MAIS 
+
+
+DEMORADO DEVE SER O MINE DE UM NOVO BLOCK... ---> MAS VOCÊ DEVE TER EM MENTE QUE 
+
+O 
+TEMPO 
+
+PARA MINERAR UM NOVO BLOCK TAMBÉM IMPACTA O TEMPO ESTIMADO PARA 
+
+GERAR NOVAS TRANSACTIONS... 
+
+
+
+
+
+
+
+
+
+--> A CADA 1000 BLOCKS,
+
+
+
+A DIFICULDADE AUMENTA (
+
+
+DIFICULDADE DINÂMICA,
+
+
+A PARTIR 
+
+
+DA LENGTH DA BLOCKCHAIN..
+
+)
+
+
+
+
+
+
+
+
+
+
+--> ÚLTIMA COISA QUE PODEMOS MELHORAR... --> 
+
+
+
+
+PARA 'VALIDATE' E 'ANALYZE' DE TRANASCTIONS,
+
+
+
+VOCê PODERIA 
+
+USAR UMA 
+
+'merkle tree' --> ATÉ AGORA,
+
+
+
+VALIDAMOS 
+
+
+NOSSAS TRANSACTIONS 
+
+POR MEIO 
+
+
+
+DO FIND DELA EM TODOS OS BLOCKS,
+
+E O VERIFY 
+
+
+
+DE CADA UMA DELAS... -> 
+
+
+SE VOCê 
+
+TIVER 
+UM MONTE DE 
+
+TRANSACTIONS,
+
+
+CENTENAS DE 
+
+
+
+
+TRANSACTIONS,
+
+
+
+
+
+
+
+
+
+EM CADA BLOCK,
+
+ISSO PODE DEMORAR UM MONTE... -> A MERKLE TREE É ESSENCIALMENTE UMA MANEIRA 
+
+DE 
+
+HASH 
+
+
+
+
+VERIFIED TRANSACTIONS E _ AÍ _ DE 
+
+
+
+ENTÃO FACILMENTE __ VALIDAR_ 
+
+
+SE ESSE HASH ESTÁ CORRETO 
+
+
+
+,
+
+
+
+VALIDANDO SUAS TRANSACTIONS 'IN BULK'...
+
+
+
+
+
+
+
+
+
+
+
+
+----> ALGUMAS DAS IDEIAS PARA 'PRODUCTIONIZE SUA BLOCKCHAIN'1....

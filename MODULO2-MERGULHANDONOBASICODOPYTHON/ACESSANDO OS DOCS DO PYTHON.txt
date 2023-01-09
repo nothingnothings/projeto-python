@@ -1,0 +1,356 @@
+
+
+
+O SITE DO PYTHON É UM LOCAL ONDE HÁ OS DOCS, 
+
+
+E HÁ MT COISA A APRENDER, QUE APRENDEREMOS NESSE CURSO..
+
+
+
+
+
+
+
+
+
+
+
+--> MAS UMA COISA QUE O PROFESSOR QUER NOS MOSTRAR,
+
+
+
+
+SÃO OS 'PEPS'
+
+
+
+
+
+
+
+
+
+--> PARA ENTENDER O QUE SÃO 'PEPS',
+
+você deve voltar aos docs e procurar por 
+
+
+
+
+
+'PEP INDEX'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ VOCÊ ENCONTRARÁ 
+
+
+
+
+
+UMA LISTA DE TODOS 
+
+
+
+OS 
+
+
+
+'PYTHON ENHANCEMENT PROPOSALS'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA É UMA LISTA DE DOCUMENTS/ARTICLES 
+
+
+
+TE DANDO DICAS SOBRE __ COMO VOCÊ PODE ESCREVER SEU CÓDIGO PYTHON,
+
+
+
+
+
+
+
+
+COMO VOCê DEVE O ESCREVER,
+
+
+NOVOS DEVELOPMENTS EM FUTURAS VERSÕES DO PYTHON,
+
+
+coisas como essas...
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ SCROLLAR PARA BAIXO,
+
+
+
+VERÁ 
+
+
+
+O INDEX DE CADA PEP...
+
+
+
+
+
+
+
+
+
+
+
+
+1 PEP PURPOSE AND GUIDELINES 
+
+
+
+
+
+
+4 DEPRECATION OF STANDARD MODULES 
+
+
+
+
+
+
+
+
+
+7 STYLE GUIDE FOR C CODE....
+
+
+
+
+
+
+
+
+
+
+--> E O MAIS IMPORTANTE DE TODOS,
+
+
+O 
+
+
+PEP DE NÚMERO 8,
+
+
+QUE É 
+
+
+O 
+
+
+
+'STYLE GUIDE FOR PYTHON CODE'...
+
+
+
+
+
+
+
+
+ESSE GUIDE É BEM IMPORTANTE....
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE LOCAL VOCÊ ENCONTRA 
+
+
+
+
+DICAS DE COMO __ ESCREVER SEU CÓDIGO PYTHON....
+
+
+
+
+
+
+
+
+--> VOCÊ NÃO PRECISA DECORAR TUDO,
+
+
+
+MAS 
+
+
+
+DAR UMA LIDA É ALTAMENTE RECOMENDADO...
+
+
+
+
+
+
+
+---> VOCÊ APRENDE COISAS COMO 
+
+
+''DEVE EXISTIR 2 LINES ENTRE CODE DEFINITIONS'...
+
+
+
+
+''você deve usar SPACES EM VEZ DE TABS''
+
+
+
+
+(que o visual studio code faz por padrõa)..
+
+
+
+
+
+
+
+
+
+--> ele também fala da naming convention, que é 
+
+
+
+'var_one',
+
+'var_two'
+
+,
+
+
+etc etc...
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR JÁ NOS ENSINA UM STYLE BOM NESSE CÓDIGO,
+
+MAS 
+HÁ 
+
+
+ALGUMAS FEATURES QUE 
+
+NÃO USAMOS NESSE CURSO...
+
+
+
+
+temos que ler esse negócio...
+
+
+
+
+
+
+
+
+
+OS OUTROS PEPS PODEM SER INTERESSANTES,
+
+MAS 
+
+
+OS OUTROS 
+
+PEPS NEM TANTO....
+
+
+
+
+
+
+
+
+
+--> OS OUTROS PEPS NÃO SÃO DOCUMENTATION, E SIM RECOMMENDATIONS.. (são proposals)....
+
+
+
+
+
+
+foo = long_function_name(var_one, var_two,
+                         var_three, var_four)
+
+
+def long_function_name(
+        var_one, var_two, var_three,
+        var_four):
+    print(var_one)
+
+
+
+
+https://peps.python.org/pep-0008/
+
+
+
+
+
+mports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.
+Imports should be grouped in the following order:
+
+Standard library imports.
+Related third party imports.
+Local application/library specific imports.
+
+
+
+
+Immediately inside parentheses, brackets or braces:
+# Correct:
+spam(ham[1], {eggs: 2})
+# Wrong:
+spam( ham[ 1 ], { eggs: 2 } )
+
+

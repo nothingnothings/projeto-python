@@ -1,0 +1,1703 @@
+
+
+
+
+
+
+
+
+
+
+--> ADICIONANDO PROOF OF WORK NA NOSSA BLOCKCHAIN..
+
+
+
+
+
+
+
+
+
+
+-> O QUE É ISSO?
+
+
+
+
+---> É UM CORE CONCEPT BEM IMPORTANTE, POR ISSO O PROFESSOR COLOCOU UM ARTIGO SOBRE O ASSUNTO,... 
+
+
+
+
+
+
+
+
+
+
+
+-----> o proof of work é IMPORTANTE 
+
+
+PQ ELE DEIXA O _ MINE__ DE COINS SER BEM MAIS DIFÍCIL... QUEREMOS QUE ESSE SEJA O CASO NA NOSSA BLOCKCHAIN.. 
+
+
+
+
+
+
+
+
+
+
+
+--> mining BLOCKS DEVE SER DESAFIADOR... ->  DEVE SER TAREFA DIFÍCIL,
+
+
+TUDO PARA __ _CONTROLAR __ A QUANTIDADE 
+DE 
+
+COINS 
+
+DISPONÍVEL NO SEU APP...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> NÃO A QUANTIDADE TOTAL 
+
+DE COINS, NO CASO,
+
+
+E SIM 
+
+A __ VELOCIDADE__ PELA QUAL COINS NOVOS ENTRAM NA NOSSA 
+
+
+NETWORK... --------> MAS O PROOF OF  WORK TAMBÉM É IMPORTANTE 
+
+
+DE 
+UMA 
+
+
+PERSPECTIVA DE ___ SEGURANÇA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ PROOF OF WORK É UM CONCEITO IMPORTANTE,
+
+
+
+QUE 
+
+
+ASSEGURA QUE VOCÊ NÃO PODE 
+
+
+
+__ FACILMENTE__ EDITAR ___ A BLOCKCHAIN INTEIRA...
+
+
+
+
+
+
+
+
+
+
+-> NÓS JÁ TEMOS UM SECURITY MECHANISM EM QUE 
+
+  VERIFICAMOS SE O STORED HASH EM 1 BLOCK É IGUAL AO HASH DO BLOCK ANTERIOR...
+
+
+
+
+
+
+
+
+--> 
+
+
+
+
+
+
+
+
+
+
+O 'PROOF OF WORK' É UM CONCEITO/MECANISMO  __ QUE __ ASSEGURA_ QUE VOCê NÃO 
+
+CONSEGUE 
+
+
+EDITAR TÃO FACILMENTE A BLOCKCHAIN INTEIRA.... -------> NÓS JÁ 
+
+
+
+
+
+TEMOS, NO ENTANTO,
+
+1 MECANISMO DE SEGURANÇA EM QUE 
+
+
+COMPARAMOS O HASH 
+
+
+DO 
+
+'PREVIOUS BLOCK' inteiro  COM O _ _STORED HASH  VALUE NO PRÓXIMO BLOCK... -----> MAS É CLARO QUE 
+
+VOCÊ 
+
+
+
+
+___ PODERIA _ EDITAR O PREVIOUS BLOCK E ESSE NEXT BLOCK,
+
+
+
+
+
+
+
+
+TODOS OS HASHES SUBSEQUENTES,
+
+
+E AÍ VOCe^TERIA UM VALID BLOCK/BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+-> O PROOF OF WORK TE IMPEDE DE FAZER ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O QUE É O PROOF OF WORK? 
+
+
+
+
+
+--> O PROOF OF WORK É 
+
+
+'all about'
+
+
+NÓS, COMO MINERADORES,
+
+
+
+__ENCONTRARMOS_ 1 NUMBEr 
+que 
+
+
+
+
+_ SATISFAZ__/SATISFAZERÁ UMA CERTA CONDIÇAÕ,
+
+
+CONDIÇÃO DEFINIDA POR NÓS, DESENVOLVEDORES/CRIADORES DA BLOCKCHAIN... -----> 
+
+
+
+
+
+
+
+
+
+
+
+
+'''''FIND  A NUMBER WHICH FULFILLS OUR PROOF OF WORK REQUIREMENT''' ------>  e essa '''CONDIÇÃO'''''
+
+
+
+TIPICAMENTE 
+
+
+ENVOLVE _ O USO __ DE UM HASH 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ESSE HASH QUE USAREMOS _ NÃO É O MESMO HASH __ QUE __ ARMAZENAMOS NAQUELE FIELD DE 
+
+'previous_block_hash',
+
+
+
+NAO É ESSE HASH QUE USAMOS PARA COMPARAR BLOCKS.... --> não... ----> 
+
+
+
+
+
+EM VEZ DISSO,
+
+
+
+É UM __ NOVO _ HASH__,
+
+
+
+HASH 
+QUE 
+
+VAI 
+
+
+
+'TAKE SOME BLOCK DATA INTO ACCOUNT',
+
+
+
+
+
+MAS __ NÃO __ TODA A BLOCK DATA... (o outro hash, hash PADRÃO, aramzenaddo no field 'previous_block_hash', É CRIADO A PARTIR 
+                                      DA BLOCK DATA INTEIRA, TODOS OS BLOCKS ANTERIORES A ESSE 'CURRENT BLOCK', na blockchain....
+
+
+
+)
+
+
+
+
+
+
+
+
+
+----> OK... ISSO QUER DIZER QUE ESSE HASH DO 'PROOF OF WORK' TIPICAMENTE VAI INCLUIR:
+
+
+1) TRANSACTIONS__ 
+
+
+2) O PREVIOUS HASH 
+
+
+
+3) UM __ RANDOM NUMBER
+
+
+
+
+
+
+
+
+
+-------> E __ APENAS__ SE O HASH _ YIELDADO __ POR ESSES 3 INPUTS (transactions, o previous hash e um RANDOM NUMBER)
+
+
+
+__ cumprir um CERTO CRITÉRIO
+
+
+
+__vamos TRATAR 
+
+ESSE 
+
+
+
+NUMBER DE 'proof of work'
+
+
+COMO VÁLIDO.... 
+
+
+
+
+
+
+
+
+-----> E ESSE NÚMERO 'PROOF OF WORK'
+
+__ É ENTÃO 
+
+
+
+
+__ADICIONADO __ à METADATA DE NOSSO BLOCK...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok...
+ 
+
+
+
+ resumindo:
+
+
+
+
+
+
+ FIND  A NUMBER WHICH FULFILLS OUR PROOF OF WORK REQUIREMENT
+
+
+I
+I 
+I
+I 
+V 
+
+
+
+
+ TAKE BLOCK DATA INTO ACCOUNT  ('transactions + previous_hash')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> A COISA LEGAL DO 'PROOF OF WORK'
+
+ É 
+ QUE 
+
+
+
+
+ OUTROS NODES/WALLETS/CLIENTS DE SUA BLOCKCHAIN 
+
+
+
+
+ __ PODEM __ FACILMENTE __ 
+
+
+
+ CHECAR/VERIFICAR 
+
+
+ A 
+
+
+ 'PROOF OF WORK'
+
+ de sua blockchain...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS __ VER ISSO, VAMOS __ CONSTRUIR __ UM ALGORITMO 
+
+
+ DE VERIFY DE PROOF OF WORK ... --> É UM ALGORITMO 
+
+
+
+ __ QUE É DIFÍCIL DE 
+
+
+
+
+ 'RESOLVER PELA PRIMEIRA VEZ' (qque é o que sua máquina/os computadores tentam fazer)
+,
+
+
+
+
+
+
+
+MAS __ QUE _ _É TREMENDAMENTE FÁCIL DE VERIFICAR PELO PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE SE VOCê TIVER UMA _ SUGESTÃO PARA O 'PROOF OF WORK',
+
+tipo 
+
+
+
+'hey, o número 275 funciona COMO O RANDOM NUMBER DESSA BLOCKCHAIN COM PROOF OF WORK',
+
+
+
+
+ESSE NÚMERO PODERÁ SER FACILMENTE VERIFICADO, VERIFICAR-SE-Á  se ele __ RETORNA UM 'VALID HASH'
+
+
+para esse block...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS __ ENMCONTRAR__ ESSE NUMBER do 'proof of work' 
+
+NA 
+
+MESMA HORA EM QUE 
+
+VOCê ESTÁ __ APENAS _ FAZENDO BUILD/CONSTRUINDO O 
+
+
+BLOCK É __ MUITO DIFÍCL ,
+
+
+ 
+ E REQUER __ UM MONTE DE ITERAÇÃO E GUESSING por parte do seu código --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ '''OTHER NODES CAN EASILY VERIFIY THE PROOF OF WORK (and hence the validity of the block...)'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS COMO ISSO FUNCIONA?
+
+
+
+
+
+
+
+
+
+
+
+--> bem, nós geramos um HASH COM BASE:
+
+
+1) NOS PREVIOUS TRANSACTIONS --> NAS TRANSACTIONS DOS PREVIOUS BLOCKS....
+
+
+
+
+
+
+
+
+
+2) NO 'PREVIOUS HASH'
+
+
+
+
+
+
+
+
+3) ESSE TAL DE 'PROOF NUMBER', que também é chamado de 'Nonce'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'Nonce' 
+
+
+
+
+
+'NUMBER ONCE' --> NÚMERO _ USADO 1 ÚNICA VEZ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, AS TRANSACTIONS E O PREVIOUS HASH __ 
+
+
+
+SÃO __aS TRANSACTIONS __ E O PREVIOUS HASH,
+
+
+
+
+QUE __DEVEM__ SER INCLUÍDOS NESSE NOVO BLOCK... 
+
+
+
+
+
+
+
+
+
+
+-> MAS __ O 'PROOF' É UM _ NÚMERO ALEATÓRIO __ QUIE 
+
+NÓS 
+
+
+
+TIPICAMENTE DERIVAMOS 
+  
+
+  POR MEIO DO 'START AT 0' e aí __ INCRMENTANDO ESSE NUMBER POR 1.... --> E 
+
+
+
+  EM CADA 
+
+
+
+  LOOP ITERATION,
+
+
+
+  NÓS CHECAMOS 
+
+
+  'do we now have a valid proof of work?' ]
+
+  'do we now have a valid proof of work?' 
+    'do we now have a valid proof of work?' 
+      'do we now have a valid proof of work?' 
+        'do we now have a valid proof of work?' 
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    --> NÓS CHECAMOS 
+
+    SE É UM 'VALID PROOF OF WORK'
+
+
+
+
+    POR MEIO DO __ COMBINE_ _DE 
+
+    TODOS ESSES VALUES (as transactions anteriores, o previous hash e a Proof/Nonce )
+
+
+
+EM 1 VALOR ÚNICO, 1 VALOR SÓ, FUNDIDO... ---> fazemos isso NAÕ POR RAZÕES DE SEGURANÇA OU QUALQUER COISA DO GÊNERO,.
+
+
+
+
+
+E SIM __ PQ _ VAMOS GANHAR 1 ÚNICA STRING,
+
+string única QUe sempre  TERÁ 64 CARACTERES (se estivermos usando sha256) ------->
+
+
+
+
+
+
+
+
+
+
+
+
+AÍ, ASSIM QUE ESSA STRING/HASH FOR GERADO,
+
+ELE VAI FIACR ASSIM:
+
+
+
+
+
+
+
+00fasaas90isda09i0asasdj90asjd09dj109jpsa
+
+
+
+
+
+
+
+
+
+
+--> E AI´_ SEMPRE _ VAMOS QUERER __ CHECAR ___ SE ESSA STRING 
+
+
+'COMEÇA COM UMA QUANTIDADE X DE __ LEADING ZEROS' -----> 
+
+
+
+
+
+
+
+
+NO CASO DO EXEMPLO,
+ TEMOS 
+
+
+ dois zeros...
+
+
+
+
+
+
+ --> MAS É CLARO QUE VOCÊ PODERIA TER MAIS DE 1 zero nesse início de hash.... .--> MAS PQ 
+
+
+ FAZEMOS CHECK POR 
+
+
+
+ 'LEADING 0s',
+
+ e não outra coisa?  -----> BEM, ISSO É ALGO 'UP TO YOU',
+
+
+ PQ 
+
+
+ VOCê PODERIA TER LEADING Fs, ou qualquer outra coisa....
+
+
+
+
+
+
+
+
+
+
+ --> O QUE INTERESSA É QUE SEMPRE DEVEREMOS OBTER UMA STRING DE 64 CARACTERES
+
+POR MEIO DESSES 3 INPUTS,
+
+
+E AÍ __ SE _ ALTERARMOS __ QUALQUER _ _COISA DESSES INPUTS,
+
+QUALQUER VALOR.. (e a única coisa que é POSSÍVEL de ser alterada é o PROOF, única coisa que não é inviável, pq AS TRANSACTIONS E O PREVIOUS HASH SÃO 'set in stone')....
+
+
+
+
+
+--> SE TENTAMOS TROCAR ESSE NUMBER,
+
+
+NÓS 
+
+ACABAMOS COM UM HASH __ _TOTALMENTE __ DIFERENTE... --------> E TOTALMENTE DIFERENTE 
+
+SIGNIFICA 
+
+
+
+___rADICALMENTE__ DIFERENTE,
+
+
+COM UMA COMPOSIÇÃO TOTALMENTE DISTINTA (vários caracteres diferentes, hash totalmente diferente).... --> E É EXATAMENTE 
+
+
+
+
+
+
+
+POR ISSO QUE 
+
+
+
+
+
+NOSSO CÓDIGO VAI TER QUE 'TRABALHAR' UM POUCO _ ATÉ __ CONSEGUIR _ UM 
+
+
+
+
+OUTPUT EM QUE __ O HASH __ TENHA __ eXATAMENTE 2 zeros, nesse caso.... (
+
+
+  e esse é o 'proof of work',
+
+  pq seu código/máquina 
+
+  TERÁ QUE __TRABALHAR__ PARA 
+
+
+
+  PENSAR EM 1 HASH COMPATÍVEL COM ESSE SEU VALUE,
+
+  mas que ao mesmo tempo COMECE COM 2 zeros/qualquer outra coisa que você settou...
+)
+
+
+
+
+
+
+
+
+----> OK... AÍ PEGAMOS ESSA 'PROOF OF WORK'
+
+
+
+
+como UM __ VALID NUMBER,
+
+
+  
+
+  SIMPLESMENTE PQ __ ELE __ SATISFAZ NOSSO CRITÉRIO ---> E A ÚNICA RAZÃO 
+
+
+
+  DE USARMOS 
+
+
+
+  ESSE 'Proof'
+
+  E
+   O __ INCLUÍRMOS __ 
+
+
+
+   NO NOSSO BLOCK, NAQUELA STRING HASHEADA, __ É _ PQ __ ELE __ _ __ TOMA _ TEMPO.... -->
+
+
+
+   ELE TOMA TEMPO CONSIDERÁVEL.... -> É BEM DIFÍCIL CALCULAR UM HASH COMPATÍVEL QUE TENHA 
+
+
+
+
+   0s no início... -> e QUANTO MAIS LEADING 0s, 
+
+   MAIS 
+
+
+   DIFÍCIL/DEMORADO SE TORNA O PROCESSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   --> SE VOCê TIVER MAIS LEADING 0s,
+
+
+
+   MAIS 
+
+   TEMPO 
+
+
+   DEMORARÁ...
+
+
+
+
+
+
+
+
+
+
+
+
+   -----> OK.... --> MAS PQ ESSA COISA DE 'TIME' é importante?
+
+
+
+
+
+
+
+
+
+   ---> BEM, DIGAMOS QUE SOMOS 1 CARA MAU E AÍ ALTERAMOS A BLOCKCHAIN,
+
+
+
+
+   EDITAMOS UM 'OLDER BLOCK',
+
+
+   alteramos as TRANSACTIONS NO INTERIOR DESSE BLOCK... -----> obviamente 
+
+
+
+   NOSSO CHECK DE 'hashes'
+
+
+
+   VAI FALHAR.... --------> mas é CLARO QUE __ PODERÍAMOS __ SER ESPERTOS__ E AÍ __ UPDATAR
+    
+
+    TODOS OS BLOCKS DEPOIS DESSE AÍ, depois do manipulado,
+
+
+
+    PARA QUE TODOS SEUS HASHES SEJAM COMPATÍVEIS COM ESSE QUE NÓS MANIPULAMOS...
+
+
+
+
+
+
+
+
+
+
+
+    --> ISSO SERIA RELATIVAMENTE FÁCIL DE SE FAZER,
+
+    PQ 
+
+    O 
+    CALCULATE DESSES HASHES 
+
+
+    TOMA __ APENAS _ ALGUNS MILISSEGUNDOS...
+
+
+
+
+
+
+
+
+
+
+    --> OK, MAS AGORA __ LEMBRE-SE QUE TEMOS AQULE 
+
+
+
+
+
+
+    'PROOF OF WORK NUMBER'... ----> ESSE PROOF OF WORK NUMBER (Nonce)
+
+    AGORA 
+
+
+    TAMBÉM FARA´PARTE DA METADATA DO NOSSO  BLOCK,
+
+
+
+    O QUE _ _SIGNIFICA __ QUE ELE TAMBÉM 
+
+
+    FAZ PARTE DO HASH, hash que estamos COMPARANDO... ---> E SE ESSE NÚMERO DE 
+
+
+    'proof of work'
+
+
+
+
+    É ALTERADO (e ele __ SERÁ ALTERADO_,
+    
+    
+
+    PQ SE ALTERAMOS/ALTERARMOS 
+
+    A TRANSACTION, o 
+
+
+
+    'Proof of work' SERÁ ALTERADO TAMBÉM... 
+    
+    )
+
+
+
+
+
+
+
+
+
+-> SE AS TRANSACTIONS MUDAM, O BLOCK ___ É OBRIGADO A CALCULAR UMA 'NOVA PROOF OF WORK'.... ----> 
+
+
+
+
+
+E SE __  O __ BLOCK _ TIVER DE CALCULAR UMA 'NOVA PROOF OF WORK',
+
+
+
+ELE __ É OBRIGADO__AO FINAL, 
+
+
+
+
+A _ _ FAZER ESSE 'RECALCULATE' 
+
+
+
+
+
+_ PARA __ tODOS OS SUBSEQUENT BLOCKS,
+
+
+
+PQ ELES FICARIAM INVÁLIDOS... (o proof of work seguirá INVÁLIDO PARA TODOS OS SUBSEQUENT blocks, OQ demanda SEU RECÁLCULO EM todos eles, que ainda estão na frente  )
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+--> COMO O PROOF OF WORK TERÁ MUDADO,
+
+
+
+]
+O 
+'PREVIOUS HASH'
+
+TAMBÉM TERÁ 
+
+MUDADO, 
+
+
+PQ ISSO TBM EXIGE O PROOF OF WORK...
+
+
+
+
+
+
+
+
+
+
+
+-------> E O  CÁLCULO DE PROOF OF WORK __ DEMORA _ MUITO_>...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE SE  VVOCê QUISER _ CHEATr_ NA BLOCKCHAIN,
+
+
+
+
+__ SE VOCê QUER MANIPULÁ-LA, 
+
+AÍ VOCê VAI TER QUE GASTAR UM MONTE DE TEMPO __ UPDATANDO __ 
+
+
+
+
+
+OS OUTROS BLOCKS....
+
+
+
+
+
+
+
+
+
+
+
+
+------> A BOA NOTÍCIA É QUE MINERADORES HONESTOS__ QUE NÃO CHEATARam
+
+__ APENAS TERÃO DE DERVIAR  __ UM  ÚNICO_ NOVO 'BLOCK' (
+
+  e isso leva tampo tempo  quanto o processo
+)
+
+
+
+
+
+
+
+
+--> quando você é honesto, vocÊ só precisa que a máquina crie 1 ÚNICO BLOCK NOVO, cOM 1 PROOF OF WORK NOVO E COMPATÍVEL....
+
+
+
+
+
+
+
+
+
+--->  MAS SE VOCÊ FOR UM CARA DESONESTO, QUE QUER SUBSTITUIR A BLOCKCHAIN __ INTEIRA,
+
+
+
+
+
+O alter de 1 único block, de suas transactions, faz com que O BLOCK QUE VEM DEPOIS __ TERÁ 
+
+
+
+
+
+
+SUA PROOF OF WORK ALTERADA, O QUE FARÁ COM QUE __ TODOS OS BLOCKS SUBSEQUENTES TAMBÉM FIQUEM 
+
+
+INVÁLIDOS,
+
+
+
+
+
+PQ TAMBÉM TERÃO O VALOR DE SUA 'PREVIOUS HASH' alterada, o que 
+
+invalidará seu 'PROOF OF WORK'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> miners QUE NÃO MANIPULARAM COISA ALGUMA
+
+
+
+VÃO TER APENAS QUE DERIVAR 
+
+
+1 NOVO BLOCK (e isso toma tanto tempo 
+
+quanto o find de um novo proof of work para esse block ), 
+
+
+
+
+PARA 
+
+CONSEGUIR UMA BLOCKCHAIN 
+
+
+TOTALMENTE NOVA,
+
+QUE VAI OVERWRITTAR 
+
+
+
+
+NOSSA 
+
+
+
+BLOCKCHAIN ANTIGA.. .-> ISSO SIGNIFCIA UQE 
+
+
+
+
+
+
+
+
+MINERS HONESTOS 
+
+
+
+
+
+PRECISAM GERAR '1 ÚNICO BLOCK NOVO',
+
+
+
+ENQUANTO QUE 
+
+
+
+
+__ CHEATERS __ TERÃO _ QUE __ GENERATE _ _'TODOS OS BLOCKS' 
+
+
+APÓS O BLOCK MANIPULADO... ( E ISSO SEMPRE VAI DEMORAR _ MUITO MUITO MAIS) ... --> e  É BASICAMENTE 
+
+
+POR ISSO 
+
+
+QUE O CHEATING É BASICAMENTE IMPOSSÍVEL __ 
+
+
+COM 
+
+
+
+
+ESSE MÉTODO AÍ,
+
+PQ 
+
+
+
+
+
+''VOCÊ GASTARÁ UM MONTE DE TEMPO UPDATANDO TUDO, 
+
+AO PASSO QUE OS OUTROS MINERS APENAS __ GASTAM O TEMPO NECESSÁRIO PARA 
+
+GERAR 1 ÚNICO NOVO BLOCK''' 
+
+
+
+
+
+pq 
+
+
+
+
+tempo para UPDATAR TUDO   sempre é >  do que 'tempo para gerar 1 novo block' (para 1 novo user fazer isso)...
+
+
+
+
+
+
+
+
+
+
+
+
+-> ENCONTRAMOS UM RESUMO DESSE 
+
+
+
+
+NEGÓCIO 
+
+DEPOIS DESSE VÍDEWO...
+
+
+
+->_ MAS ISSO FICARÁ BEM MAIS CLARO QUANDO IMPLEMENTARMOS ISSO NO CÓDIG9o...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, MAS A VERSÃO DO PROFESSOR _ NÃO USOU ISSO....
+
+
+
+
+
+VERSÃO DO PROFESSOR USOU O RANGE SELECTOR, TIPO ASSIM:
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof): #precisa retornar uma HASH, uma string hash.... e essa string precisa ser 'ACEITÁVEL' (ter número de 0s inicial compatível com o que definimos para nosso app... esse é o proof of work)...
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+    guess_hash = hashlib.sha256(guess) #esse hash deverá ter os PRIMEIROS 5 CARACTERES ( ou mais) como 0....
+    return guess_hash[0:2] == '00'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    EX:
+
+
+
+
+
+
+
+    def valid_proof(transactions, previous_block_hash, proof): #precisa retornar uma HASH, uma string hash.... e essa string precisa ser 'ACEITÁVEL' (ter número de 0s inicial compatível com o que definimos para nosso app... esse é o proof of work)...
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+    guess_hash = hashlib.sha256(guess) #esse hash deverá ter os PRIMEIROS 5 CARACTERES ( ou mais) como 0....
+    # if str(guess_hash).startswith('00000', 0): #meio alternativo.
+    #     return guess_hash
+    # else:
+    #     return False
+    return guess_hash[0:5] == '00000'
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ok, esse É O NOSSO CHECK,
+
+
+    CHECANDO SE UMA DETERMINADA 'PROOF' é valid... (e só será valid se aquele hash começar com '00000')
+
+
+
+
+
+
+
+
+
+
+    ---> AGORA SÓ NOS RESTA COLOCAR ISSO LÁ NO 'MINE_BLOCK'
+    ,
+
+    e
+     AI´_
+
+
+
+
+
+
+     executar um for loop QUE FICA INCREMENTANDO E 
+
+
+     executando esse valid_proof... (com um novo parâmetro 'proof' passado CADA VEZ)....
+
+
+
+
+
+
+  -> talvez uma boa ideia seja USAR UM WHILE LOOP (enquanto esse negócio não retorna 'true', seguimos no while loop)....
+
+
+
+
+
+
+
+
+
+
+
+  --> consegui... o negócio funcionou, meu 
+
+
+  código de while loop é executado até que essa function aí retorna true... --> só quando ela retorna 'true' 
+
+
+  nosso código segue sendo executado...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  EX:
+
+
+
+
+
+
+
+
+
+
+  def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    previous_block = blockchain[-1]
+    hashed_block = hash_block(previous_block)
+    proof = 0
+    # print(hashed_block)
+    print(hashed_block, 'LINE51251')
+
+    reward_transaction = {
+        'sender': 'ourApp',
+        'recipient': owner,
+        'amount': MINING_REWARD
+
+    }
+    copied_transactions = open_transactions[:]
+    copied_transactions.append(reward_transaction)
+
+    #parte do 'PROOF OF WORK'...
+    while not valid_proof(copied_transactions, hashed_block, proof):
+        proof += 1
+
+
+    block = {'previous_block_hash': hashed_block,
+             'index': len(blockchain),
+            #  'processed_transactions': open_transactions,
+            'processed_transactions': copied_transactions
+             }
+    blockchain.append(block)
+    print(blockchain, 'TRIED TO MINE BLOCK')
+    return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -----> OK... MAS O PROFESSOR FAZ O OUTSOURCING DESSE WHILE LOOP 
+
+
+  EM OUTRA FUNCTION,
+
+
+
+  chamada de 
+
+
+
+
+  'proof_of_work'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+
+  def proof_of_work():
+    last_block = blockchain[-1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ELA VAI PRIMEIRAMENTE CONSEGUIR O 'LAST_BLOCK' (previous_block_hash),
+
+
+
+
+
+    depois vai usar aquela mesma function de hash_block(),
+
+
+  
+
+  negócio meio subóptimo... 
+
+
+
+
+
+  ex:
+
+
+
+    def proof_of_work():
+      last_block = blockchain[-1]
+      last_hash = hash_block(last_block)
+      proof = 0 
+      while not valid_proof(open_transactions, last_hash, proof)
+        proof += 1
+      return proof
+      
+
+
+
+
+
+
+--> OK, É A MESMA LÓGICA QUE EU ESCREVI... --> só que ele retorna 'proof' ao final, a proof que VAMOS UTILIZAR LÁ NO NOSSO 'MINE_BLOCK'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'hexdigest()' --> é usado para CONSEGUIRMOS OBTER UMA VALID STRING....
+
+
+
+
+
+
+
+
+
+
+
+
+
+

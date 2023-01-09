@@ -1,0 +1,428 @@
+
+
+
+
+
+
+
+
+
+
+--> ok... ---> ADICIONALMENTE 
+
+AOS OPERATORS DE 
+
+'!=' 
+
+
+
+
+'is' 
+
+
+
+e 
+
+
+'in',
+
+
+
+
+
+
+
+
+
+
+
+
+
+ÀS VEZES VOCê VAI QUERER CHECAR O CONTRÁRIO,
+
+
+
+OU SEJA,
+
+
+
+você 
+
+vai querer 
+
+checar 
+
+
+
+
+
+'''SE O NEGÓCIO _ NÃO _ESTÁ DENTRO DESSE ITERABLE ('NOT in' )/list'''
+
+
+
+
+
+
+'''SE O NEGÓCIO ___ NAÕ É IGUAL _a  ESSE OUTRO NEGÓCIO ('is NOT')'''
+
+
+
+
+
+
+
+
+
+
+
+
+----> É PARA ESSES CASOS QUE EXISTE A KEYWORD DE 'not'...
+
+
+
+
+
+
+
+
+
+
+---> exemplo:
+
+
+
+
+
+
+
+temos 
+
+essa list:
+
+
+>>> data = [1, 1.5, 3.4]
+
+
+
+
+
+
+
+
+
+-_> QUEREMOS __ CHECAR__ SE O OBJETO/ITERABLE 'data'
+
+
+
+
+
+
+NÃO _ _É _ _A MESMA COISA QUE O OBJETO/ITERABLE 'test_data' (e ele não é, claramente.... possuem os mesmos valores, mas não são o mesmo objeto)...
+
+
+
+
+
+
+
+-->PARA ISSO,
+
+
+
+
+ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+>>> data2 is not data
+True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELE RETORNOU TRUE PQ ESSES 2 PEDAÇOS DE DATA/LISTS SÃO ASSIM:
+
+
+
+>>> data = [1, 1.5, 3.4]
+>>> test_data = [1, 1.5, 3.4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ex:
+
+
+
+
+>>> data = [1, 1.5, 3.4]
+>>> test_data = [1, 1.5, 3.4]
+>>> data == test_data
+True
+>>> data is test_data
+False
+>>> data2 = [1.5, 1, 3.4]
+>>> data2 == data
+False
+>>>
+>>> 
+>>> data2 is not data
+True
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.... --> DEU 'True',
+PQ 
+
+
+
+
+
+'data is test_data' deu false,
+
+então 
+
+o 
+
+
+
+CONTRÁRIO DISSO ('data is not test_data') 
+
+
+É 
+'TRUE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A MESMA COISA É APLICADA COM 'in'....
+
+
+
+
+
+
+
+
+
+
+
+1 not in data
+
+
+
+
+
+
+
+
+
+
+-> E A SINTAXE É SEMPRE:
+
+
+
+
+xx not in yy 
+
+
+
+
+
+xx is not yy
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... SIMPLESMENTE 'checamos pelo oposto', aqui...
+
+
+
+
+
+
+
+
+
+
+-> SINTAXES ERRADAS:
+
+
+
+
+
+
+xx in not yy 
+
+
+xx not is yy
+
+
+
+
+
+
+
+
+
+
+
+OU ENTÃO:
+
+
+
+
+
+
+
+
+
+1 not == 1
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO NÃO VAI FUNCIONAR,
+
+
+PARA BOOLEAN OPERATORS 'NORMAIS',
+
+VOCê DEVE ESCREVER 
+
+
+1 != 1 ,
+
+
+
+
+
+
+
+
+E NÃO ABERRAÇÕES COMO 
+
+
+1 not == 1...
+
+
+
+
+
+
+
+
+
+
+-------> SE VOCê ALGUMA HORA QUER 
+
+
+
+CHECAR SE 
+
+''1 não é maior do que 2',
+
+
+
+
+
+AÍ VOCÊ DEVE ESCREVER 
+
+
+
+
+
+
+
+
+'1 < 2' --> vai retornar ou TRUE OU FALSE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok....

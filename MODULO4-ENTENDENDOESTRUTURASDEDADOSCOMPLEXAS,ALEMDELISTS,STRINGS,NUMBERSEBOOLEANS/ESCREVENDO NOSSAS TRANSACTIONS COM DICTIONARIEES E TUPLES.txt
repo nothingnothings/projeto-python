@@ -1,0 +1,1734 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... USAREI O ARQUIVO BLOCKCHAIN4.PY.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FAREMOS UM MONTE DE MUDANÇAS..
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMEÇAMOS PELA 'LIST OF TRANSACTIONS'...
+
+
+
+
+
+
+
+
+
+-->_ QUEWREMOS TER UMA LIST DE 'OUTSTANDING TRANSACTIONS'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> por isso o professor 
+
+
+
+
+cria uma variable 
+
+
+
+'open_transactions'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+open_transactions = {
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA SERÁ UMA EMPTY LIST, NO COMEÇO (naõ sei pq)...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+open_transactions = [
+
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O 'add_transaction' deverá mudar:
+
+
+
+
+
+
+
+]
+
+
+
+
+
+
+def add_transaction(transaction_amount, last_transaction=[1]):
+    """Faz append de um novo value, assim como o value do ÚLTIMO BLOCKCHAIN, à blockchain global do arquivo
+
+        Arguments:
+    :transaction_amount: The amount that should be added.
+    :last_transaction: The last blockchain transaction (default [1]).
+    """
+    if (last_transaction == None):
+        return blockchain.append([[1], transaction_amount])
+
+    blockchain.append([last_transaction, transaction_amount])
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO NÃO DEVERÁ ADICIONAR A TRANSACTION AO BLOCKCHAIN EM SI...
+
+
+
+
+
+
+
+
+
+
+--------> para adicionar o BLOCK À BLOCKCHAIN (pq o  block não será só uma transaction, isso é uma certeza),
+
+
+
+
+
+
+
+
+
+
+ADICIONAMOS UMA FUNCTION DE NOME 
+
+
+
+'mine_block'....
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+def add_transaction(transaction_amount, last_transaction=[1]):
+    """Faz append de um novo value, assim como o value do ÚLTIMO BLOCKCHAIN, à blockchain global do arquivo
+
+        Arguments:
+    :transaction_amount: The amount that should be added.
+    :last_transaction: The last blockchain transaction (default [1]).
+    """
+    if (last_transaction == None):
+        return blockchain.append([[1], transaction_amount])
+
+    blockchain.append([last_transaction, transaction_amount])
+
+
+
+
+
+
+
+
+
+
+
+
+def mine_block():
+
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> POR ENQUANTO, O PROFESSOR NÃO VAI QUERER ESCREVER CÓDIGO NESSA FUNCTION DE 'MINE_BLOCK'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS ISSO MAIS TARDE..
+
+
+
+
+
+
+
+
+
+
+
+
+-----> UMA ESCRITA ÚTIL NO PYTHON É O 'pass' ----> 
+
+
+
+É ALGO QUE VOCêç PODE COLOCAR NAS SUAS FUNCTIONS... --> VOCÊ COLOCA O pass quando vocÊ 
+
+
+
+
+AINDA NÃO QUER ESCREVER UMA PARTE DO SEU CÓDIGO, QUER DEIXAR PARA DEPOIS, MAS NÃO QUER QUE O CÓDIGO DÊ BREAK 
+
+
+POR CAUSA DISSO....
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+
+def mine_block():
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> COM PASS, O PYTHON SIMPLESMENTE PULA ESSA FUNCTION, DEIXA DE A EXECUTAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+
+OK... AGORA VAMOS TRABALHAR EM 'ADD_tRANSACTION'...
+
+
+
+
+
+
+
+
+
+
+--> NÓS NÃO VAMOS QUERER FAZER 'APPEND' DE UM NOVO ELEMENTO 
+
+
+
+A NOSSA BLOCKCHAIN,....
+
+
+
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO, QUEREMOS ARMAZENAR UMA TRANSACTION , UMA NOVA TRANSACTION _ 
+
+NAQUELA ''''LIST''' DE TRANSACTIONS QUE TEMOS 
+EM 
+
+
+'open_transactions = [
+    
+]
+'
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PARA ISSO, É CLARO QUE PRECISAMOS DE DIFERENTES TIPOS DE INFO.... --->
+
+
+
+
+
+
+
+
+
+
+
+
+PRIMEIRAMENTE, NÃO VAMOS TER INTERESSE 
+
+NA ÚLTIMA TRANSACTION. .. -> EM VEZ DISSO,
+
+
+
+
+
+ESTAREMOS INTERESSADOS EM 
+
+
+
+
+3 PARâMETROS:
+
+
+
+a) sender 
+
+
+
+B) RECIPIENT 
+
+ 
+
+ C) AMOUNT...
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+def add_transaction(sender, recipient, amount):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT).                  
+    """
+    if (last_transaction == None):
+        return blockchain.append([[1], transaction_amount])
+
+    blockchain.append([last_transaction, transaction_amount])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR TAMBÉM VAI DEFINIR UM 'DEFAULT AMOUNT',
+
+que 
+
+será utilizado 
+
+
+quando 
+
+nosso programa/o user _ NÃO TIVER PASSADO ARGUMENTO ALGUMMM ..... -> valor default será de 1...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT).                  
+    """
+    if (last_transaction == None):
+        return blockchain.append([[1], transaction_amount])
+
+    blockchain.append([last_transaction, transaction_amount])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, OS ÚNICOS ARGUMENTOS OBRIGATÓRIOS PASSAM A SER 'SENDER' E 'RECIPIENT'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... --> É CLARO QUE O PROFESSOR DÁ UMA UPDATADA NOS ARGUMENTS, NA DESCRIÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE A LÓGICA DESSA FUNCTION TAMBÉM  SERÁ ALTERADA...
+
+
+
+
+
+
+
+
+
+
+--> vamos querer CRIAR UM DICTIONARY, PROVAVELMENTE ]
+
+ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+new_transaction: {
+
+    'sender': sender,
+    'recipient': recipient,
+    'amount': amount
+}
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+    """
+    new_transaction = {
+
+        'sender': sender,
+        'recipient': recipient,
+        'amount': amount
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> é claro que o ideal seria RODAR UNS IF CHECKS, PARA VER SE O USER NÃO INPUTTOU BOSTA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUEREMOS ADICIONAR UMA NOVA TRANSACTION A NOSSA LIST DE 'open_transactions'...
+
+
+
+
+
+
+
+
+-> VAMOS CHAMAR '.append()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ok, professor fez exatamente o que eu fiz..
+
+
+
+
+
+
+escreveu assim:
+
+
+
+
+
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+    """
+    new_transaction = {
+
+        'sender': sender,
+        'recipient': recipient,
+        'amount': amount
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> A KEY É SEMPRE ENCLOSED EM ''...
+
+
+
+
+
+
+
+-> O VALUE PODE SER UMA STRING, OU UM NUMBER... --> SERÁ O ARGUMENTO 'sender', o argumento 'recipient', etc....
+
+
+
+
+
+
+
+
+
+
+
+
+-> certo, tudo bem...
+
+
+
+
+
+
+
+
+
+
+
+---> É ESSA TRANSACTION QUE DEVERÁ SER APENSA A NOSSA LIST DE TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+
+--> SERÁ ARMAZENADA NA NOSSA 
+
+
+
+
+open_transactions list....
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PARA QUE ISSO FUNCIONE, TAMBÉM PRECISAMOS TRABLAHAR NO USER INPUT QUE ESTAMOS FETCHEANDO LÁ NO WHILE LOOP,
+
+QUE POR ENQUANTO ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+waiting_for_input = True
+
+
+while waiting_for_input:
+    print('-' * 30)
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('-' * 30)
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        if(tx_amount == None):
+            print('Please enter a valid value')
+        else:
+            add_transaction('Arthur', 'Max', get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        waiting_for_input = False
+
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(
+                    ' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)] = [float(elementValue)]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('-' * 40)
+        print('Invalid command, please input 1, 2 or q.')
+    if(not verify_chain()):
+        print(verify_chain())
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        waiting_for_input = False
+        # break
+    else:
+        print('Blockchain is valid')
+    print(blockchain)
+
+else:  # complemento do while loop
+    print('User left')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> COM o '1',
+
+
+estamos executando 
+
+
+
+
+'get_user_transaction_input'...
+
+
+
+
+
+
+
+QUE TEM ESTE CÓDIGO:
+
+
+
+
+
+
+
+def get_user_transaction_input():
+    """ Returns the input of the user (transaction amount) to proceed with option 1 """
+    user_transaction_input = input('Please enter your transaction amount: ')
+    if (user_transaction_input == '' or not user_transaction_input.isnumeric() or isinstance(user_transaction_input, bool)):
+        return None
+    else:
+        print(user_transaction_input, 'LINE')
+        return float(user_transaction_input)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        EX:
+
+
+
+
+
+
+
+while waiting_for_input:
+    print('-' * 30)
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('-' * 30)
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        if(tx_amount == None):
+            print('Please enter a valid value')
+        else:
+            add_transaction('Arthur', 'Max', tx_amount)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+--> MAS O PROFESSOR NOS EXPLICA QUE AGORA VAMOS ADAPTAR ESSA FUINCTION DE 'get_user_transaction_input',
+
+
+
+
+
+PQ AGORA VAMOS PRECISAR DE INFO ACERCA DO SENDER E DO RECIPIENT...
+
+
+
+
+
+
+
+
+
+
+--> VAMOS FETCHEAR TODA ESSA INFO, SEM ESSE HARDCODE que eu fiz...
+
+
+
+
+
+
+
+
+
+
+--> ESSA INFO SERÁ FETCHEADA LÁ NO 'get_user_transaction_input',
+
+
+
+
+que renomearei para 'get_transaction_value()',
+
+
+em que rodaremos vários 'input()"
+
+
+
+
+
+e em que TAMBÉM EXECUTAREMOS CERTOS CHECKS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+def get_transaction_value():
+    """ Returns the input of the user (sender, recipient, amount) as a tuple, to proceed with option 1 """
+
+    user_transaction_sender = input("Please enter the sender's name: ")
+
+    if (user_transaction_sender == '' or not isinstance(user_transaction_sender, str)):
+        return None
+    user_transaction_recipient = input("Please enter the recipient's name: ")
+    
+    if (user_transaction_recipient == '' or not isinstance(user_transaction_sender, str)):
+        return None
+    user_transaction_amount = input('Please enter transaction amount: ')
+    if (user_transaction_amount == '' or not user_transaction_amount.isnumeric() or isinstance(user_transaction_amount, bool)):
+        return None
+
+    user_transaction_input = (user_transaction_sender, user_transaction_recipient, user_transaction_amount)
+    print(user_transaction_input, 'LINE')
+    return user_transaction_input
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+while waiting_for_input:
+    print('-' * 30)
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('-' * 30)
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        user_transaction = get_transaction_value()
+        if(user_transaction == None):
+            print('Please enter a valid sender, recipient and transaction value')
+        else:
+            add_transaction(user_transaction)
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        waiting_for_input = False
+
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(
+                    ' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)] = [float(elementValue)]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('-' * 40)
+        print('Invalid command, please input 1, 2 or q.')
+    if(not verify_chain()):
+        print(verify_chain())
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        waiting_for_input = False
+        # break
+    else:
+        print('Blockchain is valid')
+    print(blockchain)
+
+else:  # complemento do while loop
+    print('User left')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> certo... agora devo testar isso.... --> talvez rodar um print da 'open_transactions' ao final dessa operação....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FUNCIONOU, FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+waiting_for_input = True
+
+
+while waiting_for_input:
+    print('-' * 30)
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('-' * 30)
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        user_transaction = get_transaction_value()
+        if(user_transaction == None):
+            print('Please enter a valid sender, recipient and transaction value')
+        else:
+            add_transaction(user_transaction[0], user_transaction[1], user_transaction[2])
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        waiting_for_input = False
+
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(
+                    ' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)] = [float(elementValue)]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('-' * 40)
+        print('Invalid command, please input 1, 2 or q.')
+    if(not verify_chain()):
+        print(verify_chain())
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        waiting_for_input = False
+        # break
+    else:
+        print('Blockchain is valid')
+    print(blockchain)
+
+else:  # complemento do while loop
+    print('User left')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ASSIM:
+
+
+
+
+
+
+
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+    """
+    new_transaction = {
+
+        'sender': sender,
+        'recipient': recipient,
+        'amount': amount
+    }
+
+    open_transactions.append(new_transaction)
+    print(open_transactions)
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+
+
+
+
+
+-> professor faz essencialmente a mesma coisa que eu fiz...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBVIAMENTE ISSO NÃO FAZ MT SENTIDO,
+
+
+NÃO VAMOS TER QUE 
+
+
+ESCREVER 'SENDER' como 
+
+
+
+
+
+se fossemos escrever nosso próprio nome...
+
+
+
+
+
+
+
+
+
+-> É ÓBVIO QUE O SENDER É NÓS, AUTOMATICAMWENTE, POR ISSO O PROFESSOR ADICIONA UMA VARIABLE 
+
+
+AO INÍCIO DO ARQUIVO,
+
+
+
+
+
+
+
+SIMPLESMENTE PARA INDICAR QUE É UMA VARIABLE IMPORTANTE...
+
+
+
+
+
+
+  -> colocamos essa variable 
+
+
+
+  lá no início
+
+
+
+
+
+
+
+
+
+  --> GLOBAL VARIABLE...
+
+
+
+
+
+
+
+
+  --> ESSE BLOCKCHAIN RODARÁ NA NOSSA MÁQUINA, SIM, MAS QUANDO TIVERMOS UMA 
+
+
+
+  'NODE NETWORK', ainda teremos essa 'local network' para nós...
+
+
+
+
+
+
+
+
+
+
+  -> CERTO... --> aí o professor dará o nome 'owner' a essa variable....
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+
+
+owner = 'Arthur'
+
+
+
+
+
+
+
+
+
+
+
+--> MAIS TARDE USAREMOS UAM ___ STRING COMPLEXA, TIPO UM HASH,
+
+NO LUGAR DESSE NAME... (unique identifier)....
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... --> ESSE SERÁ O SENDER PQ ESSE É O IDENTIFICADOR DE NÓS,
+
+QUE ESTAREMOS RODANDO __ESSA__ INSTANCE__ DA BLOCKCHAIN.... ---> OK... --> QUANDO ENVIAMOS UMA 
+
+NOVA TRANSACTION,
+
+
+
+
+VAMOS OBVIAMENTE __ FAZÊ-LO DE DENTRO DE NOSSA ACCOUNT, dessa file,
+
+por isso NAÕ PRECISAMOS DE 'input' para o sender, e nem de validation para isso...
+
+
+
+
+
+
+
+
+
+---> NO RETURN DA DATA,
+ 
+ PODEMOS RETORNAR __ UMA TUPLE_>..... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+  
+
+
+
+
+
+
+
+
+  
+def get_transaction_value():
+    """ Returns the input of the user (sender, recipient, amount) as a tuple, to proceed with option 1 """
+
+    user_transaction_sender = owner
+    #user_transaction_sender =  input("Please enter the sender's name: ")
+    # if (user_transaction_sender == '' or not isinstance(user_transaction_sender, str)):
+    #     return None
+    user_transaction_recipient = input("Please enter the recipient's name: ")
+    if (user_transaction_recipient == '' or not isinstance(user_transaction_sender, str)):
+        return None
+    user_transaction_amount = input('Please enter transaction amount: ')
+    if (user_transaction_amount == '' or not user_transaction_amount.isnumeric() or isinstance(user_transaction_amount, bool)):
+        return None
+    user_transaction_input = (user_transaction_sender, user_transaction_recipient, float(user_transaction_amount))
+    print(user_transaction_input)
+    print(user_transaction_input, 'LINE')
+    return user_transaction_input
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... nossa tuple é aquela linha:
+
+
+
+    user_transaction_input = (user_transaction_sender, user_transaction_recipient, float(user_transaction_amount))
+
+
+
+
+
+
+
+
+
+------> UMA TUPLE É CRIADA COM '()'..... ---> 
+
+
+
+
+
+
+
+VAMOS COLOCAR O SENDER, RECIPIENT E AMOUNT...  (é um conjunto de MIXED DATA, pq temos 2 strings e 1 float)....
+
+
+
+
+
+
+
+
+
+--> USE-CASE COMUM DE TUPLES É JUSTAMENTE MIXED DATA...
+
+
+
+
+
+
+
+
+
+
+
+
+---> COM TUPLES, VOCÊ TAMBÉM PODE OMITIR '()" em volta do return... --> MAS SE VOCÊ TIVER UMA TUPLE COM 
+
+1 ÚNICO ELEMENTO,
+
+
+
+
+VOCê 
+
+
+
+TEM QUE ESCREVER ASSIM:
+
+
+
+
+(
+    tx_amount, 
+)
+
+
+
+
+
+
+
+
+--> SE VOCê QUISER UMA EMPTY TUPLE, ELA É ESCRITA ASSIM:
+
+
+
+
+
+return () 
+
+
+
+
+
+
+
+
+--> MAS TUPLES VAZIAS SÃO QUASE INÚTEIS, PQ TUPLES NÃO PODEM SER 'OVERWRITTEN', não podemos adicionar coisas a ela depois de sua criação...
+
+
+
+
+
+
+
+
+-----> CERTO... --> DE VOLTA AO NOSSO USE-CASE,
+
+
+
+O PROFESSOR VAI QUERER RETORNAR 
+
+
+
+tx_sender_, tx_amount, etc etc....
+
+
+
+
+
+
+
+
+
+---> OK... AGORA QUANDO ENTRARMOS NO NOSSO LOOP,
+
+
+while loop,
+
+
+
+
+
+TEREMOS AQUELA LINHA DE:
+
+
+
+
+if user_choice == '1';
+    tx_data = get_transaction_value()
+
+    add_transaction(tx_data[0], tx_data[1], tx_data[2])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ISSO VAI CONSEGUIR PASSAR ESSE VALOR AO METHOD DEW 'add_transaction',
+
+    SUPOSTAMENTE....
+
+
+
+
+
+
+
+
+    --> MAS VEREMOS ISSO NA PRÓXIMA AULA, 'COMO ACESAR DATA NA NOSSA TUPLE'....

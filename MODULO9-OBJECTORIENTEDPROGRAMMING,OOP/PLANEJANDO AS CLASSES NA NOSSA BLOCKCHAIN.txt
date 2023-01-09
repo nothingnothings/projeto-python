@@ -1,0 +1,497 @@
+
+
+
+
+
+
+
+
+
+
+OK, É BOM DE VER ISSO DE CLASSES E TUDO MAIS,
+
+
+MAS 
+
+
+
+COMO ISSO É APLICADO NO NOSSO PROJETO BLOCKCHAIN?
+
+
+
+
+
+
+
+
+
+
+
+
+-> DEVEMOS APLICAR ALGUNS DESSES CONCEITOS A NOSSA BLOCKCHAIN... 
+
+
+
+
+
+devemos splittar nosso código em classes, e aí 
+
+agrupar as funcionalidades de acordo com 
+
+
+
+
+
+isso...
+
+
+
+
+
+
+
+
+
+
+
+
+QUAL É O  NOSSO CÓDIGO DO PRESENTE?
+
+
+
+
+
+
+
+
+
+
+--> temos:
+
+
+
+
+
+
+
+ALGUMAS VARIÁVEIS GLOBAIS:
+
+
+
+
+
+
+
+
+
+
+owner,
+
+
+
+MINING_REWARD 
+
+
+
+
+blockchain 
+
+
+
+
+
+open_transactions....
+
+
+
+
+
+
+--> TALVEZ ESSAS FIQUEM MELHORES DENTRO DE UMA CLASS 'User'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> aí temos 
+
+as functions em si:
+
+
+
+
+
+
+
+
+1) load_data()
+
+
+
+
+2) save_data()
+
+
+
+
+
+
+
+3) get_user_choice() 
+
+
+
+
+
+
+4) get_transaction_value()
+
+
+
+
+
+5) add_transaction()
+
+
+
+
+
+
+ 6) proof_of_work()
+
+
+
+
+
+
+
+
+ 7) mine_block()
+
+
+
+
+
+
+
+8) output_blockchain()
+
+
+
+
+
+
+9) verify chain() 
+
+
+
+
+
+10) verify transaction() 
+
+
+
+
+
+
+11) get_value()  (convenience function de 'get_balance()') 
+
+
+
+
+
+
+
+
+12) get balance() 
+
+
+
+
+
+
+
+13) verify_transactions()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LOAD DATA E SAVE DATA são relativas à BLOCKCHAIN EM SI...
+
+
+
+verify_chain também é CORRELATA à BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> é claro que sempre podemos ser mais ou menos granulares que  o professor...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> há também 
+
+
+
+coisas que funcionam com a transaction...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR EXPLICA QUE ELE TERÁ UMA CLASS DE 'BLOCKCHAIN',
+
+que conterá:
+
+
+
+
+
+
+
+1) A CHAIN EM SI 
+
+
+
+
+
+2) OPEN TRANSACTIONS 
+
+
+
+
+3) METHODS QUE MANIPULAM A CHAIN OU TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+
+
+--> TEREMOS UMA CLASS DE 'BLOCK':
+
+
+
+
+vai conter attributes:
+
+
+
+
+
+
+
+
+A)  VAI CONTER 'PREVIOUS HASH'
+
+
+
+
+
+
+B) INDEX 
+
+
+
+C) TIMESTAMP 
+
+
+
+
+
+D) TRANSACTION LIST DESSE BLOCK ESPECÍFICO (processed_transactions)..
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE VAMOS INSTANCIAR ESSES 
+
+BLOCKS LÁ NA NOSSA CLASS DE 'BLOCKCHAIN'...
+
+
+
+
+
+
+
+
+
+
+
+--> TEREMOS UMA CLASS DE TRANSACTION:
+
+
+
+
+
+
+ela conterá attributes:
+
+
+
+1) SENDER  
+
+
+
+
+
+2) RECIPIENT 
+
+
+
+
+3) AMOUNT 
+
+
+
+
+
+
+
+
+
+
+
+--> TEREMOS UMA CLASS DEDICADA à VERIFICATION,
+
+
+
+em que 
+
+teremos:
+
+
+
+
+
+1) STATIC E CLASS VERIFICATION METHODS 
+
+
+(
+
+    professor nos ensinará o que ele quer dizer 
+
+    por static e class methods...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> POR FIM,
+
+
+TEREMOS UMA CLASS CHAMADA DE 
+
+'Node',
+
+QUE SERÁ RESPONSÁVEL UNICAMENTE 
+
+
+
+PELO CONTROLE DE NOSSA USER INTERFACE...
+
+
+
+
+
+
+
+
+
+
+
+'Node' 
+
+
+1) USER INTERFACE METHODS AND ATTRIBUTES..
+
+(
+
+    OU SEJA,
+
+
+    SERÁ DEDICADA A FAZER O QUE ESTAMOS FAZENDO AGORA,
+
+    COM O WHILE LOOP....
+)
+
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR, É BASTANTE TRABALHO, MAS VAMOS LÁ....

@@ -1,0 +1,671 @@
+
+
+
+
+
+
+
+
+
+
+
+
+no javascript, isso era acessado com 
+
+
+
+
+
+
+
+
+
+
+
+
+const token = req.query.token || 'DEFAULT'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE ESSA TOKEN NÃO FOSSE DEFINIDA, SERIA SELECIONADO O VALOR DE 'DEFAULT'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS COMO USAMOS 'DEFAULT ARGUMNETS'
+
+
+NO PYTHON? 
+
+
+
+
+
+
+
+
+--> E O QUE SÃO 
+
+
+DEFAULT ARGUMENTS NO 
+
+
+PYTHON?
+
+
+
+
+-> SÃO 
+
+
+
+ARGUMENTS QUE SÃO USADOS QUANDO _ o USER/VOCÊ CHAMA UMA FUNCTION __ 
+
+SEM PASSAR NENHUMA DATA COMO SEU ARGUMENT....
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ANTIGAMENTE, QUANDO TÍNHAMOS UMA FUNCTION 
+
+
+
+
+QUE EXIGIA _ UM PARÂMETRO e a chamávamos com 'xxxxx()',
+
+
+
+
+NÓS GANHÁVAMOS/GANHAMOS UM __ ERRO__...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NÓS ACTUALLY PODEMOS FAZER ISSO_ _ SEM ERROS__...
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS FAZER COM QUE QUANDO O NEGÓCIO É CHAMADO, ELE NÃO ATIRA UM ERROR,
+
+
+
+
+E SIM __ USA _o  
+
+
+
+
+'DEFAULT ARGUMENT' que vocÊ settou...
+
+
+
+
+
+
+
+
+
+
+
+A SINTAXE É ESTSA:
+
+
+
+
+
+
+
+
+
+
+
+
+def greet3(name, age=29):
+    print('Hello' + 'name' + 'I am' + age)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OU SEJA, SE O CARA NAÕ PASSAR NADA COMO 'age',
+
+SERÁ ADOTADO AUTOMATICAMENTE O VALOR DE 29...
+
+
+
+
+
+
+
+
+
+-----> VALOR DEFAULT DE 29...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> EXEMPLO:
+
+
+
+
+
+
+
+greet('Max') ---------> O PROFESSOR PASSOU O PRIMEIRO PARÂMETRO,
+
+
+
+MAS DEIXOU DE LADO O SEGUNDO.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS EU OBTIVE UM ERRO: ('can only concatenate str (not int) to str') 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> na verdade, os default parameters TAMBÉM EXISTEM NO JAVASCRIPT,
+
+
+
+
+
+
+existe tanto o default em 'variables' (como 'const xxxx = req.query.params || 1' )
+
+
+
+
+
+
+
+
+ou em functions....
+
+
+
+
+
+
+
+
+
+
+
+como esse 
+
+
+
+
+def greet(name, age=29):
+    print('Hello ' + name + ', I am ' + age)
+
+
+
+
+
+    greet('Max')
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+ok, mas o professor NÃO CONSERTOU esse erro do 'string n pode ser usado com number'...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONVERTER EM UMA STRING, USE O METHOD DE 'str()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok... 
+
+
+
+
+
+
+
+
+
+
+
+--> vamos voltar ao initialize da blockchain como um EMPTY ARRAy...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja, vamos tirar 'blockchain = [[1]]',
+
+
+
+
+
+
+E DEIXAR COMO 
+
+'blockchain = []'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSEGUIRMOS EVITAR ERROS NO CÓDIGO DE 'add_value,'
+
+
+
+
+O PROFESSOR 
+
+
+
+ADICIONA 
+
+
+
+
+
+UM SEGUNDO PARÂMETRO, 'last_transaction',
+
+
+
+E AÍ __ ESCREVE ASSIM:
+
+
+
+
+
+
+
+
+def add_value(transaction_amount, last_transaction=[[1]]):
+    blockchain.append([get_last_blockchain_value(), transaction_amount])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> AÍ, ALI EM 'get_last_blockchain_value',
+
+
+
+    NÓS COLOCAMOS ESSE VALOR DE 'last_transaction'....
+
+
+
+
+
+
+
+
+
+
+
+
+    MAS ESTE CÓDIGO NAÕ ESTÁ CERTO:
+
+
+
+
+def add_value(transaction_amount, last_transaction=[[1]]):  # essa function faz EXATAMENTE 1 ÚNICA COISA, o que é ótimo....
+    blockchain.append([last_transaction, transaction_amount])
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> em vez disso, o que o professor fez foi isto:
+
+
+
+
+
+    def add_value(transaction_amount, last_transaction):  # essa function faz EXATAMENTE 1 ÚNICA COISA, o que é ótimo....
+    blockchain.append([last_transaction, transaction_amount])
+    print(blockchain)
+
+
+
+
+
+
+
+
+    add_value(2)
+    add_value(0.9, get_last_blockchain_value())
+
+    add_value(2, [1])
+    add_value(4, [1])
+    add_value(6, [1])
+    add_value(8, [1])
+
+
+
+
+
+
+
+
+
+
+--> CERTO, MAS ISSO __ NÃO É __ NÓS USANDO OS 'DEFAULT ARGUMENTS' aqui....
+
+
+
+
+
+--> precisamos usar DEFAULT ARGUMENTS em 1 dessas functions....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O DEFAULT SEMPRE SERÁ QUE '''QUEREMOS CONSEGUIR THE LAST BLOCKCHAIN VALUE'''' (por meio de 'get_last_blockchain_value')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o professor vai colocar o CALL DESSA FUNÇÃO como valor DEFAULT do segundo argumento....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+def add_value(transaction_amount, last_transaction=get_last_blockchain_value()):  # essa function usa DEFAULT PARAMETERS....
+    blockchain.append([last_transaction, transaction_amount])
+    print(blockchain)
+
+
+
+
+
+add_value(2, [1])
+add_value(0.9)
+add_value(0.5)
+add_value(0.34)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS ISSO _ AINDA NOS DÁ UM ERRO.... 
+
+
+
+
+
+
+
+
+--> erro de 'list index out of range'... -----> OU SEJA,
+
+
+
+O CÓDIGO DE 'get_last_blockchain_value'
+
+
+
+ESTÁ SENDO EXECUTADO COMO DEFAULT PARAMETER__ MESMO __ QUANDO NÓS PROVIDENCIAMOS UM VALUE NO CALL DE 'add_value'...
+
+(
+
+    OU SEJA, ESTÁ EXECUTANDO ESSA FUNCTION MESMO NO PRIMEIRO CALL, EM QUE TEMOS OS 2 
+    PARÂMETROS...
+)
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE PRECISAMOS VOLTAR 
+
+
+à SOLUÇÃO DE '[1]'... 
+
+
+
+
+
+
+
+
+
+--> e aí usar a versão de 'get_last_blockchain_value()' nos calls de todos os 'add_value', como segundo parâmetro, tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO EVITAMOS O ERROR DE 'list index out of range'...
+
+
+
+
+
+
+
+
+
+
+
+--> com isso, estamos usando default arguments..

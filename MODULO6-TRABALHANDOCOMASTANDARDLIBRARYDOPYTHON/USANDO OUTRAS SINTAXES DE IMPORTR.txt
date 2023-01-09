@@ -1,0 +1,178 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> aprendemos que podemos 
+
+
+IMPORTAR PACKAGES DO PYTHON DE MANEIRAS DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+--. APRENDEMOS  QUE PODEMOS IMPORTAR OS PACKAGE NAMES,
+
+E AÍ 
+
+
+CHAMAR OS NOMES DAS FUNÇÕES QUE QUEREMOS USAR __ DIRETAMENTE NESSES package names...
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM APRENDEMOS QUE EXISTE O ALIASING NO 
+
+
+
+PYTHON,
+
+
+EXATAMENTE COMO NO JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+---> você pode fazer coisas como:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import hashlib 
+
+
+
+
+import hashlib as hl 
+
+
+
+
+
+
+hl.sha256()
+
+
+
+
+
+
+
+
+
+
+-----> OK... ISSO REALMENTE FUNCIOAN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> NÓS TAMBÉM PODEMOS _ LIMITAR__ OS IMPORTS_ A CERTAS FUNCIONALIDADES...
+
+
+
+
+
+
+
+
+
+
+NÓS ESTAMOS IMPORTANDO O PACKAGE INTEIRO DE 'functools',
+
+MAS TVZ 
+
+SEJA MAIS WORTH 
+
+IMPORTAR 
+
+S Ó 
+
+
+A FUNCTION DE 'reduce()',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+from functools import reduce
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ESSA SINTAXE NÃO É RECOMENDADA....
+
+
+
+
+
+
+
+
+
+
+
+--> 

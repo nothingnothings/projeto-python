@@ -1,0 +1,1122 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.. 
+
+
+
+
+
+
+
+--> NA ÚLTIMA AULA APRENDEMOS SOBRE AS VANTAGENS DAS CLASSES:
+
+
+
+
+# a sintaxe é assim, 'MultiPalavra' (exataemnte como no javascript)....
+class SportsCar:
+    top_speed = 100  # attribute/propriedade
+
+    # 'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+    def drive(self):
+        # print('I am driving, but certainly not faster than {}'.format(top_speed)) # não acesse seu attribute da class assim...
+        # acesse ASSIM...
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+# Nova instanciacao/objeto dessa class.... --> podemos rodar METHODS nisso...
+newSportsCar = SportsCar()
+
+
+newSportsCar.drive()
+
+
+
+
+
+
+
+
+
+
+
+
+-> LÁ O PROFESSOR 
+
+MENCIONOU QUE 
+
+
+PODEMOS TER MÚLTIPLAS INSTANCES DE UMA CLASS...
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+class Car:
+    top_speed = 100
+
+
+    def drive(self):
+        print('I am driving but certainly not faster than {}'.format(self.top_speed))
+
+    
+
+
+
+
+car1 = Car()
+
+
+
+
+car1.drive()
+
+
+
+
+
+
+
+
+
+
+car2 = Car()
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... 
+
+
+
+
+
+
+
+
+
+
+-> COM ISSO PODEMOS VER QUE PODEMOS INSTANCIAR 
+
+
+
+
+MÚLTIPLAS VEZES A CLASS DE 'Car'..
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... -> ISSO FARÁ NÓS CONSEGUIRMOS AQUELE OUTPUT 2x....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS HÁ UM DETALHE ESPECIAL QUE VOCÊ PRECISA SABER SOBRE ESSE TIPO DE 
+
+CLASS (
+
+
+    classes como 'Car'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O QUE É ISSO?
+
+
+
+
+
+
+
+
+bem, a maneira pela qual 
+
+
+
+DEFINIMOS ESSE ATTRIBUTE DE 
+
+
+
+'top_speed = 100'
+
+
+
+
+OBVIAMNETE FUNCIONA,
+
+
+
+
+
+
+
+
+
+COMO PODEMOS VER PELO OUTPUT ALI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO,
+
+
+
+QUANDO VOCÊ ESCREVE ALGO 'SOLTO' NA SUA CLASS,
+
+
+isso 
+aí 
+
+é 
+
+chamado de 
+
+'class attribute',
+
+
+
+
+E NÃO __ UM 'INSTANCE ATTRIBUTE' ' -----. ISSO QUER DIZER QUE 
+
+
+TODAS 
+
+AS 
+
+INSTANCES/OBJECTS 
+
+
+
+DE 
+
+SUA 
+
+
+CLASS 
+
+VAO 
+
+TER 
+
+ESSE ATTRIBUTE,
+
+E ELE 
+
+_SEMPRE SERÁ DE 100....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR DEMONSTRA ISSO COM ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+class Car:
+    top_speed = 100
+
+
+    def drive(self):
+        print('I am driving but certainly not faster than {}'.format(self.top_speed))
+
+    
+
+
+
+
+car1 = Car()
+
+
+
+
+car1.drive()
+
+
+
+
+
+Car.top_speed = 200
+
+
+car2 = Car()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OU SEJA, ELE REDEFINIU O VALOR DESSE ATTRIBUTE COMO SENDO DE '200' 
+
+ao longo do runtime (
+
+
+
+
+    e o que acontece com o outro car,
+
+
+
+
+    A SEGUNDA INSTANCE,
+
+    ELA TERÁ 
+
+
+
+
+    ESSE 'Car' com ESSE ATTRIBUTE TENDO ESSE VALOR?
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+    top_speed = 100  # attribute/propriedade
+
+    # 'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+    def drive(self):
+        # print('I am driving, but certainly not faster than {}'.format(top_speed)) # não acesse seu attribute da class assim...
+        # acesse ASSIM...
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+# Nova instanciacao/objeto dessa class.... --> podemos rodar METHODS nisso...
+new_sports_car = SportsCar()
+
+
+new_sports_car.drive()
+
+
+
+
+
+
+SportsCar.top_speed = 200
+
+
+
+
+
+
+generic_car = SportsCar()
+
+
+
+
+
+generic_car.drive()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VEJAMOS O OUTPUT:
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> python car.py
+I am driving, but certainly not faster than 100
+I am driving, but certainly not faster than 200
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OU SEJA,
+
+SE VOCÊ ALTERA O VALOR DE UMA 'CLASS ATTRIBUTE',
+
+
+todos os 
+
+
+OBJECTS CRIADOS A PARTIR DESSA CLASS _ VAO 
+
+
+
+
+
+
+SEGUIR TENDO ESSE VALOR ALTERADO...
+
+
+
+
+
+
+
+
+
+
+
+
+-> isso é visto no print statement...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PODE PARECER ÓBVIO, 
+
+MAS 
+
+
+
+
+
+
+
+VOCÊ PODERIA ARGUMENTAR QUE 
+
+
+
+'''' A BLUEPRINT NÃO DEVERIA _ SER ALTERÁVEL'''.... ->   deveria SER __ FIXA_ 
+
+
+
+
+DEPOIS QUE VOCê 
+
+A CRIOU... (você poderia dizer isso)... ----> É POR ISSO 
+
+
+
+
+
+QUE SERIA OPTIMAL 
+
+SE 
+
+
+
+
+ESSE 'redefine'
+
+
+de suas class attributes 
+
+
+
+NÃO __ FOSSE POSSÍVEL _ 
+
+
+
+
+,
+
+
+
+PARA QUE ISSO NÃO INFLUENCIE FUTUROS INSTANCIAMENTOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ISSO SE TORNA AINDA MAIS CLARO SE ADICIONARMOS MAIS ALGUM __ DATA TYPE__ 
+
+
+COMO 
+
+valor 
+
+DE UMA CLASS ATTRIBUTE..
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Car:
+    top_speed = 100
+    warnings = []
+
+
+    def drive(self):
+        print('I am driving but certainly not faster than {}'.format(self.top_speed))
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS LISTS SÃO REFERENCE TYPES, EM PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DIGAMOS QUE TENTAMOS ACESSAR O 'warnings' 
+
+E AÍ _ 
+
+TENTAMOS ADICIONAR 
+
+UM ELEMENTO 
+
+de 
+
+'A'...
+
+
+
+
+
+
+
+-----> ISSO FEITO, VAMOS PRINTAR O VALOR DE 'car2.warnings' (ver se A ALTERAÇÃO DESSE VALOR NO 'car1', object, VAI ALTERAR O VALOR DE TODOS OS OUTROS OBJECTS)..
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+    top_speed = 100  # attribute/propriedade
+    warnings = [] #uma list É UM REFERENCE TYPE, EM PYTHON....
+
+    # 'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+    def drive(self):
+        # print('I am driving, but certainly not faster than {}'.format(top_speed)) # não acesse seu attribute da class assim...
+        # acesse ASSIM...
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+# Nova instanciacao/objeto dessa class.... --> podemos rodar METHODS nisso...
+new_sports_car = SportsCar()
+
+
+
+new_sports_car.drive()
+
+
+
+
+
+new_sports_car.warnings.append('A')
+
+
+SportsCar.top_speed = 200 #isso, esses redefines de CLASS ATTRIBUTES, NÃO DEVERIAM SER PERMITIDOS (leva a código imprevisível)..
+
+
+
+
+
+
+generic_car = SportsCar()
+
+
+
+
+
+generic_car.drive()
+
+
+print(generic_car.warnings)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> AO FAZER ISSO, O QUE EU TEMIA ACONTECEU:
+
+
+
+
+
+
+
+
+
+quando ALTERAMOS O VALOR DE 'car1',
+
+
+aquela 
+
+
+LIST _ LÁ, de 'warnings' (Que é REFERENCIAL),
+
+
+
+
+
+__ ACABAMOS _ ALTERANDO _ OS VALORES _ DE TODAS AS OUTRAS LISTS  DE TODOS OS OUTROS OBJECTS,
+
+
+
+nessa key aí...
+
+
+
+
+
+
+(
+    isso significa que os outros objects 'car' TAMBÉM FICARÃO COM ESSA ALTERAÇÃO...
+)
+
+
+
+
+
+
+
+
+
+
+-----> certo....
+
+
+
+
+
+
+
+
+
+
+
+isso quer dizer que QUANDO INSTANCIAMOS UMA CLASS,
+
+
+
+CRIAMOS UM OBJECT A PARTIR DELA,
+
+
+
+
+SE HAVIA UM __ VALOR REFERENCIAL NA CLASS ORIGINAL
+
+
+O QUE 
+
+SERÁ 
+
+COPIADO/ARAMZENADO 
+
+
+NO OBJECT 
+
+
+SERÁ UM 'POINTER' 
+
+
+àQUELE VALOR REFERENCIAL ORIGINAL, existente na class....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> CERTO... ISSO JÁ É BEM DIFERENTE DO JAVASCRIPT.
+
+
+
+
+
+
+
+--> NO JAVASCRIPT, SE VOCÊ ADICIONA UM VALOR NOVO A UM ARRAY/REFERENCE TYPE DE UM DETERMINADO OBJECT,
+
+VOCê 
+
+NÃO VAI ACABAR INFLUENCIANDO O BLUEPRINT/CLASS DESSE OBJECT AÍ,
+
+
+NEM 
+
+
+INFLUENCIANDO OS __ OUTROS _ OBJECTS_ CRIADOS A PARTIR DAQUELE BLUEPRINT..
+
+
+
+
+
+
+
+
+
+
+
+
+VEJA O CÓDIGO:
+
+
+
+
+
+
+old_sports_car = SportsCar()
+
+
+
+
+
+
+# Nova instanciacao/objeto dessa class.... --> podemos rodar METHODS nisso...
+new_sports_car = SportsCar()
+
+
+new_sports_car.drive()
+
+
+new_sports_car.warnings.append('A')
+
+
+# isso, esses redefines de CLASS ATTRIBUTES, NÃO DEVERIAM SER PERMITIDOS (leva a código imprevisível)..
+SportsCar.top_speed = 200
+
+
+generic_car = SportsCar()
+
+
+generic_car.drive()
+
+
+print(generic_car.warnings)
+
+print(old_sports_car.warnings)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEJA O OUTPUT:
+
+
+
+I am driving, but certainly not faster than 100
+I am driving, but certainly not faster than 200
+['A']
+['A']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja,
+
+o que está sendo COPIADO 
+
+
+
+nessas instances é o VALOR REFERENCIAL DE 
+
+
+
+'warnings',
+
+
+
+
+O QUE QUER DIZER QUE SÓ OS POINTERS ESTÃO SENDO COPIADOS... (alteramos 1 desses valores em 1 de nossos objects, alteramos a porra toda, em todos os objects, pq o valor da CLASS terá sido alterado também....)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> A RAZÃO PARA ISSO TUDO É O USO DE 'REFERENCIAL VALUES'
+
+
+
+
+
+EM 'CLASS ATTRIBUTES'...
+
+
+
+
+
+
+
+
+
+
+----> TODAS AS INSTANCES COMPARTILHAM O MESMO CLASS ATTRIBUTE,
+
+
+
+E COMO 
+
+
+ESSE 'WARNINGS' é um reference type , 
+
+
+
+
+ELE 
+
+É 
+
+APENAS 1 LUGAR NA MEMPÓRIA,
+
+
+
+
+
+E TODAS AS 'CÓPIAS' feitas nos objects SAÕ APENAS CÓPIAS DOS POINTER A ELE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> VOCÊ ____________àS VEZES VAI QUERER ESSE COMPORTAMENTO,
+
+
+
+MAS NA GRANDE MAIORIA DOS CASOS, NÃO SERÁ DESEJÁVEL... --> LEVA A COMPORTAMENTO 
+
+
+IMPREVISÍVEL NO SEU APP...
+
+
+
+
+
+
+
+--> É POR ISSO QUE 
+
+
+
+EXISTE UMA _ MANEIRA __ DIFERENTE _ DE INICIALIZAR 
+
+
+
+
+'CLASS VARIABLES'/'CLASS ATTRIBUTES'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS ADICIONAR/CRIAR __ ATTRIBUTES __ DE UM JEITO __ QUE 
+
+ELES 
+
+SÃO 
+
+
+'SCOPED'
+
+
+ÀS INSTANCES QUE ESTAMOS CRIANDO...( aos objects)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, VAMOS PRECISAR DOS FAMOSOS 'CONSTRUCTORS', que estudaremos nA PRÓXIMA AULA...

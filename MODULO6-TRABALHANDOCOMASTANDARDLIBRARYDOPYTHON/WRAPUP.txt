@@ -1,0 +1,262 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ACABAMOS ESSE MÓDULO..
+
+
+
+
+
+
+
+
+
+
+
+
+--> VIMOS A STANDARD LIBRARY.. --> BATTERIES INCLUDED --> 
+
+
+
+
+
+
+
+
+
+
+
+JA´VEM COM UM MONTE DE COISAS INSTALADS,
+
+MAS VOCê TEM QUE AS IMPORTAR,
+
+
+
+PQ 
+
+
+
+
+ESSAS FEATURES PRECISAM SER IMPORTADAS 
+
+
+PARA 
+
+FUNCIONAREM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> APRENDEMOS AS DIFERENTES SINTAXES DE IMPORT...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+import package 
+
+
+
+
+
+
+
+
+
+USE AN ALIAS --> 
+
+
+
+
+
+
+import package as pkg 
+
+
+
+
+
+from package import something 
+
+
+
+
+
+
+
+
+
+
+
+
+from package import something as smth 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCê TAMBÉM PODE _ IMPORTAR TUDO DE UMA DETERMIANDA PACAKGE,
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+from package import *  
+
+
+
+
+
+
+
+
+
+
+
+MAS ESSA SINTAXE É DESENCORAJADA...
+
+
+
+
+
+
+
+
+
+
+
+-> VEJA OS DOCS PARA DESCOBRIR QUAIS PACAKGES EXISTEM, E QUAIS PODEMOS UTILIZAR..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUANTO AO BLOCKCHAIN,
+
+ADICIONAMOS PROOF OF WORK 
+E 
+
+UM 
+
+ __HASH _DE VERDADE PARA NOSSOS BLOCKSa..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------> NÓS JA´ESTAMOS NO FINAL DA NOSSA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+
+ --> SE TIRARMOS A NODE NETWORK E A NATUREZA DESCENTRALIZADA,
+
+ JÁ ESTAMOS BEM PRÓXIMOS..
+
+
+ DEVEMOS CONTINUAR...
+
+
+
+
+
+
+
+
+
+
+
+ Explicit is better than implicit.
+from <module> import * is not explicit. It isn’t telling us anything about what we’re importing or what names we’re bringing into our namespace. It would be much better to explicitly specify and import everything we need; that way, a reader (most likely your future self) won’t be confused about where a variable/function/class/etc. used in the code comes from, which leads us to:

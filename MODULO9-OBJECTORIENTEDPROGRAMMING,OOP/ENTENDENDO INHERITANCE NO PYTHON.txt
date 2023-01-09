@@ -1,0 +1,2608 @@
+
+
+
+
+
+
+
+
+
+--> COM AS CORE FEATURES DE 'CLASSES'
+
+fora do caminho,
+
+
+
+DEVEMOS VER 
+
+
+
+OUTRO CORE CONCEPT 
+
+
+
+DO OOP....
+
+
+
+
+
+
+
+
+
+
+--> É A INHERITANCE....
+
+
+
+
+
+
+
+
+
+
+
+-> IMAGINE QUE __ NÓS __ TEMOS MAIS DO QUE APENAS UM CAR,
+
+
+
+temos um BUS.... 
+
+
+
+
+
+
+
+
+
+--. CLASS  DE 'Bus'...
+
+
+
+
+
+
+
+
+-_> ESSA CLASS __ PROVAVELEMNTE 
+
+
+
+ 
+ TERÁ TAMBÉM UMA TOP SPEED,
+
+
+ E TAMBÉM WARNINGS...
+
+
+
+
+
+
+
+
+
+ --> MAS TVZ QUEIRAMOS TER 
+
+ _DIFERENTES_ METHODS NESSE 
+
+
+
+bus... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS VAMOS QUERER QUE O CAR __ TENHA, ALÉM DE TODOS AQUELES METHODS (de 'add_warning', 'get_warnings' e 'drive'),
+
+
+
+
+ELE __ TENHA __ ALGO 
+
+
+
+COMO 
+
+
+
+
+'brag'  (brag que TEMOS UM CARRO MT RÁPIDO, ETC ETC)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> o method será assim:
+
+
+
+
+
+
+
+
+
+
+def brag(self):
+    print('Look at how cool my car is.' )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> JÁ NO BUS O PROFESSOR COPIA TODO ESSE CÓDIGO QUE TÍNHAMOS NESSE 'SportsCar',
+
+
+
+
+
+
+
+PQ _ VAMOS QUERER _ QUE ESSE CÓDIGO TODO SEJA __ INHERITADO_- POR ESSA CLASS 
+DE 
+
+'SportsCar' (vamos querer que ele herde da class 'Bus')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+class Bus:
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+
+        self.__warnings = []
+
+    def __repr__(self):
+
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.__warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text):
+        if (len(warning_text) > 0):
+            self.__warnings.append(warning_text)
+
+    def get_warnings(self):
+        return self.__warnings
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+        
+    def brag(self):
+        print('Look at how cool my car is.' )
+
+
+        
+
+
+car1 = SportsCar(1000)
+
+
+print(car1)
+
+
+print(car1.__dict__)
+
+
+new_dict = car1.__dict__
+
+
+new_dict.update({'newkey': 'value'})
+
+
+print(new_dict)
+
+
+print(car1.__dict__, 'OLD DICT')
+
+print(car1)
+
+
+print(car1)
+
+print(car1.get_warnings(), 'WARNINGS')
+
+
+car1.add_warning('A WARNING TEXT')
+
+
+
+
+
+
+
+
+
+
+------> OK...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS EM __ BUS NÓS VAMOS COLOCAR UM METHOD ADICIONAL,
+
+o
+ 
+
+
+ method de 
+
+
+
+  
+
+
+  'add_group' (pq no bus podemos ter um grupo de pessoas viajando conosco)...
+
+
+
+
+
+
+
+
+
+
+
+-----> PROFESSOR COLOCA o argumento default de 'self',
+
+e aí 
+
+'passengers',
+
+
+
+
+que
+
+
+serão 
+
+
+os passageiros de nosso busão....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+def add_group(self, passengers):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ O PROFESSOR COLOCA UM ATTRIBUTE ESPECIAL,
+
+
+
+self.passengers = []
+
+
+
+
+
+
+
+
+EX:
+
+
+
+class Bus:
+    top_speed = 100
+
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.__warnings = []
+        self.passengers = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> depois disso o professor, lá no method de 
+
+
+
+'add_group',
+
+
+
+
+
+COLOCA UM CALL DE 
+
+
+
+
+
+self.passengers.extend(passengers)
+
+
+
+
+
+
+
+
+
+----> ou seja, vamos CHAMAR O METHOD DE 'extend' PARA _ 
+
+
+FAZER COM QUE 
+
+O ARGUMENTO 'passengers' (que é uma list cheia de valores) passado a nossa function SEJA INCLUÍDO/MISTURADO/EXTENDIDO 
+
+COM NOSSA LIST 
+DE 
+
+'passengers' dentro dessa class 'bus'..
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+class Bus:
+    top_speed = 100
+
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.__warnings = []
+        self.passengers = []
+
+
+    def __repr__(self):
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.__warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text):
+        if (len(warning_text) > 0):
+            self.__warnings.append(warning_text)
+
+    def get_warnings(self):
+        return self.__warnings
+
+    def add_group(self, passengers):
+        self.passengers.extend(passengers)
+
+    
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO... 
+
+
+
+
+
+
+
+
+
+
+MAS O QUE QUEREMOS FAZER, AGORA?
+
+
+
+
+
+
+TALVEZ O EXTEND DESSA CLASS DE 'Bus'
+
+AO 
+
+
+'SportsCar'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ANTES DISSO, O PROFESSOR CRIA UM NOVO BUS COM 
+
+
+
+'bus1 = Bus()'...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Bus:
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.__warnings = []
+        self.passengers = []
+
+    def __repr__(self):
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.__warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text):
+        if (len(warning_text) > 0):
+            self.__warnings.append(warning_text)
+
+    def get_warnings(self):
+        return self.__warnings
+
+    def add_group(self, passengers):
+        self.passengers.extend(passengers)
+
+
+
+
+
+
+bus1 = Bus()
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS DEVEMOS PASSAR NOSSA TOP_SPEED, QUE SERÁ 200...
+
+
+
+
+
+
+
+
+
+--> AÍ O PROFESSOR ESCREVE UM CALL DE 'add_group',
+
+
+COM O PARAMETRO:
+
+
+
+['Max', 'Manuel', 'Victoria']
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Bus:
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.__warnings = []
+        self.passengers = []
+
+    def __repr__(self):
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.__warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text):
+        if (len(warning_text) > 0):
+            self.__warnings.append(warning_text)
+
+    def get_warnings(self):
+        return self.__warnings
+
+    def add_group(self, passengers):
+        self.passengers.extend(passengers)
+
+
+
+
+
+
+bus1 = Bus(200)
+
+
+
+bus1.add_group(['Max', 'Manuel', 'Victoria'])
+
+
+
+
+print(bus1.passengers) ## esse passengers não faz parte da 'REPRESENTATION' do special method '__repr__', por isso não será influenciado por ele...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------> ok.... agora se executamos nosso arquivo..
+
+
+
+
+
+
+
+
+
+
+--> TEMOS ESTE OUTPUT:
+
+
+
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> python bus.py  
+['Max', 'Manuel', 'Victoria']
+
+
+
+
+
+
+
+
+
+
+----> OK, ERA O ESPERADO, 
+
+
+MAS AGORA 
+
+TEMOS UM MONTE DE REDUNDÂNCIAS...
+
+
+
+
+
+
+
+--> TEMOS ALGUMAS 'SHARED FUNCTIONALITIES' 
+
+
+no nosso constructor (__init__),
+
+
+
+
+E TODO ESSE SHARED CODE ENTRE AS 2 CLASSES É 
+UM VERDADEIRO PROBLEMA...
+
+
+
+
+
+
+
+
+
+
+-----> INHERITANCE PODE NOS AJUDAR COM ESSE PROBLEMA --> A INHERITANCE É 'ALL ABOUT'
+
+
+ter uma 
+
+CLASS BASE, COMO UM 'VEHICLE',
+
+
+
+QUE AÍ 
+
+
+
+
+TERÁ ALGUMAS __ SHARED_ FUNCTIONALITIES,
+
+
+EXATAMENTE COMO O METHOD DE 'drive' que escrevemos antes:
+
+
+
+
+
+
+
+
+
+class Vehicle 
+   def drive():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS AÍ __ VAMOOS TER OUTRAS CLASSES,
+
+
+
+
+CLASSES 'MENORES'/mais específicas,
+
+como 
+
+
+
+'Car' 'Truck' 'Bus'....
+
+
+
+
+
+
+
+
+
+
+
+
+----> ESSAS CLASSES SÃO/ESTÃO/SERÃO_ _ CONECTADAS__ A ESSA BASE CLASS,
+
+
+
+DEVERÃO FAZER 'INHERIT' de seus attributes ----> ISSO SIGNIFICA QUE 
+
+
+
+_ ELEs_ _ DEVEM __ CONSEGUIR TODAS ESSAS 'SHARED FUNCTIONALITIES' 
+
+
+
+
+
+
+__ AO MESMO __ TEMPO _ QUE CONSEGUEM _ ADICIONAR _ SUAS PRÓPRIAS FUNCIONALIDADES (COMO O 'brag' para  o/no 'car')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OUTRAS FUNCIONALIDADES, EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+car.brag() 
+
+
+
+
+
+
+
+
+
+
+
+truck.transport() 
+
+
+
+
+
+
+
+
+
+bus.add_group() 
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> 3 FUNCIONALIDADES BEM DISTINTAS... --> QUEREMOS QUE CADA CLASS MANTENHA ESSE NEGÓCIO, 
+
+
+MAS QUE 
+
+
+
+TBM TENHA 
+
+
+
+OS METHODS/ATTRIBUTES DA 'BASE CLASS'....
+
+
+
+
+
+
+
+
+
+
+
+-------> EM PYTHON, NO CASO, VOCê PODE _ FAZER INHERIT _ DE ATÉ MESMO _ MÚLTIPLAS CLASSES (assim como no javascript),
+
+
+
+
+
+
+
+
+
+
+
+
+2 classes, como 'Vehicle' e 'Heavy' ->  
+
+
+
+
+
+
+
+
+
+
+
+
+MAS NESSE CURSO, VAMOS FICAR COM SÓ 1 CLASS INHERITANCE.... (
+
+
+
+    inheritance com múltiplas classes  
+
+    não é tão diferenet,
+
+
+    você só pega funcionalidades de múltiplas classes..
+
+
+
+    o professor nos mostrará a sintaxe disso...
+) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> VOLTAMOS AO CASE DE 1 BASE CLASS,
+
+
+
+
+EM QUE 
+
+
+VAMOS TER SÓ 
+
+
+
+1 CLASS 'BASE'...
+
+
+
+
+
+
+
+
+
+
+--> criamos uma class chamada de 'vehicle', em um 
+
+
+ARQUIVO PRÓPRIO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O VEHICLE TERÁ ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+class Vehicle:
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.__warnings = []
+        self.passengers = []
+
+    def __repr__(self):
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.__warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text):
+        if (len(warning_text) > 0):
+            self.__warnings.append(warning_text)
+
+    def get_warnings(self):
+        return self.__warnings
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NESSA CLASS,
+
+QUEREMOS TER 'ALL THE SHARED FUNCTIONALITY'...
+
+
+
+
+
+
+
+
+
+
+
+--> POR ISSO O PROF PEGA O CONSTRUCTOR,
+
+
+
+
+
+
+o REPR,
+
+
+
+
+TODAS AS FEATURES MENOS O METHOD DE 'brag',
+
+E AÍ COLA 
+
+
+NESSA BASE CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ NO BUS,
+
+
+
+
+AS ÚNICAS COISAS QUE O PROFESSOR DEIXA SÃO:
+
+
+
+
+
+
+
+
+1) O METHOD DE 'add_group'
+
+
+
+
+
+2) o CONSTRUCTOR, de '__init__' ,
+
+
+
+
+COM AQUELES INSTANCE ATTRIBUTE de 
+
+
+'passengers' ------>  É UM ATTRIBUTE EXTRA,
+
+EXISTENTE SÓ 
+
+NESSA CLASS DE 'bus' (não existe no 'SportsCar")...
+
+
+
+
+
+
+
+
+
+
+
+------> PROFESSOR APONTA QUE VAMOS DESCOBRIR COMO FAZER 'MERGE' de nosso constructor da INHERITING CLASS COM A BASE CLASS... (merge de attributes)...
+
+
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+class Vehicle:
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.__warnings = []
+        self.passengers = []
+
+    def __repr__(self):
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.__warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text):
+        if (len(warning_text) > 0):
+            self.__warnings.append(warning_text)
+
+    def get_warnings(self):
+        return self.__warnings
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... MAS AGORA O PROFESSOR VAI QUERER FAZER 'INHERIT' --> PARA ISSO 
+
+TEMOS O 'Vehicle',,
+
+
+
+COM TODAS AQUELAS SHARED FUNCTIONALITIES...
+
+
+
+
+
+
+
+
+
+
+----> QUEREMOS QUE ESSA CLASS SEJA INHERITADA POR 'SportsCar'..
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, PRECISAMOS IMPORTAR 'Vehicle' LÁ EM 'car4.py'... 
+
+
+
+
+
+
+
+
+
+
+--> fazemos isso com a sintaxe 
+
+
+
+
+
+
+
+
+
+
+from vehicle import Vehicle
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> certo... 
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR USOU A SINTAXE DO 'GROUPING OBJECT,'
+
+
+assim:
+
+
+
+
+
+'import vehicle'...
+
+
+
+
+
+
+
+
+
+
+
+
+OBS::: A SINTAXE DE INHERITANCE __ NÃO É __ 'extends'...
+
+
+
+
+
+
+
+
+
+
+
+-----> A SINTAXE DE INHERITANCE  __ DO __ PYTHON __ É MT SIMPLES...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA INHERITAR UMA CLASS,
+
+
+VOCê 
+
+
+DEVE 
+
+
+ESCREVER '()' 
+
+DO LADO DA INHERITING CLASS NAME... -->   AÍ, NOS PARÊNTESES,
+
+
+VOCÊ 
+
+DEFINE DE QUAL CLASS VOCê QUER INHERITTAR...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+from vehicle import Vehicle
+
+
+
+
+class SportsCar(Vehicle):    ####### ESSA É A SINTAXE DE 'INHERITANCE' (vamos herdar a class de 'Vehicle', que é nossa BASE CLASS)..
+        
+    def brag(self):
+        print('Look at how cool my car is.' )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... ISSO ESTÁ 'INHERITANDO' lá do vehicle....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO __ TEM UMA __ IMPLICAÇÃO IMPORTANTE..
+
+
+
+
+
+
+
+
+--> SE VOCÊ EXECUTAR 
+
+
+
+
+
+SEU CÓDIGO 
+
+
+com python car4.py.......... --------> ISSO VAI 
+
+
+
+
+__RODAR___ EXATAMENTE COMO ANTES,
+
+
+
+
+
+MAS UMAS COISAS DIFERENTES VÃO ACONTECER:
+
+
+
+
+
+
+
+
+
+1) UM FOLDER DE '__pycache__' foi criado no root de seu working folder...
+
+
+
+
+
+--> O PYCACHE TEM A VER COM _ IMPORTS_, mas depois entenderemos mais sobre isso... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, TEMOS ESSE IMPORT FUNCIONANDO... E A FUNCIONALIDADE É EXATAMENTE A MESMA DE AANTES,
+
+
+
+SINAL 
+QUE 
+
+
+
+A INHERITANCE ESTÁ FUNCIONANDO... (
+
+
+PQ ESTAMOS CLARAMENTE ACESSANDO COISAS NO CAR,
+
+como 
+
+
+'add_warning',
+
+QUE 
+
+NÃO SÃO DEFINIDAS EM 'SportsCar',
+
+
+E SIM 
+
+FORAM 
+
+
+
+DEFINIDAS Lá em 
+
+
+
+'Vehicle' ---> FICAMOS 
+
+
+COM TODAS AS FUNCIONALIDADES DEFINIDAS LÁ EM 
+
+'vehicle' ------------> ISSO NOS DEIXA SALVAR UM MONTE DE CÓDIGO,
+
+
+ 
+ E NOS 
+
+
+ DEIXA 
+
+
+ __ NOS REPETIR BEM MENOS, O QUE É SEMPRE UMA COISA MT BOA,
+
+
+ NA PROGRAMAÇÃO...
+)
+
+
+
+
+
+
+
+
+
+
+
+---> MAS LÁ NO 'Bus',
+
+TEMOS UM PROBLEMA/QUESTÃO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ELE ESTÁ COM COISAS  QUE SÃO 'shared' entre o vehicle e si,
+
+
+
+como 
+
+
+'self.top_speed' 
+
+e 
+
+
+'self.__warnings'  -------> ESSAS 2 COISAS EXISTEM TBM LÁ NO VEHICLE,
+
+O QUE 
+
+SIGNIFICA QUE 
+
+
+
+
+OS INSTANCE ATTRIBUTES 
+
+
+
+
+DESSES NEGÓCIOS ESTÃO SE __ REPETINDO_...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> DEVEMOS ASSEGURAR QUE 
+
+
+ESSE EXTRA ATTRIBUTE DE 'passengers' continue existindo,
+
+MAS QUE 
+
+
+CONSIGAMOS 
+
+
+USAR 
+
+
+AS SHARED FUNCTIONALITIES DA BASE CLASS -------> 
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ESTÁ ASSIM:
+
+
+
+    def __init__(self, starting_top_speed=200):
+        self.top_speed = starting_top_speed
+        self.__warnings = []
+        self.passengers = []   ##attribute EXCLUSIVO DE 'bus', qeu vamos querer manter nele (vamos querer mergear o constructor de 'bus' e de 'vehicle', a base class, para que fiquemos com isso)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR REMOVE TODO ESSE CÓDIGO...
+
+
+
+
+
+--> deixa SÓ 
+
+
+O 'passengers'..
+
+
+
+
+
+ex:
+
+
+
+
+    def __init__(self, starting_top_speed=200):
+        self.passengers = []   ##attribute EXCLUSIVO DE 'bus', qeu vamos querer manter nele (vamos querer mergear o constructor de 'bus' e de 'vehicle', a base class, para que fiquemos com isso)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA, COM ISSO,
+
+
+
+ESTAMOS COM SÓ 
+
+
+
+ESSE EXTRA INSTANCE ATTRIBUTE DE 'passengers',
+
+
+SEM FAZER MENÇÃO AOS OUTROS ATTRIBUTES --------> AINDA ASSIM,
+
+
+
+OS 
+
+
+ATTRIBUTES DE 'vehicle'
+
+
+JÁ ESTARÃO INCORPORADOS AO BUS,
+
+
+
+BASTA_ FAZER INHERIT __ DESSA 
+
+CLAASS COM 
+
+
+'Bus(vehicle)'....
+
+
+
+
+
+
+
+
+
+DEIXAMOS TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+class Bus(Vehicle):
+    def __init__(self, starting_top_speed=200):
+        self.passengers = []
+
+    def add_group(self, passengers):
+        self.passengers.extend(passengers)
+
+
+bus1 = Bus(200)
+
+
+bus1.add_group(['Max', 'Manuel', 'Victoria'])
+
+
+# esse passengers não faz parte da 'REPRESENTATION' do special method '__repr__', por isso não será influenciado por ele...
+print(bus1.passengers)
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+---> OK, MAS AÍ A PERGUNTA É:
+
+
+
+
+
+
+
+PODEMOS __ CHAMAR 
+
+
+
+'bus1.add_warning('Test')'
+
+
+
+
+
+COMO SE 
+
+
+
+ESSE METHOD __ EXISTISSE/ESTARÁ _ EXISTINDO DENTRO DE BUS,
+
+mesmo 
+
+sendo um METHOD INHERITADO_ 
+
+através de 
+
+
+
+'Vehicle'?
+
+
+
+
+
+
+
+
+
+----> BEM, O PROFESSOR RODA 
+
+
+bus1.add_warning('Test')
+
+
+
+
+
+
+
+
+E AÍ _ IMEDIATAMENTE RECEBE UM ERRO:
+
+
+
+
+
+
+AttributeError: 'Bus' object has no attribute '_Vehicle__warnings'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ISSO SIGNIFICA QUE ESSE ATTRIBUTE _ _NÃO EXISTE _ACTUALLY__ DENTRO DE 
+
+
+'Bus',
+
+POR ISSO 
+
+
+
+NÃO PODEMOS 
+
+
+
+
+TENTAR ADICIONAR VALORES DIRETAMENTE A ESSE ATTRIBUTE/LIST....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS PQ ISSO ACONTECEU?
+
+
+
+
+
+
+
+
+
+
+--> É PQ O CONSTRUCTOR DA 'BASE CLASS' (vehicle)
+
+
+
+
+FOI __ OVERWRITTADO_ PELO CONSTRUCTOR 
+
+
+
+
+
+DA 'CLASS FILHA',
+
+que é 
+
+
+
+'bus.py',
+
+NESSE CASO..
+
+
+
+
+
+
+
+
+--> ISSO ACONTECEU PQ ESCREVEMOS O '__init__' 
+
+dentro do bus,
+
+tipo assim:
+
+
+
+
+class Bus(Vehicle):  
+    def __init__(self, starting_top_speed=200):
+
+        self.passengers = []
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEZ COM QUE ESSE CONSTRUCTOR, com apenas esse instance attribute de 'self.passengers = []',
+
+
+
+
+
+__ OVERWRITTASSE 
+
+
+
+o 
+
+constructor de vehicle, que tinha/tem este código:
+
+
+
+
+
+
+class Vehicle:
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.__warnings = []
+
+
+
+
+
+
+
+
+-------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE ESSE CONSTRUCTOR _ NÃO ESTÁ SENDO EXECUTADO _ SEMPRE QUE CRÍAMOS UM NOVO BUS....
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE _ O BUS NÃO ESTÁ NEM COM ESSE ATTRIBUTE DE 'warnings',
+
+
+NEM 
+
+com 
+
+'top_speed'....
+
+
+
+
+
+
+
+
+------> PARA CONSERTAR ESSE 'DESUSO' do constructor da BASE CLASS,
+
+
+
+
+
+O QUE TEMOS QUE FAZER (obrigatório )
+
+É 
+
+
+
+
+
+
+
+
+
+
+'''CHAMAR O PARENT CONSTRUCTOR'''' ( constructor PAI)..
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ ------> EXATAMEWNTE COMO NO JAVASCRIPT,
+
+
+
+ AQUI, PARA VOCê CHAMAR O 'PARENT CONSTRUCTOR,'
+
+
+ vocÊ 
+
+ deve 
+
+ chamar 
+
+
+ 'super()'...
+
+
+
+
+
+
+
+
+
+ -----> SE VOCÊ CHAMAR 'super()",
+
+
+
+ VOCe^
+
+ ESTARÁ INVOCANDO _ 
+
+
+
+ TODOS OS ATTRIBUTES E METHODS 
+
+
+
+ DA INHERITED CLASS...
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+
+
+ class Bus(Vehicle):  ###INHERITANCE (inheritamos 'Vehicle' nessa class)...
+    def __init__(self, starting_top_speed=200):
+        # self.top_speed = starting_top_speed ###inherittados através da class 'Vehicle'...
+        # self.__warnings = []
+        # attribute EXCLUSIVO DE 'bus', qeu vamos querer manter nele (vamos querer mergear o constructor de 'bus' e de 'vehicle', a base class, para que fiquemos com isso)....
+       super() #o call de super FAZ COM QUE TODOS OS ATTRIBUTES/METHODS do CONSTRUCTOR ORIGINAL, definidos lá, SEJAM _ INCORPORADOS _ NESSE NOVO CONSTRUCTOR, DESSA 'CLASS FILHA'..
+        self.passengers = []
+
+    def add_group(self, passengers):
+        self.passengers.extend(passengers)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -------> O 'SUPER' NOS DÁ ACESSO 
+
+
+
+        À CLASS BASE... 
+
+
+
+
+
+
+
+
+
+--> quando chamamos 'super()',
+
+
+
+podemos chamar 
+
+
+
+'.__init__()'
+
+
+
+
+
+
+
+EM CIMA DELE __ PARA ENTAÕ 
+
+
+'CHAMAR O CONSTRUCTOR DA BASE CLASS'....
+
+
+
+
+
+
+
+
+'super()" -----> CHAMA A 'BASE CLASS  EM SI'...
+
+
+
+
+
+
+'super().__init__()' CHAMA O _ CONSTRUCTOR DA BASE CLASS.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A ESSE CALL DE 'super().__init__()',
+
+
+
+
+PODEMOS FAZER 'PASS IN' 
+
+
+
+
+
+DE NOSSA 'starting_top_speed',
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+ class Bus(Vehicle):  ###INHERITANCE (inheritamos 'Vehicle' nessa class)...
+    def __init__(self, starting_top_speed=200):
+
+       super().__init__() #o call de super FAZ COM QUE TODOS OS ATTRIBUTES/METHODS do CONSTRUCTOR ORIGINAL, definidos lá, SEJAM _ INCORPORADOS _ NESSE NOVO CONSTRUCTOR, DESSA 'CLASS FILHA'..
+        self.passengers = []
+
+    def add_group(self, passengers):
+        self.passengers.extend(passengers)
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+ class Bus(Vehicle):  ###INHERITANCE (inheritamos 'Vehicle' nessa class)...
+    def __init__(self, starting_top_speed=200):
+
+       super().__init__() 
+        self.passengers = []
+
+    def add_group(self, passengers):
+        self.passengers.extend(passengers)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-. OK..
+
+
+
+
+
+'super()' --> nos dá acesso À base class..
+
+
+
+
+
+'.__init()__ '-->  NOS DÁ ACESSO AO CONSTRUCTOR DA BASE CLASS..
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS PASSAR nossa  'starting_top_speed' do bus (PASSADA A BUS)
+
+
+A ESSE CONSTRUCTOR DA BASE CLASS,
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+super().__init__(starting_top_speed)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> E AGORA, COM ISSO, GANHAREMOS, EM 'Bus', TODOS OS ATTRIBUTES E METHODS QUE 
+
+HAVÍAMOS DEFINIDO 
+
+LÁ 
+Em 
+
+
+'vehicle.py'..
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+class Bus(Vehicle):  ###INHERITANCE (inheritamos 'Vehicle' nessa class)...
+    def __init__(self, starting_top_speed=200):
+       super().__init__(starting_top_speed) #o call de 'super().__init__()' FAZ COM QUE TODOS OS ATTRIBUTES/METHODS do CONSTRUCTOR ORIGINAL, definidos lá, SEJAM _ INCORPORADOS _ NESSE NOVO CONSTRUCTOR, DESSA 'CLASS FILHA'..   --> NO CASO, O QUE O CALL DE 'SUPER' Faz é CHAMAR '''A BASE CLASS''' em si... --> E O SUPER É A COISA UQE _ _NOS DÁ _ ACESSO  à 'BASE CLASS' em si... ----->  JÁ O CALL DE '__init()__ 'serve PARA CHAMAR __ O CONSTRUCTOR __ DA BASE CLASS, QUE É O QUE INTERESSA... 
+       self.passengers = []
+
+    def add_group(self, passengers):
+        self.passengers.extend(passengers)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR EXPLICA QUE PODE PROVAR ISSO A NÓS:
+
+
+
+basta chamar 
+
+
+
+'bus1.drive()'
+
+
+
+
+PARA _ VER COMO ESSE METHOD AÍ,
+
+
+típico de 'vehicle',
+
+
+
+VAI RODAR COM NOSSO OBJECT CRIADO A PARTIR DE 'bus' sendo chamado...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+from vehicle import Vehicle
+
+
+class Bus(Vehicle):  ###INHERITANCE (inheritamos 'Vehicle' nessa class)...
+    def __init__(self, starting_top_speed=200):
+        # self.top_speed = starting_top_speed ###inherittados através da class 'Vehicle'...
+        # self.__warnings = []
+        # attribute EXCLUSIVO DE 'bus', qeu vamos querer manter nele (vamos querer mergear o constructor de 'bus' e de 'vehicle', a base class, para que fiquemos com isso)....
+       super().__init__(starting_top_speed) #o call de 'super().__init__()' FAZ COM QUE TODOS OS ATTRIBUTES/METHODS do CONSTRUCTOR ORIGINAL, definidos lá, SEJAM _ INCORPORADOS _ NESSE NOVO CONSTRUCTOR, DESSA 'CLASS FILHA'..   --> NO CASO, O QUE O CALL DE 'SUPER' Faz é CHAMAR '''A BASE CLASS''' em si... --> E O SUPER É A COISA UQE _ _NOS DÁ _ ACESSO  à 'BASE CLASS' em si... ----->  JÁ O CALL DE '__init()__ 'serve PARA CHAMAR __ O CONSTRUCTOR __ DA BASE CLASS, QUE É O QUE INTERESSA... 
+       self.passengers = []
+
+    def add_group(self, passengers):
+        self.passengers.extend(passengers)
+
+
+bus1 = Bus(200)
+
+
+bus1.add_group(['Max', 'Manuel', 'Victoria'])
+
+
+# esse passengers não faz parte da 'REPRESENTATION' do special method '__repr__', por isso não será influenciado por ele...
+print(bus1.passengers)
+
+
+
+
+
+
+
+
+bus1.add_warning('Test') #vai funcionar PQ A CLASS 'BUS' INHERITOU A CLASS 'Vehicle'.... (que é a class com esse method)
+
+
+
+
+bus1.drive() #vai funcionar PQ A CLASS 'BUS' INHERITOU A CLASS 'Vehicle'.... (que é a class com esse method)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O OUTPUT SERÁ ESTE:
+
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> python bus.py
+['Max', 'Manuel', 'Victoria']
+I am driving, but certainly not faster than 200
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+ok... ISSO SIGNFIICA QUE AGORA ESTAMOS CHAMANDO O CONSTRUCTOR DAQUELA BASE CLASS _ E USANDO 
+
+
+
+SEUS METHODS/ATTRIBUTES AO MESMO TEMPO QUE ADICIONAMOS NOVAS FUNCIONALIDADES NAS 
+
+
+
+NOSSAS CLASSES FILHAS (como visto com 'brag()' e 'add_group()'... )
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É ASSIM QUE INHERITANCE FUNCIONA...

@@ -1,0 +1,489 @@
+
+
+
+
+
+
+
+
+
+
+---> UMA COISA QUE VOCÊ ENCONTRARÁ COMENTADA NOS 'PEPS'
+
+é 
+
+
+'como comentar seu code'....
+
+
+
+
+
+
+
+
+
+
+--> você pode criar comentários por meio de 
+
+
+'#'...
+
+
+
+
+
+
+
+
+
+
+
+--> ex:
+
+
+
+
+
+# Initializing our blockchain list....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mas um core principle do python é que SEU CÓDIGO DEVE SER LEGÍVEL POR SI SÓ... (sem comentários)...
+
+
+
+
+
+
+--> VOCÊ DEVE TER FUNÇÕES CLARAS E VARIABLE NAMES TBM CLAROS....
+
+
+
+
+
+
+
+
+
+--> seu código não deve precisar de mtos comments..
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR AINDA ASSIM VAI ADICIONAR UM MONTE DE COMMENTS,
+
+
+
+pq são necessários....
+
+
+
+
+
+
+
+
+
+--> MAS VOCÊ DEVE EVITAR COMMENTS....
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ QUER TESTAR ALGO SEM A COISA SER DEFINIDA,
+
+VOCÊ 
+
+PODE USAR COMMENTS...
+
+
+
+
+
+
+
+
+
+
+-> TAMBÉM HÁ OUTRA MANEIRA DE FAZER COMMENT... --> 
+
+
+
+É AQUILO QUE CHAMAM DE 'DOC STRINGS' -->  ESSAS SÃO ESSENCIALMENTE AS 
+
+
+MULTILINE STRINGS QUE 
+
+
+
+
+
+
+ESTUDAMOS LÁ NO INÍCIO DO CURSO..
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+"""exemplo de multi-line string bem comprida e demorada, você pode ver por seu tamanho considerável"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> tipo assim:
+
+
+
+
+
+
+def get_last_blockchain_value_():
+    """exemplo de multi-line string bem comprida e demorada, você pode ver por seu tamanho considerável"""
+    return blockchain[-1]
+
+
+
+
+
+
+
+
+
+------> CLARO QUE VOCÊ FARÁ _ ISSO__ PARA __ COMENTAR SEU CÓDIGO..
+
+
+
+
+
+
+
+eX:
+
+
+def get_last_blockchain_value_():
+    """returns a blockchain, very handy"""
+    return blockchain[-1]
+
+
+
+
+
+
+
+
+
+
+
+---------> A MAIOR PARTE DOS IDES vai __ ENTENDEr_ O QUE É ISSO AÍ,
+
+
+que isso é uma multi-line string... ------> POR DEFAULT,
+
+
+ISSO 
+SERIA 
+
+
+UMA NORMAL PYTHON STIRNG,
+
+
+
+MAS ELA NA VERDADE NÃO CAUSA DANO AO SEU CÓDIGO.... -> NÃO É UM COMMENT OFICIAL,
+
+
+
+MAS TBM NÃO DANIFICA SEU CÓDIGO... -->  
+
+
+
+
+
+
+
+
+
+
+
+
+ESSA SINTAXE É USADA PARA COMENTAR NOSSO CÓDIGO/VARIABLES/FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+->-->-->->> A PRINCIPAL VANTAGEM DE USAR ESSE """ XXXX """ como COMMENTS 
+
+
+
+é que 
+
+QUANDO VOCÊ PASSAR O MOUSE POR CIMA 
+
+
+
+DESSA VARIABLE/FUNCTION EM QUE VOCÊ ADICIONOU ESSE COMMENT,
+
+VOCê 
+
+
+__ VAI __ RECEBER__ 
+
+
+
+
+A DESCRIÇÃO, SEU IDE VAI DAR ESSA DESCRIÇÃO no 'hint'...
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO É MT handy,
+
+
+E VALE MAIS A PENA AINDA USAR _ ISSO _ QUANDO VOCÊ ESTÁ COMPARTILHANDO ESSE CÓDIGO COM OUTROS DESENVOLVEDORES..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É UMA BOA PRACTICE COMENTAR SUAS PRÓPRIAS FUNCTIOns...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+def add_value(transaction_amount, last_transaction=[1]):  # essa function usa DEFAULT PARAMETERS....
+    """Faz append de um novo value, assim como o value do ÚLTIMO BLOCKCHAIN, à blockchain global do arquivo"""
+    blockchain.append([last_transaction, transaction_amount])
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+-----> E DOC STRINGS SÃO FREQUENTEMENTE ESCRITAS DE MANEIRA QUE 
+
+TEMOS 
+
+''UMA FIRST SUMMARY SENTENCE''' -----> e se isso fica em uma function,
+
+
+VOCÊ 
+
+
+FREQUENTEMENTE 
+
+
+
+TERÁ 
+
+UMA ESCRITA COMO ESTA:
+
+
+
+    """Faz append de um novo value, assim como o value do ÚLTIMO BLOCKCHAIN, à blockchain global do arquivo
+    
+    
+    Arguments:
+    :transaction_amount: The amount that should be added.
+    :last_transaction: The last blockchain transaction (default [1]).
+    """
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> A VANTAGEM, AGORA, É QUE SEMPRE QUE 
+
+
+
+    CHAMARMOS ESSA FUNCTION,
+
+    TEREMOS ESSA INFO... (e se nós não formos o creator dessa function, isso pode ser bem útil)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> É ASSIM QUE AS 'BUILTIN METHODS/FUNCTIONS' 
+
+
+
+    possuem 
+    COMENTÁRIOS NO SEU IDE,
+
+    TBM É PORQUE POSSUEM 'DOCSTRINGS' em seu próprio código....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ----> COMPLETAMOS 
+
+    NOSSO EXEMPLO COM UM COMENTÁRIO 
+
+
+
+     
+     NO 'get_user_input():'
+
+
+
+
+
+
+
+
+
+
+     -> QUE SERÁ:
+
+
+
+
+     """
+     Returns the input of the user (a new transaction amount) as a float.
+
+     """
+
+
+
+
+
+
+
+
+
+
+     _> TENTE SEMPRE SER O MAIS PRECISO POSSÍVEL....
+
+
+
+
+
+
+
+
+
+
+
+---> OK, ESSES SÃO OS COMMENTS 
+E 
+
+AS 
+
+
+(IMPORTANTES) DOC STRINGS, QUE DEIXAM SEU CÓDIGO MAIS FÁCIL DE LER E ENTENDER...

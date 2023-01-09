@@ -1,0 +1,258 @@
+
+
+
+
+
+
+
+
+QUANDO VOCÊ TRABALHA COM PYTHON,
+
+
+VOCÊ 
+
+
+àS VEZES ACABA COM CÓDIGO 
+
+
+QUE TIPICAMENTE 
+
+
+FICA BEM LONGO...
+
+
+
+
+
+eX:
+
+
+
+
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=get_user_input()) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OU ENTÃO DOC STRINGS, COMO ESTA AQUI:
+
+
+
+    """ Returns the input of the user (a new transaction amount) as a float. """
+
+
+
+
+
+
+
+
+
+
+-----> COM DOC STRINGS, VOCÊ 
+
+PODE 
+
+APERTAR 'ENTER' E FACILMENTE DIVIDIR ESSAS LINHAS:
+
+
+
+
+
+    """ Returns the input of the user 
+    
+    (a new transaction amount) as a float. """
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS VOCÊ TAMBÉM __ PODE 'BREAK LINES' __ SE VOCÊ ESTIVER 
+
+
+EM UMA LIST DE ARGUMENTS,
+
+POR EXEMPLO....
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, BASTA VOCÊ APERTAR 'enter' DEPOIS DE UMA VÍRGULA,
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+add_value(last_transaction=get_last_blockchain_value(),
+ transaction_amount=get_user_input()) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> E ISSO  __ AINDA SERÁ CÓDIGO VÁLIDO, MAS SERÁ CÓDIGO MAL FORMATADO... --> aperte ctrl alt f para 
+
+
+
+
+ FORMATAR DIREITO....
+
+
+
+
+
+
+
+
+
+
+
+ --> A FORMATAÇÃO CORRETA FICA MAIS OU MENOS ASSIM:
+
+
+
+
+ add_value(last_transaction=get_last_blockchain_value(),
+           transaction_amount=get_user_input()) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> (VOCê TEM QUE TENTAR ENCAIXAR OS ARGUMENTS 1 EMBAIXO DO OUTRO)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> é assim que vamos estruturar nosso código para EVITAR LINHAS LONGAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O PROFESSOR, NESSE CURSO, VAI TENTAR 
+
+
+
+
+COLOCAR TODO O CÓDIGO EM 1 LINHA SÓ,
+
+
+
+para facilitar 
+
+
+
+a compreensão....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok.... até agora, tudo bem....

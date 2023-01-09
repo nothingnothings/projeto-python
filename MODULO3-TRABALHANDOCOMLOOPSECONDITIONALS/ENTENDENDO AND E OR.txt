@@ -1,0 +1,400 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ALÉM DAS COISAS QUE JÁ APRENDEMOS, 
+
+
+
+
+
+OS IF STATEMENTS E BOOLEAN OPERATORS,
+
+
+
+
+
+
+
+
+
+
+HÁ 3 OUTRAS COISAS IMPORTANTES QUE DEVEMOS SABER.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A PRIMEIRA DELAS É 
+
+
+'and'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) AND ----->  ÀS VEZES VOCÊ VAI QUERER FAZER 'CHECK' POR MAIS DE 1 ÚNICA CONDITION DE UMA VEZ SÓ.... (retornar 'true' APENAS SE TODAS AS CONDITIONS RETORNAREM TRUE)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DIGAMOS QUE TEMOS UMA AGE, 
+
+QUE É 
+
+29.....
+
+
+
+
+
+
+--> QUEREMOS CHECAR SE '29' 
+
+
+ESTÁ EM UMA CERTA RANGE...
+
+
+
+
+
+
+
+-_> para isso,
+
+
+
+o 
+
+professor 
+
+
+
+
+
+
+escreve 
+
+
+
+
+
+
+'if age > 20 '
+
+
+
+
+
+
+
+
+
+--> ISSO VAI NOS DIZER SE O NEGÓCIO ESTÁ EM UMA RANGE MAIOR DO QUE ISSO...
+
+
+
+
+
+
+
+
+
+--> MAS EU TBM VOU QUERER SABER SE O AGE É MENOR DO QUE UMA OUTRA RANGE lá,
+
+
+ao mesmo tempo....
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+
+SOU OBRIGADO A USAR O OPERATOR DE 'and'...
+
+
+
+
+
+
+
+
+--> TENTEI VÁRIAS SINTAXES, MAS NÃO FUNCIONARAM...
+
+
+
+
+
+
+--> mas é o 'and'... ------> 
+
+
+
+
+
+
+
+
+ESCREVO ASSIM:
+
+
+
+
+
+
+
+if age > 20 and age < 30 --------> MAS ISSO ME DÁ UM ERRO....
+
+
+
+
+
+
+
+
+
+
+-> PQ ISSO?
+
+
+
+
+
+
+É 
+
+PQ ESSE É UM IF STATEMENT.... --> E IF STATEMENTS REQUEREM ':' para serem válidos...
+
+
+
+
+
+--> ele é usado assim:
+
+
+
+
+
+
+>>> if age > 20 and age < 30: print('TRUE')
+... 
+TRUE
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, ISSO SIGNIFICA QUE A KEYWORD É REALMENTE 'and' e não '&'....
+
+
+
+
+
+
+
+
+
+
+
+----> 
+
+
+
+
+
+
+
+
+
+
+
+if age > 20 and age < 30:
+    print('Between 20 and 30')
+
+
+
+
+
+
+    EX:
+
+
+
+
+
+
+    >>> if age > 20 and age < 30:
+...     print('Between 20 and 30')
+... 
+Between 20 and 30
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ TAMBÉM TEM A KEYWORD 'or',
+
+
+
+
+em que 
+
+
+se 1 das condições for satisfeita,
+
+
+
+o conjunto inteiro 
+
+retorna true....
+
+
+
+
+>>> if age > 20 or age < 30:
+...     print('YEA')
+... 
+YEA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> CERTO.... BEM SIMPLES...
+
+
+
+
+
+
+>>> if age > 30 or age < 60:
+...     print('YEA2')
+... 
+YEA2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> VOCÊ PODE COLOCAR MÚLTIPLAS CONDITIONS... --> QUANTAS VOCÊ QUISER...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+if age > 20 and age < 30 or age > 60:
+    print('Yes')
+
+
+
+
+
+
+
+
+
+
+-----> VEMOS 'YES' pq o 'age > 60' foi satisfeito....

@@ -1,0 +1,1594 @@
+
+
+
+
+
+
+
+
+
+-> NÓS ADICIONAMOS LÓGICA PARA FAZER 'WRITE' E 'LOAD' 
+
+
+DE 
+
+DATA 
+
+
+
+
+DE UMA FILE...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    if (not os.path.isfile('blockchain.json')):
+        print('No blockchain file detected, loading starting blockchain...')
+        return
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain)
+        updated_blockchain = []
+        for block in blockchain:
+            updated_block = {
+                'previous_block_hash': block['previous_block_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'processed_transactions': [OrderedDict(
+                    [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+            }
+            updated_blockchain.append(updated_block)
+        blockchain = updated_blockchain
+        # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+        open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+        # open_transactions = json.loads(read_transactions)
+        
+        print(json.loads(read_transactions))
+
+
+
+load_data() # start dessa function AUTOMATICAMENTE, COMO PARTE DO FLOW DE NOSSO CÓDIGO..
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='w') as f:
+    with open('blockchain.json', mode='w') as f:
+        # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+        f.write(json.dumps(blockchain))
+        f.write('\n') #line break entre linhas de info...
+        f.write(json.dumps(open_transactions))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> e nós USAMOS A LIBRARY DO 'JSON' para isso....
+
+
+
+
+
+
+
+
+
+
+
+-> HÁ TBM UMA ALTERNATIVA A ESSA PACKAGE...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ESSA PACKAGE TEM A VANTAGEM DE QEU PODEMOS FAZER 
+'READ'
+
+
+
+
+DE CONTEÚDOS EM __ ARQUIVOS __ DE TEXTO (e arquivos json tbm),
+
+
+
+DESDE QUE 
+
+
+ESSE 
+
+
+CONTEÚDO DOS ARQUIVOS DE TEXTO ESTEJA NO FORMATO CORRETO:
+
+
+[{"previous_block_hash": "", "index": 0, "proof": 100, "processed_transactions": []}, {"previous_block_hash": null, "index": 1, "proof": 103210, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}]}, {"previous_block_hash": null, "index": 2, "processed_transactions": [{"amount": 8.0, "recipient": "Manu", "sender": "Arthur"}, {"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 5449}]
+[]
+
+
+
+
+
+
+
+
+
+
+
+---> PODEMOS CLARAMENTE VER O QUE ESTÁ LÁ DENTRO... -> PODEMOS ATÉ MANIPULAR 
+
+
+ESSE ARQUIVO DE TEXTO/JSON, 
+
+
+PARA CHECAR 
+
+SE 
+
+
+NOSSO 
+BLOCKCHAIN ESTÁ SEGURO E SE ELE FUNCIONA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS __ TAMBÉM __ ARMAZENAR A DATA _ EM UM FORMATO DIFERENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> HÁ OUTRA LIBRARY _ QUE __ SHIPPA__ COM O PYTHON,
+
+
+
+CUJO NOME É 
+
+
+'PICKLE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS SIMPLESMENTE importar o pickle 
+
+
+com 
+
+
+
+
+
+'import pickle'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''PICKLING'''' é simplesmente 
+
+
+
+O PROCESSOO __ 
+
+
+
+
+DE __ CONVERTER___ SUA _ 
+
+
+DATA 
+
+PYTHON 
+
+
+
+
+
+EM ___  UMA 'BINARY DATA'
+
+
+
+QUE É __ ARMAZENADA EM UM ARQUIVO... ------->  E O PICKLE TAMBÉM É CAPAZ 
+
+
+DE 
+
+
+'SERIALIZE' 
+
+
+E 
+
+
+'UNSERIALIZE'
+
+
+SUA DATA...
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, ELA É CAPAZ DE SERIALIZE (converter em binary data)
+
+
+E UNSERIALIZE (converter de volta em objetos python)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> DEVEMOS USAR O PICKLE NO LUGAR DO JSON, PARA VER COMO ISSO FUNCIONA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO.... LÁ EM 'save_data',
+
+
+temos este código:
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+
+    with open('blockchain.json', mode='w') as f:
+
+        f.write(json.dumps(blockchain))
+        f.write('\n')
+        f.write(json.dumps(open_transactions))
+
+
+
+
+
+
+
+
+
+--> PARA USARMOS O 'PICKLE',
+
+
+
+NÃO VAMOS ESCREVER 
+
+'json.dumps()' 
+
+
+
+
+(que é o código que CONVERTE NOSSOS OBJETOS PYTHON EM STRING JSON)
+,
+
+
+
+
+
+
+
+
+e sim 
+
+
+
+VAMOS USAR METHODS ESPECÍFICOS DO PICKLE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO.... LÁ NA PACKAGE DE 'pickle',
+
+
+
+
+TAMBÉM TEMOS O METHOD DE 'dump'..
+
+
+
+
+
+eX:
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+
+    with open('blockchain.txt', mode='w') as f:
+
+        f.write(pickle.dump)   ###versão PICKLE DO CÓDIGO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM TEMOS 
+
+
+'.dumps()'
+
+
+
+
+
+
+
+--> OU SEJA,
+
+ISSO É EXATAMETNE COMO 
+
+a
+
+PACKAGE DE JSON..
+
+
+
+
+
+
+
+
+--> DUMP:
+ 
+
+
+
+ MESMO COMPORTAMENTO DO METHOD DO JSON,
+
+ É:
+
+
+
+ 1o argumento -->  DATA A SER DUMPADA... (python data a ser dumpada)..
+
+
+
+
+
+ 2o argumento --> file _EM QUE QUEREMOS DUMPAR ___ NOSSA DATA__....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> JÁ O 'DUMPS'
+
+
+
+
+ CONVERTE __ 
+
+
+
+
+
+ A NOSSA PYTHON DATA _ EM 
+
+
+ UMA 'BYTE REPRESENTATION' dele.... 
+
+
+
+
+
+
+
+
+ --> NA VERDADE, NOS RETORNA 'BINARY DATA' 
+
+
+ REPRESENTATIVA DAQUELA DATA PYTHON.... (e aí _ vamos simplesmente usar o 'f.write()' PARA WRITAR ESSA BINARY DATA EM UM ARQUIVO)..
+
+
+
+
+
+
+
+
+
+
+ é por isso que o código fica tipo assim:
+
+
+
+
+
+
+ 
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+
+    with open('blockchain.txt', mode='w') as f:
+
+        f.write(pickle.dumps())   ###versão PICKLE DO CÓDIGO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> VAMOS USAR ESSE 'pickle.dumps()' JUNTO COM O WRITE para writtar essa binary data no nosso arquivo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... MAS O PROFESSOR __ EXPLICA UM DETALHE IMPORTANTE:
+
+
+
+
+
+
+
+
+
+
+ELE HAVIA DITO 'BINARY DATA' ,
+
+
+
+ESSE TIPO DE DATA SERÁ ESCRITO, SIM,
+
+
+
+
+MAS ___ PARA _ ISSO __ VOCÊ PRECISA 
+
+
+DEFINIR ALGUMAS COISINHAS... --> 
+
+
+
+
+
+
+
+
+SE VOCê QUER _ WRITTAR _ BINARY DATA EM 1 ARQUVO,
+
+
+E NÃO __ TEXT__ DATA,
+
+AÍ 
+
+VOCê É OBRIGADO 
+
+
+
+
+
+
+
+
+
+A ALTERAR O MODO DE 
+
+'open' (o 'mode=xxx') 
+
+
+
+
+
+
+__ PARA _ QUE __ FIQUE COMO 
+
+
+'wb'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+
+    # with open('blockchain.txt', mode='w') as f: #versão JSON DO CÓDIGO
+    with open('blockchain.txt', mode='wb') as f:   ##versão PICKLE DO CÓDIGO (vai armazenar BINARY DATA no seu arquivo).. --> pq o  default é 'wt' (write text), E O WRITE DE BINARY É 'wb' (write binary)...
+        # f.write(json.dumps(blockchain)) #versão JSON do código...
+        # f.write('\n')
+        # f.write(json.dumps(open_transactions)) 
+        f.write(pickle.dumps())   ###versão PICKLE DO CÓDIGO  --> 'pickle.dumps()' CONVERTE NOSSA PYTHON DATA EM _ BINARY DATA DO PICKE, QUE SERÁ ENTÃO ESCRITA NO NOSSO ARQUIVO  por meio de 'f.write()'....
+                ####entretanto, se você QUER __ ESCREVER __ BINARY_ _DATA EM 1 ARQUIVO, VOCÊ É OBRIGADO A TROCAR O 'mode' de seu 'open' para o valor de 'wb'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AGORA VOCÊ PODE REALMENTE ARMAZENAR A DATA RETORNADA POR 'pickle.dumps()' 
+
+
+
+
+
+
+
+
+
+
+--> A 'DUMPS' vocÊ passa o VALOR/VARIÁVEL QUE SEGURA SUA PYTHON DATA.....
+
+
+
+
+
+
+
+
+
+
+OK.... MAS AGORA VAMOS NOS DEPARAR COM O MESMO PROBLEMA QUE TIVEMOS ANTES,
+
+O 
+
+FATO  
+DE 
+
+
+__ NAÕ SER _ POSSÍVEL __ ADICIONAR 
+
+
+'\n' (LINEBREAK)
+
+
+
+
+
+COMO __ VALOR DE UMA LINHA NO NOSSO ARQUIVO DE TEXTO, 
+
+
+
+pq 
+
+
+
+ESSE '\n' 
+
+
+NÃO PODE SER CONSIDERADO COMO BINARY DATA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO __ QUE __ A COISA _ QUE DEVEMOS FAZER PARA CRIAR UM 'SPACE',
+
+QUANDO 
+
+ESTAMOS 'PICKLING',
+
+
+
+
+
+
+
+
+
+
+
+É __ CRIAR_ 1 OBJECT OU _ DICTIONARY__ 
+
+
+
+
+
+
+QUE  __ CONTENHA __ TODA A DATA __ QUE VAMOS QUERER 'PICKLE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> para isso,
+
+o professor 
+
+
+cria UMA NOVA VARIABLE,
+
+
+
+de nome 
+
+
+
+
+'data_to_save',
+
+
+QUE SERÁ 
+
+
+
+UM DICTIONARY..
+
+
+
+
+
+
+
+
+
+--> nela teremos a   BLOCKCHAIN 
+
+
+
+e as 
+
+
+
+'open_transactions'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICA TIPO ASSIM:
+
+
+
+
+
+
+        data_to_save = { #usamos esse dict para SEPARAR NOSSOS CONTEÚDOS (line break) quando o outputtarmos no arquivo de texto...
+            'chain': blockchain,
+            'ot': open_transactions
+        }
+        f.write(pickle.dumps(save_data))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... AÍ VAMOS 'PICKLE' esse 
+
+dictionary de 'data_to_save',
+
+
+por meio 
+
+de 
+
+
+
+'pickle.dumps(save_data)'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE __ TAMBÉM __ É POSSÍVEL FAZER 'UNPICKLE' 
+
+
+da data,
+
+que 
+
+seria 
+
+
+
+__ CONVERTER A PICKLE DATA DE VOLTA EM 1 PYTHON OBJECT..
+
+
+
+
+
+
+
+
+
+
+
+-> É ISSO QUE VAMOS QUERER FAZER LÁ NA NOSSA FUNCTION DE 'load_data()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBS:::: QUANDO VOCÊ ESTÁ FAZENDO WRITE DE 'PICKLE DATA',
+
+
+
+
+
+o filename 
+
+
+SEMPRE TERÁ A EXTENSÃO '.p' (é uma convenção)...
+
+
+
+
+
+
+
+
+
+arquivos '.p' --> são USADOS GERALMENTE COM O PICKLE... 
+
+
+
+
+
+
+
+
+
+
+-----> CERTO.... FAZEMOS ISSO...
+
+
+
+
+
+
+--> lá no load_data,
+
+o código está assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+
+    if (not os.path.isfile('blockchain.json')):
+        print('No blockchain file detected, loading starting blockchain...')
+        return
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain)
+        updated_blockchain = []
+        for block in blockchain:
+            updated_block = {
+                'previous_block_hash': block['previous_block_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'processed_transactions': [OrderedDict(
+                    [('amount', transaction['amount']), ('recipient', transaction['recipient']), ('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+            }
+            updated_blockchain.append(updated_block)
+        blockchain = updated_blockchain
+
+        print(json.loads(read_blockchain))
+
+        open_transactions = [OrderedDict([('amount', transaction['amount']), ('recipient', transaction['recipient']), (
+            'sender', transaction['sender'])]) for transaction in json.loads(read_transactions)]
+
+        print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> vamos trocar esse 
+
+
+'blockchain.json'
+
+por 
+
+'blockchain.p'...
+
+
+
+
+
+
+
+
+
+--> JÁ LÁ NO  
+
+
+'with open('blockchain.json', mode= 'r') as f:' 
+
+
+
+
+
+VAMOS  TROCAR O MODO DE 
+
+'r' 
+
+
+para 
+
+'rb' (READ BINARY DATA )...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS AÍ COMO _ FAZEMOS 'READ' DE UMA FILE _ QUE FOI 'PICKLED'?
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO VOCÊ USA UMA FILE QUE ESTÁ COM DATA EM FORMATO BINÁRIO?
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, PODEMOS/DEVEMOS USAR 
+
+
+
+'f.read()'
+
+
+PARA _ LER __ TODO O CONTEÚDO (sem usar 'f.readlines()'),
+
+
+
+
+
+
+E AÍ _ PODEMOS/DEVEMOS __  WRAPPAR _O  CÓDIGO INTEIRO 
+
+
+
+Em 
+
+
+
+
+'picke.loads()',
+
+
+
+
+
+
+PQ O _ 'loads' 
+
+VAI TENTAR CONVERTER __ TODO _ ESSE CÓDIGO QUE FOI ___ LIDO por meio de 'f.read()'
+
+
+
+
+EM _ _PYTHON DATA_...
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICARÁ TIPO ASSIM:
+
+
+
+
+with open('blockchain.p', mode='rb') as g:
+    blockchain = pickle.loads(g.read())
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO NOS DARÁ __ UM __ DICTIONARY_  EXATAMENTE COM UM FORMATO 
+
+
+
+COMO AQUELE QUE DEFINIMOS ANTES,
+
+
+QUE É:
+
+
+
+
+
+
+        data_to_save = { 
+            'chain': blockchain,
+            'ot': open_transactions
+        }
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, POR ENQUANTO O PROFESSOR VAI COMENTAR PARA FORA TODO O RESTO DE CÓDIGO QUE FOI PENSADO LEVANDO EM CONSIDERAÇÃO O JSON,
+
+
+
+
+E AÍ SIMPLESMENTE VAI QUERER PRINTAR o 'file_content', 
+
+SÓ PARA QUE 
+
+SEJA POSSÍVEL 
+
+VER O QUE HÁ DENTRO DISSO:
+
+
+
+
+
+
+
+
+
+with open('blockchain.p', mode='rb') as g:
+    file_content = pickle.loads(g.read())
+    print(file_content)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... --> eu criei um arquivo pickle....
+
+
+
+
+
+
+
+
+
+-. o formato é este:
+
+
+・       ・__main__伯	save_data箔・
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FICOU BEM ESTRANHO, MAS ISSO É BINARY DATA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+
+
+
+
+--> AGORA DEVEMOS VER O QUE NOSSO CÓDIGO OUTPUTTA QUANDO ESSE ARQUIVO É CARREGAOD, POR MEIO DE 'load_data'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem, mas isso NOS DEU UM ERROR;
+
+
+
+AttributeError: Can't get attribute 'save_data' on <module '__main__' from 'A:\\projeto7-PYTHON\\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\\novonovoprojeto9\\blockchain10,versaocompickle.py'>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O OUTPUT DE 'file_content'
+
+
+SERÁ:
+
+
+
+
+
+{'chain': [{'previous_block_hash': '', 'index': 0, 'processed_transactions': [], 'proof': 100}, {'previous_block_hash': None, 'index': 1, 'processed_transactions': [OrderedDict([('amount', 10), ('recipient', 'Arthur'), ('sender', 'ourApp')])], 'proof': 103210}], 
+
+
+'ot': []} LOADED DATA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... OU SEJA,
+
+
+
+
+FOI OUTPUTTADO 'chain' 
+
+e 'ot',
+
+QUE SÃO 
+
+OS 
+
+
+2 KEYNAMES DO DICTIONARY QUE  ARMAZENAMOS EM FORMATO BINÁRIO 'PICKLE' lá 
+
+
+
+naquele arquivo blockchain.p
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... MAS UMA COISA QUE PODEMOS PERCEBER AQUI, QUE É BEM LEGAL,
+
+É QUE 
+
+'FOR THE BLOCK WE MINED',
+
+
+
+
+
+
+AS TRANSACTIONS __ FORAM _ JÁ UMA 'ORDERED DICT'... ----> ISSO QUER DIZER QUE 
+
+O 
+
+
+'PICKLING'
+
+
+SEMPRE __ VAI _ RESPEITAR_ A ESTRUTURA _ 
+
+
+QUE VOCÊ SALVOU NO FORMATO BINARY DATA... ------> ISSO QUER DIZER QUE 
+
+
+
+
+
+
+O 
+
+TRABALHO COM 
+
+
+
+
+DATA 'PICKLE' é diferente do trabaloh com JSON DATA,
+
+
+PQ 
+
+
+
+NO _ JSON _ DATA NÓS _ VAMOS SEMPRE 
+
+
+
+
+'''PERDER''' A INFO DE QUE 
+
+ESTAMSO LIDANDO COM UMA ORDEREDDICT,
+
+
+
+QUANDO CONVERTERMOS/CONVERTEMOS NOSSA OrderedDict EM 
+
+
+
+UMA JSON STRING... (já no pickle, isso nunca ocorre: um ORDERED DICT ARMAZENADO COMO BINARY DATA EM UMA FILE _ SEMPRE _ SERÁ 
+
+UM ORDERED DICT, E NÃO SERÁ CONVERTIDO EM UM 'UNOREDERED DICT'..)
+
+
+
+
+
+
+
+
+
+
+----> PARA CONSEGUIR CARREGAR ESSA DATA NO NOSSO APP, O PROFESSOR COLOCA 
+
+AQUELES DEFINES GLOBAIS....
+
+
+
+
+
+
+
+
+ex:
+
+
+    with open('blockchain.p', mode='rb') as g: ####versão PICKLE (rb, read binary) (e também o blockchain.p)
+
+        file_content = pickle.loads(g.read()) # vai ler O CONTEÚDO INTEIRO DE NOSSO ARQUIVO pickle/pickle data no arquivo lido, e aí O METHOD de '.loads()' vai tentar CONVERTER TUDO ISSO EM 'python data' (objects, dicts, tuples, lists, etc)...
+        print(file_content, 'LOADED DATA') ## quando recorremos ao pickling/usamos o PICKLE, NÃO TEMOS QUE NOS PREOCUPAR COM A 'PERDA DE INFO SOBRE O FATO DE UM DICT SER ORDERED OU NÃO' ao converter umA DICT EM BINARY DATA( ao contrário da JSON DATA, em que PERDEMOS ESSA INFO AO CONVERTER PYTHON OBJECTS EM JSON STRINGS..) 
+
+        global blockchain
+        global open_transactions
+        blockchain = file_content['chain']
+        open_transactions = file_content['ot']
+
+
+
+
+
+
+
+
+
+
+
+------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO VAI REALMENTE FUNCIONAR, VAMOS ACESSAR ESSA DATA 
+
+
+
+
+
+QUE FOI ARMAZENADA NO ARQUIVO 'blockchain.p'....
+
+
+
+
+
+
+
+
+
+
+-> ISSO CONTINUA FUNCIONANDO SEM PROBLEMAS,
+PQ 
+
+'PICKLING'
+É 
+
+
+MAIS PRÓXIMO DA 'DATA PYTHON'
+
+
+
+do que 
+
+
+JSON DATA   (
+
+    como o JSON DATA FAZ COM QUE A PYTHON DATA SEJA _ CONVERTIDA EM TEXT,
+
+
+    CERTA QUANTIDADE DE INFO É _ PERDIDA_.... --> O MESMO NÃO OCORRE 
+
+
+
+    COM 
+
+    O PICKLING/PICKLE,
+
+
+
+    em que ESSA INFO É MANTIDA....
+) -------> ISSO SIGNIFICA QUE 
+
+
+
+ESSES DADOS SÃO CARREGADOS COM 
+
+
+'MUCH LESS CODE REQUIRED'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem... --> AINDA PODEMOS VOLTAR à VERSÃO DE TEXT/JSON,
+
+
+PARA QUE 
+
+
+
+
+SEJA POSSÍVEL MANUALMENTE ALTERAR 
+
+
+
+A BLOCKCHAIN PARA TESTAR O MECANISMO DE SEGURANÇA (coisa que vocÊ não pode fazer com o pickle, pq a data está em um formato BINARY),
+
+
+
+
+
+MAS EM GERAL O PICKLING VAI EXIGIR BEM MENOS CÓDIGO DE NÓS...

@@ -1,0 +1,1954 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... as coisas que aprendemos SOBRE CLASSES __ JÁ SÃO SUPER IMPORTANTES,
+
+
+
+E SÃO 
+COISAS QUE 
+
+USAREMOS COM GRANDE FREQUÊNCIA...
+
+
+
+
+
+
+
+
+
+---->  MAS AGORA VAMOS TENTAR ALGO DIFERENTE.... --> VAMOS QUERER 
+
+
+FAZER APPEND 
+
+
+DE 
+
+UM NOVO 
+
+'warning' _À LIST DE 'car1' (object)...
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DISSO, VAMOS TENTAR __ PRINTAR__ O 'CAR INTEIRO' de 'car1'...
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+
+
+car1 = SportsCar(1000) 
+
+
+
+
+
+
+print(car1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> É CLARO QUE O PROEFSSOR NÃO QUER _ ACESSAR _ 1 ATTRIBUTE ESPECÍFICO DESSE OBJECT/INSTANCE... -> EM VEZ DISSO,
+
+
+O QUE ELE ESTÁ TENTANDO FAZER 
+
+
+
+
+É 'OUTPUTTAR O OBJECT COMPLETO'...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE EXECUTAMOS ESSA FILE PYTHON, O QUE VEMOS  OUTPUTTADO É 
+
+
+
+
+ESSA LINE ESTRANHA DE 
+
+
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> python car2.py
+<__main__.SportsCar object at 0x0000020F8AEEF280>
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBJETO XXXX lá naquele local 'asihassiahihsai' 
+
+
+
+
+
+
+
+
+
+--> ISSO BASICAMENTE NOS RELATA O __ 'LUGAR NA MEMÓRIA EM QUE __ ESSE OBJECT CAR É/foi ARMAZENADO'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É NICE SE _ VOCÊ QUER __ VER ESSE ADDRESS, SABER QUAL É....
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NA GRANDE MAIORIA DOS CASOS 
+
+
+
+
+__ VOCÊ 
+_ VAI QUERER FAZER 'look into'
+
+
+ESSE OBJECT AÍ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA DAR UMA OLAHDA NO OBJECT __ INTEIRO ,
+
+
+VOCê DEVE USAR _ UM ATTRIBUTE ESPECIAL __,
+
+
+UM 'DUNDER ATTRIBUTE',
+
+
+
+
+QUE VOCÊ PODE ACESSAR COM 
+'.'...
+
+
+
+
+
+
+
+
+
+------> É O ATTRIBUTE DE '.__dict__' ...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+car1 = SportsCar(1000) 
+
+
+
+
+
+
+print(car1.__dict__)
+
+
+
+
+
+
+
+
+
+
+
+----------> OK.. -> ESSE OBJECT __ AÍ ___ É UM 'DICTIONARY'... --> ISSO QUER DIZER QUE 
+
+O 
+PYTHON VAI __ IGNORAR_/omitir QUAISQUER METHODS que 
+
+
+
+fizerem parte DESSE OBJECt (pq não são suportados como dicts)...
+
+
+
+
+
+
+
+
+
+
+---> A ÚNICA COISA QUE ELE REALMENTE VAI FAZER É 'GRAB THE INSTANCE VARIABLES'
+
+
+E AÍ __ AS ADICIONAR/COMPILAR EM UM __ DICT QUE ELE TE DÁ,.....
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA  É UMA MANEIRA BEM CONVENIENTE DE DAR UMA OLHADA EM CADA OBJECT..
+
+
+
+
+
+
+
+
+
+--> ou seja, o código é 
+
+
+
+'print(user1.__dict__)'....
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+
+
+car1 = SportsCar(1000) 
+
+
+
+
+
+
+print(car1)
+
+
+
+
+
+
+
+
+print(car1.__dict__) 
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... ----> AGORA SE EXECUTARMOS NOSSO CÓDIGO MAIS UMA VEZ,
+
+veremos que 
+
+O 
+
+OUTPUT SERÁ ESTE:
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> python car2.py
+<__main__.SportsCar object at 0x00000281B91BF280>
+{'top_speed': 200, 'normal_speed': 1000, 'warnings': []}
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ELE REALMENTE PRINTOU TODOS OS VALUES PERTINENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ESSE DICTIONARY TBM PODERIA SER SALVO EM ALGUMA VARIABLE, PARA AÍ TRABALHAR COM ELA/COM ESSA DATA....
+
+
+
+
+
+
+
+
+
+-> por fim, temos os attributes que fazem PARTE DESSA INSTANCE...
+
+
+
+
+
+
+
+
+
+--> se colocarmos esse DICT em uma VARIABLE,
+
+
+
+
+
+é importante ressaltar que SE VOCÊ ALTERAR ALGO NESSE DICT, O DICT _ ORIGINAL __ TAMBÉM 
+
+SERÁ AFETADO....
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+print(car1)
+
+
+print(car1.__dict__)  ###vai printar toda nossa class como KEYS E VALUES... (IGNORADOS OS METHODS DA CLASS, NESSE OUTPUT --> NAÕ APARECEM....)
+
+
+new_dict = car1.__dict__
+
+
+
+
+
+new_dict.update({'newkey': 'value'})
+
+
+
+
+
+print(new_dict)
+
+
+
+
+print(car1.__dict__, 'OLD DICT')
+
+print(car1)
+
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSO OUTPUT:
+
+
+
+
+<__main__.SportsCar object at 0x000001BAA76EE9E0>
+{'top_speed': 200, 'normal_speed': 1000, 'warnings': []}
+{'top_speed': 200, 'normal_speed': 1000, 'warnings': [], 'newkey': 'value'}
+{'top_speed': 200, 'normal_speed': 1000, 'warnings': [], 'newkey': 'value'} OLD DICT
+<__main__.SportsCar object at 0x000001BAA76EE9E0>
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja,
+
+
+NOSSA DICT ANTIGA _ FOI __AFETADA por esse add de key-value pair...
+
+
+
+
+
+
+
+
+
+---> ENTRETANTO, MESMO __ SE EDITARMOS ESSE NOSSO '__dict__',
+
+
+
+
+A INSTANCE ___ ORIGINAL_ NÃO VAI SER EDITADA _ QUANDO VOCÊ EDITAR ESSE '__dict__',
+
+
+
+
+pq 
+
+
+o '__dict__'
+
+É NA VERDADE
+
+
+APENAS 
+
+UMA 
+
+'SNAPSHOT' 
+
+
+
+
+__ DE NOSSA INSTANCE, SALVA EM 1 DICTIONARY.... (snapshot da instance NO MOMENTO EM QUE ELA FOI INSTANCIADA)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, NÃO HÁ NENHUMA CONEXÃO ENTRE O DICTIONARY de '__dict__'
+
+E A 
+
+
+
+'EXISTING INSTANCE'....
+
+
+
+
+
+
+
+
+
+
+
+--> ainda assim, o method de '__dict__' É BOM PARA 
+CONSEGUIRMOS 
+
+DAR UMA OLHADA 
+
+DENTRO DOS ATTRIBUTES (mas não os methods)
+
+
+
+DE NOSSAS INSTANCES... ---------> E, OCASIONALEMNTE,
+
+
+
+VOCÊ TERÁ DE TRANSFORMAR ESSA 
+
+
+SUA INSTANCE EM UM DICTIONARY... -------> o professor 
+
+
+
+
+
+EVENTUALMENTE USARÁ ESSA TÉCNICA NAA 
+
+
+
+
+NOSSA BLOCKCHAIN, em 1 lugar específico... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> CERTO.... ESSA É __ UMA DAS MANEIRAS DE OUTPUTTAR __ NOSSA INSTANCE.....
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SERIA LEGAL SE TAMBÉM FOSSE POSSÍVEL 
+
+APENAS ESCREVER 
+
+
+
+'print(car1)'
+
+
+E ENTÃO 
+
+
+GANHAR UM OUTPUT DIFERENTE DE 
+
+
+
+''<__main__.SportsCar object at 0x000001BAA76EE9E0>'',
+
+
+
+
+um output que 
+
+
+
+REALMENTE FOSSE ESSA INSTANCE...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> NA VERDADE, __ É POSSÍVEL__ 
+
+
+
+
+
+
+
+
+'''OVERWRITTAR''' 
+
+
+
+
+
+
+
+O QUE É ACTUALLY _ OUTPUTTADO POR UMA CLASS/INSTANCE,
+
+
+
+
+SE _ OVERWRITTARMOS  ___ AINDA __ OUTRO 
+
+'SPECIAL CLASS METHOD'....
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CONFORME APRENDEMOS ANTERIORMENTE,
+
+
+
+
+TODAS AS CLASSES POSSUEM ALGUNS 
+
+METHODS __ ESPECIAIS__-... ->
+
+
+
+
+
+
+
+
+
+esses methods especiais são escritos com '__xxx__'...
+
+
+
+
+
+
+
+
+
+
+--> DUNDER ------> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> já o '__dict__' é um SPECIAL ATTRIBUTE DE SUAS INSTANCES.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É EVIDENTE QUE EXISTEM BEM _ MAIS_ SPECIAL METHODS de classes,
+
+e vocÊ encontra mais detalhes sobre eles no OFFICIAL DOCS DO PYTHON...
+
+
+
+
+
+
+
+
+
+
+----> VOCê TAMBÉM Vê OS SPECIAL METHODS NO SEU IDE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ VIMOS 
+
+
+
+'__init__()',
+
+
+
+MAS EXISTEM OUTROS COMO:
+
+
+
+
+
+
+
+
+
+
+2) __str__()
+
+
+
+
+3) __repr__() 
+
+
+
+
+4)  __dict__ 
+
+
+
+
+5) MTS OUTROS...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> VOCÊ ATÉ PODE FAZER 'FANCY STUFF' COMO O __ OVERWRITE_ 
+
+
+
+
+DE 
+
+UM METHOD ESPECIAL DUNDER,
+
+o que 
+
+
+
+FARÁ COM QUE 
+
+
+
+
+
+A MANEIRA PELA QUAL ESSE OBJECT SE COMPORTA,
+
+
+
+
+SE VOCê O UTILIZAR 
+
+
+
+
+
+
+__ JUNTO__ DO OPERATOR '+'.... ------> MAS ISSO É 
+
+ALTAMENTE 
+
+AVANÇADO E TÉCNICO,
+
+
+
+
+FEATURE QUE VOCÊ RARAMENTE UTILIZARÁ...
+
+
+
+
+
+
+
+
+
+
+-----------> MAS VOCê TEM UM MONTE DE POSSIBILIDADES COM ESSES SPECIAL METHODS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O '__init__()'... --> isso é OBVIAMNETE O CONSTRUCTOR DE SUAS CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, mas e '__str__()'?
+
+
+
+
+
+
+
+
+
+
+-----> ESSE STR DEFINE 'WHAT WE GET' 
+
+
+
+__ QUANDO/SE NÓS __ CONVERTEMOS _ O OBJECT 
+
+
+
+
+__ EM UMA _ STRING, POR MEIO DO METHOD DE 'str()'... (que já usamos anteriormente)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja, o '__str()__' ALTERA O 'STRING OUTPUT' 
+
+
+
+gerado a partir de nosso object... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> '__repr__()' -----> __ NOS DEIXA BASICAMENTE DEFINIR _ ' O QUE GERALMENTE 
+
+
+VAMOS QUERER OUTPUTTAR, QUANDO TENTAMSO __ OUTPUTTAR _ A
+
+CLASS EM SI'  
+
+
+
+(
+
+    ou seja,
+
+
+
+
+
+
+    é usado 
+
+    para alterar O RETURN DE CALLS COMO 
+
+
+
+   ''' print(car1)''' 
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+'__dict__' --> RETORNA A FORMA 'DICT' de nosso object.... (uma snapshot)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO VOCÊ PODE VER,
+
+
+TODOS ESSES SÃO SPECIAL METHODS DE OBJECTS PYTHON....
+
+
+
+
+
+
+
+
+
+
+
+---> TODOS ELES __SÃO _ CHAMADOS_ __ PELO PYTHON __ QUANDO 
+
+
+__FAZEMOS __ ALGO COM __ NOSSA INSTANCE..../com nossa class (ambos objects)....
+
+
+
+
+
+
+
+
+
+
+
+-> POR EXEMPLO, 
+
+O 
+
+'repr'
+
+
+
+VAI SEMPRE SER CHAMADO QUANDO FIZERMOS 'print' 
+
+DE NOSSO OBJECt...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O PROFESSOR QUER NOS PROVAR ISSO,
+
+
+
+
+
+
+
+
+POR ISSO ELE VOLTA AO CÓDIGO DE 'car.py'
+
+
+
+E AÍ 
+
+
+DECIDE 
+
+
+ADICIONAR 
+
+
+
+
+
+
+
+
+A DEFINITION DE 
+
+
+'def __repr__'
+
+
+
+
+LÁ DENTRO 
+
+
+DE NOSSA CLASS  
+
+
+'Car'...
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__():
+        
+      
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> É 
+
+
+
+
+
+
+
+OUTRO BUILT-IN special method, no caso...
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR, POR ENQUANTO, VAI PRINTAR APENAS 
+
+'pRINTING...'
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__():
+        print('Printing...') 
+        
+      
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FEITO ISSO,
+
+O PROFESSOR RE-EXECUTA O NOSSO ARQUIVO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS QUANDO EXECUTARMOS O ARQUIVO, GANHAREMOS ESTE ERRO:
+
+
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> python car2.py
+Traceback (most recent call last):
+  File "A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\car2.py", line 35, in <module>
+    print(car1) ## nos dá um output insatisfatório de nossa instance, pq vai dar apenas a LOCALIZAÇAÕ DE NOSSA INSTANCE NA MEMÓRIA 
+DE NOSSO APP --> ex:  <__main__.SportsCar object at 0x000001BAA76EE9E0>
+TypeError: SportsCar.__repr__() takes 0 positional arguments but 1 was given
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O __REPR__() 
+
+
+aceita/exige 
+
+0 
+
+
+
+
+POSITIONAL ARGUMENTS,
+
+
+MAS 1 FOI DADO..
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O QUE SIGNIFICA ESSE ERROR?
+
+
+
+
+É UM _ ERRO _ 
+
+
+DIFÍCIL DE ENTENDER,
+
+
+
+
+QUE _ BASICAMENTE SIGNIFICA QUE 
+
+
+
+
+
+
+TEMOS QUE 
+
+
+FAZER 
+
+
+
+
+
+O PASS DE 
+'self' 
+
+
+AQUI,
+
+
+
+
+
+
+
+PQ _ O 'self'
+
+DEVE 
+
+SER PASSADO COMO PARÂEMTRO _ EM _ TODOS __ 
+
+
+
+OS OBJECT SPECIAL METHODS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> POR ISSO ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__(self):
+        print('Printing...') 
+        
+      
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO... ISSO SUMIRÁ COM O ERRO DO POSIITONAL ARGUMENT,
+
+
+MAS AÍ _ RECEBEREMOS _ OUTRO ERRO:
+
+
+
+TypeError: __str__ returned non-string (type NoneType)
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso __ PROVAVELMENTE ACONTECEU PQ _ EU NÃO RETORNEI COISA ALGUMA NESSE 'repr'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÃO , MAS NAÕ É ESSE O PROBLEMA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O CURIOSO É QUE O 'printing...' apareceu no terminal, como podemos constatar do outupt:
+
+
+
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> python car2.py
+Printing...
+Traceback (most recent call last):
+  File "A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\car2.py", line 35, in <module>
+    print(car1) ## nos dá um output insatisfatório de nossa instance, pq vai dar apenas a LOCALIZAÇAÕ DE NOSSA INSTANCE NA MEMÓRIA DE NOSSO APP --> ex:  <__main__.SportsCar object at 0x000001BAA76EE9E0>
+TypeError: __str__ returned non-string (type NoneType)
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop>
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ISSO QUER DIZER QUE ELE __ EXECUTOU ESSA LINHA, SIM, MAS DEPOIS ELE CRASHOU...
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, A RAZÃO DESSE ERROR É _ SIMPLESMENTE A DE QUE __ 
+
+
+
+
+
+ 
+   O 'repr'
+   É UM METHOD __ QUE 
+
+   SEMPRE _ ESPERA UM 'return' DE ALGUMA COISA AO FINAL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> TEMOS QUE FAZER 'RETURN' DO __ VALUE __ QUE _ DEVE SER OUTPUTTADO,
+
+
+
+ISSO PQ 
+
+
+
+ESSE METHOD É _ SEMPRE _ CHAMADO _ PELO PYTHON __ QUANDO TENTAMOS __ FAZER 'OUTPUT' 
+
+
+DESSA 
+
+
+
+CLASS AÍ... -->  PORTANTO, DEVEMOS _ 'RETURN WHAT SHOULD BE OUTPUTTED'...
+
+
+
+
+
+
+
+
+
+
+
+--> no caso, o professor vai RETORNAR 
+
+
+
+
+UM  TEXT EM QUE __ TEMOS VALORES DINÂMICOS,
+
+
+
+
+
+
+VALORES QUE SERÃO OS VALORES DOS ATTRIBUTES DE NOSSA CLASS,
+
+tipo assim:
+
+
+
+
+
+
+
+
+def __repr__(self):
+    print('Printing...')
+    return 'Top Speed: {}, warnings: {}'.format(self.top_speed, self.warnings)
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... ISSO FUNCIONARÁ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR DIZ QUE O VALOR DO SEGUNDO PARÂMETRO PODE SER 'THE LENGTH OF OUR WARNINGS LIST'..
+
+
+
+
+
+
+
+
+
+-> aí escrevemos:
+
+
+
+
+
+len(self.warnings)
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__(self): ##TODOS OS SPECIAL METHODS de objects (dunder functions) EXIGEM QUE VOCê PASSE 'self' COMO PRIMEIRO PARÂMETRO...
+        #esse method SEMPRE EXIGE O RETURN DE ALGUM VALOR (Que vai basiacmente ser o valor RETORNADO QUANDO VOCê OUTPUTTAR ESSA CLASS...)
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.top_speed, len(self.warnings))
+      
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> COM ISSO, 
+
+ESTAMOS _ RETORNANDO UMA STRING,
+
+
+QUE DEVERÁ SER OUTPUTTADA 
+
+
+QUANDO ESTIVERMOS TENTANDO FAZER 'PRINT' dessa class aí...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E PARECE QUE ESSES 'SPECIAL OBJECT METHODS' escritos lá nas nossas CLASSES 
+
+
+_ POSSUEM IMPACTOS TBM NAS NOSSAS INSTANCES,
+
+
+PQ 
+
+
+
+OBSERVE O CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__(self): ##TODOS OS SPECIAL METHODS de objects (dunder functions) EXIGEM QUE VOCê PASSE 'self' COMO PRIMEIRO PARÂMETRO...
+        #esse method SEMPRE EXIGE O RETURN DE ALGUM VALOR (Que vai basiacmente ser o valor RETORNADO QUANDO VOCê OUTPUTTAR ESSA CLASS...)
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.warnings))
+      
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+car1 = SportsCar(1000) 
+
+
+
+
+
+
+print(car1) ## nos dá um output insatisfatório de nossa instance, pq vai dar apenas a LOCALIZAÇAÕ DE NOSSA INSTANCE NA MEMÓRIA DE NOSSO APP --> ex:  <__main__.SportsCar object at 0x000001BAA76EE9E0>
+
+
+
+
+
+
+
+
+print(car1.__dict__)  ###vai printar toda nossa class como KEYS E VALUES... (IGNORADOS OS METHODS DA CLASS, NESSE OUTPUT --> NAÕ APARECEM....)
+
+
+
+
+
+new_dict = car1.__dict__
+
+
+
+
+
+new_dict.update({'newkey': 'value'})
+
+
+
+
+
+print(new_dict)
+
+
+
+
+print(car1.__dict__, 'OLD DICT')
+
+print(car1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E O OUTPUT:
+
+
+Printing...
+Top Speed: 1000, warnings: 0
+{'top_speed': 200, 'normal_speed': 1000, 'warnings': []}
+{'top_speed': 200, 'normal_speed': 1000, 'warnings': [], 'newkey': 'value'}
+{'top_speed': 200, 'normal_speed': 1000, 'warnings': [], 'newkey': 'value'} OLD DICT
+Printing...
+Top Speed: 1000, warnings: 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------
+
+
+
+
+
+
+
+
+OK... É ASSIM QUE PODEMOS FAZER 'OVERWRITE'
+
+
+dos special methods (pq aqui OVERWRITTAMOS AQUELE BEHAVIOR DE 'OUTPUT DA LOCALIZAÇÃO DESSA INSTANCE NA MEMÓRIA', comportamento PODRE, por esse return dessa string QUE NOS FALA UM POUCO DOS VALORES DOS ATTRIBUTES DENTRO DE CADA INSTANCE/NOSSA CLASS)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CLARO QUE 
+
+
+
+
+O QUE VOCÊ PODE FAZER COM CADA 'SPECIAL METHOD' 
+
+depende 
+
+mt do METHOD e do MOMENTO EM QUE ESSE METHOD É CHAMADO PELO PYTHON.... (e o que o python EXPECTS que vocÊ escreva)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONHECER ESSES SPECIAL METHODS PODE SER MT ÚTIL,
+
+
+E É POR ISSO QEU O PROFESSOR QUERIA NOS MOSTRAR ELES, AGORA...

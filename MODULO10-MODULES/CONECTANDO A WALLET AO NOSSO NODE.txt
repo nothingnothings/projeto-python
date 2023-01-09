@@ -1,0 +1,1703 @@
+
+
+
+tentar fazer isso por conta própria...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A LÓGICA É COMPLEXA... --> naõ podemos simplesmente 
+
+
+
+
+sempre inicializar a wallet no nosso constructor de 'node',
+
+
+
+pq 
+
+
+
+VAMOS QUERER QUE 
+
+
+
+UM MESMO 'wallet' exista em um mesmo 'node' por um período extenso de tempo... --> 
+
+
+
+
+
+
+
+talvez seja melhor pensar por uma lógica de 'load_data' (load do arquivo 'blockchain.json', em que temos nossas transactions, que terão 
+
+NOSSA 'public key' anexada.... não sei)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> o que queremos fazer é 
+
+
+
+
+
+INICIALIZAR A WALLET SE ELA NÃO EXISTE, e aí definir como sendo a de esse user de nosso app (essa instance)....
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO PODEMOS 'PRESENT' ESSAS KEYS AO USER?
+
+
+
+
+
+
+
+
+
+
+
+
+---> O USER DEVERÁ PODER USAR A DATA DAS KEYS PARA _ ENTÃO MAIS TARDE CONSEGUIR 
+
+
+
+ENVIAR TRANSACTIONS (Que devem ser 'SIGNED' com essas keys).....
+
+
+
+
+
+
+
+
+
+
+----> PARA ISSO, 
+
+NO NODE,
+
+
+
+
+BASICAMENTE _ PRECISAMOS _ DE UMA NOVA OPÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+--> A OPÇÃO SERÁ PARA 'SET UP A NEW WALLET',
+
+
+ou então 
+
+
+
+
+
+
+PARA 'LOAD A WALLET IF WE ALREADY HAVE IT'... (ERA ISSO QUE ESTAVA FALTANDO NA MINHA LINHA DE RACIOCÍNIO)...
+
+
+
+
+
+
+
+
+
+
+
+
+---> o prof adiciona uma nova option no node,
+
+
+
+print('c': Create Wallet) 
+
+
+
+
+
+
+
+
+print ('l': 'Load Wallet)...
+
+
+
+
+
+
+
+
+            print('-' * 30)
+            print('1: Add a new transaction value')
+            print('2: Display current blockchain')
+            print('3: Show participants')
+            print("b: Show user's balance")
+            print('c: Create wallet')
+            print('h: Manipulate the chain')
+            print('l: Load wallet')
+            print('m: Mine a block')
+            print('q: Quit the program')
+            print('v: Verify open transactions')
+            print('-' * 30)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LOAD WALLET --> ISSO PQ _ O PROFESSOR VAI QUERER 
+
+SALVAR 
+
+
+'public_key' e 'private_key'
+
+
+
+EM UMA _ TEXT FILE __ SEPARADA........ -------> o professor então 
+
+
+
+
+
+menciona a nós que uma PRIVATE KEY NUNCA DEVE SER 'SHARED', deve ser confidencial,
+
+
+
+APENAS a 
+
+PUBLIC KEY DEVE SER COMPARTILHADA...
+
+
+
+
+
+
+
+
+
+
+--> TALVEZ VOCÊ NEM MESMO QUEIRA SALVAR ESSA PRIVATE KEY EM UMA TEXT FILE,
+
+TALVEZ SEJA ATÉ MELHOR SÓ FAZER UM 
+
+'print out' 
+
+dela durante o runtime,
+
+
+
+E AÍ 
+
+
+
+
+'KEEP IT IN YOUR ROOM',
+
+
+deixar bem segura...  ------> PQ SE VOCÊ PERDE O ACESSO A SUA PRIVATE_KEY,
+
+
+VOCê __ PERDE O ACESSO AOS SEUS COINS ---------> ISSO PQ VOCÊ NÃO VAI MAIS PODER 
+
+
+
+
+'CONFIRMAR'/reivindicar que SUA PUBLIC_KEY PERTENCE A VOCÊ... --> aí você não poderá mais enviar transactions... 
+
+
+
+
+
+
+
+
+
+(
+
+
+POR ISSO VOCÊ DEVE DEIXAR ESSA KEY BEM SEGURA...
+
+
+)
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR VAI DEIXAR ESSA KEY GRAVADA EM UMA TEXT FILE _ PQ _ ´´E 
+
+
+
+MAIS CONVENIENTE DURANTE O DEVELOPMENT...
+
+
+
+
+
+
+
+
+
+
+--> OK... --> CREATE WALLET VAI __ ACTUALLY__ CRIAR ESSAS 2 KEYS E AÍ _ _VAI __ 
+
+AS 
+ARMAZENAR EM UM ARQUIVO..
+
+
+
+
+
+
+
+
+----> É POR ISSO QUE PRECISAMOS DE UM METHOD 'create_wallet'...
+
+
+
+
+
+
+
+
+--> e 'load_wallet' vai carregar esse arquivo, e aí carregar as keys..
+
+
+
+
+
+
+
+
+
+--> para 'create_wallet',
+
+
+escrevemos assim:
+
+
+
+
+    def create_wallet(self):
+        self.wallet = Wallet()
+
+
+
+
+
+
+
+
+
+
+--> ACHO QUE ESSE É UM BOM PONTO DE PARTIDA...
+
+
+
+
+
+
+
+
+
+
+
+---> temos que vincular isso a um 'elif' statement, é claro... ( no while loop de 'waiting_for_input'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> COMEÇO POR ESTE CÓDIGO AQUI:
+
+
+
+
+
+
+
+
+    def create_wallet(self):
+        self.wallet = Wallet()
+        print(self.wallet.private_key, self.wallet.public_key)
+
+
+
+    
+    def load_wallet(self):
+        with open('wallet.txt', mode="r") as g:
+            private_key, public_key = g.readlines()
+
+
+
+
+
+
+----> TALVEZ OS METHODS FIQUEM ASSIM:
+
+
+
+
+
+
+
+
+
+    def create_wallet(self):
+        self.wallet = Wallet()
+        print(self.wallet.private_key, self.wallet.public_key)
+        with open('wallet.txt', mode="w") as f:
+            f.write(self.wallet.private_key)
+            f.write('\n')
+            f.write(self.wallet.public_key)
+
+
+
+    
+    def load_wallet(self):
+        with open('wallet.txt', mode="r") as g:
+            private_key, public_key = g.readlines()
+        self.wallet.private_key = private_key
+        self.wallet.public_key = public_key
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> só não sei se o 'load_wallet' está certo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def create_wallet(self):
+        self.wallet = Wallet(True)
+        print(self.wallet.private_key, self.wallet.public_key)
+        with open('wallet.txt', mode="w") as f:
+            f.write(self.wallet.private_key)
+            f.write('\n')
+            f.write(self.wallet.public_key)
+
+
+
+    
+    def load_wallet(self):
+        with open('wallet.txt', mode="r") as g:
+            private_key, public_key = g.readlines()
+        self.wallet = Wallet(False)
+        self.wallet.private_key = private_key
+        self.wallet.public_key = public_key
+        print(self.wallet.private_key, self.wallet.public_key)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NÃO SEI SE ESSE CÓDIGO É BOM/FUNCIONA...
+
+
+
+
+
+
+
+
+
+
+--> BEM, ESTE CÓDIGO AQUI FUNCIONOU:
+
+
+
+
+
+
+
+    def create_wallet(self):
+        self.wallet = Wallet(True)
+        print(self.wallet.private_key, self.wallet.public_key)
+        with open('wallet.txt', mode="w") as f:
+            print(self.wallet.private_key)
+            f.write(str(self.wallet.private_key))
+            f.write('\n')
+            f.write(str(self.wallet.public_key))
+
+
+
+
+--> isso realmente criou uma wallet no nosso runtime, e também no arquivo 'wallet.txt'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem, o outro código também funcionou:
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def create_wallet(self):
+        self.wallet = Wallet(True)
+        print(self.wallet.private_key, self.wallet.public_key)
+        with open('wallet.txt', mode="w") as f:
+            print(self.wallet.private_key)
+            f.write(str(self.wallet.private_key))
+            f.write('\n')
+            f.write(str(self.wallet.public_key))
+
+
+
+    
+    def load_wallet(self):
+        with open('wallet.txt', mode="r") as g:
+            private_key, public_key = g.readlines()
+        self.wallet = Wallet(False)
+        self.wallet.private_key =  private_key
+        self.wallet.public_key = public_key
+        print(self.wallet.private_key, self.wallet.public_key)
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+OK, HORA DE VER A AULA DO PROFESSOR...
+
+
+
+
+
+
+
+
+
+
+-> ELE FALA QUE QUANDO VAMOS CRIAR UMA NOVA WALLET,
+
+
+VAMOS QUERER 
+
+
+
+
+
+INSTANCIAR UMA NOVA WALLET E CRIAR AS NOVAS KEYS...
+
+
+
+
+
+
+
+
+
+
+-----> por enquanto, isso SEMPRE ACONTECE QUANDO INSTANCIAMOS (
+
+
+    se pegarmos o código antigo, do professor,
+
+
+
+
+
+    ele 
+
+    estava assim:
+
+
+
+
+
+
+
+
+    def __init__(self):
+        private_key, public_key = self.generate_keys()
+        self.private_key = private_key 
+        self.public_key = public_key
+)
+
+
+
+
+
+
+
+
+
+
+--> BEM, MAS TALVEZ SEJA MELHOR DAR UMA 'OPÇÃO' ao user se ELE QUER 
+
+
+REALMENTE CRIAR UMA NOVA WALLET, OU SE ELE __ PREFERE 'LOAD AN EXISTING WALLET'... --> foi isso que eu fiz ,
+
+
+ao escrever o código 
+
+'''
+
+
+
+    def __init__(self, isNew):
+        if (isNew):
+            self.private_key, self.public_key = self.generate_keys()
+
+
+
+
+
+
+
+'''
+
+
+
+
+
+
+---> quando isso acontece, 
+
+
+
+
+
+o 'isNew' é usado para DETERMINAR SE 
+
+
+O 
+
+
+
+CÓDIGO DO CONSTRUCTOR (que cria novas keys)
+
+É EXECUTADO OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> MAS O PROFESSOR VAI ESCREVER UMA SOLUÇÃO MAIS ELEGANTE DO QUE ESSA...
+
+
+
+
+
+
+
+
+
+
+
+--> ELE ADICIONA UM NOVO METHOD LÁ EM 
+
+
+'wallet.py',
+
+
+
+
+DENTRO DE NOSSA CLASS WALLET,
+
+
+
+
+
+
+que é 
+
+
+'create_keys()'...
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE METHOD VAI __ BASICAMENTE 
+
+
+ EXECUTAR AQUELA LINHA/CÓDIGO DE 
+
+
+
+ 'private_key, public_key = self.generate_keys()',
+
+
+
+
+
+
+
+
+
+
+
+ que tínhamos antes no constructor...
+
+
+
+
+
+
+
+
+
+
+ --> LÁ NO CONSTRUCTOR, POR SUA VEZ,
+
+
+ O PROF DEFINE 
+
+
+
+ O VALOR INICIAL DE 'private_key' 
+
+ e 
+
+ 'public_key'
+
+ COMO SENDO 'None' (
+
+
+
+
+ISSO PARA QUE _ QUANDO __ CRIAMOS UM 
+
+NOVO OBJECT 
+
+'Wallet',
+
+NÃO SEJAM ASSIGNADAS KEYS __ IMEDIATAMENTE...  -----> ISSO PQ _ TALVEZ O USER QUEIRA 
+
+'LOAD EXISTING KEYS'...
+
+ )
+
+
+
+
+
+
+
+
+
+
+ O CÓDIGO VAI FICANDO TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+ class Wallet:
+    def __init__(self):
+        self.private_key = None
+        self.public_key = None
+        
+
+
+
+    def generate_keys(self):
+        """CREATES OUR PRIVATE AND PUBLIC KEYS; the public key is built upon the private key, and its job is to identify that its corresponding private_key is in a transaction, valid transaction. 
+        As both keys will be produced in binary formats, we convert them to strings using the 'binascii' package """
+        
+        private_key = RSA.generate(1024, Crypto.Random.new().read) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora... ---> quer dizer que esse primeiro parâmetro é a 'LENGTH DE NOSSA KEY'...
+        public_key = private_key.public_key()   ###ESSE É UM METHOD __ QUE __ RETORNA/NOS DÁ __ A 'public key' A PARTIR _ DA PRIVATE KEY...  (a public key é NECESSARIAMENTE CRIADA A PARTIR DA PRIVATE KEY)..
+
+
+
+    def create_keys(self):
+        private_key, public_key = self.generate_keys()
+        self.private_key = private_key
+        self.public_key = public_key
+        
+
+
+    def convert_binary_to_string(self, key):
+        return binascii.hexlify(key.exportKey(format='DER'))
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+--> PARA O CASO DE QUERERMOS 'load existing keys',
+
+
+VAMOS USAR O METHOD DE 
+
+
+
+'load_keys()',
+
+
+
+
+
+
+EM QUE 
+
+
+ADICIONAREMOS AQUELA LÓGICA PARA __ ACESSAR _ O ARQUIVO 'wallet.txt'...
+ 
+
+
+
+
+
+
+
+
+
+
+ OS METHODS FICAM TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+     def create_keys(self): ###case de 'começar a wallet do 0'...
+        private_key, public_key = self.generate_keys()
+        self.private_key = private_key
+        self.public_key = public_key
+        with open('wallet.txt', mode="w") as f:
+            print(self.private_key)
+            f.write(str(self.private_key))
+            f.write('\n')
+            f.write(str(self.public_key))
+        
+
+
+    def load_keys(self):
+        with open('wallet.txt', mode="r") as g:
+            private_key, public_key = g.readlines()
+        self.private_key =  private_key
+        self.public_key = public_key
+        print(self.private_key, self.public_key)
+
+
+
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+--> CERTO.... MAS A QUESTÃO É QUE 
+
+
+
+PRECISAMSO IMPORTAR 
+
+
+A WALLET LÁ EM 
+
+
+
+'node.py'...
+
+
+
+
+
+
+
+
+
+--> acho que a WALLET SEMPRE VAI EXISTIR NO MEU OBJECT 'node' (anexada a ele),
+
+
+
+ACHO QUE O QUE O PROFESSOR QUER FAZER É SEMPRE DEIXAR A WALLET GRUDADA, E ENTAÕ 
+
+
+
+SÓ ALTERAR OS VALUES dos instance attributes da wallet (o 'private_key' e a 'public_key', essencialmente, através de 'create_keys' e 'load_keys')...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ELE VAI IMPORTAR A WALLET E AÍ INSTANCIAR, MAS EM  QUE LUGAR VAI INSTANCIAR?
+
+
+
+
+
+
+
+
+--> provavelmente vai usar aquelas OPTIONS DO USER, LÁ EMBAIXO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TALVEZ FICARÁ ASSIM:
+
+
+
+
+
+
+
+
+
+            elif(user_input == '2'):
+                self.output_blockchain()
+            elif(user_input == 'q'):
+                waiting_for_input = False
+            elif(user_input == 'c'):
+                # self.create_wallet()
+                self.wallet.create_keys()
+            elif(user_input == 'l'):
+                self.wallet.load_keys()
+                
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mas pelo visto eu __ ERREI O CÓDIGO....
+
+
+
+
+
+
+
+
+--> O QUE O PROFESSOR QUER FAZER, LÁ NO CASE DE 'create a wallet',
+
+É __ INSTANCIAR O OBJECT 'wallet'...
+
+
+
+
+
+
+
+
+-----> ou seja,
+
+ele não vai querer 'SEMPRE INSTANCIAR O WALLET, LÁ NO CONSTRUCTOR DE NODE.PY'... -> 
+
+
+
+
+
+essa é uma alternativa, entretanto (só o professor não quis a seguir)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> no caso do professor, ele escreveu assim:
+
+
+
+
+
+
+                    elif(user_input == 'c'):
+            
+                wallet = Wallet() 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ----> E LÁ NO CONSTRUCTOR ELE FEZ ALGO BEM DIFERENTE DO QUE EU FIZ:
+
+
+
+
+
+
+
+    em vez de INSTANCIAR DIRETAMENTE O 'Wallet',
+
+    ELE SÓ 
+
+
+    DEFINIU 
+
+
+
+
+    'self.wallet = None',
+
+
+
+
+    DEFINIU ESSE INSTANCE ATTRIBUTE COMO INICIALMENTE 'vazio'..
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+
+    class Node:
+    """THE NODE WHICH RUNS THE LOCAL BLOCKCHAIN INSTANCE"""
+
+    def __init__(self):
+        self.wallet = None #### a wallet inicialmente nÃO SERÁ COISA ALGUMA, pq o user ainda não decidiu se quer CARREGAR UMA WALLET QUE JÁ EXISTIA, ou se então quer 'COMEÇAR DO 0', com uma NOVA WALLET...
+
+        self.blockchain = Blockchain(self.id)
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK..
+
+
+
+
+
+
+
+
+INICIALMENTE SERÁ NONE,
+
+
+mas logo mudará...
+
+
+
+
+
+
+
+
+
+--> AGORA TEMOS ESSE ATTRIBUTE PARA NOSSA WALLET..
+
+
+
+
+
+
+
+
+--> E QUANDO CRIARMOS NOSSA WALLET LÁ EM BAIXO,
+
+
+
+com 
+
+
+
+
+
+
+
+'
+
+
+
+
+                    elif(user_input == 'c'):
+            
+                wallet = Wallet() 
+
+
+
+
+
+
+
+'' ,
+
+
+
+
+
+O PROFESSOR VAI ACTUALLY QUERER 
+
+
+BINDAR 'self.wallet' como sendo esse object wallet aí...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... MAS É EVIDENTE QUE ESSA WALLET VAI ESTAR VAZIA, COMO 
+
+
+
+
+
+
+OBSERVAMOS PELO CÓDIGO DE NOSSA WALLET CLASS, O CONSTRUCTOR:
+
+
+
+
+
+
+
+class Wallet:
+    # def __init__(self, isNew):  //minha versaõ do código de 'OPTAR POR CARREGAR UMA WALLET JÁ EXISTENTE OU CRIAR UMA NOVA, DO ZERO'''..s
+    #     if (isNew):
+    #         self.private_key, self.public_key = self.generate_keys()
+
+    def __init__(self):
+        self.private_key = None
+        self.public_key = None
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA CONSEGUIRMOS 
+
+
+
+NOVAS KEYS PARA ESSA NOSSA WALLET,
+
+
+PARA A 
+
+
+
+'VALIDAR',
+
+
+PRECISAMOS 
+
+LOGO APÓS 
+
+
+
+
+EXECUTAR 
+
+'self.wallet.create_keys'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+            elif(user_input == 'c'):
+                self.wallet = Wallet()
+                self.wallet.create_keys()
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+--> ISSO VAI EXECUTAR AQUELE CÓDIGO QUE CRIA KEYS PARA A NOSSA WALLET (e as INSERE NOS INSTANCE ATTRIBUTES DE ESSA WALLET),
+
+
+
+como visto pelo c´digo de 'create_keys':
+
+
+
+
+    def create_keys(self): ###case de 'começar a wallet do 0'...
+        private_key, public_key = self.generate_keys()
+        self.private_key = private_key
+        self.public_key = public_key
+        with open('wallet.txt', mode="w") as f:
+            print(self.private_key)
+            f.write(str(self.private_key))
+            f.write('\n')
+            f.write(str(self.public_key))
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE VAMOS QUERER FAZER A MESMA COISA COM 'load_keys',
+
+
+com o LOAD DE UMA EXISTING WALLET...
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+            elif(user_input == 'c'):
+                # self.create_wallet()
+                # wallet = Wallet()  ###vai criar NOVA WALLET, vazia...]
+                self.wallet = Wallet()
+                self.wallet.create_keys()
+                # self.wallet.create_keys()
+
+            elif(user_input == 'l'):
+                self.wallet = Wallet()
+                self.wallet.load_keys()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE ESSA USER EXPERIENCE ESTÁ MEIO RUIM,
+
+O IDEAL SERIA INFORMAR O USER DE QUE O CHOOSE DE 'create a new wallet' vai OVERWRITTAR O ARQUIVO ANTIGO DELE...
+
+
+
+
+
+
+
+
+
+
+
+
+---------> O PROF MENCIONA QUE o object 'wallet' vai então ter um 
+
+attribute 'public_key',
+
+
+QUE SERÁ UMA STRING... (pq estamos retornando string em 'create_keys' e 'load_keys' )
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE PODEMOS __ SUBSTITUIR TODAS AS OCORRÊNCIAS DE 'self.id'
+
+
+DE NOSSO CÓDIGO __ POR 
+
+
+
+ESSA __ 'public_key'...
+
+
+
+
+
+
+
+
+
+
+
+--> escrevemos 'self.wallet.public_key'...
+
+
+
+
+
+
+
+
+
+
+--> CERTO, FIZ ISSO...
+
+
+
+
+
+
+
+
+
+
+--> OK, AGORA NOSSA WALLET ESTÁ SENDO CRIADA, E AGORA ESTAMOS CONSEGUINDO ESSAS KEYS...
+
+
+
+
+
+
+
+
+
+
+--> AGORA TENTAMOS EXECUTAR NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+--> GANHO UM ERRO, UM ERRO PREVISÍVEL:
+
+
+
+
+
+
+
+AttributeError: 'NoneType' object has no attribute 'public_key'
+
+
+
+
+
+
+
+
+
+
+------> isso acontece pq nosso 
+
+CONSTRUCTOR DE 'node' está assim:
+
+
+
+
+
+    def __init__(self):
+
+        self.wallet = None 
+
+        self.blockchain = Blockchain(self.wallet.public_key)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É ÓBVIO QUE ISSO DÁ ERRADO,
+
+pq não 
+
+existirá esse attribute dentro de 'None'...
+
+
+
+
+
+
+
+
+
+
+--> pfff.... para consertar isso, ele vai inicializar a wallet no início, EXATAMENTE COMO EU FIZ...
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+    def __init__(self):
+
+        self.wallet = Wallet() #### a wallet inicialmente nÃO TERÁ COISA ALGUMA, pq o user ainda não decidiu se quer CARREGAR UMA WALLET QUE JÁ EXISTIA, ou se então quer 'COMEÇAR DO 0', com uma NOVA WALLET...
+
+        self.blockchain = Blockchain(self.wallet.public_key)
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+certo... agora isso funcionará...
+
+
+
+
+
+
+
+
+--> SE RODARMOS NODE.PY mais uma vez,
+
+
+
+
+
+
+podemos até mesmo minerar um block,
+
+
+
+
+
+para 'None'... (vamos ter que adicionar um if check para IMPOSSIBILITAR MINES COM 'none' como public key)... --> vamos querer que 
+
+exista um warning apropriado,
+
+nos dizendo 'vocÊ deve criar uma key antes de minerar'... 
+
+
+
+
+
+
+
+
+
+--> faremos isso na próxima aula...

@@ -1,0 +1,94 @@
+
+
+
+
+
+
+
+
+
+-> USAR O DEBUGGER É SUPER ÚTIL PARA ENCONTRAR ERROS LÓGICOS...
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS  VOCÊ TAMBÉM PODE TER ERROS DE SINTAXE... 
+
+
+
+
+
+
+
+
+
+
+
+-> ERROS DE SINTAXE SÃO FREQUENTEMENTE APITADOS PELO IDE...
+
+
+
+
+
+
+
+
+
+
+--> ERROS DE SINTAXE SÃO APONTADOS PELO TERMINAL/IDE..
+
+
+
+
+
+
+
+
+
+--> ERROS DE SINTAXE PODEM SER _ FÁCEIS_ OU DIFICEIS DE CONSERTAR...
+
+
+
+--> ALGUMAS MENSAGENS DE ERRO DO PYTHON SÃO RUINS...
+
+
+
+
+
+
+
+
+
+
+--> SÓ TEMOS QUE PROCURAR PELA LINHA QUE DEU ERRO...
+
+
+
+
+
+
+
+
+
+
+
+--> ERROS DE SINTAXE SÃO MEIO FÁCEIS DE DEBUGGAR.. a mensagem de erro te diz em que lugar do seu código algo te deu errado...
+
+
+
+
+
+
+
+
+
+
+-. PARA ERROS LÓGICOS, USE O DEBUGGER..

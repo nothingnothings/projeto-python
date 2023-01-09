@@ -1,0 +1,300 @@
+
+
+
+
+
+
+
+
+
+
+--> NÓS ADICIONAMOS NOSSA TUPLE NA ÚLTIMA LIÇÃO,
+ 
+
+
+ LÁ NAQUELA 
+
+ FUNCTION DE 
+
+
+
+ 'get_transaction_value()',
+
+
+
+
+
+
+ com este código:
+
+
+
+
+
+
+
+
+
+
+
+
+def get_transaction_value():
+    """ Returns the input of the user (sender, recipient, amount) as a tuple, to proceed with option 1 """
+
+    user_transaction_sender = owner
+    #user_transaction_sender =  input("Please enter the sender's name: ")
+    # if (user_transaction_sender == '' or not isinstance(user_transaction_sender, str)):
+    #     return None
+    user_transaction_recipient = input("Please enter the recipient's name: ")
+    if (user_transaction_recipient == '' or not isinstance(user_transaction_sender, str)):
+        return None
+    user_transaction_amount = input('Please enter transaction amount: ')
+    if (user_transaction_amount == '' or not user_transaction_amount.isnumeric() or isinstance(user_transaction_amount, bool)):
+        return None
+    user_transaction_input = (user_transaction_sender, user_transaction_recipient, float(user_transaction_amount))
+    print(user_transaction_input)
+    print(user_transaction_input, 'LINE')
+    return user_transaction_input
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> AÍ ESTAMOS FAZENDO RETURN DESSA TUPLE -->  E AÍ ESSA TUPLE É REPASSADA à FUNCTION DE 
+
+
+'add_transaction', lá no while loop:
+
+
+
+
+
+
+
+
+    if(user_input == '1'):
+        user_transaction = get_transaction_value()
+        if(user_transaction == None):
+            print('Please enter a valid sender, recipient and transaction value')
+        else:
+            add_transaction(user_transaction[0], user_transaction[1], user_transaction[2])
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... EU USEI A SINTAXE HOMEM DAS CAVERNAS,
+
+QUE É 
+
+
+'[]', etc etc. ... INDEXADORES...
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS EXISTE UMA SINTAXE MAIS LEGAL, MAIS FORTE,
+
+
+ESPECÍFICA A TUPLES, QUE É BEM CONVENIENTE...
+
+
+
+
+
+
+
+--> ELA É ESTRANHA, MAS É BEM FORTE....
+
+
+
+
+
+
+
+
+----> SE TEMOS UMA TUPLE,
+
+PODEMOS __ 'UNPACK' A DATA DA TUPLE __ EM NOVAS VARIABLES,  
+
+POR MEIO 
+
+
+
+DO SIMPLES WRITE DOS VARIABLE NAMES,
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+recipient, amount = user_transaction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, É QUASE EXATAMENTE A MESMA COISA QUE _ 
+
+
+'ARRAY DESTRUCTURING', mas sem a marcação de arrays....
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+    if(user_input == '1'):
+        user_transaction = get_transaction_value()
+        sender, recipient, amount = user_transaction  #UNPACKING DE TUPLE.... É EXATAMENTE A MESMA COISA QUE ARRAY DESTRUCTURING.
+        if(user_transaction == None):
+            print('Please enter a valid sender, recipient and transaction value')
+        else:
+            # add_transaction(user_transaction[0], user_transaction[1], user_transaction[2]) # SINTAXE OLDSCHOOL (sem 'TUPLE UNPACKING', que é basicamente ARRAY DEESTRUCTURING)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ou seja, escrevemos isto:
+
+
+      sender, recipient, amount = user_transaction
+
+
+
+
+
+
+
+
+
+
+------> OK... AGORA PODEMOS SÓ CHAMAR ESSAS VARIABLES (sender, recipient, amount) LÁ NO NOSSO 'ADD_tRANSACTION'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AÍ TESTAMOS O ADD DE UMA NOVA TRANSACTION....
+
+
+
+
+
+EX:
+
+
+
+
+------------------------------
+Please choose an option: 1
+Please enter the recipient's name: 1
+Please enter transaction amount: 1
+('Arthur', '1', 1.0)
+('Arthur', '1', 1.0) LINE
+[{'sender': 'Arthur', 'recipient': '1', 'amount': 1.0}]
+Blockchain is valid
+[]
+
+
+
+
+
+
+
+
+
+
+
+--> VOCê PODE VER QUE UM 'DICTIONARY' FOI ADICIONADO ÀQUELA NOSSA 'LIST OF OPEN_TRANSACTIONS'... (é exatamente o que queríamos)....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FUNCIONA, E AGORA DEVEMOS VER O QUE PODEMOS FAZER COM AS DATA STRUCTURES QUE APRENDEMOS...

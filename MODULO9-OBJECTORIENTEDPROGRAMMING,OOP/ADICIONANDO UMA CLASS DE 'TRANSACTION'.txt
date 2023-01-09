@@ -1,0 +1,2781 @@
+
+
+
+
+
+
+
+
+--> AULA LONGA....
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS ADICIONAR A CLASSS DE 'TRANSACTION' --> é a segunda 
+
+
+
+PARTE MAIS IMPORTANTE DE NOSSO PROJETO/DATA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> é FORTEMENTE CONECTADA AOS NOSSOS BLOCKS..
+
+
+
+
+
+
+
+
+
+
+
+
+--> o professor cria um arquivo de 'transaction.py.'.
+
+
+
+
+
+
+
+
+
+
+
+
+--> aí ele escerve:
+
+
+
+
+
+
+
+
+
+
+class Transaction:
+    def __init__(self, amount, recipient, sender):
+        self.sender = sender
+        self.recipient = recipient 
+        self.amount = amount 
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO.... É TUDO ISSO QUE VAMOS QUERER ADICIONAR A ESSA CLASS,
+
+POR ENQUANTO...
+
+
+
+
+
+
+
+
+
+
+SALVAMOS TUDO E VOLTAMOS AO BLOCKCHAIN.py...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> importamos essa transaction..
+
+
+
+
+
+
+
+
+
+
+
+--> USAMOS LÁ EM 
+
+
+'add_transaction'...
+
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE VAMOS USAR ESSA CLASS TAMBÉM 
+
+
+
+LA´EM 
+
+'load_data'....
+
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO DE 'LOAD_DATA':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def load_data():
+    global blockchain
+    global open_transactions
+    try:
+        with open('blockchain.json', mode='r') as g:
+            # read_blockchain, read_transactions = g.readlines()
+            file_content = g.readlines()
+            blockchain = json.loads(file_content[0][:-1])
+            updated_blockchain = []
+            for block in blockchain:
+
+                converted_tx = [OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])]) for tx in block['processed_transactions']]
+                updated_block = Block(block['index'], block['previous_block_hash'], converted_tx, block['proof'], block['timestamp'])
+                updated_blockchain.append(updated_block)
+                blockchain = updated_blockchain
+                # open_transactions = [OrderedDict([('amount', transaction['amount']), ('recipient', transaction['recipient']), ('sender', transaction['sender'])]) for transaction in json.loads(read_transactions)]  # com list comprehension...
+                open_transactions = json.loads(file_content[1])
+                print(open_transactions)
+                updated_transactions = []
+    
+                for tx in open_transactions:
+                    updated_transaction = OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])])
+
+                    updated_transactions.append(updated_transaction)
+            open_transactions = updated_transactions
+    except (IOError, IndexError):
+        print('File not found!')
+
+
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+
+
+    finally:
+        print('Your data was or was not loaded. See error statements')
+        print('clean-up work'
+
+
+
+
+
+
+
+
+
+
+
+
+----------> ok... 
+
+
+
+
+
+
+
+
+
+--> NESSE CÓDIGO AÍ,
+
+
+OBVIAMENTE
+
+
+
+
+ESTAMOS 
+
+
+
+LENDO A DATA DE 'transactions' lá daquela linha do blockchain.json,
+
+
+
+E AÍ 
+
+
+
+__ ESTAMOS __ CRIANDO UMA ORDERED DICT __ PARA A TRANSACTION:
+
+
+
+
+
+  converted_tx = [OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])]) for tx in block['processed_transactions']]
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ---> O PROFESSOR VAI QUERER __ SUBSTITUIR__ ESSA ORDERED DICT POR UM OBJECT,
+
+  eu acho...
+
+
+
+
+
+
+
+
+  --> ENTRETANTO, AO MESMO TEMPO,
+
+
+
+  __ VAMOS_ QUERER_ _ USAR 
+
+  'OrderedDicts'
+
+
+
+
+  PARA __ _ASSEGURAR_ QUE 
+
+
+  NÃO ENCONTREMOS PROBLEMAS QUANDO ESTIVERMOS FAZENDO O 'HASHING' de nossas transactions...
+
+
+
+
+
+
+
+
+
+
+  -------> O PROFESSOR SÓ VAI RESPEITAR ESSE 'OrderedDict'
+
+
+  mais tarde,
+
+  
+
+  QUANDO __ A UTILIZARMOS LÁ NO 'proof_of_work'... -------> POR ENQUANTO,
+
+
+
+  O PROFESSOR VAI REALMENTE QUERER 
+
+  CRIAR 
+
+
+
+  1 TRANSACTION COM O OBJECT DE 'transaction'...
+
+
+
+
+
+
+
+  --> O PROFESSOR USA UMA LIST COMPREHENSION 
+
+  EM VEZ DE UM MAP, 
+
+
+  PARA 
+
+
+
+  ENFIAR UM MONTE DE OBJECTS 'transaction', CRIADOS A PARTIR DE NOSSAS TRANSACTIONS 
+
+
+
+  NOS BLOCKS DA BLOCKCHAINa,
+
+
+
+
+
+  dentro da list 
+
+
+  de 
+
+  'converted_transactions'...
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+for block in blockchain:
+    converted_transactions = [Transaction() for transaction in block['processed_transactions']]
+
+
+
+
+
+
+
+
+
+
+
+
+    TIPO ASSIM:
+
+
+               converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block['processed_transactions']]
+
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> UMA VANTAGEM DO USO DE OBJECTS É QUE O CÓDIGO FICA BEM MENOR DO QUE A VERSÃO DE 'OrderedDictS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok... --> agora temos nossas converted transactions,
+
+
+
+
+que são passadas ao block que críamos aí...
+
+
+
+
+
+
+
+
+
+------> OK...   -----> VAMOS FAZER A MESMA COISA NA VARIABLE DE 'updated_transactions':
+
+
+
+
+
+
+
+
+     updated_transactions = []
+    
+                for tx in open_transactions:
+                    updated_transaction = OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])])
+
+                    updated_transactions.append(updated_transaction)
+            open_transactions = updated_transactions
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI SER ALTERADO PARA FICAR ASSIM:
+
+
+
+
+
+     updated_transactions = []
+    
+                for tx in open_transactions:
+                    updated_transaction = Transaction(tx['amount'], tx['recipient'], tx['sender'])
+
+                    updated_transactions.append(updated_transaction)
+            open_transactions = updated_transactions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> COM ESSAS MUDANÇAS,
+
+
+
+ACABAMOS PERDENDO O 'ORDERING',
+
+
+
+MAS ISSO É ALGO QUE O PROFESSOR CONSERTARÁ MAIS TARDE,
+
+QUANDO 
+
+
+
+CONSERTARMOS A FUNCTION 'proof_of_work'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK... --> ESTAMOS IMPORTANDO AS TRANSACTIONS DE NOSSO ARQUIVO , O QUE É BOM...
+
+
+
+
+
+
+
+
+
+
+
+
+--> em 'save_data()'
+
+
+
+ESTAMOS __ DUMPANDO__ as 'open_transactions'
+
+
+
+NA NOSSA FILE, TAMBÉM...
+
+
+
+
+
+
+veja o código:
+
+
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        with open('blockchain.json', mode='w') as f:
+
+            converted_transactions = []
+
+            for transaction in open_transactions:
+                converted_transactions.append(Transaction(transaction['amount'], transaction['recipient'], transaction['sender']))
+
+
+
+            converted_transactions = [transaction.__dict__ for transaction in converted_transactions]
+            
+            saveable_chain = [block.__dict__ for block in blockchain]
+            f.write(json.dumps(saveable_chain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(converted_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EU JÁ HAVIA __ CONSERTADO ESSA PARTE DO CÓDIGO COM 'objects',
+
+
+
+COMO VOCÊ PODE VER NAQUELAS LINHAS:
+
+
+
+
+
+
+            converted_transactions = []
+
+            for transaction in open_transactions:
+                converted_transactions.append(Transaction(transaction['amount'], transaction['recipient'], transaction['sender']))
+
+
+
+            converted_transactions = [transaction.__dict__ for transaction in converted_transactions]
+
+
+
+
+
+
+
+
+
+-> --> TALVEZ SEJA POSSÍVEL TORNAR TUDO ISSO EM 1 LINHA SÓ...
+
+
+
+
+
+
+
+
+
+
+EM 1 LINHA SÓ, TUDO ISSO FICA ASSIM:
+
+
+
+
+
+
+
+converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+
+
+
+
+
+
+
+
+
+
+ok... isso funcionou...
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+O professor fala então 
+
+
+da linha de 
+
+
+'f.write(json.dumps(open_transaction))',
+
+
+
+
+QUE ISSO CLARAMENTE NÃO FUNCIONARÁ PQ 
+
+ISSO AÍ 
+
+(open_transactions) 
+
+
+
+É UMA 
+
+LIST DE TRANSACTION OBJECTS (Que não são suportados como 'OBJECTS POSSÍVEIS DE SEREM CONVERTIDOS EM JSON STRINGS')...
+
+
+
+
+
+
+
+
+
+
+
+--> é por isso que PRECISAMOS __ CONVERTER __ ESSA __ DATA ANTES DE A INSERIR... 
+
+
+
+
+
+
+
+
+
+
+---> O MEU CÓDIGO INTEIRO FICOU ASSIM;
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        # with open('blockchain.txt', mode='w') as f:
+        with open('blockchain.json', mode='w') as f:
+            # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+            print(open_transactions)
+            print(open_transactions)
+            converted_transactions = []
+
+            # for transaction in open_transactions:
+            #     converted_transactions.append(Transaction(transaction['amount'], transaction['recipient'], transaction['sender']))
+            # converted_transactions = [transaction.__dict__ for transaction in converted_transactions]
+            ##mesma coisa que isto:
+            converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+
+
+            # converted_blockchain = []
+            # for block in blockchain:
+            #     # não é necessário '.__dict__.copy()' aqui pQ NÃO VAMOS MANIPULAR ESSE DICT (situação diferente daquela vista em 'hash_block', pq lá VAMOS MANIPULAR NOSSO DICT)....
+            #     converted_blockchain.append(block.__dict__) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+            
+            saveable_chain = [block.__dict__ for block in blockchain]
+            print(converted_transactions, 'LINE')
+            f.write(json.dumps(saveable_chain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(converted_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+prosseguimos...
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'valid_proof' ----> ALI ESTAMOS CONVERTENDO 
+
+
+
+
+
+
+AS NOSSAS TRANSACTIONS EM UMA STRNIG,
+
+
+
+por meio daqueel código:
+
+
+
+
+
+
+
+###precisa retornar TRUE/FALSE (o hash precisa ter número de 0s inicial compatível com o que definimos para nosso app... esse é o proof of work)...
+def valid_proof(transactions, previous_block_hash, proof): 
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+    # esse hash deverá ter os PRIMEIROS 5 CARACTERES ( ou mais) como 0....
+    # guess_hash = hashlib.sha256(guess).hexdigest()
+    guess_hash = hash_string_256(guess)
+    # if str(guess_hash).startswith('00000', 0): #meio alternativo.
+    #     return guess_hash
+    # else:
+    #     return False
+    print(guess_hash)
+    return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+
+
+
+
+
+-> o '(str(transactions))' e etc....
+
+
+
+
+
+
+
+
+
+
+---> valid_proof....]
+
+
+
+
+
+
+
+###precisa retornar TRUE/FALSE (o hash precisa ter número de 0s inicial compatível com o que definimos para nosso app... esse é o proof of work)...
+def valid_proof(transactions, previous_block_hash, proof): 
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+    guess_hash = hash_string_256(guess)
+    return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+
+
+
+----> estamos convertendo nossas transactions (tRANSACTION OBJECT, AGORA)
+
+EM _ UMA __ STRING...
+
+
+
+
+
+--> ISSO É ACTUALLYY _ UMA PARTE CRUCIAL,
+
+
+
+
+essa é a parte em que a 'order' vai ser importante,
+
+PQ VAMOS HASHEAR NOSSA 'TOTAL STRING' naquele 'guess_hash'...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... --> ISSO QUER DIZER QUE __ É _ AQUI 
+
+
+O LOCAL __ EM QUE ___ EU AINDA _ VOU QUERER TER 'ORDERED DICTIONARIES'
+
+
+PARA 
+
+
+MINHAS TRANSACTIONS...
+
+
+
+
+
+
+--> ok..
+
+então isso significa que 
+
+VAMOS TER QUE PEGAR 
+
+'transactions' (objects TRANSACTION)
+
+
+
+e as CONVERTER EM ORDERED DICTS...
+
+
+
+
+
+
+
+
+
+TALVEZ ASSIM:
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof): 
+
+
+
+    ordered_transactions = []
+
+    for transaction in transactions:
+        ordered_transaction = OrderedDict([('amount', transaction.amount), ('recipient', transaction.recipient) , ('sender', transaction.sender)])
+        ordered_transactions.append(ordered_transaction)
+    guess = (str(ordered_transactions) + str(previous_block_hash) + str(proof)).encode()
+    guess_hash = hash_string_256(guess)
+    print(guess_hash)
+    return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DEVO TESTAR ESSE CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+--> ao minerar um block, já recebi um error:
+
+
+  File "C:\Python310\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Transaction is not JSON serializable
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> EM VEZ DE USAR OUTRA 'LIST COMPREHENSION' ou for loop,
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR NOS EXPLICA QUE PODEMOS IR 
+
+
+ATÉ NOSSA CLASS DE 'Transaction' 
+
+E AÍ 
+
+ADICIONAR UM OUTRO METHOD LÁ,
+
+
+
+
+method de nome 
+
+
+'to_ordered_dict()' -----> 
+
+
+
+
+
+
+
+
+----->POR MEIO DESSE METHOD, VAMOS QUERER RETORNAR UM 'ORDERED DICTIONARY' para 
+
+
+ESSA INSTANCE DE TRANSACTION EM QUE ESTAMOS CHAMANDO ESSE METHOD....
+
+
+
+
+
+
+
+
+
+
+
+
+--> acho que ficará tipo assim:
+
+
+
+
+
+
+
+from collections import OrderedDict
+
+
+class Transaction:
+    def __init__(self, amount, recipient, sender ):
+        self.amount = amount
+        self.recipient = recipient
+        self.sender = sender
+    
+    def to_ordered_dict(self):
+        return OrderedDict([('amount', self.amount), ('recipient', self.recipient), ('sender', self.sender)])
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+certo....
+
+
+
+
+
+--> agora temos que INSTANCIAR ESSE OBJECT e aí USAR/CHAMAR ESSE METHOD NELE....
+
+
+
+
+TALVEZ FICARÁ ASSIM:
+
+
+
+    ordered_transactions = [transaction.to_ordered_dict() for transaction in transactions]
+
+
+
+
+    guess = (str(ordered_transactions) + str(previous_block_hash) + str(proof)).encode()
+
+
+
+
+
+
+
+
+---------
+
+
+
+
+
+
+
+
+
+
+--> OK.. FOI EXATAMENTE ISSO QUE O PROFESSOR FEZ....
+
+
+
+
+
+
+
+--> VAMOS GANHAR NOSSO 'ORDERED DICT' nessa function de  'valid_proof'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR CONTINUA EXAMINANDO O CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+--> EM 'get_balance'
+
+
+NÓS OBVIAMENTE VAMOS POR DENTRO DE TODAS AS TRANSACTIONS, NESSE CÓDIGHO AQUI:
+
+
+
+
+
+
+
+
+
+
+
+
+
+def get_balance(participant):  # versão COM O USO DE REDUCE NA NOSSA LIST...
+    transaction_sender = get_value('sender')
+    open_transactions_sender = [transaction['amount']
+                                for transaction in open_transactions if transaction['sender'] == participant]
+    transaction_sender.append(open_transactions_sender)
+
+    print(transaction_sender[0])
+
+    print(transaction_sender)
+
+    amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                         if len(tx_amt) > 0 else tx_sum + 0, transaction_sender, 0)
+
+    print(amount_sent)
+
+    transaction_recipient = get_value('recipient')
+
+    amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                             if len(tx_amt) > 0 else tx_sum + 0, transaction_recipient, 0)
+    print(amount_received)
+    return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE ISSO ESTÁ INCORRETO, PQ AGORA TEMOS TRANSACTION _ OBJECTS_, E NÃO MAIS 'DICTS'...
+
+
+
+
+
+
+
+
+
+--> trocamos todos os 'tx['xxx']' por 'tx.xxx'....
+
+
+
+
+
+
+
+
+
+
+--> MESMA COISA EM 'verify_transaction':
+
+
+
+
+def verify_transaction(transaction):
+    """Retorna True ou False a DEPENDER DO CHECK DA TRANSACTION; SE O USER NÃO TIVER FUNDS SUFICIENTES, RETORNA FALSE E A OPERAÇÃO/TRANSACTION NÃO É REALIZADA. É chamado lá em 'add_transaction()'.."""
+    # sender_balance = get_balance(transaction['sender'])[2]
+    sender_balance = get_balance(transaction.sender)[2]
+    print(sender_balance)
+    # return sender_balance >= transaction['amount']
+    return sender_balance >= transaction.amount
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> E TAMBÉM EM 'add_transaction':
+
+
+
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+    """
+    new_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+        ('amount', amount),
+        ('recipient', recipient),
+        ('sender', sender)
+    ])
+    if not verify_transaction(new_transaction):
+        print('Your funds are not enough for the chosen operation')
+        return False
+    else:
+        open_transactions.append(new_transaction)
+        participants.add(sender)
+        participants.add(recipient)
+        print(open_transactions)
+        save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> ISSO TUDO ESTÁ ERRADO, TEMOS QUE SUBSTITUIR TUDO ISSO PELO SAVE DE UM OBJECT TRANSACTION, DE AGORA EM DIANTE...
+
+
+
+
+
+
+
+
+
+
+
+
+        TIPO ASSIM:
+
+
+
+
+
+
+
+
+        
+    new_transaction = Transaction(amount, recipient, sender)
+    if not verify_transaction(new_transaction):
+        print('Your funds are not enough for the chosen operation')
+        return False
+    else:
+        open_transactions.append(new_transaction)
+        participants.add(sender)
+        participants.add(recipient)
+        print(open_transactions)
+        save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> REMOVEMOS O CÓDIGO QUE CRIA AQUELA ORDERED DICT, PQ PODEMOS 
+
+
+CRIAR UMA ORDERED DICT SEMPRE QUE QUISERMOS,
+
+
+POR MEIO DAQUELE 
+
+
+INSTANCE
+METHOD QUE CRIAMOS LÁ NA CLASS DE 'Transaction' 
+
+
+
+
+
+
+------> O PROFESSOR REMOVE AQUELE CÓDIGO DE 
+
+
+'participants.add(sender)
+participants.add(recipient)' 
+
+
+
+
+
+
+
+
+--> ELE DIZ QUE ISSO FOI NICE PARA PRATICAR SETS,
+
+
+
+
+
+
+MAS __ ELE _ _VAI REMOVER ISSO... -> NÓS 
+
+
+
+
+VAMOS USAR ESSA FEATURE DE NOVO QUANDO 
+
+USARMOS/TIVERMOS 
+
+'NODE NETWORKS'...
+
+
+
+
+
+
+
+
+
+
+
+---------> já em 'mine_block()',
+
+
+tudo deve estar fine,
+
+
+MAS A 'reward_transation' DEVE SER CONVERTIDA EM UM TRANSACTION OBJECT...
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+    previous_block = blockchain[-1]
+    print(previous_block)
+    hashed_block = hash_block(previous_block)
+    print(hashed_block)
+    print(hashed_block)
+
+
+    proof = proof_of_work()
+
+    reward_transaction = Transaction(MINING_REWARD, owner, 'ourApp')
+    copied_transactions = open_transactions[:]
+    copied_transactions.append(reward_transaction)
+
+
+
+    block = Block(hashed_block, len(blockchain), copied_transactions, proof)
+    blockchain.append(block)
+    # save_data() #código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+    print(blockchain, 'TRIED TO MINE BLOCK')
+    return True
+
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+CERTO.... 
+
+
+
+O QUE MAIS FALTOU?
+
+
+
+
+
+
+
+
+
+
+
+
+---->    o código deve estar fine, agora..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> AÍ TENTAMOS MINERAR UM BLOCK ... --> 
+
+
+
+GANHAMOS O ERROR DE 
+
+
+
+'TypeError: Object of type Transaction is not JSON serializable' 
+
+
+
+
+
+
+
+
+
+
+
+
+----> VOCê CONHECE ESSE ERROR, JÁ VIU ELE ANTERIORMENTE...
+
+
+
+
+
+
+
+--> acontece pq 
+
+
+
+
+__ ESTAMOS TENTANDO FAZER __ CONVERT__ DE UM OBJECT 'Transaction' em 'JSON'...
+
+
+
+
+
+-> mas em que lugar do código temos isso?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É AQUI, PROVAVELMENTE:
+
+
+    guess_hash = hash_string_256(guess)
+
+
+
+
+
+
+
+
+
+
+--> É PQ ESTAMOS TENTANDO CONVERTER UMA ORDERED DICT EM JSON,  E ISSO NÃO É SUPORTADo..
+
+
+
+
+
+
+
+
+--> temos que converter essa ordered_dict/ordered dicts,
+
+
+ATRAVÉSA 
+
+
+
+DE 
+
+LIST comprehension/for loops..
+
+
+
+
+
+
+
+
+
+--> COMO CONVERTER UMA ORDERED DICT EM UMA DICT COMUM?
+
+
+
+--> assim:
+
+
+
+
+
+
+
+
+2
+
+If you just want to print out dict in order without the OrderedDict wrapper you can use json:
+
+>>> import json
+>>> od = OrderedDict([('method', 'constant'), ('data', '1.225')])
+>>> print(json.dumps(od))
+{"method": "constant", "data": "1.225"}
+You can iterate an OrderedDict identically to a dict:
+
+>>> for k, v in od.items():
+...    print(k, v)
+method constant
+data 1.225
+
+
+
+
+
+
+
+
+
+
+
+
+--> TENTEI CONSERTAR ESSE ERROR, MAS NÃO DEU MT CERTO...
+
+
+
+
+
+
+
+
+
+
+
+--> professor nos diz como podemos consertar...
+
+
+
+
+
+
+
+
+
+----> SE EXPLORARMOS ESSE ERROR MAIS PROFUNDAMENTE,
+ 
+ 
+
+ VEREMOS QUE ELE SE ORIGINA DO METHOD DE 'hash_block'...
+
+
+
+
+
+
+
+
+
+
+
+ --> E ISSO FAZ SENtido...
+
+
+
+
+
+
+
+
+ OLHE O CÓDIGO DE 'hash_block':
+
+
+
+
+
+
+
+
+
+
+ 
+def hash_block(block):
+    """Hashes a block and returns a string representation of it"""
+    # return hashlib.sha256(json.dumps(block, sort_keys=True).encode()).hexdigest()
+
+    # converted_block = block.__dict__ ##isso vai CONVERTER NOSSO BLOCK (que é um object) EM UM DICT, PARA QUE ESSE DICT POSSA ENTÃO SER CONVERTIDO EM JSON...
+    
+    converted_block = block.__dict__.copy() ### é necessário chamar esse '.copy()' sobre esse dict retornado aí..
+    
+    print(converted_block, 'LINE541251')
+
+    return hash_string_256(json.dumps(converted_block, sort_keys=True).encode())
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, NAÕ ERA LÁ EM 'save_data' O PROBLEMA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> NOSSA BLOCKCHAIN ESTÁ FICANDO ASSIM:
+
+
+[{previous_block_hash: , index: 0, processed_transactions: [], proof: 100, timestamp: 0 }, {previous_block_hash: 206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321, index: 1, processed_transactions: [<oop.transaction.Transaction object at 0x00000118AB3A7400>], proof: 91155, timestamp: 1649048943.1725123 }] TRIED TO MINE BLOCK
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O PROBLEMA, É CLARO, É QUE 'processed_transactions'
+
+ESTÁ FICANDO COMO UMA __ LIST__ DE TRANSACTION OBJECTs... ----> e esses 
+
+
+TRANSACTION OBJECTS __ NAÕ PODEM__ SER CONVERTIDOS _ EM 
+
+STRINGS 
+
+
+
+PQ __ O ATTRIBUTE DE 
+
+
+
+'.__dict__'
+
+
+
+EM 1 DETERMINADO 'block'
+
+NÃO VAI  
+
+
+
+
+
+CONVERTER TODOS OS ELEMENTOS EM SI EM UM DICTIONARY, E SIM APENAS O PRÓPRIO ELEMENTO ('hashable_block = block.__dict__.copy()' )
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> AGORA SE O BLOCK TIVER ALGUM ATTRIBUTE QUE CONTÉM OUTRA 
+
+
+LISTA COM COMPLEX OBJECTS (como o transaction),
+
+ 
+ AÍ 
+
+
+ESSES COMPLEX _ OBJECTS__ NÃO __ SERÃO CONVERTIDOS JUNTO COM O BLOCK EM SI....
+
+
+
+
+
+
+
+
+
+
+------> E É __ EXATAMENTE POR ISSO QUE O PROFESSOR 
+
+CHAMOU/CHAMA
+ 
+
+
+
+ '.copy()' em 
+
+ 'block.__dict__',
+
+  
+
+
+  PQ _ ELE _qUER__ MANIPULAR_ 
+
+
+  ESSE HASHABLE BLOCK ANTES DE O UTILIZARMOS... -> ELE QUER MANIPULÁ-LO 
+
+
+  DE MODO QUE __ ELE __TAMBÉM __ FAÇA A CONVERSÃO DOS 
+
+
+
+  'transaction objects' em dictionaries..
+
+
+
+
+
+
+
+  ----> estou com um error:
+
+
+
+
+    File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 591, 
+in save_data
+    f.write(json.dumps(blockchain))
+  File "C:\Python310\lib\json\__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+  File "C:\Python310\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Python310\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Python310\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Block is not JSON serializable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> é pq o block tem que ser convertido em um DICT para conseguir 
+
+
+ser 
+
+
+transformado em JSON data....
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, POR MEIO DESTE CÓDIGO:
+
+
+
+            converted_blockchain = []
+            for block in blockchain:
+                # não é necessário '.__dict__.copy()' aqui pQ NÃO VAMOS MANIPULAR ESSE DICT (situação diferente daquela vista em 'hash_block', pq lá VAMOS MANIPULAR NOSSO DICT)....
+                converted_blockchain.append(block.__dict__) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+            
+
+            f.write(json.dumps(converted_blockchain))
+
+
+
+
+
+
+
+
+
+
+--> evitamos o error de 'Block não é JSON serializable',
+
+
+
+
+MAS _ AÍ _ FICAMOS _ COM O ERROR  
+
+
+
+DE 
+
+
+
+'Transaction não é serializable'...
+
+
+
+
+
+
+
+
+
+------> tenho que converter as TRANSACTIONS dentro dessa blockchain de 'converted_blockchain'
+
+
+
+em 
+
+DICTS, TAMBÉM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.. CONSEGUI.... FICOU UM CÓDIGO REALMENTE SPAGHETTI,
+
+MAS FUNCIONOU....
+
+
+
+
+
+
+
+
+
+----> usei 2 for loops, 1 em cima do outro:
+
+
+
+
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        with open('blockchain.json', mode='w') as f:
+            
+            print(open_transactions)
+            print(open_transactions)
+
+            converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+
+
+            converted_blockchain = []
+            for block in blockchain:
+                converted_blockchain.append(block.__dict__) 
+            
+
+            for block in converted_blockchain:  ## EIS O CÓDIGO EM QUESTAÕ.
+                dict_transactions = []
+                for transaction in block['processed_transactions']:
+                    dict_transactions.append(transaction.to_ordered_dict())
+                block['processed_transactions'] = dict_transactions
+
+            
+            f.write(json.dumps(converted_blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(converted_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+-> CERTO, AGORA O CÓDIGO ESTÁ FUNCIONANDO DE FORMA OK.... -----> OU ESTAVA, 
+
+
+
+ATÉ ME SOLTAR OUTRO ERROR....
+
+
+
+
+
+
+
+
+
+--> O ERROR DE AGORA É 
+
+
+
+
+'''AttributeError: 'collections.OrderedDict' object has no attribute 'to_ordered_dict''''
+
+
+
+
+
+
+
+
+
+--> esse error apareceu quando TENTAMOS MINERAR UM BLOCK PELA SEGUNDA VEZ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR  FALA DO MANIPULATE DE NOSSAS TRANSACTIONS LÁ EM 'hash_block',
+
+
+
+
+e vamos seguir seus passos...
+
+
+
+
+
+
+ex:
+
+
+
+
+def hash_block(block):
+    """Hashes a block and returns a string representation of it"""
+
+    converted_block = block.__dict__.copy() ### é necessário chamar esse '.copy()' sobre esse dict retornado aí..
+    
+    print(converted_block, 'LINE541251')
+
+    return hash_string_256(json.dumps(converted_block, sort_keys=True).encode())
+
+
+
+
+
+
+
+--------------------------
+
+
+
+-- NOSSO BLOCK FOI CONVERTIDO EM UMA DICT, sim ,
+
+
+MAS AS TRANSACTIONS NÃO foram convertidas... -> o professor
+
+
+
+
+
+vai acessar 'converted_block['processed_transactions']' 
+
+
+
+
+PARA ENTAÕ CRIAR UMA LIST DE ORDERED DICTS,
+PARA ASSEGURAR 
+
+QUE 
+
+AS 
+
+KEYS de nossas transactions sempre terão a mesma order...
+
+
+
+
+
+
+
+
+-> para isso, ele escreve assim:
+
+
+
+
+    converted_block = block.__dict__.copy() ### é necessário chamar esse '.copy()' sobre esse dict retornado aí..
+
+
+    converted_block['processed_transactions'] = [transaction.to_ordered_dict() for transaction in converted_block['processed_transactions'] ]
+    print(converted_block, 'LINE541251')
+
+    return hash_string_256(json.dumps(converted_block, sort_keys=True).encode())
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO VAI NOS DAR ORDERED DICTS PARA TODOS ESSES OBJECTS 'Transaction'...
+
+
+
+
+
+
+
+
+
+
+
+
+-------. isso provavelmente crashará nosso código....
+
+
+
+
+
+
+
+--> mas não crashou...
+
+
+
+
+
+
+
+
+
+--> mas o segundo run de mine não vai funcionar, por causa daquele mesmo error:
+
+
+'''
+AttributeError: 'collections.OrderedDict' object has no attribute 'to_ordered_dict'
+
+
+''''
+
+
+
+
+
+
+
+
+
+
+
+--> significa que meu código de 
+
+
+
+'save_data' está com problemas...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... mesmo erro de antes....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->  PROFESSOR DENOTA QUE NOSSO CÓDIGO FALHA COM ISTO AQUI:
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        with open('blockchain.json', mode='w') as f:
+           
+            print(open_transactions)
+            print(open_transactions)
+ 
+
+
+            ##mesma coisa que isto:
+            converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+
+
+            converted_blockchain = []
+            for block in blockchain:
+                # não é necessário '.__dict__.copy()' aqui pQ NÃO VAMOS MANIPULAR ESSE DICT (situação diferente daquela vista em 'hash_block', pq lá VAMOS MANIPULAR NOSSO DICT)....
+                converted_blockchain.append(block.__dict__) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+            
+
+
+            f.write(json.dumps(converted_blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(converted_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS ELE DENOTA QUE ISSO É ESPERADO, QUE ESSE FAIL É ESPERADO...
+
+
+
+
+
+
+
+
+---> O CÓDIGO ESTÁ FUNCIONANDO NO ASPECTO DO 'hash_block' method,
+
+
+
+MAS ESTÁ FALHANDO NESSE 
+
+
+'save_data',
+
+
+e o professor admite que 
+
+
+
+esse é o comoprtamento esperado, agora....
+
+
+
+
+
+
+
+
+
+
+-----> MAS PQ FALHAMOS NESSE TRECHO DE 'save_data()'?
+
+
+
+
+
+
+
+
+
+
+
+--> É PQ _ LÁ NÓS TAMBÉM ESTAMOS USANDO JSON DUMPS,
+
+
+
+
+
+O QUE QUER DIZER QUE 
+
+ESTAMOS 
+
+
+USANDO 'json.dumps()"
+
+
+
+NA BLOCKCHAIN INTEIRA,
+
+BLOCKCHAIN QUE AINDA 
+
+
+CONTÉM OS NOSSOS OBJECTS TRANSACTION, incompatíveis, no interior...
+
+
+
+
+
+
+
+
+
+
+
+------>  PRECISAMOS ASSEGURAR QUE 
+
+
+
+
+NOSSOS BLOCKS, DICTIONARIES, TAMBÉM TENHAM SUAS TRANSACTIONS CONVERTIDAS EM DICTs...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESTE CÓDIGO INTEIRO ESTÁ ERRADO:
+
+
+
+
+
+
+
+
+
+
+
+def save_data(): ## para o save de nossa data, nesse caso concreto, a 'ORDER DE NOSSAS DICTS' não interessa, pq só vamos ARMAZENAR AS TRANSACTIONS EM UM ARQUIVO JSON, e não 'checar a validade' de nossa blockchain/transactions (isso é apenas feito lá nos methods de VERIFY, em 'hash_util.py')...
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        # with open('blockchain.txt', mode='w') as f:
+        with open('blockchain.json', mode='w') as f:
+            # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+            print(open_transactions)
+            print(open_transactions)
+            # converted_transactions = []
+
+            # for transaction in open_transactions:
+            #     converted_transactions.append(Transaction(transaction['amount'], transaction['recipient'], transaction['sender']))
+            # converted_transactions = [transaction.__dict__ for transaction in converted_transactions]
+            ##mesma coisa que isto:
+            converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+
+
+            converted_blockchain = []
+            for block in blockchain:
+                # não é necessário '.__dict__.copy()' aqui pQ NÃO VAMOS MANIPULAR ESSE DICT (situação diferente daquela vista em 'hash_block', pq lá VAMOS MANIPULAR NOSSO DICT)....
+                converted_blockchain.append(block.__dict__) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+            
+
+            
+            for block in converted_blockchain:
+                dict_transactions = []
+                for transaction in block['processed_transactions']:
+                    # dict_transactions.append(transaction.to_ordered_dict())
+                    dict_transactions.append(transaction.__dict__)
+                block['processed_transactions'] = dict_transactions
+
+            
+            f.write(json.dumps(converted_blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(converted_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> o professor escreveu uma list comprehension REALMENTE MONSTRUOSA para 
+
+
+converter tudo em dicts..
+
+
+
+
+
+
+
+
+
+o código inteiro ficou assim:
+
+
+
+
+
+
+saveable_chain = [block.__dict__ for block in [ Block() for block_el in blockchain ]  ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> se dissecamos isso aí, 
+
+temos:
+
+
+[ Block() for block_el in blockchain ]
+
+
+
+
+
+
+
+--> ou seja, um OBJECT 'block' é criado para CADA BLOCK NA NOSSA BLOCKCHAIN... (e cada block em nossa blockchain é um OBJECT, originalmente)...
+
+
+
+
+
+
+
+
+--> VAMOS MANTER TODOS OS VALUES ANTIGOS DESSE BLOCK origianl, 
+
+
+
+MAS _ VAMOS _ MUDAR __ AS TRANSACTIONS, APENAS...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+saveable_chain = [block.__dict__ for block in [ Block(block_el.previous_block_hash, block_el.index,  , block_el.proof, block_el.timestamp) for block_el in blockchain ]  ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> DEIXAMOS AS TRANSACTIONS EM _ _BRANCO_ pq 
+
+
+vamos 
+
+trabalhar nelas agora...
+
+
+
+
+
+
+
+
+
+--> NESSE SLOT DE 'transactions',
+
+em que 
+
+VAMOS CQUERER CONVERTER OS TRANSACTION OBJECTS EM DICTS,
+
+
+
+o professor 
+
+
+
+ESCREVE UMA NESTED LIST COMPREHENSION, para fazer exatamente isso...
+
+
+
+
+[
+    tx.__dict__ for tx in block_el.processed_transactions
+]
+
+
+
+
+
+
+
+
+[tx.__dict__ for tx in block_el.processed_transactions]
+
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO INTEIRO:
+
+
+
+
+converted_blockchain = [block.__dict__ for block in [ Block(block_el.previous_block_hash, block_el.index, [tx.__dict__ for tx in block_el.processed_transactions], block_el.proof, block_el.timestamp) for block_el in blockchain ]  ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, AGORA O CÓDIGO ESTÁ FUNCIONANDO..
+
+
+
+
+
+
+
+
+
+--> devo testar com transactions adicionadas...
+
+
+
+
+
+
+
+--> ganho um ERROR:
+
+
+AttributeError: 'Transaction' object has no attribute 'person'
+
+
+
+
+
+
+
+
+
+--> foi causado por uma FUNCTION MINHA, a 'get_value',
+
+usada em conjunto com 'get_balance'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSERTEI A SINTAXE DESSA FUNCTION, QUE FICOU ASSIM:
+
+
+def get_value(person):  # versão com OBJECTS (block) NO LUGAR DE 'dicts'...
+    return [[transaction.amount for transaction in block.processed_transactions if getattr(transaction, person) == owner] for block in blockchain]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ------> ENTRETANTO, ISSO CRIOU __ OUTRO ERROR:
+
+
+
+    Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 754, in <module>
+    if add_transaction(sender, recipient, amount):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 681, in add_transaction
+    save_data()
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 582, in save_data
+    converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 582, in <listcomp>
+    converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+TypeError: 'Transaction' object is not subscriptable
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ESSE ERRO É SIMPLES, BASTA TROCAR ISTO:
+
+
+
+        converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+
+
+
+
+
+
+(
+    que é um código que tenta RECRIAR UM OBJECT PARA UM OBJECT QUE JÁ EXISTE, PARA ENTÃO PEGAR O '__dict__' desse object... o que não faz mt sentido....
+)
+
+
+
+
+
+por isto:
+
+
+
+        converted_transactions = [tx.__dict__ for tx in open_transactions]
+
+
+
+
+--> que é um código que APENAS _ pega o dict equivalente a esse object aí...
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA O CÓDIGO FINALMENTE ESTÁ FUNCIONANDO...

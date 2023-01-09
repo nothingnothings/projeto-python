@@ -1,0 +1,1159 @@
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE FOI UM MÓDULO BEM LONGO, MAS ESTAMOS ACABANDO...
+
+
+
+
+
+
+
+
+--> HÁ MAIS 2 IMPORTANTES FUINCTIONS QUE VOCê DEVE SABER, QUANDO ESTIVER TRABALHANDO COM LISTS:
+
+
+
+
+
+1) ALL 
+
+
+
+
+
+2) ANY 
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS USAR AS 2 COM 'BOOLEAN CHECKS'... (para boolean checks)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR SIMPLES,
+
+
+VAMOS CRIAR UMA NOVA LIST,
+
+QUE 
+
+SERÁ 
+
+
+
+
+
+
+new_list = [True, True, False]
+
+
+
+
+
+
+>>> new_list = [True, True, False]
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok.... --> AGORA SE USARMOS 
+
+
+
+'any(new_list)',
+
+
+
+
+EXECUTARMOS ESSE 'any'
+
+NESSA LIST,
+
+
+O QUE VAMOS OBTER DE VOLTA SERÁ 'True' -->  GANHAREMOS 'any'
+
+PQ 
+
+
+ANY _ SEMPRE CHECA SE 1 LIST _POSSUI 'PELO MENOS 1 VALUE QUE É TRUE'.. -->  SE NÓS 
+
+
+
+
+
+
+
+
+
+USARMOS, POR OUTRO LADO, O METHOD DE 'all()',
+
+
+VAMOS GANHAR __ FALSE,
+
+
+PQ __ 
+
+
+NEM TODOS OS ELEMNTS NESSE ARRAY SÃO true  (1 false)...
+
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+--> CERTO... E ESSAS FUNCTIONS 
+
+
+
+
+
+
+
+__ PODEM _ PARECER UM __ CASE __ SUPER NICHO, ALGO QUE QUASE NUNCA OCORRE.... --> PQ PODEMOS PENSAR:
+
+
+
+
+
+
+'QUANDO DIABOS TEREMOS UMA LIST DE APENAS BOOLEANS?'
+
+
+
+
+
+-----> BEM, É NA VERDADE BEM MAIS FÁCIL DE CHEGAR NESSE RESULTADO/APPROACH DO QUE VOCê PODERIA PENSAR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DIGAMOS  QUE VOCÊ TEM UMA LIST DE NUMBERS,
+
+COM 
+
+
+
+
+
+number_list = [1, 2, 3, -5 ] -----------> AÍ VOCê 
+
+
+
+
+
+VAI RECEBER ESSA LIST POR CAUSA DE USER INPUT,
+
+OU ALOG ASSIM....
+
+
+
+
+
+
+
+
+
+--> AÍ VOCê QUER CHECAR SE TODOS OS VALUES SÃO MAIORES DO QUE 0...
+
+
+
+
+
+
+
+
+
+--> mas se vocÊ escrever 
+
+
+
+
+
+number_list > 0 ,
+
+
+
+
+VOCÊ VAI GANHAR UM 
+
+
+
+ERROR,
+
+
+PQ 
+
+
+
+
+'>' NÃO É SUPORTADO ENTRE INSTANCES DE LIST E INT...  --> ok, isso realmente não funciona...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O QUE PODEMOS FAZER AQUI, NO ENTANTO, É USAR UMA LIST COMPREHENSION PARA 
+
+
+
+
+PEGAR APENAS OS VALUES QUE SÃO MAIORES DO QUE 0....
+
+
+
+
+
+
+ex:
+
+
+
+
+>>> number_list = [1, 2, 3, -5 ]
+>>> [number for number in number_list if number > 0]
+[1, 2, 3]
+>>> number_list2 = [number for number in number_list if number > 0] 
+>>> number_list2
+[1, 2, 3]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok.... ISSO DEU CERTo...
+
+
+
+
+
+
+
+
+AGORA CONSEGUIMOS 
+
+
+
+
+ESSES NUMBERS AÍ.... --> MAS ISSO NAÕ 
+
+
+
+
+
+RESPONDE NOSSA PERGUNTA,
+
+
+
+'''POR ACASO ELES __TODOS__ SÃO MAIORES DO QUE 0, ESSES VALORES?'' ----->  o uso 
+
+
+
+
+
+de list comprehension SOLTA 
+
+só nos dá um resultado como este:
+
+
+
+>>> [number for number in number_list if number > 0]
+[1, 2, 3]
+
+
+
+
+
+
+
+
+
+
+--> E ISSO, ESSE ARRAY RETORNADO, NÃO É 
+
+
+
+ UMA RESPOSTA BOOLEAN (true ou false.... )
+
+
+
+
+
+
+
+
+
+
+----> O QUE PODEMOS FAZER, EM VEZ DISSO,
+
+
+
+
+
+
+
+
+É __ REMOVER___ O CHECK DE 'if' ao final dessa list comprehension 
+
+
+
+
+
+
+E ENTÃO __ COLOCAR, NO INÍCIO DESSA LIST COMPREHENSION,
+
+UMA 
+
+BOOLEAN OPERATION __ CHECANDO___ SE ESSE VALUE É 
+
+
+MAIOR DO QUE 0 (>)..
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+[number > 0 for number in number_list]
+
+
+
+
+
+
+
+
+
+---. ISSO, POR SUA VEZ, VAI REALMENTE RETORNAR O QUE ESTÁVAMOS PROCURANDO, VAI RETORNAR UMA LIST 
+
+
+COMO 
+
+
+
+
+>>> [number > 0 for number in number_list]
+[True, True, True, False]
+
+
+
+
+
+
+
+
+
+
+
+
+--> T T T F... ----> 
+
+
+
+
+
+3 elementos true, 1 false... -> é isso que esse RUN, essa LIST COMPREHENSION vai nos retornar....
+
+
+
+
+
+
+
+
+
+
+----> É ESSA LIST QUE VAMOS USAR COM as functions de 'all()' e 'any()',
+
+UMA LIST COM APENAS BOOLEANS...
+
+
+
+
+
+
+
+----> e provavelmente CHAINAREMOS TUDO ISSO EM 1 NEGÓCIO SÓ,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+entered_input_state = all([number > 0 for number in number_list])
+
+
+
+
+(
+
+    ISSO VAI FICAR FALSE....
+)
+
+
+
+
+
+
+
+
+
+
+
+---> 
+
+
+
+
+
+
+
+
+
+o professor faz exatamente a mesma coisa que eu fiz:
+
+
+>>> all([number > 0 for number in number_list])
+False
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+----->  BEM, MAS VOCÊ NAÕ É OBRIGADO A USAR ANY() e all()
+
+
+
+APENAS COM LIST COMPREHENSIONS.... --> 
+
+
+
+
+
+MAS VOCÊ FREQUENTEMENTE OS UTILIZARÁ COM 
+
+
+LIST COMPREHENSIONS,
+
+
+
+PQ 
+
+
+NÃO É RARO QUE 
+
+VOCÊ
+
+
+
+
+GOSTARÁ __ DE 
+
+
+CHECAR 
+
+
+
+UM ARRAY POR MEIO DO _ RUN DE UMA BOOLEAN OPERATOR ( number > 0) COMO PARTE 
+
+
+
+DE 
+
+SUA 
+
+
+LIST COMPREHENSION, PQ É CONVENIENTE, E AÍ 
+
+
+
+
+USAR ANY/ALL PARA APLICAR __ ESSA LÓGICA AÍ (de and/or) 
+
+
+A UMA 
+
+LIST INTEIRA,
+
+
+
+TUDO ISSO COM APENAS 1 LINHA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> e nós JÁ PODEMOS APLICAR ISSO AO NOSSO PROJETO BLOCKCHAIN, na verdade...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> DIGAMOS QUE QUEREMOS TER, NO NOSSO APP, 
+
+
+
+UMA 
+
+
+CONVENIENCE FUNCTION QUE VAI QUERER __ CHECAR ___ SE TODAS 
+
+
+AS 
+
+TRANSACTIONS/OUTSTANDING TRANSACTIONS (open_transactions) 
+
+
+
+
+
+
+
+SÃO 'VALID'..- > 
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, NÓS JÁ ESTAMOS VERIFICANDO NOSSAS TRANSACTIONS QUANDO ÀS APPENDAMOS AOS BLOCKS, COMO VISTO NESSES CÓDIGOS:
+
+
+
+
+
+
+
+
+
+    if not verify_transaction(new_transaction):
+        print('Your funds are not enough for the chosen operation')
+        return False
+    else:
+        open_transactions.append(new_transaction)
+        participants.add(sender)
+        participants.add(recipient)
+        print(open_transactions)
+        return True
+
+
+
+
+
+
+
+
+
+
+
+        E:
+
+
+
+
+
+
+
+
+
+
+        def verify_transaction(transaction):
+    """Retorna True ou False a DEPENDER DO CHECK DA TRANSACTION; SE O USER NÃO TIVER FUNDS SUFICIENTES, RETORNA FALSE E A OPERAÇÃO/TRANSACTION NÃO É REALIZADA. É chamado lá em 'add_transaction()'.."""
+    sender_balance = get_balance(transaction['sender'])[2]
+    print(sender_balance)
+    return sender_balance >= transaction['amount']
+
+
+
+
+
+
+
+
+
+
+
+----> E DEVEMOS MANTER ESSE CÓDIGO,
+
+
+
+
+
+
+MAS 
+
+
+
+DIGAMOS QUE DEVEMOS TER UMA FEATURE EXTRA QUE PODEREMOS ESCOLHER LÁ NAS OPTIONS DO USER,
+
+ 
+
+
+ QUE SERÁ A OPTION DE 'CHECK TRANSACTION VALIDITY'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA CHECAR ESSA VALIDITY,
+
+ O PROFESSOR ADICIONA UMA HELPER FUNCTION,
+
+
+
+ depois de verify_chain(),
+
+ que 
+
+
+ será 
+
+
+
+
+ 'verify_transaction' ... --> 
+
+
+
+
+
+
+
+
+
+
+
+
+ def verify_transaction():
+    for transaction in open_transactions:
+
+
+
+
+
+
+
+
+
+
+---> AÍ, PARA CADA TRANSACTION QUE TIVERMOS NESSE 'open_transactions',
+
+VAMOS QUERER RODAR AQUELE METHOD QUE JÁ TEMOS,
+
+AUQELE 
+
+
+'
+verify_transaction',
+
+
+QUE RETORNA TRUE OU FALSE....
+
+
+
+
+ex:
+
+
+
+def verify_transactions():
+    for transaction in open_transactions:
+        verify_transaction(transaction)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ok... aí provavelmente vamos querer fazer 'append' de todas essas transactions em uma list que criamos no contexto 
+
+    dessa function...
+
+
+
+
+
+    --> essa list ficará forrada com 'TRUE TRUE TRUE FALSE FALSE'...
+
+
+
+
+
+
+    -> aí simplesmente faremos RETURN DESSA LIST, wrappada com 'all()'.... (que fará com que verify_transaction retorne ou true ou false, consequentemente)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ALGO ASSIM:
+
+
+
+
+
+def verify_transactions():
+    transactions_to_verify = []
+    for transaction in open_transactions:
+        transaction_is_valid = verify_transaction(transaction)
+        transactions_to_verify.append(transaction_is_valid)
+    return all(transactions_to_verify) 
+
+
+
+
+
+
+
+
+
+
+
+AGORA É SÓ WIRE UP 
+
+essa function....
+
+
+
+
+
+
+
+
+
+CERTO, CONSEGUI...
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+
+def verify_transactions():
+    transactions_to_verify = []
+    for transaction in open_transactions:
+        transaction_is_valid = verify_transaction(transaction)
+        transactions_to_verify.append(transaction_is_valid)
+    # print(transactions_to_verify)
+    if transactions_to_verify == []:
+        return None
+    return all(transactions_to_verify)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ASSIM:
+
+
+
+
+
+
+  elif(user_input == 'v'):
+        if (verify_transactions()):
+            print('Transactions are valid.')
+        elif(verify_transactions() == None):
+            print('No transactions to verify, please add a transaction.')
+        else:
+            print('Invalid transactions detected.')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -----> mas o professor escreveu inicialmente de uma maneira diferente:
+
+
+
+
+
+
+
+
+
+
+    def verify_transactions():
+        is_valid = True
+        for tx in open_transactions:
+            if verify_transactions(tx):
+            is_valid = True
+            else:
+            is_valid = False
+        return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO FUNCIONARIA/FUNCIONA, EVIDENTEMENTE...
+
+
+
+
+
+
+
+
+
+
+
+----> OK, MAS É CLARO QUE O CASE DE 'INVALID TRANSACTIONS' não vai existir,
+
+pq 
+
+NAÕ DEIXAMOOS INVALID TRANSACTIONS SEREM ADICIONADAS (justamente por conta de verify_transaction...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE O PROFESSOR VAI ATÉ O METHOD DE ]
+
+
+
+VERIFY TRANSACTIONS 
+
+
+
+E 
+
+
+
+_ DEIXA__ SÓ _ INVALID __ TRANSACTIONS ENTRAREM 
+
+
+
+NO NOSSO CÓDIGO DE ADD TRANSACTIONS.... (para ver se nosso if check funciona)...
+
+
+
+
+
+
+
+
+
+
+--> OK, O CÓDIGO VAI FUNCIONAR/FUNCIONA,
+
+
+
+
+
+__ A VALIDITY É CHECADA, E GANHAMOS DE VOLTA 'THERE ARE INVALID TRANSACTIONS'...
+
+
+
+
+
+
+
+
+--> E ISSO FUNCIONOU, MAS O PROFESSOR TEVE QUE _ ESCREVER MONTES E MONTES DE CÓDIGO PARA CONSEGUIR ESSE RESUTLADO....
+
+
+
+
+
+
+
+
+
+
+
+--. PARA TRANSFORMAR ISSO EM 1 LINHA SÓ,
+
+O 
+PROFESSOR 
+
+ESCREVE ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+def verify_transactions():
+    return all([verify_transaction(transaction) for transaction in open_transactions]) 
+#exemplo de uso de LIST COMPREHENSION COM __ BOOLEAN OPERATORS (verify_transaction(transaction), que é true ou false) __ COM __ ANY()/ALL() (retorna true ou false a partir da existência/inexistência de 'false' nessa list aí)...
+
+
+
+
+
+
+
+
+
+
+
+    return all([verify_transaction(transaction) for transaction in open_transactions]) 
+
+
+
+
+
+
+
+
+
+
+
+    --> isso vai retornar OU TRUE OU FALSE para todos esses true/false que teremos nessa lsit...
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+def verify_transactions():
+    #return all([True, True, True, False])  --> acaba resolvido para 'False'...
+    if open_transactions == []:
+        return None
+    else:
+        return all([verify_transaction(transaction) for transaction in open_transactions]) #exemplo de uso de LIST COMPREHENSION COM __ BOOLEAN OPERATORS (verify_transaction(transaction), que é true ou false) __ COM __ ANY()/ALL() (retorna true ou false a partir da existência/inexistência de 'false' nessa list aí)...
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+OK, ESSE É UM BOM EXEMPLO DE ANY E ALL, E ALGO QUE VOCê DEVE TER EM MENTE QUANDO ESCREVE CÓDIGO PYTHON...
+
+
+
+
+
+
+
+
+

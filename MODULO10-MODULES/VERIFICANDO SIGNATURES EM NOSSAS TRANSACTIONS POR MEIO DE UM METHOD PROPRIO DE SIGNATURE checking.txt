@@ -1,0 +1,1296 @@
+
+
+
+
+
+
+
+
+
+
+ok, TAMBÉM QUEREMOS VERIFICAR NOSSAS TRANSACTIONS,
+
+
+
+verificar se a 'signature' de cada transaction é válida...
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE LÁ 
+
+
+EM 'wallet' o professor adiciona um NOVO METHOD, QUE SERÁ CHAMADO DE 
+
+
+'verify_transaction'...
+
+
+
+
+
+
+
+
+
+
+
+
+-> ESSE METHOD VAI ESSENCIALMENTE 'CHECAR SE UMA SIGNATURE É VÁLIDA'...
+
+
+
+
+
+
+
+
+
+
+
+
+----> para isso, nosso method provavelmente ficará assim:
+
+
+
+
+
+
+
+
+
+
+
+    def verify_transaction(self, transaction): ###verifica SE A 'SIGNATURE' dentro de a given transaction é VÁLIDA OU NÃO...
+        if transaction.signature == self.public_key.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> é claro que ESSA LÓGICA ESTÁ __ ERRADA_..
+
+
+
+
+
+
+
+-> o objeto/string 'public_key' POSSUI UM METHOD __ QUE 
+
+CONSEGUE __ DETECTAR___ SE 
+
+UMA DETERMINADA SIGNATURE FOI REALMENTE PRODUZIDA COM A 'private_key' que é seu par...
+
+
+
+ENCONTREI ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+from Crypto.PublicKey import RSA
+from Crypto.Signature.pkcs1_15 import PKCS115_SigScheme
+from Crypto.Hash import SHA256
+import binascii
+
+# Generate 1024-bit RSA key pair (private + public key)
+keyPair = RSA.generate(bits=1024)
+pubKey = keyPair.publickey()
+
+# Sign the message using the PKCS#1 v1.5 signature scheme (RSASP1)
+msg = b'Message for RSA signing'
+hash = SHA256.new(msg)
+signer = PKCS115_SigScheme(keyPair)
+signature = signer.sign(hash)
+print("Signature:", binascii.hexlify(signature))
+
+# Verify valid PKCS#1 v1.5 signature (RSAVP1)
+msg = b'Message for RSA signing'
+hash = SHA256.new(msg)
+verifier = PKCS115_SigScheme(pubKey)
+try:
+    verifier.verify(hash, signature)
+    print("Signature is valid.")
+except:
+    print("Signature is invalid.")
+
+# Verify invalid PKCS#1 v1.5 signature (RSAVP1)
+msg = b'A tampered message'
+hash = SHA256.new(msg)
+verifier = PKCS115_SigScheme(pubKey)
+try:
+    verifier.verify(hash, signature)
+    print("Signature is valid.")
+except:
+    print("Signature is invalid.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ou seja,
+
+    PROVAVELMENTE_ _VAMOS TER DE CRIAR UM 
+
+    OBJETO 'verifier',
+
+
+que será usado para VERIFICAR SE AQUELA pubkey realmente detecta que EXISTE SUA PRIVATE-KEY DENTRO 
+
+DA SIGNATURE NA TRANSACTION....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> talvez o código fique assim:
+
+
+
+
+
+
+
+
+
+
+    def verify_transaction(self, transaction): ###verifica SE A 'SIGNATURE' dentro de a given transaction é VÁLIDA OU NÃO...
+        verifier = PKCS1_v1_5.new(RSA.import_key(binascii.unhexlify(self.public_key))) ##O verify sempre se utiliza da PUBLIC KEY, PQ É A PUBLIC KEY que checa se sua SIGNATURE é válida para aquela transaction...
+
+        payload_h = SHA256.new((str(transaction.amount) + str(transaction.recipient) + str(transaction.sender)).encode('utf8'))
+
+        signature = binascii.unhexlify(transaction.signature)
+
+        return verifier.verify(payload_h, signature)
+
+
+
+
+
+
+-----> esse código USA UM __ 'verifier' criado a partir daquela public key na wallet... -> aí 
+
+
+ele 
+
+
+
+CHECARÁ, TEORICAMENTE, se aquele 'payload' da transaction _ É COMPATÍVEL __ COM A SIGNATURE 
+
+QUE 
+
+ACABOU SENDO ARMAZENADA NESSA 'transaction' em si...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, AGORA A PERGUNTA É:
+
+
+
+em que LUGAR DO CÓDIGO DEVEMOS RODAR ESSE METHOD?
+
+
+
+
+
+
+
+
+--> talvez a partir de QUALQUER OPERAÇÃO, no nosso WHILE LOOP, bem ao final?
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem, esse código PRECISA SER EXECUTADO NAS TRANSACTIONS em 'open_transactions', por isso escrevo assim:
+
+
+
+
+
+
+
+
+
+
+-> e precisamos de um NOVO METHOD, talvez 'verify_transactions',
+
+
+
+EM QUE VAMOS QUERER CHECAR A VALIDADE DE TODAS AS TRANASCTIONS EM 'open_transactions'...
+
+
+
+
+
+
+
+
+GANHEI ESTE ERROR:
+
+
+
+
+
+
+
+Traceback (most recent call last):
+  File "A:\projeto7-PYTHON\MODULO10-MODULES\novonovoprojeto14\node.py", line 323, in <module>
+    new_node.listen_for_input(new_node.blockchain)
+  File "A:\projeto7-PYTHON\MODULO10-MODULES\novonovoprojeto14\node.py", line 186, in listen_for_input
+    if (self.wallet.verify_transactions(self.blockchain.get_open_transactions()) == False):
+  File "A:\projeto7-PYTHON\MODULO10-MODULES\novonovoprojeto14\wallet.py", line 114, in verify_transactions
+    return all([self.verify_transaction(transaction) for transaction in open_transactions])
+  File "A:\projeto7-PYTHON\MODULO10-MODULES\novonovoprojeto14\wallet.py", line 114, in <listcomp>
+    return all([self.verify_transaction(transaction) for transaction in open_transactions])
+  File "A:\projeto7-PYTHON\MODULO10-MODULES\novonovoprojeto14\wallet.py", line 117, in verify_transaction
+    print(binascii.unhexlify(self.private_key))
+binascii.Error: Odd-length string
+
+
+
+
+
+
+
+
+
+
+
+
+--> devo consertá-lo amanhã...
+
+
+
+
+
+
+
+
+
+
+--> o problema é esse 'b' que acaba acrescentado ao INÍCIO DO 'SENDER' E DO 'RECIPIENT'... isso está arruinando tudo.
+
+
+ex:
+
+
+
+b in front of strings stands for byte
+
+
+
+
+
+
+
+
+
+
+
+b in front of strings stands for bytes.
+
+Your first example
+
+from hashlib import blake2b
+
+key = 'Hello'
+blake2b(b'key').hexdigest()
+Here you pass string 'key' as bytes into blake2b. That doesn't insert the contents of variable key.
+
+Second example:
+
+from hashlib import blake2b
+
+key = 'Hello'
+blake2b(key).hexdigest()
+inserts variable key but as a string and not its bytes representation.
+
+What you want to do is
+
+from hashlib import blake2b
+
+key = 'Hello'
+blake2b(key.encode()).hexdigest()
+The last line constructs a string using str.format() which replaces {0} with first argument of format. By doing this you can prepend b in front of the string.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSEGUI TIRAR ESSE 'b',
+
+
+
+
+usei este código:
+
+
+
+
+
+ return (self.convert_binary_to_string(private_key).decode("utf8"), self.convert_binary_to_string(public_key).decode("utf8"))
+
+
+
+
+
+
+
+
+ ----> OU SEJA, FOI SÓ ADICIONAR 
+
+ '.decode('utf8')''
+
+
+
+ AO FINAL DO RESULTADO DA OPERAÇÃO....
+
+
+
+
+
+
+
+
+ --> agora devo testar o código, ver ser aquele erro ainda persiste...
+
+
+
+
+
+
+
+
+
+
+
+
+ ok, as coisas estão melhorando...
+
+
+
+
+
+
+
+
+
+ --> agora o código está funcionando sem problemas...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ok, prosseguimos com a aula do professor...
+
+
+
+
+
+
+
+
+
+ --> devo verificar se o código dele é igual ao meu...
+
+
+
+
+
+
+
+
+
+
+--> crio uma CÓPIA DO MEU CÓDIGO...
+
+
+
+ -> ele começa com este código:
+
+
+
+
+
+
+
+
+
+
+
+
+ def verify_transaction(transaction):
+      if transaction.sender == 'ourApp'
+        return True 
+
+
+
+
+
+
+
+
+
+
+
+
+      --> CLARO, PQ SE NOSSO SENDER FOR REALMENTE 'ourApp' (o mining block), não será necessário checar a validty desse  block....
+
+
+  
+
+
+
+
+
+
+--> 
+
+    def verify_transaction(self, transaction): 
+        if (transaction.sender == 'ourApp'):
+            return True
+        else:
+            
+
+
+
+
+
+
+
+
+  --> 
+
+
+
+
+  SE O SENDER DE ESSA TRANSACTION NÃO FOR COMPATÍVEL,
+
+  vamos querer 
+
+  RETORNAR FALSE..
+
+
+
+
+
+
+
+  --> PARA FAZER ISSO,
+
+  ESSE VERIFY,
+
+  PRECISAMOS PRIMEIRAMENTE DA PUBLIC KEY...
+
+
+
+
+
+
+
+
+
+
+
+
+  ----> é por isso que o professor 
+
+
+
+
+  escreve:
+
+
+
+
+
+
+  public_key = RSA.importKey()    (PQ VAMOS PRECISAR DESSA KEY EM FORMATO BINARY, MAIS UMA VEZ)...
+
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+   public_key = RSA.importKey(binascii.unhexlify(transaction.sender))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   --> PEGAMOS O SENDER DESSA TRANSACTION ESPECÍFICA, para 
+
+
+   aí CONVERTER a STRING em 
+
+   'binary data'... (E essa é a public_key, pq estamos usando PUBLIC KEYS como ADDRESSES na nossa network --> mesma coisa que acontece na network bitcoin)
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR ENTÃO FAZ A MESMA COISA QEU EU FIZ,
+
+
+ELE ESCREVE UM 'verifier'..
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+verifier = ....
+
+
+
+
+
+
+
+
+
+--> o VERIFIER VAI USAR AQUELE MESMO ALGORITMO DE 'PKCS1_v1_5',
+
+
+e vai usar A NOSSA PUBLIC KEY DA WALLET..
+
+
+
+
+
+
+
+--> o meu código havia ficado assim:
+
+
+
+verifier = PKCS1_v1_5.new(RSA.import_key(binascii.unhexlify(self.public_key)))
+
+
+
+
+
+
+
+
+
+
+
+
+---> mas em VEZ DE PASSAR A PUBLIC_KEY DA WALLET,
+
+
+O PROFESSOR PASSA __ A PUBLIC _KEY DA TRANSACTION EM SI (pq queremos _ VERIFICAR__ SE A PUBLIC KEY INSERIDA NA WALLET, COMO 'sender', RECONHECE AQUELA TRANSACTION/PAYLOAD DA TRANSACTION com a signature... )
+
+
+
+
+
+
+
+
+---> ele passa a 'public_key' ASSIM:
+
+
+
+
+
+
+public_key = RSA.importKey(binascii.unhexlify(transaction.sender))
+
+verifier = PKCS1_v1_5.new(public_key)
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+            public_key = RSA.importKey(binascii.unhexlify(transaction.sender)) ##key extraída da transaction, inicialmente formato string, é convertida em BINARY DATA por meio de 'unxexlify' e 'importKey'...
+            verifier = PKCS1_v1_5.new(public_key)
+
+
+
+
+
+
+
+------> agora vamos USAR ESSE VERIFIER, COM O METHOD '.verify()",
+
+
+
+
+PARA _ VERIFICAR SE 
+
+O 
+
+'PAYLOAD' 
+
+
+de nossa transaction (amount, sender, recipient)
+
+
+
+É COMPATÍVEL COM A 'signature' (se tudo encaixa, essencialmente; se a 'private_key' está contida dentro da signature)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> agora só falta o 'payload' da transaction, portanto... -> copiamos o 'h' usado em 'sign_transaction'...
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FINAL PROVAVELMENTE FICA ASSIM:
+
+
+
+
+
+
+            public_key = RSA.importKey(binascii.unhexlify(transaction.sender)) ##key extraída da transaction, inicialmente formato string, é convertida em BINARY DATA por meio de 'unxexlify' e 'importKey'...
+            
+            verifier = PKCS1_v1_5.new(public_key)
+            payload_h = SHA256.new((str(transaction.amount) + str(transaction.recipient) + str(transaction.sender)).encode('utf8'))
+            
+            return verifier.verify(payload_h, transaction.signature)
+
+
+
+
+
+
+            -> vai retornar 'true' se for 
+
+            válido,
+             
+
+             'false' se for inválido...
+
+
+
+
+
+
+
+
+
+
+        -> MAS NOSSA SIGNATURE ESTARÁ EM UM __ FORMATO INVÁLIDO, AINDA... --> PQ A 'SIGNATURE'
+
+        ESTARÁ EM UM FORMATO STRING,
+
+
+        E QUEREMOS QUE ELE ESTEJA EM UM FORMATO 
+
+        'UNHEXLIFIED' (binário)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+        else:
+            public_key = RSA.importKey(binascii.unhexlify(transaction.sender)) ##key extraída da transaction, inicialmente formato string, é convertida em BINARY DATA por meio de 'unxexlify' e 'importKey'...
+            
+            verifier = PKCS1_v1_5.new(public_key)
+            payload_h = SHA256.new((str(transaction.amount) + str(transaction.recipient) + str(transaction.sender)).encode('utf8'))
+            
+            signature = binascii.unhexlify(transaction.signature)
+
+            return verifier.verify(payload_h, signature)
+
+
+
+
+
+
+
+
+
+        ------------------------
+
+
+
+
+
+
+
+        certo... agora SÓ TEMOS QUE CHAMAR ESSE METHOD EM LOCAIS DE NOSSO CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+  ---> em que locais?
+
+
+
+
+
+
+
+
+  ----> eu coloquei em 'mine a block' .... 
+
+
+
+
+
+
+
+
+
+  -----> O PROFESSOR DIZ QUE 
+
+  DEVEMOS 
+
+  dar uma olhada 
+
+
+  NO NOSSO METHOD DE 'verify_transaction'... ------> A ÚNICA COISA QUE ESSE METHOD REQUER É A 'TRANSACTION'
+
+
+
+  em 'open_transactions'...
+
+
+
+
+
+
+
+
+
+  --> COMO A __ÚNICA COISA QUE _ESSE METHOD REQUER É UMA TRANSACTION (e nada de nossa CLASS DE 'wallet'),
+
+
+  PODEMOS 
+
+
+  DECORAR ISSO COM UM DECORATOR 
+
+  de 
+
+  '@staticmethod'...
+
+
+
+
+
+
+
+
+--> removemos 'self' desse method, pq agora é ESTÁTICO..
+
+
+
+
+
+  EX:
+
+
+
+
+
+      @staticmethod   ##static method pq __ NÃO UTILIZA NADA DE DENTRO DESSA CLASS 'wallet'...
+    def verify_transaction(transaction): 
+        if (transaction.sender == 'ourApp'):
+            return True
+        else:
+            public_key = RSA.importKey(binascii.unhexlify(transaction.sender)) ##key extraída da transaction, inicialmente formato string, é convertida em BINARY DATA por meio de 'unxexlify' e 'importKey'...
+            
+            verifier = PKCS1_v1_5.new(public_key)
+            payload_h = SHA256.new((str(transaction.amount) + str(transaction.recipient) + str(transaction.sender)).encode('utf8'))
+            
+            signature = binascii.unhexlify(transaction.signature)
+
+            return verifier.verify(payload_h, signature)
+
+            
+
+
+
+
+
+
+
+
+
+
+-> IMPORTAMOS ESSE METHOD LÁ EM 
+
+'blockchain',
+
+
+
+
+
+
+E AÍ _ VAMOS CHAMAR ISSO EM TODOS LUGARES QUE QUEREMOS 'VERIFY' nossa transaction.ç..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> FAREMOS ISSO LÁ EM 'add_transaction', em 'blockchain.py'...
+
+
+(logo depois da transaction ser CONSTRUÍDA)....
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+    def add_transaction(self, sender, recipient, signature, amount=1.0):
+        """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+            Arguments:
+        :sender: o sender da transaction (nome ou id)   
+        :recipient: o receiver da transaction (nome ou id)
+        :signature: a SIGNATURE DE CADA TRANSACTION
+        :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+        """
+
+
+
+
+
+
+        new_transaction = Transaction(amount, recipient, signature, sender)
+
+
+        if (not Wallet.verify_transaction(new_transaction)):
+            return False
+
+        if not Utility.verify_transaction(new_transaction, self.get_balance):
+            # print('Your funds are not enough for the chosen operation')
+            return False
+        else:
+            self.__open_transactions.append(new_transaction)
+            self.participants.add(sender)
+            self.participants.add(recipient)
+            print(self.__open_transactions)
+
+            # FileAccess.save_data(self._chain, self.__open_transactions)
+            # FileAccess.save_data(self._chain, self.get_open_transactions())
+            self.save_data()
+            return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR ADICIONA OUTRA CALL QUANDO __ MINERAMOS __ UM 
+
+
+BLOCK OBJECT,
+
+
+pq aí vamos querer CHECAR SE ESSAS TRANSACTIONS REALMENTE SÃO VÁLIDAS... (usa um for loop para esse check)...
+
+
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+    def mine_block(self):
+        """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+        previous_block = self._chain[-1]
+        # print(previous_block)
+
+        hashed_block = hash_block(previous_block)
+        print(hashed_block)
+        print(hashed_block)
+
+        proof = self.proof_of_work()
+
+        reward_transaction = Transaction(
+            MINING_REWARD, self.hosting_node, 'signature', 'ourApp')
+
+        copied_transactions = self.__open_transactions[:]
+        copied_transactions.append(reward_transaction)
+
+        block = Block(hashed_block, len(self._chain),
+                      copied_transactions, proof)
+
+        
+        for transaction in block.processed_transactions:
+            if (not Wallet.verify_transaction(transaction)):
+                return False
+
+        self._chain.append(block)
+        self.__open_transactions = []
+        self.save_data()
+
+        # FileAccess.save_data(self._chain, self.__open_transactions)
+        # FileAccess.save_data(self._chain, copied_transactions)
+
+        # print(self._chain, 'TRIED TO MINE BLOCK')
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AGORA SE REINICIARMOS NOSSO NODE E TENTARMOS MINERAR, O NEGÓCIO FUNCIONA....
+
+
+
+
+
+
+
+
+
+OK, AGORA ESTÁ FUNCIONANDO... --> SE EU TENTO MUDAR O HASH do 'recipient'  em uma transaction
+
+
+
+enquanto o app está desligado/ligado,
+
+
+
+EU RECEBO UM ERRO...
+
+
+
+
+
+
+
+
+
+
+-_> MESMA COISA SE TENTARMOS MUDAR O 'AMOUNT' de nossa transaction...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS AQUI ESTÁ FALTANDO UMA FEATURE...
+
+
+
+
+
+
+
+
+--> SE ESSA TRANSACTION FOR CONSTATADA COMO _ INVÁLIDA_, VAMOS QUERER __ 
+
+
+
+REMOVÊ-LA 
+
+DE 'open_transactions',
+
+
+
+PQ _ ELA SERÁ INÚTIL,
+
+INVÁLIDA,
+
+
+
+poderá ser removida das open_transactions do user (para que ele continue a minerar/enviar transactions VÁLIDAS, se assim o desejar)...
+
+
+
+
+
+
+
+
+
+TALVEZ O CÓDIGO ADEQUADO SEJA ESTE:
+
+
+
+
+
+
+
+    def mine_block(self):
+        """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+        previous_block = self._chain[-1]
+        # print(previous_block)
+
+        hashed_block = hash_block(previous_block)
+        print(hashed_block)
+        print(hashed_block)
+
+        proof = self.proof_of_work()
+
+        reward_transaction = Transaction(
+            MINING_REWARD, self.hosting_node, 'signature', 'ourApp')
+
+        copied_transactions = self.__open_transactions[:]
+        copied_transactions.append(reward_transaction)
+
+        block = Block(hashed_block, len(self._chain),
+                      copied_transactions, proof)
+
+        
+        for transaction in block.processed_transactions:
+            if (not Wallet.verify_transaction(transaction)):
+                self.__open_transactions.remove(transaction) ### este aqui...
+                return False
+
+
+
+
+OK, FUNCIONOU...
+
+
+
+
+
+(
+
+  agora a transaction realmente é removida de 'open_transactions'...
+)

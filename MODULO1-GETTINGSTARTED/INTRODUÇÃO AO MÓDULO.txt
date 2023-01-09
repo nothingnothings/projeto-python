@@ -1,0 +1,221 @@
+
+
+
+
+
+
+
+
+
+
+VAMOS APRENDER PYTHON, DIRETO DO COMEÇO...
+
+
+
+
+
+
+
+
+
+
+
+
+python is a POWERFUL, EASY-TO-USE, OBJECT-ORIENTATED PROGRAMMING LANGUAGE..
+
+
+
+
+
+
+
+
+
+
+
+--> ''é performant, roda em todos os sistemas operacionais e é extremamente versátil.''
+
+
+
+
+
+
+
+
+
+--> easy-to-use ---> SINTAXE LIMPA E SIMPLES, SEGUE UM APPROACH 'BATTERIES INCLUDED' e oferece ótima documentação...
+
+
+
+
+
+
+
+
+
+
+--> python faz embrace de objects, classes, inheritance e te deixa trabalhar facilmente com 
+
+
+
+estruturas de dados..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------> vamos construir  uma blockchain inteira 'from scratch' 
+
+e aí aprender várias das core features 
+
+
+
+
+acerca da tecnologia blockchain. ---> 
+
+
+
+
+
+
+
+
+
+MAS ESSE CURSO É SOBRE APRENDER PYTHON...
+
+
+
+
+
+--> vamos começar pela 
+
+
+
+sintaxe básica,
+
+
+
+
+
+aí veremos as features que ele oferece,
+
+
+
+
+
+
+
+como 
+
+
+A INTERAÇÃO COM THIRD PARTY PACKAGES,
+
+
+
+
+
+
+
+
+
+
+COMO PODEMOS INTERAGIR COM ARQUIVOS,
+
+
+
+
+
+COMO FAZER OOP 
+
+
+
+COM PYTHON,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO PODEMOS RODAR UM WEBSERVER COM PYTHON, ETC ETC..
+
+
+
+
+
+
+
+
+
+----> quando terminarmos esse curso, teremos a melhor preparação 
+
+
+
+possível para 
+
+
+
+divar no seu ramo favorito do python dev ---> dev de webapps,
+
+
+
+
+
+desktop apps,
+
+
+
+
+data science,
+
+etc...
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ESSE NÃO É UM CURSO QUE COMEÇA DO BÁSICO...
+
+
+
+
+
+
+
+
+
+
+-----> a blockchain é um pouco mais complicada,
+
+
+
+
+e te mostra como você pode resolver problemas simples com o python...

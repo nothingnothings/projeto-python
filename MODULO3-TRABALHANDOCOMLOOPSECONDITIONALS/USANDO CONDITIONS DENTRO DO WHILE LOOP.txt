@@ -1,0 +1,488 @@
+
+
+
+
+
+
+
+
+
+
+
+
+---> AGORA QUE ADICIONAMOS BLOCKCHAIN VERIFICATION ATRAVÉS DA FUNCTION 'verify_blockchain()',
+
+
+
+
+
+
+
+
+
+
+HÁ AINDA UMA COISA PROMETIDA PELO PROFESSOR, QUE ELE AINDA NÃO FEZ...
+
+
+
+
+
+
+
+
+
+
+
+--> A PROMESSA DELE É NAQUELE 
+
+CÓDIGO DE :
+
+
+
+
+    elif(user_input == 'q'):
+        break
+
+
+
+
+
+
+
+
+
+
+
+    -----> QUANDO ESCOLHEMOS QUITTAR
+     
+
+
+     NOSSO APP,
+
+
+
+     estamos simplesmente rodando esse 'break'.... -- ISSO QUITA NOSSO LOOP....
+
+
+
+
+
+
+
+
+
+--> por enquanto ainda temos um LOOP INFINITO,
+
+E AÍ 
+
+
+USAMOS 
+
+'break' PARA SAIR DELE...
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS AGORA TEMOS 2 LUGARES EM QUE USAMOS BREAK... --> A ALTERNATIVA 
+
+A 
+
+
+USAR 
+
+
+'break'
+
+
+
+EM 
+
+
+1 WHILE LOOP __ É USAR __ 
+
+
+
+
+UMA 'REAL CONDITIOn' 
+
+
+
+dentro do while loop...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA FAZER ISSO,
+
+
+
+
+
+
+PRIMEIRAMENTE PRECISAMOS DE _ UMA VARIABLE__....  --> E ESSA VARIABLE DEVERÁ SER ADDADA __ DO LADO DE FORA___ 
+
+
+
+DO WHILE LOOP...
+
+
+
+
+
+
+--> será a variable de 'waiting_for_input',
+
+
+
+
+
+
+
+
+E FICARÁ COM UM VALOR DE 'True' inicial...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+waiting_for_input = True
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        if(tx_amount == None):
+            print('Please enter a valid value')
+        else: 
+            add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)] = [float(elementValue)]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    if(not verify_chain()):
+        print(verify_chain())
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        break
+    else:
+        print('Blockchain is valid')
+    print(blockchain)
+    # print('Choice registered')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS ONDE COLOCAMOS ISSO?
+
+
+
+
+
+
+
+
+--> DEVEMOS COLOCAR NO LUGAR DE 'while True',
+
+
+PARA 
+
+QUE 
+
+SEJA UMA CONDIÇÃO ___ VARIÁVEL__ DE EXECUÇÃO DO WHILE LOOP (assim que essa variável de 'waiting_for_input', GLOBAL, for definida como 'false', nosso while loop IMEDIATAMENTE FINDARÁ)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, TEMOS QUE AJUSTAR UM POUCO NOSSO CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+waiting_for_input = True
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        if(tx_amount == None):
+            print('Please enter a valid value')
+        else: 
+            add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)] = [float(elementValue)]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    if(not verify_chain()):
+        print(verify_chain())
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        break
+    else:
+        print('Blockchain is valid')
+    print(blockchain)
+    # print('Choice registered')
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FUNCIONOU, E O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+waiting_for_input = True
+
+
+
+
+
+
+
+# while True: ///approach que usava 'breaks' para PARAR NOSSO CÓDIGO _ QUANDO ACONTECIA UM ERRO/APP ERA ENCERRADO....
+while waiting_for_input: #approach que usa o SET DE 'global waiting_for_input = False' COMO FORMA DE ENCERRAR A EXECUÇÃO DESSE WHILE LOOP...
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        if(tx_amount == None):
+            print('Please enter a valid value')
+        else: 
+            add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        waiting_for_input = False
+        # break
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)] = [float(elementValue)]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    if(not verify_chain()):
+        print(verify_chain())
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        waiting_for_input = False
+        # break
+    else:
+        print('Blockchain is valid')
+    print(blockchain)
+    # print('Choice registered')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> certo... --> isso funcionou.... --> funcionou com uma CONDITION DE VERDADE,
+
+
+
+
+
+
+O QUE É BEM MELHOR DO QUE USAR 'break' PARA ACABAR COM SEUS  WHILE LOOP..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCê NÃO TEM INFINITE LOOPS de 'True', quase nunca.... --> GERALMENTE 
+
+
+VOCê TEM ALGUMA CONDITION/VARIABLE
+
+
+
+DEFINIDA 
+
+
+
+no lado de fora do loop, que então é definido como 'false' para encerrar o loop....

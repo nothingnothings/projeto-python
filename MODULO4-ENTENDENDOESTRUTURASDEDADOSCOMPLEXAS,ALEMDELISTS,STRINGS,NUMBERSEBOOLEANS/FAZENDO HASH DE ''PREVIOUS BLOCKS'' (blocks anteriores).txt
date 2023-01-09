@@ -1,0 +1,1234 @@
+
+
+
+
+
+
+
+----> ISSO FAZ PARTE DO NOSSO MECANISMO DE SEGURANÇA.,...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESTAMOS TRABALHANDO NA FUNCIONALIDADE DE 'MINE BLOCK'...
+
+
+
+
+
+
+
+
+--> precisamos de um HASH PARA NOSSO 'PREVIOUS_BLOCK'
+
+
+
+
+
+pq 
+
+
+esse 
+
+hash 
+
+
+SERÁ ADICIONADO AO NOSSO 'NEW BLOCK',
+
+
+lá 
+
+
+naquela key 
+
+de 
+
+
+
+
+'previous_hash': 'xxxx'
+
+
+
+
+
+
+
+
+
+
+----------> MAIS TARDE TEREMOS UMA MANEIRA MAIS NICE DE CALCULAR ESSE HASH,
+
+
+
+MAS POR ENQUANTO O QUE O PROFESSOR VAI QUERER 
+
+FAZER 
+
+
+
+É 
+
+KINDOF 
+
+
+
+__CONVERTER__ ESSES BLOCKS, QUE SÃO 'DICTIONARIES' (
+
+
+    ou seja,
+
+
+
+    são coisas com formato 
+
+
+
+    ''
+
+
+genesis_block = {
+    'previous_hash': '',
+    'index': 0,
+    'transactions': []
+}
+
+'''
+
+
+)
+
+
+
+
+
+
+--->  queremos converter esses dictionaries INTEIROS em 1 STRING COMPLETA....
+
+
+
+
+
+
+
+
+
+
+-> E A IDEIA É QUE TODOS ESSES VALUES AÍ ,
+
+
+
+
+
+OS values 
+
+
+
+'previous_hash' + 'index' + 'transactions',
+
+TUDO JUNTO, 
+
+
+
+
+
+
+__ TUDO _ ISSO SERÁ CONCATENADO COMO UMA __ STRING__ LONGA _ .... (TALVEZ UMA STRING SEPARADA POR '-')...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS COMO FAZER ISSO?
+
+
+
+
+
+
+
+
+
+
+
+
+-> bem, VAMOS USAR __ ALGO _ QUE USAMOS ANTERIORMENTE,
+
+
+UM ___ FOR LOOP___...
+
+
+
+
+
+
+
+
+
+
+---> VAMOS LOOPAR _ _POR DENTRO DE TODAS NOSSAS KEYS DENTRO DO DICTIONARY... (dictionary que será o 'LAST BLOCK' de nossa blockchain, lastblock ANTES DE ADICIOANRMOS ESSE NOSSO NOVO BLOCK)...
+
+
+
+
+
+
+
+
+
+---> OK, ISSO É IMPORTANTE DE SE LEMBRAR:
+
+
+
+
+
+
+
+__dICTIONARIES__ NAÕ SÃO ___ OBJECTS, PQ _ ELES PODEM SER 'LOOPED THROUGH'... (iterable)
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+In JavaScript, Object s are not iterable unless they implement the iterable protocol. 
+Therefore, you cannot use for…of to iterate over the properties of an object. var obj = {
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... NOSSO CÓDIGO DE 'mine_block():' 
+
+ESTÁ ASSIM:
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+    block = {
+        'processed_transaction': open_transactions,
+        # 'previous_block_hash': 'placeholder2',
+        'previous_block_hash': previous_block,
+        # 'current_block_hash': 'asasojsaosajoj12o12jojasdopj1', #esse valor será comparado ao VALOR DE 'previous_block_hash' __ DO PRÓXIMO BLOCK, QUANDO O PRÓXIMO BLOCK FOR CRIADO.... (deverão ser equivalentes, esse é o mecanismo de segurança) ---> ATENÇÃO: O HASH DE UM DEWTERMINADO BLOCK É FORMADO A PARTIR DA LISTA DE TRANSACTIONS NO INTERIOR DELE...
+        'index': len(blockchain) #totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+
+
+
+
+
+
+-> VAMOS QUERER LOOPAR POR TODAS AS KEYS DO BLOCK 'previous_block'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+
+    for keys in previous_block:
+
+
+
+
+
+    block = {
+        'processed_transaction': open_transactions,
+        # 'previous_block_hash': 'placeholder2',
+        'previous_block_hash': previous_block,
+        # 'current_block_hash': 'asasojsaosajoj12o12jojasdopj1', #esse valor será comparado ao VALOR DE 'previous_block_hash' __ DO PRÓXIMO BLOCK, QUANDO O PRÓXIMO BLOCK FOR CRIADO.... (deverão ser equivalentes, esse é o mecanismo de segurança) ---> ATENÇÃO: O HASH DE UM DEWTERMINADO BLOCK É FORMADO A PARTIR DA LISTA DE TRANSACTIONS NO INTERIOR DELE...
+        'index': len(blockchain) #totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS AÍ HÁ ALGO QUE TEMOS QUE RELEMBRAR:
+
+
+
+
+
+
+
+
+
+QUANDO VOCÊ FAZ UM LOOP POR DENTRO DE UM DICTIONARY,
+
+
+
+VOCê _ NÃO VAI __ FAZER __ LOOP __ DIRETAMENTE ATRAVÉS DOS VALUES 
+
+
+DELE,
+
+
+
+
+E SIM _ FARÁ _ ATRAVÉS _ 
+
+
+
+
+
+DAS _ KEYS__ -------->  DEPOIS VEREMOS UMA MANEIRA DE ALTERAR ESSE COMPORTAMENTO,
+
+
+MAS O DEFAULT É REALMENTE ESSE LOOP POR DENTRO DAS 'KEYS'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO É FINE, AQUI....
+
+
+
+
+
+
+
+
+-----> MAS AGORA TEMOS OUTRO PEDAÇO DE INFO BEM INTERESSANTE...
+
+
+
+
+
+
+
+
+
+--> OS DICTIONARIES POSSUEM UM COMPORTAMENTO SIMILAR A INDEXADORES de list...
+
+
+
+
+
+
+
+-> ex de LIST E INDEXADORES:
+
+
+
+
+
+
+list = ['a', 'b', 'c']
+
+
+
+
+list[0] --> é o  value 'a'...
+
+
+
+
+
+
+
+
+--> MAS COM DICTIONARIES, 
+
+O NEGÓCIO FICA MAIS BIZARRO, PQ PODEMOS USAR '[]' com os NOMES DAS STRINGS QUE 
+VOCê DEFINIU COMO KEYS...
+
+
+
+
+ex:
+
+
+
+
+
+
+
+    block = {
+        'processed_transaction': open_transactions,
+        'previous_block_hash': previous_block,
+        'index': len(blockchain) #totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+    }
+
+
+
+
+
+ block['processed_transaction'] --> vai retornar as TRANSACTIONS... lista das transactions...
+
+
+
+
+block['previous_block_hash'] ---> VAI RETORNAR 'previous_block'....
+
+
+
+
+
+
+block['index'] ---> vai retornar 'len(blockchain)', a LENGTH DA BLOCKCHAIN....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS RETORNANDO AO LOOP:
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+
+    for keys in previous_block: #nosso loop...
+
+
+
+
+
+    block = {
+        'processed_transaction': open_transactions,
+        'previous_block_hash': previous_block,
+        'index': len(blockchain) #totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+
+
+
+
+
+
+---------------------->
+
+
+
+
+
+
+
+
+
+
+
+O NOME DAQUELa variable do loop está meio IDIOTA... --> o correto será 'key', e não 'keys', 
+
+PQ É ÓBVIO QUE ESTAMOS LOOPANDO '1 KEY POR VEZ'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+
+    for key in previous_block: #nosso loop...
+        value = previous_block[key]
+
+
+
+
+    block = {
+        'processed_transaction': open_transactions,
+        'previous_block_hash': previous_block,
+        'index': len(blockchain) #totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... O QUE SIGNIFICA ESSE CÓDIGO? 
+
+
+
+
+SIGNIFICA ISSO   
+
+
+
+
+  for key in previous_block:
+        value = previous_block[key]
+
+
+
+
+
+
+
+ele vai ir 
+
+
+
+
+'previous_block['index']'
+
+
+'previous_block['previous_hash']' 
+
+
+
+'previous_block['transactions']' 
+
+
+
+
+
+
+
+
+--> OK, ACESSAMOS A KEY DINAMICAMENET,
+
+
+
+
+E SE ACESSAMOS O DICTIONARY EM UMA CERTA KEY,
+
+
+RECEBEMOS O VALUE DESSA KEY DE VOLTA....
+
+
+
+
+
+
+
+
+
+
+
+--> MUNIDOS DESSE VALUE, NA VARIABLE 'value',
+
+
+
+PODEMOS __ CONCATENAR_ ESSE NEGÓCIO __ EM UMA STRING QUE VAMOS QEURER CONCATENAR...
+
+
+
+
+
+
+
+
+
+-> PARA CONCATENAR ESSA STRING, PODEMOS CRIAR UMA VARIABLE COM UMA LIST VAZIA NO LADO DE FORA 
+
+DESSE LOOP,
+
+E AÍ 
+
+IR ADICIONANDO 
+
+
+AS STRINGS/VALUES DESSE LOOP PROGRESSIVAMENTE A ESSA LIST,
+TIPO ASSIM:
+
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+
+    previous_block_hash = []
+
+    for key in previous_block: #nosso loop...
+        value = previous_block[key]
+        previous_block_hash.append(value)
+    
+
+
+
+
+    block = {
+        'processed_transaction': open_transactions,
+        'previous_block_hash': previous_block,
+        'index': len(blockchain) #totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... ISSO VAI NOS DAR UMA LISTA DE STRINGS a partir desse loop..
+
+
+
+
+
+
+
+-> AGORA VAMOS QUERER ALGUMA FUNCTION COMO 'reduce', ou algo assim,
+
+a ser executada nesse 
+
+array,
+para que 
+
+todas as strings sejam concatenads em 1 string 
+
+
+única....
+
+
+
+
+
+
+--> comoo fazer isso?
+
+
+
+
+
+
+
+In python string class provides a function join() i.e.
+
+string.join(iterable)
+join() function accepts an iterable sequence like list or tuple etc as an argument and then joins all items in this iterable sequence to create a string. In the end it returns the concatenated string.
+
+Let’s use this join() function to convert list to string in python.
+
+
+
+
+
+
+
+--> talvez usar essa função de 'string.join()'...
+
+
+
+
+
+
+
+
+--> o 'string.join()' me deu um erro...
+
+
+
+--> string.join(words[, sep]) has been deprecated with Python 2.4, removed completely with Python 3.0
+
+
+
+
+
+'String to insert'.join([List of strings]) --> ESSA É A FORMULA...
+
+
+
+
+
+
+
+
+
+
+
+
+-> CONSEGUI FAZER FUNCIONAR:
+
+
+
+
+
+
+
+[{'previous_hash': '', 'index': 0, 'transactions': []}, {'processed_transaction': [], 'previous_block_hash': '-0-[]', 'index': 1}] 
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+    previous_block_values = []
+    for key in previous_block:  # nosso loop...
+        value = str(previous_block[key])
+        previous_block_values.append(value)
+    print(previous_block_values)
+    previous_block_hash = '-'.join(previous_block_values)
+    print(previous_block_hash, 'LINE')
+
+    block = {
+        'processed_transactions': open_transactions,
+        # 'previous_block_hash': 'placeholder2',
+        'previous_block_hash': previous_block_hash,
+        # 'current_block_hash': 'asasojsaosajoj12o12jojasdopj1', #esse valor será comparado ao VALOR DE 'previous_block_hash' __ DO PRÓXIMO BLOCK, QUANDO O PRÓXIMO BLOCK FOR CRIADO.... (deverão ser equivalentes, esse é o mecanismo de segurança) ---> ATENÇÃO: O HASH DE UM DEWTERMINADO BLOCK É FORMADO A PARTIR DA LISTA DE TRANSACTIONS NO INTERIOR DELE...
+        # totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+        'index': len(blockchain)
+    }
+    open_transactions.clear()
+    blockchain.append(block)
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+---> esse é um hash provisório, claro....
+
+
+
+
+
+
+
+
+
+
+
+--> o professor escreve algo um pouco diferente....
+
+
+
+
+
+
+em vez de usar 'previous_block_values = []',
+
+
+ele usa 
+
+
+
+
+'hashed_block = ''  ' 
+
+
+
+
+
+
+
+
+
+
+(OU SEJA, UMA EMPTY STRING COM ESSE NEGÓCIO AÍ)...
+
+
+
+
+--> aí ele vai no loop SEMPRE ESCREVER 
+
+
+
+
+
+
+hashed_block = ''
+
+for key in last_block:
+    value = last_block[key]
+    hashed_block = hashed_block + str(value)
+
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO FARÁ COM QUE SEJA CONCATENADA UMA LONGA STRING COMO UM 'HASH'...
+
+
+
+
+
+--> E ESSE HASH N TERÁ SEPARAÇAÕ... ('-')...
+
+
+
+
+
+
+
+
+certo.... meu código ficou assim:
+
+
+
+
+
+
+ 
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+
+
+
+ 
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+    # previous_block_values = []
+    hashed_block = ''
+    for key in previous_block:  # nosso loop...
+        value = str(previous_block[key])
+        hashed_block = hashed_block + str(value)
+    print(hashed_block)
+    block = {
+        'processed_transactions': open_transactions,
+        'previous_block_hash': hashed_block, 
+        'index': len(blockchain)
+    }
+    open_transactions.clear()
+    blockchain.append(block)
+    print(blockchain)
+
+
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... EXECUTAMOS NOSSO código:
+
+
+
+
+
+
+
+
+
+-----> ganhamos este output:
+
+
+
+
+
+O MINE DO BLOCK DEU 'MEIO CERTO':
+
+
+
+
+
+[{'previous_hash': '', 'index': 0, 'transactions': []}, {'processed_transactions': [], 'previous_block_hash': '0[]', 'index': 1}] 
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+[{'previous_ block_hash': '', 'index': 0, 'processed_transactions': []}, {'previous_block_hash': '0[]', 'index': 1, 'processed_transactions': []}]
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+--------> professor ganha um erro pq ele não havia colocado o genesis block lá em 'blockchain'...
+
+
+
+
+
+
+
+
+
+
+---> AÍ VAMOS GANHAR UM ERROR EM 'verify_chain()'... --> 
+
+
+
+
+ISSO ACONTECE PQ SEMPRE ESTAMOS TENTANDO RODAR 
+
+esse 
+
+check ao final do loop- --- >isso naõ tem como dar certo,
+
+
+PQ JÁ MUDAMOS TANTA COISA 
+
+
+QUE 
+
+
+A MANEIRA ANTIGA DE VALIDATE NÃO VAI MAIS FUNCIONAR..
+
+
+
+
+
+
+
+
+
+
+
+--> POR ISSO NOSSO CÓDIGO ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+waiting_for_input = True
+
+
+while waiting_for_input:
+    print('-' * 30)
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('m: Mine a block')
+    print('q: Quit the program')
+    print('-' * 30)
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        user_transaction = get_transaction_value()
+        # UNPACKING DE TUPLE.... É EXATAMENTE A MESMA COISA QUE ARRAY DESTRUCTURING.
+        sender, recipient, amount = user_transaction
+        if(user_transaction == None):
+            print('Please enter a valid sender, recipient and transaction value')
+        else:
+            add_transaction(sender, recipient, amount)
+            # add_transaction(user_transaction[0], user_transaction[1], user_transaction[2]) # SINTAXE OLDSCHOOL (sem 'TUPLE UNPACKING', que é basicamente ARRAY DEESTRUCTURING)...
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        waiting_for_input = False
+
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(
+                    ' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)] = [float(elementValue)]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+
+    elif(user_input == 'm'):
+        mine_block()
+    else:
+        print('-' * 40)
+        print('Invalid command, please input 1, 2 or q.')
+    # if(not verify_chain()):
+    #     print(verify_chain())
+    #     print('Blockchain was found invalid.')
+    #     print(blockchain)
+    #     waiting_for_input = False
+    #     # break
+    # else:
+    #     print('Blockchain is valid')
+    # print(blockchain)
+
+else:  # complemento do while loop
+    print('User left')
+
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... e esse block está sendo adicionado
+
+
+
+
+
+
+
+
+
+
+-> OK... AS COISAS ESTÃO PROGREDINDO, E AGORA TEMOS UM ALGORITMO DE HASHING BÁSICO..
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR, NA PRÓXIMA AULA,
+
+
+VAI QUERER NOS MOSTRAR UMA ALTERNATIVA A ISSO....

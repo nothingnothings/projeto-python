@@ -1,0 +1,1215 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O QUE O PROFESSOR QUER NESSE MÓDULO, A RESPEITO DE BLOCKCHAINS?
+
+
+
+
+
+
+
+
+
+--> ELE QUER TRANSACTIONS MAIS REALISTAS... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, DEVEMOS VOLTAR A ''COMO 
+
+TRANSACTIONS SÃO ACTUALLY RELACIONADAS A NOSSA BLOCKCHAIN,QUE 
+
+CRIAMOS PARA 
+
+HANDLAR NOSSA PRÓPRIA CRYPTO CURRENCY''....
+
+
+
+
+
+
+
+
+
+
+
+----> APRENDEMOS QUE _ A BLOCKCHAIN É 
+
+
+UMA 
+
+CHAIN DE BLOCKS,
+
+
+e CADA 
+
+
+BLOCK 
+
+É 
+
+
+SIMPLESMENTE 
+
+UMA 
+
+COLLECTION DE 
+
+DATA 
+
+
+E 
+
+METADATA --> a metadata é IMPORTANTE PARA COISAS COMO 'VALIDATING THE CHAIN',
+
+
+
+
+
+
+
+
+
+COMO POR EXEMPLO 'INFO SOBRE O BLOCK ANTERIOR' -------> MAS NOSSA 
+
+
+
+
+DATA 
+
+
+DEVERÁ 
+
+SER 
+UMA 
+
+
+'LIST OF TRANSACTIONS' .... --------> ISSO 
+
+
+
+SIGNIFICA QUE 
+
+NÃO TEREMOS 
+
+
+1 
+
+ÚNICA TRANSACTION 
+
+
+
+
+POR BLOCO,
+
+TIPICAMENTE... ------------------> TIPICAMENTE VOCÊ INCLUIRÁ 
+
+
+
+
+
+__MÚLTIPLAS __ 
+
+
+
+TRANSACTIONS POR BLOCK (isso ocorre no bitcoin, por exemplo).... --> E __ SOMENTE___ SE AS TRANSACTIONS __ 
+
+
+
+SÃO INCLUÍDAS EM UM BLOCK 
+
+É QUE 
+
+ELAS 
+
+SÃO 
+TRATADAS 
+
+COMO 
+
+'PROCESSED'... ------> e quando elas são 'processed', esse é o momento no tempo em que __ 
+O DINHEIRO 
+
+
+
+REALMENTE CHEGOU À PESSOA A QUE VOCÊ O ENVIOU....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS COMO UMA TRANSACTION SE PARECE, NO PYTHON?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> um cubao:
+
+
+
+
+
+
+
+
+
+
+----------------
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DESSE 'OBJECT'/cubo,
+
+
+QUEREMOS TER INFO SOBRE:
+
+
+
+
+
+1) O SENDER 
+
+
+
+2) O RECIPIENT 
+
+
+
+3) O AMOUNT QUE ESTAMOS ENVIANDO....
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE É UM SET DE INFORMAÇÃO ÚTIL QUE VAMOS QUERER PASSAR...
+
+
+
+
+
+
+
+
+
+
+--> TEMOS TODA A INFO DE QUE PRECISAMOS:
+
+
+
+QUEM ENVIOU OS COINS,
+
+A QUEM ESTAMOS OS ENVIANDO,
+
+E QUANTO
+
+
+ESTAMOS ENVIANDO...
+
+
+
+
+
+
+
+
+
+
+--> POR ENQUANTO,
+
+
+NÃO TEMOS NENHUMA 
+
+'BALANÇA',
+
+
+NÃO TEMOS NENHUMA FORMA DE VERIFICAR __ ''QUANTOS COINS ESTÃO CIRCULANDo'',
+
+
+
+
+
+e por isso agora PODEMOS __ INPUTTAR QUALQUER QUANTIDADE QUE DESEJAMOS, NAS NOSSAS TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+--> VAMOS ABORDAR ISSO DO 'LIMITE DAS MOEDAS' ao longo do curso, é claro,
+
+
+
+
+
+
+
+MAS O FORMATO 
+
+
+
+
+
+DE UMA TRANSACTION É EXATAMENTE ASSIM:
+
+
+
+
+
+1) O SENDER 
+
+
+
+2) O RECIPIENT 
+
+
+
+3) O AMOUNT QUE ESTAMOS ENVIANDO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> E __ A IDEIA_ _ É QUE NÃO VAMOS QUERER TER APENAS 1 TRANSACTION POR BLOCK,
+
+
+E SIM 
+
+
+MÚLTIPLAS TRANSACTIONS... --> SERÁ UMA LIST DE 'OUTSTANDING TRANSACTIONS'... -
+
+
+
+
+(
+
+
+    'OUTSTANDING TRANSACTIONS'''' -----> ISSO SIGNIFICA 
+
+
+    ''TRANSACTIONS QUE AINDA NÃO FORAM PROCESSADAS'''.. -----> E COMO NÃO FORAM AINDA PROCESSADAS,
+
+
+
+
+    OS 
+
+    FUNDS AINDA NÃO CHEGARAM AO DESTINATÁRIO...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS, AO FINAL,
+
+ESSAS 
+
+
+OUTSTANDING TRANSACTIONS __ SERÃO __ INCLUÍDAS__ EM 1 NOVO BLOCK... (é esse o processo ) ---- > QUANDO 
+
+
+
+ELAS 
+
+FORRAM UM NOVO BLOCK,
+
+
+COMPLETAM-NO,
+
+
+ISSO 
+
+É 
+
+CHAMADO 
+DE 
+
+'MINING A NEW BLOCK',
+
+
+
+
+
+  
+
+  E PESSOAS PARTICIPANDO DA BLOCK CHAIN NETWORK, ALGUMAS DELAS,
+
+
+
+  ESTARÃO FAZENDO ESSA TAREFA DE 'MINING' --> ESTÃO FAZENDO ISSO EM TROCA DE _UMA __ REWARD,
+
+
+
+  A QUAL TAMBÉM INCLUÍREMOS NESSE CURSO (de mentira),
+
+
+
+
+
+
+
+  ESTÃO FAZENDO ISSO EM TROCA DE ALGUM DOS COINS (blocks)... --> E É ASSIM QUE 
+
+
+
+
+  PODEMOS CONTROLAR A QUANTIDADE DE COINS NA NETWORK (Através de wallets/nodes).... ----> 
+
+
+
+
+
+
+
+
+
+  MAS A COISA IMPORTANTE A NÓS 
+  É QUE 
+
+
+
+  ELES QUE FAZEM ISSO,
+
+
+  OS MINERADORES 
+
+
+  QUE 
+
+
+
+  VÃO PEGAR ESSAS OUTSTANDING TRANSACTIONs (esvaziam essa list de outstanding transactions)
+
+
+
+
+  E ENTÃO 
+
+
+  AS ENFIAM EM UM NOVO 'BLOCK'...
+
+
+
+
+
+
+
+
+
+
+
+
+  --> E ASSIM QUE ISSO TIVER ACABADO,
+
+
+
+
+TIVER ACABADO _ E O __ BLOCK__ TIVER SIDO VERIFICADO _POR __ PESSOAS SUFICIENTES DA REDE BLOCKCHAIN (
+
+
+algo que é claro que implementaremos nesse curso
+
+),
+
+
+
+
+
+
+ESSA TRANSACTION 
+
+
+
+
+
+SERÁ TRATADA COMO 'PROCESSED',
+
+
+E AÍ 
+
+
+
+OS 
+
+
+COINS 
+
+ESTARÃO 'AVAILABLE'
+
+
+para 
+
+O 
+
+
+
+RECEBEDOR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MTA INFO,
+
+
+MAS VAMOS COMEÇAR SIMPles:
+
+
+
+
+
+
+
+
+VAMOS COMEÇAR PELO MANAGE DAQUELA LIST 
+
+
+
+DE 
+
+OUTSTANDING TRANSACTIONS.... ----> 
+
+
+
+
+
+
+
+
+ADICIONAREMOS ESSA FUNCIONALIDADE DE 
+
+
+
+
+
+'ADD A NEW BLOCK' -------> NA VERDADE,
+
+
+JÁ TEMOS ESSA FUNCIONALIDADE,
+
+
+
+
+
+
+
+MAS VAMOS A TWEAKAR.... -> E AÍ 
+
+
+
+
+
+
+VAMOS 
+
+
+FAZER COM QUE 
+
+SEJA __ POSSÍVEL_ ADICIONAR __ ESSAS TRANSACTIONS (outstanding transactions)
+
+
+
+
+
+
+NESSE NOVO BLOCK...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A PERGUNTA É:
+
+
+
+
+
+
+
+
+
+
+
+QUAL TIPO DE DATA STRUCTURES PRECISAMOS PARA __ TODAS ESSAS COISAS/STORAGES?
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ATÉ AGORA,
+
+
+
+
+SÓ CONHECEMOS STRINGS, NUMBERS E BOOLEANS...
+
+
+
+
+
+
+
+
+
+
+
+---> PRECISAMOS DE STRINGS, SIm....
+
+
+
+
+
+--> precismaos de NUMBERS...
+
+
+--> PRECISAMOS DE BOOLEANS..
+
+
+
+
+--> precisamos de LISTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PRECISMAOS DE DATA STRUCTURES MAIS COMPLEXAS..
+
+
+
+
+
+
+
+
+
+
+
+--> EXEMPLO DISSO É A TRANSACTION COMO UM TODo... --> por enquanto,
+
+
+
+
+A TRANSACTION É 
+
+
+APENAS 
+
+UM 
+
+
+
+'NÚMERO SOLTO',
+
+
+
+
+
+
+
+
+
+
+ou, para ser mais preciso,
+
+uma 
+
+
+'NESTED LIST'
+
+
+dentro 
+
+de nossa 
+
+LIST DE BLOCKS....
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É LÓGICO QUE ISSO _ NÃO É SUFICIENTE...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA MANAGEAR SENDER/RECIPIENT/AMOUNT ,
+
+
+
+
+
+
+
+
+
+
+PRECISAMOS DE UMA DATA STRUCUTRE QUE __ ARMAZENE__ KEY-VALUE  PAIRS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A ORDEM NÃO INTERESSA --> nós não nos importamos se a data na data structure,
+
+
+o recipient vem antes do sender... --> IMPORTANTE É TER UMA INFO PIECE QUE 
+
+
+
+INCLUI TODAS ESSAS INFOS EM 1 ÚNICA DATA STRUCUTRE/variable...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBJECTS?
+
+
+
+
+
+
+
+
+
+
+
+-- >TAMBÉM PRECISAMOS  DE UMA DATA STRUCTURE PARA AS 
+
+'OUTSTANDING 
+
+TRANSACTIONS' -----------> PARA 
+
+
+
+
+
+
+
+
+
+ISSO,
+
+PRECISAMOS 
+
+
+DE UMA ESTRUTURA 
+
+EM QUE 
+
+
+
+
+É POSSÍVEL 
+
+
+ARMAZENAR UMA __ LISTA__ MUTÁVEL (mutable, editable) 
+
+
+
+DE VALUES,
+
+
+E EM QUE A ORDER TBM NÃO INTERESSA... --------> PRECISA SER UMA LIST MUTÁVEL PQ 
+
+
+
+
+
+_ É CLARO QUE VAMOS QUERER SER CAPAZES DE ADICIONAR NOVAS TRANSACTIONS A ESSA 'LIST'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA A BLOCKCHAIN,
+
+TAMBÉM 
+
+VAMOS QUERER __ TER UMA 
+
+DATASTRUCTURE,
+
+
+E SERÁ UMA DATA STRUCTURE 
+
+
+EM QUE 
+
+
+TAMBÉM 
+
+
+
+PRECISAMOS DE MUTABILITY,
+
+
+
+
+
+
+
+
+mas__ em que _ a ORDEM VAI __ IMPORTAR,
+
+
+
+ao contrário da 
+
+
+
+
+data structure para 'outstanding transactions'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSES SÃO OS REQUISITOS PARA NOSSAS DATA STRUCUTRES:
+
+
+
+
+
+
+
+
+1) DATA STRUCTURE COM KEY-VALUE PAIRS, ordem não importa --> USADO PARA SENDER-RECIPIENT-AMOUNT 
+
+
+
+2) DATA STRUCTURE COM LISTA MUTÁVEL DE VALORES, ORDEM NÃO IMPORTA --> USADO PARA 'outstanding transactions' 
+
+
+
+
+3) DATA STRUCTURE COM __ LISTA MUTÁVEL DE VALORES, MAS __ ORDEM __iMPORTA__ --> usado para NOSSA BLOCKCHAIN EM SI....
+
+
+
+
+
+
+
+
+
+
+
+
+--> 3 DATA STRUCTURES QUE SÃO NECESSÁRIAS...
+
+
+
+
+
+
+
+
+
+
+
+---> MAS É CLARO que temos o block em si... --> o blcok em si VAI CONTER A LISTA DE TRANSACTIONS,
+
+
+
+A LISTA DE 
+
+
+
+'PROCESSED TRANSACTIONS' que são incluídas nesse block....
+
+
+
+
+
+
+->>>> MAS O BLOCK TAMBÉM TEM COISAS COMO:
+
+
+
+A) UM POUCO DE METADATA, COMO O '''HASH''' DO BLOCK ANTERIOR --> ISSO É IMPORTANTE 
+PARA VALIDAR 
+
+A CHAIN INTEIRA.... ----> JÁ ESTAMOS  FAZENDO ISSO, DE CERTA FORMA, NO NOSSO APP ATUAL....
+
+
+
+
+
+
+
+
+B) TAMBÉM VAI CONTER ALGUMA OUTRA METADATA, POSSIVELMENTE, COMO UM INDEX... (
+  ISSO É OPCIONAL, MAS É COMUM...
+)
+
+
+
+
+
+
+
+
+
+
+
+------> OK, ENTÃO TAMBÉM PRECISAMOS DE UMA DATA STRUCTURE QUE CONSIGA 
+
+
+
+DEPICTAR ESSAS 3 COISAS, O HASH, O INDEX E AS TRANSACTIONS....
+
+
+
+
+
+
+
+
+
+--> O BLOCK EM SI, NESSE ASPECTO,
+
+É PARECIDO COM UMA TRANSACTION,
+
+
+
+PQ 
+
+
+
+
+SEMPRE TEM 
+
+
+
+1) HASH 
+
+
+2) INDEX
+
+3) TRANSACTIONS... (list)
+
+
+
+
+
+
+
+
+
+
+
+-----> FINALMENTE, PODERÍAMOS TAMBÉM FAZER, COMO UM BONUS,
+
+
+O MANAGE DE UMA LISTA DE PARTICIPANTS NA NOSSA BLOCKCHAIN NETWORKK....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 1 transaction sempre terá este formato:
+
+
+
+
+
+
+MAX sender
+
+
+
+ANNA recipient
+
+
+
+3.5 amount
+
+
+
+
+
+
+
+
+
+
+
+CHRIS 
+
+
+MANUEL 
+
+
+5.0 ---> sempre será um FLOAT, pq como bitcoins, SEREMOS CAPAZES DE ENVIAR FRAÇÕES DE BITCOIN 
+
+
+
+
+
+
+
+---> TALVEZ QUEIRAMOS 
+
+
+FAZER MANAGE 
+
+DE UMA LIST 
+
+
+DE 
+
+
+
+
+
+
+SENDERS/RECIPIENTS,
+]
+
+
+
+
+que seria basicamente uma LIST EM QUE 
+
+
+CADA 1 DESSES IDENTIFIERS APARECERIA 1 ÚNICA VEZ,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+[
+  'Max', 'Anna', 'Chris', 'Manuel'
+]
+
+
+
+
+
+
+
+
+
+-------> ISSO É UM PLACEHOLDER, CLARO, PQ EM 1 APP DE VERDADE TERÍAMOS 
+
+APENAS IDs, e não names...
+
+
+
+
+
+
+
+--> PARA ESSA LIST, PRECISAMOS ED UMA 
+
+
+DATA STRUCTURE 
+QUE ARMAZENA UNIQUE VALUES, E EM QUE A OREDR NÃO 
+
+INTERESSA....
+
+
+
+
+
+
+
+---> MT INFORMAÇÃO PARA DIGERIR ---> DEVEMOS DAR UMA OLHADA NAS OPÇÕES DE DATA STRUCTURE O PYTHON OFERECE, E VER 
+QUAL OPÇÃO É ADEQUADA PARA CADA PROPÓSITO...

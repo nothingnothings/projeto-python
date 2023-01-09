@@ -1,0 +1,1141 @@
+
+
+
+
+
+
+
+
+
+
+
+
+-> O QUE PODEMOS FAZER SOBRE NOSSAS TRANSACTIONS E A MANEIRA PELA QUAL HANDLAMOS ELAS?
+ 
+
+
+
+
+
+
+
+ -> BEM, PRIMEIRAMENTE,
+
+
+
+ NOSSA _ FUNÇÃO DE 'MINE_BLOCK():'
+
+
+
+ tem UM PEQUENO DEFEITO...
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+ def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+    previous_block = blockchain[-1]
+
+    hashed_block = hash_block(previous_block)
+    print(hashed_block)
+    block = {'previous_block_hash': hashed_block,
+
+             'index': len(blockchain),
+             'processed_transactions': open_transactions,
+             }
+    # open_transactions.clear()
+    blockchain.append(block)
+    print(blockchain, 'TRIED TO MINE BLOCK')
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+A FLAW DE NOSSO MINE_BLOCK É.... --> NÓS NUNCA RESETTAMOS NOSSAS TRANSACTIONS ... -> ISSO SIGNIFICA 
+
+QUE 
+
+TODOS 
+
+OS USERS 
+
+ACABAM 'TENDO TODAS AS TRANSACTIONS',
+
+
+e não 
+há 
+
+nenhuma distinção entre 
+
+
+'open_transactions' e 'processed_transactions' (as transactions inseridas nos blocks)... --> 
+
+
+
+
+
+
+
+
+EU TENTEI CONSERTAR ISSO ANTES,
+
+
+MAS NÃO CONSEGUI..
+
+
+
+
+
+
+
+---> essa é a flaw,
+
+
+PQ 
+
+
+NÓS ACABAMOS INSERINDO ESSAS open_transactions
+
+
+
+LÁ EM 
+
+
+
+'processed_transactions',
+
+
+
+MAS 
+
+
+
+
+
+A LIST DE 'open_transactions'
+
+
+NUNCA ACABA SENDO LIMPA....
+
+
+
+
+
+
+
+
+-> DEVEMOS RESETTAR ___ NOSSAS __ 'open_transactions'
+
+
+DE VOLTA A UM EMPTY ARRAY... ----> 
+
+
+
+
+
+
+PARA ISSO, 
+
+PROFESSOR VAI:
+
+
+
+
+
+
+
+1) FAZER O RETURN DE 'True' nesse 'mine_block()', ao final...
+
+
+
+
+
+
+
+
+2) ESSE TRUE __ PROVAVELMENTE__ SERÁ USADO _ MAIS PARA BAIXO, EM UM IF CHECK,
+
+PARA CHECAR SE ESSE MINE_BLOCK FOI BEM SUCEDIDO...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+ def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+    previous_block = blockchain[-1]
+
+    hashed_block = hash_block(previous_block)
+    print(hashed_block)
+    block = {'previous_block_hash': hashed_block,
+
+             'index': len(blockchain),
+             'processed_transactions': open_transactions,
+             }
+    # open_transactions.clear()
+    blockchain.append(block)
+    print(blockchain, 'TRIED TO MINE BLOCK')
+    
+
+    return True
+
+
+
+
+
+
+
+
+    ---------------------------
+
+
+
+
+
+
+
+
+O PROFESSOR NOS EXPLCIA QUE UMA POSSIBILIDADE SERIA 
+
+
+
+
+TENTAR DEFINIR 
+'open_transactions = []'
+
+
+
+DENTRO DESSA FUNCTIONM,
+
+
+
+MAS O PROBLEMA É QEU ESSA 
+
+
+DEFINIÇÃO/REDEFINIÇÃO 
+
+SERÁ _ TRATADA COMO UM 'LOCAL LIST',
+
+
+e não como uma redefinição da variable global de 'open_transactions'....
+
+
+
+
+
+
+
+
+
+
+
+------> aí ganharíamos um error, pq não seria  acessada a versão GLOBAL disso aí...
+
+
+
+
+
+
+
+
+
+
+
+--> ok... -> RETORNAMOS 'True' nesse mine block... --> 
+
+
+
+
+
+
+
+
+--. AÍ LOGO EMBAIXO DISSO CHECAMOS SE A OPERAÇÃO DE MINE FOI BEM SUCEDIDA...:
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM>:
+
+
+
+
+
+
+
+
+    elif(user_input == 'm'):
+      if mine_block():
+          open_transactions = []
+    elif(user_input == '3'):
+        print(participants)
+    else:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ESSA É A PRIMEIRA PARTE DE NOSSO PROBLEMA..
+
+
+
+
+AGORA QUERMOS __ CONSEGUIR TAMBÉM QUE SEJA CONTADO O 'BALANCE' DE NOSSOS PARTIICPANTS..
+
+
+
+
+
+--> ISSO SERÁ ÚTIL TBM PARA QUANDO __ 
+
+
+NÓS _ FIZERMOS VERIFY DE UMA TRANSACTION, PARA VERIFICAR 
+SE 
+
+
+O PARTICIPANT DE UMA TRANSACTION TEM AQUELA QUANTIDADE DE FUNDS PARA 
+
+COMPLETAR A TRANSACTION...
+
+
+
+
+
+
+
+
+
+
+
+
+--> é por isso QUE O PROFESSOR VAI ADICIONAR UMA NOVA FUNCTION,
+
+DE NOME 
+
+
+'def get_balance():',
+
+
+
+
+
+
+
+
+
+
+--> ESSA FUNCTION VAI TER UM PARTICIPANT COMO ARGUMENTO...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+def get_balance(participant):
+
+
+ 
+
+
+
+
+
+
+
+
+
+ --> A IDEIA AQUI É DESCOBRIR' '''' QUANTO  O PARTICIPANT JÁ GASTOU''' ( ou seja, quantos pontos ele já ENVIOU, COMO SENDER... AS TRANSACTIONS EM QUE ELE FIGUROU COMO SENDER, BASICAMENTE)...
+
+
+
+
+
+
+
+
+
+
+ -> ''para quantas transactions ele é o sender'' 
+
+
+ --> também vamos querer saber 'QUANTAS TRANSACTIONS ELE RECEBEU, quanto ele recebeu'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> PARA ISSO,
+
+
+ O PROFESSOR 
+
+ ESCREVE UMA VARIABLE DE 
+
+
+
+'transaction_sender' -------> AÍ VAMOS QUERER __ IR __ POR _ DENTRO __ 
+
+
+DE TODOS 
+
+
+NOSSOS BLOCKS 
+
+DA 
+
+BLOCKCHAIN... --> AÍ ,
+
+
+DENTRO 
+
+
+DESSA BLOCKCHAIN,
+
+
+
+
+
+
+POR MEIO DE UMA 'LIST COMPREHENSION',
+
+
+
+VAMOS QUERER __ 
+
+
+RETORNAR TODAS AS TRANSACTIONS EM QUE ELE FIGUROU COMO SENDER... --> FAREMOS ISSO COM 'LIST COMPREHENSION + IF CHECKS'...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+    transaction_sender = [block['processed_transactions'] for block in blockchain]
+
+
+
+
+
+
+
+
+    --> ESTAMOS INTERESSADOS APENAS NAS TRANSACTIONS, POR ISSO O 
+
+
+    'block['processed_transactions']' 
+
+
+
+
+
+
+
+
+
+    --> MAS SÓ VAMOS QUERER AS TRANSACTIONS QUE TENHAM 'participant' (que foi passado a essa function)
+
+
+    dentro de seu conteúdo (em 'sender')...
+
+
+
+
+
+    -> para isso, basta nestearmos o negócio um pouco mais, tipo assim:
+
+
+
+
+
+
+
+    transaction_sender = [block['processed_transactions'] for block in blockchain] 
+
+
+
+
+
+
+
+
+
+
+
+
+ -> PROFESSOR EXPLICA QUE VAMOS PRECISAR DE UMA 'NESTED LIST COMPREHENSION'....
+
+
+
+
+
+
+
+
+
+ -> mas como escrever isso?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ assim:
+
+
+
+
+
+
+
+
+   transaction_sender = [block['processed_transactions'] for block in blockchain] 
+
+
+
+
+
+[
+
+      transaction for transaction  in  block['processed_transactions'] if transaction['sender'] = participant
+]
+
+
+
+
+
+
+
+
+talvez assim:
+
+
+
+
+
+
+
+
+   transaction_sender = [block[transaction for transaction  in  block['processed_transactions'] if transaction['sender'] = participant] for block in blockchain] 
+
+
+
+
+
+
+
+
+
+
+
+
+   --> NÃO, MAS ISSO NÃO FUNCIONA/NÃO FUNCIONARÁ....
+
+
+
+
+
+
+   como escrever essa nested list comprehension, então?
+   
+
+
+
+
+
+
+   repetindo:
+
+
+
+
+      
+
+
+    
+      transaction_sender = [block['processed_transactions'] for block in blockchain] 
+
+
+
+
+
+
+
+
+
+
+(transaction for transaction in block['processed_transactions'] if transaction['sender'] == participant)
+
+
+
+
+
+
+
+
+
+
+AGORA 'DEU CERTO':
+
+
+
+
+
+
+
+    transaction_sender = [(transaction for transaction in block['processed_transactions'] if transaction['sender'] == participant) for block in blockchain]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+def get_balance(participant):
+    # transaction_sender = [block['processed_transactions'] for block in blockchain
+    transaction_sender = [(transaction for transaction in block['processed_transactions'] if transaction['sender'] == participant) for block in blockchain]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> claro que é necessário TESTAR O RESULTADO DESSE NEGÓCIO....
+
+
+
+
+
+
+
+
+
+
+
+-> bem, o resultado do código, que é este:
+
+
+
+
+
+def get_balance(participant):
+    # transaction_sender = [block['processed_transactions'] for block in blockchain
+    transaction_sender = [(transaction for transaction in block['processed_transactions'] if transaction['sender'] == participant) for block in blockchain]
+    print(transaction_sender)
+    return transaction_sender
+
+
+
+
+
+
+
+    FICOU BEM BIZARRO:
+
+
+
+
+
+
+[<generator object get_balance.<locals>.<listcomp>.<genexpr> at 0x00000285B1628900>, <generator object get_balance.<locals>.<listcomp>.<genexpr> at 0x00000285B1628740>]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, SIGNIFICA QUE FALHEI...
+ 
+
+
+
+ esse não deve ser o nesting correto de list comprehensions....
+
+
+
+
+
+
+
+
+
+
+ --> PARA ISSO, PARA FAZER O NESTING, VAMOS DEIXAR O 'for block in blockchain' de fora, mas 
+
+ VAMOS NESTEAR AQUELE
+
+
+ 'block['transactions']'
+
+
+
+
+
+
+
+
+
+
+ O CÓDIGO VAI FICANDO ASSIM:
+
+
+
+
+
+ transaction_sender = [[transaction for transaction in block['processed_transactions'] if transaction['sender'] == participant] for block in blockchain]
+
+
+
+
+
+
+
+
+
+
+
+ --> mas eu não vou querer a 'transaction' em si, e sim APENAS __ O VALOR __DE 'amount' dessa transaction,
+
+ pq esse será o valor gasto como 'SENDER' (gastado por esse user, em outras palavras)....
+
+
+
+
+
+
+
+ -> por isso escrevo 
+
+ 'transaction['amount']'
+
+
+
+
+ TIPO ASSIM:
+
+
+
+
+
+
+
+ transaction_sender = [[transaction['amount'] for transaction in block['processed_transactions'] if transaction['sender'] == participant] for block in blockchain]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ESCREVI UM CÓDIGO QUE DÁ O BALANCE DIREITINHO:
+
+
+
+
+
+
+
+
+
+     elif(user_input == 'b'):
+        sent, received = get_balance(owner)
+        print('Blocks sent: ' + str(sent))
+        print('Blocks received: ' + str(received))
+
+
+
+
+
+
+
+
+
+
+
+---> A LÓGICA DA FUNÇÃO ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+def get_balance(participant):
+    # transaction_sender = [block['processed_transactions'] for block in blockchain
+    # transaction_sender = [(transaction for transaction in block['processed_transactions'] if transaction['sender'] == participant) for block in blockchain] ///NÃO FUNCIONA...
+
+    transaction_sent_amount = 0
+    transaction_received_amount = 0
+    transaction_sender = [[transaction['amount'] for transaction in block['processed_transactions'] if transaction['sender'] == participant] for block in blockchain][1]
+    print(transaction_sender)
+    for transaction in transaction_sender:
+        transaction_sent_amount = transaction_sent_amount + transaction
+    transaction_recipient = [[transaction['amount'] for transaction in block['processed_transactions'] if transaction['recipient'] == participant] for block in blockchain][1]
+    for transaction in transaction_recipient:
+        transaction_received_amount = transaction_received_amount + transaction
+
+    return (transaction_sent_amount, transaction_received_amount)
+
+waiting_for_input = True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> talvez um outsourcing seja possível...
+
+
+
+
+
+
+
+-> é isso que farei...
+
+
+
+
+
+
+
+
+CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+def get_value(person):
+    return [[transaction['amount'] for transaction in block['processed_transactions'] if transaction[person] == owner] for block in blockchain][1]
+
+
+
+
+
+
+
+
+
+
+--> E O CÓDIGO DE 'get_balance' ficou assim:
+
+
+    
+
+
+
+
+
+
+
+
+    def get_balance(participant):
+  
+    transaction_sent_amount = 0
+    transaction_received_amount = 0
+    transaction_sender = get_value('sender')
+    for transaction in transaction_sender:
+        transaction_sent_amount = transaction_sent_amount + transaction
+    transaction_recipient = get_value('recipient')
+    for transaction in transaction_recipient:
+        transaction_received_amount = transaction_received_amount + transaction
+
+    return (transaction_sent_amount, transaction_received_amount)
+
+
+
+
+
+
+
+
+
+
+
+------------------
+
+
+
+
+
+
+
+
+--> VEREMOS UMA MANEIRA MAIS NICE DE FAZER 'SUM UP' (somar) 
+
+
+VALOERS 
+
+
+
+EM UM MÓDULO SEPARADO, APPROACH MELHOR DO QUE ESSE FOR LOOP...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR FAZ EXATAMENTE O QUE EU FIZ:
+
+
+
+
+
+
+    transaction_sender = get_value('sender')
+    # print(transaction_sender)
+    for transaction in transaction_sender:
+        transaction_sent_amount = transaction_sent_amount + transaction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK, PROFESSOR FEZ BASICAMENTE A MESMA COISA QUE EU...
+
+
+
+
+
+
+
+
+-> PODEMOS TAMBÉM OUTPUTTAR UM 'CURRENT TOTAL',
+
+que 
+
+
+será 
+
+o 
+
+
+AMOUNT_rECEIVED - AMOUNT_sENT....(logicamente)...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+    elif(user_input == 'b'):
+        sent, received, balance = get_balance(owner)
+        print('Blocks sent: ' + str(sent))
+        print('Blocks received: ' + str(received))
+        print('Total Balance: ' + str(balance))
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA SE TENTARMOS ENVIAR BLOCKS,
+V
+EREMOS QUE NOSSA BALANCE FICARÁ NEGATIVA, O QUE FAZ SENTIDO (Enviamos dinheiro  que NÃO TEMOS....) 
+
+
+
+
+
+
+
+
+
+
+--> POR ENQUANTO _ _NAÕ TEMOS UMA MANEIRA DE 'GET COINS INTO THE SYSTEM'... (deveriam ser obtidas quando novos blocks forem adicionados)...
+
+
+
+
+
+
+
+
+
+> VEREMOS ISSO NA PRÓXIMA AULA...

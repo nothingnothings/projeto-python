@@ -1,0 +1,2110 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMEÇAMOS PELA CLASS DE 'BLOCK',
+
+
+
+por isso vamos começar com um arquivo de 'block.py'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> você não é obrigado a colocar umA CLASS POR FILE,
+
+
+mas você frequentemente faz isso 
+
+para 
+
+
+MANTER SEU CÓDIGO BEM ESTRUTURADO,
+
+
+E 
+PARA 
+
+MANTER 
+
+
+CADA 
+
+ARQUIVO 
+
+
+
+RELATIVAMENTE PEQUENO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... esse arquivo 
+
+vai segurar uma class,
+
+
+
+
+de nome 'Block'...
+
+
+
+
+
+
+
+
+ex;
+
+
+
+
+
+
+
+
+
+
+
+
+class Block:         
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... O BLOCK DEVE TER UM PUNHADO DE COISAS,
+
+
+
+
+
+o index,
+
+
+timestamp,
+
+
+
+processed_transactions,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> COMO VAMOS TER 'INSTANCE ATTRIBUTES' (cada attribute em cada instance será diferente),
+
+
+PRECISAMOS 
+
+
+
+
+ESCREVER UM CONSTRUCTOR...
+
+
+--> passamos o argumento 'self', sempre importante....
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Block:
+    def __init__(self, index, ):
+        self.index = 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, AÍ VAMOS PRECISAR DE MAIS ARGUMENTOS, PARA CADA __ NEGÓCIO _ PERTINENTE __ AO 'block'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+class Block:
+    def __init__(self, index=0, processed_transactions=GENESIS_BLOCK, ):
+        self.index = index
+        self.processed_transactions = processed_transactions
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ALGO ASSIM, CREIO EU....
+
+
+
+
+
+
+
+--> precisamos do 'previous_hash', é claro...
+
+
+
+
+
+---> mas o previous hash PRECISA DA FUNCTION DE 'hash_block()',
+
+que AINDA NÃO TEMOS AQUI...
+
+
+
+
+
+
+
+
+--> para CONSEGUIRMOS ESSE VALOR DESSE HASH, PROVAVELMENTE VAMOS PRECISAR DO METHOD 'hash_block',
+
+
+
+que 
+
+
+
+provavelmente VAMOS DEIXAR DENTRO DESSA CLASS...
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU ALGO TIPO ISTO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Block:
+    def __init__(self, index=0, processed_transactions=[], previous_block_hash=''):
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.previous_block_hash = previous_block_hash
+
+
+
+
+
+
+
+
+--> faltou o 'timestamp'...
+
+
+
+
+
+
+
+
+
+
+--> NÃO SEI COMO ADICIONAR ESSE NEGÓCIO...
+
+
+
+
+
+
+
+
+--> OUTRA COISA QUE FALTOU FOI O 'PROOF_OF_WORK' (o 'proof') --> isso é algo que FALTOU NO ÚLTIMO SLIDE,
+
+
+MAS QUE TAMBÉM FAZ PARTE DE CADA BLOCK... (é nosso security mechanism)....
+
+
+
+
+
+
+
+
+
+
+
+
+--> O NOSSO NEGÓCIO FICA ASSIM, INICIALMENTE:
+
+
+
+
+
+
+
+
+
+class Block:
+    def __init__(self, index=0, processed_transactions=[], previous_block_hash='', proof=100, timestamp):
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.previous_block_hash = previous_block_hash
+        self.proof = proof
+        self.timestamp = timestamp
+
+
+
+
+
+
+---------------
+
+
+
+
+
+
+
+
+
+
+pARA O TIMESTAMP, É CLARO QUE O PROFESSOR VAI IMPORTAR UMA NOVA PACKAGE,
+
+
+PAACKAGE DE 
+
+
+'time'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from time import timezone
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> VAMOS IMPORTAR ESSA FUNCTION DE 'timezone'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESCREVEMOS TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+from time import time ##vai nos dar o 'currentTime', basicamente....  --> ISSO NOS DÁ O CURRENT TIME, COMO UM NUMBER BEM LONGO...
+
+
+
+class Block:
+    def __init__(self, index=0, processed_transactions=[], previous_block_hash='', proof=100, timestamp=time() ):
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.previous_block_hash = previous_block_hash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> ok....
+
+
+
+
+
+
+
+
+
+esse é nosso CONSTRUCTOR  ARGUMENT LIST...
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS NO BODY DESSE CONSTRUCTOR,
+
+ 
+ definimos todas aquelas coisas:
+
+
+
+
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.previous_block_hash = previous_block_hash]
+        sself.proof = proof
+        self.timestamp = timestamp
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+from time import time ##vai nos dar o 'currentTime', basicamente....  --> ISSO NOS DÁ O CURRENT TIME, COMO UM NUMBER BEM LONGO...
+
+
+
+class Block:
+    def __init__(self, index=0, processed_transactions=[], previous_block_hash='', proof=100, timestamp=time() ):
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.previous_block_hash = previous_block_hash
+        self.timestamp = timestamp 
+        self.proof = proof
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... AGORA DEVEMOS VOLTAR AO ARQUIVO BLOCKCHAIN E USAR ESSE BLOCK AÍ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> VAMOS PRECISAR DESSA CLASS DE 'BLOCK' sempre que 
+
+ESTIVERMOS CRIANDO 1 NOVO BLOCK.... -> ISSO É EM 'mine_block'...
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+def proof_of_work():
+    last_block = blockchain[-1]
+    last_hash = hash_block(last_block)
+    proof = 0
+    while not valid_proof(open_transactions, last_hash, proof):
+        proof += 1
+    return proof
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    previous_block = blockchain[-1]
+    hashed_block = hash_block(previous_block)
+    proof = 0
+
+    proof = proof_of_work()
+    reward_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+        ('amount', MINING_REWARD),
+        ('recipient', owner),
+        ('sender', 'ourApp')
+    ])
+    copied_transactions = open_transactions[:]
+    copied_transactions.append(reward_transaction)
+
+
+
+    block = Block(hashed_block, len(blockchain), copied_transactions, proof)
+
+
+
+    blockchain.append(block)
+    # save_data() #código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+    print(blockchain, 'TRIED TO MINE BLOCK')
+    return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO VOCÊ PODE VER, ESTAMOS INSTANCIANDO  A CLASS NAQUELE TRECHO ALI... 
+
+
+
+
+
+----> 
+
+
+
+
+é claro que tive de importar essa class de 'Block'...
+
+
+
+
+
+--->  MAS O PROFESSOR 
+
+
+NOS EXPLICA QUE __TAMBÉM __ TEMOS DE USAR 
+
+O 
+
+
+
+'block',
+
+essa class,
+
+
+
+SEMPRE QUE 
+
+
+
+
+RODARMOS O CÓDIGO DE 'load_data()'..
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO DE LOAD_DATA É ESTE:
+
+
+
+
+
+
+
+
+def load_data():
+    global blockchain
+    global open_transactions
+
+    try:
+        with open('blockchain.json', mode='r') as g:
+            read_blockchain, read_transactions = g.readlines()
+            global blockchain
+            global open_transactions
+            blockchain = json.loads(read_blockchain)
+            updated_blockchain = []
+            for block in blockchain:
+                updated_block = {
+                    'previous_block_hash': block['previous_block_hash'],
+                    'index': block['index'],
+                    'proof': block['proof'],
+                    'processed_transactions': [OrderedDict(
+                        [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+                }
+                updated_blockchain.append(updated_block)
+            blockchain = updated_blockchain
+            # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+            print(json.loads(read_blockchain))
+            # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+            open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+            # open_transactions = json.loads(read_transactions)
+            
+            print(json.loads(read_transactions))
+    except IOError: #VAI FAZER CATCH DE QUAISQUER 'INPUT/OUTUPT' errors que ocorrerem nesse block de 'try' (são erros especiais, que devem ser handlados por um except block como esse)...
+    # except (IOError, ValueError):    #podemos elencar mais um 'TYPE' de error a ser 'CATCHED' por esse nosso block... basta escrever dentro desse '()'..
+        print('File not found!') #com isso, será printada essa mensagem em casos desse tipo de error, mas o APP NÃO CRASHARÁ... (handled error, em vez de unhandled)...
+
+        GENESIS_BLOCK = {   ## ISSO FARÁ COM QUE SEJA POSSÍVEL INICIALIZAR NOSSA BLOCKCHAIN MESMO NO CASE DE 'O ARQUIVO DE SUA BLOCKCHAIN NÃO FOI ENCONTRADO'...
+        'previous_block_hash': '',
+        'index': 0,
+        'processed_transactions': [],
+        'proof': 100
+        }
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+    # except ValueError:
+    #     print('You cannot do that, so you get a Value Error.') #podemos adicionar múltiplos except cases,  MAS NÃO É BOM ADICIONAR EXCEPT CASES DE ERRORS QUE PODEM SER EVITADOS (como esse 'ValueError', value errors de quaisquer naturezas)...
+    # except:
+    #     print('You cannot do that, so you get a generic error. WILDCARD ERROR') # WILDCARD except case, que vai HANDLAR TODOS OS ERRORS QUE NÃO FOREM 'CAUGHT'/handlados nos cases anteriores, mais específicos...
+        #MAS CUIDADO COM ESSE EXCEPT CASE GENÉRICO/WILDCARD, PQ O HANDLE __ DE ERROS EXAGERADO __ TAMBÉM _ NÃO É BOM (handle de 'too many errors' também é ruim)
+  
+    finally:# o FINALLY é um block/statement em try-except __ CUJO __ CÓDIGO SEMPRE É EXECUTADO, TANTO FAZ SE OCORRERAM ERROS/FORAM CATCHEADOS ERRORS OU NÃO...
+        # é por isso que os blocks de 'finally' SÃO BONS DE SEREM USADOS PARA 'clean-up work'..
+        print('Your data was or was not loaded. See error statements')
+        print('clean-up work')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR EXPLICA QUE VAMOS QUERER USAR ESSA CLASS__ SEMPRE _ QUE ESTIVERMOS CRIANOD UM 
+
+
+_DICTIONARY_ DE 'BLOCK',
+
+
+
+
+
+
+
+
+como por meio daquele código de 
+
+
+
+  for block in blockchain:
+                updated_block = {
+                    'previous_block_hash': block['previous_block_hash'],
+                    'index': block['index'],
+                    'proof': block['proof'],
+                    'processed_transactions': [OrderedDict(
+                        [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+                }
+                updated_blockchain.append(updated_block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    OK.... O CÓDIGO COM ESSA CLASS FICARÁ:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        try:
+        with open('blockchain.json', mode='r') as g:
+            read_blockchain, read_transactions = g.readlines()
+            global blockchain
+            global open_transactions
+            blockchain = json.loads(read_blockchain)
+            updated_blockchain = []
+            for block in blockchain:
+                updated_block = Block(block['previous_block_hash'], block['index'], [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']], block['proof'])
+                updated_blockchain.append(updated_block)
+            blockchain = updated_blockchain
+            print(json.loads(read_blockchain))    
+            open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+            print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+-------------------
+
+
+
+
+EX:
+
+
+
+
+
+
+                converted_transaction = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']], block['proof']
+                updated_block = Block(block['previous_block_hash'], block['index'], converted_transaction)
+                updated_blockchain.append(updated_block)
+            blockchain = updated_blockchain
+            print(json.loads(read_blockchain))    
+            open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+            print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok..... ----> MAS E QUANTO à 'TIMESTAMP'?
+
+
+
+
+
+
+
+
+
+---> PROFESSOR DIZ QUE É CLARO QUE VAMOS QUERER USAR UM TIMESTAMP 
+
+
+
+
+CAPAZ DE SER CARREGADO... -->  por isso o professor vai passar o parâmetro de 'block['timestamp']', QUE NO MOMENTO AINDA INEXISTE..... 
+
+
+
+
+
+
+
+
+
+
+--> como esse parametrO NÃO EXISTE, É CALRO QUE ESSE CÓDIGO VAI FALHAR, MOMENTANEAMENTE....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+         for block in blockchain:
+                # updated_block = {
+                #     'previous_block_hash': block['previous_block_hash'],
+                #     'index': block['index'],
+                #     'proof': block['proof'],
+                    # 'processed_transactions': [OrderedDict(
+                    #     [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+                # }
+                converted_transaction = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']], block['proof']
+                updated_block = Block(block['previous_block_hash'], block['index'], converted_transaction, block['timestamp'])
+                updated_blockchain.append(updated_block)
+            blockchain = updated_blockchain
+            print(json.loads(read_blockchain))    
+            open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+            print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+
+
+--> OK, TUDO CERTO,
+
+
+
+NÃO FUNCIONA, MAS NO FUTURO VAMOS ESCREVER UMA COISA QUE 
+
+
+VAI FAZER O STORE DESSE 'timestamp',
+
+o qque 
+consertaará esse problema/erro...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------- OK... ----> agora podemos usar NOSSO
+
+
+
+
+
+
+'block' object LÁ COM 
+
+
+
+'updated_blockchain.append(updated_block).'.....
+
+
+
+
+
+
+
+
+------> ENTRETANTO, VOCê DEVE TER EM MENTE QUE 
+
+
+
+
+
+
+
+
+ESSE 'updated_block' NÃO VAI SER UM DICTIONARY, NÃO VAI 
+
+SER UM NEGÓCIO COMUM... (e sim será um OBJECT/INSTANCE)....
+
+
+
+
+
+
+
+
+
+
+
+--> SERÁ O NOSSO PRÓPRIO 'block object'...
+
+
+
+
+
+
+
+
+--> OK, ADICIONAMOS ISSO À NOSSA BLOCKCHAIN (que é uma list),
+
+
+
+
+
+
+POR MEIO DESTE CÓDIGO:
+
+
+
+
+
+
+'updated_blockchain.append(updated_block)'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ISSO FARÁ COM QUE NOSSA LIST _ AGORA SEJA UMA LIST _DE 
+
+
+
+
+
+OBJECTS, E NÃO MAIS DE DICTIONARIES...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CONTUDO, ISSO TAMBÉM _- SIGNIFIICA QUE TEREMOS DE __ ALTERAR__ NOSSO 
+
+
+
+
+
+
+
+CÓDIGO EM ALGUNS OUTROS LUGARES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... MAS PROSSEGUIMOS...
+
+
+
+
+
+
+--> agora o assunto é transactions:
+
+
+
+
+
+
+ex:
+
+
+
+
+
+   open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+            print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+
+
+----> VAMOS DEIXAR ISSO COMO ESTÁ, POR EQNUANTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO... ---> JA´O GENESIS_BLOCK',
+
+QUE É 
+CRIADO em '1oad_data',
+
+
+
+
+É __ ALGO QUE _ TAMBÉM DEVERÁ _ SER CRIADO_ _ 
+
+
+
+
+
+
+
+
+COM NOSSA CLASS DE 'Block'...
+
+
+
+
+
+
+
+
+
+
+
+
+------> 
+
+
+
+
+
+
+É POR ISSO QUE ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+
+
+genesis_block = Block(parâmetros)...
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+        GENESIS_BLOCK = Block('', 0, [], 100)
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+ 
+
+
+
+
+
+
+
+
+
+
+
+ -----> MAS PARA O 'TIMESTAMP,'
+
+
+
+ VAMOS PASSAR 0... ------> ISSO QPQ 
+
+ O PROFESOR NÃO QUER CONSEGUIR O 'CURRENT TIMESTAMP'... (pq ele não deve ser atualizado TODA HROA),
+
+
+
+
+
+
+ por isso o professor coloca um valor de '0'..
+
+
+
+
+ EX:
+
+
+
+
+
+ 
+
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+ 
+
+
+
+
+
+--> OK, AGORA CONSTRUÍMOS NOSSO GENESIS_BLOCK COM 
+
+
+
+
+
+ESSE OBJECT/CLASS QUE CRIA OBJECTS 'block'...
+
+
+
+
+
+
+
+
+TIPO ISTO:
+
+
+    except IOError: 
+
+       GENESIS_BLOCK = Block('', 0, [], 100)
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+
+
+
+
+
+
+
+
+-------> o timestamp, o ÚLTIMO PARÂMETRO, DEVERÁ SER '0',
+JUSTAMENTE 
+
+PQ 
+
+
+ESSE 
+
+TIMESTAMP DE 0 'shouldnt update all the time'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... LÁ EM 'SAVE_DATA:"
+
+
+
+
+
+
+
+
+
+
+
+--> vamos MANTER O SAVE DATA COMO ESTÁ AGORA,
+
+
+COM ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        with open('blockchain.json', mode='w') as f:
+            f.write(json.dumps(blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(open_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> VEREMOS SE ISSO FUNCIONA..
+
+
+
+
+
+
+
+
+        ---> ESSE CÓDIGO VAI:
+
+
+
+
+        f.write(json.dumps(blockchain)) ------> TENTAR CONVERTER __NOSSA LISTA DE 'OBJECTS' 'block' EM UMA __ STRING _ JSON...
+
+
+
+
+
+
+
+-> veremos se isso funcioan..
+
+
+
+
+
+
+
+
+--> JÁ EM 'valid_proof,'
+
+
+ESTAMOS __ ESPERANDO ALGUNS INPUTS, MAS NÃO ESTAMOS FAZENDO NADA DE ESPECIAL COM OS BLOCKS,
+
+por isso essa function vai ficar assim mesmo...
+
+
+
+
+
+
+
+-------> agora veja 'proof_of_work':
+
+
+def proof_of_work():
+    last_block = blockchain[-1]
+    last_hash = hash_block(last_block)
+    proof = 0
+    while not valid_proof(open_transactions, last_hash, proof):
+        proof += 1
+    return proof
+
+
+
+
+
+
+
+
+
+
+
+    --> nesse código estamos APENAS FAZENDO GET DO ÚLTIMO BLOCK da blockchain,
+
+    AÍ HASHEAMOS 
+
+
+
+
+
+ESSE BLOCK..  (atraavés de 'hash_block()')....
+
+
+
+
+
+
+--> E HASH BLOCK APENAS FAZ A CONVERSÃO DESSE BLOCK EM JSON, nada de mais...
+
+
+
+
+
+
+
+
+
+
+
+-------> 'get_balance '--> ESTAMOS ACESSANDO TODAS AS TRANSACTIONS PARA O NOSSO BLOCK, NA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+-----> MAS AÍ __ ENCONTRAAMOS UM CÓDIGO, em 'get_balance',
+
+QUE VAI FALHAR:
+
+
+
+
+
+def get_balance(participant):  # versão COM O USO DE REDUCE NA NOSSA LIST...
+    transaction_sender = get_value('sender')
+    open_transactions_sender = [transaction['amount']
+                                for transaction in open_transactions if transaction['sender'] == participant]
+    transaction_sender.append(open_transactions_sender)
+
+    print(transaction_sender[0])
+
+    print(transaction_sender)
+
+    amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                         if len(tx_amt) > 0 else tx_sum + 0, transaction_sender, 0)
+
+    print(amount_sent)
+
+    transaction_recipient = get_value('recipient')
+
+    amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                             if len(tx_amt) > 0 else tx_sum + 0, transaction_recipient, 0)
+    print(amount_received)
+    return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -------> É O CÓDIGO DE 
+
+
+
+
+    '''    transaction_sender = get_value('sender') '''' 
+
+
+
+
+
+
+
+
+
+
+    -----> OU SEJA, É NESSA FUNCTION DE 'get_value'
+
+    QUE TEMOS O PROBLEMA...
+
+
+
+
+
+
+
+
+
+    --> FUNCTION DE 'get_value':
+
+
+
+
+
+
+    def get_value(person):
+    return [[transaction['amount'] for transaction in block['processed_transactions'] if transaction[person] == owner] for block in blockchain]
+
+
+
+
+
+
+
+
+
+
+
+
+->  for transaction in block['processed_transactions']
+
+
+
+
+
+
+
+
+------------> ISSO _ VAI _ FALHAR__ PQ _ 
+
+
+
+
+
+
+NÃO É POSSÍVEL _ ACESSAR_ ATTRIBUTES _ _DE 
+
+
+
+1 DETERMINADO BLOCK (que agora é um OBJECT, E NÃO MAIS UM DICT) 
+
+
+
+
+ATRAVÉS DA NOTATION DE '['xxxx']' 
+
+
+(SQUARE BRACKETS NOTATION)....
+
+
+
+
+
+
+
+
+
+
+-> ok... --> ISSO SIGNIFICA QUE __ SE QUISERMOS _ ACESSAR__ ALGUM ATTRIBUTE _ DENTRO __ 
+
+DE NOSSO OBJECT,
+
+SOMOS OBRIGADOS A ESCREVER 
+
+
+'block.processed_transactions'...
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO CONSERTADO FICA ASSIM:
+
+
+
+
+
+# def get_value(person): ###versão com DICTS
+#     return [[transaction['amount'] for transaction in block['processed_transactions'] if transaction[person] == owner] for block in blockchain]
+
+def get_value(person): ###versão com OBJECTS (block) NO LUGAR DE 'dicts'...
+    return [[transaction['amount'] for transaction in block.processed_transactions if transaction[person] == owner] for block in blockchain]
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+----> AS TRANSACTIONS INDIVIDUAIS AINDA SÃO DICTIONARIES, NO ENTANTO.. ---> isso quer dizer que 
+
+
+o 
+
+resto 
+do código 
+
+
+ainda deve funcionar...
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO...  DEVEMOS FAZER A MESMA COISA COM 'transaction_recipient'..
+
+
+
+
+
+
+
+
+MAS ISSO JÁ ESTÁ ENQUADRADO POR MINHA FUNCTION:
+
+
+def get_value(person): ###versão com OBJECTS (block) NO LUGAR DE 'dicts'...
+    return [[transaction['amount'] for transaction in block.processed_transactions if transaction[person] == owner] for block in blockchain]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> 'add_transaction' e 'verify_transaction', NESSAS NÃO TEMOS QUE AJUSTAR NADA...
+
+
+
+
+
+
+
+
+
+--> 'mine_block' --> aqui certamente TEMOS QUE INTERAGIR COM BLOCKS...
+
+
+
+
+
+
+
+
+-> MAS EU JÁ FIZ ISSO:
+
+
+
+
+    block = Block(hashed_block, len(blockchain), copied_transactions, proof)
+
+
+
+
+
+
+
+
+
+
+
+--> COMO O 'timestamp' SERÁ GERADO AUTOMATICAMENTE,
+
+NÃO PASSAMOS NADA (aí será usado o valor de 'time()" lá do constructor)...
+
+
+
+
+
+
+
+
+
+
+
+
+get_transaction_value
+
+
+
+
+e 
+
+
+get_user_choice
+
+
+
+
+
+
+
+--> não há o que mudar...
+
+
+
+
+
+
+
+
+
+OK, MAS AQUELA FUNCTION 'print_blockchain_elements',
+
+
+
+TEM UM PROBLEMA.... --> ELA VAI FUNCIONAR, MAS SEU PRINT N SERÁ BONITO... eis o código:
+
+
+
+
+def output_blockchain():
+    for block in blockchain:
+        print('Outputting block')
+        print(block)
+    else:
+        print('-' * 20)
+
+
+
+
+
+
+
+
+
+
+---> o PRINT VAI SER AQUELE PRINT QUE DIZ A 'LOCATION' do 
+
+elemento block (de cada elemento block, no caso, pq são objects que loopamos por dentro)...
+
+
+
+
+
+
+
+
+-----> PARA CONSEGUIRMOS UM OUTPUT BONITO DE cada 'block',
+
+PRECISAMOS/PRECISARÍAMOS __ 
+
+
+ALTERAR O '__repr__' DA CLASS 
+
+'block'..
+
+
+
+
+
+
+----> E POEDMOS FAZER ISSO, TIPO ASSIM:
+
+
+
+
+
+
+
+    def __repr__(self):
+        return '{{previous_block_hash: {}, index: {}, processed_transactions: {}, proof: {}, timestamp: {} }}'.format(self.previous_block_hash, self.index, self.processed_transactions, self.proof, self.timestamp)
+
+
+
+
+
+
+
+
+
+------> SÓ NÃO SEI SE ESSE CÓDIGO FUNCIONA/FUNCIONARÁ...
+
+
+
+
+
+
+
+
+ESTOU COM ESTE ERRO:
+
+
+
+Please choose an option: m
+[{previous_block_hash: , index: 0, processed_transactions: [], proof: 100, timestamp: 0 }]
+Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 695, in <module>
+    if mine_block():
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 541, in mine_block
+    hashed_block = hash_block(previous_block)
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\hash_util.py", line 8, in hash_block
+    hash_string_256(json.dumps(block, sort_keys=True).encode())
+  File "C:\Python310\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "C:\Python310\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Python310\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Python310\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type Block is not JSON serializable
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso está acontecendo quando TENTO MINERAR UM 
+
+
+BLOCK.... --> 
+
+
+
+
+
+
+
+tvz seja necessário CONVERTER NOSSO OBJECT 'Block'
+
+
+EM 
+
+1 
+
+OBJECT TYPE _PYTHON _ SUPORTADO_ PELA FEATURE DE 'JSON ENCODE/SERIALIZE'...
+
+
+
+
+
+
+
+
+
+ok, mas como fazer isso?
+
+
+
+
+talvez  com alguma COMPREHENSION, ou então com um FOR LOOP?
+
+
+
+
+
+
+
+
+
+
+--> TALVEZ A MELHOR OPÇÃO SEJA USAR UM 'block.__dict__ '(isso vai nos retornar o DICTIONARY FORMADO A PARTIR DESSE OBJECT)...
+
+
+
+
+
+
+
+
+
+
+--> verify_chain TAMBÉM PRECISA DE UM LEVE AJUSTE:
+
+
+
+
+def verify_chain():
+    print(blockchain)
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        if block['previous_block_hash'] != hash_block(blockchain[index - 1]):
+            return False
+
+        if not valid_proof(block['processed_transactions'][:-1], block['previous_block_hash'], block['proof']):
+            print('Proof of work is invalid.')
+            return False
+    return True
+
+
+
+
+
+
+
+    --> TROCAMOS 'block['previous_block_hash'] por 
+
+
+
+    BLOCK.previous_block_hash...
+
+
+
+
+
+
+
+
+
+
+
+
+    -----> DEVEMOS COLOCAR A DOT NOTATION EM MAIS PARTES DESSE CCÓDIGO DE 'VERIFY',
+
+
+    pq 
+
+    AGORA ESTAMOS USANOD OBJECTSa...
+
+
+
+
+
+
+
+
+
+
+    ---> testamos nosso código...
+
+
+
+
+
+
+
+
+    --->  O PROFESSOR EXPLICA QUE O 'LOAD' DE BLOCKS NÃO FUNCIONARÁ,
+
+
+
+    n funcionará por conta dos 'timestamps'...
+
+
+
+
+
+
+
+
+
+    --> PROFESSOR  VAI REMOVER O ARQUIVO 'blockchain.json',
+
+    PARA QUE ISSO SEJA RECRIADO...
+
+
+
+
+
+
+
+
+
+    --> CRASHOU NO DELE TAMBÉM.. --> 'OBJECT OF TYPE BLOCK IS NOT JSON SERIALIZABLE'...
+
+
+
+
+
+
+
+
+
+    -> PROFESSOR DIZ QUE ESSE ERRO É BEM CLARO:
+
+
+
+
+
+
+
+    DERIVA DE NOSSA FUNCTION DE HASHING,
+
+
+    aqueel 
+
+    'hashed_block = hash_block(last_block)'.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> O PROBLEMA, É CLARO,
+
+
+
+    É 
+
+    QUE 
+
+
+    _eSTAMSO TENTANDO CONVERTER O BLOCK EM JSON...
+
+
+
+
+
+
+
+
+
+    -> E ISSO ESTÁ _ FALHANDO__>.. . ->_ VEREMOS __ COMO CONSERTAR ISSO, NA PRÓXIMA AULA...
+    

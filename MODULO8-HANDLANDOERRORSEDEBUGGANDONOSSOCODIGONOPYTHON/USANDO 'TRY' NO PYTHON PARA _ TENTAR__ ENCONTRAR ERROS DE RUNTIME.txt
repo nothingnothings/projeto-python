@@ -1,0 +1,1265 @@
+
+
+
+
+
+
+TRY-EXCEPT-FINALLY...
+
+
+
+
+
+
+
+--> OK... DEMOS UMA OLHADA EM 'ERROS LÓGICOS' (use o debugger) 
+
+
+
+
+
+e ERROS DE SINTAXE (leia as mensagens de erro)...
+
+
+
+
+
+
+
+AMBOS SÃO SUPER IMPORTANTES, DEVEM SER ENCONTRADOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------>MAS VOCÊ TAMBÉM PODE TER ERRORS
+
+
+
+
+
+
+EM LINHAS DE CÓDIGO COMO AQUELA 
+
+DE 
+
+
+
+
+
+
+'with open('blockchain.txt', mode='r') as f' 
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCê NÃO TIVER NENHUM ARQUIVO DE TEXTO COM ESSE NOME,
+
+
+ESSE __ CÓDIGO_  VAI CRASHAR..
+
+
+
+
+
+
+
+
+
+
+
+--> O ERROR SERÁ DE ''No such file or directory''.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ESSE NÃO É UM ERRO DE SINTAXE,
+
+
+
+NEM UM ERRO LÓGICO,
+
+
+
+E SIM UM ERRO DE 'FILE NOT FOUND',
+
+
+UM DOS BUILTIN ERRORS DO PYTHON...
+
+
+
+
+
+
+
+
+
+
+--> MAS COMO PODEMOS HANDLAR ERROS COMO ESSES? 
+
+
+
+
+
+
+
+
+
+
+--> pq obviamente podemos codar um programa como esses,
+
+que tenta acessar uma file que NÃO PODEMOS GARANTIR QUE EXISTIRÁ 100% DAS VEZES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+O PYTHON NOS DÁ OUTRO STATEMENT,
+
+
+O 
+
+
+'try statement'...
+
+
+
+
+
+
+
+
+
+
+
+-> NÓS ESCREVEMOS 
+
+
+'try:' 
+
+
+
+
+E AÍ __ INDENTAMOS A COISA/CÓDIGO QUE QUEREMOS QUE SEJA 'TRIED'...
+
+
+
+
+
+ex:
+
+
+
+
+
+def load_data():
+
+
+try:
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain)
+        updated_blockchain = []
+        for block in blockchain:
+            updated_block = {
+                'previous_block_hash': block['previous_block_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'processed_transactions': [OrderedDict(
+                    [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+            }
+            updated_blockchain.append(updated_block)
+        blockchain = updated_blockchain
+        # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+        open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+        # open_transactions = json.loads(read_transactions)
+        
+        print(json.loads(read_transactions))
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+--> TESTAMOS ESSE WITH STATEMENT INTEIRO,
+
+
+PQ ESSE WITH STATEMENT INTEIRO __ _DEPENDE_ DE NOSSO ARQUIVO SENDO LIDO CORRETAMENTE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ESSE 'try',
+
+JÁ ESTAMOS TESTANDO ESSE CÓDIGO... --MAS É CLARO QUE 
+
+
+
+PRECISAMOS DE UMA 'SEGUNDA PARTE',
+
+
+o código que 
+
+
+É EXECUTADO _ NA HIPÓTESE EM QUE ESSE  CÓDIGO 'tried'
+
+FALHAR/UM ERRO ACONTECER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA ISSO,
+
+
+NÃO TEMOS 'catch',
+MAS SIM 
+
+
+
+'except'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> O 'except' VAI FAZER ALGO QUANDO __ ALGUM ERRO _ ESPECIAL __ ACONTECER..
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+TEMOS QUE __ DEFINIR __ 
+
+
+
+
+QUAL __ ERRO __ VAMOS QUERER __ HANDLAR NESSE 'except'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> UM EXEMPLO DISSO, QUE O PROFESSOR NOS MOSTRA AGORA,
+
+É UM 
+
+
+ERRO DE 
+
+'IOE'... 
+
+
+
+
+
+
+
+
+
+
+
+IOE --> É UM ERROR __ BUILT-IN NO PYTHON,
+
+E QUE 
+
+BASICAMENTE 
+
+'AGRUPA'
+
+
+
+TODOS OS 'FILE-RELATED ERRORS'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, NOSSO CÓDIGO FICARÁ ASSIm:
+
+
+
+def load_data():
+
+
+try:
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain)
+        updated_blockchain = []
+        for block in blockchain:
+            updated_block = {
+                'previous_block_hash': block['previous_block_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'processed_transactions': [OrderedDict(
+                    [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+            }
+            updated_blockchain.append(updated_block)
+        blockchain = updated_blockchain
+        # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+        open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+        # open_transactions = json.loads(read_transactions)
+        
+        print(json.loads(read_transactions))
+except IOError:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É 'IOError'...
+
+
+
+
+
+
+
+
+
+
+O QUE SIGNIFICA ISSO?
+
+
+é 
+
+
+
+'INPUT/OUTPUT ERROR'... (erros relativos a ARQUIVOS)...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+try:
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain)
+        updated_blockchain = []
+        for block in blockchain:
+            updated_block = {
+                'previous_block_hash': block['previous_block_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'processed_transactions': [OrderedDict(
+                    [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+            }
+            updated_blockchain.append(updated_block)
+        blockchain = updated_blockchain
+        # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+        open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+        # open_transactions = json.loads(read_transactions)
+        
+        print(json.loads(read_transactions))
+except IOError: #VAI FAZER CATCH DE QUAISQUER 'INPUT/OUTUPT' errors que ocorrerem nesse block de 'try' (são erros especiais, que devem ser handlados por um except block como esse)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O QUE O PROFESSOR DIZ QUE PODEMOS FAZER, ENTÃO,
+
+
+É 
+
+
+talvez printar algo como 
+
+
+
+'File not found!'
+
+
+
+
+
+
+
+
+
+
+
+
+
+------>  OK.... AÍ __ EXECUTAMOS NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+--> QUAL É A DIFERENÇA DE FAZER ISSO PARA O ERRO ACONTECER NORMALMENTE?
+
+
+É 
+
+
+QUE SE O ERROR OCORRER NORMALMENTE,
+
+ELE 
+
+SERÁ 
+
+
+'UNHANDLED', O QUE QUER DIZER QUE 
+
+
+__ ELE __ CRASHARÁ _ O NOSSO APP...
+
+
+
+
+
+
+
+
+
+
+
+--> QUANDO USAMOS UM 
+
+
+try-except BLOCK,
+
+
+
+
+NÓS __ FAZEMSO COM QUE ELE SEJA HANDLED,
+
+O QUE 
+QUER DIZER QUE 
+
+ELE __ NÃO VAI CRASHAR O APP..
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O RUNTIME DE NOSSO APP __ SÓ SERÁ INTERROMPIDO, 
+
+
+
+NO MEIO DESSE 'try' block,
+
+
+
+SE OCORRER ALGUM ERRO LÓGICO....
+
+
+
+
+
+
+
+
+
+-> ISSO QUER DIZER QUE NÓS FAZEMOS 'RECOVER GRACEFULLY'...
+
+
+
+
+
+
+
+
+
+
+
+OK, DEU CERTO:
+
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO8-HANDLANDOERRORSEDEBUGGANDONOSSOCODIGONOPYTHON> python blockchain10debugging.py
+File not found!
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain 
+3: Show participants
+b: Show user's balance        
+h: Manipulate the chain       
+m: Mine a block
+q: Quit the program
+v: Verify open transactions   
+------------------------------
+Please choose an option:      
+
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+------> 
+
+
+
+
+
+
+
+
+ESTAMOS FAZENDO CATCH DESSE ERROR AÍ, SIM...
+
+
+
+
+
+
+
+
+
+
+
+-->  MAS VOCÊ DEVE TER EM MENTE OUTRO DETALHE:
+
+
+
+
+
+
+*** SE ESTIVERMOS FAZENDO CATCH DE OUTRO ERROR AQUI,
+
+
+COMO POR EXEMPLO 
+
+
+
+um 
+
+
+
+'ValueError'  ( ESSE TIPO DE ERRO É DETECTADO SE '''VOCÊ TENTA ADICIONAR UMA __ STRING__ A UMA INTEGRAL''') 
+
+
+
+
+
+
+
+
+--> SE TENTARMOS FAZER CATCH DE ESSE TIPO DE ERROR, E AÍ 
+
+
+
+CONTINUARMOS COM NOSSO CÓDIGO (em que TENTAMOS CARREGAR UMA FILE __ QUE NÃO EXISTE),
+
+
+
+
+O CÓDIGO/RUNTIME __ AINDA VAI CRASHAR,
+
+
+
+
+
+
+PQ 
+
+
+O 
+
+
+ERRO 
+
+DE 
+
+'
+FILE NOT FOUND',
+
+QUE 
+
+
+FAZ 
+
+
+PARTE 
+
+
+DESSE GRUPO DE ERRORS 
+
+'IOError',
+
+
+
+__ NÃO __ TERÁ 
+
+
+SIDO HANDLADO..
+
+
+
+
+
+
+
+
+
+
+
+
+-----> 'ValueError' 
+NÃO TEM RELAÇAÕ COM 
+
+
+OS 
+
+ERROS DE 'File not found'...
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO QUER DIZER QUE 
+
+o 'except' _ APENAS__ HANDLA__ ERRORS QUE VOCê REALMENTE ESPECIFICAR, BEM ESPECIFICAMENTE, no seu block/parâmetro...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO CASO, VOCê PODE __ ESPECIFICAr_ _ MÚLTIPLOS __ 
+
+
+
+
+TIPOS DE ERRORS, BASTA USAR UM '()' e então ELENCAR OS TIPOS DE ERRORS QUE VOCÊ VAI QUERER HANDLAR:
+
+
+try:
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain)
+        updated_blockchain = []
+        for block in blockchain:
+            updated_block = {
+                'previous_block_hash': block['previous_block_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'processed_transactions': [OrderedDict(
+                    [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+            }
+            updated_blockchain.append(updated_block)
+        blockchain = updated_blockchain
+        # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+        open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+        # open_transactions = json.loads(read_transactions)
+        
+        print(json.loads(read_transactions))
+except (IOError, ValueError): 
+    print('File not found!')
+
+
+
+
+
+--> É ASSIM QUE 
+
+V
+OCê PODE 
+
+USAR 
+
+
+O 
+
+
+STATEMENT DE 'except'....
+
+
+
+
+
+
+
+
+
+
+
+------> VOCê TAMBÉM PODE HANDLAR DIFERENTES TIPOS DE ERROS DE FORMAS DIFERENTES, BASTA 
+
+ADICIONAR MÚLTIPLOS EXCEPT STATEMENTS...
+
+
+
+
+
+
+
+
+
+por fim, temos ESSAS HIPÓTESES:
+
+
+
+
+
+
+    except IOError: #VAI FAZER CATCH DE QUAISQUER 'INPUT/OUTUPT' errors que ocorrerem nesse block de 'try' (são erros especiais, que devem ser handlados por um except block como esse)...
+    # except (IOError, ValueError):    #podemos elencar mais um 'TYPE' de error a ser 'CATCHED' por esse nosso block... basta escrever dentro desse '()'..
+        print('File not found!') #com isso, será printada essa mensagem em casos desse tipo de error, mas o APP NÃO CRASHARÁ... (handled error, em vez de unhandled)...
+    except ValueError:
+        print('You cannot do that, so you get a Value Error.') #podemos adicionar múltiplos except cases, 
+    except:
+        print('You cannot do that, so you get a generic error. WILDCARD ERROR') # WILDCARD except case, que vai HANDLAR TODOS OS ERRORS QUE NÃO FOREM 'CAUGHT'/handlados nos cases anteriores, mais específicos...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja,
+
+VOCê PODE 
+
+
+ESCREVER MÚLTIPLOS 'EXCEPT' cases, para HANDLAR DIFERENTES TIPOS DE ERRORS...  (rodar códigos diferentes a partir dos diferentes errors que você receber)
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, VOCê PODE TAMBÉM ADICIONAR UM EXCEPT CASE 'GENÉRICO', 
+
+'WILDCARD',
+
+QUE 
+
+VAI 
+
+
+__ FAZER HANDLE _ _DE TODOS OS ERRORS QUE NÃO FOREM 
+
+HANDLADOS/CAUGHT 
+
+
+PELOS EXCEPT CASES ANTERIORES...
+
+
+
+
+
+
+
+
+
+ENTRETANTO, VOCÊ DEVE TER MUITO CUIDADO COM ESSE EXCEPT CASE GENÉRICO,
+
+
+
+
+PQ O 'HANDLE EXAGERADO DE ERRORS TAMBÉM NÃO É BOM'  ( 
+
+
+    se você tenta abrigar todos os errors sob um mesmo guarda-chuva,
+
+
+    você pode ficar SEM INPUT SOBRE O QUE REALMENTE CAUSOU ESSE ERROR....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... ANTES DE ENTENDERMOS A RAZÃO DE O HANDLE DE ERRORS DEMAIS 
+
+NÃO 
+
+
+SER 
+
+TÃO BOA,
+
+
+
+DEVEMOS 
+
+
+
+COMPLETAR  
+
+
+
+
+
+
+
+
+
+ESSE NOSSO 
+
+
+'try-except' STATEMNET..
+
+
+
+
+
+
+
+
+
+--> NESSE TIPO DE STATEMENTS,
+
+
+HÁ 
+
+
+TAMBÉM 
+MAIS UM 
+
+TIPO DE BLOCK/parte,
+
+
+
+
+
+QUE É 
+
+
+
+
+'FINALLY'...
+
+
+
+
+
+
+
+
+
+
+
+PORTANTO, O CONJUNTO COMPLETO DE STATEMENTS É 
+
+
+
+
+
+try-except-finall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> O FINALLY É UM BLOCK QUE _ SEMPRE TERÁ SEU CÓDIGO EXECUTADO (ou seja, é SIMILAR AO 'else:' LÁ NOS WHILE LOOPs)..
+
+
+
+
+
+
+EX:
+
+
+# o FINALLY é um block/statement em try-except __ CUJO __ CÓDIGO SEMPRE É EXECUTADO, TANTO FAZ SE OCORRERAM ERROS/FORAM CATCHEADOS ERRORS OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> O FINALLY _É ÓTIMO PARA 
+
+
+
+FAZER 
+
+'CLEAN-UP WORK',
+
+
+
+para 
+
+
+
+EXECUTAR CÓDIGOS/COISAS QUE 
+
+
+
+DEVERÃO 
+
+
+SER 
+
+FEITAS 
+
+
+NÃO IMPORTANDO 
+
+
+
+SE UM 
+
+ERROR OCORREU OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O CÓDIGO QUE RODA NESSE BLOCK NÃO DEVE 'BUILDUP' 
+
+
+
+A PARTIR DO CÓDIGO QUE FALHOU...
+
+
+
+
+
+
+
+
+
+
+-> É BOM PARA TASK GERAIS QUE VOCÊ QUER EXECUTAR TANTO EM SUCCESS COMO ERROR CASES...
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def load_data():
+    # """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    #     if (not os.path.isfile('blockchain.json')):  ##error handling caseiro, que eu escrevi...
+    #         print('No blockchain file detected, loading starting blockchain...')
+    #         return
+    try:
+        with open('blockchain.json', mode='r') as g:
+            read_blockchain, read_transactions = g.readlines()
+            global blockchain
+            global open_transactions
+            blockchain = json.loads(read_blockchain)
+            updated_blockchain = []
+            for block in blockchain:
+                updated_block = {
+                    'previous_block_hash': block['previous_block_hash'],
+                    'index': block['index'],
+                    'proof': block['proof'],
+                    'processed_transactions': [OrderedDict(
+                        [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+                }
+                updated_blockchain.append(updated_block)
+            blockchain = updated_blockchain
+            # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+            print(json.loads(read_blockchain))
+            # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+            open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+            # open_transactions = json.loads(read_transactions)
+            
+            print(json.loads(read_transactions))
+    except IOError: #VAI FAZER CATCH DE QUAISQUER 'INPUT/OUTUPT' errors que ocorrerem nesse block de 'try' (são erros especiais, que devem ser handlados por um except block como esse)...
+    # except (IOError, ValueError):    #podemos elencar mais um 'TYPE' de error a ser 'CATCHED' por esse nosso block... basta escrever dentro desse '()'..
+        print('File not found!') #com isso, será printada essa mensagem em casos desse tipo de error, mas o APP NÃO CRASHARÁ... (handled error, em vez de unhandled)...
+    except ValueError:
+        print('You cannot do that, so you get a Value Error.') #podemos adicionar múltiplos except cases, 
+    except:
+        print('You cannot do that, so you get a generic error. WILDCARD ERROR') # WILDCARD except case, que vai HANDLAR TODOS OS ERRORS QUE NÃO FOREM 'CAUGHT'/handlados nos cases anteriores, mais específicos...
+        #MAS CUIDADO COM ESSE EXCEPT CASE GENÉRICO/WILDCARD, PQ O HANDLE __ DE ERROS EXAGERADO __ TAMBÉM _ NÃO É BOM (handle de 'too many errors' também é ruim)
+  
+    finally:# o FINALLY é um block/statement em try-except __ CUJO __ CÓDIGO SEMPRE É EXECUTADO, TANTO FAZ SE OCORRERAM ERROS/FORAM CATCHEADOS ERRORS OU NÃO...
+        # é por isso que os blocks de 'finally' SÃO BONS DE SEREM USADOS PARA 'clean-up work'..
+        print('Your data was or was not loaded. See error statements')
+        print('clean-up work')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA SE EXECUTARMOS NOSSO CÓDIGOO,
+
+VAMOS 
+
+
+RECEBER TANTO 
+
+'file not found!'
+
+
+como 
+
+'clean-up work',
+
+
+
+PQ 
+
+
+ADICIONAMOS ESSE BLOCK DE FINALLY, com esse print...

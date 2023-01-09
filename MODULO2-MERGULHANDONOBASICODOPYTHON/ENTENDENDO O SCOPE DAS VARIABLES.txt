@@ -1,0 +1,881 @@
+
+
+
+
+
+
+
+
+
+
+
+--> VARIABLE SCOPE...
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS UM MONTE SOBRE FUNCTIONS, E TBM SOBRE O HANDLE DE USER INPUT...
+
+
+
+
+
+
+
+
+
+--> MAS HÁ 1 CONCEITO QUE JÁ USAMOS, E QUE AGORA O PROFESSOR QUER QUE COMPREENDAMOS...
+
+
+
+
+
+
+
+
+
+
+
+---> TEMOS GLOBAL E LOCAL SCOPE..
+
+
+
+
+
+
+
+
+
+
+
+
+--> GLOBAL SCOPE -> SE DEFINIMOS UMA VARIABLE NO ROOT LEVEL,
+
+E NÃO DENTRO DE UMA FUNCTION,
+
+
+AÍ 
+
+PODEMOS USAR 
+
+ESSA VARIABLE EM 
+
+
+
+QUALQUER LUGAR DE NOSSO CÓDIGO, ATÉ MESMO 
+
+
+EM LOCAIS _ EXTERIORES AO NOSSO CÓDIGO (COM IMPORTS)..
+
+
+
+
+
+
+
+
+
+
+
+
+--> EX:
+
+
+
+
+name = 'Max'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> JÁ LOCAL VARIABLES __ SÃO VARIABLES QUE SÓ EXISTEM DENTRO DE FUNCTIONS....
+
+
+
+
+
+
+
+
+--> ESSES SÃO OS PARÂMETROS E VARIABLES QUE CRIAMOS DENTRO DE FUNCTIONS...
+
+
+
+
+
+
+ex:
+
+
+
+def greet(par1, par2):
+    variable = 'your name' 
+    print(par1, par2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ESSAS COISAS SÓ EXISTEM DENTRO DE NOSSA FUNCTION DE 'greet()'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    blockchain=[] -------> É UM EXEMPLO DE GLOBAL VARIABLE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> se tentarmos outputtar uma LOCAL variable _ FORA__ DE NOSSA FUNCTION,
+
+
+ISSO NÃO FUNCIONARÁ..
+
+
+
+
+
+
+
+
+
+
+
+ex: 
+
+
+
+
+print(transaction_amount)....
+
+
+
+
+
+
+
+
+
+
+ok... eu já sabia disso...
+
+
+
+
+
+
+
+
+
+
+
+
+
+VARIABLES SÃO UM CONCEITO KEY QUE VOCÊ DEVE TER EM MENTE: 
+
+
+
+
+
+
+
+
+essas coisas só ficam disponíveis DENTRO DE FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS HÁ MAIS UMA COISA IMPORTNATE QUE VOCÊ DEVE SABER _ sOBRE_ GLOBAL E LOCAL SCOPE
+
+
+
+
+NO PYTHON...
+
+
+
+
+
+
+
+
+--> PROFESSOR MOSTRARÁ ISSO NO REPL:
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> definimos uma function 
+
+
+
+com 
+
+
+
+
+
+
+
+
+
+    def print_name()
+
+
+
+
+
+
+
+
+
+
+        --> AÍ PODEMOS DEFINIR UMA LOCAL VARIABLE, NESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --------> SAÍMOS DO BODY COM ENTER 2x --> 
+
+
+
+
+
+
+
+        aí rodamos print_name(),
+
+        que outputta 
+
+
+        MAX....
+
+
+
+
+
+
+
+
+
+
+
+
+        --> MAS AGORA VAMOS DEFINIR UM 
+
+
+
+
+        'name = 'Manu',
+
+        NO CONTEXTO GLOBAL...
+
+
+
+
+
+
+
+
+        --> AÍ VAMOS TENTAR USAR ESSA FUNCTION COM ESSE 'name' local...
+
+
+        ex:
+
+
+
+        >>> name='Manu'
+>>> print_name()
+Max
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+
+
+A FUNCTION 'MAIS LOCAL'
+
+
+
+
+,
+
+
+
+
+A VARIABLE MAIS LOCAL SERÁ USADA NO LUGAR DA GLOBAL....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO TE PERMITE __ SUBSTITUIR O VALOR GLOBAL POR UM VALOR LOCAL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.. MAS O PROFESSOR VAI MOSTRAR OUTRa coisa:
+
+
+
+
+
+
+
+
+
+
+digamos que temos o 'name= Manu'
+
+
+
+no contexto global...
+
+
+
+
+
+
+
+
+
+
+--> aí definimos UMA NOVA FUNCTION, TALVEZ 'get_name():'
+
+
+
+
+
+
+
+
+
+
+
+-> AÍ DENTRO DELA VAMOS ESCREVER O 'GET' DE UM INPUT pelo user..
+
+
+
+
+
+eX:
+
+
+
+
+
+def get_name():
+    name = input('Type your name: ')
+
+
+
+
+
+
+
+
+
+    --> ISSO VAI ARMAZENAR QUALQUER COISA QUE DIGITARMOS _ DENTRO DESSA VARIABLE de 'name'...
+
+
+
+
+
+
+
+    ------> isso feito,
+
+
+    FORA DA FUNCTION VAMOS EXECUTAR 
+
+
+    'get_name()',
+
+    para 
+
+    podermos inputtar esse negócio... 
+
+
+
+
+
+    --> DEPOIS QUE DIGITARMOS NOSSO NOME,
+
+    VAMOS QUERER O PRINTAR COM 'print(name)'..
+
+
+
+
+
+
+
+
+    OK, A EXECUÇÃO FICA ASSIM:
+
+
+
+
+
+>>> def get_name():
+...     name = input('Type your name: ')
+... 
+>>> 
+>>> get_name()
+Type your name: Arthur
+>>> print(name)
+Manu
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OLHE QUE CURIOSO...
+
+
+
+
+
+
+
+
+--> O DEFINE DE 'name' __LOCAL__ NÃO VAI SUBSTITUIR O 'name' 
+
+
+__GLOBAL__...
+
+
+
+
+
+
+
+
+--> MAS PQ ISSO?
+
+
+
+
+
+--> A RAZÃO DISSO É QUE 
+SE VOCê 
+
+
+
+
+__ USAR_ __ UMA VARIABLE_ _DENTRO DE UMA FUNCTION,
+
+E AÍ VOCê FIZER 'ASSIGN' DE UM VALUE A ESSA VARIABLE (como 'name= input(xxx)' ) ,
+
+
+
+
+
+
+
+
+
+
+E ASSIGNS SÃO SEMPRE DEFINIDOS COM ('=', UM ÚNICO EQUAL SIGN)
+
+
+
+
+,
+
+
+
+SEMPRE QUE VOCÊ FIZER ISSO DENTRO DE UMA FUNCTION,
+
+
+
+
+
+__ A FUNCTION __ SEMPRE VAI __ 
+
+
+'DEFINE A LOCAL VARIABLE'
+
+
+e vai armazenar esse valor DENTRO DESSA LOCAL VARIABLE 
+
+(
+
+
+    ou seja,
+
+    ALGO BEM DIFERENTE DAQUILO QUE VEMOS COM O JAVASCRIPT, EM QUE 
+
+    A VARIABLE GLOBAL __ PODE __ SER AFETADA_ por códigos dentro de functions...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+ESSE VALUE QUE VOCÊ OBTEVE POR 'input()"
+
+NÃO VAI
+
+
+
+SUBSTITUIR O VALOR QUE VOCÊ TEM EM 'name' global,
+
+
+
+MESMO _ QUE O NOME DAS 2 VARIABLES SEJA IGUAL...
+
+
+
+
+
+
+
+
+
+EXEMPLO DO JAVASCRIPT:
+
+
+
+
+
+
+
+
+let example3 = 'example'
+
+
+function changeExample2() {
+    example = 'example5'
+}
+
+
+changeExample2()
+
+function changeExample5(){
+    example3 = 'example2'
+}
+
+
+changeExample5()
+undefined
+example3 -------> VALOR VIROU 'example2'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> SE VOCê QUER __ FORÇAR__ O PYTHON A FAZER UMA COISA DESSAS,
+
+
+
+
+
+SE VOCê QUISER__ ARMAZENAR _ ESSE __ VALOR EM 1 'GLOBAL VARIABLE' em vez de 
+
+o 
+
+armazenar em uma VARIABLE LOCAL,
+
+
+
+
+
+
+
+
+
+
+HÁ __ UMA KEYWORD_ _ ESPECIAL QUE __ 
+
+
+
+PODEMOS__ E ___ DEVEMOS__ UTILIZAR....
+
+
+
+
+
+
+
+
+
+
+
+
+QUE KEYWORD É ESSA? 
+
+
+
+
+
+-> é 'global' + 'nome da variável'....
+
+
+
+
+
+
+
+o professor quita o repl e escreve no repl:
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>> name="Max"
+>>> def get_name():
+...     global name 
+...     name = 'MANU'
+... 
+>>> 
+>>> get_name()
+>>> name
+'MANU'
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OU SEJA,
+
+
+
+
+
+
+_ IMPORTANTE:
+
+
+
+
+
+
+SE QUEREMOS ___ MUDAR __ O VALOR __ DE UMA VARIABLE GLOBAL,
+
+
+PRIMEIRAMENTE PRECISAMOS _ COMUNICAR_ AO PYTHON,
+
+
+por meio da escrita 
+
+
+
+'global name' (ou qualquer outro nome de variable)...
+
+
+
+
+
+
+
+
+
+-> ISSO FEITO,
+
+VOCÊ DEVE PULAR UMA LINHA E AÍ __ ESCREVER A DEFINIÇÃO DO NOVO VALOR, nessa variable global...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> É POR ISSO QUE CONSEGUIMOS REDEFINIR 'Max' como sendo 'MANU'...
+
+
+
+
+
+
+
+
+PODEMOS FAZER A MESMA COISA COM UM 'input', tipo assim:
+
+
+
+
+>>> def get_name2():
+...     global name
+...     name = input('Your name, please: ')
+... 
+>>> get_name2()
+Your name, please: Arthur
+>>> 
+>>> name
+'Arthur'
+>>>
+
+
+

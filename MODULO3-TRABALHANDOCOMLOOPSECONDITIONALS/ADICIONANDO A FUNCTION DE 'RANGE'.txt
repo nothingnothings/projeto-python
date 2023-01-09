@@ -1,0 +1,1457 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> SE VOCÊ DER UMA OLHADA NO NOSSO METHOD DE 'verify_blockchain',
+
+
+ VERÁ QUE POSSUI ESTE CÓDIGO:
+
+
+
+
+ 
+
+
+
+
+
+
+ def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block_index == 0:
+            block_index += 1  # incrementa 1 unidade.
+            continue
+        elif block[0] == blockchain[block_index - 1]:
+            print('true')
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        # sempre teremos de incrementar esse valor, para que nossa comparação ali em cima FUNCIONE....
+        block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -------> NESSE CÓDIGO, TEMOS UM LOOP.... -> SE VOCÊ VEIO DE OUTRA LINGUAGEM DE PROGRAMAÇÃO,
+
+
+    TVZ 
+
+    VOCÊ ESTEJA SE PERGUNTANDO:
+
+
+
+
+
+    ''NÃO TEM NENHUM FOR LOOP 
+
+
+    EM QUE 
+
+
+
+    VOCÊ NÃO TEM ESSE 'index' aí (block_index) 
+
+
+
+    BUILT-IN? '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> A RESPOSTA, COMO O 'SWITCH STATEMENT', É ___ NO___....
+
+
+
+
+
+
+
+
+
+
+
+    --> NO PYTHON,
+
+
+    NÃO EXISTEM FOR LOOPS COM 
+
+
+
+    UM INDEX/ITERATOR __ BUILTIN__ ( ou seja, não há coisas como 'i' do javascript)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    exemplo javascript:
+
+
+
+
+
+
+
+    for(i = 0; i < 10; i++) 
+
+
+
+
+
+
+
+
+
+
+
+
+    '''ATÉ QUE O ITERATOR SEJA DE 10, CICLO 10,
+
+
+    INCREMENTE NOSSO ITERATOR POR 1 ÚNICA VEZ'''...
+
+
+
+
+
+
+
+
+
+
+
+------> NÃO EXISTE NENHUM FOR LOOP ASSIM NO PYTHON;
+
+
+NÃO HÁ NENHUM 
+
+
+
+LOOP COM UM ITERATOR/INDEX __ BUILT-IN...
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO,
+
+
+
+
+
+HÁ __ UMA FUNCTION ESPECIAL,
+
+
+CHAMADA DE 
+
+'range()',
+
+
+QUE PODEMOS 
+
+USAR 
+
+PARA 
+
+'
+CHEGAR LÁ'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> VAMOS VER COMO ISSO FUNCIONA....
+
+
+
+
+
+
+
+
+
+
+
+-> REESCREVEREMOS NOSSA FUNCTION DE 'verify_chain'
+
+
+COM A AJUDA 
+
+
+DE 
+
+
+'range()':
+
+
+
+
+
+
+
+
+
+
+
+ def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block_index == 0:
+            block_index += 1  # incrementa 1 unidade.
+            continue
+        elif block[0] == blockchain[block_index - 1]:
+            print('true')
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+O PROFESSOR VAI NOVAMENTE USAR A KEYWORD DE 'for'...,
+
+
+
+
+
+
+para criar um for loop..
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEITO, ELE VAI _ _REMOVER___ AQUELA VARIÁVEL DE 'block_index = 0',
+
+
+
+
+
+
+
+E AÍ VAI COMENTAR PARA FORA TODO NOSSO CÓDIGO....
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+fica só assim:
+
+
+
+
+
+
+
+
+
+
+def verify_chain():
+    is_valid = True
+    for block_index 
+
+
+
+
+
+
+
+
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+    --------------------------
+
+
+
+
+
+
+
+--> OK, ESTAMOS CRIANDO UM NOVO FOR LOOP.... --> UM FOR LOOP EM QUE 
+
+
+VAMOS 
+
+
+
+PEGAR O ACTUAL 'block_index' 
+
+
+
+EM VEZ DO 'BLOCK' em si....
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA CONSEGUIR ESSE INDEX DOS ELEMENTOS NO LOOP,
+
+
+EU AINDA VOU USAR AS KEYWORDS de 'for' e 'in',
+
+
+ 
+
+
+
+ PQ _ ESSE É _ O ÚNICO FOR LOOP ___ QUE TEMOS EM PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+ -----> CERTO, MAS AGORA O PROFESSOR __ VAI ACTUALLY __ LOOPAR __ POR DENTRO 
+
+
+ 
+
+ DE UM CALL DE 'range()'...
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+ 
+def verify_chain():
+    is_valid = True
+    for block_index
+    for block_index in range()
+
+
+
+
+
+
+
+
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> CERTO.... E O 'range()'
+
+
+É UMA FUNÇÃO 
+
+
+
+QUE _ SIMPLESMENTE_ _ EXIGE __ ALGUNS INPUTS_ _ PARA __ ''DETERMINAR POR QUAIS 
+
+NUMBERS ELE DEVE IR''....
+
+
+
+
+
+
+
+
+
+
+
+
+------> dentro de 'range()',
+
+
+
+você sempre pode colocar 
+
+
+
+____________ A LENGTH ('len()') __ DE UMA LIST __ COMO VALOR..
+
+
+
+
+
+
+
+ex:
+
+
+
+
+def verify_chain():
+    is_valid = True
+    for block_index in range(len(blockchain))
+
+
+
+
+
+
+
+
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE FIZERMOS ISSO, O QUE ACONTECERÁ?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS VER COMO FUNCIONA O 'range'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> escrevemos no repl:
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>> for i in range(10):
+...     print(i)
+... 
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PODEMOS VER QUE ELE PRINTOU UM 'LIST-LIKE OBJECT' 
+
+
+QUE __ VAI SEGURAR_ OS NUMBERS 
+
+
+
+
+
+
+
+QUE LEVAM ATÉ O NUMBER QUE VOCê COLOCOU COMO PARÂMETRO, MAS _ EXCLUÍDO__ O 
+
+
+NUMBER QUE VOCÊ PASSOU COMO PARÂMETRO (no caso, o '10')...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE '5' NÃO FAZ PARTE DA LIST,
+
+
+
+
+
+
+QUE COMEÇA EM '0' E VAI ATÉ '4...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER, EM OUTRAS PALAVRAS, QUE 
+
+
+
+
+'range(len(blockchain))' 
+
+
+
+
+
+
+VAI RENDER UMA LISTA __ DE 1 - 2 -3 - 4 -5 
+
+
+
+ATÉ O NÚMERO DO NUMBER QUE ACABOU POR ÚLTIMO NA BLOCKCHAIN, SUBTRAÍDO DE '1' (pq nosso index é origin-based)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE _ SE TIVERMOS 
+
+
+2 ELEMENTOS NA NOSSA BLOCKCHAIN,
+
+ELE VAI COMEÇAR EM 0 
+
+
+E 
+
+
+
+VAI TAMBÉM CONTER O VALOR DE '1'...
+
+
+
+
+
+
+
+
+RESULTADO:
+
+
+
+
+
+
+
+
+
+
+def verify_chain():
+    is_valid = True
+    for block_index in range(len(blockchain))
+
+
+
+
+
+
+
+
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK, E ESSE FOR LOOP É _ EXATAEMNTE __ AQUILO DE  QUE PRECIAMOS.... ----->
+
+
+
+
+
+NOSSO INDEX DEVE COMEÇAR COM '0', sim (e é ISSO QUE FAZ O 'range()')  E ELE DEVE IR ATÉ 
+
+
+O NÚMERO DE ELEMENT NO ARRAY DE BLOCKCHAIN __ subtraído de 1,
+
+
+
+
+TBM PQ ESSENCIALMENTE 
+ 
+
+
+
+
+ index também é 'length - 1 ' (pq começa no 0)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> OK...AGORA O PROFESSOR COPIA O CÓDIGO DO FOR LOOP VELHO NESSE FOR LOOP NOVO...
+
+
+
+
+
+
+
+
+
+
+
+ -> A DIFERENÇA É QUE, COM ISSO,
+
+ NÃO PRECISAMOS MAIS INCREMENTAR NOSSO VALOR MANUALMENTE ,POR MEIO DAQUELE 
+
+ SPAGGHETI CODE de 
+
+
+
+
+
+ 'block_index += 1',
+
+
+ PQ 
+
+ ISSO 
+
+ JÁ SERÁ FEITO AUTOMATICMAENTE POR 
+
+
+
+
+
+
+
+ range(len(blockchain)) -------> ISSO ACONTECE, AGORA, AUTOMATICAMENTE... (
+
+
+por meio do 'for block_index in range(len(blockchain)),
+
+
+
+
+QUE 
+
+BASICAEMTE __ FAZ UM __ LOOP __ ATRAVÉS DE UMA LISTA DE NUMBERS...
+
+
+ )
+
+
+
+
+
+
+ O CÓDIGO FICA ASSIM:
+
+
+
+
+
+
+
+
+
+ def verify_chain():
+    is_valid = True
+    for block_index in range(len(blockchain)):
+        if block_index == 0;
+            continue 
+        elif block[0] = blockchain[block_index - 1];
+            is_valid = True
+        else:
+            is_valid: False
+
+
+
+
+
+
+
+
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO, MAS ALGUMAS COISAS PRECISAM SER ALTERADAS NESSE CÓDIGO.. ---> eu ainda vou checar 
+
+
+
+se 
+
+
+block_chain é igual a 0...---> 
+
+
+
+
+
+
+PQ PARA AQUELE PRIMEIRO ELEMENTO, AINDA _ VAMOS QUERER PULAR a EXECUÇÃO DE NOSSA LÓGICA... (dont wanna do anything)....
+
+
+
+
+
+
+
+
+--> MAS VAMOS EXCLUIR TODOS OS INCREMENTS POR MEIO DE 'block_index += 1' ... --> pq agora o PRÓPRIO LOOP VAI 
+
+
+
+
+
+NOS DAR ESSA INFO, 
+
+
+
+por meio de 'block_index'....
+
+
+
+
+
+
+
+
+
+
+
+--> MAS UMA CONDIÇÃO QUE DEVE SER 100% ALTERADA É ESTA AQUI:
+
+
+
+
+
+
+
+
+
+elif block[0] = blockchain[block_index - 1]
+
+
+
+
+
+
+
+
+
+
+
+--> COMO NÃO TEMOS MAIS O 'BLOCK',
+
+E SIM APENAS O 'block_index',
+
+
+
+TEMOS QUE  
+
+
+
+ALTERAR ESSA PRIMEIRA PARTE PARA FICAR 
+
+
+
+
+'elif blockchain[block_index]'
+
+
+
+em vez de 
+
+
+'block[0]'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+def verify_chain(): #versão alternativa, que usa 'range()'...
+    # block_index = 0
+    is_valid = True
+    for block_index in range(len(blockchain)):
+        if block_index == 0:
+            # block_index += 1  # incrementa 1 unidade. desnecessário quando usamos 'range()'...
+            continue
+        elif blockchain[block_index][0] == blockchain[block_index - 1]:
+            print('true')
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        # block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, AÍ PODEMOS TESTAR REEXECUTANDO NOSSO CÓDIGo...
+
+
+
+
+
+
+
+
+
+
+
+---> OK, AGORA ESTAMOS 
+
+
+
+
+RODANDO O MESMO CÓDIGO DE ANTES,
+
+MAS AGORA 
+
+
+UM 
+
+POUCO MAIS 'LEAN' DO QUE ANTES,
+
+
+
+pq 
+
+agora 
+
+
+não precisamos 
+
+
+
+fazer manage de nosso indexador/iterator 
+
+
+
+
+do loop através daquela variável 'block_index' que incrementávamos com 'block_index += 1'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> A RANGE FUNCTION É UMA BOA ALTERNATIVA PARA CASOS COMO ESSE ,
+
+
+
+EM QUE 
+
+
+
+
+VOCê SÓ _ ESTÁ PARCIALMENTE INTERESSADO 
+
+
+
+NOS ACTUAL ELEMENTS DE UMA LIST (como 'block')
+
+
+E SIM 
+
+
+TEM MAIS 
+
+
+INTERESSE NO INDEX (a posição) dos elements...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok.. -----. AÍ RANGE TE DEIXA IR POR DENTRO DOS INDEXES DE UMA LIST,
+
+
+E AÍ USAR 
+
+
+ESSES INDEXES _ DENTRO __ DO LOOP BODY, DENTRO DO BODY DO LOOP....
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS UMA INFORMAÇÃO 
+
+
+
+
+
+IMPORTANTE QUE O PROFESSOR QUER NOS MOSTRAR, LÁ NO REPL,
+
+é que 
+
+
+'range()'
+
+É NA VERDADE 
+
+UMA FUNCTION QUE 
+
+ACEITA/EXIGE MAIS DO QUE 1 ÚNICO ARGUMENT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ USAR SÓ 1 ÚNICO ARGUMENT,
+
+
+
+
+
+COMO 
+
+
+
+'for i in range(5)',
+
+
+
+
+É LÓGICO QUE VOCÊ VAI COMEÇAR DO 0...
+
+
+
+
+
+
+
+
+
+
+--> MAS SE VOCÊ QUISER COMEÇAR DE UM LUGAR DISTINTO,
+
+
+VOCÊ PODE 
+
+PASSAR O PRIMEIRO PARÂMETRO, QUE SERÁ O 'START POINT'...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+>>> for i in range(-5, 5):
+...     print(i)
+... 
+-5
+-4
+-3
+-2
+-1
+0
+1
+2
+3
+4
+>>>
+
+
+
+
+
+
+
+
+
+----> COMO VOCÊ PODE VER, RECEBEMOS UM RANGE BEM MAIOR, agora...
+
+
+
+
+
+
+
+
+
+O VALOR FINAL AINDA É EXCLUÍDO, entretanto....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> entretanto, ÀS VEZES VOCÊ VAI QUERER TER 'STEPS' 
+
+
+
+entre 
+
+os numbers,
+
+steps que serão 
+
+DIFERENTES, que sobem de valores DIFERENTES de  1 por 1.... 
+
+
+
+
+
+
+
+
+
+
+-> NESSE CASE,
+
+VOCÊ DEVE ESCREVER ASSIM:
+
+
+
+
+
+for i in range(5, 20, 2)  
+
+
+
+
+
+
+
+
+-----> SE VOCÊ ESPECIFICAR ASSIM, POR EXEMPLO,
+
+
+
+VOCê TERÁ UMA RANGE DE 5 até 20, em que 
+
+
+
+os increments serão de '2 em 2'....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+>>> for i in range(5, 20, 3):
+...     print(i)
+... 
+5
+8
+11
+14
+17
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ TAMBÉM PODE USAR 'range' COM NEGATIVE NUMBERS (como eu utilizei)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS E SE EU TENTAR USAR COM FLOATS?
+
+
+
+
+
+
+
+
+
+--> aí ganho um ERRO:
+
+
+
+
+
+
+
+for i in range(5.0, 10.0, 0.5):
+    print(i)
+
+
+
+
+
+
+
+
+
+
+
+------> TypeError: 'float' object cannot be interpreted as an integer
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+--> FLOAT OBJECT NÃO PODE SER CONVERTIDO EM INTEGRAL.. --------> ISSO SIGNIFICA QUE RANGE NÃO FUNCIONA COM FLOATS,
+
+
+FUNCIONA SÓ COM 
+
+
+
+NÚMEROS POSITIVOS E NEGATIVOS _iNTEGRAIs__....

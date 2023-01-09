@@ -1,0 +1,1495 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS USAR UM IF STATEMENT NO NOSSO PROGRAMA --> 
+
+
+
+
+
+
+
+E PODEMOS PERFEITAMENTE INCLUIR UM IF STATEMENT NO NOSSO WHILE LOOP....
+
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ DENTRO, VAMOS QUERER RODAR 1 CÓDIGO ESPECÍFICO, DE 'ERROR HANDLING'/validation,
+
+
+
+
+se for INPUTTADA UMA STRING (em vez de um number)...
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+
+while True:
+    # print('THIS IS TRUE')
+    add_value(get_user_input(), get_last_blockchain_value())
+
+    for block in blockchain:
+        print('Outputting block')
+        print(block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... AÍ VOU QUERER CONTROLAR O QUE VOU QUERER FAZER:
+
+
+
+
+
+
+1) VOU QUERER ADICIONAR UM NOVO VALUE A MINHA BLOCKCHAIN?  
+
+
+
+
+
+
+
+
+2) OU VOU QUERER '''FAZER OUTPUT DA MINHA CURRENT BLOCKCHAIN'''? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA FAZER ISSO, PARA DAR AO USER ESSA OPÇÃO, PRIMEIRAMENTE O PROFESSOR VAI PRINTAR UMA COISA 
+
+A ELE,
+
+NESSE 
+
+
+WHILE LOOP...
+
+
+
+
+
+
+
+
+
+
+
+
+VAI PRINTAR, Com 'print()',
+
+esta mensagem:
+
+
+
+
+
+
+
+
+print('Please choose')
+
+
+print('1: Add a new transaction value')
+print('2: display current blockchain')
+
+
+
+
+
+
+
+
+
+
+
+
+TENTEI ESCREVER ASSIM, MAS N DEU MT CERTO:
+
+
+
+
+
+
+
+while True:
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    user_input = input()
+    if(user_input == 1):
+        add_value(get_user_input(), get_last_blockchain_value())
+    else:
+        for block in blockchain:
+            print('Outputting block')
+            print(block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> mesmo quando digito '1',
+
+o negócio só REFRESHA, e pede de novo, a mesma coisa...
+
+
+
+
+
+
+
+
+
+
+--> talvez seja pq não usei 'elif' (
+
+
+
+    AQUI, NÃO USAMOS O TERMO COMPLETO' 
+
+
+    else if',
+
+
+
+    E SIM 
+
+
+    USAMOS 
+
+    'elif'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOU VER A AULA DO PROFESSOR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ADICIONAR ESSES PRINT STATEMENTS, POR SI SÓ,
+
+NÃO FAZ NADA...
+
+
+
+
+
+
+
+
+
+
+--> ANTES DISSO, VAMOS PRECISAR FAZER 'GET' DO INPUT DE NOSSO USER...
+
+
+
+
+
+
+--> para isso,
+
+já temos nossa function de 'get_user_input',
+
+
+
+POR ISSO ESCREVEMOS:
+
+
+
+
+
+while True:
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    user_input = get_user_input()
+    if(user_input == 1):
+         add_value(get_user_input(), get_last_blockchain_value())
+    if(user_input == 2):
+        for block in blockchain:
+            print('Outputting block')
+            print(block)
+            
+
+
+
+
+
+-------------------
+
+
+
+
+
+
+
+
+OK.... --> USAMOS ESSE 'get_user_input' aí... -> ENTRETANTO,
+
+
+O PROFESSOR 
+
+
+
+NOS EXPLICA UQE 
+
+
+ESSE 
+
+'get_user_input',
+
+
+que roda o código de 'input()',
+
+
+
+
+É NA VERDADE __ APENAS_ UTILIZADO _ PARA FAZER 'GET' 
+
+DE NOVOS 
+
+
+VALORES PARA NOSSA BLOCK CHAIN (
+
+
+    pq ele outputta 
+
+
+    aquele  '''  return float(input('Please enter the value of your transaction: '))''
+)
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE VAMOS TER QUE MUDAR UM POUCO ESSA FUNCTION DE 
+
+
+'get_user_input',
+
+
+VAMOS COLOCAR O NAME DE 
+
+
+
+
+
+
+
+'get_transaction_value',
+
+
+
+
+PQ É ISSO QUE VAMOS FAZER AQUI (vamos obter ou 1 ou 2, para ver o que fazemos no nosso programa)...
+
+
+
+
+
+
+def get_user_input():
+    """ Returns the input of the user (either 1 or 2) to proceed with the options """
+    return float(input('Please choose an option: '))
+
+
+
+
+
+
+
+
+
+
+------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+def get_user_choice():
+    """ Returns the input of the user (either 1 or 2) to proceed with the options """
+    return float(input('Please choose an option: '))
+
+def get_user_transaction_input():
+    """ Returns the input of the user (transaction amount) to proceed with the option 1 """
+    return float(input('Please enter your transaction amount: '))
+
+
+
+
+
+
+
+while True:
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    user_input = get_user_choice()
+    if(user_input == 1):
+        add_value(get_user_transaction_input(), get_last_blockchain_value())
+    if(user_input == 2):
+        for block in blockchain:
+            print('Outputting block')
+            print(block)
+
+
+
+
+
+
+
+--------> 
+
+
+
+
+CERTO.... --> AGORA EU CONSIGO 
+
+
+
+ENTRAR 
+
+
+
+NESSA OPTION, e aí ela me pede 
+
+
+
+
+
+PELO VALOR DA TRANSACTION, MAS N CONSIGO FAZER ISSO, GANHO UM ERRO:
+
+
+
+
+
+Please choose an option: 1
+Please enter your transaction amount: 53
+Traceback (most recent call last):
+  File "A:\projeto7-PYTHON\MODULO3-TRABALHANDOCOMLOOPSECONDITIONALS\novoprojeto2\blockchain.py", line 115, in <module>
+    add_value(get_user_transaction_input(), get_last_blockchain_value())
+  File "A:\projeto7-PYTHON\MODULO3-TRABALHANDOCOMLOOPSECONDITIONALS\novoprojeto2\blockchain.py", line 11, in get_last_blockchain_value  
+    return blockchain[-1]
+IndexError: list index out of range
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A RAZÃO DESSE ERROR É O EXECUTE DE 
+
+
+'''
+get_last_blockchain_value()
+
+
+'''
+
+
+
+
+
+
+
+
+--> pq o 'get_last_blockchain_value()' vai sempre 
+
+
+EXECUTAR ESTE CÓDIGO:
+
+
+
+
+
+
+def get_last_blockchain_value():
+    return blockchain[-1]
+
+
+
+
+
+
+
+
+
+
+    --> E NOSSO BLOCKCHAIN, INICIALMENTE,
+
+    ESTÁ ASSIM:
+
+
+
+    blockchain = []
+
+
+
+
+
+
+
+
+
+
+
+
+    --> como não temos NENHUM ELEMENTO DENTRO DESSA BLOCKCHAIN, ESSE ACESSO PELO INDEX DÁ ERRO....
+
+
+
+
+
+
+
+
+
+--> como consertar....
+
+
+
+
+
+
+
+ERRO:
+
+
+
+Traceback (most recent call last):
+  File "A:\projeto7-PYTHON\MODULO3-TRABALHANDOCOMLOOPSECONDITIONALS\novoprojeto2\blockchain.py", line 118, in <module>
+    add_value(get_user_transaction_input(), get_last_blockchain_value())
+  File "A:\projeto7-PYTHON\MODULO3-TRABALHANDOCOMLOOPSECONDITIONALS\novoprojeto2\blockchain.py", line 11, in get_last_blockchain_value  
+    if(blockchain.count > 0):
+TypeError: '>' not supported between instances of 'builtin_function_or_method' and 'int'
+PS A:\projeto7-PYTHON\MODULO3-TRABALHANDOCOMLOOPSECONDITIONALS\novoprojeto2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É PQ NÃO CONVERTI ESSE INPUT em 'int()' --> pq inputs são sempre recebidos como STRINGS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSEGUI.... DEU CERTO... --> o código ficou meio bizarro, ficou assim:
+
+
+
+
+
+
+
+def get_last_blockchain_value():
+    if(len(blockchain) > 0):
+        return blockchain[-1]
+    else:
+        return []
+
+
+
+
+
+
+
+
+
+
+
+
+
+        len() -----> é method/function que RETORNA __ O NÚMERO __ DE ELEMENTOS EM 1 ARRAY.... ---> aí eu consigo retornar ou A BLOCKCHAIN EM SI, ou um array vazio (que é blockchain, na verdade)....
+
+
+
+    
+
+
+
+
+
+
+    CERTO... o RESULTADO FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+STARTED
+1: Add a new transaction value
+2: display current blockchain
+Please choose an option: 1
+Please enter your transaction amount: 1
+[[[], 1.0]]
+1: Add a new transaction value
+2: display current blockchain
+Please choose an option: 1
+Please enter your transaction amount: 2
+[[[], 1.0], [[[], 1.0], 2.0]]
+1: Add a new transaction value
+2: display current blockchain
+Please choose an option: 3
+1: Add a new transaction value
+2: display current blockchain
+Please choose an option: 3
+1: Add a new transaction value
+2: display current blockchain
+Please choose an option: 1
+Please enter your transaction amount: 3
+[[[], 1.0], [[[], 1.0], 2.0], [[[[], 1.0], 2.0], 3.0]]
+1: Add a new transaction value
+2: display current blockchain
+Please choose an option:
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK... agora esse valor está realmente sendo adicionado...
+
+
+
+
+
+
+
+valor inicial é '[]'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> if - else funcionam...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS O QUE FAZ O PROFESSOR?
+
+
+
+
+
+
+
+
+
+
+
+--> ele coloca essa variável de 'user_choice'...
+
+
+
+
+
+
+
+
+--> ex:
+
+
+
+
+
+
+while True:
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    user_input = get_user_choice()
+    if(user_input == 1):
+        add_value(get_user_transaction_input(), get_last_blockchain_value())
+    if(user_input == 2):
+        for block in blockchain:
+            print('Outputting block')
+            print(block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... AÍ ELE DIZ QUE DEVEMOS USAR UM IF...
+
+
+
+
+
+
+
+
+
+
+--> AÍ O IF VAI TER UMA CONDIÇÃO...
+
+
+
+
+
+
+
+--> COMO ESCREVEMOS NOSSA LÓGICA NESSE IF CHECK? 
+
+
+
+
+
+
+
+
+
+
+
+--> if é a keyword.... --> ISSO DEFINE QUE ESTAMOS ENTRANDO EM UM IF STATEMENT... -> 
+
+
+
+
+
+
+
+
+
+
+PARA A CONDITION,
+
+SEMPRE VAMOS PRECISAR DE UM 'BOOLEAN OPERATOR'... ->
+
+
+
+
+
+
+
+
+
+
+
+BOOLEANS SÃO SEMPRE 'TRUE OU FALSE' --> MAS ESCREVER TRUE OU FALSE 
+
+
+
+
+
+
+
+
+NO NOSSO CÓDIGO, COMO FIZEMOS COM 
+
+AQUELE 
+
+'True'
+
+em 'while' (que é algo que vocÊ não deve fazer, btw),
+
+
+
+É 
+
+
+RARAMENTE 
+ALGO QUE VAMOS FAZER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É BEM MAIS COMUM USAR BOOLEANS EM 'CONDITIONAL CHECKS'... --> 
+
+
+
+
+
+
+
+
+QUEREMOS REALIZAR CONDITIONAL CHECKS COM IF STATEMENTS,
+
+TIPICMANETE..
+
+
+
+
+
+
+
+
+
+
+
+-> PARA ISSO, PARA USAR OS IF STATEMENTS ADEQUADAMENTE,
+
+
+
+SOMOS _ OBRIGADOS _ A USAR__ '''BOOLEAN OPERATORS''' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->OS BOOLEAN OPERATORS SÃO:
+
+
+
+
+
+
+
+1) ==  JÁ CONHEÇO.
+
+
+
+2) !=   JÁ CONHEÇO.
+
+
+
+
+
+3) is  NÃO CONHEÇO.
+
+
+
+4) >  JÁ CONHEÇO.
+
+
+5) <  JÁ CONHEÇO.
+
+
+6) >=  JÁ CONHEÇO.
+
+
+7) <=     JÁ CONHEÇO.
+
+
+8) in  NÃO CONHEÇO...
+
+
+
+
+
+
+
+
+
+
+
+
+!= --> É INEQUALITY...
+
+
+
+
+
+
+--> IS E IN são desconhecidos a mim...
+
+
+
+
+
+
+
+
+
+IS E IN SERÃO VISTOS MAIS TARDE...
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... ---> COM ESSES BOOLEAN OPERATORS,
+
+PODEMOS 
+
+COMPARAR 2 
+
+VALORES... --> a depender do result,
+
+
+
+obteremos TRUE OU FALSE...
+
+
+
+
+
+
+
+--> AQUI, NO NOSSO CASO, VAMOS QUERER _ CHECAR__ _SE 'user_choice' 
+
+RESULTA EM '1'...
+
+
+
+
+
+
+
+
+
+-> POR ISSO ESCREVEMOS ASSIM:
+
+
+
+    if(user_input == 1):
+        add_value(get_user_transaction_input(), get_last_blockchain_value())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> EU ESCREVI ASSIM, MAS O PROFESSOR ESCREVEU ASSIm:
+
+
+
+
+
+        if user_choice == '1'
+
+
+
+
+
+
+
+
+
+
+        RESPOSTA:
+
+
+
+
+
+
+
+
+        Good developers strive to write code that is clear and correct. Parentheses in conditionals, even if they are not strictly required, help with both.
+
+As for clarity, think of parentheses like comments in code: they aren't strictly necessary, and in theory a competent developer should be able to figure out code without them. And yet, these cues are exceedingly helpful, because:
+
+They reduce the work required to understand the code.
+They provide confirmation of the developer's intent.
+Furthermore, extra parentheses, just like indentations, whitespace, and other style standards, help visually organize the code in a logical way.
+
+As for correctness, conditions without parentheses are a recipe for silly mistakes. When they happen, they can be bugs that are hard to find--because often an incorrect condition will behave correctly most of the time, and only occasionally fail.
+
+And even if you get it right, the next person to work on your code may not, either adding errors to the expression or misunderstanding your logic and thus adding errors elsewhere (as LarsH rightly points out).
+
+I always use parentheses for expressions that combine and and or (and also for arithmetic operations with similar precedence issues
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+ok... mas eu posso colocar '1' (String),
+
+para ficar melhor...
+
+
+
+
+
+
+
+
+
+-> não, espere... -> não preciso fazer isso,
+
+pq 
+
+
+
+meu 'get_user_choice' 
+
+ESTÁ ASSIm:
+
+
+
+
+
+
+def get_user_choice():
+    """ Returns the input of the user (either 1 or 2) to proceed with the options """
+    return float(input('Please choose an option: '))
+
+
+
+
+
+
+
+
+
+
+
+
+-----> 
+
+
+
+--> SE A USER CHOICE FOR 1,
+
+
+VAMOS QUERER ADICIONAR UM NOVO TRANSACTION_VALUE...
+
+
+
+
+
+
+
+
+
+--> POR ISSO VAMOS EXECUTAR AQULEA FUNCTION DE 
+
+
+
+
+
+        add_value(get_user_transaction_input(), get_last_blockchain_value())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, O 'add_value' vai ADICIONAR NOSSA TRANSACTION EM UM 'BLOCK', e aí vai ADICIONAR ESSE BLOCK 
+
+A NOSSA BLOCKCHAIN....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS TAMBÉM HÁ O CASE EM QUE O USER DIGITA '2'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MEU CÓDIGO HAVIA FICADO ASSIM:
+
+
+
+
+
+    if(user_input == 2):
+        for block in blockchain:
+            print('Outputting block')
+            print(block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE EU TIVESSE DEIXADO SÓ O IF STATEMENT DE '1',
+
+
+
+
+o user conseguiria APENAS DIGITAR 1... --> se ele tentasse digitar qualquer outro número, 'the number would go into the void'....
+
+
+e nada aconteceria...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mas se queremos _ que __ algo aconteça 
+
+
+
+COM__ VALORES__ DIFERENTES__ DE 'if == 1',
+
+
+
+
+PRECISAMOS _ DE UM __ ELSE BLOCK...
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA ADICIONAR UM ELSE BLOCK,
+
+ESCREVEMOS ASSIM:
+
+
+    if(user_input == 1):
+        add_value(get_user_transaction_input(), get_last_blockchain_value())
+    else:
+        for block in blockchain:
+            print('Outputting block')
+            print(block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ------> VOCÊ NÃO PRECISA ADICIONAR UM ELSE BLOCK.... --> MAS SE VOCê ADICIONAR ISSO,
+
+    VOCê 
+
+
+    FARÁ COM QUE TODOS OS OUTROS INPUTS RESULTEM NESSE ELSE CASE....
+
+
+
+
+
+
+
+
+
+
+
+    --> VAMOS QUERER OUTPUTTAR OS 'BLOCKCHAIN BLOCKS'...
+
+
+
+
+
+
+
+
+
+
+
+
+    --> PARA ISSO, PROFESSOR VAI OUTSOURCEAR O CÓDIGO DE 
+
+
+    '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+    while True:
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    user_input = get_user_choice()
+    if(user_input == 1):
+        add_value(get_user_transaction_input(), get_last_blockchain_value())
+    else:
+        output_blockchain()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, ISSO DEU CERTo:
+
+
+
+
+
+
+Please choose an option: 2
+Outputting block
+[[], 1.0]
+Outputting block
+[[[], 1.0], 2.0]
+Outputting block
+[[[[], 1.0], 2.0], 3.0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok.... AGORA ESSA FUNCTION ESTÁ FUNCIONANDO, NO NOSSO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> AINDA NÃO PODEMOS QUITTAR,
+
+SÓ PODEMOS QUITAR COM 'CTRL + Z'....
+
+
+
+
+
+
+
+
+-_> OK, MAS E SE QUISERMOS PROVIDENCIAR AO USER UMA MANEIRA MAIS 'CLEAN' DE FAZER EXIT?
+
+
+
+
+
+
+
+(obs: o código do professor está com '[1]' em vez de '[]'...) --> pq isso?
+
+
+
+
+
+
+
+
+
+
+
+--> bem, eu só ajustei meu código assim:
+
+
+
+def get_last_blockchain_value():
+    """returns a blockchain"""  # exemplo de COMMENT INTERATIVO... (passe o mouse em cima de 'get_last_blockchain_value()' para VER QUE ELE TE DÁ ESSA INFO AÍ...)
+    if(len(blockchain) > 0):
+        return blockchain[-1]
+    else:
+        return [1]
+
+
+
+
+
+
+
+
+
+
+    ----------------
+
+
+
+    resolvido:
+
+
+
+1: Add a new transaction value
+2: display current blockchain
+Please choose an option: 2
+Outputting block
+[[1], 2.0]
+Outputting block
+[[[1], 2.0], 2.0]

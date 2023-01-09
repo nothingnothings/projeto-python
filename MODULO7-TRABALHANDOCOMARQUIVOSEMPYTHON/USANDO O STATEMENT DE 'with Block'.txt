@@ -1,0 +1,1135 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> QUASE ACABAMOS COM O BÁSICO DO 'ACCESS FILES'
+
+
+no python.. 
+
+
+
+
+
+
+
+
+
+
+--> NOSSO CÓDIGO, DA ÚLTIMA AULA,
+
+FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='r')
+
+
+
+
+
+
+
+
+
+
+line = f.readline()
+
+
+
+while line:
+    print(line)
+    line = f.readline()
+f.close()
+
+
+
+
+
+
+
+
+
+
+-------> MAS HÁ  UMA COISA EXTRA QUE PODEMOS FAZER,
+
+
+PARA DEIXAR NOSSA VIDA UM POUCO MAIS FÁCIL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ATÉ AGORA, NÓS SEMPRE GARANTIMOS QUE O METHOD DE 
+
+'close' (negócio obrigatório)
+
+
+
+
+É CHAMADO NAQUELAS HIPÓTESES 
+
+
+EM QUE 
+
+
+SABEMOS QUE 
+
+'NOSSO CÓDIGO VAI CONTINUAR'... (vai continuar após o acesso ao arquivo)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS O PROBLEMA É QUE O CALL DE 
+
+
+
+'f.close()'
+
+
+
+É __ ALGO __ BEM FÁCIL DE SE ESQUECER (ter de fechar todos os 'open')
+
+
+,
+
+
+
+
+
+
+
+
+
+E
+ OUTRO PROBLEMA É QUE 
+
+ ISSO AÍ 
+
+ É 
+
+ 'UMA LINHA EXTRA DE CÓDIGO'... ------> CÓDIGO QUE TEMOS DE ESCREVER...
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE EXISTE UMA CONVENIENCE HELPER KEYWORD QUE PODEMOS USAR 
+
+
+
+NO PYTHON,
+
+
+QUE USAMOS 
+
+PARA 
+
+
+
+
+''DEIXAR O PYTHON MANAGEAR O OPEN E CLOSE 
+
+
+
+DA FILE PARA NÓS''.... ---> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ESSA KEYWORD __ EXTREMAMENTE __ ÚTIL É 
+
+
+A KEYWORD DE 
+
+
+
+'
+with'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VEJA O GRÁFICO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HANDLING FILE ACCESS CORRECTLY:
+
+
+
+
+
+
+
+
+open() ------------ readline()
+I                          I
+I                          I
+I                           ---------->->->
+I 
+I                                          'CLOSE()'
+I 
+write()--------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSES METHODS AÍ,
+
+
+'write' 
+
+e 
+
+'readline()',
+
+
+
+
+
+também 
+
+'read',
+
+
+TODOS ELES PRECISAM DE 
+
+
+'close()'
+
+PARA TERMINAR SUAS OPERAÇÕES DE FORMA REGULAR...
+
+
+
+
+
+
+
+
+
+
+
+
+------> A KEYWORD QUE NOS AJUDA COM ISSO É A 'with'...
+
+
+
+
+
+
+
+
+
+--> para sermos mais precisos,
+
+é 
+o 
+
+
+
+'WITH' BLOCK STATEMENT que nos ajuda...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS COMO _ USAMOS ESSE BLOCK STATEMENT DE 'with'?
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, NOS CASOS EM QUE 
+
+
+
+
+
+NÓS  
+
+
+
+__ ACESSAMOS __ O ARQUIVO _ com 
+
+ 
+
+ 'f = open('demo.txt', mode='r')'
+
+
+
+
+ E ENTÃO 
+
+
+
+
+
+ O _ _FECHAMOS EM ALGUM LUGAR (
+
+
+     COM 'f.close()',
+
+
+ ), 
+
+
+
+
+
+
+
+
+
+ NÓS PODEMOS 
+
+
+ USAR 
+
+
+
+ 'with'
+
+
+
+ PARA WRAPPAR 
+
+
+ TODO ESSE CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ OBSERVE(código antigo):
+
+
+
+
+
+
+
+
+ f = open('demo.txt', mode='r')
+
+
+line = f.readline()
+
+
+
+while line:
+    print(line)
+    line = f.readline()
+f.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COLOQUE 'with' no início, no primeiro statement, e aí TIRE AQUELA VARIABLE...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+with open('demo.txt', mode='r')  ////// 'WITH OPEN'....
+
+
+line = f.readline()
+
+
+
+while line:
+    print(line)
+    line = f.readline()
+f.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja,
+
+comece com 'with open'...
+
+
+
+
+
+
+
+
+--> ISSO FEITO,
+
+USE 
+
+
+
+A KEYWORD DE 'as' logo depois... --------> DEPOIS 
+
+
+
+
+
+
+ESCREVA _ O NOME _ _DA VARIABLE__ EM QUE __ VAMOS QUERER _ ARMAZENAR O FILE ACCESS...
+
+
+
+
+
+
+
+
+--> como queremos que fique na variable de 'f',
+
+
+ESCREVEMOS:
+
+
+
+
+
+
+
+
+
+
+
+
+with open('demo.txt', mode='r') as f 
+
+line = f.readline()
+
+
+
+while line:
+    print(line)
+    line = f.readline()
+f.close()
+
+
+
+
+
+
+-------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DISSO,
+
+
+VOCÊ VAI USAR ':"
+
+
+
+para 
+
+
+MARCAR 
+
+QUAL 
+
+
+CÓDIGO  
+
+
+
+
+
+
+
+
+''DEVERÁ SER EXECUTADO __ ENQUANTO ESSE ARQUIVO ESTÁ ABERTO/ESTIVER ABERTO, e enquanto esse block estiver rodando'''....
+
+
+
+
+
+
+
+
+
+
+EX:
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ # f = open('demo.txt', mode='r')
+with open('demo.txt', mode='r') as f:  ### CONVENIENCE WITH BLOCK KEYWORD... --> você pode usar isso para EVITAR TER DE FICAR CHAMANDO 'f.close()' toda hora, com suas operações de FILE ACCESS...
+
+    line = f.readline()
+
+
+    while line:
+        print(line)
+        line = f.readline()
+    # f.close()
+
+
+
+
+
+
+
+### O 'with' BLOCK VAI _ AUTOMATICAMENTE DAR 'close' nesse file armazenado na variável de 'f' quando ESTIVER ACABADO COM ESSAS LINHAS DE CÓDIGO... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO EXEMPLO DISSO, PODEMOS ESCREVER UM 'print('Done')'
+
+
+
+
+NO LADO DE FORA DO WITH BLOCK,
+
+QUE SERÁ _ EXECUTADO __ APENAS_ 
+
+DEPOIS DESSE 
+
+BLOCK 
+TERMINAR 
+
+ESSA OPERAÇÃO DE 'read' 
+
+
+e de 
+
+'PRINT' aquelas lines...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+ # f = open('demo.txt', mode='r')
+with open('demo.txt', mode='r') as f:  ### CONVENIENCE WITH BLOCK KEYWORD... --> você pode usar isso para EVITAR TER DE FICAR CHAMANDO 'f.close()' toda hora, com suas operações de FILE ACCESS...
+
+    line = f.readline()
+
+
+    while line:
+        print(line)
+        line = f.readline()
+    # f.close()
+
+
+print('Done')
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+# f = open('demo.txt', mode='r')
+with open('demo.txt', mode='r') as f:  ### CONVENIENCE WITH BLOCK KEYWORD... --> você pode usar isso para EVITAR TER DE FICAR CHAMANDO 'f.close()' toda hora, com suas operações de FILE ACCESS...
+
+    line = f.readline()
+
+
+    while line:
+        print(line)
+        line = f.readline()
+    # f.close()
+
+
+print('Done, file is already closed... the with block closed it')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK, PORTANTO O WITH STATEMENT É _ SUPER INTERESSANTE E ÚTIL QUANDO O ASSUNTO 
+
+
+É 
+
+'WORK WITH FILES.'...
+
+
+
+
+
+
+
+
+
+
+
+-----> VOCê PODE CONVENIENTEMENTE ABRIR UM FILE E ENTÃO O ARMAZENAR EM UMA VARIABLE, como você pode ver...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> E AÍ O PYTHON VAI AUTOMATICAMENTE MANAGEAR OS RESOURCES DESSA FILE PARA NÓS,
+
+E AÍ A FECHARÁ QUANDO VOCÊ TIVER ACABADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok.... --> EXECUTAMOS ESSE CÓDIGO:
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+Hello from Python!Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!Add this content in multi-lines!Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Done, file is already closed... the with block closed it
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.. AÍ O PROFESSOR RODA MAIS ALGUNS CÓDIGOS....
+
+
+
+
+
+
+
+
+AGORA ELE QUER PROVAR QUE ISSO REALMENTE FUNCIONA, POR ISSO ELE CRIA UM USER_INPUT NO LADO DE FORA DO WITH BLOCK...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+with open('demo.txt', mode='w') as f:  ### CONVENIENCE WITH BLOCK KEYWORD... --> você pode usar isso para EVITAR TER DE FICAR CHAMANDO 'f.close()' toda hora, com suas operações de FILE ACCESS...
+
+
+
+print('Done, file is already closed... the with block closed it')
+
+
+user_input('Testing: ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> AÍ ELE ADICIONA APENAS 1 LINHA DENTRO DO WITH BLOCKk
+
+
+
+,
+
+a
+ ser execcutada 
+
+
+
+ COMO PARTE DESSE BLOCK... --> SERÁ 
+
+
+ UM WRITE DE 
+
+
+
+
+
+ 'f.write('Testing if this closes...')'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ # f = open('demo.txt', mode='r')
+with open('demo.txt', mode='r') as f:  ### CONVENIENCE WITH BLOCK KEYWORD... --> você pode usar isso para EVITAR TER DE FICAR CHAMANDO 'f.close()' toda hora, com suas operações de FILE ACCESS...
+### file está armazenado nessa varia´vel de 'f'...
+    line = f.readline()
+
+
+    while line:
+        print(line)
+        line = f.readline()
+    
+    # f.close()
+
+
+print('Done, file is already closed... the with block closed it')
+user_input = input('Testing..., please input something:  ')
+print(user_input)
+
+
+
+
+### O 'with' BLOCK VAI _ AUTOMATICAMENTE DAR 'close' nesse file armazenado na variável de 'f' quando ESTIVER ACABADO COM ESSAS LINHAS DE CÓDIGO...
+
+
+
+
+
+
+
+with open('demo3.txt', mode='w') as g:  ### CONVENIENCE WITH BLOCK KEYWORD... --> você pode usar isso para EVITAR TER DE FICAR CHAMANDO 'f.close()' toda hora, com suas operações de FILE ACCESS...
+    g.write('Testing if this closes...')
+    
+    
+    
+print('Done, file is already closed... the with block closed it')
+
+
+user_input = input('Testing: ')
+
+print(user_input)
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok, isso tudo funcionou...
+
+
+
+
+
+
+
+
+
+
+
+
+--> esse convenience method de 'with' É MUITO BOM....
+
+
+
+
+
+
+
+
+
+
+--> COM TODO ESSE CONHECIMENTO ACERCA __ FILE ACCESS, DEVEMOS 
+
+
+APLICAR ISSO NA NOSSA BLOCKCHAIN..

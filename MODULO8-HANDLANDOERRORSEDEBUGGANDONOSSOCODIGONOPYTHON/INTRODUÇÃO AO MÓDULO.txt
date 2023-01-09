@@ -1,0 +1,128 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE TRABALHAMOS COM ARQUIVOS NO ÚLTIMO MÓDULO,
+
+
+VIMOS QUE 
+
+
+
+
+HÁ ALGUNS PROBLEMAS BEM GRANDES QUE PODEMOS ENCONTRAR QUANDO ESCREVEMOS PROGRAMAS PYTHON MAIORES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS ENCONTRAR:
+
+
+
+
+1) PROBLEMAS LÓGICOS  (como com 'OrderedDict' e 'dicts' comuns...)
+
+
+
+
+
+
+
+
+
+
+
+2) PODEMOS TAMBÉM TER 'RUNTIME ERRORS' (uma file pode não existir quando tentamos a acessar)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS:
+
+
+A) COMO DEBUGGAR NOSSO CÓDIGO E HANDLAR ERROS...  (veremos a diferença entre esses 2 conceitos )...
+
+
+
+
+
+
+
+
+B) VEREMOS COMO USAR DEBUGGING TOOLS ---> as do VISUAL STUDIO CODE...
+
+
+
+
+
+
+C) VEREMOS COMO _ HANDLAR ERRORS CORRETAMENTE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> NA BLOCKCHAIN,
+
+VAMOS ASSEGURAR QUE 
+
+
+VAMOS CONSEUGIR 
+
+'SAFELY ACCESS OUR FILEs',
+
+
+
+
+e que 
+
+TEMOS/TEREMOS UM 'PLANO B'
+
+
+
+SE UMA FILE NÃO EXSITIR AINDA...
+

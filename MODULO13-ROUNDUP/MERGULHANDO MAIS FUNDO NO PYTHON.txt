@@ -1,0 +1,253 @@
+
+
+
+
+
+
+
+
+- _>PRATIQUE MAIS...
+
+
+
+
+
+
+
+
+
+--> VOCê TAMBÉM PODE VER OUTRAS ÁREAS 
+
+
+
+
+DE USO DO PYTHON,
+
+
+
+
+
+
+COMO 
+
+
+A PACAKGE DE 
+
+
+
+'PyQT',
+
+que é uma pacakge que 
+
+
+TE DEIXA 
+
+
+
+ADICIONAR UMA DESKTOP 
+
+
+INTERFACE PARA DESKTOP APPS,
+
+
+QUE 
+
+
+AÍ _ NÃO RODAM SÓ NO TERMINAL OU  
+
+
+SE CONECTAM A 1 WEB BROWSER,
+
+
+
+
+
+E SIM _ 
+POSSUEM UMA VERDADEIRA INTERFACE 
+
+
+
+NO SEU COMPUTADOR...
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE 
+
+VER WEB DEVELOPMENT COM O PYTHON... --> só vimos pouca coisa do 
+
+FLASK,
+
+
+QUE É 
+
+
+AQUELE PACKAGE QUE 
+
+TE DEIXA 
+
+
+CONSTRUIR APIs 
+
+que 
+
+te deixam se conectar  A HTML E JAVASCRIPT PAGES... ->  VOCÊ PODE 
+
+DAR UMA OLHADA MAIS PROFUNDA 
+
+NO 
+
+
+
+FLASK E EM TODAS
+ 
+
+ AS OUTRAS 
+
+
+
+ COISAS QUE NNÃO CONSIDERAMOS NESSE CURSO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> DJANGO --> OUTRA FRAMEWORK PARA O PYTHON,
+
+ QUE TE 
+
+ DEIXA 
+
+
+ CONSTRUIR 
+
+ AWESOME WEB APPS COM A PYTHON LANGUAGE..
+
+
+
+
+
+
+
+
+ -> VOCê TAMBÉM PODE ESCREVER ALGUNS UTILITY SCRIPTS E 
+
+ TERMINAL-DRIVEN PROGRAMS. --> NÃO SÃO MT EXCITANTES,
+
+
+ MAS 
+
+
+ TE 
+
+ DEIXAM __ 'DIVE NAS CORE FEATURES DO PYTHon' --> VOCê NÃO PERDE MT TEMPO 
+
+ CONSTRUINDO UMA WEB INTERFACE/DESKTOP INTERFACE... -> se VOCÊ quer 
+
+ aprender mais 
+
+
+ SOBRE OS INTERNALS DO PYTHONM,
+
+ USAR 
+
+ O 
+
+
+
+ REPL 
+
+
+
+ OU O TERMINAL COMUM QUE EXECUTA SEU CÓDIGO PYTHON (como fizemos ao longo da maior parte desse curso)
+
+
+ É 
+
+ A MELHOR MANEIRA DE APRENDER CORE FEATURES....
+
+
+
+
+
+
+
+
+
+
+
+ --> DATA SCIENCE... ----> É A MESMA LANGUAGE, MAS VOCÊ TRABALHA COM 
+
+ ELA DE FORMA UM 
+ POUCO DIFERENTE...
+
+
+
+
+ ->' import data',
+
+ 'clean data',
+
+
+ 'plot the results', 
+ etc et.c. --> ENVIRONMENT DIFERENTE... ->> 'A JUPITER NOTEBOOK'... 
+
+
+
+
+
+
+ --> e aí você pode ver COMO O PYTHON PODE TE AJUDAR COM ISSO --> 
+
+
+ai vocÊ constrói menos aplicativos, e sim 'series of steps you wanna execute'...
+
+
+
+
+
+
+
+
+--> coisas como MULTITHREADING...
+
+
+
+
+
+ASYNC PROGRAMMING (múltiplas tarefas simultaneamente)...
+
+
+
+
+
+
+-> MUITAS PACKAGES NA STANDARD LIBRARY QUE USAM ESSAS FEATURES...
+
+
+
+--> PYTHON É CAPZ DE FAZER UM MONTE DE COISAS 
+
+AVANÇADAS..... 
+
+
+
+
+
+
+
+
+-> PROFESSOR RECOMENDA LER OS OFFICIAL DOCS...

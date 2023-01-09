@@ -1,0 +1,1912 @@
+
+
+
+
+
+
+
+
+
+
+
+---> agora que aprendemos sobre STRINGS E A DIFERENÇA 
+
+
+ENTRE STRINGS E LISTS (
+
+
+
+
+    lists são mutable,
+
+    strings não.... ---> temos mt mais methods de strings do que lists...
+
+
+
+
+
+
+
+
+
+
+
+LISTS SÃO REFERENCE TYPES,
+
+
+
+STRINGS SÃO PRIMITIVE...
+)
+
+
+
+
+
+
+
+
+
+-----> AGORA DEVEMOS VER UM 
+
+
+
+
+METHOD DE STRING MT IMPORTANTE,
+
+
+QUE É 
+
+O 
+
+
+'.format()'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O FORMAT __ NOS AJUDA _ A OUTPUTTAR __ TEXTO __ FORMATADO _ DE MANEIRA NICE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> DIGAMOS QUE TEMOS 2 VARIABLES,
+
+
+
+
+name e age...
+
+
+
+
+
+
+
+ex:
+
+
+>>> name = 'Max' 
+>>> age = 29
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VAMOS QUERER OUTPUTTAR 1 TEXT 
+
+EM QUE DIZEMOS 
+
+
+
+
+
+
+
+
+
+
+
+'I am ' + name + ' and I am ' + str(age) + ' years old.' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, CONSEGUIMOS CHEGAR LÁ,
+
+MAS FOI DIFÍCIL (um monte de espaços e conversões)...
+
+
+
+
+
+
+--> BEM, É CLARO QUE EXISTE UMA MANEIRA MAIS CONVENIENTE DE FAZER ISSO,
+
+
+
+QUE E´
+
+O USO 
+
+
+
+DESSE 
+
+METHOD ESPECIAL QUE PODEMOS CHAMAR EM QUALQUER STRNIG,
+
+
+QUE É O  
+
+
+
+'format()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+PROFESSOR DIZ QUE PODEMOS CRIAR UMA NOVA STRING,
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+'I am ' 
+
+
+
+
+
+
+
+
+
+--> NO MEIO DESSA STRING,
+
+ELE NOS ENSINA QUE PODEMOS ESCREVER 
+
+
+'{
+    
+}
+'
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS, CONTINUAMOS COMO NORMAL..
+
+
+
+
+ex:
+
+
+
+
+
+
+'I am {} and I am {} years old' 
+
+
+
+
+
+
+
+
+
+
+
+--> SE INPUTTAMOS ISSO AÍ,
+
+
+
+
+o resultado da string realmente fica assim no REPL...
+
+
+
+
+
+
+>>> 'I am {} and I am {} years old'
+'I am {} and I am {} years old'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS A PARTE LEGAL NESSE NEGÓCIO É QUE VOCê PODE CHAINAR UM METHOD NESSA STRING INTEIRA,
+
+
+
+
+E AÍ 
+
+CHAMAR 
+
+'.format()'...
+
+
+
+
+
+
+ex:
+
+
+
+
+'I am {} and I am {} years old'.format()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E FORMAT __ TE __ DEIXA __ INJETAR__ VARIABLES__ NOS LOCAIS EM QUE VOCê DEIXOU O '{}'....
+
+
+
+
+
+
+
+
+
+
+
+---------> OK.... ESSAS VARIABLES SERÃO RENDERIZADAS NESSES LOCAIS DOS PLACEHOLDERS...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+'I am {} and I am {} years old'.format(name, age)
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FARÁ COM QUE A VARIABLE DE 'name' e a de 'age'
+
+
+
+SEJAM __ INSERIDAS __ NESSES SLOTS,
+
+EM ORDEM...
+
+
+
+
+
+EX:
+
+
+
+
+
+>>> 'I am {} and I am {} years old'.format(name, age)
+'I am Max and I am 29 years old'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A COISA ESPECIAL DO METHOD DE '.format()'
+
+
+É QUE 
+
+ELE 
+
+É 
+
+CAPAZ
+
+DE SUPORTAR 
+
+UMA 
+
+
+QUANTIDADE __ INFINITA __ DE ARGUMENTS ---. VEREMOS COMO ISSO 
+
+
+
+FUNCIONA,
+
+
+
+
+TUDO 
+
+
+
+NESSE MÓDULO AQUI...
+
+
+
+
+
+
+
+
+
+--> OK... --> OS ARGUMENTOS FORAM INSERIDOS __ EM ORDEM....
+
+
+
+
+
+
+
+
+
+
+--> A ORDER É IMPORTANTE --> O PRIMEIRO ARGUMENT VAI NO PRIMEIRO SLOT,
+
+
+E ETC ETC..
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> MAS SE VOCÊ QUISER INSERIR  ESSES NEGÓCIOS DE UMA MANEIRA MAIS BAGUNÇADA,
+
+POR ALGUMA RAZAÃO,
+
+
+
+
+
+VOCÊ PODE ESPECIFICAR O _ NÚMERO DE CADA SLOT,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+'I am {0} and I am {1} years old'.format(name, age)
+
+
+
+
+
+
+
+
+---> SE VOCÊ DEIXAR ASSIM, A ORDER AINDA SERÁ LINEAR ( primeiro o 1, depois o 2)...
+
+
+
+
+
+
+
+
+
+
+--> MAS SE VOCÊ ESCREVER ASSIM:
+
+
+
+
+
+
+'I am {1} and I am {0} years old'.format(name, age)
+
+
+
+
+
+
+
+
+------> SE VOCÊ FIZER ISSO,
+
+
+
+
+
+
+A ORDEM __ SERÁ _ REVERTIDA__,
+
+
+
+
+
+
+
+A AGE SERÁ INSERIDA NO '1',
+
+
+E O 
+
+
+
+
+NAME SERÁ INSERIDO NO '0'...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ok.... ALÉM DISSO AÍ,
+
+
+
+
+DE USAR OS INDEXES PARA _ REVERTER_ A ORDER (o que nem faz mt sentido, e é meio inútil),
+
+
+
+
+
+
+
+
+
+
+
+UMA UTILIZAÇÃO MAIS ÚTIL 
+
+
+é 
+
+
+
+
+
+QUANDO VOCê QUER _ REUTILIZAR A MESMA VARIABLE/STRING MÚLTIPLAS VEZES,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+'I am {0} and I am {1} years old. No, really, I am {0}.'.format(name, age)
+
+
+
+
+
+
+
+
+
+
+
+-> E ISSO REALMENTE FUNCIONA:
+
+
+
+>>> 'I am {0} and I am {1} years old. No, really, I am {0}.'.format(name, age)
+'I am Max and I am 29 years old. No, really, I am Max.'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok... 
+
+
+
+
+
+
+ALEM DISSO,
+
+VOCÊ TAMBÉM PODE REFERENCIAR SEUS ARGUMENTOS __ POR NOME..
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+>>> 'I am {name} and I am {age} years old. No, really, I am {name}.'.format(name, age)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS SE EU ESCREVER ISSO AÍ,
+
+
+
+
+O NEGÓCIO VAI ME DAR UM ERRO:
+
+>>> 'I am {name} and I am {age} years old. No, really, I am {name}.'.format(name, age)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'name'
+>>> 'I am {name} and I am {age} years old.'.format(name, age)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'name'
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> para que isso funcione, NAÕ POSSO PASSAR ESSE CALL DE 'format'...
+
+
+
+MAS ISSO AINDA NÃO FEZ NADA:
+
+
+
+
+
+>>> 'I am {name} and I am {age} years old.'                  
+'I am {name} and I am {age} years old.'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok... --> ISSO SIGNIFICA QUE TENTAR USAR UM VALOR DENTRO DE '{}',
+
+
+UMA VARIABLE,
+
+
+
+
+
+
+
+ISSO NÃO FUNCIONA,
+
+
+
+
+NÃO SERÁ USADO ESSE VALOR AUTOAMTICMANETE. ...- -> E ESSE É UM BOM COMPORTAMENTO ,
+
+
+POIS 
+
+AÍ 
+
+VOCê NÃO VAI OUTPUTTAR ALGUMA COISA QUE VOCÊ TALVEZ USA EM QUALQUER OUTRO LUGAR DO SEU ARQUIVO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> SE QUISERMOS USAR ESSA FEATURE,
+
+
+
+SOMOS OBRIGADOS A USAR O 
+
+'.format()'
+
+
+
+
+NO LADO DA DIREITA,
+
+MAS AÍ VAMOS TER QUE 
+
+PASSAR 
+
+'NAMED ARGUMENTS',
+
+
+como 
+
+
+'name=name',
+
+
+'age=29'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+'I am {name} and I am {age} years old.'.format(name='Max', age=29)
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+->  ok, isso nos ajuda a outputtar valores de maneira DINÂMICA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A FUNCTION DE FORMAT FAZ MAIS COISAS DO QUE ISSO..
+
+
+
+
+
+
+
+
+
+-> PODEMOS TAMBÉM FORMATAR O OUTPUT DA STRING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> professor usa um exemplo de numeros:
+
+
+
+
+
+
+
+
+QUEREMOS OUTPUTTAR 
+
+
+'Funds: {}'.format(funds) 
+
+
+
+
+
+
+
+
+
+
+--> E ISSO FUNCIONARÁ, É CLARO:
+
+
+
+
+
+
+
+
+
+
+>>> funds = 150.9723
+>>> 'Funds: {}'.format(funds)
+'Funds: 150.9723'
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FUNCIONA DEVIDO AO POSITIONAL ARGUMENT,
+
+
+ARGUMENT USADO NO PRIMEIRO E ÚNICO SLOT PLACEHOLDER....  -------> MAS DIGAMOS QUE 
+
+
+
+NÃO VAMOS QUERER OUTPUTTAR ESSE NEGÓCIO
+
+
+COMO UMA STRING... --> DIGMAOS QUE 
+
+
+QUEREMOS 
+
+USAR 
+
+AQUEEL 
+
+
+NUMBER EM UM CÁLCULO, 
+
+
+
+
+MAS PARA OUTPUT 
+
+
+
+
+NESSA STRING, VAMOS QUERER OUTPUTTAR __ APENAS _ A PRIMEIRA CASA DECIMAL DESSE NUMBER, DESCARTADAS AS CASAS '723'..
+
+
+
+
+
+
+
+
+
+
+
+-> A COISA INTERESSANTE DE '.format()'
+
+É QUE 
+
+ELA NOS DEIXA FORMATAR 
+
+
+
+O 'LOOK' 
+
+
+DOS VALORES QUE 
+
+
+OUTPUTTAMOS 
+
+
+
+DENTRO 
+
+
+
+DOS SLOTS '{'}' 
+
+
+Nas nossas strings...
+
+
+
+
+
+
+
+
+
+
+
+
+------> PARA CONTROLAR ESSE OUTPUT,
+
+
+O PROFESSOR 
+
+ESCREVE 
+
+':' 
+
+
+
+DENTRO DO 
+
+'{}'  (essa é uma sintaxe ESPERADA PELO PYTHON )
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DESSE ':',
+
+
+
+podemos ESPECIFICAR QUE QUEREMOS QUE ESSE NUMBER _ _SEJA __ OUTPUTTADO __ COMO UM 'FLOATING POINT NUMBER',
+
+
+TUDO POR MEIO Da escrita de 
+
+um 
+
+
+'f' ..
+
+
+
+
+
+
+
+ex:
+
+
+
+'Funds: {:f}'.format(funds)
+
+
+
+
+
+
+O OUTPUT SERÁ ESTE:
+
+
+
+
+
+ >>> 'Funds: {:f}'.format(funds)
+'Funds: 150.972300'
+
+
+
+
+
+----> SERÁ UM FLOATING POINT, AGORA....
+
+
+
+
+
+
+
+
+
+--------> O ARGUMENTO 'f' 
+
+
+TAMBÉM  
+
+
+
+ACEITA 
+
+
+
+'PARAMETERIZATION' -------> isso significa que 
+
+PODEMOS ADICIONAR PARÂMETROS A ELE... --> 
+
+
+
+VOCê DEVE COLOCAR 
+
+
+
+OS PARÂMETROS __ ANTES  
+
+
+
+
+
+
+DO PRÓPRIO 'f',
+
+
+
+E ISSO DIRÁ 
+
+
+
+
+'QUAIS PLACES/DIGITS DEPOIS DO DECIMAL PLACE DEVERÃO SER OUTPUTTADOS'...
+
+
+
+
+
+ex:
+
+
+
+
+'Funds: {:.1f}'.format(funds)
+
+
+
+
+
+
+
+
+
+
+
+
+-> 1F SIGNIFICA QUE SÓ A PRIMEIRA CASA DECIMAL SERÁ OUTPUTTADA...
+
+
+
+ex:
+
+
+
+
+
+>>> 'Funds: {:.1f}'.format(funds)
+'Funds: 151.0'
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... O NÚMERO PERDEU 'DETALHES' ---> O FORMAT AUTOMATICAMENTE FEZ 'ROUNDUP'
+
+PARA 
+NOS DAR UM RESULT MAIS NICE... ----> isso é bem forte..
+
+
+
+
+
+
+
+
+
+
+
+--> ALÉM DISSO,
+
+
+O 
+
+FORMAT NOS DEIXA CONTROLAR O __ SPACING__ DE 
+
+
+
+NOSSA STRING....
+
+
+
+
+
+
+
+
+
+
+
+
+------> ou seja,, podemos dizer '''QUERO QUE VOCê SEJA OUTPUTTADO A X ESPAÇOS DE DISTÂNCIA EM RELAÇÃO AO NEGÓCIO QUE VEIO ANTES DE VOCÊ'''
+
+
+
+
+
+--> o local em que você coloca esse parâmetro é 
+
+
+NA FRENTE do '.' no slot...
+
+
+
+
+
+
+
+assim:
+
+
+
+
+
+
+
+'Funds: {:10.1f}'.format(funds)
+
+
+RESULTADO:
+
+'Funds:      151.0'
+
+
+
+
+
+
+
+
+
+
+------> NESSE CASO, O FORMAT RESERVOU O ESPAÇO DE 10 DIGITOS ENTRE A PRIMEIRA PARTE E O OUTPUT DO 'slot'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> POR FIM, VOCÊ PODE ATÉ MESMO __ CONTROLAR __ O ALINHAMENTO __ 
+
+
+
+DENTRO DO NOSSO 'SLOT',
+
+
+
+
+BASTA USAR MAIS UM PARÂMETRO, DESSA VEZ NA FRENTE 
+
+
+DO '10' que escrevemos há pouco:
+
+
+
+
+
+
+
+
+
+OS PARÂMETROS SÃO 
+
+
+
+> -----> CRIA OS ESPAÇOS À ESQUERDA, E AÍ __ COLOCA SUA STRING LÁ NA DIREITA ..  (É O DEFAULT)...
+
+
+
+< ----> cria os espaços à DIREITA, E AÍ COLOCA SUA STRING LÁ NA ESQUERDA (menos usado)...
+
+
+
+^ --> CRIA OS ESPAÇOS AO REDOR DE SEU SLOT/STRING, E A OUTPUTTA NO CENTRO....
+
+
+
+
+
+
+
+ex:
+
+
+
+'Funds: {:>10.1f}'.format(funds)
+
+'Funds:      151.0'
+
+
+'Funds: {:<10.1f}'.format(funds)
+
+'Funds: 151.0     '
+
+
+
+'Funds: {:^10.1f}'.format(funds)
+
+'Funds:   151.0   '
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... ALÉM DE TUDO ISSO,
+
+VOCÊ PODE àS VEZES QUERER  __ PREENCHER__ O ESPAÇO EM BRANCO COM __ UM CARACTER__ 
+
+QUALQUER --> VOCÊ 
+
+
+FAZ ISSO 
+
+
+
+ 
+
+
+
+
+
+
+
+ COM A ESCRITA DE UM CARACTER ANTES DO '<' '>' ou '^'...
+
+
+
+
+
+
+
+
+
+
+ --> O PROFESSOR COLOCA UM '-',
+
+ PARA EXEMPLIFICAR....
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+ >>> 'Funds: {:-^10.1f}'.format(funds) 
+'Funds: --151.0---'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... --> COMO VOCÊ PODE PERCEBER, A FUNÇÃO 'FORMAT' É BEM FORTE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> VOCÊ TALVEZ ESTEJA SE PERGUNTANDO:
+
+
+
+
+
+''COMO VOU SABER QUE OUTRAS OPÇÕES DE FORMAT EU TENHO, ALÉM DE COISAS 
+COMO O FLOAT, POR EXEMPLO?''
+
+
+
+
+
+
+
+
+
+
+-----> BEM, É NOS DOCS QUE 
+
+
+VOCê ENCONTRA ESSAS INFO....
+
+
+
+
+
+
+
+
+
+--> é no 'Format Specification Mini-Language'...
+
+
+
+
+
+
+
+
+
+
+https://docs.python.org/3.4/library/string.html#formatspec
+
+
+
+
+
+
+
+
+
+The general form of a standard format specifier is:
+
+format_spec ::=  [[fill]align][sign][#][0][width][,][.precision][type]
+fill        ::=  <any character>
+align       ::=  "<" | ">" | "=" | "^"
+sign        ::=  "+" | "-" | " "
+width       ::=  integer
+precision   ::=  integer
+type        ::=  "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G" | "n" | "o" | "s" | "x" | "X" | "%"
+
+
+
+
+
+EX:
+
+
+
+'Funds: {:-^10.1f}'.format(funds)
+
+
+
+
+
+
+: --> ELEMENTO NECESÁRIO...
+
+
+
+
+
+
+
+
+
+'-' -> ARGUMENTO FILL... (vai forrar os espaços, se inputtado)...
+
+
+
+
+
+
+'>' --> ARGUMENTO 'ALIGN'...
+
+
+
+
+
+
+'+' ou '-' --> ISSO __ SÓ EXISTE PARA _ _NUMBER TYPES_, e pode ser:
+
+
+
+
+
+
+
+
++ ----> INDICA QUE UM SINAL DEVE SER USADO __ PARA TANTO NÚMEROS POSITIVOS COMO NEGATIVOS... (+25, -26)
+
+
+
+
+
+- -----> INDICA QUE UM SINAL DEVE SER USADO __ APENAS PARA NUMEROS NEGATIVOS (25, -26)
+
+
+
+
+
+
+
+
+ESPAÇO --> significa que UM 'LEADING SPACE' (espaço separador) DEVE SER USADO NOS NÚMEROS POSITIVOS, E UM SINAL DE '-' nos números NEGATIVOS...
+
+
+
+
+
+
+
+10 ----> ARGUMENTO 'WIDTH' -->  É A QUANTIDADE DE ESPAÇOS QUE DEVE SER RESERVADA PARA A STRING.... -->  SE A STRING FOR MENOR DO QUE O SLOT,
+
+ESPAÇOS EM BRANCO RESTARÃO..
+
+
+
+
+
+
+
+
+
+1 ----> ARGUMENTO 'PRECISION' --> é opcional, e depende do próximo parâmetro (que é 'type', o TYPE DA STRING/data inserida no slot) --> determina QUANTAS CASAS DECIMAIS DEVERAÕ SER OUTPUTTADAS...
+
+
+
+
+
+
+
+f --> TYPE --> HÁ  VÁRIOS TYPES, NÓS USAMOS O 'float'...
+
+
+
+
+
+
+EXISTEM:
+
+
+
+1) s --> É O VALOR DEFAULT, DE STRING.... pode ser omitido....
+
+
+
+
+
+
+TYPES INTEGRAIS:
+
+
+
+
+
+
+2) 'b' --> TIPO __ BINÁRIO... (binary) --> VAI OUTPUTTAR O NÚMERO QUE VOCê COLOCOU EM UMA BASE 2...
+
+
+
+
+
+
+
+--> o que é uma 'BASE 2'? 
+
+
+é isto:
+
+
+
+
+
+Suppose we have a number in base 10 and want to find out how to represent that number in, say, base 2.
+
+
+How do we do this?
+
+Well, there is a simple and easy method to follow. Let’s say I want to write 59 in base 2. My first step is to find the largest power of 2 that is less than 59.
+So let’s go through the powers of 2:
+
+1, 2, 4, 8, 16, 32, 64.
+
+Okay, 64 is larger than 59 so we take one step back and get 32. 32 is the largest power of 2 that is still smaller than 59. How many “whole” (not partial or fractional) times can 32 go into 59?
+
+
+It can go in only once because 2 x 32 = 64 which is larger than 59. So, we write down a 1.
+
+1
+
+Now, we subtract 32 from 59: 59 – (1)(32) = 27. And we move to the next lower power of 2. In this case, that would be 16. How many full times can 16 go into 27? Once. So we write down another 1 and repeat the process.
+
+1
+
+1
+
+27 – (1)(16) = 11. The next lowest power of 2 is 8.
+How many full times can 8 go into 11?
+Once. So we write down another 1.
+
+111
+
+11
+
+11 – (1)(8) = 3. The next lowest power of 2 is 4.
+How many full times can 4 go into 3?
+Zero.
+So, we write down a 0.
+
+
+1110
+
+3 – (0)(4) = 3. The next lowest power of 2 is 2.
+How many full times can 2 go into 3?
+Once. So, we write down a 1.
+
+11101
+
+3 – (1)(2) = 1. And finally, the next lowest power of 2 is 1. How many full times can 1 go into 1?
+Once. So, we write down a 1.
+
+111011
+
+1 – (1)(1) = 0. And now we stop since our next lowest power of 2 is a fraction.
+This means we have fully written 59 in base 2.
+
+
+
+
+
+
+
+
+
+
+---------------
+
+
+SÃO 0s e 1s, basicamente...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SEGUINDO:
+
+
+
+
+
+
+
+
+c) 'C' -- >CARACTER.... --> O FORMAT VAI CONVERTER A INTEGER __ AO __ UNICODE CAHRACTER CORRESPONDENTE, antes de printar... (converte numbers em strings?)
+
+
+
+
+
+
+
+D) 'd' --> INTEGRAL DECIMAL --> OUTPUTTA O NUMBER EM BASE 10..... --> numeros comuns....
+
+
+
+
+
+
+
+
+
+
+E) 'o' ---> FORMATO 'OCTAL' -----> outputta o number em base 8...
+
+
+
+
+
+F) 'x' --> formato HEX --> OUTPUTTA O NUMBER EM UMA BASE 16, usando lower-case letters para os DIGITOS MAIORES DO QUE 9...
+
+
+
+
+G) 'X' --> FORMATO HEX. --> OUTPUTTA O NUMBER EM UMA BASE 16, USANDO __UPPER-CASE__ LETTERS PARA OS DIGITOS MAIORES DO QUE 9...
+
+
+
+
+H) 'N' --> number --> É A MESMA COISA QUE 'd' (decimal integer), EXCETO PELO FATO DE QUE _ ELE USA O 'CURRENT LOCALE SETTING' para inserir o número apropriado de CARACTERES SEPARADORES..
+
+
+
+
+
+I) 'None' --> mesma coisa que 'd'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> além desses 'PRESENTATIONAL TYPES' ,
+
+
+
+AS INTEGERS __ PODEM __ SER FORMATADASS
+
+
+
+
+
+COM __ 'FLOATING POINT PRESENTATION TYPES'... -> 
+
+
+
+
+
+
+
+
+QUANDO ESSES TYPES DE BAIXO SÃO USADOS,
+
+
+
+
+_ O NÚMERO É CONVERTIOD COM 'float()',
+
+
+
+
+CONVERTIDO DE INTEGER PARA FLOAT,
+
+ANTES DE ENTAÕ SER FORMATADO..
+
+
+
+
+
+
+
+
+OS TYPES para FLOATING POINT E DECIMAL VALUES SÃo:
+
+
+
+
+
+
+
+
+
+
+
+
+1) 'e' ---> EXPONENT NOTATION --> printa o número em uma notação CIENTÍFICA, usando a letra 'e' para indicar o exponente... --> A PRECISÃO DEFAULT É '6'....
+
+
+
+
+
+
+2) 'E' -> exponent notation ---> mesma coisa que 'e', mas usa UM _ E MAIÚSCULO como caracter separador...
+
+
+
+
+
+
+
+3) 'g' --> FORMATO GERAL..... --> se o number ficar mt grande, ele troca para o tipo 'e'...
+
+
+
+
+
+
+4) G --> mesma coisa que 'g', mas O NEGÓCIO TROCA PARA 'E' no caso do number ficar mt grande...
+
+
+
+
+
+
+5) 'n' -----> MESMA COISA QUE 'g',
+
+
+MAS CONSIDERA O 'CURRENT LOCALE SETTING' 
+
+para inserir 
+
+os       caracteres separadores de number apropriados....
+
+
+
+
+
+
+
+6) % --> percentage --->  MULTIPLICA O NUMBER POR 100 e  ENTAÕ FAZ DISPLAY DELE 
+
+
+EM UM FORMATO FIXO 'f',
+
+
+
+   também adiciona um '%' ao number..
+
+
+
+
+
+
+
+7) 'None '---> SIMILAR A 'g'....
+
+
+
+
+
+
+
+
+Using the comma as a thousands separator:
+
+>>>
+>>> '{:,}'.format(1234567890)
+'1,234,567,890'
+
+
+
+
+
+
+
+
+>>> points = 19
+>>> total = 22
+>>> 'Correct answers: {:.2%}'.format(points/total)
+'Correct answers: 86.36%'

@@ -1,0 +1,245 @@
+
+
+
+
+
+
+
+
+
+
+
+
+----> ACABAMOS O MÓDULO, MAS 
+
+VIMOS UM MONTE DE COISAS CORE....
+
+
+
+
+
+
+
+
+
+
+
+--> VIMOS COISAS QUE USAREMOS EM TODOS OS PROJETOS PYTHON QUE CRIAREMOS..
+
+
+
+
+
+
+
+
+
+
+
+
+--> APRENEDMOS SOBRE ITERABLES:
+
+
+
+
+
+
+
+1) LISTS --> ORDERED, MUTABLE LIST OF VALUES...
+
+
+
+
+
+
+
+
+2) SETS ---> UNORDERED, MUTABLE LIST OF UNIQUE VALUES...
+
+
+
+
+
+
+
+
+3) TUPLES --> ORDERED, IMMUTABLE LIST --> não podemos deletar/alterar/adicionar values a ela, depois que é criada...
+
+
+
+
+
+
+
+4) DICTIONARIES --> UNORDERED KEY-VALUE PAIRS, MUTABLE, etc etc ---> SE LOOPARMOS POR DENTRO DELES, NOS REFERIMOS POR DEFAULT A SUAS KEYS, mas os methods '.items()' e '.values()' nos ajudam a pegar seus values....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VIMOS INDEXING E UNPACKING....
+
+
+
+
+
+
+
+
+
+--> INDEXING --> ACESSAMOS VALUES POR MEIO DOS SEUS INDEXES...
+
+
+(e keys em dictionaries)..
+
+
+
+
+
+
+
+
+--> UNPACKING --> EXTRAÍMOS DATA DE UMA ITERABLE (list, set, tuple, dict) 
+
+
+e entaõ 
+
+ARMAZENAMOS ESSA DATA EM UMA VARIABLE...
+
+
+
+
+
+
+
+
+-----------> OK..
+
+
+
+
+
+
+
+
+
+3) VIMOS LIST COMPREHENSIONS --> É UMA MANEIRA ELEGANTE DE 
+
+CONVERTER 
+
+UM ITERABLE EM UM NOVO TIPO DE ITERABLE (lists, no caso).... --> VOCÊ TAMBÉM 
+
+
+PODE MANIPULAR QUAISQUER VALORES QUE ESTAVAM NA ITERABLE, POR EXEMPLO... 
+
+
+
+
+
+
+--> ALÉM DISSO, VIMOS QUE AS LIST COMPREHENSIONS PODEM SER COMBINADAS COM CONDTIONS E FUNCTIONS...
+
+
+
+
+
+
+--> conditions --> if calls DENTRO DA LIST COMPREHENSION..
+
+
+
+
+--> WRAPPERS --> 'any()' e 'all()', WRAPPADOS EM VOLTA DO WRITE DA LIST COMPREHENSION.... (e usados com lists de booleans, lists de booleans criadas a partir de list comprehensions...)
+
+
+
+
+
+
+
+
+--> VIMOS QUE AS LIST COMPREHENSIONS PODEM SER __ NESTEADAS__ ( e que o código fica meio confuso)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... ESSAS FORAM AS CORE THINGS QUE VIMOS NESSE MÓDULO...
+
+
+
+
+
+
+
+
+SÃO CORE FEATURES, E COM ELAS NOSSO BLOCKCHAIN JÁ CRESCEU UM MONTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+NOSSA BLOCKCHAIN:
+
+
+
+
+
+
+
+
+
+
+
+1) JÁ TEM UMA CHAIN DE DATA BÁSICA  --> AGORA NÃO É MAIS UMA CHAIN DE APENAS NUMBERS, É UMA CHAIN DE BLOCKS QUE SABEM SOBRE O PREVIOUS BLOCK, por meio dos hashes....
+
+
+
+
+
+2) JÁ MINERA BLOCKS, COM UMA USER INTERFACE (adds new blocks) ----> E AGORA OS MINERS DE NOSSO APP _ RECEBEM RECOMPENSAS (blocks)...
+
+
+
+
+3) JÁ TEM UMA IMPLEMENTAÇÃO BÁSICA DO MECANISMO DE HASHING DE BLOCKS (segurança) --> NÃO ESTAMOS MAIS CHECANDO SÓ VALUES, E SIM ESTAMOS CHECANDO __ VALORES _ PARECIDOS COM UM HASH, STRINGS CONCATENADAS....
+
+
+
+
+
+
+4) JÁ ANALISA E VERIFICA NOSSA CHAIN de blocks... --> JÁ ESTAMOS CALCULANDO BALANCES, que usamos para ou DEIXAR OU NEGAR TRANSACTIONS...
+
+
+
+5) TRANSACTIONS --> 

@@ -1,0 +1,291 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS QUE CLASSES SÃO IMPORTANTES QUANDO O ASSUNTO É OOP..
+
+
+
+
+
+
+
+
+
+
+
+
+--> CLASSES SÃO ALGO COMO ISTO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Block 
+
+
+
+
+
+
+previous_hash
+index
+transactions ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSAÉ UMA _ CLASS __ 
+
+
+
+
+
+
+PARA NOSSO 'BLOCK' na nossa blockchain...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+TEMOS ESSAS 3 ''''KEYS'''--. ISSO 
+
+
+
+OBVIAMNETE 
+
+
+LEMBRA UM DICTIOANRY,
+
+
+
+__ MAS NAÕ É A MESMA COISA... -------> NÓS TEMOS 
+
+
+
+
+
+O previous_hash,
+
+
+O INDEX,
+
+
+
+E AS TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS APRENDEMOS QUE PODEMOS ADICIONAR MAIS A 1 CLASS DO QUE 'FIELDS' (ou 'attributes', como são chamados aqui 
+
+)... -> PODEMOS 
+
+
+
+ADICIONAR  
+
+
+__FUNCTIONS__ QUE SÃO 'CLOSELY CONNECTED' a essa class, dentro dessa class...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O TAKEAWAY IMPORTANTE, AQUI, É QUE 
+
+UMA CLASS 
+
+É 
+
+UM 'SIMPLES BLUEPRINT'....
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE A CLASS 'POR SI SÓ'
+
+
+não faz mt coisa,
+
+
+
+MAS QUE 
+
+PODEMOS _ CRIAR _ OBJECTS 
+
+
+COM BASE 
+
+NESSA BLUEPRINT (instanciaçaõ, basicamnete)...
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ VAI CRIAR INSTANCES DE SUA CLASS...  ---------> SÃO OS OBJECTS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E CADA OBJECT POSSUI  O MESMO BLUEPRINT,
+
+MAS FUNCIONA DE MOODO 'INDEPENDENTE' em relaçaõ aos outros objects/instances..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... -> É ISSO QUE QUERMOS,
+
+
+
+QUE CADA 'BLOCK'/OBJECT 
+
+
+
+
+SEJA 
+
+1 
+
+OBJECT DISTINTO,
+
+
+
+
+
+E NÃO 'ESTRITAMENTE CONECTADOS' (
+
+
+
+    vamos ter a relação entre eles na BLOCKCHAIN,
+
+
+    COM OS HASHES, MAS ESSA É UMA CONEXÃO MANAGEADA POR NMÓS,
+
+
+    E NÃO PELO 'construct' em si, não pelo python em si....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS ENTRAR NO NOSSO CÓDIGO E 
+
+
+TENTAR ADICIOANR UMA CLASS,
+
+VER COMO ISSO FUNCIONA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... 

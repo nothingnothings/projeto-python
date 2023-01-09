@@ -1,0 +1,1493 @@
+ 
+
+
+
+
+
+
+
+
+
+ HANDLING FILE ACCESS CORRECTLY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> O FILE ACCESS NO PYTHON É ALGO _ MT SIMPLES...
+
+
+
+
+
+
+
+
+
+
+
+ --> TEMOS UM METHOD, 'open()',
+
+
+
+
+ QUE É BUILTIN NO PYTHON,
+
+
+
+
+
+
+
+
+ method que 
+
+ VOCÊ PODE EXECUTAR_ SEM  __ _INSTALL/IMPORT DE NADA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> ex: open() 
+
+
+
+
+
+ ESSA FUNCTION EXIGE ALGUNS 
+
+
+
+ ARGUMENTOS, COMO:
+
+
+
+
+ 1) NOME DA FILE, OU O 'PATH ATÉ O LOCAL EM QUE ELA RESIDE'....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ASSIM QUE VOCê ___ ABRIR 1 FILE,
+ 
+
+
+ ESSA FUNCTION  
+
+
+
+
+
+
+
+ VAI RETORNAR UM 'FILE OBJECT',
+
+
+  
+  OBJECT QUE VOCÊ PODERÁ ARMAZENAR EM UMA VARIABLE,
+
+
+  VARIABLE NA QUAL VOCÊ PODERÁ EXECUTAR DIVERSAS OPERAÇÕES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -> VOCÊ PODE, por exemplo,
+
+
+
+  EXECUTAR:
+
+
+
+
+
+
+
+
+
+  1) WRITE() -> escreve algo no arquivo...
+
+
+
+
+
+
+
+  2) readline() --> Lê UMA LINHA DO ARQUIVO/no arquivoi...
+
+
+
+
+
+
+
+
+
+
+
+  -> É CLARO QUE EXISTEM MAIS METHODS DO QUE ESSES 2, MAS SÃO UM BOM PONTO DE PARTIDA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --------> OK.... MAS UMA COISA 
+
+
+
+
+
+
+
+
+
+  __ MT _ IMPORTANTE __ QUE VOCÊ DEVE TER EM MENTE QUANDO TRABALHA COM FILES:
+
+
+
+
+  PARA __ ASSEGURAR_ QUE SUAS CHANGES SÃO ACTUALLY __ ARMAZENADAWS/SALVAS  
+
+
+
+
+
+  NO ARQUIVO,
+
+  E TAMBÉM 
+
+
+
+
+  _ PARA  __ PREVENIR 
+
+   
+
+
+
+'MEMORY LEAKS',
+
+
+
+
+
+vocÊ __ sempre __ PRECISA CHAMAR 
+
+
+'close()'
+
+
+--> precisa chamar 'close()'
+
+
+
+
+NO OBJETO 'file' _ 
+
+ASSIM QUE VOCê TERMINAR DE EDITAR ESSE ARQUIVO/VARIABLE EM QUE O ARQUIVO  ESTÁ ARMAZENADO...
+
+
+
+
+
+
+
+
+
+--> ESSE METHOD __ VAI _ FECHAR __ O ARQUIVO,
+
+
+SALVAR 
+
+AS MUDANÇAS NO DISCO 
+
+
+
+
+
+E ENTÃO 
+
+VAI 
+
+
+'CLEAR THE RESERVED MEMORY'.... -----> E ESSA É UMA PARTE __ REALMENTE __ CRUCIAL DO 'PROCESSO'
+ 
+
+
+ QUANDO ESTAMOS TRABALHANDO/TRABALHAMOS COM FILES...
+
+
+
+
+
+
+
+
+
+
+ -> COM ISSO, AGORA DEVEMOS SIMPLESMENTE DAR UMA OLHADA NISSO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VOLTAMOS AO PROJETO BLOCKCHAIN,
+
+
+
+
+ EM QUE 
+
+ CRIAMOS UM NOVO ARQUIVO INDEPENDENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> OK... AGORA VEREMOS A TEORIA, ANTES DE APLICARMOS NA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PROFESSOR COMEÇA COM O method de 'open()",
+
+
+
+ tipo assim:
+
+
+
+
+
+
+
+
+
+
+ open('')
+
+
+
+
+
+
+
+
+
+
+
+
+ -> O PRIMEIRO ARGUMENTO É O NOME DO ARQUIVO/PATH AO ARQUIVO, com a file extension...
+
+
+
+
+
+
+
+
+
+
+
+ --> ISSO QUER DIZER QUE SE VOCÊ QUER CRIAR 
+
+
+ UM 
+
+
+ ARQUIVO NO MESMO FOLDER QUE ESSE NOSSO PROJETO,
+
+ NÓS 
+
+ S
+ IMPLESMENTE ESCREVEMOS O FILENAME ASSIM MESMO...
+
+
+
+
+
+
+
+
+
+ -> se queremos ACESSAR UM SUBFOLDER,
+  
+  DEVEMOS NAVEGAR ATÉ LÁ COM O PATH (
+
+
+      tipo '/pasta/subpasta/arquivo.txt'...
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+  -> ok, o professor escreve 
+  'demo.txt'...
+
+
+
+
+
+
+
+
+
+  --> vamos querer ABRIR UM ARQUIVO CHAMADO DE 'open.txt'..
+
+
+
+
+
+
+
+
+
+
+
+  -----> JÁ O SEGUNDO PARÂMETRO E´O 'mode'.......
+
+
+
+
+
+
+
+
+
+
+  ----> O MODE, POR DEFAULT,
+
+
+
+  É UM DE 'read'....
+
+
+
+
+
+
+
+
+
+
+  --> isso quer dizer que SE VOCÊ NÃO ESCREVER NADA EM 
+
+
+  'open('path....')
+  ',
+
+
+
+
+
+
+
+
+  você VAI _ FAZER O READ-ONLY DE UMA FILE...
+
+
+
+
+
+
+
+
+
+  --> certo... mas como aqui NÓS AINDA __ NÃO TEMOS ESSE ARQUIVO DE 'demo.txt',
+
+
+  O PROFESSOR DEFINE O __ MODE _ COMO 
+
+
+  'w',
+
+  que significa WRITE...
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+
+
+
+
+
+  open('demo.txt', mode='w')
+
+
+
+
+
+
+
+
+
+
+
+
+  --> ESSE É UM __ MODE _ QUE NÃO NOS DEWIXA FAZER 'READ' 
+
+  DO CONTEÚDO DESSE ARQUIVO,
+
+  MAS _ _DEIXA __ FAZER 
+
+  WRITE DE COISAS 
+
+  DENTRO 
+
+
+
+  DELE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -> NA VERDADE, OS MODES DISPONÍVEIS SÃO:
+
+
+
+
+
+
+
+
+
+'r' read access ONLY
+ 
+
+'w' WRITE ACCESS ONLY
+
+
+
+
+'r+' READ E WRITE ACCESS 
+
+
+
+
+'X' ---> ESSE _ TAMBÉM É UM 'WRITE ACCESS', MAS _ ELE _ SÓ VAI FAZER O WRITE _ SE CONSTATAR QUE ESSE FILE AINDA NAÕ EXISTE...
+
+
+
+
+--> se o arquivo já existir, o python NÃO VAI FAZER WRITE... (will fail)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O 'W' difere na medida que 
+
+
+ELE VAI CONSTATAR SE 
+
+ESSE ARQUIVO JÁ EXISTE... SE JÁ EXISTE, ELE VAI FAZER 'OVERWRITE' do conteúdo OLD pelo conteúdo novo que você writar...
+
+
+
+
+
+
+
+
+
+
+
+
+'A' (a) -->  É USADO SE VOCê QUER __ ABRIR UMA FILE JÁ EXISTENTE __ ,
+
+
+
+MAS __ NÃO VAI QUERER _ OVERWRITTAR __ A FILE INTEIRA,
+
+E SIMN 
+
+
+SÓ 
+
+FAZER 
+
+
+APPEND 
+
+
+
+
+de seu write __ AO FINAL DESSE ARQUIVo....
+
+
+
+
+
+
+
+
+
+'B' --> ISSO __ É USADO __ QUANDO VOCÊ 
+
+
+
+
+''NÃO QUER ESCREVER TEXT AOS ARQUIVOS'' (que é o procedimento PADRÃO),
+
+
+
+
+
+E SIM 
+
+
+
+QUANDO VOCê QUER __ ARMAZENAR 'BINARY DATA' (data não legível por humanos)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... USAMOS 'w',
+
+QUE 
+
+
+VAI CRIAR 1 NOVO ARQUIVO SE ELE AINDA INEXISTE,
+
+OU ABRIR UM ARQUIVO JÁ EXISTENTE com esse nome, SE PRESENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... --> ISSO NOS DEIXA 'WRITE' DENTRO DESSA FILE.. --> E CADA 
+
+'WRITE' 
+
+CLÁSSICO FAZ __ O COMPLETO OVERWRITE DO CONTEÚDO DE UMA FILE....
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO, MAS ANTES DE FAZERMOS ISSO, PRECISAMOS _ DE ACESSO__ 
+
+A
+ 
+
+ ESSA FILE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> COMO O PROFESSOR MENCIONOU,
+
+
+ o 
+
+
+ 'open' 
+
+
+
+ RETORNA UM  OBJETO 'file',
+
+
+ COM O QUAL DEVEMOS INTERAGIR PARA APLICAR EFEITOS NA NOSSA FILE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> vAMOS ARMAZENAR O ACESSO A ESSE ARQUIVO EM UMA VARIÁVEL,,
+
+
+
+ 'f'....
+
+
+
+
+
+
+
+
+
+
+
+ --> f = open('demo.txt', mode='w')'
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> OK, MAS O QUE PODEMOS FAZER COM ESSE ARQUIVO/VARIÁVEL? 
+
+
+
+
+
+
+
+
+
+
+
+
+ --> BEM, COMO TEMOS 'WRITE ACCESS',
+
+
+
+ podemos 
+ CHAMAR 
+
+ 'f.write()"
+
+
+
+ PARA __ ESCREVER COISAS DENWTRO DESSA FILE,
+
+ STRINGS, 
+
+ INICIALMENTE..
+
+
+
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+ f = open('demo.txt', mode = 'w')
+
+
+ f.write('Hello from Python')
+
+
+
+
+
+
+
+
+
+
+
+ ------> OK.... --. SE EXECUTARMOS ESSE NEGÓCIO, VEREMOS 
+
+
+
+
+
+
+
+
+ A DATA QUE ESCREVEMOS, DENTRO DESSE ARQUVO...
+
+
+
+
+
+
+
+
+
+
+ --> MAS 1 COISA IMPORTANTE:
+
+
+
+
+
+ O PROFESSOR HAVIA MENCIONADO QUE 'TEMOS QUE FECHAR A FILE-STREAM COM 'close()'',.... --> 
+
+
+
+
+
+
+
+
+
+
+
+ DEVEMOS FAZER ISSO PARA EVITAR ERRORS... --.>
+
+
+
+ VOCÊ SEMPRE DEVE FECHAR _ A 
+
+ CONEXÃO/CALL DE 'open' com 
+
+ 'close' APós armazenar os dados que vocÊ deseja armazenar nesse arquivo..
+
+
+
+
+
+
+
+ 
+
+
+
+
+ ------> PARA DEMONSTRAR OS EFEITOS DISSO,
+
+
+O PROFESSOR ADICIONA UMA NOVA OPERATION,
+
+
+
+
+
+OPERATION QUE __ VAI __ ATRAPALHAR _ O __ FINISH___ DO 
+
+
+SCRIPT DE 
+
+
+
+'f.write()'...
+
+
+
+
+
+
+
+
+
+
+------> PARA ISSO,
+
+O PROFESSOR SUPÕE QUE 
+
+VAMOS ESTAR FAZENDO 'GET' DE ALGUM INPUT, PQ ISSO TOMA MAIS TEMPO (interrompe a execuçaõ od ´codigo)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+ f = open('demo.txt', mode = 'w')
+
+
+ f.write('Hello from Python')
+
+
+
+ user_input = input('Please enter input: ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO __ VAI PARAR AQUEALA EDUCAÇÃO 
+
+pytthon nas aulas....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> AÍ O PROFESSOR TEORIZA:
+
+
+
+
+
+
+
+
+
+
+
+
+ f = open('demo.txt', mode = 'w')
+
+
+ f.write('Hello from Python')
+
+
+
+ user_input = input('Please enter input: ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SALVAMOS ESSE CÓDIGO E EXECUTAMOS...
+
+
+
+
+
+
+-> o arquvo 'demo.txt' terá sido criado....
+
+
+
+
+--> TEMOS QUE FECHAR O FILE STREAM, COM '.close()'...
+
+
+
+
+
+> SE RODAMOS UMA OPERATION QUE ATRASA O CODE EXECUTION (ex: fetch de USER INPUT, please enter the user input)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='w')
+
+
+
+f.write('Hello')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--->  OK.. MAS TEMOS QUE CHAMAR '.close()'
+
+PARA __ 
+
+
+
+FECHAR NOSSO 'FILE STREAM'...
+
+
+
+
+-> OK... MAS PQ ISSO?
+
+É PQ SE NÓS ESCREVERMOS ALGUMA OPERAÇÃO QUE 'ATRAPALHE' O FINISH DESSE WRITE,
+
+
+
+
+
+
+
+
+TIPO O FETCH DE UM USER INPUT, POR EXEMPLO...:
+
+
+
+
+
+
+--> tipo assim:
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='w')  #MODO DE WRITE --> vamos querer ESCREVER ALGO NESSE ARQUIVO...
+
+
+
+f.write('Hello from Python!')
+
+
+
+user_input = input('Enter something... we will bother write script execution...')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEJA:
+
+
+
+PS A:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9> python files.py
+Enter something... we will bother write script execution...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI, USAMOS _ ESSE 'INPUT' PARA __ IMPEDIR __ 
+
+
+
+
+AQUELA PYTHON EXECUTION DE CHEGAR AO FIM...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9> python files.py
+Enter something... we will bother write script execution:   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE FIZERMOS ISSO, __CONSTATAREMOS __ QUE _ ESSE SCRIPT DE 'input'
+
+
+
+VAI __ FICAR SEMPRE SENDO EXECUTADO, 
+
+
+
+
+
+
+
+AO MESMO TEMPO QUE NOSSO ARQUIVO 'demo.txt'
+
+TERÁ SIDO CRIADO,
+MAS 
+
+
+
+NÃO VAI TER NENHUM CONTEÚDO NO SEU INTERIOR (sinal de que _O WRITE _ NÃO OCORREU.... NÃO OCORREU PQ aquele 'input' ali, aquela execução de código, __ ATRAPALHOU _ essa operaçaõ0)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... --> NENHUM CONTEÚDO EXISTIRÁ NESSE ARQUIVOO..... -->
+ MAS 
+
+
+ PQ 
+
+?
+
+
+
+
+
+
+
+
+
+----> É PQ:
+
+
+
+'SE A SCRIPT EXECUTION TERMINOU,
+
+
+
+O PYTHON SEMPRE __ CONVENIENTEMENTE __ 
+
+FECHA __ O NOSSO ARQUIVO PARA NÓS'.... -->  MAS A QUESTÃO 
+
+
+É QUE 
+
+
+SE QUISERMOS _ FAZER _iSSO 
+
+
+
+
+__ NO MEIO _ DA EXECUÇAÕ DE NOSSO CÓDIGO,
+
+
+
+EM MEIO A OUTRAS LINHAS DE CÓDIGO (logo abaixo do 'f.write()', etc) ,
+
+
+
+
+
+__ NÓS __ SOMOS OBRIGADOS A ESCREVEr 
+
+
+
+'f.close()' nesse 
+
+
+
+WRITE, PARA AÍ __ INDICAR QUE 
+
+
+
+'QUEREMOS QUE O WRITE DESSE FILE ACABE, E QUE 
+
+
+ENTÃO SEJA RESUMIDO O RESTANTE DO CÓDIGO'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSERTAMOS ESSE PROBLEMA COM  O WRITE DE 'f.close()' APÓS 
+
+
+A LINHA DE 'open' e de 'write'...
+
+
+
+
+ex:
+
+
+
+
+
+f = open('demo.txt', mode='w')  #MODO DE WRITE --> vamos querer ESCREVER ALGO NESSE ARQUIVO...
+
+
+
+f.write('Hello from Python!')
+
+
+
+f.close() #absolutamente INDISPENSÁVEL PARA CONSEGUIRMOS FAZER 'WRITE' de coisas no python... (você tem que FECHAR ESSA EXECUTION DE 'write' ANTES DE TENTAR EXECUTAR QUALQUER OUTRA LINHA DE CÓDIGO POSTERIOR, como esse 'input', no nosso exemplo...)
+
+
+
+user_input = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> COM ISSO, NOSSA EXECUTION AINDA 'NÃO TERMINA',
+
+
+
+pq 
+
+
+vamos continuar fazendo WAIT PELO INPUT,
+
+
+
+MAS O QUE INTERESSA É QUE 
+
+
+O ARQUIVO 'demo.txt'
+
+
+TERÁ SIDO ESCRITO/PREENCHIDO COM DATA POR MEIO 
+
+
+DE NOSSO 'f.write('hello')',
+
+
+QUE É EXAATEMTNE O QUE DESEJÁVAMOS...
+
+
+
+
+
+
+
+
+
+
+-> ISSO ACONTECEU __ JUSTAMENTE __ PQ 
+
+
+
+NÓS FIZEMOS 'CLOSE' DESSA OPERATION __ ANTES_ DAQUELE 'BLOCKING EVENT' acontecer ( o 'input')...
+
+
+
+
+
+----------> OU SEJA,
+
+
+O 
+
+  '.close()'
+
+
+
+  REALMENTE É CHAMADO AO FINAL  DE SEU SCRIPT, QUANDO ELE TIVER ACABASDO.... --> MAS É CLARO QUE 
+
+
+  ISSO 
+
+  NÃO É SUFICIENTE EM UM MONTE DE APPs,
+
+
+
+
+
+
+  PQ É POSSÍVEL uqe 
+
+
+
+  VOCÊ NÃO VÁ 'TERMINAR IMEDIATAMENTE O PROCESSO/PROGRAMA python SÓ PQ VOCê ESCREVEU ALGUMA DATA EM 1 FILE....'..
+
+
+
+
+
+
+
+
+
+
+
+
+  --> É POR ISSO QUE O CALL DE 'f.close()' É MT IMPORTANTE...

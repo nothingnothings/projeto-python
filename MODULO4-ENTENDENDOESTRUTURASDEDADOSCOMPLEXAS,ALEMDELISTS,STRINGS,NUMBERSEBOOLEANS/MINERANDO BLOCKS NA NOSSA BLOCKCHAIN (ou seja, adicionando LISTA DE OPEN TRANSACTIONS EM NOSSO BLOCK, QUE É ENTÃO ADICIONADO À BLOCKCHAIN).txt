@@ -1,0 +1,1032 @@
+ 
+
+
+
+
+
+
+
+
+ -> agora que trabalhamos na transaction e na LISTA DE OPEN TRANSACTIONS,
+
+
+
+
+ DEVEMOS TRABALHAR NA PARTE EM QUE NÓS 'MINERAMOS UM NOVO BLOCK'...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA ISSO, DEVEMOS TRABALHAR NA ESTRUTURA DO BLOCK,
+
+
+
+
+ E 
+
+
+
+ NA MANEIRA PELA QUAL UM BLOCK DEVE SER CRIADO 
+
+
+
+
+ E DEVE SE PARECER...
+
+
+
+
+
+
+
+
+
+
+
+ --> LÁ NO NOSSO CÓDIGO, AINDA TEMOS NOSSA BLOCKCHAIN,
+
+
+ QUE ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+ 'blockchain: = [
+    
+ ]
+ '
+
+
+
+
+
+
+
+
+
+ --> A BLOCKCHAIN  CONTINUARÁ SENDO UMA LIST, PQ 
+
+
+
+
+ QUEREMOS QUE A ORDER SEJA IMPORTANTE... TBM QUEREMOS QUE SEJA MUTABLE, E NÃO NOS IMPORTAMOS COM 
+
+
+ DUPLICATAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS AGORA TEMOS AQUELA FUNCTION DE 'def mine_block():',
+
+
+
+
+
+
+
+
+ QUE ATÉ AGORA SÓ TEM UM 'pass':
+
+
+
+
+
+
+
+
+
+
+
+
+ def mine_block():
+    pass 
+
+
+
+
+
+
+
+
+
+    ---> VAMOS ESCREVER UM CÓDIGO QUE VAI ENFIAR 
+
+
+    A NOSSA 'LIST OF OPEN TRANSACTIONS' para 
+
+    dentro 
+
+
+
+    de um BLOCK.... 
+
+
+
+
+    --> o block será essencialmente um _ DICTIONARY... (
+
+
+        a order naõ vai importar,
+        
+        keys não poderão ser repetidas,
+
+        values poderão ser repetidos,
+
+        será mutable....
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    acho que o código ficará assim:
+
+
+
+
+
+
+    def mine_block():
+        block = {
+            'processed_transactions': 
+        }
+
+
+
+
+
+
+
+
+
+
+    TALVEZ O CÓDIGO FICARÁ ASSIM:
+
+
+
+
+
+
+
+    def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    block = {
+        'processed_transaction': open_transactions,
+        'index': 'placeholder',
+        'previous_block': 'placeholder2'
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+
+
+
+    ----------------
+
+
+
+
+
+
+
+    ESSA É UMA CORE FEATURE DA BLOCKCHAIN... ---> É ALGO QUE FICARÁ 
+
+
+    NA BLOCKCHAIN ATÉ O FINAL DO CURSO:
+
+
+
+
+
+
+
+
+    É ASSIM QUE A BLOCKCHAIN FUNCIONA:
+     
+
+
+
+     1) NÓS TEMOS TRANSACTIONS, MANAGEADAS SEPARADAMENTE DE BLOCKS (são figuras distintas), E AÍ 
+
+     NÓS PROCESSAMOS TRANSACTIONS POR MEIO DE SUA INCLUSÃO EM NOVOS BLOCKS;
+
+
+
+     2) É ASSIM QUE AS TRANSACTIONS SÃO ARMAZENADAS,
+
+
+     3) E É ASSIM QEU NOVOS BLOCKS SÃO ARMAZENADOS/ADICIONADOS NA NOSSA BLOCKCHAIN...
+
+
+
+     4) é assim que novos blocks são distribuídos ao longo da blockchain network,
+
+
+
+
+
+
+
+
+     é uma CORE FEATURE...
+       
+
+
+
+
+
+
+
+
+
+--> E PQ VAMOS __ GARANTIR__ QUE NÃO PODEMOS __ EDITAR_ _ 'OLDER BLOCKS',
+
+
+
+NÓS PODEMOS ASSEGURAR QUE __ NÃO HÁ NENHUMA MANEIRA DE FAZER 'MANIPULATE' 
+
+
+DESSAS 
+
+
+
+
+TRANSACTIONS ANTIGAS.... ( 
+
+    pq as transactions antigas DEPENDEM DESSES BLOCKS...
+) ------> É ISSO QUE DEIXA A BLOCKCHAIN TÃO SEGURA,
+
+
+
+
+E É __ A GRANDE FORÇA DA BLOCKCHAIN -->  PQ TEMOS TRANSACTIONS QUE _ NÃO _ SÃO __ 
+
+
+'EDITABLE',
+
+
+
+QUE NÃO SÃO STORED CENTRALMENTE (pq são armazenadas em vários blocks ) 
+
+
+
+
+
+
+,
+
+MAS E´CLARO QUE 
+
+PRECISAMOS 
+
+
+
+
+DESSA CORE FUNCTIONALITY  DE SERMOS CAPAZES DE 
+
+
+
+
+ADICIONAR TODAS AS OPEN_TRANSACTIONS
+
+
+E AÍ AS INCLUIR EM UM NOVO BLOCK..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> professor escreve exatamente isso:
+
+
+
+
+
+
+
+def mine_block():
+    block = {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> O BLOCK SERÁ UM DICTIONARY, PQ VAMOS PRECISAR DE KEY-VALUE PAIRS NELE....
+
+
+
+
+
+
+
+    ---> É´CLARO QUE PODERÍAMOS TER UMA TUPLE, MAS O PROFESSOR PREFERE UM DICTIONARTY..
+
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+    def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+    block = {
+        'processed_transaction': open_transactions,
+        'index': 'placeholder',
+        'previous_block_hash': 'placeholder2'
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> ESSA KEY DE 'previous_block_hash'
+
+
+    VAI CONTER O HASH DO BLOCK ANTERIOR... --> É ESSENCIALMENTE O VALOR RESUMIDO DO BLOCK ANTERIOR A ESTE BLOCK.... -> SERÁ 
+
+
+    O HASH ALVO DE COMPARAÇÃO ENTRE ESSE BLOCK 'NOVO'  E O BLOCK 'VELHO' ...
+
+
+
+
+
+
+
+
+    --> CLARO QUE NESSE MEU CÓDIGO ESTÁ FALTANDO O 'current_block_hash'...
+
+
+
+
+
+    eX:
+
+
+
+
+
+
+    
+    def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+    block = {
+        'processed_transaction': open_transactions,
+        'index': 'placeholder',
+        'previous_block_hash': 'placeholder2',
+         'current_block_hash': 'asasjsioajasojasopjsaojsa'
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ESSE MECANISMO DE SEGURANÇA EXISTE PARA a situação hipotética 
+
+
+
+DE MANIPULATE DE UM BLOCK NA CHAIN --> O 'NEXT BLOCK' na fila __ VAI _ sABER IMEDIATAMENTE QUE 
+
+O 
+
+
+BLOCK ANTERIOR FOI ALTERADO, O QUE VAI INVALIDAR A CHAIN INTEIRA...
+
+
+
+
+
+
+
+-----> ok... VAMOS ARMAZENAR ESSE HASH.... -> A PERGUNTA É:
+
+
+
+
+
+
+
+
+
+__ COMO __ VAMOS __ CONSEGUIR O HASH DESSE 'PREVIOUS BLOCK'?
+
+
+
+
+
+
+
+
+
+--> BEM, VAMOS PRECISAR ACESSAR 
+
+
+A 'BLOCKCHAIN',
+
+
+
+
+
+E AÍ __ PROCURAR 
+ 
+ por algo como 
+
+
+
+
+
+
+
+
+ 'previous_block_hash: 
+
+
+....'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICA INICIALMENTE ASSIM:
+
+
+
+
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+    block = {
+        'processed_transaction': open_transactions,
+        'index': 'placeholder',
+        'previous_block_hash': previous_block,
+        'current_block_hash': 'asasojsaosajoj12o12jojasdopj1' #esse valor será comparado ao VALOR DE 'previous_block_hash' __ DO PRÓXIMO BLOCK, QUANDO O PRÓXIMO BLOCK FOR CRIADO.... (deverão ser equivalentes, esse é o mecanismo de segurança) ---> ATENÇÃO: O HASH DE UM DEWTERMINADO BLOCK É FORMADO A PARTIR DA LISTA DE TRANSACTIONS NO INTERIOR DELE...
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS É CLARO QUE 
+
+o 
+
+'previous_block_hash' 
+
+NÃO SERÁ O PREVIOUS_BLOCK INTEIRO,
+
+e sim 
+
+
+UMA _ VERSÃO STRINGIFADA__ DESSE BLOCk...
+
+
+
+
+
+
+
+
+
+---> o  professor quer exatamente isso -> O PROFESSOR VAI QUERER CRIAR UM HASH SIMPLIFICADO 
+
+
+
+
+DE NOSSO BLOCK ANTERIOR... (mais tarde veremos como CRIAR UM HASH DE VERDADE)....
+
+
+
+
+
+
+
+
+
+
+
+-> PARA FAZER ISSO,
+
+O PROFESSSOR DIZ QUE VAMOS PRECISAR DE OUTRA COISA, QUE AINDA NÃO TEMOS... --> por isso, provisoriamente,
+
+
+
+vamos usar SO ''XYZ'' (um dummy)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ALÉM DE UM PREVIOUS HASH,
+
+
+
+
+TALVEZ TENHAMOS UM _ INDEX__.... -->  eu achava  que o index seria um PLACEHOLDER,
+
+
+MAS O PROFESSOR NOS EXPLICA QUE ELE SIMPLESMENTE SERÁ 
+
+
+
+''A LENGTH DA BLOCKCHAIN ATUAL'''....
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE ESCREVEMOS 
+
+
+
+
+
+'len(blockchain)'... 
+
+
+
+
+
+
+
+
+--> professor diz que esse index é desnecessário, ele só colocou aqui pq queria nos mostrar COMO PODEMOS ADICIONAR METADATA EXTRA 
+
+NO NOSSO BLOCK...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+    block = {
+        'processed_transaction': open_transactions,
+        'index': 'placeholder',
+        # 'previous_block_hash': 'placeholder2',
+        'previous_block_hash': previous_block,
+        'current_block_hash': 'asasojsaosajoj12o12jojasdopj1', #esse valor será comparado ao VALOR DE 'previous_block_hash' __ DO PRÓXIMO BLOCK, QUANDO O PRÓXIMO BLOCK FOR CRIADO.... (deverão ser equivalentes, esse é o mecanismo de segurança) ---> ATENÇÃO: O HASH DE UM DEWTERMINADO BLOCK É FORMADO A PARTIR DA LISTA DE TRANSACTIONS NO INTERIOR DELE...
+        'index': len(blockchain) #totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+    }
+    open_transactions.clear()
+    blockchain.append()
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+OK.... MAS O CÓDIGO DO PROFESSOR  ESTÁ UM POUCO ESTRANHO... ELE COLOCOU O 'transactions: open_Transactions',
+
+
+
+MAS NÃO _ COLOCOU __ 
+
+'current_block_hash'....
+
+
+
+
+
+
+
+
+--> MAS HÁ ALGUMAS COISAS QUE AINDA NÃO ESTAMOS FAZENDO NO MOMENTO, EXPLICA O PROFESSOR:
+
+
+
+
+
+
+
+
+1) NÃO ESTAMOS CHECANDO SE AS TRANSACTIONS QUE ESTAMOS TENTANDO ADICIONAR _ SÃO VALIDAS__ OU NÃO__....
+
+
+
+
+ADICIONAREMOS ISSO DEPOIS...
+
+
+2) É CLARO, 
+
+
+POR ENQUANTO AINDA ESTAMOS EM 1 ÚNICO NODE, 
+
+
+NÃO ESTAMOS 
+
+
+EM UMA 'DISTRIBUTED BLOCKCHAIN' (ao longo de vários pcs)... ---> MAIS TARDE FAREMOS DISTRIBUTE 
+
+DESSE EVENT,
+
+
+event de nós adicionando um block...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> MAS HÁ 2 COISAS EM QUE PRECISAMOS TRABALHAR:
+
+
+
+
+
+
+
+1) O HASHING --> COMO ISSO FUNCIONA 
+
+
+
+
+
+
+
+
+
+2) O CÓDIGO DE 
+
+
+
+'last_block = blockchain[-1]' ---------> ESSE CÓDIGO __ PODE _ DAR ERRADO _ SE 
+
+
+
+NÃO TIVERMOS NENHUM _ 
+
+
+
+BLOCK NA NOSSA BLOCKCHAIN, COMO BEM NO INÍCIO da execução do nosso código....
+
+
+
+
+
+
+
+
+
+
+
+
+------> A SOLUÇAÕ PARA ESSE ERRO É BEM SIMPLES:
+
+
+
+
+
+
+adicionamos aquilo que é chamado de 'GENESIS BLOCK' à BLOCKCHAIN --> É CHAMADO DE 'GENESIS BLOCK'
+
+
+PQ _ É _ 
+
+
+
+O BLOCK __ BEEEEM DO INÍCIO, 
+ 
+
+
+QUE 
+
+É HARDCODADO NA BLOCKCHAIN,
+
+POR ASSIM DIZER... 
+
+
+
+
+
+
+
+
+
+
+
+-> ELE ESCREVE ASSIM:
+
+
+
+
+
+
+
+genesis_block = 
+blockchain = []
+open_transactions = []
+owner = 'Max'
+
+
+
+
+
+
+
+
+
+
+--> O genesis_block __ SERÁ UM ___ DICTIONARY__..... --> E ELE CONTERÁ 
+
+OS 
+
+MESMOS FIELDS QEU 
+
+
+TODOS NOSSOS BLOCKS TERÃO ( ou seja, 
+
+
+'previous_hash',
+'index' 
+'transactions'...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+--> O PREVIOUS_HASH SERÁ DE '' (empty string),
+
+
+
+
+
+O INDEX SERÁ DE 0,
+
+
+
+e as transactions 
+
+
+
+SERÃO 
+
+
+
+
+umA EMPTY LIST (pq o genesis block não incluirá quaisquwer transactions )
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+genesis_block = {
+    'previous_hash': '',
+    'index': 0,
+    'transactions': []
+}
+blockchain = []
+open_transactions = []
+owner = 'Max'
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... AGORA SÓ TEMOS QUE ADICIONAR ESSE genesis_block
+
+
+
+
+NA NOSSA BLOCKCHAIn...
+
+
+
+TIPO ASSIM:
+
+
+
+
+owner = 'Arthur'
+
+
+genesis_block = {
+    'previous_hash': '',
+    'index': 0,
+    'transactions': []
+}
+
+blockchain = [genesis_block]
+
+
+open_transactions = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AGORA A ÚNICA  COISA QUE NOS RESTA É FAZER O 'CALCULATE' desse previous hash.... em 'previous_hash'...

@@ -1,0 +1,2234 @@
+
+
+
+
+
+
+
+
+
+
+--> NA ÚLTIMA AULA,
+
+
+
+ADICIONAMOS O FRONTEND PARA 
+
+AQUELA 
+COISA 
+
+DE 
+
+'NODES'...
+
+
+
+
+
+
+
+
+-> são acessadas no link 
+
+
+
+
+localhost:5000/network....
+
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSOS NODES 
+
+
+DEVEM OBRIGATORIAMENTE 
+
+SEGUIR 
+
+A NOTAÇÃO 
+
+
+
+'localhost:5001'...
+
+
+
+
+
+
+
+
+
+
+----> PODEMOS RECARREGAR A PAGE E AÍ CLICAR EM 'load peer nodes'...
+
+
+
+
+
+
+
+
+--> OK.... --> AGORA PODEMOS MANAGEAR NODES ATRAVÉS DE NOSSA 'WEB INTERFACE'...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE NÓS VAMOS QUERER FAZER MAIS DO QUE APENAS 
+
+'manage nodes' 
+
+
+
+PARA 
+
+DIZER QUE 'PODEMOS'... --> EM VEZ DISSO,
+
+QUEREMOS 
+
+SER CAPAZES DE __ UTILIZAr__ OS NODES,
+
+
+UTILIZÁ-LOS PARA:
+
+
+
+
+
+
+
+1) __ BROADCAST NEW BLOCKS E TRANSACTIONS A OUTROS NODES...
+
+
+
+
+
+
+
+
+
+2) TAMBÉM __ PARA_ _ RESOLVER CONFLITOS ---> PQ TALVEZ 1 
+
+
+NODE ACABE COM UMA BLOCKCHAIN MAIS LONGA/DIFERENTE DO QUE A QUE POSSUÍMOS (nós, esse node aí),
+
+
+
+
+
+
+E SE __ ESSE FENÔMENO ACONTECER AO LONGO DA NOSSA REDE,
+
+PRECISAMOS __ DE UM MECANISMO
+ 
+ QUE 
+
+
+ RESOLVA ESSE PROBLEMA... (resolve this problem)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA CONSEGUIRMOS 
+
+ __CONSERTAR_ ESSES PROBLEMAS/ADICIONAR ESSAS FEATURES,
+
+
+ VAMOS PRECISAR DE 
+
+ 'REAL RUNNING NODES'
+
+
+ no nosso projeto... --------> E, AGORA, 
+
+
+
+
+ SE INICIARMOS 
+
+
+
+ NOSSO 
+ PROGRAMA 
+
+ 'node.py',
+
+
+
+ SEMPRE __ RODAMOS 1 ÚNICO PROGRAMA,
+
+
+ NA PORTA 5000,
+
+
+ COMO OBSERVADO NESTE CÓDIGO AQUI:
+
+
+
+
+
+ if __name__ == '__main__':    
+    app.run(host="0.0.0.0", port=5000) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -----> É CLARO QUE _ VAMOS QUERER __ MAIOR __ FLEXIBILIDADE 
+
+
+
+    ACERCA DISSO AÍ,
+
+
+    TUDO PARA QUE 
+
+
+
+    __CONSIGAMOS 
+    __ REALMENTE __ RODAR_ _DIFERENTES __ NODES__ no nosso APPP ----------> 
+
+
+
+
+
+
+
+
+
+
+
+    OU SEJA,
+
+
+    VAMOS DAR A OPÇAÕ AO USER DE 
+
+
+    'RODAR ESSE ARQUIVO "node.py" 
+
+
+    COM _ UMA PORTA DIFERENTE',
+
+
+
+
+    tudo 
+    para que 
+
+    esse arquivo 
+
+    PYTHON CONSIGA SER EXECUTADO POR DIFERENTES NÚMEROS DE PORTA DE NOSSA MÁQUINA,
+
+
+
+
+
+    PQ __ É ISSO QUE VAI EVENTUALMENTE LEVAR A 
+
+    'MÚLTIPLOS SERVERS SENDO EXECUTADOS' (múltiplos nodes)....
+
+
+
+
+
+
+
+
+
+
+
+
+    -------> 2 DIFERENTES SERVERS, 3 DIFERENTES SERVERS;
+
+
+            3 DIFERENTES NODES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA FAZER ISSO,
+
+
+
+PARA __ CONSEGUIR__ FAZER O ARQUIVO 'node.py'
+
+
+
+''''SER EXECUTADO COM UMA __ PORT _DIFERENTE DA COMUM''',
+
+
+o professor 
+
+
+
+
+
+diz que somos obrigados a baixar a package de 
+
+
+'argparse'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'argparse'
+
+
+
+
+É IMPORTADO LÁ DA PACKAGE __ STANDARD_ DO PYTHON 'ArgumentParser'...
+
+
+
+
+
+
+
+
+
+
+--> e o 'argparse'
+
+
+É UMA __ FERRAMENTA__ QUE __ 
+
+
+NOS PERMITE __ PARSEAR___ 
+
+OS ARGUMENTOS __ 
+
+
+QUE PASSAMOS 
+
+
+
+
+COM NOSSO 'python filename.py xxxx'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... ISSO SIGNIFICA QUE 
+
+
+ESE 'ArgumentParser'
+
+
+
+VAI BASIACMENTE __ PARSEAR OS VALUES/STRINGS QUE 
+
+escrevemos em coisas como 
+
+
+python node.py exemplo....
+
+(
+    'exemplo será extraído'..
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARA USARMOS __ O __ 'ArgumentParser',
+
+
+
+
+A PRIMEIRA COISA É O INSTANCIAR 
+
+
+
+
+
+com 
+
+
+
+
+parser = ArgumentParser()
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':   
+    app.run(host="0.0.0.0", port=5000) 
+    parser = ArgumentParser()
+    parser.add_argument('')
+
+
+
+
+
+
+
+
+
+
+
+
+    --> O PARâMETRO DE 'add_argument' 
+
+
+SERVE PARA _ _dIZER _ ao python _ QUAIS TIPOS DE 
+
+argument serão aceitos..
+
+
+
+
+
+
+
+
+
+
+
+
+-> CHAMAMOS 'add_argument'
+
+
+
+NESSE OBJETO 'parser'...
+
+
+
+
+    parser.add_argument()
+
+
+
+
+
+
+
+
+
+
+
+--> OK, QUAIS TIPOS DE ARGUMENT SERÃO ACEITOS? (
+
+    É UMA LIST 
+
+
+    COM QUANTOS ARGUMENTS/PARÂMETROS VOCê QUISER,
+
+    que serão considerados na hora que 
+
+    o user/você 
+
+
+    executar comandos como 
+
+    'python node.py''...
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EXEMPLO:
+
+
+
+python node.py --port 500000     ------> nesse caso, se esse argumento foi aceito no terminal, significa que o criador do código definiu um código assim: 'parser.add_argument('-p', '--port')  (pq esse código vai aceitar ou '-p' ou '--port' como attributes/parâmetros do runtime...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAI FICANDO TIPO ASSIm:
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':    ##queremos que esse 'node.py' SEJA EXECUTADO DIRETAMENTE, E NÃO QUE SEJA IMPORTADO...  ##se essa condição é satisfeita, startamos nosso server...
+    parser = ArgumentParser()
+    parser.add_argument('-p', '--port') ### ex: python node.py --port 500000
+    
+    
+    app.run(host="0.0.0.0", port=5000)  ##0.0.0.0 é um placeholder... significa 'localhost'... 
+                # 1o argumento : o ip EM QUE QUEREMOS RODAR O SERVER....
+                # 2o argumento: PORTA EM QUE QUEREMOS  FAZER LISTEN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> é claro que 
+
+
+
+
+esse '.add_argument()'
+
+
+
+TAMBÉM EXIGE UM TERCEIRO PARÂMETRO,
+
+
+que será 
+
+usado para definir 'O VALOR DEFAULT DESSE PARÂMETRO AÍ' (que será de 5000, como sempre)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.. MAS É CLARO QUE __ PRECISAMSO _ EXTRAIR _ O VALUE 
+
+
+QUE É OBTIDO NESSE 'parameter' de '-p' ou '--port'...
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+PRECISAMOS 
+
+
+_ 'FAZER GET DA LISTA DE ARGUMENTS' 
+
+
+
+desse 'parser',
+
+
+
+
+
+por meio 
+
+
+
+
+da escrita 
+
+
+
+
+
+args = parser.parse_args() 
+
+
+
+
+
+
+
+
+(
+
+    ESSE METHOD '.parse_args()'
+
+
+    VAI NOS RETRIEVAR TUDO QUE FOI ESCRITO PELO USER NO TERMINAL, nesse parâmetro aí...
+)
+
+
+
+
+
+
+
+
+--> CERTO... MAS PARA CONSEGUIR O ARGUMENTO RELATIVO à 'port',
+
+
+
+
+DEVEMOS ESCREVER 
+
+
+
+
+'port = args.port' (acessar a propriedade 'port' dentro do OBJECT 'args' que produzimos antes)...
+
+
+
+
+
+
+
+
+
+
+--> a sequência lógica fica assim:
+
+
+
+
+
+parser = ArgumentParser()
+
+parser.add_argument('-p', '--port', default=5000)
+args = parser.parse_args()
+port = args.port
+
+
+
+
+
+
+
+--> rodamos esse código aí:
+
+
+(OnlineMyCoin) A:\projeto7-PYTHON\MODULO12-CRIANDOANODENETWORK\novonovoprojeto17,versaowebserverdeverdade,comnodes - Copia>python 
+node.py -p 3500
+blockchain14MODULESETPPS
+["localhost:2000", "localhost:4000"]
+
+Namespace(port='3500')
+
+
+
+
+
+
+
+
+
+---> OK, MAS COMO DIABOS ELE __ VAI _ SABER_ QUE 
+
+'port' 
+
+DEVERÁ SER  ESSE ARGUMENT AÍ?
+
+
+
+
+
+
+
+bem, é pq a estrutura de 'args' é ASSIM:
+
+
+
+
+
+Namespace(port='3500')
+
+
+
+
+
+--> e se printarmos 
+
+
+
+
+'print(args.port)',
+
+
+RECEBEMOS 
+
+'5001'...
+
+
+
+
+
+
+
+
+
+
+--> ISSO ACONTECE PQ 
+
+
+O 
+
+'ArgumentParser'
+
+
+ESTÁ BASICAMENTE FAZENDO TUDO ISSO PARA NÓS...  -----> ELE ANALIZA 
+
+
+
+A LISTA DE ARGUMENTS E AÍ_ É CAPAZ DE 'INFER' 
+
+
+QUE 
+
+
+
+
+ESSE '--port'
+
+,
+
+O VALOR DISSO,
+
+DEVERÁ 
+
+
+
+EXISTIR NO NAMESPACE DE 
+
+
+'.port'
+
+dentro 
+
+de 
+
+'args'..
+
+
+
+
+
+
+
+
+
+
+
+-> OK... ISSO SIGNIFICA QUE AGORA QUANDO EXECUTAMOS NOSSO CÓDIGO COM 
+
+O ARGUMENT DE 
+
+
+'-p número',
+
+
+
+
+
+_ ACABAMOS _OBTENDO ESSE VALUE__ DENTRO DE NOSSO FILE/APP 'node.py'..
+
+
+
+
+
+
+
+
+-> E AÍ _ PODEMOS __ USAR _ 
+
+
+ESSE 
+
+
+
+NEGÓCIO (o 'port' usado) 
+
+PARA _ 
+
+
+ADICIONAR um node com 
+
+
+esse value aí.... (
+    basta 
+
+
+
+    codar  a lógica apropriada,
+     
+
+     lá na page de 'network'...
+)
+
+
+
+
+
+
+
+--> talvez a soluçaõ seja 
+
+
+CRIAR UMA VARIAVEL GLOBAL/CLASS ATTRIBUTE 
+
+DE 
+
+
+
+'nodeId',
+
+E AÍ __ ,
+
+
+
+QUANDO ESSE NOSSO NODE FOR INICIALIZADO,
+
+
+DEFINIR 
+
+
+
+ESSA VARIÁVEL COMO 
+
+SENDO 
+
+
+
+esse 'port' aí... ----> 
+
+
+
+
+
+
+AÍ, COM ESSA VARIÁVEL,
+
+
+
+
+
+FAREMOS OS REQUESTS DIVERSOS RELATIVOS A 'node'
+
+
+com a info de essa port aí....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK.. MAS ANTES DE FAZERMOS TUDO ISSO,
+
+O PROFESSOR DIZ QUE DEVEMOS 
+
+COLOCAR UM argumento 'type' 
+
+
+
+em 
+
+'add_argument',
+
+
+
+E AÍ 
+
+
+DEFINIR O TYPE COMO 'int' (
+    isso fará com que 
+
+    APENAS NUMBERS 
+
+    SERÃO PERMITIDOS 
+
+    COMO 
+    VALUES DE ESSE PARÂMETRO 'PORT'...
+)
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':    ##queremos que esse 'node.py' SEJA EXECUTADO DIRETAMENTE, E NÃO QUE SEJA IMPORTADO...  ##se essa condição é satisfeita, startamos nosso server...
+    parser = ArgumentParser() ##standard python library....
+    parser.add_argument('-p', '--port', type=int, default=5000) ### ex: python node.py --port 3000  ( o default, caso vocÊ não passe nada, é a porta/argumento de '5000')...
+    
+    args = parser.parse_args()
+    port = args.port  ##retrieva a key de 'port' dentro do objeto 'args' que produzimos com aquele method ali...
+
+    print(args)
+    # app.run(host="0.0.0.0", port=5000)  ##0.0.0.0 é um placeholder... significa 'localhost'... 
+    #             # 1o argumento : o ip EM QUE QUEREMOS RODAR O SERVER....
+    #             # 2o argumento: PORTA EM QUE QUEREMOS  FAZER LISTEN
+    app.run(host="0.0.0.0", port=port)  ##0.0.0.0 é um placeholder... significa 'localhost'... 
+                # 1o argumento : o ip EM QUE QUEREMOS RODAR O SERVER....
+                # 2o argumento: PORTA EM QUE QUEREMOS  FAZER LISTEN
+
+
+    
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+VEJA:
+
+
+
+(OnlineMyCoin) A:\projeto7-PYTHON\MODULO12-CRIANDOANODENETWORK\novonovoprojeto17,versaowebserverdeverdade,comnodes - Copia>python 
+node.py -p 3500
+blockchain14MODULESETPPS
+["localhost:2000", "localhost:4000"]
+
+Namespace(port=3500)
+ * Serving Flask app 'node' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.0.12:3500/ (Press CTRL+C to quit)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> COMO VOCÊ PODE VER,
+
+ COM ISSO 
+
+
+ VAMOS PODER ALTERAR A 'PORT' EM QUE VAMOS RODAR NOSSO NODE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK... MAS AGORA TEREMOS UM __ PROBLEMA_ QUE SÓ NOS AFETARÁ DURANTE O DEVELOPMENT... --> 
+
+
+
+
+
+
+ COMO VOCê PODE OBSERVAR,
+
+
+ TEMOS APENAS 1 ÚNICO 
+
+
+ 'blockchain.json'
+
+ e 
+ 1 
+ único 
+
+
+ 'wallet.json'...
+
+
+
+
+
+
+
+
+ ------> E SE _ RODARMOS_ DIFERENTES _ INSTANCES__ 
+
+
+
+ DESSE NODE, COM DIFERENTES 'PORTS',
+
+
+
+ NÓS TECNICAMENTE TEREMOS 
+
+
+
+ 'DIFERENTES SERVERS/NODES',
+
+
+
+
+ MAS TODOS ELES ESTARÃO 
+
+
+ SALVANDO 
+
+
+ SUAS INFOS 
+
+ AO MESMO ARQUIVO 'blockchain.json' 
+
+
+ e 
+
+
+ 'wallet.txt'.. -----> ISSO SIGNIFICA QUE ELES VÃO SE OVERWRITTAR CONSTANTEMENTE.. .--> PARA __ PREVENIR 
+
+
+ ISSO 
+
+
+
+
+ AÍ,
+
+
+ UMA SOLUÇÃO SERIA 'RENOMEAR OS ARQUIVOS',
+
+
+
+
+
+
+
+
+
+
+
+ MAS O PROFESSOR DIZ QUE 
+
+
+
+
+ REALMENTE PRECISAMOS 
+
+ 'ADJUST THE FILENAMES',
+
+
+ só para que 
+
+ CONSIGAMOS __ TESTAR ISSO DAÍ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA AJUSTAR OS FILENAMES,
+
+
+ O PROFESSOR _ PRECISA__ EXTRAIR A INFO DE 
+
+
+ ''EM QUAL PORT NOSSO APP ESTÁ SENDO RODADO'' ----> ex:
+
+
+
+
+ LÁ NO ARQUIVO 'blockchain.py',
+
+ EM QUE 
+
+ TEMOS 
+
+
+ OS 
+
+
+ METHODS DE 'save_data' e 'load_data',
+
+
+
+ VAMOS PROVAVELMENTE QUERER REPASSAR O 'port'
+
+
+ A
+  ESSES METHODS,
+
+  para que 
+
+  ELES INCLUAM ESSES NUMEROS DOS PORTS 
+
+
+
+  nos nomes dos arquivos 'blockchain222222'
+
+
+  e 
+
+  'wallet22222'....
+
+
+
+
+
+
+
+  --> PARA __ CONSEGUIR__ FAZER 
+
+
+  E
+  SSE 
+
+  INCLUDE DA 'port'
+
+
+  NO INTERIOR 
+
+
+
+
+
+  do objeto 'blockchain',
+
+  O PROFESSOR 
+
+
+  agarra os códigos que criam a blockchain e wallet,
+
+
+
+
+
+
+
+
+
+  os códigos 
+
+
+  de 
+
+
+
+  ''wallet = Wallet() 
+
+
+
+  blockchain = Blockchain(wallet.public_key)
+  
+  ''
+
+
+
+
+
+  E OS _ COLOCA LÁ 
+
+
+
+  NO FINAL DO ARQUIVO node.py,,
+
+
+
+
+  NO LOCAL EM QUE 
+
+  JÁ TEMOS A INFO ACERCA DA PORT...
+
+
+
+
+
+
+
+
+
+  EX:
+
+
+
+
+
+
+
+
+
+  
+
+if __name__ == '__main__':    ##queremos que esse 'node.py' SEJA EXECUTADO DIRETAMENTE, E NÃO QUE SEJA IMPORTADO...  ##se essa condição é satisfeita, startamos nosso server...
+    parser = ArgumentParser() ##standard python library....
+    parser.add_argument('-p', '--port', type=int, default=5000) ### ex: python node.py --port 3000  ( o default, caso vocÊ não passe nada, é a porta/argumento de '5000')...
+    
+    args = parser.parse_args()
+    port = args.port  ##retrieva a key de 'port' dentro do objeto 'args' que produzimos com aquele method ali...
+
+    print(args)
+    # app.run(host="0.0.0.0", port=5000) 
+
+
+    wallet = Wallet()   ###queremos ter uma Wallet LOGO DE INÍCIO...  OBS: só o call de 'Wallet()' não nos entrega private e public keys, precisamos de outros methods para isso...
+
+    blockchain = Blockchain(wallet.public_key)  ##inicializa nossa blockchain ao mesmo tempo que é passada a 'public_key' da wallet que criamos/loadamos...
+
+
+    app.run(host="0.0.0.0", port=port)  ##0.0.0.0 é um placeholder... significa 'localhost'... 
+
+
+
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+ISSO FEITO,
+
+O PROFESSOR VAI PASSAR O 'port'
+
+
+
+
+A __ AMBOS __ OS CONSTRUCTORS dos objects,
+
+tipo assim:
+
+
+
+
+
+if __name__ == '__main__':    ##queremos que esse 'node.py' SEJA EXECUTADO DIRETAMENTE, E NÃO QUE SEJA IMPORTADO...  ##se essa condição é satisfeita, startamos nosso server...
+    parser = ArgumentParser() ##standard python library....
+    parser.add_argument('-p', '--port', type=int, default=5000) ### ex: python node.py --port 3000  ( o default, caso vocÊ não passe nada, é a porta/argumento de '5000')...
+    
+    args = parser.parse_args()
+    port = args.port  ##retrieva a key de 'port' dentro do objeto 'args' que produzimos com aquele method ali...
+
+    print(args)
+    # app.run(host="0.0.0.0", port=5000) 
+
+
+    wallet = Wallet(port)   ###queremos ter uma Wallet LOGO DE INÍCIO...  OBS: só o call de 'Wallet()' não nos entrega private e public keys, precisamos de outros methods para isso...
+
+    blockchain = Blockchain(wallet.public_key, port)  ##inicializa nossa blockchain ao mesmo tempo que é passada a 'public_key' da wallet que criamos/loadamos...
+
+
+    app.run(host="0.0.0.0", port=port)  ##0.0.0.0 é um placeholder... significa 'localhost'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> AÍ AJUSTAMOS A 'blockchain.py'
+
+
+
+,
+
+
+O OBJETO 'Blockchain'
+
+
+PARA _ EXPECT/ACCEPT 
+
+
+ESSE 
+
+
+
+'port',
+
+
+
+para então 
+
+
+
+
+
+definir isso como attribute dessa nossa instance...
+
+
+
+
+(o professor também renomeia o 'hosting_node', mas eu não farei isso)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ALGO ASSIM:
+
+
+
+
+
+
+
+
+
+class Blockchain:
+
+    def __init__(self, hosting_node_id, node_port):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+
+        self._chain = [GENESIS_BLOCK]
+        self.__open_transactions = []
+        self.participants = {'Max'}
+        self.__peer_nodes = set()
+        self.load_data()
+        self.hosting_node = str(hosting_node_id)
+        self.node_port = node_port
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo... OBTIDO ESSE 'node_port',
+
+VAMOS O UTILIZAR 
+
+lá 
+
+
+
+
+em 
+
+
+
+
+
+
+
+  'load_data' 
+
+
+  e 
+  'save_data'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  O 'NOME ALTERADO' do arquivo 
+
+
+
+  que vamos querer salvar vai ficar tipo assim:
+
+
+
+   def save_data(self):
+        """Save blockchain + open transactions snapshot to a file."""
+        try:
+            with open(f'blockchain{self.node_port}.json', mode='w') as f:
+
+
+
+
+
+
+
+
+
+
+
+
+
+            --> usamos o formatting de 'f-coisa'
+
+            para 
+
+
+
+            INSERIR 
+
+
+            AQUELE 'node_port'
+
+
+
+            dentro do nome do nosso arquivo 'blockchain.json'...
+
+
+
+
+
+
+
+
+
+            ok... aí testamos esse negócio...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            -> mas essa alteração introduziu um monte de errors....
+
+
+            { "message": "Network Error", "name": "Error", "stack": "Error: Network Error\n at e.exports (https://unpkg.com/axios/dist/axios.min.js:1:8711)\n at XMLHttpRequest.g.onerror (https://unpkg.com/axios/dist/axios.min.js:1:7532)", "config": { "transitional": { "silentJSONParsing": true, "forcedJSONParsing": true, "clarifyTimeoutError": false }, "transformRequest": [ null ], "transformResponse": [ null ], "timeout": 0, "xsrfCookieName": "XSRF-TOKEN", "xsrfHeaderName": "X-XSRF-TOKEN", "maxContentLength": -1, "maxBodyLength": -1, "headers": { "Accept": "application/json, text/plain, */*", "Content-Type": "application/json" }, "method": "post", "url": "http://localhost:5000/wallet", "data": "{\"withCredentials\":true}" }, "status": null }
+
+
+
+
+            --> é por causa do 
+
+
+
+            FRONTEND (está enviando o request a url de 'http://localhost:5000', mas nosso server está sendo hosteado EM OUTRA PORTA, quando usamos um node distinto de '5000'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            O CÓDIGO DA MINHA UI FOI ATUALIZADO PARA COMPORTAR ESSA POSSIBILIDADE DE 
+
+
+            'DIFERENTES NODES, EM DIFERENTES PORTS':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+          wallet: null,
+          view: 'chain',
+          walletLoading: false,
+          txLoading: false,
+          dataLoading: false,
+          showElement: null,
+          nodePort: window.location.href.split(':')[2].slice(0, -1),
+          error: null,
+          success: null,
+          funds: 0,
+          outgoingTx: {
+            recipient: '',
+            amount: 0,
+          },
+        },
+
+        computed: {
+          loadedData: function () {
+            if (this.view === 'chain') {
+              return this.blockchain;
+            } else {
+              return this.openTransactions;
+            }
+          },
+        },
+        mounted: function () {
+          console.log(this.nodePort)
+              this.onLoadData()
+        },
+        methods: {
+          onCreateWallet: function () {
+            //Send HTTP REQUEST TO CREATE A NEW WALLET (and return keys)
+            // if (Math.random() > 0.5) { //isto é DUMMY DATA
+            //   this.error = null;
+            //   this.success = 'Successfully stored transaction!';
+            //   this.wallet = {
+            //     private_key: 'fsde2523tfasg234twfg24qafew',
+            //     public_key: '532fsdarf23rf',
+            //   };
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            //   this.wallet = null;
+            // }
+            this.walletLoading = true;
+            axios
+              // .post('http://localhost:5000/wallet', { withCredentials: true })
+              .post(`http://localhost:5000/${this.nodePort}`, { withCredentials: true })
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success =
+                    'Successfully created wallet! Public key: ' +
+                    response.data.public_key +
+                    'Private Key: ' +
+                    response.data.private_key;
+                  this.funds = 0;
+                  this.wallet = {
+                    private_key: response.data.private_key,
+                    public_key: response.data.public_key,
+                  };
+                  this.walletLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                  this.funds = 0;
+                  this.walletLoading = false;
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                this.error = err;
+                this.funds = 0;
+                this.success = null;
+                this.wallet = null;
+                this.walletLoading = false;
+              });
+          },
+
+          onLoadWallet: function () {
+            //Send HTTP REQUEST TO LOAD AN EXISTING WALLET (from a file on the server)
+
+            // if (Math.random() > 0.5) { //isto é DUMMY DATA
+            //   this.error = null;
+            //   this.success = 'Successfully stored transaction!';
+            //   this.wallet = {
+            //     private_key: 'fsde2523tfasg234twfg24qafew',
+            //     public_key: '532fsdarf23rf',
+            //   };
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            //   this.wallet = null;
+            // }
+            this.walletLoading = true;
+            axios
+              // .get('http://localhost:5000/wallet', { withCredentials: true })
+              .get(`http://localhost:${this.nodePort}/wallet`, { withCredentials: true })
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success = `Successfully loaded wallet! Public key: ${response.data.public_key}  
+                  
+                  Private Key: ${response.data.private_key}`;
+                  this.funds = +response.data.funds.toPrecision(4);
+                  this.wallet = {
+                    private_key: response.data.private_key,
+                    public_key: response.data.public_key,
+                  };
+                  console.log(this.wallet);
+                  this.walletLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                  this.walletLoading = false;
+                }
+              })
+              .catch((err) => {
+                this.success = null;
+                this.error = err;
+                this.wallet = null;
+                this.walletLoading = false;
+              });
+          },
+
+          onSendTx: function () {
+            // //Send Transaction to backend
+            // if (Math.random() > 0.5) {
+            //   this.error = null;
+            //   this.success = 'Successfully sent transaction!';
+            //   this.funds = this.funds - this.outgoingTx.amount;
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            // }
+
+            this.txLoading = true;
+            //Send Transaction to backend
+            axios
+              // .post('http://localhost:5000/transaction', {
+                .post(`http://localhost:${this.nodePort}/transaction`, {
+                // body: {
+                //   recipient: this.outgoingTx.recipient,
+                //   amount: this.outgoingTx.amount
+                // }
+                recipient: this.outgoingTx.recipient,
+                amount: this.outgoingTx.amount,
+              })
+              .then((response) => {
+                this.openTransactions = response.data.transactions;
+                this.funds =
+                  +response.data.added_transaction.funds.total.toPrecision(4);
+                this.txLoading = false;
+              })
+              .catch((err) => {
+                console.log(err, 'LINE');
+                console.log(err.response);
+                if (err.response.data.wallet_set_up === false) {
+                  console.log('A');
+                  this.success = null;
+                  this.error =
+                    'Failed to add transaction. Please ensure that your wallet was loaded';
+                  this.txLoading = false;
+                } else if (
+                  err.response.data.wallet_set_up === true &&
+                  err.response.status === 500
+                ) {
+                  console.log('B');
+                  this.success = null;
+                  this.error =
+                    'Failed to add transaction. Please ensure that you have enough funds.';
+                  this.txLoading = false;
+                } else {
+                  // console.log('C')
+                  this.success = null;
+                  this.error = err;
+                  this.txLoading = false;
+                }
+              });
+          },
+
+          onMine: function () {
+            // if (Math.random() > 0.5) {  /////DUMMY CODE
+            //   this.error = null;
+            //   this.success = 'Successfully mined coins!';
+            //   this.funds = this.funds + 10;
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            // }
+            this.dataLoading = true;
+            axios
+              // .post('/mine')
+              .post(`http://localhost:${this.nodePort}/mine`)
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success = 'Successfully mined coins!';
+                  this.funds = this.funds + 10;
+                  this.blockchain = response.data.blockchain;
+                  this.dataLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.blockchain = null;
+                  this.dataLoading = false;
+                }
+              })
+              .catch((err) => {
+                this.success = null;
+                this.error = err;
+                this.blockchain = null;
+                this.dataLoading = false;
+              });
+          },
+          onSwitchPage: function () {
+            window.location.href = `http://localhost:${this.nodePort}/network`;
+          },
+
+          onLoadData: function () {
+            if (this.view === 'chain') {
+              ////estranho
+              // Load blockchain data
+              // if (Math.random() > 0.5) {   ////DUMMY CODE...
+              //   this.error = null;
+              // } else {
+              //   this.success = null;
+              //   this.error = 'Something went wrong!';
+              // }
+              this.dataLoading = true;
+              axios
+                .get(`http://localhost:${this.nodePort}/chain`)
+                .then((response) => {
+                  if (response) {
+                    console.log(response);
+                    console.log(this);
+                    this.success = 'Successfully retrieved blockchain!';
+                    this.error = null;
+                    this.blockchain = response.data;
+                    this.dataLoading = false;
+                  }
+                })
+                .catch((err) => {
+                  console.log(err.response);
+                  if (err.response.status === 403) {
+                    this.error = err.response.data;
+                    this.success = null;
+                    this.blockchain = null;
+                    this.dataLoading = false;
+                  } else {
+                    this.error = err;
+                    this.success = null;
+                    this.blockchain = null;
+                    this.dataLoading = false;
+                  }
+                });
+            } else {
+              //Load transaction data
+              // if (Math.random() > 0.5) {
+              //   this.error = null;
+              // } else {
+              //   this.success = null;
+              //   this.error = 'Something went wrong!';
+              // }
+              this.dataLoading = true;
+              axios
+                .get(`http://localhost:${this.nodePort}/transactions`)
+                .then((response) => {
+                  console.log(response);
+                  if (response) {
+                    this.success = 'Successfully retrieved transactions!';
+                    this.error = null;
+                    this.openTransactions = response.data.transactions;
+                    this.dataLoading = false;
+                  }
+                })
+                .catch((err) => {
+                  console.log(err.response);
+                  if (err.response.status === 403) {
+                    this.error = err.response.data;
+                    this.success = null;
+                    this.openTransactions = null;
+                    this.dataLoading = false;
+                  } else {
+                    this.error = err;
+                    this.success = null;
+                    this.openTransactions = null;
+                    this.dataLoading = false;
+                  }
+                  // this.error = err;
+                });
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> tudo depende daquele state/propriedade de 'this.nodePort'....
+
+
+
+
+
+
+
+
+
+
+--> mas AINDA ESTOU RECEBENDO UM ERROR....
+
+
+
+
+
+
+
+
+
+
+
+
+-> ok, agora estão funcionando as features da página 'exemploDeBoostrap'...
+
+
+
+
+
+
+--> roadmos nosso código, e testamos...
+
+
+
+
+
+
+
+
+
+
+
+
+--> agora podemos RODAR 2 DIFERENTES JANELAS/INSTANCES DO NODE,
+
+
+
+
+com ports diferentes....
+
+
+
+
+
+
+
+
+
+
+
+--> e elas vão funcionar de forma independente...
+
+
+
+
+--> testar essa feature...
+
+
+
+
+
+
+
+
+
+
+
+
+-> ok.... estamos com 2 instances,
+
+
+mas os FUNDS NÃO ESTÃO SENDO ATUALIZADOS 
+
+
+
+
+EM CADA 1 DOS APPs... (é um bug)...
+
+
+
+
+
+
+
+
+
+
+
+
+-> na verdade, os funds aparecem, mas 
+
+ELES DESAPARECEM (os funds )
+
+QUANDO 
+
+CARREGAMOS (load a wallet) 
+
+
+A WALLET DEPOIS DE DESLIGAR O APP... (código de 'load_keys' está errado)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... agora o código está certo....
+
+
+
+
+
+
+
+
+
+--> as 2 instances são INDEPENDENTES...
+
+
+
+
+
+
+
+
+
+-_> o problema é só 1:
+
+
+
+
+
+
+a blockchain das duas __ NÃO ESTÁ 'CONECTADA' (são 
+2 blockchains, em 2 diferentes arquivos... não possuem conexão uma com a outrat...)
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+-> AGORA TEMOS UM PROBLEMA/FEATURE QUE DEVEMOS IMPLEMENTAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESTAMOS SIMULANDO '2 COMPUTADORES EM 1 MESMA MÁQUINA'... ->
+
+
+
+
+
+e queremos que 
+
+QUANDO UM VALOR  DE 'COINS' SEJA ENVIADO POR MEIO DE UMA TRANSACTION,
+
+O DESTINATÁRIO SEJA 
+
+
+UMA 'KEY' de verdade (a key, 'public_key', de OUTRO USER...) -------> 
+
+
+
+
+VAMOS QUERER QUE O 'BALANCE' desse outro user SEJA __ ATUALIZADO__ 
+
+
+com essa transaction aí,
+
+com esse envio de funds...
+
+
+
+
+
+
+
+
+
+
+-> vamos simular essa multiplicidade de nodes por meio dos 2 arquivos diferentes para 'blockchain e wallet'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS QUERER __ ADICIONAR UMA MANEIRA DE 'BROADCAST DATA'
+
+
+
+
+do node n1 para o node n2,
+
+
+
+e aí dizer 
+
+
+''hey, adicionei uma nova transaction,
+
+
+hey, adicionei um novo block, etc''...
+
+
+
+--> veremos isso nas próximas aulas...

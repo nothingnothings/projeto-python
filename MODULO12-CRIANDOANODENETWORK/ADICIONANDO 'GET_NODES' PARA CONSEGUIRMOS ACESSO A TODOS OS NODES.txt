@@ -1,0 +1,82 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->  ok, como conseguimos ADD E REMOVE NODES,
+
+
+DEVEMOS ADICIONAR UMA ÚLTIMA FUNCTION 
+
+
+
+
+
+
+
+AQUI NO NOSSO ARQUIVO 'node.py'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+@app.route('/nodes', methods=['GET'])
+def get_nodes():
+
+
+    # if (not wallet.public_key != None):
+    #     # response = {'message': 'Failed to retrieve blockchain. Please ensure that a wallet is loaded.',
+    #     #             'wallet_set_up': False}
+
+    #     # return jsonify(response), 200
+    #     return 'Please ensure that a wallet was loaded.', 403
+
+    nodes = blockchain.get_peer_nodes()
+
+
+    if (not nodes or nodes == None):
+        response = {
+            'message': 'Something went wrong'
+        }
+        return jsonify(response), 400
+    
+    response = {
+        'message': 'Nodes successfully retrieved',
+        'all_nodes': nodes
+    }
+    return jsonify(response), 200
+
+
+
+
+
+
+
+    --> certo.... isso está funcionando...
+
+
+
+
+
+
+
+    -> AGORA O PROFESSRO DIZ QUE DEVEMOS ADICIONAR UMA GUI (graphical user interface)...

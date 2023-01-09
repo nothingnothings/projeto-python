@@ -1,0 +1,1407 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> APRENDEMOS SOBRE OS PROBLEMAS COM CLASS ATTRIBUTES (aprendemos que quando copiamos valores referenciais por meio de instanciamento, O QUE É COPIADO É O POINTER, E NÃO A LIST/VALOR REFERENCIAL EM SI)....
+
+
+
+
+
+
+
+
+
+
+--> esse comportamento DIFERE DO JAVASCRIPT, pq no javascript REALMENTE É 'COPIADO O VALOR EM SI',
+
+e não o 'POINTER', quando você realiza a instanciaçaõ...
+
+
+
+
+
+
+
+
+
+
+
+-> POR ENQUANTO, O PROFESSOR COMENTA PARA FORA OS NOSSOS CLASS ATTRIBUTES...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+    class Car:
+        #top_speed = 100
+        #warnings = []
+
+        dev drive(self):
+            print('I am driving at {}'.format(self.top_speed))
+
+
+
+
+
+
+--> ELE VAI QUERER HANDLAR NOSSOS ATTRIBUTES DE UMA MANEIRA UM POUCO DIFERENTE,
+
+VAI QUERER QUE SEJAM 'INSTANCE ATTRIBUTES'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> podemos adicionar AQUILO QUE É CHAMADO DE 'constructor'
+
+
+DENTRO 
+
+DE NOSSA CLASS...
+
+
+
+
+
+
+
+
+
+
+--> ESSE CONSTRUCTOR É USADO '''PARA DEFINIR O QUE DEVERÁ ACONTECER QUANDO EXECUTARMOS ESSA CLASS/A INSTANCIARMOS''...
+
+
+
+
+
+(ou seja,  quando executarmos essa class como uma function)...
+
+
+
+
+
+  
+
+
+
+
+
+--> CERTO... MAS ESSE CONSTRUCTOR 
+
+
+
+DO 
+
+
+
+
+PYTHON TEM UM NOME MT ESTRANHO,
+
+
+E É UMA 
+
+
+
+BUILT-IN FUNCTION DO PYTHON... --------> SE NÃO O ESCREVEMOS NA NOSSA CLASS,
+
+O 
+
+CONSTRUCTOR DEFAULT É UTILIZADO....
+
+
+
+
+
+
+
+
+
+
+
+--> FAZEMOS ISSO, INICIALMENTE,
+
+PELO USO DA KEYWOrd 
+
+
+
+'def'...
+
+
+
+
+
+
+
+
+
+--> AÍ VAMOS USAR 
+
+
+
+'__' (DOUBLE UNDERSCORES)
+
+
+
+
+
+
+E AÍ _ ESCREVEMOS 'init'....
+
+
+
+
+
+--> DEPOIS DO WRITE DE 'init',
+escrevemos 
+
+
+'__'...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+    class Car:
+        #top_speed = 100
+        #warnings = []
+        def __init__
+
+
+        dev drive(self):
+            print('I am driving at {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+POR FIM, ESCREVEMOS 
+
+'()" 
+
+
+
+PQ ISSO AÍ É UMA 'NORMAL FUNCTION'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+    class Car:
+        #top_speed = 100
+        #warnings = []
+        def __init__():
+
+
+        dev drive(self):
+            print('I am driving at {}'.format(self.top_speed))
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO AÍ>:
+
+
+
+
+
+def __init__():
+
+
+
+
+
+
+
+
+
+
+
+
+-> É CHAMADO DE 'SPECIAL METHOD',
+
+
+É UM SPECIAL METHOD DENTRO DE NOSSAS CLASSES...
+
+
+
+
+
+--> CLASSES POSSUEM __ UM MONTE__ DE 
+
+SPECIAL METHODS COMO ESSE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR HAVIA MENCIONADO, MAIS  CEDO NO CURSO,
+
+
+QUE PARA 
+
+
+ALGUNS 'BUILT-IN OBJECTS'
+
+
+NÓS _ TÍNHAMOS ALGUMAS FUNCTIONS ESTRANHAS COM 
+
+'__'.... --> BEM, ESSAS SÃO AS FUNCTIOJNS...
+
+
+
+
+
+
+
+
+
+
+
+
+->  __XXXX__ ---> 
+
+
+
+ESSES SÃO 'BUILT-IN SPECIAL METHODS',
+
+
+
+E MAIS TARDE O PROFESSOR VAI NOS EXPLICAR QUE 
+
+OUTROS METHODS EXISTEM...
+
+
+
+
+
+
+
+
+
+
+-> ok... 
+
+
+
+
+
+
+
+
+
+__xxx__ -->  BTW, 
+
+
+
+ESSA SINTAXE AÍ,
+
+
+
+DE DOUBLE UNDERSCORE,
+
+E TODOS 
+
+OS 
+
+METHODS QUE A UTILIZAM,
+
+
+SÃO CHAAMDOS DE 
+
+
+'DUNDER' 
+
+
+
+PELA COMUNIDADE DE PROGRAMAÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+DUNDER FUNCTIONS -------> FUNCTIONS COM NOMES COM DOUBLE UNDERSCOER,
+
+
+
+
+
+TIPICAMENTE USADAS DE DENTRO DE 'BUILT-IN OBJECTS'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSE É UM METHOD QUE __ VAI __ SER AUTOMATICAMENTE EXECUTADO 
+
+SEMPER QUE 
+
+
+
+INSTANCIARMOS ESSA CLASS...
+
+
+
+
+
+
+
+
+
+--> O QUE PODEMOS FAZER NESSE CONSTRUCTOR , OU O QUE __ PODEMOS _ FAZER,
+
+
+
+
+É 
+
+
+'DEFINIR 
+
+INSTANCE ATTRIBUTES'....
+
+
+
+
+
+
+
+
+
+
+-----> PARA ISSO,
+
+
+
+
+DEVEMOS ESCREVER DENTRO DESSA 'FUNCTION'...
+
+
+
+
+
+
+
+
+
+-> O METHOD  DE '__init__'
+
+
+
+TAMBÉM 
+
+
+RECEBE AQUELE ARGUMENTO DE 'self' 
+
+
+adicionado a si...
+
+
+
+
+
+
+
+
+POR ISSO ESCREVEMOS ASSIM:
+
+
+
+class SportsCar:
+    top_speed = 100  # attribute/propriedade
+    warnings = []  # uma list É UM REFERENCE TYPE, EM PYTHON....
+
+
+    ## __xxx__ ---> é a sintaxe 'DUNDER', de que tanto falam....
+    
+    def __init__(self):  ####ISSO É A CONSTRUCTOR FUNCTION DAS NOSSAS CLASSES, EM PYTHON... é assim sua escrita... --> se você não escrever essa constructor function, o default de 'EMPTY CONSTRUCTOR FUNCTION' será utilizado...
+
+
+    # 'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+    def drive(self):
+        # print('I am driving, but certainly not faster than {}'.format(top_speed)) # não acesse seu attribute da class assim...
+        # acesse ASSIM...
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- ---> ELE TAMBÉM RECEBE 'self' 
+
+PQ __ TODOS OS METHODS/FUNCTIONS _ 
+
+ANEXADOS 
+
+
+
+
+A UMA CLASS RECEBEM ESSE PARÂMETRO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA REGISTRAR UM 'INSTANCE ATTRIBUTE',
+
+
+
+vocÊ 
+
+
+deve escrever 
+
+
+
+'self.xxxx = valor'...
+
+
+
+
+
+
+
+
+tipo 
+
+
+
+'self.top_speed = 300'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+    def __init__(self): 
+        self.top_speed = 200
+
+
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO, É CLARO, É DIFERENTE DE DEFINIR ESSA 'top_speed' __ 'SOLTA' na nossa class (pq aí será um 'CLASS ATTRIBUTE', nesse caso)....
+
+
+
+
+
+
+
+-> ok...  --> É EXATAMENTE ASSIM QUE 
+
+
+CRIAMOS 
+
+
+
+INSTANCE ATTRIBUTES, É DENTRO DESSE 
+
+CONSTRUCTOR AÍ...
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DE 'self',
+
+
+ NÓS PROVAVELMENTE TEMOS 
+
+ OS 
+
+ 'ARGUMENTOS NORMAIS'
+
+
+
+ de nossa class.... --> 
+
+
+ O PROFESSOR 
+
+
+
+ USA 
+
+
+ o exemplo de 
+
+
+ 'starting_top_speed',
+
+
+
+
+
+ QUE PROVAVELMENTE É O PARÂMETRO QUE CHAMAMSO QUANDO INSTANCIAMOS ASSIM:
+
+
+
+
+
+
+
+
+ class Car: 
+    
+    def __init__(self, starting_top_speed):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+
+
+
+
+
+
+new_car = Car('VERY FUCKING FAST')
+
+
+
+
+
+
+
+
+
+
+-------> AÍ, COM ISSO, PODEMOS DEFINIR A 'INSTANCE ATTRIBUTE' de 'normal_speed'
+
+
+como sendo esse valor-parâmetro...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS ESTE CÓDIGO AQUI NÃO FUNCIONOU:
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+    top_speed = 100  # attribute/propriedade  --> é um CLASS ATTRIBUTE, definido aqui, dessa forma... ('solta')...
+    warnings = []  # uma list É UM REFERENCE TYPE, EM PYTHON....
+
+
+    ## __xxx__ ---> é a sintaxe 'DUNDER', de que tanto falam....
+    ##esse method/function built-in TAMBÉM RECEBE O ARGUMENTO 'self'...
+    def __init__(self, starting_top_speed):  ####ISSO É A CONSTRUCTOR FUNCTION DAS NOSSAS CLASSES, EM PYTHON... é assim sua escrita... --> se você não escrever essa constructor function, o default de 'EMPTY CONSTRUCTOR FUNCTION' será utilizado...
+                        ####os parâmetros subsequentes são os parâmetros 'NORMAIS' passados lá nas nossas instanciações...
+        self.top_speed = 200  ####É ASSIM QUE CRIAMOS 'INSTANCE ATTRIBUTES'
+        self.normal_speed = starting_top_speed
+
+    # 'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+    def drive(self):
+        # print('I am driving, but certainly not faster than {}'.format(top_speed)) # não acesse seu attribute da class assim...
+        # acesse ASSIM...
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+a_new_model = SportsCar( 'VERY FUCKING FAST')
+
+
+print(a_new_model.normal_speed)
+
+
+
+
+
+
+
+TypeError: SportsCar.__init__() missing 1 required positional argument: 'starting_top_speed'
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop>
+
+
+
+
+
+
+
+
+
+
+
+hmmm não entendi...
+
+
+
+
+
+
+
+
+
+
+---> O PROFESSOR LOGO NOS ENSINARÁ A __ PASSAR ESSE VALOR DE 'starting_top_speed'
+
+
+
+
+PARA DENTRO DE NOSSO CONSTRUCTOR (pq essa naõ é a maneira)....
+
+
+
+
+
+
+
+
+
+
+--> OK.... --> O PROFESSOR TAMBÉM SETTA UMA EMPTY LIST como 
+
+
+'instance attribute',
+
+
+a list de 
+
+'warnings'..
+
+
+
+
+ex:
+
+
+
+
+
+class SportsCar:
+    top_speed = 100  # attribute/propriedade  --> é um CLASS ATTRIBUTE, definido aqui, dessa forma... ('solta')...
+    warnings = []  # uma list É UM REFERENCE TYPE, EM PYTHON....
+
+
+    ## __xxx__ ---> é a sintaxe 'DUNDER', de que tanto falam....
+    ##esse method/function built-in TAMBÉM RECEBE O ARGUMENTO 'self'...
+    def __init__(self, starting_top_speed):  ####ISSO É A CONSTRUCTOR FUNCTION DAS NOSSAS CLASSES, EM PYTHON... é assim sua escrita... --> se você não escrever essa constructor function, o default de 'EMPTY CONSTRUCTOR FUNCTION' será utilizado...
+                        ####os parâmetros subsequentes são os parâmetros 'NORMAIS' passados lá nas nossas instanciações...
+        self.top_speed = 200  ####É ASSIM QUE CRIAMOS 'INSTANCE ATTRIBUTES'
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    # 'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+    def drive(self):
+        # print('I am driving, but certainly not faster than {}'.format(top_speed)) # não acesse seu attribute da class assim...
+        # acesse ASSIM...
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA QUANDO CRIAMOS UM NOVO 'SportsCar',
+
+
+
+
+
+acabamos criando esses atributos INSTANCIAIS... --> 
+
+
+
+
+
+
+
+
+
+
+
+RELEVANTE DESTACAR QUE 
+
+
+NOSSO METHOD/FUNCTION DE '__init__'
+
+
+ACEITA DEFAULT VALUES/PARAMETERS,
+
+
+
+
+pq é uma função normal, no final das contas...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+ class Car: 
+    
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO SIGNFIICA QUE O VALOR 'DEFAULT' desse attribute, nas nossas instances,
+
+será de '100'....
+
+
+
+
+
+
+
+
+
+--> mas é claro que se instanciamos esse negócio, podemos 
+
+dar 'overwrite' nesse value 
+
+com nosso próprio value,
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+car3 = Car(1000) ---------> ISSO FARÁ COM QUE SEJA CRIADO UM OBJETO 'Car' em que o attribute 'starting_top_speed' É DE 1000....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É IMPORTANTE DESTACAR QUE AGORA TEMOS 
+
+
+'warnings' COMO UM 'INSTANCE ATTRIBUTE',
+
+
+
+
+o QUE 
+
+QUER DIZER QUE 
+
+
+SE 
+
+
+FIZERMOS UM APPEND DE UM NOVO ELEMENTO A ESSA LIST de esse object,
+
+
+ISSO _ NÃO IMPACTARÁ _ OS OUTROS OBJECTS instanciados a partir da mesma class 'Car'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class SportsCar:
+    top_speed = 100  # attribute/propriedade  --> é um CLASS ATTRIBUTE, definido aqui, dessa forma... ('solta')...
+    # warnings = []  # uma list É UM REFERENCE TYPE, EM PYTHON....
+
+
+    ## __xxx__ ---> é a sintaxe 'DUNDER', de que tanto falam....
+    ##esse method/function built-in TAMBÉM RECEBE O ARGUMENTO 'self'...
+    def __init__(self, starting_top_speed=100):  ####ISSO É A CONSTRUCTOR FUNCTION DAS NOSSAS CLASSES, EM PYTHON... é assim sua escrita... --> se você não escrever essa constructor function, o default de 'EMPTY CONSTRUCTOR FUNCTION' será utilizado...
+                        ####os parâmetros subsequentes são os parâmetros 'NORMAIS' passados lá nas nossas instanciações...
+        self.top_speed = 200  ####É ASSIM QUE CRIAMOS 'INSTANCE ATTRIBUTES'
+        self.normal_speed = starting_top_speed
+        self.warnings = []  ##INSTANCE ATTRIBUTE (attribute LOCAL)...
+
+    # 'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+    def drive(self):
+        # print('I am driving, but certainly not faster than {}'.format(top_speed)) # não acesse seu attribute da class assim...
+        # acesse ASSIM...
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+a_new_model = SportsCar( 'VERY FUCKING FAST')
+
+
+print(a_new_model.normal_speed)
+
+
+
+old_sports_car = SportsCar()
+
+
+
+
+
+
+# Nova instanciacao/objeto dessa class.... --> podemos rodar METHODS nisso...
+new_sports_car = SportsCar()
+
+
+new_sports_car.drive()
+
+
+new_sports_car.warnings.append('A')  ### essa alteração repercutirá _ NA NOSSA CLASS, O QUE VAI REPERCUTIR EM TODOS OS OBJECTS INSTANCIADOS A PARTIR DELA... (referential type values, isso em 'CLASS ATTRIBUTES''')...
+
+
+# isso, esses redefines de CLASS ATTRIBUTES, NÃO DEVERIAM SER PERMITIDOS (leva a código imprevisível)..
+SportsCar.top_speed = 200
+
+
+generic_car = SportsCar()
+
+
+generic_car.drive()
+
+
+print(generic_car.warnings)
+
+print(old_sports_car.warnings)
+
+
+
+
+
+
+
+new_car = SportsCar(3000)
+
+
+
+
+new_car.warnings.append('VALUE A')
+
+
+
+print(new_car.warnings)
+
+
+
+print(old_sports_car.warnings)
+
+
+print(generic_car.warnings)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O RESULTADO DESSE ´CODIGO:
+
+
+[]
+[]
+['VALUE A']
+[]
+[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO VOCÊ PODE VER, O APPEND DE NOVOS ELEMENTOS A ESSA LIST 
+
+
+
+_ SÓ _ VAI TER EFEITOS NESSA INSTANCE ESPECÍFICA....
+
+
+
+
+(
+    nas outras instances, esse VALOR NÃO TERÁ SIDO ADICIONADO À LIST DE 'warnings'..
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO ACONTECEU PQ AGORA _ CADA_ _ INSTANCE VAI RECEBER 
+
+
+
+
+SEU PRÓPRIO SET DE 'NEWLY CREATED ATTRIBUTES',
+
+
+
+ATTRIBUTES_ _ SCOPADOS_ EM 1 DETERMINADA INSTANCE,
+
+OS CHAMADOSS 
+
+
+
+
+
+'INSTANCE ATTRIBUTES' --> é assim que 
+
+
+vocÊ 
+
+
+trabalha com classes, e é ASSIM QUE USAMOS ESSA CONSTRUCTOR FUNCTION....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> PARECE QUE EXISTE UMA DIFERENÇA ENTRE 
+
+'INSTANCE' 
+
+
+'CLASS' 
+
+
+E 
+
+'STATIC'
+
+
+
+methods...
+
+
+
+
+
+
+
+
+
+
+--> UM EXEMPLO DE ESCRITA DE INSTANCE METHOD É ESTE:
+
+
+
+
+
+
+
+
+class Bostalhao:
+
+def add(self, a):
+    print(self.result - a)
+
+
+
+
+
+
+
+
+
+
+
+    --> O QUE INTERESSA AQUI, NO CASO, É QUE 
+
+    O PRIMEIRO PARÂMETRO é 
+
+
+    'self'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ NO CASO DE 'CLASS METHODS' (methods chamados DIRETAMENTE NA CLASS DE NOSSOS OBJECT),
+
+
+
+
+a escrita é esta:
+
+
+
+
+
+
+class Bostalhao:
+
+def add(cls, a):
+    print(cls.result - a)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'cls' É __ CLASS,_ ACHO EU.... 
+
+
+
+
+
+
+
+
+
+
+
+--> esse primeiro parâmetro de SEUS METHOD é mt importante,
+
+pq 
+
+
+ele vai determinar se __ SEU METHOD 
+
+
+É 
+
+
+DE UMA CLASS ou de suas instances...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok, mas e STATIC METHODS?
+
+
+
+
+
+
+
+
+
+--> SUA SINTAXE É ESTA:
+
+
+
+
+
+
+
+
+
+def add(a):
+    print(a)
+
+
+
+
+
+
+
+
+--> QUANDO VOCÊ QUER UM STATIC 
+
+METHOD,
+
+
+
+
+
+não passe nada como argumento primário, nem 'self' nem 'cls'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+HÁ TAMBÉM DECORATORS, COLOCADOS ANTES DE NOSSOS METHODS:
+
+
+@classmethod 
+def add(cls, a):
+    print(cls.result + a)
+
+
+
+
+@staticmethod

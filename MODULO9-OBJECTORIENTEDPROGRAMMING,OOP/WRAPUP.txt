@@ -1,0 +1,325 @@
+
+
+
+
+
+
+
+
+
+
+
+RESUMO DO MÓDULO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MÓDULO LONGO, UM MONTE DE CONTEÚDOS CORE....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OOP ---> UMA MANEIRA BEM MODERNA DE ESCERVER CÓDIGO,
+
+
+E OFERECE UM MONTE DE VANTAGENS, COMO OBSERVAMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS QUE CLASSES SÃO BLUEPRINTS PARA OBJECTS,
+
+
+
+
+que são instanciados a partir delas...
+
+
+
+
+
+
+
+
+
+--> OBJECTS, por outro lado,  __ SÃO_ _ DATA STRUCTURES COMPLEXAS,
+
+
+
+
+COM SEUS __ _PRÓPRIOS ATTRIBUTES (tipo VARIABLES) 
+
+
+
+
+e METHODS (tipo functions)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OBJECTS REFLETEM O FORMATO DA SUA DATA NO SEU PROJETO,
+
+
+
+E TAMBÉM SÃO USADOS PARA _ _BUNDLAR_ FUNCIONALIDADES...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ATTRIBUTES E METHODS TAMBÉM FORAM ANALISADOS...
+
+
+
+
+
+
+
+
+
+
+
+--> VIMOS QUE ATTRIBUTES SÃO COMO VARIABLES __ ANEXADAS __ A 
+
+UMA CLASS/OBJECT..
+
+
+
+
+
+
+
+
+
+--> METHODS SÃO COMO FUNCTIONS ANEXADOS A UMA CLASS/OBJECT...
+
+
+
+
+
+
+
+
+
+
+--> VIMOS QUE VOCÊ PODE TER INSTANCE, CLASS OU _ _STATIC 
+
+
+
+ATTRIBUTES E METHODS...
+
+
+
+
+
+
+
+
+
+
+
+OBS:: STATIC E CLASS ATTRIBUTES SÃO _ BASICAEMTNE A MESMA COISA... (Attributes definidos no 'body' da sua class, sem estarem no constructor)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> INHERITANCE --> OUTRA CORE FEATURE --> CLASSES PODEM HERDAR DE OUTRAS CLASSES,
+
+
+O QUE QUER DIZER QUE 
+
+ELAS __ CONSEGUEM __ OS ATTRIBUTES E METHODS DA CLASS DE QUE HERDARAM, mais os seus próprios attributes e methods...
+
+
+
+
+
+
+
+
+
+
+---> SE VOCÊ QUER receber todos os methods e attributes da class 'base', vocÊ deve seguir este código-exemplo:
+
+
+
+
+
+
+
+class Bus(Vehicle):  ###INHERITANCE (inheritamos 'Vehicle' nessa class)...
+    def __init__(self, starting_top_speed=200):
+        # self.top_speed = starting_top_speed ###inherittados através da class 'Vehicle'...
+        # self.__warnings = []
+        # attribute EXCLUSIVO DE 'bus', qeu vamos querer manter nele (vamos querer mergear o constructor de 'bus' e de 'vehicle', a base class, para que fiquemos com isso)....
+       super().__init__(starting_top_speed) #o call de 'super().__init__()' FAZ COM QUE TODOS OS ATTRIBUTES/METHODS do CONSTRUCTOR ORIGINAL, definidos lá, SEJAM _ INCORPORADOS _ NESSE NOVO CONSTRUCTOR, DESSA 'CLASS FILHA'..   --> NO CASO, O QUE O CALL DE 'SUPER' Faz é CHAMAR '''A BASE CLASS''' em si... --> E O SUPER É A COISA UQE _ _NOS DÁ _ ACESSO  à 'BASE CLASS' em si... ----->  JÁ O CALL DE '__init()__ 'serve PARA CHAMAR __ O CONSTRUCTOR __ DA BASE CLASS, QUE É O QUE INTERESSA... 
+       self.passengers = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, ALGO COMO 
+
+
+
+''super().__init__(starting_top_speed)'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> E CLASSES PODEM RECEBER HERANÇAS _ DE DIVERSAS OUTRAS CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+--> funcionalidades são essencialmente COMBINADAS..
+
+
+
+
+
+
+
+
+
+
+QUANTO A NOSSA BLOCKCHAIN,
+
+
+
+ESTAMOS COM CÓDIGO CLEAN POR TODAS AS PARTES, AGORA..
+
+
+
+
+
+AGORA SÓ FALTA:
+
+
+
+
+
+
+
+
+
+
+1) NODE NETWORK 
+
+
+
+
+2) SHARE DATA, RESOLVE CONFLICTS 
+
+
+
+
+
+3) WALLETS
+
+
+
+
+
+
+
+
+
+
+
+--> NO PRÓXIMO MÓDULO, VEREMOS 
+
+
+
+
+
+1) COMO TRABALHAR COM IMPORTS E EXPORTS MELHOR 
+
+
+
+
+2) COMO INSTALAR THIRD PARTY PACKAGES..

@@ -1,0 +1,997 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> NÓS ESTUDAMOS 'NUMBERS'....
+
+
+
+
+
+
+
+
+
+--> ANTES DE EXAMINARMOS MELHOR STRINGS E BOOLEANS,
+
+
+DEVEMOS 
+
+
+
+VER 
+
+ALGO QUE 
+
+JÁ USAMOS UM POUCO,
+
+
+
+
+
+
+
+que são 
+
+
+'operators'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OPERATORS QUE JÁ USAMOS: 
+
+
+'+' 
+
+
+
+'-'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> '+" -------> É CHAMADO DE 'OPERATOR' PQ REALIZAMOS UMA OPERATION  COM ELE (adicionamos 2 numbers, nesse caso)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS VOCÊ TAMBÉM PODE FAZER SUBTRACTIONS (-)
+
+
+
+
+
+
+e também 
+
+multiplicação (*)
+
+
+e 
+
+
+DIVISÃO 
+
+
+(
+
+    '/'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> '/' ------> A PARTE IMPORTANTE DISSO É QUE 
+
+
+
+'5/10' ------> ESTAMOS DIVIDINDO 2 INTEGERS ('5' e '10')
+
+
+
+,
+
+
+
+
+
+
+
+mas 
+
+
+
+FICAREMOS COM UM 'FLOAT' DE RESULTADO (resultado será '0.5')... -------> ISSO SIGNIFICA QUE O PYTHON
+
+
+FAZ/FEZ A CONVERSÃO PARA NÓS,
+
+
+
+E AÍ NOS DEU ESSE 'FLOAT RESULT'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS SE VOCÊ QUISER ___ TER UMA __ INTEGER (integral)
+
+
+
+COMO VALOR DESSA OPERAÇÃO 
+
+'5 / 10' ,
+
+
+
+VOCÊ PODE USAR 
+
+
+
+
+
+
+O OPERATOR DE '//' ------> O OPERATOR DE '//' SIGNIFICA 'FLOOR'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+VOCÊ ESCREVE ASSIM:
+
+
+
+
+
+
+5 // 10 -----------> SE VOCê RODAR ESSA EXPRESSÃO,
+
+
+
+VOCÊ 
+
+OBTERÁ 
+
+
+'0',
+
+
+
+
+
+
+
+JUSTAMENTE PQ O OPERATOR DE '//'
+
+
+
+JÁ FAZ AUTOMATICAMENTE O 'CUT' 
+
+
+
+
+DO 
+
+
+
+
+
+NÚMERO/CASA DECIMAL DE SEU NUMBER... (
+
+
+    ou seja,
+
+
+
+    cortará '.5',
+
+
+    do '0.5'...
+)
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+>>> fans
+1000000
+>>> 5//10
+0
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> TAMBÉM 
+
+
+
+EXISTE O OPERATOR DE '**' (Asterisco duplo),
+
+
+
+
+QUE É 
+
+CONHECIDO COMO 
+
+
+
+O OPERATOR DE 'POWER' (usado para coisas como, por exemplo 5 elevado a 10)....
+
+
+
+
+
+
+
+
+
+
+--> O CÓDIGO FICA TIPO:
+
+
+
+
+
+
+
+>>> 5//10
+0
+>>> 5
+5
+>>> 5 ** 10
+9765625
+>>>
+
+
+
+
+
+
+
+
+
+
+-> isso vai realmente nos dar essa potência...
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO SÓ NOS DEIXA FAZER ALGUAMS 'EXPONENTIAL CALCULATITONS'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O ÚLTIMO OPERATOR QUE __ TEMOS UQE __ CONHECER É 
+
+O 
+
+
+'MODULUS OPERATOR'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MODULUS OPERATOR ----> NÓS PODEMOS O UTILIZAR PARA 
+
+
+PEGAR 
+
+O 
+
+'REMAINDER'  
+
+
+
+
+
+DE UMA DIVISÃO... (ou seja, os 'RESTOS' de uma divisão)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+5 % 10 
+
+
+
+
+
+
+
+
+
+
+
+% ------> A PORCENTAGEM É O MODULUS OPERATOr.... 
+
+
+
+
+
+
+
+
+
+
+--> 5 % 10 ------>  É IMPOSSÍVEL DIVIDIR '5 POR 10'..
+
+
+
+
+
+
+(
+
+
+    pq 
+
+
+    o 5 não cabe no 10 nem 1 única vez...
+)
+
+
+
+
+
+
+
+
+
+-->  COMO O NÚMERO 5 NÃO CABE NEM UMA ÚNICA VEZ 
+
+
+NO NÚMERO 10,
+
+
+o 
+
+
+remainder dessa operação será '5', pq é o que vai sobrar...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> UMA NOTE IMPORTANTE ACERCA DESSES OPERATORS ---> 
+
+
+
+
+
+
+O OPERATOR DE '+' TAMBÉM FUNCIONA COM STRINGS....
+
+
+
+
+
+
+
+
+
+
+
+
+O OPERATOR DE MULTIPLY ('*')
+
+
+ TAMBÉM É OUTRO QUE FUNCIONA COM STRINGS,
+
+ MAS ___ APENAS _ FUNCIONA COM ELAS__ SE __ FOR _USADO __ CORRETAMENTE...
+ .
+
+
+
+
+
+
+
+
+
+
+ --> COMO ASSIM, 'USADO CORRETAMENTE'?
+
+
+
+
+
+
+
+ --> bem, o professor vai explicar o que isso significa...
+
+
+
+
+
+
+
+
+
+
+ -------------> EXEMPLO PRÁTICO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+ TEMOS UMA STRING,
+
+
+
+ 'HELLO'
+
+
+
+ E OUTRA,
+
+
+ 'WORLD'...
+
+
+
+
+
+
+
+
+
+
+
+
+ 'HELLO ' + 'WORLD' ---> 
+
+
+
+
+
+
+
+
+
+
+se usarmos esse '+',
+
+
+
+O PYTHON VAI CONCATENAR TUDO ISSO EM UMA STRING ÚNICA..
+
+
+
+
+
+
+
+
+
+eX:
+
+
+
+
+
+ 'HELLO ' + 'WORLD' ---> 
+
+
+
+
+
+
+
+
+'Hello World' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> 
+
+PODEMOS ARMAZENAR ESSA STRING COMPOSTA EM 1 
+
+
+VARIABLE:
+
+
+
+
+
+
+
+
+
+
+
+
+greeting = 'HELLO ' + 'WORLD'
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> aí ficará assim:
+
+
+
+
+
+
+greeting = 'Hello World' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO É BOM DE SABER.... --> MAS O PROFESSOR TAMBÉM MENCIONOU QUE '' É POSSÍVEL MULTIPLICAR STRINGS'''..
+
+
+
+
+
+
+
+
+
+
+mas por 'multiply',
+
+o professor
+ 
+ NÃO QUER DIZER 
+
+
+
+
+
+
+ ALGO COMO 
+
+
+
+
+
+ 'Hello' * 'World' ----------> ISSO NÃO FUNCIONARÁ,
+  
+  N EXISTE MULTIPLICAÇÃO DE TEXTO POR TEXTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -------> ESSE É UM TIPO DE MULTIPLICATION QUE O PYTHON __ NÃO É CAPAZ__ DE FAZER_>...
+
+
+
+
+
+
+
+
+
+
+
+  -> MAS O QUE VOCê PODE FAZER, NO CASO,
+
+  É 
+
+
+
+
+  PEGAR 1 
+
+
+
+  text E AÍ 
+
+  O MULTIPLICAR POR 
+
+
+  UM NUMBER,
+
+
+  COMO 
+
+
+  '10'....
+
+
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+
+
+
+
+
+  'hello' * 10
+
+
+
+
+
+
+
+
+
+  --> AQUI, NO CASO,
+
+  ESTAMOS MULTIPLICANDO UMA STRING POR UM NUMBER, 10....
+
+
+
+
+
+
+
+
+
+
+  -> SE FIZERMOS ISSO,
+
+
+O PYTHON VAI __ 
+
+
+
+
+
+REPETIR ESSE TEXTO 10x e ENTÃO VAI CONCATENAR TODOS ESSES VALORES/TEXTS EM 1 ÚNICA STRING,
+
+
+TIPO ASSIM:
+
+
+
+
+
+>>> 'hello' * 10
+'hellohellohellohellohellohellohellohellohellohello'
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS QUANDO ISSO É ÚTIL?
+
+
+
+
+
+
+
+
+
+
+É ÚTIL SE VOCÊ CRIOU 
+
+ALGUM 
+
+
+
+KIND OF 'GRAPHICAL OUTPUT',
+
+
+
+
+com digamos que 
+
+uma 
+
+
+
+'-' (horizontal line).... --------> 
+
+
+
+
+
+
+
+
+
+
+SE VOCÊ TIVER UM CASE DESSES, VOCÊ PODE ESCREVER ASSIM:
+
+
+
+
+
+
+
+
+
+"x---x" * 10
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+>>> "x---x" * 10
+'x---xx---xx---xx---xx---xx---xx---xx---xx---xx---x'
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------> OK..... ISSO FUNCIONA....
+
+
+
+
+
+
+>>> "-" * 10     
+'----------'
+>>>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO.... ISSO É O QUE VOCÊ PDOE FAZER COM STRINGS... --> JÁ OS OUTROS OPERATORS (Que já usamos, mas com numbers, com int floats) DEVEM ESTAR 
+
+
+BEM CLAROS...

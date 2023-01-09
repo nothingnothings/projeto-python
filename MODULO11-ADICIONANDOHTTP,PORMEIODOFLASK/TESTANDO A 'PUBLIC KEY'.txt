@@ -1,0 +1,254 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSA REST API JÁ ESTÁ FUNCIONANDO DE FORMA LEGAL..
+
+
+
+
+
+
+
+
+-->  MAS O PROFESSOR DIZ QUE AGORA DEVEMOS FAZER ALGO QUE NÃO FIZEMOS ATÉ AGORA...
+
+
+
+
+
+
+
+
+
+
+-> O PROFESSRO VAI ATÉ 
+
+
+
+'wallet.txt'
+
+
+E ENTAÕ 
+
+
+
+COPIA A __ PUBLIC__ KEY__ 
+
+
+
+
+DE NOSSO ARQUIVO....
+
+
+
+
+
+--> AÍ ELE VAI LÁ NA NOSSA REST API,
+
+
+NO POSTMAN,
+
+
+E AÍ 
+
+
+ESCREVE UM REQUEST __ PARA __ CRIAR UMA NOVA WALLET...
+
+
+
+
+
+
+
+
+
+
+
+----> AÍ, COM ISSO, ELE TERÁ __CRIADO__ UMA NOVA PUBLIC KEY (pq criamos uma nova wallet)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DISSO O PROEFESSOR:
+
+
+1) MINERA 1 NOVO COIN...
+
+
+
+2) ELE TENTA _ ENVIAR__ ALGUNS COINS A NOSSA 
+
+
+
+'OLD WALLET' (a wallet que estava carregada anteriormente).... ------> SÓ PARA VER 
+
+
+
+
+SE 
+ESSA 
+
+FUNCTION DE 'SEND'
+
+TAMBÉM FUNCIONA...
+
+
+
+
+
+
+
+
+
+--> EU ACHO QUE ESSA LÓGICA __ NÃO FUNCIONARÁ_...
+
+
+
+
+
+
+
+
+
+----> É CLARO QUE _ NÓS _ CONSEGUIMOS COLOCAR A OUTRA PUBLIC KEY COMO 
+
+
+'RECIPIENT'
+
+de uma transaction em uma de nossas wallets,
+
+MAS É 
+
+CLARO QUE 
+
+
+
+__ O VALOR __ QUE __ ENVIAMOS A ELE _ NÃO SERÁ EFETIVAMENTE RECEBIDO,
+
+PQ 
+
+AINDA 
+
+NÃO 
+
+
+ADICIONAMOS A LÓGICA DE 'MULTIPLOS NODES' (que conseguem RECEBER E ENVIAR TRANSACTIONS)
+
+
+
+
+
+
+
+
+
+
+-> NO PRÓXIMO MÓDULO __ SEREMOS __ CAPAZES_ DE FAZER ISSO,
+
+
+DE ENVIAR 
+
+E RECEBER 
+
+MOEDAS 
+
+ENTRE DIFERENTES SERVERS/NODES,
+
+
+
+E AÍ 
+
+VER 
+AS 
+DIFERENTES 
+
+'BALANCES'
+
+e assim por diante...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR SÓ QUERIA NOS MOSTRAR QUE O 
+
+'recipient'
+
+NO FINAL DAS CONTAS SERÁ UMA 'PUBLIC KEY',
+
+
+
+
+QUE ESSE É O SEU IDENTIFIER... 
+
+
+
+
+
+
+
+
+
+--> é a public key que usaremos para ENVIAR COINS,
+ASSIM QUE 
+TIVERMOS OS NODES...
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS ANTES DE FAZERMOS ISSO,
+
+
+O PROFESSOR 
+
+QUER 
+
+
+
+__ CODAr _ UMA USER INTERFACE NICE,
+
+
+PARA QUE 
+
+DEIXEMOS DE USAR O POSTMAN...
+
+
+(
+
+    OBS: O PROFESSOR USOU BOOTSTRAP NESSA INTERFACE,
+
+
+    ´´E BOM DE OBSERVAR COMO O BOOTSTRAP FUNCIONA....
+)

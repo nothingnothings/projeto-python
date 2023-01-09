@@ -1,0 +1,10 @@
+
+
+
+
+function coisa() {
+
+
+
+    return true
+}

@@ -1,0 +1,1704 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AO LONGO DESSE ÚLTIMO MÓDULO,
+
+VIMOS 
+
+'PRIVATE ATTRIBUTES',
+
+que são 
+
+coisas como:
+
+
+
+
+
+
+
+
+
+
+
+self.__open_transactions = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> E AGORA O PROFESSOR VAI NOS MOSTRAR UMA ÚLTIMA FEATURE INTERESSANTE,
+
+
+RELATIVO àS CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É A QUESTÃO DAS 'PROPRIEDADES VS CLASSES'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÃO VIMSO PROPERTIES ATÉ AGORA... ------> SEMPRE 
+
+
+
+
+
+TRABALHAMOS COM ATTRIBUTES,
+
+
+
+
+
+
+QUE EXISTEM DESSA FORMA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MyMath:
+    result = 5
+
+    __init__(self):
+        self.name = 'Max'
+
+
+
+
+
+
+
+
+
+
+
+
+--> OS ATTRIBUTES EXISTEM DIRETAMENTE NA CLASS, OU ENTÃO 
+
+
+
+EM SUAS INSTANCES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ PROPERTIES SÃO DIFERENTES,
+
+
+SE PARECEM ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+class MyMath:
+    __init__(self):
+        self.name = 'Max'
+
+
+
+
+    @property
+    def name(self):
+        return self.__name
+
+
+
+    @name.setter
+    def name(self, val):
+        self.__name = val
+
+
+
+
+
+
+
+
+
+
+---------> OU SEJA,
+
+AQUELE 
+
+
+'self.name' É MINHA PROPRIEDADE...
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS A PARTE INTERESSANTE DE PROPRIEDADES, EM PYTHON,
+
+
+É QUE __ TENHO 
+
+
+
+
+
+
+
+2 __ METHODS__ COM O MESMO NAME..... ----> 
+
+
+
+
+
+
+
+
+os 2 são 'name'... ---> MAS CADA 
+
+
+1 DELES É 'DECORATED'
+
+
+
+
+com 
+
+
+
+
+
+'@'.... ----> 
+
+
+
+
+
+
+
+1) @property 
+
+
+
+
+
+
+
+
+2) @name.setter....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSES SÃO OS FAMOSOS 'GETTERS' E 'SETTERS'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE SETUP LEVA AO COMPORTAMENTO EM QUE 
+
+
+
+
+'se eu tento conseguir o VALUE  PARA 
+
+
+O 'NAME',
+
+
+
+
+
+
+VAMSO QUERER QUE O CÓDIGO DE 'getter' (o @property) 
+
+SEJA EXECUTADO.. ------->  AÍ ,DENTRO DO GETTER,
+
+
+
+PODEMOS COLOCAR QUALQUER LÓGICA PARA __ MANIPULAR_ 
+
+
+
+ESSE VALOR QUE É RETORNADO... (se nós quisermos)...
+
+
+
+
+
+
+
+
+-----> E SE QUISERMOS SETTAR ALGUMA COISA COMO SENDO O VALOR DE 'name',
+
+
+
+
+NÓS RECORREMOS AO CÓDIGO E SETTER de nome '@name.setter'....
+
+
+
+
+
+
+
+
+
+--> E, NO SETTER, PODEMOS ADICIONAR LÓGICA PARA CONDICIONAR A MUDANÇA POR MEIO DESSE SETTER,
+
+
+COLOCAR A LÓGICA QUE QUISERMOS,
+
+
+TALVEZ UM IF CHECK que leva a 'CHANGE BEING DECLINED' -----> 
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS AQUI TEMOS OUTRO DETALHE:
+
+
+
+
+
+
+
+
+
+
+class MyMath:
+    __init__(self):
+        self.name = 'Max'
+
+
+
+
+    @property
+    def name(self):
+        return self.__name
+
+
+
+    @name.setter
+    def name(self, val):
+        self.__name = val
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> COMO VOCÊ PODE OBSERVAR, NO CONSTRUCTOR NÓS DEFINIMOS o name como PÚBLICO,
+
+sem '__',
+
+
+
+
+MAS 
+
+
+NOS SETTERS E GETTERS __ ESTAMOS O ACESSANDO _ COMO SE FOSSE PRIVATE.. --> PQ ISSO? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É PQ QUANDO USAMOS 
+
+
+
+'@property' 
+
+
+
+ou 
+
+
+'@name.setter' 
+
+
+ou 
+
+
+'@exemplo.exemplo',
+
+
+
+
+O PYTHON 
+
+
+
+__ABSTRAÍ_ _ 
+
+
+
+
+
+OS ATTRIBUTES em relaçaõ a nós,
+
+
+
+
+
+PARA ENTÕA __ CRIAR AQUILO QUE CHAMA DE 
+
+
+
+'PRIVATE PROPERTY',
+
+
+ao mesmo tempo que NOS ENTREGA ESSES GETTERS E SETTERS....  
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR QUER MOSTRAR COMO ISSO FUNCIONA NO CONTEXTO DA BLOCKCHAIN....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ NA BLOCKCHAIN,
+
+
+
+DIGAMOS QUE QUEREMOS 
+
+
+
+
+
+USAR ESSE APPROACH AÍ _ _PARA __ A NOSSA CHAIN....
+
+
+
+
+
+
+
+
+
+
+
+---> PARA ISSO,  O PROFESSOR REVERTE A 'self.__chain' para 'self.chain' (public ATTRIBUTE)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ISSO FEITO,
+
+O PROFESSOR 
+
+
+
+
+
+__ ADICIONA __ 
+
+
+UMA PROPERTY 
+
+
+
+
+
+na nossa class,
+
+assim:
+
+
+
+
+
+
+
+
+
+@property 
+def chain
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> beleza, deixa ver se entendi:
+
+
+
+
+
+
+
+
+
+
+SE TEMOS ESTE CÓDIGO __ AQUI__:
+
+
+
+
+
+class MyMath:
+    __init__(self):
+        self.name = 'Max'
+
+
+
+
+    @property
+    def name(self):
+        return self.__name
+
+
+
+    @name.setter
+    def name(self, val):
+        self.__name = val
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> quando TENTARMOS INVOCAR O VALOR DE 
+
+
+
+'''''
+
+
+
+new_your_math = MyMath()
+
+
+
+new_your_math.name  
+
+
+
+
+
+''''
+
+
+
+
+
+
+
+
+----> OU SEJA, QUANDO TENTARMOS INVOCAR 
+
+
+
+
+''new_your_math.name''',
+
+
+
+
+
+
+
+
+
+SERÁ EXECUTADO AQUELE CÓDIGO DO ____ GETTEr__, QUE É 
+
+
+''
+
+
+  @property
+    def name(self):
+        return self.__name
+
+
+
+''''
+
+
+
+
+
+
+
+
+
+
+---> ESSE É O __ GETTER__ DESSA PROPRIEDADE... (e é assim que o __GETTER_ de suas propriedades é escrita, em geral)...
+
+
+
+
+
+
+
+
+---> podemos colocar qualquer logíca que quisermos nesse getter aí,
+
+
+para MANIPULAR O OUTPUT retornado por calls de 'new_your_math.name'....
+
+
+
+
+
+
+
+
+
+
+
+-----> AGORA, SE TENTARMOS __ REDEFINIR__ O VALOR DE '.name', essa propriedade 
+
+aí,
+
+
+
+
+o   CÓDIGO QUE SERÁ EXECUTADO, A LÓGICA,
+
+SERÁ 
+
+
+A 
+
+DO 
+
+SETTER, QUE É 
+
+
+
+
+
+'''
+
+
+    @name.setter
+    def name(self, val):
+        self.__name = val
+
+
+
+'''
+
+
+
+
+
+--> podemos colocar um if check para recusar a mudança, etc etc....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> quando usamos '@property' e o '@xxxx.setter', o PYTHON ABSTRAI esse código em relaçaõ 
+A
+
+
+
+nós,
+
+cria essa chamada 'private property', e aí nos entrega esses getters e setters...
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok, mas como isso funciona no nosso exemplo?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> professor vai até o def__init__ de 'Blockchain'
+
+
+
+
+
+
+e aí 
+
+
+tira os attributes privados... (não são necessários, pois usaremos essas propriedades, que já são 'private')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... aí o professor 
+
+
+
+
+escreve 
+
+
+
+
+
+
+
+
+
+
+@property 
+def chain
+
+
+
+
+
+
+
+
+
+
+--> EXPLICAÇAÕ:
+
+
+
+1) o '@property' é obrigatório sobre o nome da propriedade/attribute que vocÊ quer utilizar como propriedade....
+
+
+
+
+
+
+
+
+2) o NOME DO 'method' embaixo da propriedade __ DEVE__ OBRIGATORIAMENTE MATCHEAR O NOME DA PROPRIEDADE QUE VOCÊ DEFINIU LÁ NO CONSTRUCTOR....
+
+
+
+
+
+
+
+
+
+
+fica tipo assim, portanto:
+
+
+
+
+
+
+
+
+class Blockchain:
+
+        def__init__(self, hosting_node_id):
+
+            genesis_block = Block(0, '', [], 100, 0)
+            self.chain = [genesis_block]
+
+
+            self.__open_transactions = []
+            self.load_data()
+            self.hosting_node = hosting_node_id
+
+
+
+@property
+def chain 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O SELF SERÁ OBTIDO COMO PARÂMETRO, NESSE method do 'getter' aí... --> 
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class Blockchain:
+
+        def__init__(self, hosting_node_id):
+
+            genesis_block = Block(0, '', [], 100, 0)
+            self.chain = [genesis_block]
+
+
+            self.__open_transactions = []
+            self.load_data()
+            self.hosting_node = hosting_node_id
+
+
+
+@property
+def chain(self):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> CERTO... AÍ, DENTRO DA LÓGICA DESSA 'PROPERTY', NÓS 
+
+
+
+DEFINIMOS __ A COISA _ QUE DEVERÁ SER RETORNADA __ sE ALGUÉM TENTAR ACESSAR 
+
+
+
+
+'
+
+blockchain = Blockchain()
+
+
+
+blockchain.chain
+
+
+'
+
+
+
+
+
+
+
+
+
+
+------> NO CASO, ESCREVEMOS UM RETURN...  --> 
+
+
+
+
+
+
+
+
+
+
+vamos querer fazedr 
+
+
+
+
+'return self.__chain',
+
+
+
+
+
+
+
+
+
+
+MAS _ VAMOS QUERER __ RETORNAR __UMA CÓPIA_ _ DESSA LIST,
+
+
+POR ISSO 
+
+ESCREVEMOS ASSIM:
+
+
+
+return self.__chain[:]
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+class Blockchain:
+
+        def__init__(self, hosting_node_id):
+
+            genesis_block = Block(0, '', [], 100, 0)
+            self.chain = [genesis_block]   ###necessário (sem '__')...
+
+
+            self.__open_transactions = []
+            self.load_data()
+            self.hosting_node = hosting_node_id
+
+
+
+@property    ####necessário
+def chain(self):   #####necessário (com o nome da propriedade definida lá no constructor, nomes iguais)
+    return self.__chain(self)   ######necessário
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+class Blockchain:
+
+
+
+
+    def __init__(self, hosting_node_id):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        # self.__chain = [GENESIS_BLOCK]    ####PRIVATE ATTRIBUTES, PQ NÃO PODEM SER ACESSADOS DO LADO DE FORA DE SEU OBJECT (pelo menos o IDE vai apitar)...
+        self.chain = [GENESIS_BLOCK] ##uso de PROPERTIES...
+        self.__open_transactions = []
+        self.participants = {'Max'}
+        # self.load_data()
+        # FileAccess.load_data(self.__chain, self.__open_transactions)
+        FileAccess.load_data(self.chain, self.__open_transactions)
+        self.hosting_node = str(hosting_node_id)
+
+    
+    @property    ####necessário
+    def chain(self):   #####necessário (com o nome da propriedade definida lá no constructor, nomes iguais)
+        return self.__chain[:]   ######necessário
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS AÍ O NEGÓCIO NOS DÁ UM ERROR:
+
+
+
+Instance of 'Blockchain' has no '__chain' member   Pylint(E1101:no-member
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, mas esse erro ainda persiste... como posso o consertar?
+
+
+
+
+
+
+
+
+
+
+--> o professor diz que devemos usar '__xxxx' dentro da property,
+
+
+mas isso aparenta ESTAR __ ERRADO__...
+
+
+
+
+
+
+
+
+vi este código na internet:
+
+
+
+
+
+
+
+
+
+
+
+
+# Python program showing the use of
+# @property
+  
+class Geeks:
+     def __init__(self):
+          self._age = 0
+       
+     # using property decorator
+     # a getter function
+     @property
+     def age(self):
+         print("getter method called")
+         return self._age
+       
+     # a setter function
+     @age.setter
+     def age(self, a):
+         if(a < 18):
+            raise ValueError("Sorry you age is below eligibility criteria")
+         print("setter method called")
+         self._age = a
+  
+mark = Geeks()
+  
+mark.age = 19
+  
+print(mark.age)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO, ISTO CONSERTOU O PROBLEMA:
+
+
+
+
+
+
+
+
+
+
+
+
+    def __init__(self, hosting_node_id):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        # self.__chain = [GENESIS_BLOCK]    ####PRIVATE ATTRIBUTES, PQ NÃO PODEM SER ACESSADOS DO LADO DE FORA DE SEU OBJECT (pelo menos o IDE vai apitar)...
+        self.chain = [GENESIS_BLOCK] ##uso de PROPERTIES...
+        self.__open_transactions = []
+        self.participants = {'Max'}
+        # self.load_data()
+        # FileAccess.load_data(self.__chain, self.__open_transactions)
+        FileAccess.load_data(self.chain, self.__open_transactions)
+        self.hosting_node = str(hosting_node_id)
+
+    
+    @property    ####necessário
+    def chain(self):   #####necessário (com o nome da propriedade definida lá no constructor, nomes iguais)
+        print('GETTER method called')
+        return self.chain[:]   ######necessário
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> talvez o ideal seja marcar as propriedades com '_', 
+
+
+
+
+só 1 underline, para mostrar que 
+
+
+SÃO PROPRIEDADES (e não attributes comuns)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+    def __init__(self, hosting_node_id):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        # self.__chain = [GENESIS_BLOCK]    ####PRIVATE ATTRIBUTES, PQ NÃO PODEM SER ACESSADOS DO LADO DE FORA DE SEU OBJECT (pelo menos o IDE vai apitar)...
+        self._chain = [GENESIS_BLOCK] ##uso de PROPERTIES...
+        self.__open_transactions = []
+        self.participants = {'Max'}
+        # self.load_data()
+        # FileAccess.load_data(self.__chain, self.__open_transactions)
+        FileAccess.load_data(self.chain, self.__open_transactions)
+        self.hosting_node = str(hosting_node_id)
+
+    
+    @property    ####necessário
+    def chain(self):   #####necessário (com o nome da propriedade definida lá no constructor, nomes iguais)
+        print('GETTER method called')
+        return self._chain[:]   ######necessário
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS 
+
+
+E  O 
+
+
+
+'SETTER'?
+
+
+
+
+
+
+
+
+o que queremos fazer com ele?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> VAMOS USAR O SETTER PARA QUERER 'SETTAR' esse value de 'chain'...
+
+
+
+
+
+
+
+
+
+
+
+--> quando vamos querer SETTAR O VALUE DE CHAIN?
+
+
+
+
+-> não é quando vamos fazer 'APPEND', pq append é só o add de 1 elemento, sem ALTERAR A CHAIN INTEIRA,..
+
+
+
+
+
+
+
+
+
+
+-->  NÓS __ SÓ VAMOS ALTERAR__ A 'chain' property INTEIRA 
+
+
+quando 
+
+
+
+
+EXECUTARMOS AQUELE CÓDIGO DE 'load_data',
+
+
+
+
+lá naquele código de 
+
+
+
+
+'self._chain = updated_blockchain' 
+
+
+
+
+
+
+(
+
+    OU SEJA,
+
+
+    QUANDO TENTAMOS OVERWRITTAR A CHAIN INTEIRA...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESCREVEMOS ISTO:
+
+
+
+
+
+
+
+
+
+
+
+
+    @chain.setter
+    def chain(self):
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VAMOS DEIXAR A LÓGICA BEM SIMPLES,
+
+
+
+
+FAZER SÓ COM QUE O VALUE DE 
+
+'chain' seja alterado,
+
+
+por meio desta lógica:
+
+
+
+
+
+
+
+
+
+    @chain.setter ##sintaxe obrigatória de setters
+    def chain(self, val):  ###sintaxe obrigatória de setters 
+        self.chain = val
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... realizei todas essas mudanças, hora de testar o código...
+
+
+
+
+
+
+
+
+-----> achei um erro:
+
+
+
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovoprojeto12comgettersesetters\oop\node.py", line 88, in 
+listen_for_input
+    FileAccess.save_data(self.blockchain.get_chain(), self.blockchain.get_open_transactions()
+
+
+
+
+
+AttributeError: 'Blockchain' object has no attribute 'get_chain'. Did you mean: '_chain'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mais testes...
+
+
+
+ok, agora o código está funcionando... (tive que substituir o acesso a essa propriedade/setter em diversas partes de nosso código)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, PODEMOS INTERAGIR COM NOSSA BLOCKCHAIN COMO ANTES, MAS AGORA 
+
+
+COM A AJUDA DESSES GETTERS E SETTERS AUTOMÁTICOS... (criados pelo '@property')
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA É UMA FEATURE BOA PARA OS CASOS EM QUE VOCÊ TEM UMA PROPERTY A QUE VOCê QUER CONTROLAR 
+
+O ACESSO 
+
+DE TANTO READ COMO WRITE...  -------> aí vocÊ pode usar @property e 
+
+
+
+'@xxxx.setter'..
+
+
+
+
+
+
+
+
+
+
+
+------> OUTRO DETALHE:
+
+
+
+
+
+
+
+
+
+
+--> SE ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+@chain.setter
+def chain(self, val):
+    pass
+
+
+
+
+
+
+
+
+
+
+
+    --> SE ESCREVÊSSEMOS SÓ ESSE 'pass',
+
+    FARÍAMOS COM QUE NOSSA CHAIN FICASSE ESSENCIALMENTE 'immutable',
+
+
+
+
+    PQ A LÓGICA DESSE SETTER SÓ FARIA 'pass' para as próximas linhas...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok..... PROPERTIES --> SÃO DIFERENTES DE ATTRIBUTES, NO PYTHON,
+
+
+PQ 
+
+POSSUEM GETTERS E SETTERS,
+
+
+
+
+attributes não possuem... (são sempre acessíveis)...

@@ -1,0 +1,241 @@
+
+
+
+
+LOOPS E CONDITIONALS...
+
+
+
+
+
+
+
+
+
+
+
+REPEAT E CHECK....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE DEMOS UMA OLHADA NAS BASICS NO MÓDULO PASSADO,
+
+
+
+E AGORA 
+
+
+QUE SABEMOS A CORE PYTHON SYNTAX,
+
+
+
+PRECISAMOS VER MAIS DESSES BASICS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LOOPS E CONDITIONALS -> CORE FEATURES DE QUAISQUER LINGAUGENS DE PROGRAMAÇÃO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O QUE SÃO LOOPS E STATEMENTS,
+
+
+E PQ OS UTILIZAMOS...
+
+
+
+
+
+
+
+
+
+--> VEREMOS OS 2 TIPOS DE LOOPS QUE O PYTHON OFERECE:
+
+
+
+
+
+
+1) FOR 
+
+
+
+
+2) WHILE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VEREMOS __ QUANDO__ USAR __ ESSES LOOPS...
+
+
+
+
+
+
+
+
+
+
+
+VEREMOS IF STATEMENTS (conditional statements)..
+
+
+
+
+
+
+
+
+
+
+
+
+-> VEREMOS __ BOOLEAN OPERATORS ___ 
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS COMO CONTROLAR NOSSOS LOOPS....
+
+
+
+
+
+
+
+
+
+
+
+-> NÃO VAMOS VER ISSO SÓ NA TEORIA,
+
+
+
+
+VAMOS VER TBM NA PRÁTICA, COM NOSSA BLOCK CHAIN....
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS USAR LOOPS E IF CONDITIONS PARA __ VERIFICAR__ NOSSA BLOCKCHAIN (
+
+
+vamos querer checar 
+
+SE 
+
+CADA 
+
+1 
+
+DE NOSSOS 
+
+BLOCKS 
+
+REALMENTE 
+
+CONTÉM 
+
+
+'TODA A DATA DO BLOCK ANTERIOR'... (all the transactions of the old block),
+
+
+
+
+TUDO PARA QUE 
+
+
+NÃO CONSIGAMOS 
+
+
+
+EDITAR 1 BLOCK ANTERIOR ___ SEM _DEIXAR NOSSA CHAIN INTEIRA INVÁLIDA....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ALÉM DISSO,
+
+
+
+CRIAREMOS 
+
+UMA 
+
+
+'INTERFACE DE USER INPUT' ----------> CONSTRUÍREMOS ISSO NO CONSOLE,
+
+
+
+
+MAS FAREMOS ISSO COM A AJUDA DE LOOPS, o que é bem legal...

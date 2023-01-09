@@ -1,0 +1,1149 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESTAMOS QUASE ACABADOS COM ESSE MÓDULO...
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE MÓDULO FOI IMPORTANTE TANTO DE UM PONTO DE VISTA BLOCKCHAIN COMO PYTHON..
+
+
+
+
+
+
+
+
+
+
+
+
+--> IMPORTAR FEATURES 
+
+DA STANDARD LIBRARY É SUPER IMPORTANTE NO PYTHON,
+
+E O PROOF OF WORK É SUPER IMPORTANTE PARA BLOCKCHAINS,...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O MECANISMO DE _ _GENERATE DE HASHES _ aTUAL  __  TEM UMA FALHA __ GIGANTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS QUE FALHA É ESSA? 
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, ATE´AGORA, NO NOSSO PROJETO, O HASH DO 'BLOCO EM SI''
+
+
+
+tinha esse código:
+
+
+
+
+
+
+
+def hash_block(block):
+    return hashlib.sha256(json.dumps(block).encode()).hexdigest()
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK,ESTAMOS HASHEANDO O BLOCK INTEIRO COM ISSO....s
+
+
+
+
+--> mas o problema com isso, no caso,
+
+
+É QUE _ 
+
+
+
+O NOSSO __ BLOCK É UM 'normal dictionary' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> VEJA A ESTRUTURA DE UM BLOCK COMUM:
+
+{
+    'previous_hash': hashed_block,
+    'index': len(blockchain),
+    'transactions': copied_transactions,
+    'proof': proof
+}
+
+
+
+
+
+
+
+
+
+
+-> É ASSIM QUE NOSSO BLOCK SE PARECE...
+
+
+
+
+
+
+
+
+--> E O MESMO SE APLICA A NOSSAS TRANSACTIONS, QUE POSSUEM ESTA APARÊNCIA:
+
+
+
+reward_transaction = {
+    'sender': 'MINING',
+    'recipient': owner,
+    'amount': MINING_REWARD
+}
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok, ISSO TUDO É 
+_-DICTIONARIES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA _ SOBRE _ DICTIONARIES É QUE .... 
+
+
+
+
+
+
+
+
+
+
+-> O QUE SÃO DICTIONARIES?
+
+
+
+
+
+
+
+--> SÃO _ ITERABLE_, 
+
+
+
+SÃO _ MUTABLE,
+
+
+SÃO ACESSADOS POR 'keys',
+
+
+
+
+E SÃO __ UNORDERED__....
+
+
+
+
+
+
+
+
+
+
+
+-> A COISA MAIS IMPORTANTE É QUE ELES SÃO UM 'UNOREDERED MAP'...
+
+
+
+
+
+
+
+
+
+
+--> POR SEREM UM _ UNORDERED MAP,
+
+
+
+ISSO TRAZ ALGUNS PROBLEMAS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O FATO DE DICTIONARIES SEREM UM 'UNOREDERD MAP' É __ SUPER IMPORTANTE_ NO CONTEXTO 
+
+
+
+DE VERIFICAÇÃO __ DE NOSSA BLOCKCHAIN,
+
+PQ __ PROVAVELMENTE_ _ O MECANISMO DE HASHING __ LEVA A ORDEM _ EM CONSIDERAÇÃO_...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO É IMPORTANTE LÁ EM 
+
+
+
+
+'hash_block()',
+
+
+
+
+
+
+
+
+
+PQ __ NÓS VAMOS CONVERTER NOSSO BLOCK, DICT CHEIO DE KEY-VALUE PAIRS,
+
+
+
+EM _ UMA STRING.... --> E ESSA STRING PODE __ FICAR DIFERENTE, PARA 1 MESMO BLOCK,
+
+
+
+SE __ ESSA ORDER FICAR DIFERENTE.... -------> OK, MAS ISSO 
+
+
+
+
+
+__ PODE ACONTECER?
+ 
+
+
+
+ A ORDER PODE MUDAR ''' DO NADA'' 
+
+
+ DENTRO DE NOSSO CÓDIGO PYTHON?  ------> O PROFESSOR APONTA QUE 
+
+ ALGO 
+
+
+
+ PODE MUDAR 
+
+
+
+
+ NO 'PYTHON'S MEMORY OPTIMIZATIONS',
+
+
+ OU QUALQUER COISA QUE LEVA 
+
+
+
+
+ à FORMAÇÃO DE UMA STRING DISTINTA PQ _ SIMPLESMENTE _ 2 KEY-VALUE PAIRS __ TERÃO _ MUDADO DE POSIÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> E ISSO SERÁ UM GRANDE PROBLEMA,
+
+
+
+ PQ COMO O PROFESSOR HAVIA MENCIONADO ANTES,
+
+
+
+
+
+ __ APÉNAS __ 
+
+
+ 2 
+
+ EXATOS MESMOS INPUTS LEVAM A 2 EXATOS MESMOS HASHES (e como teremos 2 diferentes inputs, os hashes não vão coincidir)...  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ESSE SWAP DE POSIÇÕES NO DICTIONARY, PORTANTO, 
+ É _ FATAL....
+
+
+
+
+
+
+
+
+
+ -> VAMOS ACABAR COM DIFERENTES HASHES,
+
+
+
+
+ E ISSO É FATAL... --> PQ _ _SE DEIXARMOS O CÓDIGO ASSIM, PODERÃO EXISTIR CASOS EM QUE 
+
+ 'EMBORA A DATA DENTRO DO BLOCK SEJA CORRETA, A ORDER ESTÁ ERRADA' ---> DEVIDO A ESSA 'TECHNICAL FAULT,'
+
+
+
+
+
+
+
+ A HASH/BLOCKCHAIN SERÁ _ CONSIDERADA __ COMO _ INVÁLIDA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> PROFESSOR EXPLICA QUE __ UMA MANEIRA FÁCIL DE CONSERTAR 
+
+ ISSO 
+
+
+ É 
+
+ ATRAVÉS 
+
+
+
+
+
+
+ DE UMA __ FEATURE DO METHOD 'json.dumps()'.... --> ESSE METHOD __ 
+
+
+
+
+
+
+
+
+ ACEITA UM MONTE DE ARGUMENTS OPCIONAIS, E UM DELES É 
+
+
+
+
+ ''sort_keys'' 
+
+
+
+ ---> If *sort_keys* is true (default: False), then the output of dictionaries will be sorted by key.
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OU SEJA, SE VOCÊ DEFINIR ESSE NEGÓCIO, ESSE ARGUMENTO OPCIONAL,
+
+
+
+
+ ESSE METHOD SEMPRE VAI TE RETORNAR UMA __ STRING __ EM QUE AS KEYS _ cONVERTIDAS_ 
+
+
+
+ SERÃO OUTPUTTADAS EM ORDEM ALFABÉTICA,
+
+ o que é ótimo, 
+
+
+
+ pq estabelece uma 'order' que sempre será seguida...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+    return hashlib.sha256(json.dumps(block, sort_keys=True).encode()).hexdigest()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, ISSO SIGNIFICA QUE AGORA 
+
+O DICTIONARY 'SEMPRE VAI LEVAR A UMA MESMA STRING',
+
+
+
+ainda que 
+a order venha possivelmente a mudar...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS TUDO ISSO VAI RESOLVER __ APENAS __ 
+
+
+
+
+
+
+___ PARTE__ DO PROBLEMA,
+
+PQ 
+
+LÁ 
+
+
+
+
+
+
+
+
+NO NOSSO 'block', que é um DICTIONARY,
+
+
+
+TEMOS 
+
+
+
+
+
+
+
+AQUELA KEY de 
+
+
+
+'processed_transactions',
+
+
+QUE CONTÉM _ NOSSAS TRANSACTIONS.... --> E 
+
+
+
+
+
+
+
+__ CADA __ TRANSACTION _ TAMBÉM __ É UM DICTIONARY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OU SEJA, TEREMOS DE FAZER COM QUE NOSSAS 'transactions' TAMBÉM FIQUEM EM ORDEM ALFABÉTICA/UMA ORDER BEM DEFINIDA,
+
+
+
+
+PARA EVITAR ESSE TIPO DE PROBLEMA....
+
+
+
+
+
+
+
+
+reward_transaction = {
+    'sender': 'MINING',
+    'recipient': owner,
+    'amount': MINING_REWARD
+}
+
+
+
+
+
+
+
+--> OK, MAS COMO FAZEMOS ISSO? 
+
+
+
+
+
+
+
+
+
+
+
+COMO PODEMOS FAZER NOSSAS TRANSACTIONS SEMPRE TEREM A MESMA ORDER?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS PRECISAR __ IMPORTAR __ OUTRA STANDARD LIBRARY/PACKAGE DO PYTHON,
+
+
+
+
+
+
+
+
+
+que é 
+
+
+
+
+
+
+
+
+
+o 
+
+'collections'...
+
+
+
+
+
+
+
+
+
+
+
+
+import collections 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS VAMOS PRECISAR DE APENAS UMA FEATURE NESSE 'collections',
+
+
+
+por isso o professor importa a feature de 
+
+
+
+'OrderedDict'
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+from collections import OrderedDict
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO O NOME NOS SUGERE, ISSO SERÁ UM 'ORDERED DICTIONARY'....
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+from collections import OrderedDict # isso será/é um ORDERED DICTIONARY (geralmente dictionaries são UNORDERED, mas há use-cases em que ORDER EM DICTIONARIES É ÚTIL, como em casos de 'hashing')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------- E O PROFESSOR NOS EXPLICA QUE __ É CLARO QUE PODERÍAMOS USAR __ ISSO PARA CRIAR NOSSOS BLOCKS  também... (aí não precisaríamos usar 'json.dumps()' com o 'sort_keys' )
+
+--> MAS O PROFESSOR QUERIA MOSTRRAR ESSE ARGUMENTO DE 'json.dumps' PQ ELE PODE SER CONVENIENTE/ÚTIL... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok... VAMOS USAR ESSE CONSTRUCTOR/OBJECT  de 'OrderedDict' 
+
+
+
+
+LÁ EM 
+
+
+'add_transaction',
+
+
+
+
+
+
+
+
+
+
+
+EM QUE _ NAÕ VAMOS MAIS ESCREVER ALGO COMO:
+
+
+
+transaction = {
+    'sender': sender
+    'recipient': recipient
+    'amount': amount
+}
+
+
+,
+
+
+
+
+
+
+
+
+
+
+
+E SIM __ vAMOS __ USAR _ ESSE OBJETO/PÁCKAGE....
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM, CREIO EU:
+
+
+
+
+    new_transaction = OrderedDict([ #sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+    ('amount', amount),
+    ('recipient', recipient),
+    ('sender', sender)
+    ])
+
+
+
+
+
+
+
+
+
+
+
+
+OK, MAS O PROBLEMA É QUE ESSES 'OrderedDict' 
+
+ESTÃO APARECENDO NO OUTPUT DE MEU CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR ESCREVE UM OrderedDict.... ----> 
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR EXPLICA QUE VAMOS USAR O 'CONSTRUCTOR' do objeto 'OrderedDict',
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+transaction = OrderedDict([])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O 'OrderedDict'
+
+
+
+
+EXIGE UMA LIST, E NAÕ UM DICTIONARY.... -> E É UMA _ LIST _DE TUPLES ('()" )..
+
+
+
+
+
+
+
+
+
+
+
+-> CADA TUPLE É UM KEY-VALUE PAIR....
+
+
+
+
+
+
+
+
+
+ESCREVEMOS COMO EU ESCREVI:
+
+
+    new_transaction = OrderedDict([ #sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+    ('amount', amount),
+    ('recipient', recipient),
+    ('sender', sender)
+    ])
+
+
+
+
+
+
+
+
+
+
+
+
+    -----> a order que vocÊ escreve os negócios 
+
+
+
+    VAI SER A ORDER NO DICTIONARY OUTPUTTADO POR ESSE CONSTRUCTOR....
+
+
+
+
+
+
+
+
+
+
+    -------------------------
+
+
+
+
+
+
+
+
+
+
+
+    ---->> O PROFESSOR EXPLICA QUE ISSO __ TAMBÉM DEVE/SERÁ FEITO COM A 
+
+
+    'reward_transaction',
+
+
+    que deve seguir esse padrão...
+
+
+
+
+
+
+
+
+
+
+
+
+    EX:
+
+
+reward_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+        ('amount', 1),
+        ('recipient', 2),
+        ('sender', '3')
+    ])
+
+
+
+
+
+
+
+
+----> 
+
+-> ok... agora só resta testar isso...
+
+
+
+
+
+
+
+
+--> PROFESSOR APONTA QUE AGORA TUDO ESTÁ FUNCIONANDO... (mas ainda estou com aquela questão 
+
+
+de ter outputtado no terminal 'OrderedDict([(tuple: tupleValue')])' em vez de SÓ UM __ DICT ORGANIZADO'..
+
+
+
+
+
+
+
+
+
+
+
+--> TIPO ASSIM:
+
+
+
+>>> reward_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+...         ('amount', 1),
+...         ('recipient', 2),
+...         ('sender', '3')
+...     ])
+>>> 
+>>> 
+>>> reward_transaction
+OrderedDict([('amount', 1), ('recipient', 2), ('sender', '3')])
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PARECE QUE __ O TYPE __ REALMENTE FOI ALTERADO....
+
+
+
+
+
+
+
+
+--> ISSO TAMBÉM ACONTECEU NO CÓDIGO DO PROFESSOR...
+
+
+
+
+
+
+So far, you've learned about the subtle differences between OrderedDict and dict . You've learned that, even though regular dictionaries have been ordered data structures since Python 3.6, there's still some value in using OrderedDict because of a set of useful features that aren't present in dict .29 de mar. de 2021
+
+
+
+
+There’s at least one more reason to continue using OrderedDict in your code: backward compatibility. 
+
+
+Relying on regular dict objects to preserve the order of items will break your code in environments that run 
+versions of Python older than 3.6.

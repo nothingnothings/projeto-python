@@ -1,0 +1,790 @@
+
+
+
+
+
+
+
+
+
+
+
+NOSSO CÓDIGO DE LOOP ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+while True:
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    user_input = get_user_choice()
+    if(user_input == 1):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    else:
+        output_blockchain()
+
+
+
+
+
+
+
+
+
+
+------->>>> 
+
+
+
+
+NOSSO WHILE LOOP,
+
+E MAIS 
+
+IMPORTANTE,
+
+OS IF STATEMENTS DENTRO DO WHILE LOOP,
+
+
+
+
+
+SÓ ESTÃO SUPORTANDO 2 'CASES'.... ----->
+
+
+
+
+
+
+
+
+
+
+
+1 case --> 'add a new transaction value'
+ 
+
+
+
+2 case --> 'output the blockchain blocks'...
+
+
+
+
+
+
+
+IF 
+
+
+ELSE...
+
+
+
+
+
+
+
+
+
+
+----> E AÍ, NO NOSSO CÓDIGO, MESMO SE ESCREVERMOS ALGO INVÁLIDO,
+
+
+
+como 
+
+
+'BATATA',
+
+
+
+
+nosso while loop NÃO SERÁ CANCELADO, APENAS 'RESETTARÁ'...
+
+
+
+
+
+
+
+--> MAS EU, NA VERDADE, GANHEI UM ERRO DIFERENTE:
+
+
+
+
+
+
+Please choose an option: batata
+Traceback (most recent call last):
+  File "A:\projeto7-PYTHON\MODULO3-TRABALHANDOCOMLOOPSECONDITIONALS\novoprojeto2\blockchain.py", line 123, in <module>
+    user_input = get_user_choice()
+  File "A:\projeto7-PYTHON\MODULO3-TRABALHANDOCOMLOOPSECONDITIONALS\novoprojeto2\blockchain.py", line 24, in get_user_choice
+    return float(input('Please choose an option: '))
+ValueError: could not convert string to float: 'batata'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... --> SE EU QUISER EVITAR ISSO,
+
+
+
+
+
+PRECISO 
+
+
+
+trocar os checks PARA STRINGS, e aí fazer check de acordo com isso...
+
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+while True:
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    else:
+        output_blockchain()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CÓDIGO ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+while True:
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    else:
+        output_blockchain()
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AGORA ESTÁ DANDO CERTO.... --> O COMPORTAMENTO DO MEU CÓDIGO, ASSIM COMO O DO PROFESSOR,
+
+É QUE 
+
+
+
+''SE VOCê DIGITA QUALQUER COISA QUE NÃO SEJA 1,
+
+O CÓDIGO AUTOMATICAMENTE PARTIRÁ PARA O '''ELSE'''' CASE'''....
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+
+
+
+--> MAS PROVAVELMENTE NÃO VAMOS QUERER ESSE COMPORTAMENTO.... --> 
+
+
+
+
+
+
+
+--> TVZ UM BEHAVIOR MELHOR 
+
+SEJA 
+
+''DIZER AO USER QUE 
+
+
+O INPUT FOI INVÁLIDO, SE 
+ELE DIGITAR ALGO QUE NÃO SEJA 
+
+
+1 ou 2''''...
+
+
+
+
+
+
+
+
+
+
+
+-_> para isso,
+
+
+vamos precisar de 'elif',
+
+
+que é 'ELSE IF'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+while True:
+    print('1: Add a new transaction value.')
+    print('2: Display current blockchain.')
+    print('q: Quit the program.')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    else:
+        print('Invalid command, please input 1, 2 or q.')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NO CASO 
+
+
+
+DE NOSSO 
+INPUT 
+
+TER SIDO INVÁLIDO,
+
+
+
+
+
+
+VAMOS QUERER QUE O 
+
+
+
+CÓDIGO __INFORME __ O USEr_ DE QUE _ ELE INPUTTOU ALGO INVÁLIDO, e que ele deve 'tentar de novo'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MEU CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+while True:
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    print('q: Quit the program.')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    else:
+        print('Invalid command, please input 1, 2 or q.')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> O PROFESSOR EXPLICA A EXISTÊNCIA DE 
+
+
+
+'elif'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELIF É USADO QUANDO VOCÊ TEM '1 CASE BEM DEFINIDO' adicional...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> POR EXEMPLO, PODERÍAMOS DEFINIR UMA HIPÓTESE 'elif'
+
+
+EM QUE
+
+
+
+
+O INPUT DO USER É 'CURTO DEMAIS' (too shorT),
+
+
+
+
+
+
+
+
+
+E AÍ 
+
+
+
+SERÁ EXECUTADA UMA FUNCTION DE 'too_short()'....
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ELIF ---> ELSE IF -----> É O ELSE IF CASE STATEMENT,
+
+
+QUE SERVE PARA ISSO...
+
+
+
+
+
+
+
+
+
+
+
+--> 'ELIF' --> '''CASO A PRIMEIRA CONDITION NÃO TENHA SIDO SATISFEITA, VAMOS QUERER TENTAR OUTRA CONDITION'...
+
+
+
+
+
+
+
+
+
+
+--> E VOCÊ PODE ADICIONAR TANTOS 'elif'
+
+
+
+NOS SEUS IF STATEMENTS QUANTO VOCê QUISER...
+
+
+
+
+
+
+
+
+
+------> DEVEMOS VER ISSO EM AÇÃO...
+
+
+
+
+
+
+
+
+
+
+--> NO NOSSO IF STATEMENT,
+
+
+SÓ ESTAMOS CHECANDO SE NOSSO VALUE É '1'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR INTRODUZ UM 'ELIF BLOCK',
+
+
+
+
+E 
+
+
+
+
+
+
+
+
+
+
+
+O ELIF FUNCIONA DE FORMA PARECIDA COM 'if',
+
+
+SÓ O NOME É DIFERENTE...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+if user_choice == '1':
+    tx_amount = get_transaction_value()
+    add_value(tx_amount, get_last_blockchain_value())
+elif user_choice == '2':
+    print_blockchain_elements()
+else:
+    print('Input was invalid, please pick a value from the list!')
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+Invalid command, please input 1, 2 or q.
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+Please choose an option: as
+Invalid command, please input 1, 2 or q.
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+Please choose an option:
+
+
+
+
+
+EX:
+
+
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+Please choose an option: sa
+----------------------------------------
+Invalid command, please input 1, 2 or q.
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+Please choose an option: sa
+----------------------------------------
+Invalid command, please input 1, 2 or q.
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+Please choose an option: 1
+Please enter your transaction amount: 2
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+Please choose an option:
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... agora o elif está funcionando, código ficou assim:
+
+
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    print('q: Quit the program.')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    # if(user_input == 2):
+    #     for block in blockchain:
+    #         print('Outputting block')
+    #         print(block)
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ---> PROFESSOR EXPLICA QUE É COMUM 
+
+
+
+        TER UMA 
+
+
+
+        OPTION DE 'QUIT' A APPLICATION... -> O PROFESSOR 
+
+
+
+        COLOCA O COMANDO DE 'q',
+
+
+
+        QUE 
+
+        FARÁ 
+
+
+
+
+        O QUIT... -_> PARA FAZER QUIT,
+
+
+
+        USAMOS 
+
+
+        'break',
+
+        PARA 
+
+        FAZER 
+
+        __bREAK__ DESSE LOOP AÍ...
+
+
+
+
+
+
+
+
+
+
+
+        --> NA VERDADE, TEMOS 2 MANEIRAS DE __ EXIT_ _ESSE LOOP...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PRIMEIRA DELAS É O 'BREAK', VISTO NA AULA DE 'understanding break and continue'...
+
+
+
+
+

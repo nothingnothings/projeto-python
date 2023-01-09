@@ -1,0 +1,1131 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> antes de concluírmos esse módulo,
+
+
+HÁ UM BUG QUE O PROFESSOR QUER CONSERTAR NA FUNCTION DE 
+
+
+'get_balance'....
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ESTÁ ASSIM, POR ENQUANTO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def get_balance(participant): #versão COM O USO DE REDUCE NA NOSSA LIST...
+    transaction_sender = get_value('sender')
+    open_transactions_sender = [transaction['amount'] for transaction in open_transactions if transaction['sender'] == participant]
+    transaction_sender.append(open_transactions_sender)
+
+
+    print(transaction_sender[0])
+
+
+    # amount_sent = reduce(reduce_function, transaction_sender)
+    amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + tx_amt[0] if len(tx_amt) > 0 else 0, transaction_sender, 0)   #function a ser executada, LIST EM QUE EXECUTAR ESSA FUNCTION, e, por fim, o INDEX DO VALUE/ELEMENTO PELO QUAL QUEREMOS COMEÇAR O 'SUM UP'...
+                #obs: TERNARY EXPRESSIONS FUNCIONAM COM LAMBDA FUNCTIONS, MAS IF STATEMENTS, NAõ... ----> MAS TERNARY EXPRESSIONS TAMBÉM USAM 'if', no python....
+    
+    
+    print(amount_sent)
+   
+    transaction_recipient = get_value('recipient')
+    amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + tx_amt[0] if len(tx_amt) > 0 else 0, transaction_recipient, 0)
+    print(amount_received)
+    return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> O BUG É ASSIM:
+
+
+
+
+
+
+1) PRIMEIRAMENTE MINERAMOS UM BLOCK. RECEBEMOS UM VALOR DE 10....
+
+
+
+
+
+
+2) SE ENVIARMOS UM VALOR DE 2 A MANUEL, FICAMOS COM 8...
+
+
+
+
+
+
+
+
+
+3) MAS SE ENVIAMOS UM OUTRO VALOR A MANUEL, UM VALOR _ PARA _ _ESSE MESMO BLOCK, E NÃO PARA UM OUTRO BLOCK (
+     ou seja, 2 transactions em 1 mesmo block
+).... --> SE FIZERMOS ISSO,
+
+
+
+
+
+
+
+A BALANCE DE NOSSO 'OWNER' NÃO SERÁ ALTERADA, CONTINUARÁ SENDO de '8', 
+
+
+
+
+MESMO COM ESSA NOVA TRANSACTION EM QUE PERDEMOS/ENVIAMOS 5...
+
+
+
+
+
+
+
+
+
+
+-> há algum erro de lógica BEM SÉRIO... ---> 
+
+
+
+
+
+
+
+
+A RAZÃO PARA ESSE ERROR/BUG PODE SER VISTA _ SE PRINTARMOS 'transaction_sender'
+
+LÁ EM 'get_balance'...
+
+
+
+
+
+
+
+
+
+
+
+O OUTPUT É ESTE:
+
+
+
+[[], [], [2.0, 5.0]]
+
+
+
+
+
+
+
+
+
+
+
+--> significa que TUDO ESTÁ SENDO APPENDADO à UM MESMO ITEM...
+
+
+
+
+
+
+
+
+
+
+-> temos essa list of lists....
+
+
+
+
+
+[ 
+
+
+[] --> origin block 
+
+
+[] --> é o nosso MINING BLOCK, em que TAMBÉM NÃO TEMOS TRANSACTIONS...
+
+
+[2.0, 5.0] --> PRIMEIRA TRANSACTION (deveria ter só 2.0)
+
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE TERCEIRO BLOCK/LIST
+
+
+__ AÍ _ DEVERIA ESTAR_ SEGURANDO _ APENAS 
+
+
+1 VALUE (2.0),
+
+E NÃO 
+
+TODOS OS VALUES SUBSEQUENTES... --> É ISSO QUE ESTÁ COMPROMETENDO O CÁLCULO DO 'transaction_sender'...
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE ISSO É UM PROBLEMA, PQ NA FUNCTION DE REDUCE 
+
+
+
+
+
+
+
+
+ESTAMOS ACESSANDO APENAS __ O PRIMEIRO ELEMENTO _ DESSE BLOCK (que é 2.0),
+
+
+através daquela escrita de 
+
+'transaction_amount[0] if len(transaction_amount > 0)'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> COMO PODEMOS SOLUCIONAR ISSO AÍ?
+
+
+
+
+
+
+
+
+
+
+
+---> bem, o que podemos fazer é 
+
+
+
+
+
+TENTAR _ FAZER O 'SPREAD' dos values dessa list, por meio do operator de '*' (star)....
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS ISSO __ NÃO FUNCIONOU....
+
+
+
+
+
+
+
+
+---> talvez uma solução seja _ CHAINAR UM CALL DE 'reduce' aqui, para que 
+
+TODOS OS VALUES NESSE ARRAY SEJAM COMBINADOS EM APENAS 1 SÓ....
+
+
+
+
+
+
+ex:
+
+
+
+
+
+reduce(lambda x,y: x+y, transaction_amount)
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+ amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + reduce(lambda x,y: x+y, tx_amt) if len(tx_amt) > 0 else 0, transaction_sender, 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ DEU CERTO:
+
+
+
+
+ lease choose an option: 1
+Please enter the recipient's name: Manuel 
+Please enter transaction amount: 5
+[]
+[[], [], [2.0]]
+2.0
+10
+8.0
+[{'sender': 'Arthur', 'recipient': 'Manuel', 'amount': 2.0}, {'sender': 'Arthur', 'recipient': 'Manuel', 'amount': 5.0}]
+Added transaction!
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option: b
+[]
+[[], [], [2.0, 5.0]]
+7.0
+10
+Blocks sent by Arthur:   7.00
+Blocks received by Arthur:  10.00
+Total Balance of Arthur:   3.00
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ESSE REDUCE inline, NESTING DE REDUCE,
+
+
+
+deu certo....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... mas aí o professorr diz que DEVEMOS USAR __ UMA CONVENIENCE FUNCTION,
+
+
+
+
+
+
+FUNCTION QUE É MAIS LEGÍVEL DO QUE APENAS ESCREVER 
+
+
+UM OUTRO REDUCE, nested reduce, aqui nesse lugar...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> É A FUNCTION DE 'sum()',
+
+QUE SEMPRE PODEMOS EXECUTAR EM UMA LIST....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O CÓDIGO FICA ASSIM:
+
+
+
+
+
+ amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt) if len(tx_amt) > 0 else 0, transaction_sender, 0) 
+
+
+
+
+
+
+
+ E ASSIM:
+
+
+
+
+
+
+
+     amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt) if len(tx_amt) > 0 else 0, transaction_sender, 0) 
+    print(amount_received)
+    return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------. ISSO GARANTE QUE TODOS OS VALORES NESSA LIST VAO SER  
+
+
+
+SOMADOS,
+
+E AÍ 
+
+
+VAO SER ADICIONADOS AO 'CURRENT SUM'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------. NOSSA FUNCTION DE REDUCE AINDA CONTINUARÁ AQUI,
+
+
+E TAMBVÉM AS LAMBDA FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+---> COM ISSO ADIICIONADO, NO ENTNATO, PROFESSOR RODA ALGUNS TESTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->OK.....
+
+
+
+
+
+
+
+-_> MAS AÍ O PROFESSOR NOS MOSTRA OUTRO BUG... -->   SE NÓS MINERAMOS UM NOVO BLOCK,
+
+
+
+O NEGÓCIO VAI MOSTRAR QUE TEMOS 20 blocks, o que é mentira... -- ->  
+
+
+
+
+
+
+ISSO TEM A VER COM A FORMA PELA QUAL ESCREVEMOS NOSSA TERNARY EXPRESSION ALI NAQUELE TRECHO:
+
+
+
+
+
+
+
+if len(tx_amt) > 0 else 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA, ELE SÓ EXECUTA A PRIMEIRA PARTE DO CÓDIGO, QUE FAZ O SUM, SE __ 
+
+
+
+A LENGTH DO ELEMENTO É 'MAIOR DO QUE 0'....
+
+
+
+
+
+
+
+
+
+-> PARA RESOLVER ISSO AÍ,
+
+
+
+TEMOS QUE _ TROCAR ESSE CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+--> A LÓGICA CORRETA 
+
+SERÁ 
+
+
+
+  amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt) if len(tx_amt) > 0 else tx_sum + 0, transaction_sender, 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ou seja, a alteração é no if check,
+  
+
+  ali em 
+
+
+  'else tx_sum + 0 '
+
+
+
+
+
+
+
+
+
+  (
+
+      PQ QUEREMOS QUE FUTUROS CASES EM QUE SEJAM MINERADOS COINS (mine a block, OPÇÃO QUE NÃO ENVOLVE TRANSACTION ALGUMA, O QUE FAZ COM QUE ENTREMOS NAQUELE ELSE CASE DO IF CHECK)
+
+      NÃO RESULTEM EM ERRO, erro/bug
+
+      de 
+
+      ''nada aconteceu sobre o valor de seu 'sent'''
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+  OU SEJA, A LÓGICA FICOU:
+
+
+  tx_sum + sum(tx_amt) if len(tx_amt) > 0 else tx_sum + 0
+
+
+
+
+
+
+            CASE 1                             CASE 2 (mine a block, nenhuma transaction addada...)
+  (tx_sum + sum(tx_amt))  if len(tx_amt) > 0 else (tx_sum + 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> certo, mas o valor do novo block minerado AINDA ESTÁ VINDO ERRADO.... (valores errados)...
+
+
+
+
+
+
+
+  -> tenho que consertar...
+
+
+
+
+
+
+
+
+  -> o problema NÃO ESTÁ EM 'get_balance'.... --> essa parte do código está certa...
+
+
+
+
+
+
+
+
+
+  --> é alguma outra coisa que está DUPLICANDO MINHA TRANSACTION:
+
+
+  [[], [], [2.0, 5.0], [2.0, 5.0]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> ERA O RETURN DE 'True' QUE ESTAVA FALTANDO LÁ NA FUNCTION DE 'mine_block'...
+
+
+
+ 
+ --> PQ ESSE RETURN DE 'True' É QUE APAGAVA 
+
+
+ MINHA LIST DE 'open_transactions', por conta dessa condição lá 
+
+
+ no while loop:
+
+
+
+
+
+
+        if mine_block():
+            print(' MINED')
+            open_transactions = []
+
+
+
+
+
+
+
+
+
+
+  --> O PROBLEMA FICOU RESOLVIDO ASSIM:
+
+
+
+
+
+
+
+
+  
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    previous_block = blockchain[-1]
+    hashed_block = hash_block(previous_block)
+    # print(hashed_block)
+
+    reward_transaction = {
+        'sender': 'ourApp',
+        'recipient': owner,
+        'amount': MINING_REWARD
+
+    }
+    copied_transactions = open_transactions[:]
+    copied_transactions.append(reward_transaction)
+    block = {'previous_block_hash': hashed_block,
+             'index': len(blockchain),
+            #  'processed_transactions': open_transactions,
+            'processed_transactions': copied_transactions
+             }
+    blockchain.append(block)
+    print(blockchain, 'TRIED TO MINE BLOCK')
+    return True
+
+
+
+
+
+
+
+
+
+-- 
+
+
+
+
+
+OK, CONSERTAMOS ESSES 2 BUGS E AGORA 
+
+SABEMOS 
+
+
+
+ESSA função de 'sum()',
+
+
+QUE É UM SHORTHAND PARA A FUNCTION DE REDUCE()...

@@ -1,0 +1,339 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PHYTON É UMA LINGUAGEM PODEROSA,
+
+
+
+
+
+FÁCIL DE USAR,
+
+
+
+
+
+
+
+
+
+
+E OBJECT ORIENTATED...
+
+
+
+
+
+
+
+
+
+
+
+----> POWERFUL --> RODA EM TODOS OPERATING SYSTEMS, BOA PERFORMANCE, EXTREMAMENTE VERSÁTIL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> é tão versátil 
+
+QUE 
+
+
+
+
+
+PODEMOS ESCREVER VÁRIAS COISAS COM ELE:
+
+
+
+
+
+
+
+
+
+
+1) SCRIPTS E PROGRAMAS ------> RODANDO NO NOSSO DESKTOP, COM OU SEM UI --->  
+
+
+
+
+EX: PODEMOS USAR O PYTHON COMO UMA CALCULADORA SIMPLES (basta usar o commandline do python)....
+
+
+
+
+
+EX: PODEMOS ESCREVER __ SIMPLES 'UTILITY' SCRIPTS,  OU PROGRAMAS COMPLEXOS...
+
+
+
+
+EX: PODEMOS ADICIONAR UMA UI, PARA CRIAR DESKTOP APPLICATIONS... --> ISSO É RELATIVAMENTE FÁCIL DE SE FAZER, GRAÇAS AO RICO ECOSSISTEMA DO PYTHON --> UM MONTE DE THIRD PARTY PACKAGES E LIBRARIES QUE VOCê PODE ADICIONAR AOS SEUS PROGRAMAS...
+
+
+
+
+
+
+
+
+2) web development ----> PODEMOS TAMBÉM O UTILIZAR NO WEBDEVELOPMENT, PARA RODAR __ SERVERSIDE CODE __ ... ->  ('''código que faz algo no server e então envia HTML DOCUMENTS/JSON AOS SEUS USERs')....
+
+
+
+
+--> EXISTEM VÁRIAS PACKAGES QUE DEIXAM FÁCIL O WRITE DE SERVERSIDE CODE....
+
+
+
+
+--> aí somos capazes de USAR O PYTHON COMO UMA LANGUAGE SERVERSIDE; USAR O __ PYTHON PARA_ CONSTRUIR 
+
+'FULLSTACK APPS', ou REST APIs... (envio de json data...)
+
+
+
+
+----> TAMBÉM PODEMOS USAR FRAMEWORKS COMO DJANGO OU FLASK, 
+third party libraries que o professor mencionou, que 
+podem deixar
+ 
+ nossa vida como desenvolvedores bem mais fácil...
+
+
+
+
+
+
+
+
+2) data science ..... --> TAMBÉM É POSSÍVEL USÁ-LO PARA realizar tarefas de data science...
+
+
+----> É OUTRA MANEIRA POPULAR DE USAR O PYTHON --> TAMBÉM TEMOS 
+
+
+UM RICO SET DE THIRD PARTY PROGRAMS QUE DEIXAM  
+
+
+CÁLCULOS ESTATÍSTICOS BEM FÁCEIS...
+
+
+
+--> PODEMOS TAMBÉM FACILMENTE 
+
+
+REUNIR, IMPORT E CLEAN DATA...
+
+
+
+
+
+
+
+
+---> PODEMOS FAZER STATISTICAL ANALYSES, PLOTTING E MACHINE LEARNING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> TODAS ESSAS ÁREAS SÃO 'BUILT UPON' os basics que vocÊ aprende nesse curso...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É EASY-TO-USE --> SINTAXE CLEAN,
+
+SEM FLUFF 
+
+ADICIONADO 
+
+
+
+A ELA... --> 
+
+
+
+
+
+
+
+
+
+APPROACH 'BATTERIES-INCLUDED' -----> quando vocÊ instala o python, você já tem um monte de 
+
+possibilidades 
+
+de uso dele....
+
+
+
+
+
+(
+    o built-in já é ótimo.....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o python também te oferece uma ótima documentação...
+
+
+
+
+
+
+
+
+
+
+---> por fim, o python é OOP (object orientated),
+
+
+
+
+
+TIPO O JAVASCRIPT.... -------> PYTHON USA CLASSES, INHERITANCE, ETC ETC...
+
+
+
+
+
+
+
+
+
+
+
+-----> usar essas features 
+
+
+
+te oferece um monte de vantagens (object orientated)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PYTHON É EXTREMAMENTE POPULAR....
+
+
+
+
+
+
+
+
+
+
+
+MAIS QUE JAVASCRIPT, MAIS QUE JAVA,
+
+MAIS QUE C#, MAIS QUE PHP 
+
+
+
+E MAIS DO QUE C++....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+É POPULAR PQ É FÁCIL, VERSÁTIL,
+
+
+E TEM UM RICO SET DE THIRD PARTY PACKAGES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+

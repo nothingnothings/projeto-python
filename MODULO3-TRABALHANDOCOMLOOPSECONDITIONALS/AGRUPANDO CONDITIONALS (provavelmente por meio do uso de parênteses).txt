@@ -1,0 +1,440 @@
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE ESTUDAMOS 
+
+
+'and' e 'or',
+
+
+
+
+
+HÁ MAIS UMA COISA QUE DEVEMOS SABER QUANDO 
+
+
+
+
+ESTUDAMOS __ CONDITIONS EM 'PYTHON'...
+
+
+
+
+
+
+
+
+
+
+
+
+-> o professor define outra const, de name..
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+name = 'Max' 
+
+age = 29 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ VAMOS CHECAR SE 'name' É IGUAL A CHRIS ( oq vai retornar False)....
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS, VAMOS CHECAR SE 'age' É MAIOR DO QUE 20...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+>>> if name == 'Chris' and age > 20:
+...     print('YEA')
+... 
+>>> 
+>>> 
+>>> 
+
+
+
+
+
+
+
+
+
+------> OU SEJA, NÃO FOI PRINTADO 'YEA' 
+
+
+
+
+
+pq o name não está como 'Chris'...
+
+
+
+
+
+
+
+
+
+
+
+-> MAS AGORA DIGAMOS QUE TEMOS UMA CONDITION extra, 
+
+
+
+
+
+
+
+que checa se 
+
+'age < 30'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+>>> if name == 'Chris' and age > 20 or age < 30:
+    print('YEA')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE 'or' SERÁ LIDO __ ANTERIORMENTE AO 'and' (ou seja, terá prioridade sobre o 'and')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OBVIAMENTE, SERÁ PRINTADO 'YEA':
+
+
+>>> if name == 'Chris' and age > 20 or age < 30:
+...     print('YEA')
+... 
+YEA
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ O 'age < 30' foi satisfeito....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> A RAZÃO DE ISSO TER ACONTECIDO É A 'MANEIRA PELA QUAL O PYTHON LEU ESSE IF STATEMENT'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PYTHON SEMPRE VAI FAZER ASSIM:
+
+
+
+
+
+if name == 'Chris' and age > 20 or age < 30:
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAI COMBINAR ESSE 'name == Chris' e 'age > 20' 
+
+
+
+
+
+EM 1 ÚNICO BLOCK __ POR CONTA DO 'and' que existe entre os 2... 
+
+
+
+
+
+
+
+
+EM VEZ DISSO,
+
+O 
+
+
+PYTHON LÊ 
+
+
+if (name == 'Chris' and age > 20) or (age < 30):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ ISSO ACONTECE?
+
+
+
+
+
+É PQ 'and' 
+
+
+'TEM PREFERÊNCIA SOBRE "or" ' 
+
+
+
+
+
+
+
+NO MUNDO PYTHON.... --> ISSO SIGNIFICA QUE _ _ELE É LIDO_ _ PRIMEIRO_.... (o 'and', no caso)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS _ NÃO ERA ISSO QUE O PROFESSOR QUERIA, NESSE CASO AQUI...
+
+
+
+
+
+
+
+
+-> ELE QUERIA: 
+
+
+
+
+1) que o 'name == Chris' FOSSE TRUE _ EM TODOS OS CASES, PARA QUE FOSSE RETORNADO TRUE... 
+
+
+
+
+
+
+2) que não interesse o fato de sermos 'older than 20 or younger than 30'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA _ CONTORNAR__ ISSO,
+
+
+O PROFESSOR PODE/DEVE USAR __ PARÊNTESES ( '()' )..
+
+
+
+
+
+
+
+
+
+
+--> TIPO ASSIM:
+
+
+
+
+
+
+
+
+if (name == 'Chris') and (age > 20 or age < 30):
+    print('YEA')
+
+
+
+
+EX:
+
+
+
+
+
+
+
+>>> if (name == 'Chris') and (age > 20 or age < 30):
+...     print('YEA')
+... 
+>>> 
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+-----> OK, DEU CERTO....
+
+
+
+
+
+
+
+
+-> ISSO PODE SE TORNAR IMPORTANTE EM CHECKS MAIS COMPLEXOS,
+
+COMO O ASSIGNMENT NO FINAL DESSE MÓDULO (em que vamos precisar disso)...

@@ -1,0 +1,1223 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... ADICIONAMOS BLOCKS E TRANSACTIONS AOS NOSSOS BLOCKS, CODAMOS TODA A RELAÇÃO ENTRE ESSES 
+
+
+2 
+
+
+
+OBJECTS E FIZEMOS SUA CONVERSÃO EM DICTS PARA QUE CONSEGUISSEM SER ARMAZENADOS COMO JSON DATA EM ARQUIVOS JSON/txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----. ANTES DE COMEÇARMOS A ADDAR AS OUTRAS CLASSES,
+
+
+
+DEVEMOS ANALISAR __ AS COISAS QUE PODEM SER MELHORADAS NA NOSSA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> AINDA TENHO A POSSIBILIDADE DE OUTPUTTAR OS PARTICIPANTS... ( o professor tirou isso, mas eu mantive)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------> 
+
+
+
+
+
+
+
+CERTO.... E ALÉM DISSO?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> BEM, SE COMEÇAMOS NOSSA BLOCKCHAIN E ENTÃO OUTPUTTARMOS  
+
+
+
+
+
+
+
+
+NOSSOS 'BLOCKCHAIN BLOCKS'
+
+
+
+
+com 'display current blockchain',
+
+
+
+
+
+
+VEREMOS QUE O OUTPUT FICARÁ UM LIXO:
+
+
+
+
+
+
+
+
+
+
+O OUTPUT FICARÁ TIPO ASSIM:
+
+
+
+
+
+
+<block.Block object at 0x10fa60cf8>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS NO MEU CÓDIGO, AS COISAS NÃO FICARAM ASSIM, FICARAMA ASSIm;
+
+
+
+Outputting block
+{previous_block_hash: , index: 0, processed_transactions: [], proof: 100, timestamp: 0 }
+Outputting block
+{previous_block_hash: 206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321, index: 1, processed_transactions: [<oop.transaction.Transaction object at 0x000001F27A75A6E0>], proof: 91155, timestamp: 1649133938.795677 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ou seja, a ÚNICA COISA QUE FICOU OUTPUTTADA COM ESSE FORMATO ESTRANHO FOI
+
+
+
+
+o object de 'transaction' nesteado dentro de nossos blocks..
+
+
+
+
+
+
+
+
+
+
+--> MAS PQ ISSO?
+
+
+
+
+
+
+
+
+
+--> BEM, O CÓDIGO DE MINHA CLASS/OBJECT BLOCK ESTÁ ASSIM:
+
+
+
+
+
+class Block:
+    def __init__(self,  previous_block_hash='', index=0, processed_transactions=[], proof=100, timestamp=time() ):
+        self.previous_block_hash = previous_block_hash
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.proof = proof
+        self.timestamp = timestamp 
+    
+    def __repr__(self):
+        return '{{previous_block_hash: {}, index: {}, processed_transactions: {}, proof: {}, timestamp: {} }}'.format(self.previous_block_hash, self.index, self.processed_transactions, self.proof, self.timestamp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ou seja, eu JÁ HAVIA CODADO UM NEGÓCIO EM '__repr__' 
+
+
+
+para que 
+
+
+MEU OUTPUT NÃO FICASSE SUPER FEIOSO...
+
+
+
+
+
+
+
+--> só preciso dar uma complementadinha, fazer com que 
+
+
+
+
+aquele return de minhas 'processed_transactions'
+
+SEJA EM UM FORMATO DE DICT,
+
+
+
+e não 
+
+
+de 
+
+
+
+'object', como atualmente está acontecendo...
+
+
+
+
+
+
+
+
+
+
+
+RESOLVIDO:
+
+
+
+
+
+
+class Block:
+    def __init__(self,  previous_block_hash='', index=0, processed_transactions=[], proof=100, timestamp=time() ):
+        self.previous_block_hash = previous_block_hash
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.proof = proof
+        self.timestamp = timestamp 
+    
+    def __repr__(self):
+        return '{{previous_block_hash: {}, index: {}, processed_transactions: {}, proof: {}, timestamp: {} }}'.format(self.previous_block_hash, self.index, [transaction.__dict__ for transaction in self.processed_transactions], self.proof, self.timestamp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA LIST COMPREHENSION FEZ COM QUE O OUPTUT FICASSE BONITo:
+
+
+
+Please choose an option: 2
+Outputting block
+{previous_block_hash: , index: 0, processed_transactions: [], proof: 100, timestamp: 0 }
+Outputting block
+{previous_block_hash: 206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321, index: 1, processed_transactions: [{'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], proof: 91155, timestamp: 1649134167.0324178 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> certo...
+
+
+
+
+
+
+
+agora só me resta consertar o outro bug, que acontece quando;
+
+
+
+
+
+
+
+
+
+1) eu minero um block
+
+
+
+
+
+
+
+
+2) ADICIONO UMA TRANSACTION 
+
+
+
+3) DEPOIS FECHO O PROGRAMA 
+
+
+4) ABRO O PROGRAMA MAIS UMA VEZ E EXECUTO QUALQUER COMANDO.... --> isso faz com que minha blockchain seja tida como INVÁLIDA, o que crasha o app...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ué... o erro não está mais acontecendo... não sei a razão disso...
+
+
+
+
+
+
+
+
+
+
+-> não, mas ainda está acontecendo:
+
+
+
+
+
+
+
+
+se eu reinicio meu app 
+
+e executo qualquer comando,
+
+ele 
+
+me dá aquele error 
+
+e crasha o app:
+
+
+
+Please choose an option: 2
+Outputting block
+{previous_block_hash: 0, index: , processed_transactions: [], proof: 100, timestamp: 0 }
+Outputting block
+{previous_block_hash: 1, index: 206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321, processed_transactions: [{'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], proof: 91155, timestamp: 1649134167.0324178 }
+Outputting block
+{previous_block_hash: 2, index: b6bc9385d88db2e24078d44e9367db9df3da696101f5950a02f1721a5c74b855, processed_transactions: [{'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], proof: 139057, timestamp: 1649134167.0324178 }
+Blockchain was found invalid.
+[{previous_block_hash: 0, index: , processed_transactions: [], proof: 100, timestamp: 0 }, {previous_block_hash: 1, index: 206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321, processed_transactions: [{'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], proof: 91155, timestamp: 1649134167.0324178 }, {previous_block_hash: 2, index: b6bc9385d88db2e24078d44e9367db9df3da696101f5950a02f1721a5c74b855, processed_transactions: [{'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], proof: 139057, timestamp: 1649134167.0324178 }]
+User left
+
+
+
+
+
+
+
+
+
+
+--> qual é a razão desse error?
+
+
+
+
+
+
+
+
+
+
+-> minha TRANSACTION NÃO ESTÁ SENDO ADICIONADA QUANDO MINERO UM BLOCK..
+
+
+
+
+
+
+
+O PROBLEMA ESTÁ NESSA LINHA:
+
+
+  if block.previous_block_hash != hash_block(blockchain[index - 1]):
+
+
+
+
+
+
+
+
+
+
+
+  --> é algum problema de ORDER DE ARGUMENTS, COMO VISTO POR ESSE OUTPUT:
+
+
+
+
+  [{previous_block_hash: 0, index: , processed_transactions: [], proof: 100, timestamp: 0 }, {previous_block_hash: 1, index: 206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321, processed_transactions: [{'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], proof: 91155, timestamp: 1649135095.589819 }]
+
+
+
+
+
+
+  -> previous_block_hash NÃO PODE RESULTAR EM 0...
+
+
+
+
+
+
+
+
+  --> acho que agora as coisas vão funcionar...
+
+
+
+
+
+
+
+
+  --> AGORA AS COISAS ESTÃO FUNCIONANDo..
+
+
+
+
+
+
+
+
+
+
+
+  ok, sucesso:
+
+
+
+
+
+
+
+  Please choose an option: 2
+Outputting block
+{previous_block_hash: , index: 0, processed_transactions: [], proof: 100, timestamp: 0 }
+Outputting block
+{previous_block_hash: 206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321, index: 1, processed_transactions: [{'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], proof: 91155, timestamp: 1649135514.5594337 }
+Outputting block
+{previous_block_hash: cc94d68205ff3fe432dec4ebf5bfa9f3eacdebb75bbc400ad5c76caf8d610684, index: 2, processed_transactions: [{'amount': 5.0, 'recipient': 'Manu', 'sender': 'Arthur'}, {'amount': 3.0, 'recipient': 'Max', 'sender': 'Arthur'}, {'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], proof: 132932, timestamp: 1649135514.5594337 }
+Blockchain is valid
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo... o que mais podemos melhorar?
+
+
+
+
+
+
+
+
+
+
+o professor fala do special method 
+de 
+
+
+'__repr__()'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------->     def __repr__(self):
+        return '{{previous_block_hash: {}, index: {}, processed_transactions: {}, proof: {}, timestamp: {} }}'.format(self.previous_block_hash, self.index, [transaction.__dict__ for transaction in self.processed_transactions], self.proof, self.timestamp)
+
+
+
+
+
+
+
+
+
+
+
+------> 
+
+
+
+
+
+
+
+
+ok.. isso já nos ajudou bastante...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> O PROFESSOR TBM FEZ O NEGÓCIO DA LIST COMPREHENSION....
+
+
+
+
+
+
+
+
+
+
+
+-------> NA VERDADE , O APPROACH QUE ELE SEGUIU FOI UM POUCO DIFERENTE:
+
+
+
+
+
+
+
+
+ELE FOI ATÉ A CLASS DE 'Transaction'
+
+
+
+E COLOCOU DENTRO DESSA CLASS __ UM OUTRO 
+
+
+
+'__repr__()',
+
+
+
+
+
+
+
+QUE APARENTEMENTE FUNCIONA _ DENTRO DE OUTRAS COISAS OUTPUTTADAS POR MEIO DE 'print()"
+
+
+
+
+
+
+
+
+(
+
+
+
+    pq o que printamos, na verdade, foi o 'block', 
+
+
+    e não a transaction,
+
+    mas essa transaction, se você definir esse REPR,
+
+
+    acaba sendo 
+
+
+
+    outputtada mesmo assim, junto com o block....
+)
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+class Transaction: 
+
+
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+
+
+
+
+
+
+
+
+
+
+---------> ok.....
+
+
+
+
+
+
+
+
+
+
+
+-----> LÁ NA CLASS DE BLOCK, O PROFESSOR DECIDE SIMPLIFICAR A ESCRITA, POR ISSO 
+
+
+
+ELE SUBSTITUI TODO AQUELE CÓDIGO DE 
+
+
+
+
+''
+
+    def __repr__(self):
+        return '{{previous_block_hash: {}, index: {}, processed_transactions: {}, proof: {}, timestamp: {} }}'.format(self.previous_block_hash, self.index, [transaction.__dict__ for transaction in self.processed_transactions], self.proof, self.timestamp)
+
+
+
+''
+
+
+
+
+POR
+
+
+
+
+
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+
+
+
+
+
+
+
+
+
+
+
+----> MAS ESSA VERSÃO DO PROFESSOR NÃO 
+
+
+
+
+
+__ CONVERTE__ DE PRONTO 
+
+
+os objects 'transaction' em dicts,
+
+
+
+
+
+
+
+
+
+
+por isso minha versão é melhor, de certa forma...]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS A VERSÃO DO PROFESSOR TEM UMA VANTAGEM, QUE É A _ IMPLEMENTAÇAÕ DE INHERITANCE...
+
+
+
+
+
+
+
+
+
+--> ISSO PQ TANTO a class de 'transaction' como a de 'block'
+
+POSSUEM O MESMO código em '__repr__()',
+
+
+a mesma lógica, que é 
+
+esse return aqui:
+
+
+
+
+
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> COMO NÓS TEMOS __O  EXATO MESMO CÓDIGO, 
+
+
+
+
+O PROFESSOR APONTA QUE AQUI TEMOS UM EXCELENTE USE-CASE PARA INHERITANCE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS COMO IMPLEMENTAMOS ISSO?
+
+
+
+
+
+--> PRECISAMOS ADICIONAR UMA BASE CLASS... -> 
+
+
+
+
+professor cria um arquivo python 
+
+
+chamado de 
+
+'printable'  -----> PQ ESSA CLASS VAI ___ ASSEGURAR__ QUE VAMOS CONSEGUIR 'PRINTAR ' alguma coisa....
+
+
+
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, O MEU CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+from oop.printable import Printable
+from time import time ##vai nos dar o 'currentTime', basicamente....  --> ISSO NOS DÁ O CURRENT TIME, COMO UM NUMBER BEM LONGO...
+
+
+
+class Block(Printable):
+    def __init__(self,  previous_block_hash='', index=0, processed_transactions=[], proof=100, timestamp=time() ):
+        self.previous_block_hash = previous_block_hash
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.proof = proof
+        self.timestamp = timestamp 
+    
+    def __repr__(self):
+        # return '{{previous_block_hash: {}, index: {}, processed_transactions: {}, proof: {}, timestamp: {} }}'.format(self.previous_block_hash, self.index, [transaction.__dict__ for transaction in self.processed_transactions], self.proof, self.timestamp) ###eu ia usar esse código, mas o professor queria mostrar a implementação de INHERITANCE, por isso optei pelo código de baixo...
+
+        # return str(self.__dict__)
+        new_print = Printable(self.__dict__)
+        
+        return new_print.print()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ASSIm:
+
+
+
+
+
+
+
+
+
+from collections import OrderedDict
+
+from oop.printable import Printable
+
+
+class Transaction:
+    def __init__(self, amount, recipient, sender ):
+        self.amount = amount
+        self.recipient = recipient
+        self.sender = sender
+    
+    def to_ordered_dict(self):
+        return OrderedDict([('amount', self.amount), ('recipient', self.recipient), ('sender', self.sender)])
+
+    def __repr__(self):
+        new_print = Printable(self.__dict__)
+        return new_print.print()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    E ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+    class Printable:
+    
+    def __init__(self, object):
+        self.object = object
+
+
+    
+    def print(self):
+        return str(self.object)
+
+
+
+
+
+
+
+
+
+
+
+----> ou seja, agora cada '__repr__' das classes vai CRIAR 1 OBJECT 'new_print' 
+
+
+ANTES DE EXECUTAR ESSE METHOD DE 'PRINT' 
+
+
+QUE 
+
+retorna EM UM FORMATO DE STRING o objeto em formato 'dict' que vocÊ passou a ele...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok.... ---> o CÓDIGO DO PROFESSOR FICOU ASSIM:
+
+
+class Printable:
+    
+    def __repr__(self):
+        return str(self.__dict__)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAIS SUCINTO DO QUE O NOSSO....
+
+
+
+
+
+
+
+
+  
+  -----> OK... --> MAS A VERSÃO DELE FICOU BEM MELHOR DO QUE A NOSSA, PQ O 
+
+
+  '__repr__()' 
+
+  da class de 'PRINTABLE'
+
+
+
+  FOI INHERITADA __ POR TANTO 
+
+
+
+  'Transaction' COMO POR 'Block'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  CERTO... O CÓDIGO COMPLETO FICOU ASSIM:
+
+
+
+
+  class Printable:  ##típico use-case de INHERITANCE, para outputtar coisas de nosso código...
+    
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+
+
+
+
+
+
+
+
+
+
+
+E ASSIM:
+
+
+from collections import OrderedDict
+
+from oop.printable import Printable
+
+
+class Transaction(Printable): ###inheritamos a class de 'Printable', que COMPARTILHA O REPR DELE a essa class aqui..
+    def __init__(self, amount, recipient, sender ):
+        self.amount = amount
+        self.recipient = recipient
+        self.sender = sender
+    
+    def to_ordered_dict(self):
+        return OrderedDict([('amount', self.amount), ('recipient', self.recipient), ('sender', self.sender)])
+
+
+
+
+
+
+
+
+
+
+
+
+
+E ASSIM:
+
+
+
+from oop.printable import Printable
+from time import time ##vai nos dar o 'currentTime', basicamente....  --> ISSO NOS DÁ O CURRENT TIME, COMO UM NUMBER BEM LONGO...
+
+
+
+class Block(Printable): ###inheritamos a class de 'Printable', que COMPARTILHA O REPR DELE a essa class aqui..
+    def __init__(self,  previous_block_hash='', index=0, processed_transactions=[], proof=100, timestamp=time() ):
+        self.previous_block_hash = previous_block_hash
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.proof = proof
+        self.timestamp = timestamp 
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+COM ISSO FICAMOS COM UMA FUNCIONALIDADE COMPARTILHADA, A QUAL PODEMOS FACILMENTE IMPLEMENTAR NAS NOSSAS CLASSES..

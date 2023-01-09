@@ -1,0 +1,657 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OPÇÃO NÚMERO 1 PARA QUITAR NOSSA EXECUÇÃO, QUE TEM ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    print('q: Quit the program.')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -------> A KEYWORD PARA 
+
+
+
+
+        QUITAR __ 1 'LOOP' ANTES _ DE 
+
+        ELE 
+
+        TER 
+
+        ACABADO,
+
+        SEJA 
+
+
+        WHILE LOOP OU FOR LOOP,
+
+
+
+
+
+        É O 'BREAK'... 
+
+
+
+
+
+
+
+
+
+--> OK, MAS É CLARO QUE UM LOOP INFINITO __ NUNCA VAI ACABAR....
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA KEYWORD É O 'BREAK'... -------> SEMPRE QUE USARMOS ISSO EM UM LOOP,
+
+ESSA KEYWORD VAI 'END' O LOOP ...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ESSA KEYWORD É DISPONÍVEL TANTO 
+
+EM 
+
+
+
+WHILE COMO FOR LOOPS...
+
+
+
+
+
+
+
+
+
+
+-----> SEMPRE QUE VOCê CHAMAR 'BREAK' em um loop,
+
+
+VOCÊ VAI 
+
+
+
+1) SKIP ALL OTHER ITERATIONS 
+
+
+
+
+2) VAI QUITTAR O LOOP, MESMO SE ELE AINDA NÃO TIVER ACABADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR OUTRO LADO, HÁ TAMBÉM A KEYWORD DE 'continue',
+
+
+QUE 
+
+
+É 
+
+USADA 
+
+PARA 
+
+
+
+__SKIPPAR__ 1 ITERATION ESPECÍFICA EM NOSSO CÓDIGO (deixando o resto intacto)...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO __ TAMBÉM __ eXISTE__ NO JAVASCRIPT:
+
+
+
+
+https://www.w3schools.com/js/js_break.asp
+
+
+
+
+
+
+
+
+
+--> The break statement "jumps out" of a loop.
+
+The continue statement "jumps over" one iteration in the loop.
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O 'CONTINUE' É MAIS SITUACIONAL DO QUE O 'BREAK'...
+
+
+
+
+
+
+
+
+
+
+--> a keyword 'break' É PERFEITA 
+
+
+PARA AQUILO QUE QUEREMOS FAZER:
+
+
+
+
+
+
+
+
+
+
+
+1) QUANDO O USER DIGITAR 'q', vamos querer engatilhar esse case/elif que roda o break...
+
+
+
+
+
+
+2) como NÃO TEMOS MAIS NENHUMA OUTRA LINHA NO NOSSO CÓDIGO DEPOIS DO WHILE LOOP, O CÓDIGO VAI SÓ 'QUITAR' (vai terminar, essencialmente)....
+
+
+
+
+
+
+
+
+
+----> O 'BREAK' vai acabar o surrounding loop, o while loop, nesse nosso caso...
+
+
+
+
+
+
+
+
+
+
+----> OK... COM ISSO, 
+
+
+
+
+
+FICAMOS COM ESTE CÓDIGO:
+
+
+
+
+
+    elif(user_input == 'q'):
+        break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, ESSA É A KEYWORD 'BREAK'...
+
+
+
+
+
+
+
+
+
+
+--. MAS O PROFESSOR TAMBÉM ESTAVA MENCIONANDO O 'CONTINUE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> COMO O 'CONTINUE' FUNCIONA?
+
+
+
+
+
+
+
+
+
+---> O PROFESSOR ADICIONA UM NOVO 
+
+
+
+
+__ CÓDIGO, A SER EXECUTADO DEPOIS DE TODOS OS OUTROS, DENTRO DO WHILE LOOP...
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE CÓDIGO, O PROFESSOR VAI OUTPUTTAR 'Choice registered'...
+
+
+
+
+
+
+
+
+--> PARA CHEGAR A ESSE CÓDIGO, O PROFESSOR COLOCA QUE O TYPE DE 'q' vai fazer com QUE SEJA EXECUTADO O 'CONTINUE', e não 'break'..
+
+
+
+
+
+
+
+
+
+
+código fica assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    print('q: Quit the program.')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        continue
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    print('Choice registered')
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+STARTED
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+Please choose an option: q
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+Please choose an option: q
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+Please choose an option: q
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+Please choose an option: 1
+Please enter your transaction amount: 2
+Choice registered
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ESSE OUTPUT, ENTENDEMOS O QUE FAZ O 'continue':
+
+
+
+
+
+
+
+ele basicamente __ PULA_ O RESTO DO CÓDIGO DAQUELA ITERAÇÃO ESPECÍFICA (ou seja, vai pular o 'choice registered', e aí avançar para uma nova iteration automaticamente)....
+
+
+
+
+
+
+
+
+
+--> AGORA, SE ENTRAMOS EM QUALQUER OUTRO BLOCK (tanto de 1 como de 2, ou no ELSE CASE DE input inválido),
+
+
+
+NÓS TEMOS O OUTPUT DESSE 'Choice registered'...
+
+
+
+
+
+
+EX:
+
+
+
+Please choose an option: aasas
+----------------------------------------
+Invalid command, please input 1, 2 or q.
+Choice registered
+
+------------------------------
+1: Add a new transaction value
+2: display current blockchain
+q: Quit the program.
+------------------------------
+Please choose an option:
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+ou seja, você pode observar ali:
+
+
+1) invalid command, please input 1, 2 or q.
+2) choice registered...
+
+
+
+
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ --> ESSE 'CONTINUE' NÃO VAI QUEBRAR NOSSO LOOP (pq só break faz isso),
+
+
+ MAS 
+
+ ELE 
+
+
+ VAI __ PULAR__ O RESTO DA EXECUÇÃO DE CÓDIGO DESSA ITERAÇÃO,
+
+ PARA ENTÃO PULAR PARA A PRÓXIMA ITERATION...
+
+
+
+
+
+
+
+ -----------------------------
+
+
+
+
+
+
+
+
+ certo, entendi...
+
+
+
+
+
+
+
+
+
+
+
+ --> É CLARO QUE, NO NOSSO CASO,
+
+ VAMOS QUERER USAR O 'BREAK',
+
+
+
+ mas 
+
+
+
+
+
+ é bom saber como esse continue funciona...
+
+
+
+
+
+
+
+
+
+
+
+ -> VEREMOS CASES NO CURSO EM QUE 'continue' SERÁ BEM ÚTIL.... (
+
+
+     em que 
+
+
+     VOCÊ '''TVZ N QUEIRA MUDAR UMA VARIABLE SE, ANTES DISSO, 
+
+     DESSE MOMENTO, ALGUMA COISA TIVER ACONTECIDO NO LOOP''' -> aí vamos usar o 'continue' para PULAR O CHANGE DESSA VARIABLE...
+ )

@@ -1,0 +1,335 @@
+ACABAMOS 
+
+
+COM ESSE MÓDULO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS:
+
+
+
+
+1) COMO PODEMOS __ ACESSAR _ FILES, COM 
+
+'open()' 
+
+
+
+
+
+
+
+
+2) APRENDEMOS QUE É BEM SIMPLES, E QUE VOCÊ TEM QUE ESCOLHER O 'MODO DE OPEN' 
+
+que você quer executar....
+
+
+
+
+
+modos:
+
+
+
+'a' --> append 
+
+
+'w' --> write 
+
+
+
+'r' --> 'read'
+
+
+
+'r+' ---> read e write 
+
+
+
+'x' --> tipo especial de write, só writta se ESSE ARQUIVO NÃO EXISTIR AINDA....
+
+
+
+'wb' --> write BINARY (para writtar em arquivos/data pickle)
+
+
+
+'rb' --> para LER BINARY DATA... 
+
+
+
+
+
+
+
+
+
+
+--> AÍ TEMOS OS  METHODS QUE USAMOS COM O OPEN,
+
+
+
+pq o código de open 
+
+geralmente 
+
+é escrito assim:
+
+
+
+
+
+
+with open('blockchain.txt', mode='w') as f:
+    
+
+
+
+
+
+
+
+
+    --> aí os methods são:
+
+
+
+
+    f.write(),
+
+
+
+    f.readline()
+
+
+
+    f.readlines(),
+
+
+
+
+
+    ETC....
+
+
+
+
+
+
+
+
+
+
+    --> VOCÊ TEM QUE CHAMAR 'close()', 'f.close()'
+
+
+    OU ENTÃO 
+
+    USAR 
+
+
+    'with'
+
+    para 
+
+
+
+    WRAPPAR __ SEU CÓDIGO QUE HANDLA ARQUIVOS... (ISSO DEIXA O 'PYTHON' handle o closing do acesso aos arquivos PARA VOCÊ)...]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AGORA, QUANDO O ASSUNTO É O STORE DE PYTHON DATA,
+
+
+NÓS PODEMOS 
+
+
+__CONVERTER 
+
+PYTHON DATA EM STRINGS __ COM A AJUDA __ DO  
+
+
+
+
+PACAKGE DE 'json' (
+
+    para então armazenar essas string jsonficadas 
+
+
+    em ARQUIVOS DE TEXTO OU JSON...
+)
+
+
+
+
+
+
+
+
+
+--> OU ENTÃO __ PODEMOS _ CONVERTER NOSSA 
+
+
+PYTHON DATA EM 
+
+
+UM FORMATO DE DATA BINÁRIO, COM O PICKLE,.
+
+
+
+
+PARA ENTÃO O ARMAZENAR EM ARQUIVOS '.p' (pickle)...
+
+
+
+BINARY REPRESENTATIONS OF 
+
+DATA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> A COISA KEY DE SE LEMBRAR É QEU 
+
+QUANDO VOCê USA STRINGS/JSON 
+
+
+
+
+
+que foram obtida a partir de seu código python (cconversão de dados),
+
+
+VOCÊ 
+
+
+
+
+
+PODE __ ACABAR __ PERDENDO CERTA QUANTIDADE DE INFORMAÇÃO (como aconteceu com os 'OrderedDict', que só são compreendidos como UNORDEREDDICT pelo json..)
+
+
+
+
+
+
+
+
+JÁ ALGUNS DATA TYPES _ DO PYTHON _ NEM FUNCIONAM 
+
+COM JSON,
+
+FALHAM DIRETO....
+
+
+
+
+
+
+
+
+
+
+-> O PICKLE/PICKLE DATA TEM A _ VANTAGEM _DE SER 
+
+
+
+MAIS COMPATÍVEL,
+
+
+
+  MAS _ A DESVANTAGEM _ DE NÃO SER POSSÍVEL 
+
+
+
+  OLHAR PARA DENTRO DAS FILES (pq é binary data, ilegível, PRINTABLE E NON-PRINTABLE data, tudo junto)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> QUANTO AO NOSSO BLOCKCHAIN,
+
+
+FINALMENTE SOMOS CAPAZES DE ARMAZEANR 
+
+
+
+NOSSA DATA NO DISK...
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO PRÓXIMO MÓDULO VEREMOS __ ERROR HANDLING...
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM VEREMOS __ COMO PODEMOS __ DEBUGGAR NOSSO CÓDIGO PYTHON...

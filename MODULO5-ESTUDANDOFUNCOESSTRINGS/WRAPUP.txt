@@ -1,0 +1,246 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ACABAMOS COM ESSE MÓDULO...
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS SOBRE STRINGS... TAMBÉM APRENDEMOS UQE 
+
+
+
+
+
+
+
+'format()'
+
+
+NOS DEIXAC FACILMENTE 
+
+
+
+OUTPUTTAR FORMATTED DATA,
+
+
+OUTPUTTAR 
+
+DATA 
+DE FORMA DINÂMICA, TAMBÉM....
+
+
+
+
+
+
+
+
+
+--> TAMBÉM APRENDEMOS QUE STRINGS E LISTS COMPARTILHAM ALGUMAS SIMILARIDADES,
+
+
+
+MAS QUE __ TAMBÉM __ POSSUEM 
+
+
+UM MONTE DE DIFERENÇAS,
+
+
+
+COMO 
+
+
+
+
+BUILT-IN FUNCTIONS QUE LIDAM COM ELAS,
+
+
+além 
+
+do 
+
+
+FATO DE STRINGS SEREM IMMUTABLE,
+
+
+E 
+
+
+LISTS NÃO... 
+
+
+
+
+
+
+
+STRINGS SÃO PRIMITIVE, LISTS SÃO REFERENCE TYPESA....
+
+
+
+
+
+
+
+
+
+
+VIMOS:
+
+
+
+1) MAP() -->  É UMA ALTERNATIVA A LIST COMPREHENSIONS, MAS NÃO É TÃO BOA,
+
+
+RAZÃO PELA QUAL VOCê VAI PREFERIR LIST COMPREHENSIONS... performance reasons...
+
+
+
+
+
+
+
+
+
+2) LAMBDA FUNCTIONS ---> SÃO MT ÚTEIS PARA FUNCTIONS COMO REDUCE 
+
+
+
+
+
+
+
+
+
+
+3) REDUCE --> ÓTIMO PARA CASOS EM QUE VOCê QUER 'RESUMIR' uma list.... --> resumir em 1 valor único... (string ou number)..
+
+
+
+
+
+
+
+
+
+
+4) VIMOS FUNCTION ARGUMENT UNPACKING,
+
+EM QEU 
+
+USAMOS 
+
+
+
+'*' e '**' PARA __ UNPACKAR_ LISTS E DICTIONARIES para 'single values',
+
+
+
+
+tanto em FUNCTIONS COMO FORA DELAS... --> E ISSO PODE SER MT ÚTIL QUANDO 
+
+
+TRABALHAMOS COM FUNCTIONS QUE 
+
+
+
+DEVERÃO 
+
+
+SER CAPAZES 
+
+
+DE 
+
+HANDLAR UMA QUANTIDADE INFINITA DE POSITIONAL/named ARGUMENTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUANTO À NOSSA BLOCKCHAIN,
+
+NÓS 
+
+
+CONSEGUIMOS 
+
+
+
+
+
+
+
+
+
+
+
+1) chain of data 
+
+
+2) mine new blocs 
+
+
+
+
+3) block hashing 
+
+
+4) analyze e verify chain  ----> FACILITAMOS E SIMPLIFICAMOS O CÁLCULO DO BALANCE DE NOSSO USER...
+
+
+5) transactiosn 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> AGORA VAMOS APRENDER MAIS, APRENDER MAIS SOBRE OS THIRD PARTY PACKAGES QUE O PYTHON NOS OFERECE,....
+
+
+
+
+
+
+NÓS JÁ VIMOS 1 DESSES TPPs,
+
+
+MAS AGORA 
+
+É HORA DE DIVAR MAIS FUNDO E ENTENDER ESSA SINTAXE DE IMPORT UM POUCO MELHRO...

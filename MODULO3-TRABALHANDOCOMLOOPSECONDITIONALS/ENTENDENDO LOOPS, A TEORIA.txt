@@ -1,0 +1,581 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LOOPS NOS DEIXAM __ REPETIR_ CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+-> VOCê ESCREVE UMA CERTA EXPRESSÃO,
+
+OU UM BLOCO DE CODE,
+
+
+
+1 ÚNICA VEZ... --> E AÍ VOCÊ 
+
+
+
+ESCREVE 
+
+UMA 
+
+CONDITION/LOOPING LOGIC 
+
+
+
+
+QUE __ ASSEGURA__ QUE __ ESSE CÓDIGO SERÁ RODADO _ MÚLTIPLAS VEZEs...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR LOGO MOSTRARÁ UM EXEMPLO PRÁTICO...
+
+
+
+
+
+
+
+
+
+
+
+
+PYTHON TEM 2 TYPES DE LOOPS;
+
+
+
+
+
+
+
+
+
+
+
+1) for loops 
+
+
+
+
+
+
+
+2) while looops...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FOR LOOPS SERVEM PARA __ FAZER_ LOOP __ DE 'ELEMENTOS EM 1 LIST'... --> PARA SER BEM PRECISO,
+
+
+
+
+COM FOR LOOP PODEMOS _ '''LOOP ATRAVÉS __dE QUALQUER ITERABLE''' 
+
+
+
+
+
+
+
+
+
+
+
+''''ITERABLE'''' --> UMA LIST, POR EXEMPLO, É UM 'ITERABLE'... (e seus list items são 'ELEMENTS OF AN ITERABLE', QUE PODEM SER 'ITERATED')....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> VEREMOS OUTROS EXEMPLOS DE 'ITERABLES' no módulo de 
+
+
+
+'COMPLEX DATA TYPES.'..
+
+
+
+
+
+
+
+
+
+-> MAS LIST É A ÚNICA ITERABLE 
+
+QUE TEMOS, NO MOMENTO...
+
+
+
+
+
+
+
+
+
+
+
+---> OK, MAS O QUE INTERESSA É QUE PODEMOS LOOPAR POR DENTRO DA LIST,
+
+
+
+
+PASSANDO POR CADA ELEMENT, EXECUTANDO CÓDIGO PARA CADA 1 DELES...
+
+
+
+
+
+
+
+
+
+
+--> A SINTAXE DE FOR É:
+
+
+
+
+
+
+
+
+
+
+
+
+for element in list:
+    print(element)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --------> OU SEJA, SE VOCÊ PRESTAR ATENÇÃO,
+
+    PERCEBERÁ __ QUE _ A SINTAXE É BEM PARECIDA COM 
+
+    AQUELA 
+
+
+    DAS FUNCTIONS,
+     
+     QUE É 
+
+
+
+
+     def get_list(list):
+        print(list)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     -----> É CLARO QUE __ AQUI_ NÃO USAMOS A KEYWORD DE 'def',
+
+
+     E NÃO ESTAMOS DEFININDO _ UMA FUNCTION (também não há parameters)...
+
+
+
+
+
+
+
+
+
+     --> ENTRETANTO, NÓS AINDA TEMOS DE USAR ':',
+
+
+     E INDENTATION, 
+     PARA 
+
+     MARCAR ______ QUAL __ CODE __ PERTENCE A ESSE LOOP... --> NESSE CASO AÍ,
+
+
+     É O STATEMENT 
+     DE 
+     'print(element)'
+
+     QUE PERTENCE NESSE LOOP,
+
+
+
+     E QUE _ SERÁ _ EXECUTADO _ PARA CADA ELEMENT NESSA 'list' aí...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> SE A LIST TIVESSE 3 ELEMENTS,
+
+ESSE 'print(element)'
+
+SERIA EXECUTADO _ NOS 3 ELEMENTS, 1 ATRÁS DO OUTRO...
+
+
+
+
+
+
+
+
+
+
+
+
+----> JÁ 'WHILE LOOPS'
+
+
+
+SÃO LOOPS _ QUE FICAM RODANDO/EXECUTANDO SEU CÓDIGO PERMANENTEMENTE, NO BACKGROUND,
+
+
+DESDE QUE 
+
+CERTA CONDITION ESTEJA COMO 'True'....
+
+
+
+
+
+
+
+
+
+
+while True:
+    print('Infinity')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AQUI, NESSE EXEMPLO,
+
+ESTAMOS ACTUALLY __ CRIANDO UM LOOP INFINITO,
+
+PQ 
+
+
+'True'
+
+SEMPRE __ SERÁ _ 'True',
+
+
+
+é um valor imutável...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NESSE MÓDULO, VEREMOS UM EXEMPLO DE COMO PODEMOS CODAR UMA CONDITION 
+
+
+
+QUE 
+
+'ACTUALLY' PODE FICAR FALSE... -----> USAREMOS 'BOOLEAN OPERATORS' para isso... (provavelmente operations de comparison, etc)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> AINDA NÃO APRENDEMOS SOBRE 'BOOLEAN OPERATORS', mas 
+
+logo aprenderemos....
+
+
+
+
+
+
+
+
+
+
+
+-> UMA NOTA IMPORTANTE SOBRE ESSES LOOPS:
+
+
+
+
+
+
+
+1) EM 1 FOR LOOP, 
+
+EM QUE 
+
+
+'NÓS VAMOS POR DENTRO DE ELEMENTS EM 1 LIST',
+
+
+
+
+
+
+
+
+______NÃO É NADA_ _ RECOMENDADO__ ALTERAR 
+
+
+A 'ITERABLE' (a list, por exemplo) 
+
+
+COMO PARTE DO LOOP... (pq isso pode LEVAR A UM LOOP INFINITO)... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÃO É BOM MUDAR A LIST ENQUNATO VOCÊ ESTIVER LOOPANDO POR ELA.... -> PQ 
+
+SE VOCÊ 
+
+MANIPULAR A LIST,
+
+ PARA A PRÓXIMA ITERATION, OBVIAMENTE,
+
+
+
+ A LIST TERÁ _ MUDADO__... (
+
+
+
+E ISSO PODE RESULTAR EM:
+
+a) CÓDIGO QUE  SKIPPA ELEMENTS 
+
+
+
+
+b) CÓDIGO QUE ACIDENTALMENTE ENTRA EM 1 LOOP INFINITO... --> isso acontecerá se você escrever um código que sempre adiciona elements, por exemplo....
+
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> --> É POR ISSO QUE MUDAR ELEMENTOS EM 1 LOOP NÃO É NADA RECOMENDAOD... --> SE VOCÊ AINDA TIVER 
+
+ 1 LOOP EM QUE 
+
+ VOCÊ PRECISA MANIPULAR ELEMENTS,
+
+
+
+
+
+
+ SERÁ SEMPRE MELHOR VOCê 
+
+
+ '''CRIAR 1 CÓPIA DA LIST ANTERIORMENTE''' --> ISSO É ALGO QUE VEREMOS NO MÓDULO DE 'LIST DEEP DIVE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> JÁ PARA  O WHILE LOOP,
+
+
+ VOCÊ DEVE _ CERTAMENTE __ PROVIDENCIAR UMA 'EXIT CONDITION';
+
+
+
+
+
+
+ caso contrário, a única maneira de parar essa execução do while loop (e de seu código)
+
+
+
+
+
+ SERÁ 
+
+ POR MEIO DO USO 
+
+ de 
+
+ 'ctrl + z'...
+
+
+
+
+
+
+
+
+
+
+ ----> MAS ISSO VAI PARAR O PROGRAMA INTEIRO, E NÃO SÓ O LOOP...
+
+
+
+
+
+
+
+
+
+ --> DEVEMOS VER OS LOOPS EM AÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ for item in items:
+    print(item)

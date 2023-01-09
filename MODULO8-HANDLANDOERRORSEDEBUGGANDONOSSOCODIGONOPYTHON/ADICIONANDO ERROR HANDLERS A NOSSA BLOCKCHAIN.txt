@@ -1,0 +1,538 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+devemos FINALIZAR NOSSO CÓDIGO..
+
+
+
+
+
+
+
+
+--> QUEREMOS APLICAR ERROR HANDLING NA NOSSA BLOCKCHAIN..
+
+
+
+
+
+
+
+
+
+
+
+
+->  O PROFESSOR NÃO VAI QUERER HANDLAR 
+
+
+
+'ValueError',
+
+
+
+pois 
+
+
+isso é um 
+
+TIPO DE ERRO QUE PODE SER EVITADO...  
+
+
+
+
+
+
+
+
+--> também não quer evitar TODOS OS ERRORS (wildcard errors),
+
+
+E SIM 
+
+
+
+
+
+
+
+
+
+
+
+
+SÓ VAI QUERER __ HANDLAR NOSSOS ERRORS 
+
+
+
+
+FILE-RELATED... 
+
+
+
+(
+
+
+    ou seja,
+
+
+    'IOError'...
+)
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR NÃO VAI QUERER APENAS 
+
+
+FAZER 
+
+
+O PRINT DE 'File not found...'' 
+
+
+
+> ELE VAI QUERER FAZER MAIS DO QUE ISSO,
+
+
+PQ 
+
+
+ELE 
+
+VAI QUERER 
+
+
+TAMBÉM 
+
+
+INICIALIZAR UM ARQUIVO/NOSSO CÓDIGO 
+
+
+
+
+
+
+
+
+
+COM UM GENESISBLOCK JÁ ADICIONADO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE O PROFESSOR 
+
+
+
+
+
+
+
+
+
+VAI COPIAR NOSSO CÓDIGO DE INICIALIZAÇÃO  
+
+
+
+DE NOSSO ARQUIVO,
+QUE É 
+
+ESTE AQUI:
+
+
+
+
+
+
+GENESIS_BLOCK = {
+    'previous_block_hash': '',
+    'index': 0,
+    'processed_transactions': [],
+    'proof': 100
+}
+
+
+
+
+
+blockchain = [GENESIS_BLOCK]
+
+
+open_transactions = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E AÍ _ VAI _ 
+
+
+COLOCAR ISSO __ 
+
+
+
+
+DENTRO DO BLOCK DE 
+
+'except IOError',
+
+
+
+
+
+
+QUE VAI INICIALIZAR ISSO AÍ, EM CASO DE ERROR..
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE 'blockchain' e 
+
+'open_transactions'
+
+
+SÃO VARIÁVEIS GLOBAIS,
+
+
+POR ISSO 
+
+O PROFESSOR 
+VAI TER QUE 
+
+CHAMAR 
+
+'global xxxx' 
+
+
+ANTES DE 
+
+DEFINIR SEUS VALORES,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+def load_data():
+    global blockchain
+    global open_transactions
+
+    try:
+        with open('blockchain.json', mode='r') as g:
+            read_blockchain, read_transactions = g.readlines()
+            global blockchain
+            global open_transactions
+            blockchain = json.loads(read_blockchain)
+            updated_blockchain = []
+            for block in blockchain:
+                updated_block = {
+                    'previous_block_hash': block['previous_block_hash'],
+                    'index': block['index'],
+                    'proof': block['proof'],
+                    'processed_transactions': [OrderedDict(
+                        [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+                }
+                updated_blockchain.append(updated_block)
+            blockchain = updated_blockchain
+           
+            print(json.loads(read_blockchain))
+           
+            open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+       
+            
+            print(json.loads(read_transactions))
+    except IOError: #VAI FAZER CATCH DE QUAISQUER 'INPUT/OUTUPT' errors que ocorrerem nesse block de 'try' (são erros especiais, que devem ser handlados por um except block como esse)...
+    # except (IOError, ValueError):    #podemos elencar mais um 'TYPE' de error a ser 'CATCHED' por esse nosso block... basta escrever dentro desse '()'..
+        print('File not found!') #com isso, será printada essa mensagem em casos desse tipo de error, mas o APP NÃO CRASHARÁ... (handled error, em vez de unhandled)...
+
+        GENESIS_BLOCK = {   ## ISSO FARÁ COM QUE SEJA POSSÍVEL INICIALIZAR NOSSA BLOCKCHAIN MESMO NO CASE DE 'O ARQUIVO DE SUA BLOCKCHAIN NÃO FOI ENCONTRADO'...
+        'previous_block_hash': '',
+        'index': 0,
+        'processed_transactions': [],
+        'proof': 100
+        }
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+    finally:# o FINALLY é um block/statement em try-except __ CUJO __ CÓDIGO SEMPRE É EXECUTADO, TANTO FAZ SE OCORRERAM ERROS/FORAM CATCHEADOS ERRORS OU NÃO...
+        # é por isso que os blocks de 'finally' SÃO BONS DE SEREM USADOS PARA 'clean-up work'..
+        print('Your data was or was not loaded. See error statements')
+        print('clean-up work')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS COMO AGORA ESTAMOS DEFININDO 'blockchain' 
+
+E 'open_transactions'
+
+
+aqui,
+
+COM ESSE GENESIS_BLOCK,
+
+
+
+
+
+
+NAÕ É MAIS NECESSÁRIO TER ESSES VALORES LÁ NO LADO DE FORA 
+
+DE 
+
+
+
+NOSSA FUNCTION...
+
+
+
+
+
+
+
+-> a blockchain será settada COMO UMA EMPTY LIST NO CONTEXTO GLOBAL,
+E o 
+
+'GENESIS_BLOCK'
+
+não existirá mais 
+
+
+
+NO CONTEXTO GLOBAL (
+
+    pq já será definido usado lá 
+    na nossa function de 'load_data()'
+)
+
+
+
+
+
+
+
+
+--------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR TAMBÉM MENCIONA QUE PODEMOS FAZER 'GET' DE UM ERROR _- 
+
+QUANDO 
+
+
+
+
+
+
+
+
+_ FAZEMOS _O 'SAVE' DE DATA,
+
+
+
+POR ISSO ELE TAMBÉM VAI ESCREVER UM TRY BLOCK LÁ..
+
+
+
+
+
+
+
+
+
+--> SE GANHARMOS UM IOError 
+
+LÁ ,
+
+
+
+
+
+
+NÃO EXISTIRÁ 'MT COISA QUE PODERÍAMOS FAZER'... --. 
+
+
+POR ISSO 
+
+O PROFESSOR SÓ VAI FAZER PRINT DE UMA MENSAGME 
+
+
+
+'Saving failed'....
+
+
+
+
+
+
+--> EM UM APP DE VERDADE,
+
+
+SEU CÓDIGO PROVAVELMENTE MOSTRARIA UM PROMPT AO SEU USER...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        # with open('blockchain.txt', mode='w') as f:
+        with open('blockchain.json', mode='w') as f:
+            # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+            f.write(json.dumps(blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(open_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA, COM ISSO, 
+SE REINICIARMOS NOSSO SCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FAVOR,
+
+PERCEBA QUE 
+
+AINDA NÃO TEMOS UM ARQUIVO 'blockchain.txt'... --. 
+
+
+
+ISSO TUDO FUNCIONARÁ...
+
+
+
+
+
+
+
+
+ok, agora o ERROR HANDLING ESTÁ FUNCIONANDo.. 
+
+
+
+
+

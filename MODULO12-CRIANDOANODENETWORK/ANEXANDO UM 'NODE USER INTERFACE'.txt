@@ -1,0 +1,2333 @@
+
+
+
+
+
+
+
+
+
+---> ASSIM COMO ANTES,
+
+
+VOCê ENCONTRA UM ARQUIVO HTML 
+
+
+
+NA AULA...
+
+
+
+
+--> temos que codar isso tudo..
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ATÉ AGORA ESTÁ FICANDO ASSIM:
+
+
+
+
+
+
+
+new Vue(
+            {
+                el: '#app',
+                data: {
+                    nodes: [
+                        'localhost:5001',
+                        'localhost:5002'
+                    ],
+                    newNodeUrl: ''
+                },
+
+
+
+                methods: {
+                    onAddNode: function() {
+                        //Add node as peer node to local node server
+                        
+
+                        newNodeUrl = this.newNodeUrl
+
+                        axios.post('http://localhost:5000/node', 
+                        {
+                            'node': newNodeUrl
+
+                        })
+                        .then(
+                            (response) => {
+
+                            }
+                        ).
+                        catch(
+                            (err) => {  
+                                console.log(err.response.data.message)
+                            }
+                        )
+                    },
+                    onLoadNodes: function() {
+                        //Load all peer nodes of the local node server
+
+                        axios.get('http://localhost:5000/nodes')
+                        .then(
+                            (response) => {     
+
+                                this.nodes = response.all_nodes
+                            }
+                        )
+                        .catch(
+                            (err) => {
+                                console.log(err.response.data.message)
+                            }
+                        )
+                    },
+                    onRemoveNodes: function() {
+                        //Remove node as a peer node
+                        
+
+                        axios.delete('http://localhost:5000/node')
+                        .then(
+                            (response) => {
+                                this.nodes = response.all_nodes
+                            }
+                        )
+                        .catch(
+                            (err) => {
+                                console.log(err.response.data.message)
+                            }
+                        )
+                    }
+                }
+            }
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ----> só não sei se está tudo certo...
+
+
+
+
+
+
+
+
+
+        FICOU TIPO ASSIM, POR ENQUANTO:
+
+
+
+
+
+
+
+
+
+    
+
+           new Vue(
+            {
+                el: '#app',
+                data: {
+                    nodes: [
+                        'localhost:5001',
+                        'localhost:5002'
+                    ],
+                    newNodeUrl: ''
+                },
+
+
+
+                methods: {
+                    onAddNode: function() {
+                        //Add node as peer node to local node server
+                        
+
+                        newNodeUrl = this.newNodeUrl
+
+                        axios.post('http://localhost:5000/node', 
+                        {
+                            'node': newNodeUrl
+
+                        })
+                        .then(
+                            (response) => {
+
+                            }
+                        ).
+                        catch(
+                            (err) => {  
+                                console.log(err.response.data.message)
+                            }
+                        )
+                    },
+                    onLoadNodes: function() {
+                        //Load all peer nodes of the local node server
+
+                        axios.get('http://localhost:5000/nodes')
+                        .then(
+                            (response) => {     
+
+                                this.nodes = response.all_nodes
+                            }
+                        )
+                        .catch(
+                            (err) => {
+                                console.log(err.response.data.message)
+                            }
+                        )
+                    },
+                    onRemoveNode: function(node) {
+                        //Remove node as a peer node
+                        
+
+                        axios.delete(`http://localhost:5000/node/${node}`)
+                        .then(
+                            (response) => {
+                                this.nodes = response.all_nodes
+                            }
+                        )
+                        .catch(
+                            (err) => {
+                                console.log(err.response.data.message)
+                            }
+                        )
+                    }
+                }
+            }
+        )
+
+
+        
+
+ok... hora de ver a aula do professor...
+
+
+
+
+
+
+ok, os estilos ainda estão ferrados....
+
+
+
+
+
+
+
+
+-> ok, consertei os estilos...
+
+
+
+
+
+
+
+
+
+--> hora de ver o próximo passo...
+
+
+
+
+
+
+
+
+-> O PROFESSOR DUPLICA A ROUTE QUE SERVE O HTML DE 
+
+
+'exemploDeBootstrap.html'
+
+
+
+
+
+,
+
+
+
+PARA 
+
+
+
+CRIAR UMA ROUTE IGUAL, MAS PARA 'network'...  (que será a parte de 'nodes' do nosso app)....
+
+
+
+
+
+
+
+
+
+--> tipo assim:
+
+
+
+
+
+
+
+@app.route('/network', methods=['GET'])
+def get_network_ui():
+    return send_from_directory('ui', 'network.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, essa route está funcionando, basta 
+
+
+
+
+colocar a url de 
+
+
+'localhost:5000/network' 
+
+
+
+
+lá 
+
+
+
+no browser...
+
+
+
+
+
+
+
+
+--> certo...
+
+
+
+
+
+
+código vue:
+
+
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          nodes: ['localhost:5001', 'localhost:5002'],
+          newNodeUrl: '',
+        },
+
+        methods: {
+          onAddNode: function () {
+            //Add node as peer node to local node server
+
+            newNodeUrl = this.newNodeUrl;
+
+            axios
+              .post('http://localhost:5000/network/node', {
+                node: newNodeUrl,
+              })
+              .then((response) => {})
+              .catch((err) => {
+                console.log(err.response.data.message);
+              });
+          },
+          onLoadNodes: function () {
+            //Load all peer nodes of the local node server
+
+            axios
+              .get('http://localhost:5000/network/nodes')
+              .then((response) => {
+                this.nodes = response.all_nodes;
+              })
+              .catch((err) => {
+                console.log(err.response.data.message);
+              });
+          },
+          onRemoveNode: function (node) {
+            //Remove node as a peer node
+
+            axios
+              .delete(`http://localhost:5000/network/${node}`)
+              .then((response) => {
+                this.nodes = response.all_nodes;
+              })
+              .catch((err) => {
+                console.log(err.response.data.message);
+              });
+          },
+        },
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      --> esses são os endpoints targettados por 
+
+
+
+      nosso html...
+
+
+
+
+
+
+
+
+
+      ---> ok....
+
+
+
+
+
+
+
+
+
+
+      ---> agora tenho que escrever a parte do backend para essas routes...
+
+
+
+
+
+      ué, mas já está 'meio escrita'...
+
+
+
+
+
+
+
+
+
+
+
+
+      --> agora a UI está bonita... --> mas ainda posso melhorar...
+
+
+
+
+
+
+
+
+
+
+      O CÓDIGO DO FRONTEND FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockchain Management and Bootstrap</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+      crossorigin="anonymous"
+    />
+    <style>
+      .lds-ring {
+        display: inline-block;
+        position: relative;
+        width: 64px;
+        height: 64px;
+      }
+
+      button {
+        margin-bottom: 16px;
+      }
+
+      .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 51px;
+        height: 51px;
+        margin: 6px;
+        border: 6px solid #fa923f;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #fa923f transparent transparent transparent;
+      }
+
+      .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+
+      .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+
+      .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+      }
+
+      .alert-success {
+        word-break: break-word;
+      }
+
+      .alert-error {
+        word-break: break-word;
+      }
+
+      @keyframes lds-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <div class="row mb-3">
+          <div class="col">
+            <h1>Manage your Blockchain</h1>
+          </div>
+        </div>
+        <div v-if="error" class="alert alert-danger" role="alert">
+          <p>{{ error }}</p>
+        </div>
+        <div v-if="success" class="alert alert-success" role="alert">
+          <p>{{ success }}</p>
+        </div>
+        <div class="row">
+          <div class="col">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link active" href="/">Wallet &amp; Node</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/network">Network</a>
+              </li>
+          </ul>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col">
+            <div v-if="!walletLoading">
+              <button class="btn btn-primary" @click="onCreateWallet">
+                Create new Wallet
+              </button>
+              <button class="btn btn-primary" @click="onLoadWallet">
+                Load Wallet
+              </button>
+            </div>
+            <div v-if="walletLoading" class="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div class="col text-right">
+            <h2>Funds: {{ funds }}</h2>
+          </div>
+        </div>
+        <hr />
+        <div v-if="!wallet" class="row">
+          <div class="col">
+            <div class="alert alert-warning">
+              Create a Wallet to start sending or mining coins!
+            </div>
+          </div>
+        </div>
+        <div v-if="wallet" class="row">
+          <div class="col">
+            <form @submit.prevent="onSendTx">
+              <div class="form-group">
+                <label for="recipient">Recipient Key</label>
+                <input
+                  v-model="outgoingTx.recipient"
+                  type="text"
+                  class="form-control"
+                  id="recipient"
+                  placeholder="Enter key"
+                />
+              </div>
+              <div class="form-group">
+                <label for="amount">Amount of Coins</label>
+                <input
+                  v-model.number="outgoingTx.amount"
+                  type="number"
+                  step="0.001"
+                  class="form-control"
+                  id="amount"
+                />
+                <small class="form-text text-muted"
+                  >Fractions are possible (e.g. 5.67)</small
+                >
+              </div>
+              <div v-if="txLoading" class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <button
+                :disabled="txLoading || outgoingTx.recipient.trim() === '' || outgoingTx.amount <= 0"
+                type="submit"
+                class="btn btn-primary"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  :class="{active: view === 'chain'}"
+                  href="#"
+                  @click="view = 'chain'"
+                >
+                  Blockchain
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  :class="{active: view === 'tx'}"
+                  href="#"
+                  @click="view = 'tx'"
+                >
+                  Open Transactions
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row my-3">
+          <div class="col">
+            <button class="btn btn-primary" @click="onLoadData">
+              {{ view === 'chain' ? 'Load Blockchain' : 'Load Transactions'}}
+            </button>
+            <button
+              v-if="view === 'chain' && wallet"
+              class="btn btn-success"
+              @click="onMine"
+            >
+              Mine Coins
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div v-if="dataLoading" class="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div v-if="!dataLoading" class="accordion">
+              <div class="card" v-for="(data, index) in loadedData">
+                <div v-if="view === 'chain'" class="card-header">
+                  <h5 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      @click="showElement === index ? showElement = null : showElement = index"
+                    >
+                      Block #{{ data.index }}
+                    </button>
+                  </h5>
+                </div>
+                <div
+                  v-if="view === 'chain'"
+                  class="collapse"
+                  :class="{show: showElement === index}"
+                >
+                  <div class="card-body">
+                    <p>Previous Block Hash: {{ data.previous_block_hash }}</p>
+                    <div class="list-group">
+                      <div
+                        v-for="tx in data.transactions"
+                        class="list-group-item flex-column align-items-start"
+                      >
+                        <div>Sender: {{ tx.sender }}</div>
+                        <div>Recipient: {{ tx.recipient }}</div>
+                        <div>Amount: {{ tx.amount }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="view === 'tx'" class="card-header">
+                  <h5 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      @click="showElement === index ? showElement = null : showElement = index"
+                    >
+                      Transaction #{{ index }}
+                    </button>
+                  </h5>
+                </div>
+                <div
+                  v-if="view === 'tx'"
+                  class="collapse"
+                  :class="{show: showElement === index}"
+                >
+                  <div class="card-body">
+                    <div class="list-group">
+                      <div
+                        class="list-group-item flex-column align-items-start"
+                      >
+                        <div>Sender: {{ data.sender }}</div>
+                        <div>Recipient: {{ data.recipient }}</div>
+                        <div>Amount: {{ data.amount }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          blockchain: [],
+          openTransactions: [],
+          //   blockchain: [
+          //     {
+          //       previous_hash: 'fawsqwar2',
+          //       index: 0,
+          //       transactions: [
+          //         {
+          //           sender: 'fsdf23',
+          //           recipient: 'fadwfs314',
+          //           amount: 5.5,
+          //         },
+          //         {
+          //           sender: 'fssfsddf23',
+          //           recipient: 'fadewasfwfs314',
+          //           amount: 15.5,
+          //         },
+          //       ],
+          //     },
+
+          //     {
+          //       previous_hash: 'awdsf14',
+          //       index: 1,
+          //       transactions: [
+          //         {
+          //           sender: 'afe',
+          //           recipient: 'fadwe322fs314',
+          //           amount: 1.5,
+          //         },
+          //         {
+          //           sender: 'fssddf23',
+          //           recipient: 'fadesfwfs314',
+          //           amount: 4.5,
+          //         },
+          //       ],
+          //     },
+          //   ],
+
+          //   openTransactions: [
+          //     {
+          //       sender: '23r32r3fsas',
+          //       recipient: 'feadsf25',
+          //       amount: 5.9,
+          //     },
+          //     {
+          //       sender: '23r23r2ra3fsas',
+          //       recipient: 'sdfsfa',
+          //       amount: 1.5,
+          //     },
+          //   ],
+
+          wallet: null,
+          view: 'chain',
+          walletLoading: false,
+          txLoading: false,
+          dataLoading: false,
+          showElement: null,
+          error: null,
+          success: null,
+          funds: 0,
+          outgoingTx: {
+            recipient: '',
+            amount: 0,
+          },
+        },
+
+        computed: {
+          loadedData: function () {
+            if (this.view === 'chain') {
+              return this.blockchain;
+            } else {
+              return this.openTransactions;
+            }
+          },
+        },
+        methods: {
+          onCreateWallet: function () {
+            //Send HTTP REQUEST TO CREATE A NEW WALLET (and return keys)
+            // if (Math.random() > 0.5) { //isto é DUMMY DATA
+            //   this.error = null;
+            //   this.success = 'Successfully stored transaction!';
+            //   this.wallet = {
+            //     private_key: 'fsde2523tfasg234twfg24qafew',
+            //     public_key: '532fsdarf23rf',
+            //   };
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            //   this.wallet = null;
+            // }
+            this.walletLoading = true;
+            axios
+              .post('http://localhost:5000/wallet', { withCredentials: true })
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success =
+                    'Successfully created wallet! Public key: ' +
+                    response.data.public_key +
+                    'Private Key: ' +
+                    response.data.private_key;
+                  this.funds = 0;
+                  this.wallet = {
+                    private_key: response.data.private_key,
+                    public_key: response.data.public_key,
+                  };
+                  this.walletLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                  this.funds = 0;
+                  this.walletLoading = false;
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                this.error = err;
+                this.funds = 0;
+                this.success = null;
+                this.wallet = null;
+                this.walletLoading = false;
+              });
+          },
+
+          onLoadWallet: function () {
+            //Send HTTP REQUEST TO LOAD AN EXISTING WALLET (from a file on the server)
+
+            // if (Math.random() > 0.5) { //isto é DUMMY DATA
+            //   this.error = null;
+            //   this.success = 'Successfully stored transaction!';
+            //   this.wallet = {
+            //     private_key: 'fsde2523tfasg234twfg24qafew',
+            //     public_key: '532fsdarf23rf',
+            //   };
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            //   this.wallet = null;
+            // }
+            this.walletLoading = true;
+            axios
+              .get('http://localhost:5000/wallet', { withCredentials: true })
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success = `Successfully loaded wallet! Public key: ${response.data.public_key}  
+                  
+                  Private Key: ${response.data.private_key}`;
+                  this.funds = +response.data.funds.toPrecision(4);
+                  this.wallet = {
+                    private_key: response.data.private_key,
+                    public_key: response.data.public_key,
+                  };
+                  console.log(this.wallet);
+                  this.walletLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                  this.walletLoading = false;
+                }
+              })
+              .catch((err) => {
+                this.success = null;
+                this.error = err;
+                this.wallet = null;
+                this.walletLoading = false;
+              });
+          },
+
+          onSendTx: function () {
+            // //Send Transaction to backend
+            // if (Math.random() > 0.5) {
+            //   this.error = null;
+            //   this.success = 'Successfully sent transaction!';
+            //   this.funds = this.funds - this.outgoingTx.amount;
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            // }
+
+            this.txLoading = true;
+            //Send Transaction to backend
+            axios
+              .post('http://localhost:5000/transaction', {
+                // body: {
+                //   recipient: this.outgoingTx.recipient,
+                //   amount: this.outgoingTx.amount
+                // }
+                recipient: this.outgoingTx.recipient,
+                amount: this.outgoingTx.amount,
+              })
+              .then((response) => {
+                this.openTransactions = response.data.transactions;
+                this.funds =
+                  +response.data.added_transaction.funds.total.toPrecision(4);
+                this.txLoading = false;
+              })
+              .catch((err) => {
+                console.log(err, 'LINE');
+                console.log(err.response);
+                if (err.response.data.wallet_set_up === false) {
+                  console.log('A');
+                  this.success = null;
+                  this.error =
+                    'Failed to add transaction. Please ensure that your wallet was loaded';
+                  this.txLoading = false;
+                } else if (
+                  err.response.data.wallet_set_up === true &&
+                  err.response.status === 500
+                ) {
+                  console.log('B');
+                  this.success = null;
+                  this.error =
+                    'Failed to add transaction. Please ensure that you have enough funds.';
+                  this.txLoading = false;
+                } else {
+                  // console.log('C')
+                  this.success = null;
+                  this.error = err;
+                  this.txLoading = false;
+                }
+              });
+          },
+
+          onMine: function () {
+            // if (Math.random() > 0.5) {  /////DUMMY CODE
+            //   this.error = null;
+            //   this.success = 'Successfully mined coins!';
+            //   this.funds = this.funds + 10;
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            // }
+            this.dataLoading = true;
+            axios
+              .post('/mine')
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success = 'Successfully mined coins!';
+                  this.funds = this.funds + 10;
+                  this.blockchain = response.data.blockchain;
+                  this.dataLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.blockchain = null;
+                  this.dataLoading = false;
+                }
+              })
+              .catch((err) => {
+                this.success = null;
+                this.error = err;
+                this.blockchain = null;
+                this.dataLoading = false;
+              });
+          },
+          onSwitchPage: function () {
+            window.location.href = 'http://localhost:5000/network';
+          },
+
+          onLoadData: function () {
+            if (this.view === 'chain') {
+              ////estranho
+              // Load blockchain data
+              // if (Math.random() > 0.5) {   ////DUMMY CODE...
+              //   this.error = null;
+              // } else {
+              //   this.success = null;
+              //   this.error = 'Something went wrong!';
+              // }
+              this.dataLoading = true;
+              axios
+                .get('http://localhost:5000/chain')
+                .then((response) => {
+                  if (response) {
+                    console.log(response);
+                    console.log(this);
+                    this.success = 'Successfully retrieved blockchain!';
+                    this.error = null;
+                    this.blockchain = response.data;
+                    this.dataLoading = false;
+                  }
+                })
+                .catch((err) => {
+                  console.log(err.response);
+                  if (err.response.status === 403) {
+                    this.error = err.response.data;
+                    this.success = null;
+                    this.blockchain = null;
+                    this.dataLoading = false;
+                  } else {
+                    this.error = err;
+                    this.success = null;
+                    this.blockchain = null;
+                    this.dataLoading = false;
+                  }
+                });
+            } else {
+              //Load transaction data
+              // if (Math.random() > 0.5) {
+              //   this.error = null;
+              // } else {
+              //   this.success = null;
+              //   this.error = 'Something went wrong!';
+              // }
+              this.dataLoading = true;
+              axios
+                .get('http://localhost:5000/transactions')
+                .then((response) => {
+                  console.log(response);
+                  if (response) {
+                    this.success = 'Successfully retrieved transactions!';
+                    this.error = null;
+                    this.openTransactions = response.data.transactions;
+                    this.dataLoading = false;
+                  }
+                })
+                .catch((err) => {
+                  console.log(err.response);
+                  if (err.response.status === 403) {
+                    this.error = err.response.data;
+                    this.success = null;
+                    this.openTransactions = null;
+                    this.dataLoading = false;
+                  } else {
+                    this.error = err;
+                    this.success = null;
+                    this.openTransactions = null;
+                    this.dataLoading = false;
+                  }
+                  // this.error = err;
+                });
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo...
+
+
+
+
+
+
+
+
+
+
+-> a ui ficou realmente bem legal...
+
+
+
+
+
+
+
+
+
+
+--> agora vamos ver se 
+
+nossa lógica de 
+
+'create a node'
+
+funciona...
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PAGE DE NETWORK TEM OS SEGUINTES BOTÕES:
+
+
+
+
+
+1) ADD (Adiciona um novo node)... --> o node será uma URL....
+
+
+
+
+
+
+
+
+
+
+2) AÍ TEMOS 'load peer nodes'... --->  
+
+
+
+
+
+
+
+ISSO CARREGA TODOS OS NOSSOS NODES...
+
+
+
+
+
+
+
+
+
+---> AÍ TEMOS TAMBÉM A FEATURE DE 'delete a node',
+
+que é ativada quando vocÊ CLICA EM ALGUM DOS 
+
+NODES CARREGADOS POR 'load peer nodes'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- >VAMOS QUERER OUTPUTTAR A 'NODE LIST'
+
+AUTOMATICAMENTE,
+
+PQ 
+
+ISSO 
+
+JÁ 
+
+
+
+FOI 
+
+
+
+
+
+ADICIONADO AO CÓDIGO HTML...
+
+
+
+
+
+
+
+
+
+
+
+ISTO FUNCIONOU:
+
+
+          mounted: function () {
+              this.onLoadNodes()
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> essa function tem um efeito semelhante a 'componentDidMount' (carrega essa function quando nossa página é iniciada)....
+
+
+
+
+
+
+
+
+
+
+
+    --> consegui.... fiz a mesma coisa nos 2 'views', no da blockchain e no 
+
+
+
+    do 
+
+
+    'network'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> ok... o próximo passo é codar 
+
+
+    o 
+
+
+
+
+    'DELETE A NODE'... (ao clicar em 1 dos '<li>')
+
+
+
+
+
+
+
+    certo....
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ok, o delete de NUMEROS SIMPLES ESTÁ FUNCIONANDO, MAS 
+
+    O 
+
+    DELETE DE 'urls' como 'nodes'
+
+    AINDA NÃO ESTÁ FUNCIONANDO:
+  
+
+
+  "DELETE /network/node/http://localhost:5000/20222 HTTP/1.1" 
+
+
+
+
+
+
+
+
+
+
+
+
+  --> é algum problema de sintaxe...
+
+
+
+
+
+
+
+
+  O PROBLEMA É QUE ESSE NEGÓCIO INTEIRO ESTÁ SENDO CONSIDERADO COMO UMA STRING...
+
+  ex:
+
+
+
+  127.0.0.1 - - [19/Apr/2022 15:48:50] "DELETE /network/node/http://localhost:5000/20222 HTTP/1.1" 404 -
+
+
+
+
+
+
+
+
+
+
+  encontrei esta resposta:
+
+
+
+
+  encodeURIComponent() should work. For example,
+
+'&url=' + encodeURIComponent("http://a.com/?q=query&n=10")
+produces
+
+"&url=http%3A%2F%2Fa.com%2F%3Fq%3Dquery%26n%3D10"
+(which doesn't have any & or ? in the value). When your server gets this url, it should be able to decode that to get the original:
+
+param["url"] = "http://a.com/?q=query&n=10"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> também esqueci de definir 'success' e 'error' no state do 
+
+
+VUE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS O PROFESSOR QUER FAZER O 'SANITIZE' 
+
+
+
+DO INPUT DO USER _ DE UMA FORMA DIFERENTE (ele naõ vai querer ENCRIPTAR _ NOSSO INPUT COMO EU ESTAVA PENSANDO, E SIM 
+
+APENAS 
+
+PENSA 
+
+EM 
+
+REMOVER A PARTE DO 'localhost:5000' do início e DEIXAR APENAS A PARTE POSTERIOR
+)
+
+
+
+
+
+
+
+
+--> mas o professor diz que o approach MAIS SIMPLES é só 
+
+ajustar o 'hint' (placeholder no html)
+
+PARA QUE 
+
+CONSTE APENAS UM 
+
+'localhost:5001',
+
+
+
+
+PQ 
+
+
+
+
+ESSE FORMATO É BEM MAIS SIMPLES DE SER  FORMATADO...
+
+
+
+
+
+
+
+
+representaçaõ:
+
+
+
+
+            <div class="form-group">
+              <label for="node-url">Node URL</label>
+              <input
+                v-model="newNodeUrl"
+                type="text"
+                class="form-control"
+                id="node-url"
+                placeholder="localhost:5001"
+              >
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> certo...
+
+
+
+
+
+
+
+    ----> O QUE DEVEMOS FAZER, AGORA,
+
+
+    É PROVAVELMENTE INCLUIR/CONCATENAR A STRING DE 
+
+    'http://' 
+
+
+
+  
+
+  A ESSA STRING de 'localhost:xx',
+
+
+  para que 
+
+
+  ENTÃO 
+
+  possamos 
+
+
+
+  ADICIONAR ISSO 
+
+  VALIDAMENTE AO NOSSO SET DE 'peer_nodes'....
+
+
+
+
+
+
+
+
+
+
+
+  -> hora de adicionar um pouco de validation...
+
+
+
+
+
+
+
+
+
+
+  ---> ok... adicionei.. devo assistir a aula do professor...
+
+
+
+
+
+
+
+
+
+
+
+
+  CÓDIGOS FINAIS:
+
+
+  
+
+from flask import Flask, jsonify ##jsonify é usado para CONVERTER DATA (como dicts) EM __ JSON DATA__, que então é RETORNADA AO USER/CLIENT....
+
+
+from flask import request ####OUTRA COISA BOA IMPORTADA DO FLASK, NOS AJUDA _ A EXTRAIR__ DATA DE REQUESTS DE TIPO POST (do body, por exemplo)....
+
+
+# from flask import send_file ## não é utilizado para enviar HTML PQ É MAIS INSEGURO DO QUE O 'send_from_directory'....
+
+
+
+
+
+from flask import send_from_directory
+
+
+
+from flask_cors import CORS, cross_origin #usado para RESOLVER PROBLEMAS DE CORS....
+
+
+from blockchain14MODULESETPPS import Blockchain
+
+
+from wallet import Wallet
+
+app = Flask(__name__)  ##devemos criar nosso APP FLASK, que vai nos permitir receber requests e enviar responses....
+                        ##o argumento '__name__' (special variable) é usado para INFORMAR AO FLASK __ SOBRE __ 'EM QUE CONTEXT ELE DEVERÁ SER EXECUTADO'... -> é uma informação importante...
+
+wallet = Wallet()   ###queremos ter uma Wallet LOGO DE INÍCIO...  OBS: só o call de 'Wallet()' não nos entrega private e public keys, precisamos de outros methods para isso...
+
+blockchain = Blockchain(wallet.public_key)  ##inicializa nossa blockchain ao mesmo tempo que é passada a 'public_key' da wallet que criamos/loadamos...
+
+CORS(app)
+
+
+
+
+@app.route('/wallet', methods=['POST'])
+def create_keys():
+    if (wallet.create_keys()):
+        global blockchain
+        blockchain = Blockchain(wallet.public_key)
+        response = {
+        'public_key': wallet.public_key,
+        'private_key': wallet.private_key,
+        'funds': blockchain.get_balance()[2]
+        }
+        return jsonify(response), 201
+
+    response = {
+            'message': 'Failed to create wallet.'
+        }
+    return jsonify(response), 500
+
+
+
+
+
+@app.route('/wallet', methods=['GET'])
+def load_keys():
+    if (wallet.load_keys()):
+ 
+            global blockchain
+            blockchain = Blockchain(wallet.public_key)
+            response = {
+                'public_key': wallet.public_key,
+                'private_key': wallet.private_key,
+                'funds': blockchain.get_balance()[2]
+                }
+            return jsonify(response), 201
+
+    response = {
+            'message': 'Failed to load existing wallet. Loading new wallet...',
+            'public_key': wallet.public_key,
+            'private_key': wallet.private_key,
+            'funds': 0
+           
+            
+        }
+    return jsonify(response), 500
+
+
+
+@app.route('/funds', methods=['GET'])
+def get_balance():
+    if (wallet.public_key != None):
+        user_balance = blockchain.get_balance()
+        print(user_balance)
+        response = {
+            'message': 'Balance successfuly retrieved',
+            'Funds sent':  user_balance[0],
+            'Funds received': user_balance[1],
+            'Total funds': user_balance[2]
+        }
+        return jsonify(response), 200
+    else:
+        response = {
+            'message': 'Failed to retrieve your balance',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500
+
+
+
+@app.route('/', methods=['GET'])  ### É ASSIM QUE DEFINIMOS 'ROUTES' no nosso APP FLASK (bem parecido com o NODEEXPRESS SERVER)...
+def get_ui():
+    # return 'This works!'
+    # send_file('exemploDeBoostrap.html') não funciona (preciso construir o path)..
+    # curr_dir = Path(__file__).parent ## estes códigos NÃO FUNCIONAM.... (e 'send_file' é mt inseguro para ser usado para enviar htmlll)
+    # file_path = curr_dir.joinpath('exemploDeBoostrap.html')
+    # print(file_path)
+    # send_file(file_path)
+    return send_from_directory('ui', 'exemploDeBootstrap.html')
+
+
+
+
+
+@app.route('/network', methods=['GET'])
+def get_network_ui():
+    print('LOADED')
+    return send_from_directory('ui', 'network.html')
+
+
+
+
+
+
+@app.route('/chain', methods=['GET'])
+def get_chain():
+    if (not wallet.public_key != None):
+        # response = {'message': 'Failed to retrieve blockchain. Please ensure that a wallet is loaded.',
+        #             'wallet_set_up': False}
+
+        # return jsonify(response), 200
+        return 'Please ensure that a wallet was loaded.', 403
+
+
+    chain_snapshot = blockchain.chain
+    dict_chain = [block.__dict__.copy() for block in chain_snapshot]
+    for dict_block in dict_chain:
+        dict_block['processed_transactions'] = [tx.__dict__ for tx in dict_block['processed_transactions']]
+    print(dict_chain)
+    return jsonify(dict_chain), 200
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+    
+    print(wallet.public_key, 'LINE')
+    if (not blockchain.mine_block() or wallet.public_key == None):
+        response = {
+            'message': 'Failed to mine a block. Ensure that you have a wallet, and valid transactions in your blocks.',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500 ### erro padrão..
+
+    block = blockchain.chain[-1].__dict__.copy()
+    block['processed_transactions'] = [tx.__dict__ for tx in block['processed_transactions']]
+
+    chain_snapshot = blockchain.chain
+    dict_chain = [block.__dict__.copy() for block in chain_snapshot]
+    for dict_block in dict_chain:
+        dict_block['processed_transactions'] = [tx.__dict__ for tx in dict_block['processed_transactions']]
+    
+    response = {
+        'message': 'Block added successfully.',
+        'added_block': block,
+        'blockchain': dict_chain, ####
+        'funds': blockchain.get_balance()[2]
+    }
+    return jsonify(response), 201
+
+
+
+
+
+@app.route('/transactions', methods=['GET'])
+def get_open_transactions():
+
+    if (wallet.public_key != None):
+        response = {
+        'transactions': [transaction.__dict__ for transaction in blockchain.get_open_transactions()]
+        }
+        print(response)
+        return jsonify(response), 200
+    
+    return 'Please ensure that a wallet was loaded.', 403
+
+
+
+
+
+
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        required_fields = ['recipient', 'amount']  ##ESSES FIELDS DEVEM EXISITR DENTRO DO REQUEST ENVIADO PELO USER(a transaction em si) PARA QUE ELE SEJA CONSIDERADO VÁLIDO....
+        if not values:
+                response = {'message': 'No JSON data attached to request'}
+                return jsonify(response), 400
+        if (not all(field in values for field in required_fields)):  #com isso, checamos se aqueles keynames em 'required_fields' EXISTEM NO INTERIOR DOS FIELDS dentro de 'values' (dict obtido através de 'request.get_json()')....
+            response = {
+                'message': 'Required data is missing'
+            }
+            return jsonify(response), 400
+        ### se passamos por esse if checks, já ficamos com A DATA de 'sender', 'recipient' e 'amount' válida dentro de 'values'...
+        signature = wallet.sign_transaction(values['amount'], values['recipient'], wallet.public_key)
+        # if (not blockchain.add_transaction(wallet.public_key, values['recipient'], signature, values['amount'])):
+        #     response = {
+        #         'message': 'Failed to add transaction. Please ensure that your wallet was loaded and that you have sufficient funds.',
+        #         'wallet_set_up': wallet.public_key != None
+        #     }
+        #     return jsonify(response), 500
+
+
+        success = blockchain.add_transaction(wallet.public_key, values['recipient'], signature, values['amount'])
+        if success:
+            funds = blockchain.get_balance()
+            response = {
+                'message': 'Successfully added transaction.',
+                # 'transactions': blockchain.get_open_transactions().__dict__,
+                'transactions': [transaction.__dict__ for transaction in blockchain.get_open_transactions()],
+                'added_transaction': {
+                    'sender': wallet.public_key,
+                    'recipient': values['recipient'],
+                    'amount': values['amount'],
+                    'signature': signature,
+                    'funds': {
+                        'sent': funds[0],
+                        'received': funds[1],
+                        'total': funds[2]
+                    }
+                }
+        }
+            return jsonify(response), 201
+        else: 
+            response = {
+                'message': 'Creating a transaction failed.',
+                'wallet_set_up': wallet.public_key != None
+            }
+            return jsonify(response), 500
+
+
+@app.route('/network/node', methods=['POST'])
+def add_node():
+
+    # if (not wallet.public_key != None):
+    #     return 'Please ensure that a wallet was loaded.', 403
+
+    values = request.get_json()
+
+
+    if (not values):
+        response = {
+            'message': 'No data attached.'
+        }
+        return jsonify(response), 400
+    if ('node' not in values):
+        response = {
+            'message': 'No node detected in the request.'
+        }
+        return jsonify(response), 403
+    # node = values.get('node') ##mesma coisa que o código de baixo...
+    node = values['node']
+
+
+
+    if (not node.startswith('localhost')):
+        response = {
+            'message': 'Invalid node pattern. Please include "localhost:" at the beginning.'
+        }
+        return jsonify(response), 403
+
+
+    blockchain.add_peer_node(str(node)) ##isso poderá ser feito _ MESMO __ SEM TENDO UMA WALLET inicialmente...
+    
+    nodes = blockchain.get_peer_nodes() ## isso será uma list/array....
+    response = {
+        'message': 'Node added successfully.',
+        'all_nodes': nodes
+    }
+    return jsonify(response), 201
+
+
+@app.route('/network/node/<nodeId>', methods=['DELETE'])  ##é assim que escrevemos SEGMENTOS DINÂMICOS NO FLASK...
+def remove_node(nodeId): #o segmento dinâmico é repassado nessa function/route..
+
+
+    # if (not wallet.public_key != None):
+    #     # response = {'message': 'Failed to retrieve blockchain. Please ensure that a wallet is loaded.',
+    #     #             'wallet_set_up': False}
+
+    #     # return jsonify(response), 200
+    #     return 'Please ensure that a wallet was loaded.', 403
+    print('LINE')
+
+    query_param = nodeId
+    print(query_param, 'LINE')
+
+    if (query_param == '' or query_param == None):
+        response = {
+            'message': 'No nodeId attached to url.'
+        }
+        return jsonify(response), 400
+
+
+
+    
+    blockchain.remove_peer_node(query_param)
+    print(blockchain.get_peer_nodes(), 'NODES')
+    nodes = blockchain.get_peer_nodes()
+
+    response = {
+        'message': 'Node removed successfully.',
+        'all_nodes': nodes
+    }
+
+    return jsonify(response), 200
+
+
+@app.route('/network/nodes', methods=['GET'])
+def get_nodes():
+
+
+    # if (not wallet.public_key != None):
+    #     # response = {'message': 'Failed to retrieve blockchain. Please ensure that a wallet is loaded.',
+    #     #             'wallet_set_up': False}
+
+    #     # return jsonify(response), 200
+    #     return 'Please ensure that a wallet was loaded.', 403
+
+    nodes = blockchain.get_peer_nodes()
+
+
+    if (nodes == None):
+        response = {
+            'message': 'Something went wrong'
+        }
+        return jsonify(response), 400
+
+
+    if (not nodes):
+        response = {
+            'message': 'No nodes found, please add a new node.'
+        }
+        return jsonify(response), 400
+    
+    response = {
+        'message': 'Nodes successfully retrieved',
+        'all_nodes': nodes
+    }
+    return jsonify(response), 200
+
+
+
+
+
+
+if __name__ == '__main__':    ##queremos que esse 'node.py' SEJA EXECUTADO DIRETAMENTE, E NÃO QUE SEJA IMPORTADO...  ##se essa condição é satisfeita, startamos nosso server...
+    app.run(host="0.0.0.0", port=5000)  ##0.0.0.0 é um placeholder... significa 'localhost'... 
+                # 1o argumento : o ip EM QUE QUEREMOS RODAR O SERVER....
+                # 2o argumento: PORTA EM QUE QUEREMOS  FAZER LISTEN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      E:
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockchain Management</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <div class="row mb-3">
+          <div class="col">
+            <h1>Manage your Blockchain</h1>
+          </div>
+        </div>
+        <div v-if="error" class="alert alert-danger" role="alert">
+          {{error}}
+        </div>
+        <div v-if="success" class="alert alert-success" role="alert">
+          {{ success }}
+        </div>
+        <div class="row">
+          <div class="col">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Wallet &amp; Node</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/network">Network</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <form @submit.prevent="onAddNode">
+            <div class="form-group">
+              <label for="node-url">Node URL</label>
+              <input
+                v-model="newNodeUrl"
+                type="text"
+                class="form-control"
+                id="node-url"
+                placeholder="localhost:5001"
+              >
+            </div>
+            <button
+              :disabled="newNodeUrl.trim() === ''"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Add
+            </button>
+          </form>
+        </div>
+      </div>
+      <hr/>
+      <div class="row my-3">
+        <div class="col">
+          <button class="btn btn-primary" @click="onLoadNodes">
+            Load Peer Nodes
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <ul class="list-group">
+            <button 
+              v-for="node in nodes"
+              style="cursor: pointer;"
+              class="list-group-item list-group-item-action"
+              @click="onRemoveNode(node)">
+              {{node}} (click to delete)
+            </button>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        // data: {
+        //   nodes: ['localhost:5001', 'localhost:5002'],
+        //   newNodeUrl: '',
+        // },
+        data: {
+          nodes: [],
+          newNodeUrl: '',
+          success: null,
+          error: null
+        },
+          mounted: function () {
+              this.onLoadNodes()
+        },
+        
+        methods: {
+          onAddNode: function () {
+            //Add node as peer node to local node server
+
+            newNodeUrl = this.newNodeUrl;
+
+            axios
+              .post('http://localhost:5000/network/node', {
+                node: newNodeUrl,
+              })
+              .then((response) => {
+                this.success = 'Added node successfully.'
+                this.error = null;
+                this.nodes = response.data.all_nodes
+
+              })
+              .catch((err) => {
+                console.log(err.response.data.message);
+                this.error = err.response.data.message;
+                this.success = null;
+              });
+          },
+          onLoadNodes: function () {
+            //Load all peer nodes of the local node server
+
+            axios
+              .get('http://localhost:5000/network/nodes')
+              .then((response) => {
+                console.log('ENTERED')
+                this.success = 'Fetched nodes successfully. '
+                this.error = null;
+                this.nodes = response.data.all_nodes;
+              })
+              .catch((err) => {
+                this.error = err.response.data.message;
+                console.log(err.response.data.message);
+              });
+          },
+          onRemoveNode: function (node) {
+            //Remove node as a peer node
+
+            axios
+              .delete(`http://localhost:5000/network/node/${node}`)
+              .then((response) => {
+                this.nodes = response.data.all_nodes
+              })
+              .catch((err) => {
+                this.error = err.response.data.message;
+                console.log(err.response.data.message);
+              });
+          },
+        },
+      });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> certo....
+
+
+
+
+
+
+
+
+
+
+
+
+-> talvez seja melhor deixar ''SÓ NUMBERS SÃO POSSÍVEIS 
+
+
+
+COMO URLS depois do localhost:'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COLOQUEI UMA VALIDATION UM POUCO MELHOR:
+
+
+
+
+
+
+
+
+@app.route('/network/node', methods=['POST'])
+def add_node():
+
+    # if (not wallet.public_key != None):
+    #     return 'Please ensure that a wallet was loaded.', 403
+
+    values = request.get_json()
+
+
+    if (not values):
+        response = {
+            'message': 'No data attached.'
+        }
+        return jsonify(response), 400
+    if ('node' not in values):
+        response = {
+            'message': 'No node detected in the request.'
+        }
+        return jsonify(response), 403
+    # node = values.get('node') ##mesma coisa que o código de baixo...
+    node = values['node']
+
+
+
+    if (not node.startswith('localhost') or not node.split(':', 2)[1].isnumeric() ):
+        response = {
+            'message': 'Invalid node pattern. Please include "localhost:" at the beginning and ensure that you are inputting a valid number.'
+        }
+        return jsonify(response), 403
+
+
+
+
+    blockchain.add_peer_node(str(node)) ##isso poderá ser feito _ MESMO __ SEM TENDO UMA WALLET inicialmente...
+    
+    nodes = blockchain.get_peer_nodes() ## isso será uma list/array....
+    response = {
+        'message': 'Node added successfully.',
+        'all_nodes': nodes
+    }
+    return jsonify(response), 201
+
+
+
+
+
+
+
+
+    -----------
+  
+
+
+
+
+
+
+
+
+
+
+  ---> certo..........
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE NÃO ADICIONAMOS ESSES NODES 'POR NADA'.... -->  QUEREMOS 
+
+
+
+
+SER CAPAZES DE 'BROADCAST'
+
+
+EVENTS 
+A 
+ESSES NODES 
+QUANDO 
+
+
+ALGO MUDAR NO NOSSO CÓDIGO/BLOCKCHAIN,
+
+
+E TAMBÉM 
+
+
+
+
+
+OS UTILIZAR PARA 'RESOLVE ANY CONFLICTS'
+
+
+
+
+que tivermos entre 
+
+
+AS COPIAS 
+
+
+
+
+
+
+
+DA BLOCKCHAIN DOS OUTROS NODES E A NOSSA...

@@ -1,0 +1,1090 @@
+
+
+
+
+
+
+
+
+
+
+-> ATÉ AGORA, NO NOSSO APP, TEMOS SÓ 1 ÚNICA ROUTE:
+
+
+
+
+
+
+@app.route('/', methods=['GET'])  ### É ASSIM QUE DEFINIMOS 'ROUTES' no nosso APP FLASK (bem parecido com o NODEEXPRESS SERVER)...
+def get_ui():
+    return 'This works!'
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> o professor DO NADA conseguiu uma outra route,
+
+
+
+
+
+
+
+
+que possui este código:
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/chain', methods=['GET'])
+def get_chain():
+    chain_snapshot = blockchain.chain
+    dict_chain = [block.__dict__.copy() for block in chain_snapshot]
+    for dict_block in dict_chain:
+        dict_block['processed_transactions'] = [tx.__dict__ for tx in dict_block['processed_transactions']]
+    return jsonify(dict_chain), 200
+
+
+
+
+
+
+
+
+
+
+--> OK, TENHO QUE _ ANALISAR ESSE CÓDIGO...
+
+
+ex:
+
+
+chain_snapshot = blockchain.chain    ----> ISSO CRIA UMA SNAPSHOT DA NOSSA 'CHAIN' em blockchain.... (cheia de objects 'block')
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mas é claro que precisamos de UMA BLOCKCHAIN para poder acessar 'chain'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO EXEMPLO DO PROFESSOR, APARENTEMENTE __ ELE __ SEPAROU__  A WALLET 
+
+
+
+DO USER __ DA BLOCKCHAIN EM SI..
+
+
+
+
+
+
+
+
+
+é por isso que o código ficou assim:
+
+
+
+
+
+
+
+
+
+
+app = Flask(__name__)
+wallet = Wallet()
+blockchain = Blockchain(wallet.public_key)
+
+CORS(app)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ASSIM, POR MEIO DE ESSE CÓDIGO, ele INSTANCIOU A BLOCKCHAIN passando a 'public_key' de esse user que entra 
+
+no nosso webserver... (public_key contida na wallet)...
+
+
+
+
+
+
+
+--> é um comportamento similar ao do app antigo, 
+
+
+mas um pouco diferente... (pois a blockchain não fica dentro do NODE DO USER, por enquanto...)  --> tvz pq 
+
+
+
+
+AINDA VAMOS CRIAR O NODE DO USER... (a frontend)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo, mas continuando:
+
+
+
+
+
+
+
+app = Flask(__name__)
+wallet = Wallet()
+blockchain = Blockchain(wallet.public_key)
+
+CORS(app)
+
+
+
+
+
+
+
+
+chain_snapshot = blockchain.chain 
+
+
+
+
+
+
+
+dict_chain = [block.__dict__.copy() for block in chain_snapshot]  ------> ISSO VAI CCRIAR UMA SNAPSHOT _ IMMUTABLE__ de nossa chain...
+
+
+
+
+
+
+
+
+
+
+
+
+aí ele usa um código para CONVERTER OS OBJECTS 'transaction' de dentro da chain em 
+DICTS de transaction... (para então displayar no app apropriadamente)...
+
+
+
+
+
+
+
+
+
+
+
+
+é este código aqui:
+
+
+
+
+
+
+
+for dict_block in dict_chain:
+    dict_block['processed_transactions'] = [
+        transaction.__dict__ for transaction in dict_block['processed_transactions']]
+
+
+
+
+
+
+--> POR FIM,
+
+ELE USA O CÓDIGO DE 
+
+
+
+'jsonify()'
+
+
+PARA _ _TRANSFORMAR __ TODA ESSA DATA AÍ DA 'chain' (que é uma DICT)
+
+
+EM JSON DATA,
+
+QUE É 
+
+ENTÃO 
+
+
+RETORNADA (return) 
+
+
+POR MEIO DESSA ROUTE/FUNCTION, COM A AJUDA DO FLASK...
+
+
+
+
+
+
+
+--> A PERGUNTA É: DE ONDE VEM 'jsonify'?  (já vi essa function antes)....
+
+
+
+
+
+
+
+
+
+
+
+
+-_> APARENTEMENTE, O PROFESSOR CONSEGUIU ESSA FUNCTION/METHOD LÁ Do 
+
+'
+Flask' em si,
+
+
+
+
+através do import 
+
+'from Flask import jsonify'...
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICA ASSIM:
+
+
+
+
+
+
+
+
+from flask import Flask, jsonify ##jsonify é usado para CONVERTER DATA (como dicts) EM __ JSON DATA__, que então é RETORNADA AO USER/CLIENT....
+
+from flask_cors import CORS #usado para RESOLVER PROBLEMAS DE CORS....
+
+
+from blockchain14MODULESETPPS import Blockchain
+
+from wallet import Wallet
+
+app = Flask(__name__)  ##devemos criar nosso APP FLASK, que vai nos permitir receber requests e enviar responses....
+                        ##o argumento '__name__' (special variable) é usado para INFORMAR AO FLASK __ SOBRE __ 'EM QUE CONTEXT ELE DEVERÁ SER EXECUTADO'... -> é uma informação importante...
+
+wallet = Wallet()   ###queremos ter uma Wallet LOGO DE INÍCIO...  OBS: só o call de 'Wallet()' não nos entrega private e public keys, precisamos de outros methods para isso...
+
+blockchain = Blockchain(wallet.public_key)  ##inicializa nossa blockchain ao mesmo tempo que é passada a 'public_key' da wallet que criamos/loadamos...
+
+CORS(app)
+
+
+
+
+
+
+@app.route('/', methods=['GET'])  ### É ASSIM QUE DEFINIMOS 'ROUTES' no nosso APP FLASK (bem parecido com o NODEEXPRESS SERVER)...
+def get_ui():
+    return 'This works!'
+
+
+
+
+
+
+
+@app.route('/chain', methods=['GET'])
+def get_chain():
+    chain_snapshot = blockchain.chain
+    print(chain_snapshot)
+    dict_chain = [block.__dict__.copy() for block in chain_snapshot]
+    for dict_block in dict_chain:
+        dict_block['processed_transactions'] = [tx.__dict__ for tx in dict_block['processed_transactions']]
+    # return jsonify(dict_chain), 200
+    return 'CODE'
+
+
+
+
+if __name__ == '__main__':    ##queremos que esse 'node.py' SEJA EXECUTADO DIRETAMENTE, E NÃO QUE SEJA IMPORTADO...  ##se essa condição é satisfeita, startamos nosso server...
+    app.run(host="0.0.0.0", port=5000)  ##0.0.0.0 é um placeholder... significa 'localhost'... 
+                # 1o argumento : o ip EM QUE QUEREMOS RODAR O SERVER....
+                # 2o argumento: PORTA EM QUE QUEREMOS  FAZER LISTEN
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> tentei enviar um request para 
+
+
+'localhost:5000/chain',,
+
+
+mas GANHEI ERRORS 
+
+LÁ NO FLASK TERMINAl:
+
+
+
+127.0.0.1 - - [14/Apr/2022 17:34:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [14/Apr/2022 17:34:36] "GET /chain HTTP/1.1" 404 -
+127.0.0.1 - - [14/Apr/2022 17:35:26] "GET /chain HTTP/1.1" 404 -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo, mas agora essa route funcionou:
+
+
+
+
+
+
+
+
+
+
+
+
+
+[{"index":0,"previous_block_hash":"","processed_transactions":[],"proof":100,"timestamp":0},{"index":1,"previous_block_hash":"206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321","processed_transactions":[{"amount":10,"recipient":"30819f300d06092a864886f70d010101050003818d0030818902818100f5cdef86ad12ce163760881656062bf07d95cd35aad9593ed42d9a22eb3a6654f0768010e679e22b25adbb07d2286551078a7b22e80d9cbaa306573aef33be217147b5ac10301d02481ec8e8791efd4e9359d76bd1a1ffd961918b21a77235fd24099316480ade38b68237166060e14f029a9798a1403effa1b35251dd77200f0203010001","sender":"ourApp","signature":"signature"}],"proof":91155,"timestamp":1649871096.452634},{"index":2,"previous_block_hash":"a6bb7e71364afffe48a14d5cd69d4016f90321536ff979345ed27aa199b59f7f","processed_transactions":[{"amount":5.0,"recipient":"Manu","sender":"30819f300d06092a864886f70d010101050003818d0030818902818100f5cdef86ad12ce163760881656062bf07d95cd35aad9593ed42d9a22eb3a6654f0768010e679e22b25adbb07d2286551078a7b22e80d9cbaa306573aef33be217147b5ac10301d02481ec8e8791efd4e9359d76bd1a1ffd961918b21a77235fd24099316480ade38b68237166060e14f029a9798a1403effa1b35251dd77200f0203010001","signature":"220a024047c758864709fab75f2b21b0ec083e0593bb588429a304ce0879a3788ebdb4b0eaad337fb4366f0f6e3dd71395a8514397d44970d91a9fce7a3f1aba0fc86f657fcd0006c157d23e39b96b8e626e2b737a47eeab51bf23bc3795d072925f2884dffd4f4ba2457e67d1cda70965f70e3099533d868333c88fb84e4ffd"},{"amount":5.0,"recipient":"Manuel","sender":"30819f300d06092a864886f70d010101050003818d0030818902818100f5cdef86ad12ce163760881656062bf07d95cd35aad9593ed42d9a22eb3a6654f0768010e679e22b25adbb07d2286551078a7b22e80d9cbaa306573aef33be217147b5ac10301d02481ec8e8791efd4e9359d76bd1a1ffd961918b21a77235fd24099316480ade38b68237166060e14f029a9798a1403effa1b35251dd77200f0203010001","signature":"f1cd0d6129626ea8ee2a20116a711aa779771e4c65a250a4110e63d5cbf79597768e431ba4e388ca1fe02abb56b7f161e5ba1db83df2cbc0aee3704dd10f0acc301abd9e2d1d88be4feebe05ed08996f7a4c59f571a5ce4058d2e17c83a2d379a4c1d7c12d29305e3150b0b34608f9deab02858a44b7eb2d2c2a95294c9e4189"},{"amount":10,"recipient":"30819f300d06092a864886f70d010101050003818d0030818902818100f5cdef86ad12ce163760881656062bf07d95cd35aad9593ed42d9a22eb3a6654f0768010e679e22b25adbb07d2286551078a7b22e80d9cbaa306573aef33be217147b5ac10301d02481ec8e8791efd4e9359d76bd1a1ffd961918b21a77235fd24099316480ade38b68237166060e14f029a9798a1403effa1b35251dd77200f0203010001","sender":"ourApp","signature":"signature"}],"proof":117459,"timestamp":1649871096.452634},{"index":3,"previous_block_hash":"d85d0c402b55f249bcda444190e9a464574cd17f3af5d005631d5c39287fe675","processed_transactions":[{"amount":4.0,"recipient":"Manu","sender":"30819f300d06092a864886f70d010101050003818d0030818902818100f5cdef86ad12ce163760881656062bf07d95cd35aad9593ed42d9a22eb3a6654f0768010e679e22b25adbb07d2286551078a7b22e80d9cbaa306573aef33be217147b5ac10301d02481ec8e8791efd4e9359d76bd1a1ffd961918b21a77235fd24099316480ade38b68237166060e14f029a9798a1403effa1b35251dd77200f0203010001","signature":"75483abc3f3686ae1b45992bde5fc9dae47beda6ecb67ce7a86072ed3a89cedfbd35c16d54f427a0fad2a7ca72ef91200b40a4949b6ad5284842bc0747e69111952317ccaa45f16caf4567d4b9610dbcf3bee15cb76dca8e6f557c87144f44e4ef3025c434007bb79b7968a9e392faf1a35b18fb8cc8205af99664021b6e8104"},{"amount":10,"recipient":"30819f300d06092a864886f70d010101050003818d0030818902818100f5cdef86ad12ce163760881656062bf07d95cd35aad9593ed42d9a22eb3a6654f0768010e679e22b25adbb07d2286551078a7b22e80d9cbaa306573aef33be217147b5ac10301d02481ec8e8791efd4e9359d76bd1a1ffd961918b21a77235fd24099316480ade38b68237166060e14f029a9798a1403effa1b35251dd77200f0203010001","sender":"ourApp","signature":"signature"}],"proof":119118,"timestamp":1649871247.4911103},{"index":4,"previous_block_hash":"983801e155ad1b231204853abc5dd374d98ce875450d7933696f969f29eea163","processed_transactions":[{"amount":2.0,"recipient":"Manu","sender":"30819f300d06092a864886f70d010101050003818d0030818902818100f5cdef86ad12ce163760881656062bf07d95cd35aad9593ed42d9a22eb3a6654f0768010e679e22b25adbb07d2286551078a7b22e80d9cbaa306573aef33be217147b5ac10301d02481ec8e8791efd4e9359d76bd1a1ffd961918b21a77235fd24099316480ade38b68237166060e14f029a9798a1403effa1b35251dd77200f0203010001","signature":"bd2d3a3a0cf8740c63cf7028f757b6bf8109f006ad97fdbbe0bf39b4d3001cac09bcf1c9e806381815fa2cfab2ec9eccc8b448535d77c77b154882bd18ceb338e2c28ed53f5e3fe06e6d393c5572b092e3793146b146b83d4dac4992197beb3706a44fcfe5d10cb807b3b62ed3a0e2eccb3c4e5f8d27d709f53470965d090b77"},{"amount":10,"recipient":"30819f300d06092a864886f70d010101050003818d0030818902818100f5cdef86ad12ce163760881656062bf07d95cd35aad9593ed42d9a22eb3a6654f0768010e679e22b25adbb07d2286551078a7b22e80d9cbaa306573aef33be217147b5ac10301d02481ec8e8791efd4e9359d76bd1a1ffd961918b21a77235fd24099316480ade38b68237166060e14f029a9798a1403effa1b35251dd77200f0203010001","sender":"ourApp","signature":"signature"}],"proof":33191,"timestamp":1649871712.391474}]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ESSE FOI NOSSO 'GET REQUEST'...
+
+
+
+
+
+
+
+
+
+--> AGORA O PROFESSOR QUER QUE CONSIGAMOS ENVIAR 'POST REQUESTS'...
+
+
+
+
+
+
+
+
+
+--> VAMOS QUERER ENVIAR POST REQUESTS PARA 'CREATE A WALLET'
+
+OU ENTÃO 
+
+
+
+'MINE A NEW BLOCK'...
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR PELO MINE DE UM NOVO BLOCK...
+
+
+
+
+
+
+
+--> tentar fazer por conta própria...
+
+
+
+
+
+
+
+
+
+--> COMEÇAMOS COM ESTE CÓDIGO:
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+    blockchain.mine_block()
+
+    return jsonify()
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o 'return' aceita um status code como segundo parâmetro, que colocaremos como '201' (resource created)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR COMPLEMENTA O CÓDIGo:
+
+
+
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+    blockchain.mine_block()
+
+    return jsonify(), 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, ESSE CÓDIGO DE 'mine_block()'
+
+
+
+
+que tiramos de 'blockchain'
+
+
+TEM TODA A LÓGICA DE QUE PRECISAMOS PARA MINERAR UM BLOCK...
+
+
+
+
+
+
+
+
+
+
+-> OK... --> MAS AQUI TEMOS QUE TER UM DETALHE EM MENTE:
+
+
+
+
+__ ESSA OPERAÇÃO _ DE MINE _ VAI _ FALHAR__ 
+
+
+
+SE VOCê NÃO TIVER NENHUMA 
+
+
+'PUBLIC_KEY' carregada no seu app...
+
+
+
+
+
+
+--> essa public_key é necessária, portanto vamos 
+
+CODAR UM IF CHECK QUE VAI RETORNAR um ERRO/AVISO dizendo que 
+
+a key não foi encontrada, ao user...
+
+
+
+
+
+
+(
+    '''if self.hosting_node == None'''
+)
+
+
+
+EX:
+
+
+
+
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+
+    if (not blockchain.mine_block()):
+        return 'Failed to Mine a block, no public key detected. Please create a wallet.'
+        
+    return jsonify(), 201
+
+
+
+
+
+
+
+-----------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O 'mine_block'
+
+
+
+DE 'blockchain' RETORNA TRUE SE BEM SUCEDIDO,
+
+E FALSE SE NÃO  FOR... (
+
+
+    ou FALHOU EM VERIFICAR AS TRANSACTIONS,
+
+    OU SE NÃO TEMOS NENHUMA PUBLIC KEY NA NOSSA WALLET.
+)
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+
+    if (not blockchain.mine_block()):
+        return 'Failed to mine a block. Ensure that you have a wallet, and valid transactions in your blocks. ', 302
+
+    return jsonify(), 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> OK... MAS NO CASO DE ERROR, O PROFESSOR VAI QUERER ESTRUTURAR 
+
+A RESPONSE DE UM JEITO MAIS ELEGANTE...
+
+
+
+
+
+
+
+
+
+
+ele escreve assim:
+
+
+
+
+
+
+
+
+
+else:
+    response = {}
+
+
+
+
+
+
+
+
+
+
+
+    SERÁ UMA _ DICT_ PARA A RESPONSE...
+
+
+
+
+
+
+
+--> DENTRO DA RESPONSE,
+
+QUEREMOS TER UMA KEY DE 
+
+
+'message',
+
+
+EM QUE COLOCAREMOS A MENSAGEM DE ERROR...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+    response = {
+
+        'message': 'Failed to mine a block. Ensure that you have a wallet, and valid transactions in your blocks.',
+        'wallet_set_up': wallet.public_key != None
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+--> O SEGUNDO ENTRY, de 
+
+'wallet_set_up'
+
+
+SERÁ 'True'
+
+SE TIVERMOS UMA PUBLIC_KEY SETTADA NA NOSSA WALLET,
+
+
+e false se não tivermos... 
+
+
+
+
+
+---> ok.... --> isso vai deixar o client handlar com maior facilidade a response 
+
+
+
+do server... (handle do error)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O MEU STATUS CODE ESTÁ ERRADO, O PROFESSOR DIZ QUE É MELHOR RETORNAR UM 'SERVER STATUS CODE',
+
+
+
+
+
+
+mas que poderíamos dizer que é um 'CLIENT ERROR' a falta dessa wallet... --> 
+
+mas o professor só bota um erro 500, coisa padrão..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NA VERSÃO DE SUCESSO, PROVAVELMENTE VAMOS QUERER RETORNAR UMA MENSAGEM DE SUCCESS 
+E 
+ETNÃO 
+
+
+A DATA DO BLOCK QUE FOI ADICIONADO (para atualizar a UI)...
+
+
+
+
+
+
+
+
+
+
+-> PARA ISSO, PRECISO ACESSAR A BLOCKCHAIN E O ÚLTIMO ELEMENTO EM 'chain' (por meio de '[-1]', acho..)
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AÍ CONVERTER TODOS ESSES NEGÓCIOS, OBJECTS,
+EM 
+DICTS....
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+
+    if (not blockchain.mine_block()):
+        response = {
+            'message': 'Failed to mine a block. Ensure that you have a wallet, and valid transactions in your blocks.',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500 ### erro padrão..
+
+    block = blockchain.chain[-1].__dict__.copy()
+    for transaction in block['processed_transactions']
+        tranasction = transaction.__dict__.copy()
+    response = {
+        'message': 'Block added successfully.',
+        'added_block': block
+    }
+    return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> o professor vai lá no method de 'mine_block'
+
+
+em 'blockchain14'
+
+
+
+E 
+
+ALTERA O RETURN (coloca o return do último block),
+
+
+
+MAS EU NÃO FAÇO ISSO,
+
+
+
+SÓ FAÇO O RETURN SIMPLES DO BLOCK NESSA FUNCTION AÍ MESMO, INLINE...
+
+
+
+
+
+
+
+
+
+
+--> MAS GANHEI UM ERROR:
+
+
+
+TypeError: Object of type Transaction is not JSON serializable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AQUELE CÓDIGO DE CIMA NÃO ESTAVA FUNCIONANDO, MAS ESTE FUNCIONA:
+
+
+
+
+
+
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+
+    if (not blockchain.mine_block()):
+        response = {
+            'message': 'Failed to mine a block. Ensure that you have a wallet, and valid transactions in your blocks.',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500 ### erro padrão..
+
+    block = blockchain.chain[-1].__dict__.copy()
+    block['processed_transactions'] = [tx.__dict__ for tx in block['processed_transactions']]
+    
+    print(block['processed_transactions'], 'MESSAGE')
+    response = {
+        'message': 'Block added successfully.',
+        'added_block': block
+    }
+    return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------
+
+
+0000a208ed01275373c719ace3ff4df508aafc18445cad1d600a2ef6eaa80dec
+[] PRINTTRANSACTIONS
+[{'amount': 10, 'recipient': 'None', 'sender': 'ourApp', 'signature': 'signature'}] MESSAGE
+127.0.0.1 - - [14/Apr/2022 18:25:05] "POST /mine HTTP/1.1" 201 -
+
+
+
+
+
+
+certo....
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... QUAL É O PRÓXIMO PASSO?
+
+
+
+
+
+
+
+
+
+
+-> NA PRÓXIMA AULA, VEREMOS COMO FAZEMOS PARA TER UMA 'WALLET' setup... (para aí fazer cmo que o MINING FUNCIONE)...
+
+
+
+
+
+
+
+
+
+
+-> NA PRÓXIMA AULA VEREMOS ROUTES QUE NOS DEIXAM MANAGEAR NOSSA WALLET..

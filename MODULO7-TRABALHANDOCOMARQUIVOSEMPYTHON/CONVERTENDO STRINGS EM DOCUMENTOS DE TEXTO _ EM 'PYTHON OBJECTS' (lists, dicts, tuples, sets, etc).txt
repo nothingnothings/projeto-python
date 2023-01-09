@@ -1,0 +1,3044 @@
+
+
+
+
+
+
+
+
+
+
+--> NO NOSSO CÓDIGO, NAS FUNCTIONS DE 'save_data' 
+
+e 
+
+'load_data',
+
+
+
+
+ESTAMOS COM O PROBLEMA DE QUE 
+
+
+
+
+''WE ARE ONLY STORING STRING DATA IN THAT TEXT FILE'',
+
+
+e que 
+
+
+então 
+
+
+''WE ARE ONLY RETRIEVING STRING DATA FROM THAT TEXT FILE'' --> E PRECISAMOS _ DE _ OBJECTS,
+
+
+
+
+DE PYTHON OBJECTS COMO __ LISTS, NESSE NOSSO CASOo....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> sorte a nossa _ QUE NÓS _ JÁ ESTAMOS USANDO UMA _ LIBRARY__ PYTHON QUE __ PODE NOS 
+
+AJUDAR 
+COM ESSE CONVERT..
+
+
+
+
+
+
+
+
+
+--> É A LIBRARY DE 'JSON', QUE DEVERÁ SER USADA MAIS UMA VEZ...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA USÁ-LA,
+
+
+importe com 
+
+
+
+
+
+
+
+
+
+
+
+import json
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+import json #vamos usar isso para _CONVERTER STRING VALUES em  -LIST VALUES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O JSON LIBRARY FOI USADO, NO PASSADO, PARA CONVERTER NOSSO 
+
+
+
+BLOCK (que é um DICT)  
+
+
+
+
+EM UMA __ STRING,
+
+
+
+tudo por meio daquele código de 
+
+
+
+
+
+
+
+
+
+
+json.dumps(block, sort_keys=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A COISA LEGAL, AQUI, É QUE 
+
+
+
+
+
+A JSON LIBRARY __ TAMBÉM NO AJUDA COM O CASO INVERSO,
+
+
+
+
+
+COM O CASE DEW 'queremos converter em 1 list nosso valor que é uma string'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> PODEMOS CONVERTER 1 STRING, STRING EM 1 CERTO FORMATO,
+
+E AÍ 
+
+
+_ A CONVERTER___ EM 
+
+
+'PYTHON DATa',
+
+
+
+NATIVE PYTHON LISTS AND OBJECTS... -> TUDO POR MEIO DESSA LIBRARY DE 'json'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... é exatamente isso que queremos fazer....
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE QUANDO SALVAMOS NOSSA DATA, VAMOS QUERER ARMAZENAR 
+
+
+'JSON DATA'
+
+em vez de 
+
+
+'string data' 
+
+
+(
+
+    pq isso é BEM MAIS EFETIVO,
+) ,
+
+
+
+
+
+e 
+
+QUANDO CARREGAMOS/CARREGARMOS 
+
+
+
+
+ESSA DATA,
+
+
+
+
+VAMOS QUERER 
+
+
+
+CARREGAR JSON DATA E ENTÃO TRANSFORMAR ESSA DATA EM LISTS...
+
+
+
+
+
+
+
+
+
+--> ok, mas como fazer isso?
+
+
+
+
+
+
+
+
+
+
+
+
+--> começamos pelo 'save_data()',
+
+acho...
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='w') as f:
+    with open('blockchain.json', mode='w') as f:
+        # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+        f.write(json.dumps(blockchain))
+        f.write('\n') #line break entre linhas de info...
+        f.write(json.dumps(open_transactions))
+
+
+
+
+
+
+
+
+
+
+
+
+----> CLARO QUE ISSO FOI ARMAZENADO EM UM ARQUIVO 'blockchain.json'....
+
+
+
+
+
+
+
+O FORMATO DO ARQUIVO FICOU ASSIM:
+
+
+
+
+[{"previous_ block_hash": "", "index": 0, "processed_transactions": [], "proof": 100}, {"previous_block_hash": null, "index": 1, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 103210}]
+[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> oK. .. . MAS AGORA RESTA FAZER O CAMINHO INVERSO, FAZER O 
+
+
+CONVERT 
+
+
+DESSA 'json data' em UMA LIST, 
+
+lá em 'load_data()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> RECEBI UM ERRO:
+
+
+
+
+
+
+    blockchain = json.decoder(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+TypeError: 'module' object is not callable
+
+
+
+
+
+--> que objeto 'module'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE CÓDIGO ESTAVA ERRADO; O METHOD CORRETO PARA DECODIFICAR STRINGS EM OBJETOS VARIADOS DO 
+
+PYTHON É 
+
+
+
+
+'json.loads()':
+
+
+
+
+
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        open_transactions = json.loads(read_transactions)
+        print(json.loads(read_transactions))
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMO VOCÊ PODE VER,
+
+
+
+
+
+NOSSA DATA JSON REALMENTE FOI CONVERTIDA EM LISTS:
+
+
+
+
+
+[{'previous_ block_hash': '', 'index': 0, 'processed_transactions': [], 'proof': 100}, {'previous_block_hash': None, 'index': 1, 'processed_transactions': [{'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], 'proof': 103210}, {'previous_block_hash': None, 'index': 2, 'processed_transactions': [{'amount': 10, 'recipient': 'Arthur', 'sender': 'ourApp'}], 'proof': 103210}]
+[]
+
+
+
+
+
+
+AGORA É HORA DE ASSISTIR A AULA DO PROFESSOR, VER SE O QUE FIZ REALMENTE ESTÁ CERTO....
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> O professor importa a library do json, que faz parte da standard library...
+
+
+
+
+
+
+
+
+
+---> AÍ  ELE ESCREVE, LÁ NO METHOD DE 'save_data":
+
+
+
+
+
+
+
+
+
+
+
+
+def save_data():
+    with open('blockchain.json', mode='w') as f:
+        f.write(json.dumps)
+
+
+
+
+
+
+
+
+
+
+
+    --> O PROFESSOR EXECUTA ESSE METHOD DE 'json.dumps'------> ELE NOS EXPLICA QUE ISSO AÍ VAI 
+
+
+    'CREATE A JSON STRING'...
+
+
+
+
+
+
+
+--> PROFESSOR NOS DÁ OUTRO DETALHE:
+
+
+
+
+
+
+
+
+
+PODERÍAMOS, SE QUISÉSSEMOS, EXECUTAR OUTRA FUNÇÃO, 
+
+o 
+
+
+'json.dump()'
+
+
+e aí passar aquele OBJETO 'f'
+
+COMO SEGUNDO PARÂMETRO, TIPO ASSIM:
+
+
+
+
+def save_data():
+    with open('blockchain.json', mode='w') as f:
+        f.write(json.dumps(, f))
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> isso pq o 'json.dump()'
+
+
+tem como SEGUNDO PARÂMETRO O 'EXIT' de sua file.... --> já o primeiro argumento seria a 'data' que você quer armazenar...
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+json.dump(data, out_file)
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR VAI CONTINUAR COM o 
+
+
+
+'json.dumps()' 
+
+
+
+
+
+
+
+
+
+---> O JSON.DUMPS __ VAI _ 
+
+NOS DAR DE VOLTA UMA 
+
+
+'JSON STRING',
+
+
+
+
+
+UMA JSON STRING PARA QUALQUER VALOR QUE INSERIRMOS NO SEU INTERIOR... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> o professor passa, dentro desse negócio, nossa _ BLOCKCHAIN... --> NOSSA BLOCKCHAIN,
+
+
+F
+ORMATO LIST,
+
+
+
+SERÁ CONVERTIDA EM UMA STRING JSON...
+
+
+
+
+
+
+EX:
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='w') as f:
+    with open('blockchain.json', mode='w') as f:
+        # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+        f.write(json.dumps(blockchain))
+        f.write('\n') #line break entre linhas de info...
+        f.write(json.dumps(open_transactions))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> o professor também escreve 'f.write('\n')'',
+
+
+
+E DEPOIS 
+
+
+
+
+escreve 
+
+
+
+
+
+nossas open_transactions...
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO...
+
+
+
+
+
+
+
+--> aí ele executa isso no nosso código,
+
+
+minera um block (para ativar esse código)...
+
+
+
+
+
+
+
+
+O PROFESSOR NOS MOSTRA O OUTPUT 
+
+
+DE 
+
+
+
+
+NOSSO WRITE...
+ 
+
+
+
+
+ EX:
+
+
+
+ [{"previous_ block_hash": "", "index": 0, "processed_transactions": [], "proof": 100}, {"previous_block_hash": null, "index": 1, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 103210}, {"previous_block_hash": null, "index": 2, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 103210}]
+[]
+
+
+
+
+
+
+
+
+
+
+
+--> VOCê PODE PENSAR QUE ESSA DATA ESTÁ EM UM FORMATO SIMILAR AO DE ANTES,
+
+
+
+MAS 
+
+ISSO É UM ENGANO:
+
+
+
+
+
+ISSO É O FORMATO JSON... ->  VOCÊ PODE PERECBER QUE 
+
+
+
+É 
+
+
+O FORMATO 'JSON'
+
+
+
+
+
+PELO FATO _ DE QUE _ 
+
+
+É POSSÍVEL 
+
+IMPORTAR 
+
+
+
+
+ESSA DATA __ POR MEIO DAQUELA LIBRARY DE 
+
+'json'...
+
+
+
+
+
+
+
+
+
+
+
+
+---> o professor vai demonstrar o import dessa data LÁ EM 
+
+'load_data()':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AINDA VAMOS EXEC UTAR 
+
+
+
+
+
+
+
+'file_content = f.readlines()',
+
+
+
+
+MAS ALI 
+
+EMBAIXO 
+O 
+
+PROFESSOR 
+
+
+NÃO VAI MAIS ESCREVER ALGO COMO 
+
+
+
+        read_blockchain, read_transactions = g.readlines()
+
+        blockchain = read_blockchain
+
+        open_transactions = read_transactions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -> NÃO , EM VEZ DISSO, O QUE ELE VAI FAZER É 
+
+
+        __WRAPPAR_ 
+
+        esses 
+
+
+        'read_xxxx'
+
+
+        COM 
+
+
+        'json.loads()",
+
+
+        QUE 
+
+
+        É 
+
+        O METHOD DA LIBRARY DO JSON _ QUE _ CONVERTE  __ 
+
+
+
+        'JSON STRING DATA'
+
+
+
+
+        EM OBJECTS PYTHON...
+
+
+
+
+
+
+
+
+        ex:
+
+
+
+
+
+
+
+
+
+                read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        open_transactions = json.loads(read_transactions)
+
+
+
+
+
+
+
+
+
+----------------
+
+
+
+
+
+
+
+
+
+
+
+---> OK... É ISSO QUE ELE FEZ,
+
+
+USOU O METHOD DE 'json.loads()'
+
+
+
+
+
+
+
+
+
+
+
+ESSE METHOD 'DESERIALIZES' uma string,
+
+
+o que quer dizer que 
+
+
+ELE VAI _ PEGAR _UMA STRING _ JSON __ E A DECODIFICAR, 
+TRANSFORMANDO-A 
+
+EM UM PYTHON OBJECT...
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... É EXATAMENTE O QUE FIZ....
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS AQUI PROFESSOR NOS APONTA QUE TEMOS UM PROBLEMA... -> 
+
+
+
+
+
+AQUELA PRIMEIRA LINE,
+
+a line de 
+
+
+
+
+'blockchain',
+
+
+
+É A LINE QUE 
+
+CONTÉM AQUELE 
+
+
+NOSSO CARACTER ESPECIAL '\n' 
+
+
+
+
+
+
+
+
+
+
+--> PRECISAMOS __ REMOVER ESSE CARACTER...
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE NA MINHA VERSÃO DO CÓDIGO, EM QUE ESTOU FAZENDO WRITE/READ DE UMA ARQUIVO '.json',
+
+
+
+EU __ NÃO TENHO ESSE PROBLEMA (o '\n' NÃO APARECE NO CONTEÚDO DO ARQUIVO, POR ALGUMA RAZÃO)....
+
+
+
+
+
+
+
+
+
+--> MAS NA VERSÃO DO PROFESSOR, EM QUE ESTAMOS ARMAZENANDO EM UM ARQUIVO 
+
+
+DE TEXTO NOSSA DATA,
+
+
+precisamos 
+
+
+
+
+
+ESCREVER AQUELE CÓDIGO SAFADO DE 
+
+
+
+'[:-1]' 
+
+
+
+
+
+
+O RANGE SELECTOR NESSA STRING,
+
+
+PARA 
+
+AÍ EXCLUIR ESSE CARACTER 
+
+'\n'..
+
+
+
+
+
+
+
+
+
+
+
+-> isso é pq esse caracter NAÕ É 'VALID JSON DATA' (tvz seja por isso que ele sempre NAÕ APARECE EM ARQUIVOS JSON)...
+
+
+
+
+
+
+
+
+--> para isso, o código fica assim:
+
+
+
+
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain[:-1]) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        open_transactions = json.loads(read_transactions)
+        print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok...
+
+
+FOI EXATAMENTE O QUE O PROFESSOR FEZ:
+
+
+
+
+ blockchain = json.loads(read_blockchain[:-1])
+
+
+
+
+
+
+
+ --------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --------> ok... .agora fizemos get dos 'REAL PYTHON LISTS AND OBJECTS'....
+
+
+
+
+
+
+
+
+
+ --> QUITAMOS TUDO ISSO E RESTARTAMOS NOSSO CÓDIGO...
+
+
+
+
+
+
+
+ AGORA TANTO O 'load_data()'
+
+
+ como o 
+
+ 'save_data()'
+
+
+ ESTAÕ FUNCIONANDO....
+
+
+
+
+
+ ------------------
+
+
+
+
+
+
+
+
+
+ NOSSO OUTPUT ESTÁ DANDO CERTO:
+
+
+
+ [{"previous_ block_hash": "", "index": 0, "processed_transactions": [], "proof": 100}, {"previous_block_hash": null, "index": 1, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 103210}, {"previous_block_hash": null, "index": 2, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 103210}, {"previous_block_hash": null, "index": 3, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 103210}, {"previous_block_hash": null, "index": 4, "processed_transactions": [{"amount": 4.0, "recipient": "Manu", "sender": "Arthur"}, {"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 66236}]
+[{"amount": 4.0, "recipient": "Manu", "sender": "Arthur"}]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... NOSSO BLOCKCHAIN ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+
+----> OK... MAS AQUI TEMOS _ UM PROBLEMA... --> NOSSAS 'OPEN_TRANSACTIONS'
+
+
+
+
+nunca ficam 
+
+
+'empty',
+
+
+NEM _ QUANDO MINERAMOS UM BLOCK COM SUCESSO....
+
+
+
+
+
+
+
+
+--> PQ SERÁ?
+
+
+
+
+
+
+
+
+
+
+
+
+
+A RAZÃO É BEM SIMPLES, 
+
+VEJA O CÓDIGO DE NOSSO LOOP:
+
+
+
+
+
+
+        if mine_block():
+            print(' MINED')
+            open_transactions = []
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, 
+
+NÓS __ SÓ __ LIMPAMOS A LIST DE TRANSACTIONS __ APÓS __ O MINE TER SIDO UM SUCESSO...
+
+
+
+
+
+--> TALVEZ A SOLUÇAÕ PARA ISSO __ SEJA _ 
+
+
+O 
+
+
+run de 'save_data()'
+
+
+__DEPOIS DO __ MINE DE UM BLOCK (depois dessa function...)?
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, O PROFESSOR TAMBÉM FEZ ISSO:
+
+
+
+
+
+
+
+
+        if mine_block():
+            print(' MINED')
+            open_transactions = []
+            save_data() #código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            -----> CERTO.... 
+
+
+
+
+
+
+
+
+
+    
+
+    transplantamos 
+
+
+    esse negócio, portanto, para o while loop...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo....
+
+
+
+
+
+
+
+
+
+--> COM ISSO,
+
+
+
+SE AGORA 
+EXECUTAMOS NOSSO NEGÓCIO DE NOVO .... ---> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RECEBEMOS UM _ ERRO__... ----> 
+
+
+
+
+
+000024eae38d2d6c7e41b25da0388d55b192e7c02b38e687ae44e3249ec07ce8
+000024eae38d2d6c7e41b25da0388d55b192e7c02b38e687ae44e3249ec07ce8
+000024eae38d2d6c7e41b25da0388d55b192e7c02b38e687ae44e3249ec07ce8
+5d88fd812bcea59285ee8d4b59a00ca1e59b4100d2a70bf1c517aed2e89cd5ef
+Proof of work is invalid.
+Blockchain was found invalid.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso aconteceu pq _ NÃO COMEÇAMOS A MINERAR OS BLOCKS _ partindo de um ARQUIVO 'blockchain.json'
+
+VAZIO.... 
+
+
+(
+    
+
+    aí ocorreu essa incompatibilidade da data nova com a data velha...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> vamos receber um ERRO PARECIDO _ SE NÃO TIVERMOS __ O ARQUIVO 
+
+'blockchain.json':
+
+
+Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9\blockchain9versaodoprofessor", line 53, in <module>
+    load_data() # start dessa function AUTOMATICAMENTE, COMO PARTE DO FLOW DE NOSSO CÓDIGO..
+  File "a:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9\blockchain9versaodoprofessor", line 42, in load_data
+    with open('blockchain.json', mode='r') as g:
+FileNotFoundError: [Errno 2] No such file or directory: 'blockchain.json'
+PS A:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO OCORREU NA FUNCTION DE 'load_data()'...
+
+
+
+
+
+
+
+
+
+
+TALVEZ O CORRETO SEJA EXECUTAR ALGO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    if (not os.path.isfile('blockchain.json')):
+        print('No blockchain file detected, loading starting blockchain...')
+        return
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        open_transactions = json.loads(read_transactions)
+        print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+esse 'os.path.isfile()'
+
+CHECA PELA EXISTENCIA DE UM DETERMINADO ARQUIVO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, ISSO REALMENTE DEU CERTO... EX:
+
+
+
+
+
+
+[{"previous_ block_hash": "", "index": 0, "processed_transactions": [], "proof": 100}, {"previous_block_hash": null, "index": 1, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 103210}]
+[]
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO COMPLETO FICOU ASSIM:
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    if (not os.path.isfile('blockchain.json')):
+        print('No blockchain file detected, loading starting blockchain...')
+        return
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        open_transactions = json.loads(read_transactions)
+        print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+isso EVITA ESSE ERRO NO 'STARTUP' de nossa  blockchain...
+
+
+
+
+
+
+
+
+
+
+-> AGORA DEVO _ EXAMINAR __ SE 
+
+
+
+
+
+MEU CÓDIGO AINDA ESTÁ COM AQUELE PROBLEMA DE 
+
+
+
+
+
+''já existe data nesse meu arquivo blockchain.json,
+
+
+essa data vai atritar com  a nova data'''..
+
+
+
+
+
+
+
+
+--> não, mas isso não está mais dando problema....
+
+
+
+
+
+
+
+
+
+
+
+-> ok, agora a parada REALMENTE está funcionando...
+
+
+
+
+
+
+
+
+
+
+--> mas SE TENTAMOS __ MINERAR_ UM NOVO BLOCK __ APÓS _ TERMOS QUITTADO DO APP E ENTRADO DE NOVO,
+
+
+GANHAMOS __ UM ERROR...
+
+
+
+
+000024eae38d2d6c7e41b25da0388d55b192e7c02b38e687ae44e3249ec07ce8
+000024eae38d2d6c7e41b25da0388d55b192e7c02b38e687ae44e3249ec07ce8
+5d88fd812bcea59285ee8d4b59a00ca1e59b4100d2a70bf1c517aed2e89cd5ef
+Proof of work is invalid.
+Blockchain was found invalid.
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> isso significa  que aquele error AINDA PERSISTE....
+
+
+
+
+
+
+
+
+--> ISSO É RUIM, SIM, MAS PELO MENOS PROVA QUE NÓS JÁ ESTAMOS CORRETAMENTE 'COMEÇANDO COM DATA ANTIGA, do runtime antigo' no nosso startup...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> esse error pode ser bem difícil de detectar E DE CONSERTAR, diz o professor,
+
+
+
+mas ele está relacionado com 
+
+A 'FORMA PELA QUAL ADICIONAMOS TRANSACTIONS'
+
+no nosso código...
+
+
+
+
+
+
+
+
+OU SEJA, A FUNCTION DE 'add_transaction':
+
+
+
+
+
+
+
+
+
+
+
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+    """
+    new_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+        ('amount', amount),
+        ('recipient', recipient),
+        ('sender', sender)
+    ])
+    if not verify_transaction(new_transaction):
+        print('Your funds are not enough for the chosen operation')
+        return False
+    else:
+        open_transactions.append(new_transaction)
+        participants.add(sender)
+        participants.add(recipient)
+        print(open_transactions)
+        save_data()
+        return True
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> como você pode ver, ali estamos chamando 'save_data()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem.... nossas transactions estão sempre sendo armazenadas como ORDERED DICTS, isso é um fato...
+
+
+
+
+
+
+
+
+
+
+
+-->  o professor continua:
+
+
+
+
+
+
+
+
+
+o problema, aqui, é que 
+
+
+
+'ordered dicts'
+
+
+
+
+SEMPRE POSSUEM UMA APARÊNCIA BEM DISTINTA DE DICTS COMUNS,
+
+
+
+
+COMO PODEMOS PERCEBER:
+
+
+
+
+
+OrderedDict([('amount', 10), ('recipient', 'Arthur'), ('sender', 'ourApp')])]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> e.... bem, quando estamos CONVERTENDO ESSE NEGÓCIO EM UMA STRING,
+
+
+
+ele possui esse formato aí,
+
+
+
+que é bem diferente de um 
+
+dict comum,
+
+
+que seria tipo assim:
+
+
+
+
+{
+    'amount': 10,
+    'recipient': 'Arthur',
+    'sender': 'ourApp'
+}
+
+
+
+
+
+
+
+
+
+--------> e... bem, lá no código de 
+
+
+
+nossa function 'valid_proof',
+
+
+
+QUANDO 
+
+
+
+ESTAMOS __ CALCULANDO __ NOSSA PROOF OF WORK,
+
+
+
+
+nós estamos _ _CRIANDO UMA STRING POR MEIO DESTE CÓDIGO:
+
+
+
+
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+
+
+
+
+
+
+
+
+
+
+
+
+    -> na verdade, isso é uma 'BYTE STREAM',
+
+
+    mas o que interessa é que 
+
+
+
+    NÓS _ CONVERTEMOS __ AS TRANSACTIONS EM _ UMA _ STRING, por meio do código de 
+
+
+    'str(transactions)'...
+
+
+
+
+
+
+
+
+
+
+    --> e essa string convertida será simplesmente uma LIST DE 'ORDERED DICTS'...
+
+
+
+
+
+
+
+    O PROFESSOR FAZ UM PRINT DESSE 
+
+
+    'guess'
+
+
+    PARA VER COMO ELE SE PARECE...
+
+
+
+
+
+
+
+
+
+
+
+
+---> VOCÊ VERÁ QUE A STRING QUE É 
+
+
+
+__ CONVERTIDA EM UM HASH _ 
+
+
+
+
+
+
+
+É 
+
+
+[OrderedDict([('sender', 'Max') ('recipient', 'Manuel'), ('amount', 5.5
+)])]
+
+
+
+
+
+
+
+
+
+
+-----> é isso QUE É CONVERTIDO  EM 1 HASH 
+
+
+
+PARA FORMAR AQUELE 'proof of work'... -> no caso, é possível 
+
+
+
+
+
+PERCEBER QUE AQUELA 
+
+
+PALAVRA 
+
+
+'OrderedDict'
+
+
+É _ _PARTE/FAZ PARTE DESSA 
+
+
+
+STRING...
+
+
+
+
+
+
+
+
+
+
+--> AGORA SE TENTAMOS MINERAR UM NOVO BLOCK, SE PRINTAMOS O NOSSO PROOF OF WORK,
+
+
+
+VEMOS que  
+
+
+o output 
+
+
+terá sido 
+
+
+
+[
+    {
+          'sender': 'Max',
+          'recipient': 'Manuel',
+          'amount': 5.5
+    }
+]
+
+
+
+
+
+
+
+
+
+--> OU SEJA, UMA STRING  _BEM DIFERENTE _ DAQUELA VISTA NO NOSSO 'valid_proof()' function.. (pq ficamos sem a nossa keyword de 'OrderedDict') -----> 
+
+
+
+
+
+
+
+
+
+-> ISSO OCORRE/OCORREU JUSTAMENTE PQ A PALAVRA 'OrderedDict'
+
+
+
+
+NÃO É ALGO QUE __ É EFETIVAMENTE ARMAZENADO NO NOSSO ARQUIVO '.json'...
+
+
+
+
+
+
+
+
+
+
+
+------> ok, mas é essa a razõa desse error.... -> como podemos consertar?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, UMA MANEIRA É:
+
+
+
+'''QUANDO CARREGAMOS NOSSAS TRANSACTIONS, DEVEMOS AS CARREGAR COMO 'OrderedDicts',
+
+
+
+E NÃO COMO DICTS COMUNS''...
+
+
+
+
+
+
+
+--> bem... 
+
+
+
+
+
+
+
+PARA ISSO,
+
+
+
+TEMOS AQUELA LINHA DE CÓDIGO LÁ EM 
+
+'load_data()':
+
+
+
+
+
+
+
+
+
+open_transactions = json.loads(read_transactions)
+
+
+
+
+
+
+
+
+
+-> bem, como esse 'json.loads' VAI NOS RETORNAR __ UMA LIST__ COM TRANSACTIONS (em formato clássico 'dict'),
+
+
+
+
+
+PROVAVELMENTE UMA DAS SOLUÇÕES É __ USAR __ LIST COMPREHENSION PARA MANIPULAR ESSES DICTS,
+
+
+OS CONVERTER EM UNORDERED DICTS...
+
+
+
+
+
+
+
+
+
+
+
+
+vou tentar...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    if (not os.path.isfile('blockchain.json')):
+        print('No blockchain file detected, loading starting blockchain...')
+        return
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+        open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+        print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> USEI ISSO, E AGORA MEU CÓDIGO FUNCIONA...
+
+
+
+
+
+
+
+
+
+--> agora não há mais discrepância entre o value de blockchain carregado (que é carregado com os OrderedDict)
+
+
+
+
+
+e o value que é adicionado pelas transactions normais (que também são/serão 'OrderedDict')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> BEM... O PROFESSOR PROVAVELMENTE FARÁ A MESMA COISA QUE NÓS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> professor TAMBÉM USOU UMA LIST COMPREHENSION..
+
+
+
+
+
+
+
+
+
+ficou tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+blockchain = json.loads(file_content[0][-1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR DEIXOU O CÓDIGO DELE UM POUCO DIFERENTE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E MEU CÓDIGO AINDA ESTÁ BUGADO, PQ PRECISA DESSE FIX DO PROFESSOR (ele fez a alteração sobre o CÓDIGO QUE 
+
+DEFINE O BLOCKCHAIN, E NÃO AS TRANSACTIONS....)
+
+
+
+
+
+
+
+
+
+
+
+
+-->  OU SEJA,
+
+
+ELE ESCREVE ASSIM:
+
+
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    if (not os.path.isfile('blockchain.json')):
+        print('No blockchain file detected, loading starting blockchain...')
+        return
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        for block in blockchain:
+            updated_block = {
+                'previous_hash': block['previous_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'transactions': 
+            }
+        print(json.loads(read_blockchain))
+   
+        print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR USOU 
+
+
+
+LIST COMPREHENSION __ COM _ __
+
+
+ORDERED DICTS,
+
+
+
+E O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    if (not os.path.isfile('blockchain.json')):
+        print('No blockchain file detected, loading starting blockchain...')
+        return
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain)
+        updated_blockchain = []
+        for block in blockchain:
+            updated_block = {
+                'previous_block_hash': block['previous_block_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'processed_transactions': [OrderedDict(
+                    [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+            }
+            updated_blockchain.append(updated_block)
+        blockchain = updated_blockchain
+        # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+        # open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+        open_transactions = json.loads(read_transactions)
+        
+        print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, AGORA TUDO ISSO VAI FUNCIONAR, PQ AGORA NÃO VAMOS MAIS TER UMA 'INCORRECT PROOF'
+
+
+
+POR CONTA DE COISAS ESTRANHAS ACONTECENDO COM as 'OrderedDict',
+
+
+
+QUE É O FORMATO ESCOLHIDO PARA NOSSAS TRANSACTION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok... 
+
+
+
+
+
+
+
+
+
+
+---> agora nossa blockchain REALMENTE ESTÁ SENDO 
+
+
+SALVA EM ARQUIVOS...
+
+
+
+
+
+
+
+
+
+
+--> E SE FECHAMOS NOSSO APP E ABRIMOS DE NOVO....
+
+
+
+
+
+
+
+
+
+
+-> OK, AINDA FUNCIONA:
+
+
+
+[{"previous_block_hash": "", "index": 0, "proof": 100, "processed_transactions": []}, {"previous_block_hash": null, "index": 1, "proof": 103210, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}]}, {"previous_block_hash": null, "index": 2, "proof": 306078, "processed_transactions": [{"amount": 5.0, "recipient": "Manu", "sender": "Arthur"}, {"amount": 10, "recipient": "Arthur", "sender": "ourApp"}]}, {"previous_block_hash": null, "index": 3, "processed_transactions": [{"amount": 3.0, "recipient": "Manu", "sender": "Arthur"}, {"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 61154}]
+[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> certo, mas há algumas optimizações que seriam boas de fazer:
+
+
+
+
+
+
+
+
+
+1) CRIAR 1 ESPAÇO '\' 
+ 
+a cada número de espaços no nosso output.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> se tentamos adicionar uma transaction _ SEM TERMOS FUNDS SUFICIENTES, O CÓDIGO.... --> ainda não dá pau.
+
+
+
+
+
+
+-> e se mineramos logo depois disso.... --> o código _ _TAMBÉM NÃO DÁ PAU....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O PROFESSOR DIZ QUE O CÓDIGO SÓ VAI DAR BUG SE:
+
+
+
+
+1)   EU _ ADICIONAR__ AO MANUEL ALGUNS FUNDS... (digamos 8)
+
+
+
+
+2) AÍ NÃO MINERAMOS ESSES FUNDS, não mineramos um block com esses funds 
+
+
+
+3) AÍ __ QUITAMOS O APP... 
+
+
+
+
+
+4) ABRIMOS O APP DNV, E DESSA VEZ MINERAMOS UM NOVO BLOCK, com aquela transaction ainda pendente  
+
+
+
+
+
+
+5) fechamos o app dnv 
+
+
+
+
+
+6) abrimos o app dnv 
+
+
+
+
+7) --> SE __ TENTARMOS OUTPUTTAR A BLOCKCHAIN COM '2',  AÍ O ERRO VAI APARECER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> 'Display current blockchain' ---> ISSO VAI NOS DAR UM ERROR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO ACONTECEU PQ NOSSAS 'OPEN_TRANSACTIONS' 
+
+
+ainda estão com 
+
+
+
+'DICTS UNORDERED',
+
+
+
+como podemos ver lá no código de 
+
+'load_data():'
+
+
+
+
+
+
+open_transactions = json.loads(read_transactions)
+
+
+
+
+
+
+
+
+
+
+
+
+--> EU HAVIA CONVERTIDO ISSO ANTERIORMENTE, MAS O PROFESSOR FEZ PARECER QUE NÃO É NECESSÁRIO.... --> 
+
+
+TEMOS QUE CONVERTER ESSAS 'open_transactions' em ORDERED DICTS TBM, presumo eu....
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE DEIXAMOS UNORDERED DICTS ALI,
+
+o que acontece é:
+
+
+1) se salvamos UMA TRANSACTION, 
+
+
+
+
+
+
+2) AÍ __ SAÍMOS __ DO APP 
+
+
+
+
+
+
+
+3) se carregarmos nosso arquivo 'blockchain.txt'
+
+mais uma vez,
+
+
+
+
+
+
+
+4 ) e se aí minerarmos aquela transaction + uma vez, ELA 
+
+
+SERÁ UMA 
+
+'UNORDERED DICT', uma dict NORMAL,
+
+
+aí a proof of work vai ser criada a partir DESSA NORMAL DICT EM VEZ DE UMA UNORDERED DICT,
+
+
+
+AO PASSO QUE FUTURE TRANSACTIONS _ _VAO CERATMENTE USAR Uma 'OrderedDict' de novo... --> e isso 
+
+
+
+causará esse mesmo problema...
+
+
+
+
+
+
+
+
+-_> MAS MEU CÓDIGO ESTÁ INCORRETO, NO PRESENTE:
+
+
+
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    if (not os.path.isfile('blockchain.json')):
+        print('No blockchain file detected, loading starting blockchain...')
+        return
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain)
+        updated_blockchain = []
+        for block in blockchain:
+            updated_block = {
+                'previous_block_hash': block['previous_block_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'processed_transactions': [OrderedDict(
+                    [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+            }
+            updated_blockchain.append(updated_block)
+        blockchain = updated_blockchain
+        # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+        open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+        # open_transactions = json.loads(read_transactions)
+        
+        print(json.loads(read_transactions))
+
+
+
+
+
+
+
+
+
+
+
+-----> quer dizer,
+
+
+
+NÃO ESTÁ INCORRETO.. --> 
+
+
+
+
+
+O PROFESSOR USOU UM 
+
+FOR LOOP,
+
+
+AO PASSO QUE EU USEI UMA 
+
+
+
+__LIST __ COMPREHENSION...
+
+
+
+
+
+
+
+
+
+
+
+
+
+a versão do professor ficou assim:
+
+
+
+
+
+
+
+
+updated_transactions = []
+for transaction in open_transactions:
+    updated_transaction = OrderedDict(
+        [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]
+    )
+    updated_transactions.append(updated_transaction)
+open_transactions = updated_transactions
+
+
+
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+--> OK... ISSO DEVERÁ TER CONSERTADO NOSSO ERROR  (as 2  sintaxes funcionam, a de list compreehension e a do for loop)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> nosso código __ SÓ DÁ PROBLEMA __ SE TENTAMOS 
+
+
+
+INICIÁ-LO COM UM ARQUIVO 'blockchain.json' VAZIO...
+
+
+
+
+
+
+
+
+
+--> NOSSA BLOCKCHAIN JÁ ESTÁ 'PERSISTING', o que é ótimo...
+
+
+
+
+
+
+
+
+
+--> ESTAMOS USANDO JSON PARA CARREGAR E SALVAR DATA,
+
+E TAMBÉM 
+
+CONSERTAMOS 
+
+
+ESSE ERROR DE 'OrderedDict vs unorderedDict' 
+
+
+
+
+
+
+
+
+
+AQUI JÁ É POSSÍVEL VER A IMPORTÂNCIA DE USAR 'THE SAME FORMAT OF DATA'
+
+
+O TEMPO INTEIRO 
+
+NO NOSSO APP,
+
+QUANDO O ASSUNTO É 'VALIDATE THE PROOF OF WORK'...

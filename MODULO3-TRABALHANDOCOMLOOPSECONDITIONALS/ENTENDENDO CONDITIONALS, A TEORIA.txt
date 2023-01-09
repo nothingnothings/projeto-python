@@ -1,0 +1,195 @@
+ 
+
+
+
+
+
+
+
+
+ --> AGORA QUE DEMOS UMA OLHADA NO BÁSICO 
+
+
+ DOS 2 CONSTRUCTS DE LOOP QUE TEMOS EM PYTHON,
+
+ DEVEMOS 
+
+ VER 
+
+
+ IF 
+ STATEMENTS/IF-ELSE STATEMENTS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> tEMOS ESSE EXEMPLO --> 
+
+
+
+
+
+
+
+
+
+
+
+ DIGAMOS QUE TEMOS UM USER INPUT,
+
+
+ COM 
+
+ A FUNÇÃO DE 'input()'.... (claro que você pode ter qualquer outro event/data de qualquer source )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> BEM, ESSA DATA PODE ESTAR EM 1 CERTO FORMATO/VALOR... - >digamos que estamos 
+
+
+
+
+
+
+ INPUTTNADO NOSSO USERNAME..
+
+
+
+
+
+
+
+
+
+
+ --> user pode OU COLOCAR O NOME VÁLIDO, OU UMA 
+
+
+
+
+ EMPTY STRING.. -> vAMOS QUERER 
+
+
+
+ outputtar 
+
+ CÓDIGO DIFERNETE,
+
+ PARA 
+
+ DIFERENTES INPUTS....
+
+
+
+
+
+
+
+
+
+
+
+ --> NO CASO 
+
+ REGULAR, DE STRING VÁLIDA,
+
+ VAMOS QUERER 
+
+ CRIAR UM USER COM 
+
+
+
+ A FUNÇÃO DE 
+
+ 'create_user()'...
+
+
+
+
+
+
+
+
+
+ --> NO CASO DE UMA EMPTY STRING TER SIDO INPUTTADA,
+
+ VAMOS QUERER RODAR A FUNCTION DE 'empty()',
+
+ que talvez 
+
+
+
+ FAÇA UM NOVO PROMPT AO USER, OU ALGO ASSIm...
+
+
+
+
+
+
+
+
+
+
+
+ _> ISSO QUER DIZER QUE A PARTIR DE CERTAS CONDIÇÕES/DATA,
+
+ VAMOS QUERER 
+
+
+
+ RODAR CERTO CÓDIGO.... --> essa é uma solução bem comum nos seus apps... ---> 
+
+
+
+
+
+
+
+
+ CO´DIGO DIFERENTE QUE DEVERÁ RODAR A  DEPENDER DO RESULTADO QUE VOCê OBTEVE...
+
+
+
+
+
+
+
+
+
+ if (user === 'max') {
+
+
+     create_user()
+ }
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS USAR ISSO NO NOSSO PROGRAMA, PARA ENTÃO DEIXAR O USER REALMENTE _ CONTROLAR __ O QUE ELE QUER FAEZR, DENTRO DO INFINITE LOOP...

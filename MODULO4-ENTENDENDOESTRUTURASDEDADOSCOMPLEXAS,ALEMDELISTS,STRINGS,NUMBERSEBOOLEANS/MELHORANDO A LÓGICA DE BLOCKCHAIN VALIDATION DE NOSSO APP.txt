@@ -1,0 +1,1210 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE DEMOS UMA OLHADA MAIS APROFUNDADA EM LIST COMPREHENSIONS,
+
+
+DEVEMOS MELHORAR 
+
+A PARTE DE NOSSO CÓDIGO DE 'MINE_BLOCK',
+
+
+
+
+MELHORAR AQUELA SEÇÃO...
+
+
+
+
+
+
+
+--> NOSSO CÓDIGO POR ENQAUNTO ESTA´ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+    previous_block = blockchain[-1]
+    hashed_block = '-'.join([str(previous_block[key]) for key in previous_block]) #feature da LIST COMPREHENSION.... (faz com que evitemos o write de um loop, que e´cumbersome)
+                  
+    print(hashed_block)
+    block = {'previous_block_hash': hashed_block,
+
+                'index': len(blockchain),
+                'processed_transactions': open_transactions,
+                }
+    open_transactions.clear()
+    blockchain.append(block)
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESTAMOS HASHEANDO O CONTEÚDO DO BLOCK ANTIGO E ENTÃO FAZENDO APPEND DELE AO 
+
+
+
+
+
+NOSSO BLOCK NOVO....
+
+
+
+
+
+
+
+
+
+
+
+-> NOSSA LÓGICA DE VERIFICATION ESTÁ DESATUAWLIZADA... -> 
+
+
+
+
+
+
+
+
+PRECISAMOS REMOVER TODO SEU CÓDIGO, E AÍ 
+
+
+
+ESCREVER A LÓGICA DO 0....
+
+
+
+
+
+
+
+
+
+> COMEÇAMOS ASSIM:
+
+
+
+
+
+
+
+
+
+def verify_chain():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOPS QUERER CHECAR SE 
+
+O 
+
+
+
+'previous_block_hash'
+
+
+SERÁ 
+
+
+EQUIVALENTE 
+
+
+
+AO 
+
+
+
+
+'''CONTEÚDO DO BLOCK ANTERIOR INTEIRO, HASHEADO'''.... ---> para isso,]
+
+
+
+precisaremos de um if check, e do acesso a nossa list de blocks (blockchain)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO DE VERIFY_CHAIN FICOU ASSIM:
+
+
+
+
+
+
+
+def verify_chain():
+    '''VERIFY THE CURRENT BLOCKCHAIN AND RETURN TRUE IF VALID, FALSE IF INVALID'''
+    is_valid = True
+    for block_index in range(len(blockchain)):
+        if block_index == 0:
+            continue
+        elif '-'.join([str(blockchain[block_index - 1][key]) for key in blockchain[block_index - 1]]) == blockchain[block_index ]['previous_block_hash']:
+            print('true')
+            print(blockchain, 'SUCCESS')
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        # block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+
+    CÓDIGO EM QUESTÃO:
+
+
+
+
+
+
+
+
+            elif '-'.join([
+                
+                
+                
+    str(blockchain[block_index - 1][key]) for key in blockchain[block_index - 1]]) == blockchain[block_index ]['previous_block_hash']:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... MAS PROFESSOR QUER mexer na nossa auth logic --> ELE CRIKA UMA NOVA 
+
+
+FUNCTION,
+
+de nome 
+
+
+'hash_block'..
+
+
+
+
+
+
+
+ 
+
+ ele aceitará/EXIGIRÁ ]
+
+
+
+
+
+
+
+
+
+1 'BLOCK' como argumento....
+
+
+
+
+
+
+E DENTRO DESSA FUNCTION,
+
+
+
+O PROFESSOR VAI  QUERer  
+
+
+
+
+
+
+
+
+
+
+
+
+-> LÓGICA ANTIGA:
+
+
+
+
+
+
+
+
+
+def verify_chain():
+    '''VERIFY THE CURRENT BLOCKCHAIN AND RETURN TRUE IF VALID, FALSE IF INVALID'''
+    is_valid = True
+    for block_index in range(len(blockchain)):
+        if block_index == 0:
+            continue
+        elif '-'.join([str(blockchain[block_index - 1][key]) for key in blockchain[block_index - 1]]) == blockchain[block_index ]['previous_block_hash']:
+            print('true')
+            print(blockchain, 'SUCCESS')
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        # block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> estamos hasheando nosso block velho, e aí estamos armazenando esse resultado do hash em um 
+FIELD DO PRÓXIMO BLOCK...
+
+
+
+
+
+
+
+--> E ISSO PODE SER USADO PARA VALIDAITON, É CLARO...
+
+
+
+
+
+
+
+----> EU JÁ FIZ UM AJUSTE A ESSA VERIFICATION LOGIC...
+
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+
+
+
+def verify_chain():
+    '''VERIFY THE CURRENT BLOCKCHAIN AND RETURN TRUE IF VALID, FALSE IF INVALID'''
+    is_valid = True
+    for block_index in range(len(blockchain)):
+        if block_index == 0:
+            continue
+        elif '-'.join([str(blockchain[block_index - 1][key]) for key in blockchain[block_index - 1]]) == blockchain[block_index ]['previous_block_hash']:
+            print('true')
+            print(blockchain, 'SUCCESS')
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        # block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR VAI QUERER UM POUCO DE OUTSOURCING,
+
+
+
+POR ISSO ELE CRIA UMA FUNÇÃO CHAMADA DE 
+
+
+'hash_block', nova,
+
+
+que fará esse hashing...
+
+
+
+
+
+
+
+
+
+ESSA FUNCTION VAI RETORNAR UMA LÓGICA EQUIVALENTE A 
+
+
+
+'''
+
+
+'-'.join([str(previous_block[key]) for key in previous_block])
+
+
+
+
+''',
+
+
+
+
+vista 
+
+
+
+lá em 
+
+'mine_block()'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, FICA MAIS OU MENOS ASSIM>:
+
+
+
+
+
+def hash_block(block):
+    return '-'.join([str(block[key]) for key in block])
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ESSA É A FUNCTION...
+
+
+
+
+
+
+    E O CALL FICA ASSIM:
+
+
+
+
+
+        previous_block = blockchain[-1]
+    hashed_block = hash_block(previous_block)    
+    print(hashed_block)
+    block = {'previous_block_hash': hashed_block,
+
+
+
+
+
+
+
+
+
+
+
+----> MAS PQ FIZEMOS ESSE OUTSOURCING?
+
+
+
+
+
+
+
+É PQ ESSA LÓGICA DE 'HASH' SERÁ REPETIDA, SERÁ USADA TAMBÉM QUANDO 
+
+
+FIZERMOS O 'VERIFY' DE NOSSOS BLOCKS, 
+LÁ 
+
+NO WHILE LOOP...
+
+
+
+
+
+
+
+
+
+
+
+
+A FUNCTION DE 'VERIFY_CHAIN' 
+
+tvz fique assim:
+
+
+
+
+
+
+
+def verify_chain():
+    '''VERIFY THE CURRENT BLOCKCHAIN AND RETURN TRUE IF VALID, FALSE IF INVALID'''
+    is_valid = True
+    for block_index in range(len(blockchain)):
+        if block_index == 0:
+            continue
+       
+        elif hash_block(blockchain[block_index - 1]) == blockchain[block_index]['previous_block_hash']:
+            print('true')
+            print(blockchain, 'SUCCESS')
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        # block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+ESTA É A PARTE IMPORTANTE:
+
+
+
+
+        elif hash_block(blockchain[block_index - 1]) == blockchain[block_index]['previous_block_hash']:
+
+
+
+
+
+
+
+
+
+
+
+-- MEU CÓDIGO ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+def verify_chain():
+    '''VERIFY THE CURRENT BLOCKCHAIN AND RETURN TRUE IF VALID, FALSE IF INVALID'''
+    is_valid = True
+    for block_index in range(len(blockchain)):
+        if block_index == 0:
+            continue
+       
+        elif hash_block(blockchain[block_index - 1]) == blockchain[block_index]['previous_block_hash']:
+            print('true')
+            print(blockchain, 'SUCCESS')
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        # block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS O PROFESSOR REALMENTE REESCREVEU TUDO ISSO, DO ZERO...
+
+
+
+
+aí ele começou com este código:
+
+
+
+
+
+
+
+
+def verify_chain():
+
+    for block in blockchain:
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... MAS AÍ ELE USOU ALGO NOVO COM ESSA VARIABLE/LIST DE 'BLOCKCHAIN':
+
+
+
+
+
+--> ele usou a função 'enumerate()',
+
+
+
+que é um WRAPPer que se vocÊ wrappa ao redor de uma LIST,
+
+
+ELE _ TE DÁ DE VOLTA__ UMA TUPLE__ COM __ 
+
+2 
+
+
+TIPOS DE INFO... -----> ELE VAI TE DAR DE VOLTA:
+
+
+
+
+
+
+1) O INDEX DESSE ELEMENT 
+
+
+
+
+2) O ELEMENT EM SI...
+
+
+
+
+
+
+
+
+PARA A UTILIZAR, ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+def verify_chain():
+
+    for block in enumerate(blockchain):
+
+
+
+
+
+
+
+----------------
+
+
+
+
+
+
+
+
+
+-> OK.... SE WRAPPAMOS NOSSO 'BLOCKCHAIN' com esse 'enumrate',
+
+
+MUDAMOS O QUE NOS É RETORNADO PARA CADA 'BLOCK', POR ISSO 
+
+
+TROCAMOS A ESTRUTURA PARA QUE FIQUE UM TUPLE NA ESQUERDA,
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+for (index, block) in enumerate(blockchain):
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O PROFESSOR ESCREVE ESSES 2 VALORES PARA O ELEMENT __ PQ _ ELE VAI PRECISAR __ DOS 2....
+
+
+
+
+
+
+
+
+
+
+--> isso feito, o professor vai fazer aquele check que impede erros 
+
+relativos ao PRIMEIRO BLOCK (que não vai ter nenhum block a ser comparado, pq é o primeiro, por isso o skippamos):
+
+
+
+
+
+
+
+
+
+def verify_chain():
+
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+    
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+def verify_chain():
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        else 
+
+
+
+
+
+
+
+
+---> SE PASSAMOS POR ESSE CHECK DO INDEX SER 0,
+
+
+
+
+VAMOS PARA O CASE DE VERIFY A BLOCKCHAIN,
+
+
+
+EM QUE 
+
+
+
+
+VAMOS QUERER 
+
+
+
+
+
+
+
+
+
+
+COMPARAR 
+
+
+if 
+
+
+block['previous_block_hash'] -------> SABEMOS QUE TODO BLOCK É UM DICTIONARY, E QUE TODO BLOCK TEM ESSA KEY AÍ, QUE PODE SER ACESSADA ASSIM...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+def verify_chain():
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        if block['previous_block_hash'] == hash_block(blockchain[index - 1]):
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, O CÓDIGO FICOU BEM PARECIDO COM O MEU
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+def verify_chain():
+    is_valid = True
+    for (index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        if block['previous_block_hash'] == blockchain[index]:
+            print('valid block')
+        else:
+            print('invalid block')
+            is_valid = False
+    return is_valid
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCê TIVER _ A BLOCKCHAIN __ INTEIRA,
+
+VOCê PODE OVERWRITTAR ELA INTEIRA,
+
+
+
+
+
+MAS _  MAIS TARDE__ VAMOS TER UMA 'NODE DE BLOCKCHAIN INSTANCES',
+
+
+e elas poderão 'check each other',
+
+o que 
+impedirá esse processo..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... AGORA ESTAMOS FAZENDO ESSA VALIDATION....
+
+
+
+
+
+
+
+
+--> NO CASE DE NEGÓCIOS NÃO SEREM COMPATÍVEIS,
+
+
+
+
+
+
+DEFINIMOS AQUELA VARIABLE COMO FALSE,
+
+E AÍ RETORNAMOS 
+
+
+
+
+A VARIABLE...
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... ESSA É A NOVA LÓGICA DE 'VERIFY_CHAIN',
+
+QUE 
+
+
+TIRA VANTAGEM DE TUPLES _ E _ DE NOSSO NOVO 'HASHING METHOD'..
+
+
+
+
+
+
+
+
+
+
+
+
+-> VAMOS QUERER CHAMAR ISSO LA´NO NOSSO WHILE LOOP, COISA BEM NORMAL...
+
+
+
+
+
+
+
+
+--> AGORA DEEVMOS VER SE NOSSO 
+
+
+
+METHOD DE HACKING AINDA FUINCIONA.. .--> 
+
+
+
+
+
+
+
+
+
+--> FAZEMOS UNS AJUSTES,
+
+FAZEMOS COM QUE ELE __ ALTERE__ O VALOR __ DAS TRANSACTIONS __ 
+
+
+
+   NA NOSSA BLOCKCHAIN... -> E SE ELE FAZ ISSO, NOSSO MECANISMO DE SEGURANÇA AGE,
+
+
+   INTERROMPENDO A EXECUÇÃo..
+
+
+
+
+
+
+
+
+
+
+   PRONTO, DEU CERTO, E FICOU ASSIM O CÓDIGO:
+
+
+
+
+
+
+
+   def verify_chain():
+    is_valid = True
+    print(blockchain, 'BCHAIN')
+    for (index, block) in enumerate(blockchain):
+        # print(block['previous_block_hash'] == blockchain[index - 1], 'LINE2151')
+        if index == 0:
+            continue
+        if block['previous_block_hash'] == hash_block(blockchain[index - 1]):
+            print('valid block')
+        else:
+            print('invalid block')
+            is_valid = False
+    return is_valid
+            
+    
+
+
+
+
+
+
+
+
+
+
+    -------------------------
+
+
+
+
+
+----> não, mas isso ainda não está funcionando bem... -0-> agora está...
+
+
+
+
+
+
+
+
+
+
+--> MAS TENHO OUTRO __ PROBLEMA _ NO CÓDIGO... --> SE VOCê __ MINERA_ 1 BLOCK,
+
+
+
+
+
+nada dá errado... ---_> mas se vocÊ tenta ADICIONAR UM NOVO BLOCK COM ESSA NOVA TRANSACTION, O CÓDIGO DÁ ERRO....
+
+
+
+
+
+
+
+
+
+
+----> agora devo testar se o hacking trigga o mecanismo de segurança...
+
+
+
+
+
+
+
+
+
+
+
+
+--> acho que sei a razão disso..... -> é pq estou fazendo 'clear' do array de 'open_transactions'
+
+
+
+
+a cada MINE de um novo block.... --> isso está quebrando o fluxo do programa.... (pq está alterando os hashes)..
+
+
+
+
+
+
+
+
+
+
+
+--> certo, consertei...
+
+
+
+
+
+
+
+
+
+
+
+--> agora deixa ver se o hacking vai dar errado... 
+
+
+
+
+
+
+
+
+
+--> estou com um erro fracassado, este aqui:
+
+
+
+
+No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->OK, DEU CERTO.... --> automaticamente somos logged out se 
+
+
+
+
+
+nós tentamos alterar o 
+
+
+
+
+valor de transactions/valor de alguma propriedade de um dos blocks de nossa blockchain (mecanismo de segurança)..
+
+
+
+
+
+
+
+-> VAMOS MELHORAR ISSO AO LONGO DO CURSO, MAS ISSO JÁ É UMA CORE FEATURE FUNCIONANDO....

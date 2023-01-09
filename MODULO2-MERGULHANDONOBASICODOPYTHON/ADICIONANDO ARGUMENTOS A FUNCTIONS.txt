@@ -1,0 +1,367 @@
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS SOBRE COMO FUNCTIONS SÃO ESCRITAS (e funcionam) 
+EM GERAL...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+def greet():
+    print('Hello')
+
+
+
+
+
+
+
+
+
+
+    greet()
+    greet()
+
+
+
+
+
+
+
+---> MAS UMA FEATURE NICE DAS FUNCTIONS 
+
+
+
+
+
+É QUE ELAS PODEM FAZER MT MAIS DO QUE PENSAMOS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELAS PODEM:
+
+
+
+
+
+
+1) RECEBER 'ARGUMENTS'/PARAMETERS ENTRE OS "()' do lado da function name...
+
+
+
+
+
+
+
+
+
+
+
+
+-> PODEMOS USAR ESSES ARGUMENTOS DO LADO DE DENTRO DA FUNCTION....
+
+
+
+
+
+
+
+
+--> SE FORMOS CHAMAR ESSA FUNCTION,
+
+PRECISAMOS 
+
+
+
+PASSAR 
+
+
+
+ESSES PARÂMETROS,
+
+
+
+
+PARA QUE SEJAM UTILIZADOS...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+print('STARTED')
+
+
+blockchain = [[1]]
+
+
+def add_value(transaction_amount):
+    blockchain.append([blockchain[-1], 5.3])
+    print(blockchain)
+
+
+
+
+
+
+add_value()
+add_value()
+add_value()
+add_value()
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+OK... AÍ O PROFESSOR FALA DE BLOCK SCOPE, QUE TAMBÉM EXISTE NO 
+
+PYTHON...
+
+
+
+
+
+
+eX:
+
+
+
+
+
+print('STARTED')
+
+
+blockchain = [[1]]
+
+
+def add_value(transaction_amount):
+    blockchain.append([blockchain[-1], transaction_amount])
+    print(blockchain)
+
+
+
+
+
+
+add_value()
+add_value()
+add_value()
+add_value()
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E É CLARO QUE TAMBÉM PODEMOS USAR ESSA VARIABLE/PARAMETER EM CÁLCULOS E QUAISQUER OUTRAS COISAS.....
+
+
+
+
+
+
+
+
+
+
+
+--------> AÍ PRECISAMOS CHAMAR 
+
+
+'add_value(número)'
+,
+
+
+
+
+
+
+
+
+
+
+
+como 
+
+
+
+
+
+'add_value(01902109210)'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... PASSAMOS ESSA DATA PARA 
+
+
+
+
+
+ESSES CALLS DESSA FUNCTION..
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+print('STARTED')
+
+
+blockchain = [[1]]
+
+
+def add_value(transaction_amount):
+    blockchain.append([blockchain[-1], transaction_amount])
+    print(blockchain)
+
+
+
+
+
+
+add_value(2)
+add_value(0.9)
+add_value(10.89)
+add_value(12012)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... AGORA ESTAMOS TIRANDO VANTAGEM DO PASS DE ARGUMENTS A FUNCTIONS...
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBS: FUNCTION DE 'append' -----> PODEMOS A CHAMAR EM UMA LIST,O QUE É BIZARRO--> ISSO TEM A VER COM OBJECTS E METHODS, QUE VEREMOS DEPOIS NESSE CURSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, 
+
+APPEND TAMBÉM É UMA FUNCTION QUE ACEITA UM POUCO DE INPUT...

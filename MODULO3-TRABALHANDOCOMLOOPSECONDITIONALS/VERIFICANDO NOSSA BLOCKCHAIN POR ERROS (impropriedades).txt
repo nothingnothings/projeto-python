@@ -1,0 +1,2805 @@
+
+
+
+
+
+
+
+
+--> VAMOS CONTINUAR O TRABALHO COM NOSSA BLOCKCHAIN:
+
+
+
+
+
+
+
+
+
+
+blockchain = []
+
+
+def get_last_blockchain_value():
+    """returns a blockchain"""
+    if(len(blockchain) > 0):
+        print('blockchain')
+        return blockchain[-1]
+
+    return None
+
+
+def get_user_choice():
+    """ Returns the input of the user (either 1 or 2) to proceed with the options """
+    return input('Please choose an option: ')
+
+
+def get_user_transaction_input():
+    """ Returns the input of the user (transaction amount) to proceed with the option 1 """
+    return float(input('Please enter your transaction amount: '))
+
+
+def add_value(transaction_amount, last_transaction=[1]):
+    """Faz append de um novo value, assim como o value do ÚLTIMO BLOCKCHAIN, à blockchain global do arquivo
+
+        Arguments:
+    :transaction_amount: The amount that should be added.
+    :last_transaction: The last blockchain transaction (default [1]).
+    """
+    if (last_transaction == None):
+        return blockchain.append([[1], transaction_amount])
+
+    blockchain.append([last_transaction, transaction_amount])
+
+
+def output_blockchain():
+    for block in blockchain:
+        print('Outputting block')
+        print(block)
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    print('q: Quit the program.')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    print('Choice registered')
+
+
+
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ADICIONA UMA NOVA OPÇÃO/COMANDO NO NOSSO PROGRAMA,
+
+
+
+de letra 'h' para 'hack' -->  
+
+
+SERÁ 
+
+
+'MANIPULATE THE CHAIN'...
+
+
+
+
+
+
+
+
+
+--> QUANDO SELECIONARMOS ISSO,
+
+
+
+
+VAMOS QUERER __ TENTAr__ MANIPULAR__ UMA 
+
+
+TRANSACTION ANTERIOR....
+
+
+
+
+
+
+
+
+
+
+
+--> E ESSE CHANGE _ É _ ALGO QUE __VAMOS PREVENIR,
+
+
+AO LONGO DESSE CURSO.... (pq esse é o nosso mecanismo de segurança...)
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ADICIONAR ESSE CASE,
+
+PRECISAMOS DE OUTRO ELIF BLOCK (else if block)...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    print('q: Quit the program.')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    elif(user_input == 'h'):
+        
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    print('Choice registered')
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+----> FAREMOS ESSE MANIPULATE POR MEIO DO ACESSO AO BLOCKCHAIN,
+
+
+e aí 
+
+
+
+
+
+
+acessaremos 
+
+
+um INDEX ESPECÍFICO... -----> ALTERAREMOS O __ PRIMEIRO_ 
+
+
+
+ELEMENTO, de index 0,
+
+
+QUE TROCARMEOS PARA FICAR 
+
+'2'...
+
+
+
+ex:
+
+
+
+
+
+
+blockchain = []
+
+
+def get_last_blockchain_value():
+    """returns a blockchain"""
+    if(len(blockchain) > 0):
+        print('blockchain')
+        return blockchain[-1]
+
+    return None
+
+
+def get_user_choice():
+    """ Returns the input of the user (either 1 or 2) to proceed with the options """
+    return input('Please choose an option: ')
+
+
+def get_user_transaction_input():
+    """ Returns the input of the user (transaction amount) to proceed with the option 1 """
+    return float(input('Please enter your transaction amount: '))
+
+
+def add_value(transaction_amount, last_transaction=[1]):
+    """Faz append de um novo value, assim como o value do ÚLTIMO BLOCKCHAIN, à blockchain global do arquivo
+
+        Arguments:
+    :transaction_amount: The amount that should be added.
+    :last_transaction: The last blockchain transaction (default [1]).
+    """
+    if (last_transaction == None):
+        return blockchain.append([[1], transaction_amount])
+
+    blockchain.append([last_transaction, transaction_amount])
+
+
+def output_blockchain():
+    for block in blockchain:
+        print('Outputting block')
+        print(block)
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    elif(user_input == 'h'):
+       elementIndex = input('Enter the number of the element you want to manipulate: ')
+       if (elementIndex.isnumeric()):
+           if (len(blockchain) >= int(elementIndex) + 1):
+               blockchain[int(elementIndex)] = [2]
+           else:
+               print('No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+       else:
+           print('Invalid index entered, please try again')
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    print('Choice registered')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> COLOQUEI UMA SÉRIE DE IF STATEMENTS E ELIFs,
+
+
+
+
+
+
+
+
+
+
+
+
+e agora o código está melhor... --> ele checa se O USER INPUTTOU LIXO (uma string que não é um number)
+
+
+
+e 
+
+
+aí pede pelo number do elemento que vocÊ vai querer alterar... --> 
+
+
+
+
+
+se não existe essa quantidade de elementos no array,
+
+
+
+ele retorna um error..
+.
+
+
+
+
+
+----------
+
+
+
+
+
+
+
+
+
+
+
+
+---> O PROFESSOR ESCREVE UM IF CHECANDO PELA LENGTH 
+
+
+
+
+da blockchain.... ---> é um check mais simples do que 
+
+
+
+
+o que eu escrevi,
+
+
+ficou tipo assim:
+
+
+
+
+
+
+
+
+
+elif user_choice == 'h':
+    if len(blockchain) >= 1:
+    blockchain[0] = [2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> OK.... VAMOS TENTAR MANIPULAR 1 ELEMENTO DE NOSSA BLOCKCHAIN...
+
+
+
+
+
+    Ex:
+
+
+
+
+
+
+
+
+
+
+
+Please choose an option: 2
+Outputting block
+[2]
+Outputting block
+[2]
+Outputting block
+[2]
+Outputting block
+[2]
+Outputting block
+[2]
+Choice registered
+[[2], [2], [2], [2], [2]]
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+h: Manipulate the chain
+q: Quit the program
+------------------------------
+Please choose an option:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, NOSSO CÓDIGO ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+
+----> AGORA ESTAMOS OVERWRITTANDO 1 ELEMENTO ESPECÍFICO DE NOSSA BLOCKCHAIN,
+
+o
+ que é uma 'falha de segurança'
+
+
+
+
+
+
+
+
+
+ --> ISSO É ALGO QUE PRECISAMOS__ PREVENIR__...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> NOSSA BLOCK CHAIN _________ PRECISA__ SER __ SAFE...
+
+
+
+
+
+
+
+
+
+
+ --> PRECISAMOS ADICIONAR ALGUM IF CHECK __ PARA __ iMPEDIR__ QUE 
+
+
+
+
+
+VALORES ANTERIORES SEJAM ALTERADOS...
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSA BLOCKCHAIN FINAL VAI TER UM MECANISMO DE SEGURANÇA CONTRA ISSO,
+
+MAS JÁ PODEMOS 
+
+
+IMPLEMENTAR UM MECANISMO DESSES AQUI, NO NOSSO CÓDIGO, agora....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> para isso,
+
+
+PRECISAMOS 
+
+
+
+
+PRIMEIRAMENTE __ ENTENDEr_ O QUE DEVEMOS 'SECURE'
+
+
+
+
+NA NOSSA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+--> O OBJETIVO É QUE 
+
+''SEMPRE QUE ADICIONARMOS UMA TRANSACTION,
+
+
+
+seja 
+
+
+essa transaction entre o PRIMEIRO E SEGUNDO BLOCK,
+
+OU ENTAÕ 
+
+
+
+
+TERCEIRO E QUARTO BLOCKS,
+
+etc etc',
+
+
+
+
+
+
+
+SEMPRE 
+
+
+
+
+
+_O  CONTEÚDO DA LIST_ ANTERIOR__ DEVERÁ 
+
+
+SER 
+
+'IGUAL AO CONTEÚDO DA PRÓXIMA LIST, COM EXCEÇÃO DO ÚLTIMO ITEM/block'...
+
+
+
+
+
+
+
+
+---->  PARA ISSO, vamos recorrer a ITERATIONS, provavelmente...
+
+
+
+
+
+
+
+
+
+
+--> QUANDO UMA NOVA TRANSACTION/block for adicionada,
+
+
+
+
+você precisa CHECAR SE TODAS AS COISAS DENTRO DESSE BLOCK/TRANSACTION 
+
+
+
+estão presentes na blockchain anterior...
+
+
+
+
+
+
+
+
+
+
+
+
+--> NA BLOCKCHAIN COMPLETADA,
+
+
+VAMOS ter essa comparação entre HASHES... (
+
+
+    o hash contido em 1 block anterior SERÁ CONTIDO NA LIST  
+
+
+    DO BLOCK POSTERIOR....
+)
+
+
+
+
+
+
+
+
+
+---> se for constatado que esse hash armazenado no block posterior 
+
+
+NÃO BATE com o hash do block anterior,
+
+
+
+
+
+A BLOCKCHAIN INTEIRA SERÁ TORNADA INVÁLIDA...
+
+
+
+
+
+
+---> NO NOSSO APP AQUI,
+
+
+
+
+PODEMOS __ SIMULAr__ ESSE COMPORTAMENTo...
+
+
+
+
+
+
+
+
+
+
+-> 
+
+
+
+
+
+
+NOSSA CHAIN SE PARECE ASSIM:
+
+
+
+
+
+
+1o block ---> [1], 3.5 
+
+
+
+
+
+
+
+
+2o block ---> [[[1], 3.5], 5.8 ]
+
+
+
+
+3o block --> [[[[1], 3.5], 5.8], 1.0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, ESSES ELEMENTOS VÃO SENDO INCLUÍDOS EM CADA LIST/BLOCK SUBSEQUENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA, O QUE QUEREMOS FAZER,
+
+É 
+
+'CHECK' 
+
+
+que cada BLOCK CONTÉM 
+
+
+
+O 'VALUE DO BLOCK ANTERIOR' ------> E SE O VALOR DO BLOCK ANTERIOR 
+
+
+FOR ALTERADO,
+
+
+
+ESSES 
+
+2 VALORES NÃO SERÃO 'EQUAL'...
+
+
+
+
+
+
+
+
+
+
+
+----> BASTA, ENTÃO, 
+
+
+
+CHECAR:
+
+
+
+''DOES THE VALUE CONTAIN THE _ LAST__ VALUE_ AS A __ FIRST ___ ELEMENT?'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE É O CHECK QUE QUEREMOS IMPLEMNTAR....
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS IMPLEMENTAR ISSO ATRAVÉS DE UM LOOP,
+
+
+
+
+
+PQ PODEMOS __ TENTAR FAZER LOOP _ POR DENTRO DE TODOS OS BLOCKS... --> por meio disso,
+
+
+
+
+PODEMOS __ GARANTIR QUE _ SOMOS CAPAZES __ 
+
+
+
+
+
+
+DE 'ALTERAR NOSSA BLOCKCHAIN'
+
+
+
+
+sem nós 
+
+
+
+nem mesmo reconhecermos isso...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOLTAMOS AO NOSSO CÓDIGO, E ADICIONAMOS UMA NOVA FUNCTION,
+
+
+QUE SERÁ CHAMADA DE 'def verify_chain():'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NESSA FUNCTION TEREMOS UM __ LOOP __ QUE __ VAI ATRAVÉS DE TODA A CHAIN, E AÍ VAI CHECAR SE 
+
+
+
+
+ELA É VÁLIDA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+começamos assim:
+
+
+
+
+
+
+
+
+
+
+
+
+dev verify_chain():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUEREMOS CHECAR SE 'THE FIRST ELEMENT OF A GIVEN BLOCK' 
+
+
+FAZ MATCH COM 
+
+
+
+
+O __ VALOR _ DE TODO O BLOCK ANTERIOR...
+
+
+
+
+
+
+
+
+-> ok.... mas para fazer isso, não será tão fácil...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, VAMOS PRECISAR DE UM FOR LOOP....
+
+
+
+
+
+
+
+
+
+
+COMEÇO ASSIM:
+
+
+
+
+
+
+def verify_chain():
+    for block in blockchain:
+        if (block == blockchain[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PRECISO DO INDEX DESSE 'BLOCK' que estou acessando no loop.... --. como posso conseguir esse valor?
+
+
+
+preciso de um operador...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+def verify_chain():
+    for block in blockchain:
+        if (block != blockchain[blockchain.index(block)]) {
+            print('Blockchain appears to be invalid, interrupting execution...')
+        }
+
+
+
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+    --> OK, MAS __ EM QUE__ LUGAR DE NOSSO CÓDIGO DEVEMOS RODAR ESSA FUNCTION?
+
+
+
+
+
+
+
+
+
+    --> provavelmente NO FINAL DO __ WHILE LOOP,
+
+
+
+    depois do execute do 'h'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> ok, mas isso não funcionou:
+
+
+
+    Please choose an option: 1
+Please enter your transaction amount: 3
+blockchain
+Choice registered
+[[[1], 1.0], [[[1], 1.0], 2.0], [[[[1], 1.0], 2.0], 3.0]]
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+h: Manipulate the chain
+q: Quit the program
+------------------------------
+Please choose an option: h
+Enter the number of the element you want to manipulate: 2
+Choice registered
+[[[1], 1.0], [[[1], 1.0], 2.0], [2]]
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+h: Manipulate the chain
+q: Quit the program
+------------------------------
+Please choose an option:
+
+
+
+
+
+
+
+
+
+------------------
+
+
+
+
+
+
+
+
+
+
+
+
+meu código não funcionou, por isso tenho que ver o código do professor...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ele começa assim:
+
+
+
+
+
+
+
+
+
+
+def verify_chain():
+    for block in blockchain:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> COMPARAR O PRIMEIRO VALUE DE 1 BLOCK COM 'TODO O LAST BLOCK'...
+
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+    
+1o block ---> [1], 3.5 
+
+
+2o block ---> [[[1], 3.5], 5.8 ]
+
+
+3o block --> [[[[1], 3.5], 5.8], 1.0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> aí o professor vai escrever assim:
+
+
+
+
+
+
+
+
+
+def verify_chain():
+    for block in blockchain:
+        if(block[0] == )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO, '''SE ESSE PRIMEIRO ELEMENTO DESSE BLOCK ESPECÍFICO NA BLOCKCHAIN''...
+
+
+
+
+
+
+
+
+
+
+-> ok, mas SE ISSO AÍ FOR IGUAL A __ O QUE?
+
+
+
+
+
+
+
+
+
+--> PRECISAMOS DO 'BLOCK' DA 
+
+
+__ ITERATION __ PASSADA, E NÃO DA ATUAL.... (para podermos comparar)....
+
+
+
+
+
+
+
+
+
+----> para isso, provavelmente teremos de ARMAZENAR UMA __ CÓPIA__ DA BLOCKCHAIN ANTIGA 
+
+NO NOSSO CÓDIGO DESSA FUNCTION... (será que é isso?)
+
+
+
+
+
+
+--> PROFESSOR EXPLICA QUE 
+
+
+
+'PRECISAMOS "KEEP TRACK"  DE 
+
+QUAL 
+
+
+
+ELEMENT NA NOSSA BLOCKCHAIN ESTAMOS OLHANDO, NO PRESENTE'..
+
+
+
+
+
+
+
+
+
+
+
+--> é por isso que ele adiciona uma variable de 
+
+
+de 
+
+
+'block_index',
+
+
+
+
+QUE TERÁ 
+
+UM 
+VALOR 
+DE 
+
+'
+0',
+
+
+
+
+INICIALMENTE...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+def verify_chain():
+    block_index = 0
+    for block in blockchain:
+        if(block[0] == )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ, ISSO FEITO,
+
+O PROFESSOR VAI QUERER FAZER __ CHECK DE 
+
+
+
+
+'if block[0] == blockchain[block_index - 1]' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... mas isso faz sentido?
+
+
+
+
+
+
+
+
+
+
+-> ISSO É BASICAMETNE UM CHECK DE 
+
+
+
+'POR ACASO O PRIMEIRO ELEMENTO DESSE NOVO BLOCK __ É IGUAL __ AO ÚLTIMO ELEMENTO 
+
+
+
+DO NOSSO ANTIGO BLOCKCHAIN?' 
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja, isso faz sentido... ------> 
+
+
+
+
+
+SE ESSE NEGÓCIO RETORNAR 'true',
+
+VAMOS QUERER _ PROSSEGUIR COM O CÓDIGO..
+
+
+
+
+
+
+
+
+
+--> SE ELE RETORNAR 'FALSE',
+
+
+
+vamos provavelmente querer parar tudo, por meio de 
+
+'sys.exit()'...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+def verify_chain():
+    block_index = 0
+    for block in blockchain:
+        if block[0] == blockchain[block_index - 1]:
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK..
+
+
+
+
+
+
+
+
+SE ISSO FOR TRUE,
+
+
+
+
+sabemos que o 'PREVIOUS BLOCK' é o valor que esperávamos/ we expected it to be...
+
+
+
+
+
+
+
+
+
+
+
+--> mas é claro que isso precisa ser checado POR TODOS OS BLOCKS, E NÃO SÓ POR
+
+
+
+
+1 ÚNICO BLOCK...
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE O PROFESSOR DEFINE UMA VARIÁVEL NO LADO DE FORA DESSE for loop,
+
+variável de 'is_valid', 
+
+QUE SERÁ DEFINIDA INICIALMENTE COMO 'True'....
+
+
+
+
+
+
+--> CASO ALGUM DOS BLOCKS NO LOOP se mostre como 'FALSO/not match',
+
+vamos querer 
+
+TROCAR O VALOR DESSE 'is_valid' para FALSE,
+e aí 
+o
+
+
+ __ RETORNAR_...
+
+
+
+
+
+
+ --> pq o 'verify_chain()'
+
+
+ VAI RETORNAR OU TRUE OU FALSE (quanto ao status de autenticidade da chain)..
+
+
+
+
+
+ --> esse resultado poderá ser usado PARA OU PROSSEGUIR COM A EXECUÇAÕ, OU A INTERROMPER.... (lá no while loop)
+
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+ def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block[0] == blockchain[block_index - 1]:
+
+
+
+
+
+
+
+-------------------
+
+
+
+
+
+
+--> SE ISSO for inválido, vamos trocar 
+
+
+'is_valid' para 'False'....
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+ def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block[0] == blockchain[block_index - 1]:
+            is_valid = True
+        else:
+            is_valid = False
+            break 
+    
+
+
+
+
+
+
+
+
+    -----------------------
+
+
+
+
+CERTO.... E SE O CASE DE 'FALSE' for atingido, imediatamente vamos querer fazer 'break'
+
+
+para fora do loop,
+
+
+pq NÃO EXISTIRÁ RAZÃO PARA CONTINUAR NO LOOP, SE JÁ SABEMOS QUE ELE É INVÁLIDO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok.... --> fazemos 'break' .. .
+
+
+
+
+
+
+
+
+
+------> DEPOIS, AO FINAL DO LOOP (de qualquer tipo de execucao, uma com invalidades ou não),
+
+VAMOS QUERER 
+
+FAZER RETURN DE 'is_valid'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+ def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block[0] == blockchain[block_index - 1]:
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        return is_valid
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO, MAS EM QUE LUGAR DE MEU CÓDIGO DEVO EXECUTAR ESSE 'verify_chain()'?
+
+
+
+
+
+
+
+
+
+
+
+-_> UÉ, TALVEZ NO MEU WHILE LOOP, BEM NO INÍCIO (na condição de 'while True' --> substituir o 'True')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block[0] == blockchain[block_index - 1]:
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        return is_valid
+
+
+
+
+# while True:
+while verify_chain():
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                blockchain[int(elementIndex)] = [2]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    print('Choice registered')
+    verify_chain()
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSA BLOCKCHAIN LOOPING LOGIC FICOU ASSIM:
+
+
+
+
+
+
+
+def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block[0] == blockchain[block_index - 1]:
+            is_valid = True
+        else:
+            is_valid = False
+            break
+        return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -------> QUEREMOS VERIFICAR__  ESSA CHAIN... -> 
+
+
+
+
+
+
+
+        1) sempre que ADICIONARMOS UMA NOVA TRANSACTION (é uma opção),
+
+
+
+
+
+
+        2) OU TALVEZ SEMPRE QUE ACABARMOS COM 'CHOICE REGISTERED'....
+
+
+
+
+        3) ou na própria condição do 'while loop' inicial, no lugar daquele 'True'... -------> mas isso não funciona.... --> se eu faço isso, meu código nem mesmo inicia (pq o verify_chain() executa e então retorna False, presumivelmente)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR OPTA PELA OPÇÃO 2,
+
+E AÍ FICAMOS ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                blockchain[int(elementIndex)] = [2]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    verify_chain() ////EIS O CÓDIGO EM QUESTÃO.
+    print(blockchain)
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+MAS QUANDO EXECUTARMOS NOSSO CÓDIGO, ISSO, POR SI SÓ, 
+
+NÃO VAI NOS AJUDAR MT... -----> é 
+
+
+pq 
+
+
+
+
+'verify_chain()'
+
+
+VAI RETORNAR TRUE OU FALSE,
+
+
+MAS ISSO POR SI SÓ NÃO VAI MUDAR COISA ALGUMA NO NOSSO CÓDIGO (vai ser 'thrown to the void')...
+
+
+
+
+
+
+
+
+
+--> para que isso REALMENTE FAÇA ALGUMA COISA, PRECISAMOS ESCREVER UM IF-ELSE __ DENTRO __ DE NOSSO WHILE LOOOP,
+
+
+QUE FAÇA BREAK EM CASO DE 'false' nesse 'verify_chain()'...
+
+
+
+
+
+
+
+
+
+
+
+-> ESCREVI ASSIM:
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                blockchain[int(elementIndex)] = [2]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    if(verify_chain()):
+        print('Blockchain is valid')
+    else:
+        print('Blockchain was found invalid.')
+        break
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> mas isso já me dá um erro quando adiciono 1 transaction.... 
+
+
+
+    'Blockchain was found invalid'....
+
+
+
+
+
+
+
+
+
+
+
+    --> é pq o negócio me retornou 'None',
+
+    e não 
+
+
+    'True' ou 'False', essa foi a razão do erro...
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> o negócio agora está retornando 'True/False', mas da maneira errada (Ele retorna 'False' quando adicionamos uma transaction, e não quando modificamos um elemento)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> PROFESSOR FALA DO PROBLEMA DE NOSSO CÓDIGo...
+
+
+
+
+
+
+
+
+
+
+
+    --> O PROBLEMA ESTÁ NESTE TRECHO AQUI:
+
+
+
+
+
+
+
+
+
+
+  if block[0] == blockchain[block_index - 1]:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> NESSE TRECHO ESTAMOS TENTANDO TAMBÉM __ 'CHECAR O ELEMENTO ANTERIOR NA BLOCKCHAIN'  -----> MAS O PROBLEMA 
+
+
+  É QUE 
+
+
+  __NO PRIMEIRO RUN DO CÓDIGO, NUNCA EXISTIRÁ 1 'ELEMENTO ANTERIOR', pq ele RECÉM STARTOU...
+
+
+
+
+
+
+
+
+
+
+
+
+  --> O JEITO QUE EU ENCONTREI PARA RESOLVER ISSO FOI ADICIONAR UM CHECK POR 'length' da blockchain,
+
+  tipo assim:
+
+
+
+
+
+def verify_chain():
+
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+         if(len(blockchain) > 1):
+            if block[0] == blockchain[block_index - 1]:
+                is_valid = True
+            else:
+                is_valid = False
+                break
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -------> MAS O JEITO QUE O PROF ENCONTROU FOI DIFERENTE,
+
+
+
+    ele 
+
+
+    só fez um check por 
+
+
+
+    'block_index == 0',
+
+
+    tipo 
+
+
+
+    if block_index == 0
+
+
+
+
+
+
+
+
+------> AÍ, NESSE IF CHECK,
+
+
+SE O BLOCK_INDEX FOR REALMENTE 0,
+
+
+VAMOS QUERER _ AUMENTÁ-LO/INCREMENTÁ-LO POR 1 UNIDADE.... (é algo bem comum em for loops/while loops)...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+def verify_chain():
+
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+         if block_index == 0:
+             block_index += 1
+            if block[0] == blockchain[block_index - 1]:
+                is_valid = True
+            else:
+                is_valid = False
+                break
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block_index == 0:
+            block_index += 1 # incrementa 1 unidade.
+            continue
+        if block[0] == blockchain[block_index - 1]:
+                print('true')
+                is_valid = True
+        else:
+            is_valid = False
+            break
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO, MAS EU AINDA ACHO QUE 'block_index' é um negócio meio spaghetti code...
+
+
+
+
+
+
+
+
+--> block_index serve para  'KEEP TRACK DE QUAL ELEMENT NA NOSSA BLOCKCHAIN ESTAMOS OLHANDO, NESSE FOR LOOP, NESSE MOMENTO' (por isso ele vai começar com 0, e sempre será incrementado)....
+
+
+
+
+--> é por isso que TEMOS QUE O INCREMENTAR A CADA ITERATION DO LOOP, TIPO ASSIM:
+
+
+
+
+
+        else:
+            is_valid = False
+            break
+        block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ DEVE COLOCAR ESSE INCREMENT DENTRO DO 'FOR LOOP', é claro:
+
+
+
+
+
+
+def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block_index == 0:
+            block_index += 1 # incrementa 1 unidade.
+            continue
+        if block[0] == blockchain[block_index - 1]:
+                print('true')
+                is_valid = True
+        else:
+            is_valid = False
+            break
+        block_index += 1
+    return is_valid
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+--> o professor também altera o 'if' em 
+
+
+
+''       if block[0] == blockchain[block_index - 1]:'''',
+
+
+
+
+
+PARA QUE 
+
+
+FIQUE COMO UM 
+
+'elif',
+
+
+PQ ISSO DEVERÁ SER UMA ALTERNATIVA AO PRIMEIRO BLOCK, AGORA...
+
+
+
+
+
+
+
+
+RESULTADO:
+
+
+
+
+def verify_chain():
+    block_index = 0
+    is_valid = True
+    for block in blockchain:
+        if block_index == 0:
+            block_index += 1 # incrementa 1 unidade.
+            continue
+        elif block[0] == blockchain[block_index - 1]:
+                print('true')
+                is_valid = True
+        else:
+            is_valid = False
+            break
+        block_index += 1 #sempre teremos de incrementar esse valor, para que nossa comparação ali em cima FUNCIONE....
+    return is_valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS UM CÓDIGO EM QUE __ PULAMOS__ A EXECUÇAÕ DE NOSSA LÓGICA PARA O PRIMEIRO BLOCK (por meio dquele if check de 'block_index == 0'...),
+
+
+
+
+
+
+E EM QUE SEMPRE VMAOS INCREMENTAR O BLOCK_INDEX POR 1... ('the index we are at') --> PRECISAMOS DESSE INDEX PARA __ DEDUZIR_ QUAL 
+
+É O INDEX DO 
+
+
+
+BLOCK ANTERIOR AO NOSSO (por meio da equação 'blockchain[block_index - 1]')
+
+
+
+
+
+
+
+
+
+
+
+
+--> E NÓS CORRETAMENTE DEDUZIMOS SE NOSSA CHAIN ESTÁ CORRETA OU NÃO...
+
+
+
+
+
+
+
+
+
+
+
+-_> MAS AGORA, SE TENTAMOS MANIPULAR NOSSA 
+
+
+BLOCKCHAIN,
+
+
+GANHAMOS UM ERRO, QUE É O COMPORTAMENTO QUE QUERÍAMOS ORIGINALMENTE...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+1: Add a new transaction value
+2: Display current blockchain
+h: Manipulate the chain
+q: Quit the program
+------------------------------
+Please choose an option: h
+Enter the number of the element you want to manipulate: 2
+true
+true
+False
+Blockchain was found invalid.
+[[[1], 1.0], [[[1], 1.0], 2.0], [2]]
+PS A:\projeto7-PYTHON\MODULO3-TRABALHANDOCOMLOOPSECONDITIONALS\novoprojeto2>
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO DE NOSSO LOOP FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)] = [float(elementValue)]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    if(not verify_chain()):
+        print(verify_chain())
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        break
+    else:
+        print('Blockchain is valid')
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo, agora só falta corrigir aquele erro de 
+
+
+
+
+''ah, você digitou uma string vazia, isso não é válido'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE VOCÊ QUISER CHECAR SE UMA VARIÁVEL É DO TYPE STRING,
+
+
+
+
+USE A FÓRMULA 
+
+
+
+isInstance(var, str)...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+def get_user_transaction_input():
+    """ Returns the input of the user (transaction amount) to proceed with option 1 """
+    user_transaction_input = input('Please enter your transaction amount: ')
+    if (user_transaction_input == '' or isinstance(user_transaction_input, str)):
+        return print('Please enter a valid option')
+    else:
+        return float(user_transaction_input)
+
+
+
+
+
+
+
+
+
+
+--> OUTRO PROBLEMA NO NOSSO CÓDIGO:
+
+
+
+
+
+SE EU COLOCO 'True' como value da transaction, ele é 'inserido', mas 
+
+
+aí 
+
+
+
+o valor no negócio fica como 'None'... --> para consertar isso, provavelmente 
+
+
+
+
+preciso usar 'isInstance'
+
+NOVAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> não, mas o problem é que TODOS OS VALORES ESTÃO SENDO COLOCADOS COMO 'None' agora...
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, AGORA FICOU BOM...:
+
+
+
+
+
+
+
+
+
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('h: Manipulate the chain')
+    print('q: Quit the program')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        if(tx_amount == None):
+            print('Please enter a valid value')
+        else: 
+            add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    elif(user_input == 'h'):
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)] = [float(elementValue)]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    if(not verify_chain()):
+        print(verify_chain())
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        break
+    else:
+        print('Blockchain is valid')
+    print(blockchain)
+    # print('Choice registered')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok... agora nosso código tem uma função básica de mecanismo de segurança,
+
+em que verifica-se 
+
+
+
+
+o valor anterior com o atual...
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO FUTURO TEREMOS TRANSACTIONS MAIS COMPLEXAS,
+
+MAS ESSA JÁ É UMA MANEIRA NICE DE FAZER ESSE CHECK....

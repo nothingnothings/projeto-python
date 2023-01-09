@@ -1,0 +1,2131 @@
+
+
+
+
+
+
+
+
+
+
+
+
+----> COM 'PYCRYPTO' instalado,
+
+
+é hora de O UTILIZAR NO NOSSO PROJETO...
+
+
+
+
+
+
+
+
+
+
+
+-------> VOCê _ TEM __ QUE SE ASSEGURAR__ QUE O TERMINAL/COMMAND PROMPT QUE VOCÊ ESTÁ USANDO PARA 
+
+
+
+
+__RODAR__ SEU PROJETO __ 
+
+
+
+ESTÁ COM __ 
+
+ o 
+ 'VIRTUAL ENVIRONMENT'
+
+ ATIVADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --------> COMO MENCIONADO ANTES NO CURSO,
+
+
+ ISSO _ _TAMBÉM __ SIGNIFICA QUE AGORA 
+
+
+ ESTAMOS 
+
+ 'KINDA' INTRODUZINDO UMA 'WALLET' DE VERDADE...
+
+
+
+
+
+
+
+
+
+ ------> ISSO PQ __ UMA WALLET, NO FINAL DAS CONTAS,
+
+
+ É NADA MAIS __ DO QUE  UM 
+
+ PAR 
+
+ 'PRIVATE-KEY - PUBLIC-KEY'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> SE POSSUÍMOS 1 DESSES PARES,
+
+
+ PODEMOS PARTICIPAR DA 'BLOCKCHAIN network',
+
+
+ pelo menos QUANDO O ASSUNTO É 'SEND TRANSACTIONs'...
+
+
+
+
+
+
+
+
+
+ -----> E, BEM, NÓS ESTAMOS CONSTRUÍNDO UMA 
+
+
+
+ BLOCKCHAIN EM QUE __ SEMPRE __ TEMOS A POSSIBILIADDE DE 
+
+
+ 'MINE NEW BLOCKS'...
+
+
+
+
+
+
+
+
+
+ -> PARA ISSO, O PROFESSOR CRIA UM NOVO 
+ 
+
+
+
+EM QUE _ O PROFESOSOR VAI _ _CRIAR UMA CLASS... -->  PQ ELE AINDA VAI SEGUIR 
+O 
+
+
+ESTILO
+
+'OOP' (object oriented approach) 
+
+
+
+DE DEFINIÇÃO/TRABALHO COM DE UM PROJETO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+class Wallet:   
+
+
+
+
+
+
+
+
+
+
+
+
+------> NA WALLET VAMOS DEFINIR UM CONSTRUCTOR, 
+
+
+COMO É O NORMAL...s
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+class Wallet:
+    def __init__(self):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.. AÍ, DENTRO DE ESSA CLASS,
+
+
+O PROFESOR VAI QUERER __ CRIAR/ADICIONAR __ UMA 
+
+KEY 
+
+'private' E UMA KEY __ PÚBLICA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO_, PARA CONSEGUIR __ fazer ISSO, ELE precisa ser _ CAPAZ _ DE FAZER 'GENERATE' de essas 2 keys...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA ISSO, ELE RAPIDAMENTE CRIA 1 METHOD, aqui, PARA __ FAZER ESSA 'GENERATION',
+
+
+
+
+SÓ PARA ___ MANTER o código de 
+
+
+
+
+
+
+'init' BEM MAIS __ CURTO... (pq É POSSÍVEL COLOCAR ESSE GENERATE DENTRO DO '__INIT'__'  )
+
+
+
+
+
+
+
+
+
+
+PARA ISSO, O PROFESSOR CRIA:
+
+
+
+
+
+
+
+
+def __init__(sel):
+
+
+
+def.generate_keys(self):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> DEPOIS DE ESSE 'generate_keys,
+'
+
+PROFESOR EXPLICA QUE __ ELE _ VAII USAR MAIS UMA COISA 
+
+interessanete lá 
+
+daquela PCAKAAGE (crtyytoQUE NÓS __ IMPORTAMOS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> só não sei se a anaconda realmente está aplicando o virtual environment no meu código...
+
+
+
+
+
+
+--> devo testar isso com algum código de 'PyCrypto'...
+
+
+
+
+
+
+
+
+
+
+
+--> FALHOU... --> preciso consertar esse negócio do virtual environment...
+
+
+
+
+
+
+
+
+
+
+
+--> consegui... --> é meio bugado, é necessário abrir o ___ CMD__ 
+
+
+
+
+NO TERMINAL DO VISUAL STUDIO CODE, E NÃO 
+
+
+
+O POWERSHELL... --> isso feito,
+ 
+deve-se navegar até o folder do seu projeto, e aí 
+
+inicializar o seu arquivo,....
+
+
+
+
+
+
+
+
+
+
+--> O OUTPUT NO TERMINAL FICA ASSIM:
+
+
+
+
+
+(myCoin) A:\projeto7-PYTHON\MODULO10-MODULES\novonovoprojeto14>
+
+
+
+
+
+
+
+
+
+
+-> devo prosseguir com a aula do professor...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> escrevemos uma class de 'Wallet' lá em 
+
+
+'wallet.py'...
+
+
+
+
+
+
+
+
+
+AÍ ESCREVO ASSIM:
+
+
+
+
+
+
+
+
+
+
+class Wallet:
+    def __init__(self):
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> DENTRO DO CONSTRUCTOR, 
+
+
+
+ VAMOS QUERER ADICIONAR UMA KEY 'PRIVATE' E UMA 'PUBLIC'...
+
+
+
+
+
+
+
+
+
+
+ --> para isso, precisamos ser capazes de fazer 'GENERATE' de essas keys..
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> ok... --> para isso,
+
+
+ o professor 
+
+
+ vai criar um NOVO METHOD,
+
+
+
+
+
+
+ dentro de 'Wallet',
+
+ que vai 
+
+
+
+
+
+ fazer essa generation aí....
+
+
+
+
+
+ ---> o prof coloca essa generation dentro 
+
+
+
+
+ de um method simplesmente 
+
+ para 
+
+
+ deixar 
+
+ o código 
+
+
+
+
+
+ do constructor mais leve/pequeno (mais legível)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+class Wallet:
+    def __init__(self):
+ 
+
+
+    def generate_keys(self):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DO 'generate_keys',
+
+
+
+O PROFESSOR VAI USAR ALGO DA PACKAGE DE 'Crypto',
+
+que obtivemos 
+
+através do INSTALL 
+
+
+LÁ NO PYTHON PACKAGE MANAGER ('anaconda')...
+
+
+
+
+
+
+
+
+
+
+
+--> pegamos lá da package de 'PycryptoDome'...
+
+
+
+
+
+
+
+
+
+
+
+--> Professor explica que a pacakge de 
+
+
+
+
+'Pycrypto'
+
+
+É 
+
+UMA PACKAGE __ SUPER ESTRANHA,
+
+
+
+e a pacakge que fazemos 'import from' 
+
+
+
+
+É UMA 
+
+PACKAGE QUE NÃO É CHAMADA DE 
+
+
+
+'PyCrypto',
+
+E SIM SÓ 
+
+
+'Crypto'..
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR N GOSTA MT DO NAMING DA PACKAGE DO 'pycrypto'...
+
+
+
+
+
+
+
+
+
+
+
+
+---> from Crypto.PublicKey import RSA 
+
+
+
+
+
+
+
+
+
+
+
+--> 'RSA' --> é um ALGORITMO UTILIZADO NO GENERATE E TRABALHO 
+
+
+COM 
+
+PUBLIC E PRIVATE KEYS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS TAMBÉM VAMOS PRECISAR DE UM __ NUMBER TOTALMENTE ALEATÓRIO (ou quase isso),
+
+
+POR ISSO 
+
+
+
+VAMOS IMPORTAR TAMBÉM A PACAKGE DE 
+
+
+
+
+'Crypto.Random'...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+from Crypto.PublicKey import RSA    ###'Crypto' --> é a package de 'Pycrypto'...
+                        ##### 'RSA' -> é um ALGORITMO USADO PARA O GENERATE E TRABALHO COM PUBLIC E PRIVATE KEYS...
+
+
+
+import Crypto.Random   ###gera um número realmente aleatório, supostamente....
+
+
+import binascii
+
+
+
+
+
+
+
+
+
+
+class Wallet:
+    def __init__(self):
+
+
+
+
+    def generate_keys(self):
+        
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ISSO FEITO, VOLTAREMOS ATÉ 'generate_keys'
+
+
+E
+ ENTÃO 
+
+
+ ESCREVEREMOS 
+
+
+ A LÓGICA 
+
+
+
+
+ 'RSA.generate' ----> dentro 
+
+
+
+
+
+ 
+
+
+
+ 
+
+PRIMEIRAMENTE VAMOS 
+
+PASSAR 
+OS 
+
+'bits' 
+
+QUE 
+
+
+VAMOS QUERER GERAR...  ------> QUANTO MAIOR O NÚMERO, MAIOR A SEGURANÇA,
+
+
+MAS DEMORA MAIS TEMPO PARA ESSES 'bits' serem gerados...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+from Crypto.PublicKey import RSA    ###'Crypto' --> é a package de 'Pycrypto'...
+                        ##### 'RSA' -> é um ALGORITMO USADO PARA O GENERATE E TRABALHO COM PUBLIC E PRIVATE KEYS...
+
+
+
+import Crypto.Random   ###gera um número realmente aleatório, supostamente....
+
+
+import binascii
+
+
+
+
+
+
+
+
+
+
+class Wallet:
+    def __init__(self):
+
+
+
+
+    def generate_keys(self):
+        RSA.generate(1024) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --------> COMO SEGUNDO PARÂMETRO DE 
+
+    '.generate()',
+
+
+
+    PRECISAMOS __ de uma __ RANDOM FUNCTION.... ----> essa function 
+
+
+
+
+    VAMOS PEGAR LÁ DE 'Crypto.Random',
+
+    pq
+
+    ela encaixa direitinho...
+
+
+
+
+
+
+
+
+
+
+
+
+    --> para conseguir uma RANDOM FUNCTION 
+
+
+
+    nesse slot aí,
+
+
+    o professor 
+
+    chama 
+
+
+
+
+
+    'Crypto.Random.new()' 
+
+
+
+
+
+----> ISSO  É UM METHOD QUE NOS DÁ UMA FUNCTION DESSAS, FUNCTION 'random'... ->  
+
+
+
+
+
+
+
+
+
+MAS NÃO É SÓ ISSO... --> PARA CONSEGUIR FAZER ESSA FUNCTION FUNCIONAR,
+
+precisamso 
+
+
+
+chainar '.read()' 
+
+
+em 'new()'..  ------> O READ VAI ESSENCIALMENTE 'PEGAR ESSA RANDOM FUNCTION QUE É GENERATED' 
+
+
+E ENTÃO VAI 
+
+__ A PASSAR___ ao '.generate()'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+o número '1024'
+
+
+
+NÃO SE REFERE AO NÚMERO DE CARACTERES DE NOSSA KEY,
+
+E SIM 
+
+AO 
+
+'NÚMERO DE BITS'  ------> 
+
+
+
+
+
+
+
+
+
+
+
+essa key criada com 'RSA.generate()'
+
+
+
+SERÁ _ A NOSSA __ PRIVATE_KEY,
+
+
+
+
+
+
+
+por isso 
+
+
+
+a armazenamos 
+
+
+
+
+na variable 
+
+'private_key'..
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from Crypto.PublicKey import RSA    ###'Crypto' --> é a package de 'Pycrypto'...
+                        ##### 'RSA' -> é um ALGORITMO USADO PARA O GENERATE E TRABALHO COM PUBLIC E PRIVATE KEYS...
+
+
+
+import Crypto.Random   ###gera um número realmente aleatório, supostamente....
+
+
+import binascii
+
+
+
+
+
+
+
+
+
+
+class Wallet:
+    def __init__(self):
+
+
+
+
+    def generate_keys(self):
+     private_key = RSA.generate(1024) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora...
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... MAS COMO MENCIONADO NA AULA PASSADA,
+
+
+PRECISAMOS __ TAMBÉM DE UMA 'PUBLIC_KEY' ... ------> a public 
+
+KEY __ É 
+
+GERADA 
+
+
+
+
+__JUNTO __ DA 'private_key',
+
+
+
+PQ 
+
+
+
+_UTILIZA A PRIVATE_KEY NA SUA FORMAÇAÕ...
+
+
+
+
+
+
+
+
+
+
+---------> OS 2 SÃO INTRINSECAMENTE CONECTADOS, A PRIVATE E A PUBLIC...
+
+
+
+
+
+
+
+
+
+
+
+----> para isso,
+ 
+ PARA __ CONSEGUIR __ A PUBLIC KEY A PARTIR DA PRIVATE KEY (derivação),
+
+
+
+ O PROFESSOR 
+
+
+
+
+ ESCREVE 
+
+
+
+ 'public_key = private_key.publickey()' 
+
+
+ (
+
+
+     PQ A NOSSA 'Private_key'
+
+
+     POSSUI UM METHOD QUE __ REALMENTE __ 
+
+
+
+     NOS RETORNA UMA 'PUBLIC_KEY',
+
+     de forma extremamente conveniente...
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ESSA COMBINAÇÃO AÍ,
+
+
+ ESSE COMBO DE 2 LINHAS,
+
+ É UM 
+
+
+ COMBO MT IMPORTANTE...
+
+
+
+
+
+
+
+
+ 
+
+
+
+class Wallet:
+    def __init__(self):
+
+
+
+
+    def generate_keys(self):
+        private_key = RSA.generate(1024) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora...
+        public_key = private_key.publickey()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> a public e a private key realmente 'PERTENCEM UMA À OUTRA'... --> SÓ FUNCIONAM JUNTAS....
+
+
+
+
+
+
+
+
+
+
+
+--> NESSE METHOD DE 'generate_keys',
+
+
+VAMOS QUERER __AS  RETORNAR... 
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR EXPLICA  QUE VAMOS QUERER AS RETORNAR EM UM FORMATO DE STRING...
+
+
+
+
+
+
+
+
+
+--> VAMOS QUERER RETORNAR EM UM FORMATO DE STRING, EM PROVAVELEMNTE __ UMA TUPLE... 
+
+
+
+
+
+
+
+
+----> OK.... MAS UM PROBLEMA É QUE __ 
+
+
+AS 2 KEYS ESTÃO EM UM FORMATO 'BINARY'... -----> PRECISAMOS AS CONVERTER..
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+IMPORTAMOS  ___OUTRA PACKAGE QUE FAZ PARTE DA LIBRARY STANDARD,
+
+QUE É A CHAMADA 
+
+
+
+'binascii'
+
+
+
+
+
+
+
+
+
+
+
+
+--> a 'binascii' NOS PERMITE CONVERTER BINARY DATA __ EM ASCII...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NO RETURN STATEMENT de 'generate_keys',
+
+
+O PROFESSOR REALMENTE VAI QUERER RETORNAR UMA TUPLE...
+
+
+
+
+
+
+
+
+
+--> ele escreve assim:
+
+
+
+
+
+
+
+
+
+
+    def generate_keys(self):
+        private_key = RSA.generate(1024) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora...
+        public_key = private_key.publickey()
+        return ()
+
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+--> O PRIMEIRO ELEMENTO SERÁ 
+
+
+
+
+
+A VERSÃO 'STRING' DA PRIVATE_KEY,
+
+
+
+por isso o professor usa 
+
+
+'binascii',
+
+
+
+E AÍ 
+
+O METHOD DE 
+
+
+'.hexlify' 
+
+
+
+
+
+
+
+
+
+
+----> O METHOD 'hexlify'
+
+
+RETORNA __ UMA  __ REPRESENTAÇÃO HEXADECIMAL 
+
+
+
+
+de uma data binary...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+        private_key = RSA.generate(1024) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora... ---> quer dizer que esse primeiro parâmetro é a 'LENGTH DE NOSSA KEY'...
+        public_key = private_key.public_key()   ###ESSE É UM METHOD __ QUE __ RETORNA/NOS DÁ __ A 'public key' A PARTIR _ DA PRIVATE KEY...  (a public key é NECESSARIAMENTE CRIADA A PARTIR DA PRIVATE KEY)..
+
+
+        ###binascii.hexlify() -----> É UM METHOD QUE CONVERTE 'binary data' EM REPRESENTAÇÕES HEXADECIMAIS... (É O PRIMEIRO PASSO PARA CONSEGUIRMOS CONVERTER NOSSAS KEYS, QUE ESTÃO EM BINARY DATA FORMAT, em STRINGS)....
+
+
+
+
+
+
+
+
+
+
+----------> vamos querer chamar esse 
+
+
+
+
+binascii.hexlify()
+
+
+
+EM CIMA 
+
+
+de 
+'private_key',
+
+
+
+
+
+POR ISSO ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+
+binascii.hexlify(private_key)...
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO COMPLETO FICA ASSIM:
+
+
+
+
+
+
+
+
+
+class Wallet:
+    def __init__(self):
+
+
+
+
+    def generate_keys(self):
+        """CREATES OUR PRIVATE AND PUBLIC KEYS; the public key is built upon the private key, and its job is to identify that its corresponding private_key is in a transaction, valid transaction. 
+        As both keys will be produced in binary formats, we convert them to strings using the 'binascii' package """
+        
+        private_key = RSA.generate(1024) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora... ---> quer dizer que esse primeiro parâmetro é a 'LENGTH DE NOSSA KEY'...
+        public_key = private_key.public_key()   ###ESSE É UM METHOD __ QUE __ RETORNA/NOS DÁ __ A 'public key' A PARTIR _ DA PRIVATE KEY...  (a public key é NECESSARIAMENTE CRIADA A PARTIR DA PRIVATE KEY)..
+
+
+        ###binascii.hexlify() -----> É UM METHOD QUE CONVERTE 'binary data' EM REPRESENTAÇÕES HEXADECIMAIS... (É O PRIMEIRO PASSO PARA CONSEGUIRMOS CONVERTER NOSSAS KEYS, QUE ESTÃO EM BINARY DATA FORMAT, em STRINGS)....
+
+        return (binascii.hexlify(private_key))
+
+
+
+
+
+
+
+
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... MAS SÓ ISSO _ AINDA__ NÃO É O SUFICIENTE...
+
+
+
+
+
+
+
+
+
+--> sim, nossa 'private_key' está em um formato binary DATA,
+
+
+MAS __ ESSA VARIABLE _ AINDA TEM OUTRO METHOD, que podemos chamar (e devemos)....
+
+
+
+
+
+
+--> é o method de '.exportKey()' ------->  DENTRO DESSE METHOD,
+
+
+
+precisamso __ 
+
+
+
+
+
+ESPECIFICAR UM FORMATO DE EXPORTAÇÃO de essa key... -> 
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+exportKey(format=)
+
+
+
+
+
+
+
+
+
+---> esse method é usado para REALMENTE TERMOS A KEY EM MÃOS (o seu valor exato)....
+
+
+
+
+
+
+
+
+
+
+
+
+--> em 'format', específicamos o formato do export... -> como QUEREMOS QUE ela seja __ MANTIDA/exportada 
+
+
+
+em um formato 'BINARY',
+
+para que consiga ser ENCAIXADA no method de ' binascii.hexlify()',
+
+
+
+
+
+NÓS COLOCAMOS A STRING 'DER' como parâmetro...
+
+
+
+
+
+
+
+O CÓDIGO FICA ASSIM:
+
+
+
+
+
+    def generate_keys(self):
+        
+        
+        private_key = RSA.generate(1024) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora... ---> quer dizer que esse primeiro parâmetro é a 'LENGTH DE NOSSA KEY'...
+        public_key = private_key.public_key()   ###ESSE É UM METHOD __ QUE __ RETORNA/NOS DÁ __ A 'public key' A PARTIR _ DA PRIVATE KEY...  (a public key é NECESSARIAMENTE CRIADA A PARTIR DA PRIVATE KEY)..
+
+
+       
+
+        return (binascii.hexlify(private_key.exportKey(format='DER')))
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+return (binascii.hexlify(private_key.exportKey(format='DER')))    ###tuple com nossa PRIVATE E PUBLIC KEYS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.. AGORA PODEMOS PEGAR ESSA REPRESENTAÇÃO HEXADECIMAL de nossa binary data 
+
+E CHAMAR 
+
+
+'.decode('ascii')" 
+
+
+
+
+
+
+_ PARA __ 
+
+ENTÃO __ FINALMENTE__ TRANSFORMAR ESSA 'HEXADECIMAL DATA'
+
+
+
+em 'ASCII CHARACTERS',
+
+
+em uma STRING,
+
+
+
+para que então consigamos trabalhar...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+      ###finalmente, chamamos '.decode('ascii')' sobre ESSE RESULTADO INTEIRO __ para __ CONSEGUIRMOS CONVERTER ESSA REPRESENTAÇLAÕ _ HEXADECIMAL __ EM ASCII DATA (uma string) QUE REPRESENTA NOSSA KEY... -> é com essa string que trabalharemos...
+        return (binascii.hexlify(private_key.exportKey(format='DER')).decode('ascii')) 
+
+
+
+
+
+
+
+
+
+----> COMO É O FORMATO DE HEXADECIMAL CHARACTERS?
+
+
+
+
+
+
+
+
+
+A DATA FICA TIPO ASSIM:
+
+
+
+
+
+AF 21 F4 31 CD 1F 31 21 KB 31 CD 1F 31 CD 89 46
+
+
+
+
+
+
+
+
+
+--> ISSO SÃO HEXADECIMAL CHARACTERS....
+
+
+
+
+
+
+
+
+
+
+-> O PROFESSOR MENCIONA QUE ESSA É UMA OPERAÇÃO certamente COMPLEXA, PORTANTO... ------> mas o que 
+
+
+
+interessa é que 
+
+
+
+esse código todo nos dá 
+
+uma representação em string de nossa key,
+
+
+
+
+
+
+QUE _ (IMPORTANTE!!!!) 
+
+
+MAIS TARDE PODEREMOS __ CONVERTER __ DE VOLTA EM UMA 'BINARY VERSION' (a versão binary data, original, de essa key)...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS _ É CLARO __ QUE PRECISAMOS FAZER A MESMA COISA COM A 'PUBLIC_KEY',
+
+
+
+POR ISSO O PROFESSOR COPIA _ O CÓDIGO __ 
+
+
+
+
+QUE USOU COM 'private_key',
+
+
+mas coloca a public no lugar da private..
+
+
+
+
+
+
+
+fica tipo assim:
+
+
+
+
+
+
+
+
+    def generate_keys(self):
+        
+        
+        private_key = RSA.generate(1024) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora... ---> quer dizer que esse primeiro parâmetro é a 'LENGTH DE NOSSA KEY'...
+        public_key = private_key.public_key()   ###ESSE É UM METHOD __ QUE __ RETORNA/NOS DÁ __ A 'public key' A PARTIR _ DA PRIVATE KEY...  (a public key é NECESSARIAMENTE CRIADA A PARTIR DA PRIVATE KEY)..
+
+
+       
+
+        return (binascii.hexlify(private_key.exportKey(format='DER')), binascii.hexlify(public_key.exportKey(format='DER')))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO INTEIRO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+class Wallet:
+    def __init__(self):
+
+
+
+
+    def generate_keys(self):
+        """CREATES OUR PRIVATE AND PUBLIC KEYS; the public key is built upon the private key, and its job is to identify that its corresponding private_key is in a transaction, valid transaction. 
+        As both keys will be produced in binary formats, we convert them to strings using the 'binascii' package """
+        
+        private_key = RSA.generate(1024) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora... ---> quer dizer que esse primeiro parâmetro é a 'LENGTH DE NOSSA KEY'...
+        public_key = private_key.public_key()   ###ESSE É UM METHOD __ QUE __ RETORNA/NOS DÁ __ A 'public key' A PARTIR _ DA PRIVATE KEY...  (a public key é NECESSARIAMENTE CRIADA A PARTIR DA PRIVATE KEY)..
+
+        ###binascii.hexlify() -----> É UM METHOD QUE CONVERTE 'binary data' EM REPRESENTAÇÕES HEXADECIMAIS... (É O PRIMEIRO PASSO PARA CONSEGUIRMOS CONVERTER NOSSAS KEYS, QUE ESTÃO EM BINARY DATA FORMAT, em STRINGS)....  
+
+        #### --> é claro que para CONSEGUIRMOS CONVERTER ISSO EM HEXADECIMAL POR MEIO DE 'hexlify', primeiro PRECISAMOS DE BINARY DATA...
+        ### as variables de 'public_key' estarão como binary data, sim, mas BD _INACESSÍVEL... --> para conseguirmos acessar essa data, precisamos
+        ##precisamos do method '.exportKey()' nessa private_key, que é o METHOD QUE NOS RETORNA A BINARY DATA CONTIDA NESSAS VARIABLES/keys...
+
+        ##mas para conseguirmos essa data binária, precisamos passar o parâmetro de 'format', que diz EM QUAL FORMATO VAMOS QUERER ESSAS KEYS...
+         
+        ##colocamos 'DER' --> der significa 'BINARY ENCODING'... --> precisamos disso para que o 'hexlify' consiga funcionar... (hexlify converte BINARY DATA EM HEXADECIMAL)..
+
+        ### return (binascii.hexlify(private_key.exportKey(format='DER')))    ###tuple com nossa PRIVATE E PUBLIC KEYS...
+
+        ###finalmente, chamamos '.decode('ascii')' sobre ESSE RESULTADO INTEIRO __ para __ CONSEGUIRMOS CONVERTER ESSA REPRESENTAÇLAÕ _ HEXADECIMAL __ EM ASCII DATA (uma string) QUE REPRESENTA NOSSA KEY... -> é com essa string que trabalharemos...
+        return (binascii.hexlify(private_key.exportKey(format='DER'), binascii.hexlify(public_key.exportKey(format='DER'))).decode('ascii')) 
+
+        ###ou seja, aqui será RETORNADA UMA _ TUPLE __ COM O FORMATO '(private_key, public_key)', as duas em formato STRING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ESTAMOS RETORNANDO ESSA TUPLE DE KEYS, SIM... --> agora basta EXECUTARMOS ESSE METHOD LÁ 
+
+
+NO NOSSO CONSTRUCTOR,
+
+
+
+
+e aí usar TUPLE DESTRUCTURING para pegar esses 2 valores e enfiar em 2 diferentes attributes 
+de 
+
+
+'Wallet'... (INSTANCE ATTRIBUTES, EU ACHO)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O CÓDIGO FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+class Wallet:
+    def __init__(self):
+        self.private_key, self.public_key = self.generate_keys()
+
+
+
+    def generate_keys(self):
+        """CREATES OUR PRIVATE AND PUBLIC KEYS; the public key is built upon the private key, and its job is to identify that its corresponding private_key is in a transaction, valid transaction. 
+        As both keys will be produced in binary formats, we convert them to strings using the 'binascii' package """
+        
+        private_key = RSA.generate(1024, Crypto.Random.new().read) ###quanto maior o número, maior a quantidade de bits e mais segura a key, mas mais tempo demora... ---> quer dizer que esse primeiro parâmetro é a 'LENGTH DE NOSSA KEY'...
+        public_key = private_key.public_key()   ###ESSE É UM METHOD __ QUE __ RETORNA/NOS DÁ __ A 'public key' A PARTIR _ DA PRIVATE KEY...  (a public key é NECESSARIAMENTE CRIADA A PARTIR DA PRIVATE KEY)..
+
+        return (self.convert_binary_to_string(private_key), self.convert_binary_to_string(public_key))
+
+
+
+    def convert_binary_to_string(self, key):
+        return binascii.hexlify(key.exportKey(format='DER'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> claro que eu fiz um outsourcing básico, por meio daquele method de 'convert_binary_to_string'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... 
+
+
+
+
+
+
+
+
+
+
+--> mas o código do professor ficou um pouco diferente...
+
+
+
+
+
+
+
+--> ficou tipo assim:
+
+
+
+
+
+
+private_key, public_key = self.generate_keys()
+
+self.private_key = private_key
+
+self.public_key = public_key
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> COM ISSO, ESTAMOS FAZENDO 'GENERATE' de essas keys e as ARMAZENANDO NESSE 
+
+OBJECT de 
+
+
+
+
+'wallet'...
+
+
+
+
+
+
+
+
+
+--> ESSE É UM BOM PRIMEIRO PASSO... --> MAS É CLARO QUE VAMOS QUERER FAZER MAIS DO QUE O SIMPLES GENERATE DESSAS KEYS:
+
+
+QUEREMOS AS UTILIZAR NAS NOSSAS TRANSACTIONS E NO NOSSO NODE...
+
+
+
+
+
+
+
+
+
+--> ANTES DE MAIS NADA,
+
+ENTRETANTO,
+
+
+DEVEMOS __ ASSEGURAR_ QUE CONSEGUIMOS __ PASSAR _ 
+
+
+
+ESSAS KEYS _ 
+
+AO USER DO NOSSO NODE... ----> PQ NO NOSSO APP, ESSA WALLET VAI FICAR __ ANEXADA AO NOSSO LOCAL NODE...
+
+
+
+
+
+
+
+
+
+-> temos que importar lá no node, portanto....

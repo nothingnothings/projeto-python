@@ -1,0 +1,319 @@
+
+
+
+
+
+
+
+
+SINTAXE BÁSICA E BLOCKCHAIN BÁSICA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS MAIS SOBRE O PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE BRINCAMOS UM POUCO MAIS COM O PYTHON NO TERMINAL E SABEMOS O BÁSICO DE COMO É UMA BLOCKCHAIN,
+
+
+
+
+é hora de 
+
+
+aprender
+ 
+ O BÁSICO 
+
+
+ sobre a sintaxe do python.... 
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS APRENDER SUAS CORE FEATURES E COMEÇAR A CONSTRUIR NOSSA 'BASIC BLOCK CHAIN'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> nesse módulo,
+
+ veremos:
+
+
+
+
+
+
+
+ 1) O REPL  vs FILES + IDE ------> OU SEJA, A 'FANTASIA' contra arquivos de verdade + IDE... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ IDE --> INTEGRATED DEVELOPMENT ENVIRONMENT...
+
+
+
+
+
+
+
+
+
+
+
+ 2) VEREMOS A LINGUAGEM DO PYTHON,
+ VAMOS 
+
+ TRABALHAR 
+
+
+
+
+ COM AS VARIABLES,
+
+ E VEREMOS QUAIS 
+ DATA 
+
+ TYPES 
+ PODEMOS 
+
+ ARMAZENAR NESSAS VARIABLES...
+
+
+
+
+
+--> também relembraremos o que são variables...
+
+
+
+
+
+
+
+
+
+
+
+--> SÓ COM VARIABLES NÕA PODEMOS FAZER MT COISA,
+
+
+
+POR ISSO ESTUDAREMOS 'OPERATORS'... --> 
+
+VEREMOS 
+
+QUAIS
+
+OPERATORS EXISTEM,
+
+E COMO PODEMOS OS UTILIZAR....
+
+
+
+
+
+
+
+--> CERTO... --> NÓS CONSTRUÍREMOS UMA BLOCK CHAIN NESSE CURSO.... ->
+
+
+
+
+
+E UMA BLOCKCHAIN, NO CASO, INCLUÍ UMA 'CHAIN',
+
+ou seja,
+
+
+
+
+MÚLTIPLAS PARTES DE 1 ÚNICA COISA... ------> É POR ISSO QUE 
+
+
+NESSE MÓDULO 
+
+VAMOS EXPLORAR:
+
+
+
+
+
+
+
+
+
+---> LISTS ----> VAMOS VER O QUE SÃO, E COMO TRABALHAMOS COM ELAS, EM PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ROUND-UP ESSE MÓDULO E ESCREVER 
+
+
+UM PROGRAMA QUE É UM POUCO MAIS ÚTIL DO QUE O QUE USAMOS ATÉ AGORA,
+
+
+
+
+
+
+
+VAMOS TAMBÉM VER:
+
+
+
+
+
+
+
+---> FUNCTIONS --> É UMA LANGUAGE CONSTRUCT MT ÚTIL, QUE USAREMOS AO LONGO DO CURSO...
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS E QUANTO à BLOCKCHAIN?
+
+
+
+
+
+
+
+--> NO FINAL DO MÓDULO, SEREMOS CAPAZES DE MANAGEAR UMA LISTA DE BLOCKS,
+
+
+
+
+
+____ E ___ CADA BLOCK__ VAI ACTUALLY __ CONTER UMA 'DATA',
+
+
+
+OU, NA VERDADE,
+
+UMA 
+'LIST OF DATA' --> ISSO SIGNIFICA QUE 
+
+
+
+JÁ 
+
+VAMOS COMEÇAR 
+
+
+A CONSTRUIR 
+
+
+
+NOSSOS 'COINS' 
+
+NESSE 
+
+MÓDULO,
+
+
+APESAR 
+
+DE 
+
+EM UMA 
+FORMA INCOMPLETA....
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM SEREMOS CAPAZES DE 'ADD'/'MINE' data NA NOSSA BLOCKCHAIN (adicionar novos blocos),
+
+
+
+E TAMBÉM 
+
+
+SEREMOS CAPAZES __ DE OUTPUTTAR_ NOSSA BLOCKCHAIN,
+
+PARA QUE 
+
+CONSIGAMOS 
+
+A VISUALIZAR...
+
+
+
+
+
+OK... É HORA DE COMEÇAR...

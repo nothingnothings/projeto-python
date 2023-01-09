@@ -1,0 +1,1879 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> de volta ao 'node.py',
+
+
+
+ADICIONAMOS UMA NOVA FUNCTION...
+
+
+
+
+
+
+
+
+
+-> ESSA FUNCTION SERÁ PARA FAZER O 'BROADCAST DE NOVOS BLOCKS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def broadcast_block():
+
+
+
+
+
+
+
+
+
+
+
+--> TERÁ UMA ROUTE DE 
+
+
+
+
+
+
+
+'/broadcast-block', methods=['POST']
+
+
+
+
+
+
+
+
+
+
+
+--> O METHOD SERÁ DE POST PQ 
+
+ESTAREMOS CRIANDO UM NOVO BLOCK 
+
+
+
+
+NOS PEER NODES.... (replicar a 'tela' do NODE ORIGINÁRIO)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O BROADCAST DE UM BLOCK PRESSUPÕE QUE ESSE BLOCK LÁ DO 'node originário'
+
+
+
+TERÁ DE SER EXTRAÍDO E 'POSTADO' 
+
+nessa route...
+
+
+
+
+
+
+
+
+->>>> LÁ NA ROUTE DE 'broadcast_transaction',
+
+
+
+começávamos assim:
+
+
+
+
+
+def broadcast_transaction():
+    values = request.get_json()
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> E AQUI FAREMOS A MESMA COISA;
+
+
+    VAMOS EXTRAIR O VALUE/data 
+
+
+    desse 'block' que 
+
+    foi 
+
+    farmado por aquele node...
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AÍ CHECAREMOS SE TEMSO _ TODA A DATA DE QUE PRECISAMOS:
+
+
+
+
+
+
+
+
+
+if not values:
+    response = {'message': 'No data found.'}
+    return jsonify(response), 400
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -----------> ok.... 
+
+
+
+
+
+
+
+    ISSO FEITO,
+
+
+
+TAMBÉM 
+
+
+PODEMOS TER O CASE EM QUE 'NENHUM' BLOCK' FOI DETECTADO,
+
+
+
+
+por isso escrevemos:
+
+
+
+
+
+
+
+
+if 'block' not in values:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    EX:
+
+
+
+
+
+
+
+    
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> se não temos esse block, queremosd retornar outra mensagem/response de erro:
+
+
+
+
+
+    
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> SE OBTIVE 
+
+
+
+    ESSE 
+
+    VALUE AÍ,
+
+
+    ele estará 
+
+    ARMAZENADO EM 
+
+
+
+    'values['block']' 
+
+
+
+
+
+    (
+
+        pq o objeto response É UMA __ DICT_...
+    )
+
+
+
+
+
+
+
+
+    eX:
+
+
+
+    
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+    
+    block = values['block']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ, O QUE QUEREMOS FAZER,
+
+
+É 
+
+CHECAR__ SE _o  INDEX__ DESSE 'INCOMING BLOCK',
+
+
+
+
+vindo lá 
+
+
+
+do OUTRO NODE,
+
+
+
+
+__ É __ MAIOR __ DO QUE 
+
+
+
+
+
+
+___ O INDEX__ DO ÚLTIMO BLOCK _ QUE TEMOS __ 
+
+
+
+NESSE 'PEER NODE'
+
+que 
+
+vai 
+RECEBER 
+
+ESSE BLOCK AÍ...  (mais precisamente, vamos querer checar se o INCOMING BLOCK É '''EXATAMENTE IGUAL AO __ NÚMERO DO INDEX DO LAST BLOCK DO PEER NODE, ACRESCIDO DE 1''' (pq como ele vai ser ADICIONADO, ele obrigatoriamente vai ser SÓ 1 NÚMERO ACIMA...))
+
+
+
+
+
+
+
+
+
+
+
+---> ok... SE NÓS ESTIVERMOS GANHANDO UM BLOCK CUJO INDEX É _ DISTINTO,
+
+
+
+
+
+
+
+
+
+POR EXEMPLO:
+
+
+
+
+
+1) cara A minerou block.. block de index 4...
+
+
+
+ 
+
+2) cara B recebeu a info de que o block de index 4 foi minerado, mas na sua blockchain o último block é de index 2...
+
+
+
+
+
+3) AQUI FOI CRIADO UM CONFLITO, QUE DEVERÁ SER SOLUCIONADO POR MEIO DOS 'CÓDIGOS DE RESOLUÇÃO DE CONFLITo' que o professor nos explicará...
+
+
+
+
+(
+
+    isso é algo que veremos DEPOIS...
+)
+
+
+
+
+
+
+
+
+
+--> é por isso que devemos 
+
+checar 
+
+
+
+
+
+
+if block['index']
+
+
+
+
+
+
+
+
+
+(
+    podemos checar o INDEX DO BLOCK PQ CADA 
+
+
+    OBJETO/DICT 'block' SEMPRE TEM 
+
+    UMA PROPRIEDADE 
+
+    INDEX,
+
+
+    PQ FOI ASSIM QUE O CRIAMOS,
+
+
+    ISSO VISTO LÁ NO SEU CONSTRUCTOR:
+
+
+
+class Block(Printable):
+    def __init__(self,  previous_block_hash='', index=0, processed_transactions=[], proof=100, timestamp=time()):
+        self.previous_block_hash = previous_block_hash
+        self.index = index
+        self.processed_transactions = processed_transactions
+        self.proof = proof
+        self.timestamp = timestamp
+
+)
+
+
+
+
+
+
+
+
+
+
+->ok....  SE O INDEX NO NOSSO BLOCK É 
+
+
+
+
+IGUAL_ _ AO INDEX 
+
+
+
+
+no nosso blockchaiN + 1,
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+if block['index'] == blockchain.chain[-1].index + 1 
+
+
+
+
+
+
+
+
+
+
+-> SE ESSE FOR O CASO, 
+
+SABEREMOS QUE 
+'THIS BLOCK IS LOOKING GOOD',
+
+
+pelo menos de uma PERSPECTIVA DE 
+
+
+
+
+'indexes'...
+
+
+
+
+
+-> se esse for o caso, vamos querer continuar:
+
+
+
+
+
+
+ex:
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+    block = values['block']
+    if block['index'] == blockchain.chain[-1].index + 1:
+        pass
+
+
+
+
+
+
+
+
+
+
+
+-> COLOCAMOS Um 'PASS'
+
+SÓ PQ 
+
+
+
+AQUI 
+
+nós vamos querer __ CODAR ESSA LÓGICA DE 
+
+'response de sucesso' MAIS TARDE...
+
+
+
+
+
+
+
+
+
+
+-> O PROFESSOR 
+
+
+
+coloca um else if case,
+
+
+
+
+em que 
+
+
+
+
+O 
+
+
+
+BLOCK INDEX DO REQUEST É _ MAIOR__ DO QUE _ o 
+
+
+
+
+'blockchain.chain[-1].index' 
+
+
+
+
+
+
+(
+
+    OU SEJA,
+
+    A DIFERENÇA 
+
+    ENTRE 
+
+    O 
+
+    'LAST BLOCK DO AMIGO QUE MINEROU ' E O 'LAST BLOCK MINERADO POR NOSSO PRÓPRIO NODE' 
+
+
+    é maior do que 1... --> sinal de que ha´ALGUMA DATA MISSING...
+)
+
+
+
+
+
+
+
+
+
+-> se esse for o caso, VAMSO QUERER RODAR LÓGICA DISTINTA..
+
+
+
+
+
+
+
+fica tipo assim:
+
+
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+    block = values['block']
+    if block['index'] == blockchain.chain[-1].index + 1:
+        pass
+    elif block['index'] > blockchain.chain[-1].index
+        pass
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+--> O ÚLTIMO CASE,
+
+ELSE CASE,
+
+SERÁ O CASO 
+
+
+
+EM QUE O INDEX _ É _ MENOR __ 
+
+DO QUE 
+
+
+
+
+O NOSSO 'LAST BLOCK INDEX, OURS'... ->  NESSE CASO,
+
+
+SABEMOS QUE 
+
+NOSSA 'BLOCKCHAIN'
+
+
+ESTÁ BEM MELHOR, E QUE O 'INCOMING BLOCK' ESTÁ TOTALMENTE ERRADO.. --> TALVEZ O NODE 
+
+
+
+
+
+QUE FEZ BROADCAST DESSE BLOCK ESTÁ EM UM 'OLDER STATE',
+
+
+
+e aí 
+
+DEVEMOS 
+
+'DEIXAR AQUELE NODE SABER QUE ESTÁ ATRASADO'....
+
+
+
+
+
+
+
+
+
+
+
+
+escrevemos tipo assim:
+
+
+
+
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+    block = values['block']
+    if block['index'] == blockchain.chain[-1].index + 1:
+        pass
+    elif block['index'] > blockchain.chain[-1].index
+        pass
+    else:
+        response = {'message': 'Blockchain seems to be shorter, block not added.'}
+        return jsonify(response), 409
+
+
+
+
+
+
+
+
+
+--> STATUS CODE DE 409 SIMPLESMENTE SINALIZA 
+
+
+que a data que a pessoa enviou é INVÁLIDA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok... o professor envia um status code específico, de 409,
+
+
+pq ele quer fazer handle 
+
+disso de forma mais adequada (esse if case específico)...  (
+
+    o handle desse case LÁ 
+
+    NO APP 
+
+
+    QUE 
+
+    ENVIOU o request...
+)
+
+
+
+
+
+
+
+
+
+
+
+--> ok... .MAS VOLTEMOS AO CASE 
+
+
+
+
+
+
+EM QUE 
+
+NOSSO ADD É PERMITIDO... --> nesse case, tudo está correto,
+
+
+
+e recebemos a data válida sobre o  block..
+
+
+
+
+
+
+
+
+
+
+
+
+--> nesse caso,
+
+
+
+VAMOS PRECISAR CHAMAR UM NOVO METHOD ... --> 
+
+
+
+
+
+
+
+
+SERÁ UM METHOD QUE ADICIONAREMOS LÁ NO ARQUIVO DE 
+
+'blockchain.py',
+
+
+
+
+
+no Object' Blockchain'..
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+
+
+
+
+
+CRIAREMOS ESSE METHOD..
+
+
+
+
+
+
+
+
+
+-> JÁ TEMOS UM METHOD QUE CRIA/MINERA UM BLOCK,
+,
+
+que é O
+
+
+
+
+'mine_block'.. ->  MAS ISSO AÍ CRIA UM NOVO BLOCK COM UMA NOVA REWARD E ETC... 
+
+
+
+
+
+
+
+
+
+-----> MAS AGORA VAMOS ADICIONAR UM NOVO METHOD, 
+
+QUE SERÁ CHAMADO DE 'add_block()'... -->  
+
+
+
+
+
+
+
+
+
+
+
+
+
+PQ NAO VAMOS QUERER MINERAR UM BLOCK,
+
+E SIM SÓ 
+
+ADIICONAR UM BLOCK 
+
+
+
+NO 'PEER NODE' (outros nodes)..
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, O PROFESSOR ESCREVE ASSIM:
+
+
+
+
+
+
+
+
+
+
+def add_block(self, block):
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA FUNCTION VAI TER COMO PARÂMETRO O 'block' em si...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PRIMEIRA COISA QUE VAMOS QUERER FAZER EM 'add_block'
+
+
+É __ 
+
+
+VALIDAR ESSE BLOCK... ------> CHECAR SE O PROOF OF WORK 
+
+
+ESTÁ VÁLIDO  (o 'proof')
+
+E ENTÃO 
+
+O 
+ARMAZENAR..
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICA TIPO:
+
+
+
+
+
+
+
+
+
+def add_block(self, block):
+    Utility.valid_proof(block['processed_transactions'],)
+
+
+
+
+
+
+
+
+
+
+
+
+    EX:
+
+
+
+
+
+
+
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+        Utility.valid_proof(block['processed_transactions'], block['previous_block_hash'], block['proof'])
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ESSE METHOD DE 'add_block' 
+
+SERÁ
+
+
+
+EXECUTADO LÁ 
+
+em 
+
+
+'broadcast_block'
+
+
+,
+
+que é 
+
+
+
+
+
+a route/function 
+
+
+
+
+
+RESPONSÁVEL 
+
+
+
+pelo broadcast da info de que esse block foi minerado aos OUTROS PEER NODES..
+
+
+
+
+
+
+
+
+TIPO ASSIM
+
+
+
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+    block = values['block']
+    if block['index'] == blockchain.chain[-1].index + 1:
+        blockchain.add_block(block)
+    
+    elif block['index'] > blockchain.chain[-1].index:
+        pass
+    else:
+        response = {'message': 'Blockchain seems to be shorter, block not added.'}
+        return jsonify(response), 409
+
+
+
+
+
+
+
+
+
+
+
+        ---------------------
+
+
+
+
+
+
+
+
+
+
+ok...
+
+
+agora é só tweakar esse method em si...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> em 'add_block',
+
+
+recebemos o 
+
+
+
+
+'BLOCK',
+
+
+SIM, 
+
+
+
+
+
+MAS _ ELE __ SERÁ __ RECEBIDO _ EM UM FORMATO 
+
+
+
+DE 'DICT' (pq será recebido como JSON)... -> 
+
+
+
+
+PARA CONSEGUIRMOS 
+
+ADICIONAR 
+
+
+
+
+
+ESSE 
+
+
+
+
+'BLOCK'
+
+
+
+COMO _ INTEGRANTE__ 
+
+
+
+
+DA 'BLOCKCHAIN' de nosso 
+
+
+
+user/node,
+
+lá no PYTHON (em 'blockchain.chain', essencialmente),
+
+
+
+SOMOS OBRIGADOS A:
+
+
+
+
+
+1) CONVERTER AS _ _DICTS DE TRANSACTIONS __ EM OBJECTS 
+
+
+
+
+
+2) CONVERTER __ O __ BLOCK INTEIRO QUE CONTÉM ESSAS TRANSACTIONS, QUE É TAMBÉM UMA DICT,
+
+EM UM OBJECT 'Block'...
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, USAREMOS LIST COMPREHENSION...
+
+
+
+
+
+
+
+
+
+
+
+TIPO ALGO ASSIM, ACHO EU:
+
+
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+
+        if Utility.valid_proof(block['processed_transactions'], block['previous_block_hash'], block['proof']):
+            
+            converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+            if Utility.valid_proof(converted_tx, block['previous_block_hash'], block['proof']):
+            
+            block['processed_transactions'] = converted_tx
+            new_block = Block(block['previous_block_hash'], block['index'], block['processed_transactions'], block['proof'])
+            self.chain.append(new_block)
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+-> certo.... mas o que o professor fez foi FAZER ESSA CONVERSÃO DE TRANSACTIONS __ ANTES_ DE CHAMAR 
+
+'Utility.valid_proof'.. -> e faz sentido, pq esse method de 'valid_proof' 
+
+DEPENDE DAS TRANSACTIONS COMO OBJECTS... (pq vai converter para ORDERED DICTS)...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+
+            converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+            block['processed_transactions'] = converted_tx
+            new_block = Block(block['previous_block_hash'], block['index'], block['processed_transactions'], block['proof'])
+            self.chain.append(new_block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR TAMBÉM VAI QUERER CHECAR 
+
+SE NA BLOCKCHAIN DE NOSSOS 'PEER NODES'
+
+
+
+
+a hash _ 
+
+
+DO NOSSO 'last block' MATCHEIA O 
+
+
+
+
+'previous_block_hash'
+
+
+ARMAZENADO NO 'INCOMING BLOCK'...
+
+
+(
+
+
+    outro mecanismo de segurança...
+
+
+)
+
+
+
+
+PARA ISSO, ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+        converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+        if not Utility.valid_proof(converted_tx, block['previous_block_hash'], block['proof']):
+            pass 
+        if hash_block(self.chain[-1]) != block['previous_block_hash']:
+            pass
+        
+            block['processed_transactions'] = converted_tx
+            new_block = Block(block['previous_block_hash'], block['index'], block['processed_transactions'], block['proof'])
+           
+           
+           
+            self.chain.append(new_block)
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK...
+
+
+
+
+
+
+
+AGORA DEVEMOS 
+
+
+
+CODAR A LÓGICA DESSES CHECKS AÍ...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+        converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+        if not (Utility.valid_proof(converted_tx, block['previous_block_hash'], block['proof'])) or not hash_block(self.chain[-1]) == block['previous_block_hash']:
+            return False
+        block['processed_transactions'] = converted_tx
+        new_block = Block(block['previous_block_hash'], block['index'], block['processed_transactions'], block['proof'])
+        self.chain.append(new_block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+SE QUALQUER UM DESSES CHECKS FALHAR,
+
+
+QUANDO ESTIVERMOS BROADCASTING ESSE 
+
+
+
+
+
+BLOCK, o nosso peer node VAI DETECTAR QUE OU:
+
+
+
+
+
+1) NÃO CONSEGUIU ANALISAR O PROOF OF WORK 
+
+
+
+
+
+
+
+
+
+2) DETECTOU QUE O 'previous_block_hash' ARMAZENADO NO 
+
+ÚLTIMO BLOCK QUE RECEBEU __ DO 'NODE AMIGO'
+
+
+NÃO __ MATCHEIA__ a versão hash do último block armazenado  NA SUA PRÓPRIA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE CONTINUAMOS E ULTRAPASSAMOS ESSES CHECKS,
+
+
+SABEREMOS _ QUE O BLOCK PODERÁ SER ADICIONADO AO BLOCKCHAIN....
+
+
+
+
+
+
+
+
+-> é por isso que o professor chama:
+
+
+
+
+        new_block = Block(block['previous_block_hash'], block['index'], block['processed_transactions'], block['proof'])
+        self.chain.append(new_block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE ANTES DISSO ELE CONVERTE O BLOCK 'dict' em um 
+
+OBJECT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+certo... até aí, tudo bem....
+
+
+
+
+
+
+
+
+
+
+-----------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK... TERÁ SIDO CRIADO UM NOVO BLOCK,
+
+
+E É ESSE NOVO BLOCK QUE SERÁ APENSO AO  BLOCKCHANI...
+
+
+
+-_> POR FIM, SERÁ RETORNADO 'True'
+
+PQ OBVIAMENTE FOMOS BEM SUCEDIDOS, AQUI..
+
+
+
+
+
+
+
+
+
+
+
+--> ok... 
+
+
+
+
+
+
+
+-> MAS O PROFESSOR TAMBÉM
+
+
+TEM QUE CHAMAR MAIS UM METHOD, DENTRO DESSE METHOD AQUI,
+
+que é 
+
+o method de 
+
+'save_data()',
+
+PARA AÍ 
+
+SALVAR 
+
+
+ESSAS MUDANÇAS 
+
+DA BLOCKCAHIN 
+
+
+_TAMBÉM__ 
+
+
+
+
+
+
+NO ARQUIVO 'blockchain'
+
+do user e na wallet dele, também...
+
+
+
+
+
+
+
+
+
+
+o código final fica assim:
+
+
+
+  def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+        converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+        if not (Utility.valid_proof(converted_tx, block['previous_block_hash'], block['proof'])) or not hash_block(self._chain[-1]) == block['previous_block_hash']:
+            return False
+        block['processed_transactions'] = converted_tx
+        new_block = Block(block['previous_block_hash'], block['index'], block['processed_transactions'], block['proof'])
+        self._chain.append(new_block)
+        self.save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+certo..
+
+
+
+
+
+
+
+
+
+-> COM TUDO ISSO ADICIONADO,
+
+
+O 
+
+METHOD DE 'add_block'
+
+DEVERÁ FUNCIONAR...
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, JÁ TEMOS NOSSO 
+
+'
+RECEIVING END'
+
+
+
+no lugar... -> AGORA SÓ PRECISAMOS GARANTIR 
+
+
+QUE 
+
+UM REQUEST__ É 
+
+ENVIADO _ SEMPRE QUE 
+
+FIZERMOS O 
+
+'MINE DE UM BLOCK'
+
+
+no 
+
+node originário... -----> e, com isso, ganhar uma blockchain SINCRONIZADA ENTRE NODES/USERS...

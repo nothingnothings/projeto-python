@@ -1,0 +1,1422 @@
+
+
+
+
+
+
+
+
+
+
+ok, estamos no nosso project... --> MAS PAARA ENTENDERMOS 
+
+
+
+CLASSES MELHOR,
+
+
+
+
+
+
+
+O PROFESSOR _ CRIA UM NOVO SUBFOLDER,
+
+
+COM 
+ALGUMAS 'DUMMY CLASSES'
+que utilizaremos...
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR CHAMA ESSE FOLDER DE 'oop'...
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DISSO,
+
+
+
+
+O PROFESSOR CRIA UMA CLASS DE 'car'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ELE CRIA UM ARQUIVO 'car.py'...
+
+
+
+
+
+
+
+
+
+-> VAMOS QUERER CRIAR UMA CLASS 'CAR' 
+
+
+E AÍ TAMBEM
+
+
+
+
+VER COMO A UTILIZAR...
+
+
+
+
+
+
+
+
+
+
+-> a sintaxe é:
+
+
+
+
+class xxxxx
+
+
+
+
+
+
+
+
+
+
+
+--> A NAMING CONVENTION DE CLASSES É 
+
+'começar COM UMA MAIÚSCULA' 
+
+
+
+
+
+
+
+E 
+
+
+__ DEPOIS __ 
+
+ESCREVER A PALAVRA... --> SE FOR UMA PALAVRA 'multi-word',
+
+
+
+
+
+
+VOCê 
+
+
+VAI ESCREVER MEIO JAVAASCRIPT,
+
+
+
+MEIO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... AÍ VOCê ADICIONA ':',
+
+
+
+E AÍ VOCe^TEM AQUILO QUE É CHAAMDO DE 'CLASS DEFINITIONm'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... -> AÍ VOCê TEM AQUILO QUE CHAMAMOS DE 'class attributes '' ->  VOCê 
+PODE 
+
+
+
+PENSAR NELES COMO 
+
+VARIABLES/PROPRIEDADES 
+
+PERTENCENTES 
+
+A UMA CLASS,
+
+  
+
+
+
+
+  E _ AÍ _ VOCê TAMBÉM TEM 
+
+
+  'methods',
+
+
+
+  QUE 
+
+  SERÃO 
+
+  FUNCTIONS PERTENCENTES A ESSA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ADICIONA UMA VARIÁVEL DE NOME 'top_speed'...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+class SportsCar: 
+    top_speed
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK .. AÍ O PROFESSOR ASSIGNA UM VALOR DE '100'..
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar: 
+    top_speed = 100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ISSO FEITO, O PROFESSOR VAI QUERER ADICIONAR UM MEHTJOD,
+
+
+    UMA FUNCTION PERTENCENTE A ESSA CLASS...
+
+
+
+
+
+
+
+    EX:
+
+
+
+
+    class SportsCar: 
+        top_speed = 100
+        
+
+        def function_name():
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR NÃO COLOCA NENHUM ARGUMENTO em 
+
+
+
+'drive()',
+
+
+
+MAS ELE EXPLICA QUE PODERÍAMOS COLOCAR ARGUMENTS AQUI... --> 
+
+
+TAMBÉM PODEMOS COLOCAR 'DEFAULT ARGUMENTS',
+
+
+
+
+também 'optional arguments',
+
+
+tudo isso aí...
+
+
+
+
+
+
+
+
+
+--> OK..
+
+
+
+
+
+
+
+
+
+
+ELE ESCREVE ISSO AÍ,
+
+
+
+então ele coloca a definição para esse 
+
+CLASS METHOD...
+
+
+
+
+
+
+
+
+
+
+
+
+
+    class SportsCar: 
+        top_speed = 100
+        
+
+        def drive():
+            print('I am driving, but certainly not faster than') 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK,  MAS AGORA 
+
+
+
+
+COMO _ VAMOS REFERENCIAR o valor de 'top_speed'?
+
+
+
+
+
+
+
+
+
+
+--> no javascript, nesse momento usaríamos 'this'...
+        
+
+
+
+
+
+
+
+
+
+
+
+
+-> VOCÊ PODERIA PENSAR QUE USAMOS ESSA SINTAXE AQUi:
+
+
+
+
+
+
+
+            print('I am driving, but certainly not faster than {}'.format(top_speed) ) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> SERÁ QUE ISSO FUNCIONA/FUNCIONARIA?
+
+
+
+
+
+
+
+
+É CLARO QUE NÃO....
+
+
+
+
+
+
+
+
+
+
+
+-----> não faria sentido usar só esse 'format' para isso...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO NÃO  __ VAI __ FUNCIONAR__
+
+
+
+
+
+PQ ESSA VARIABLE DE 'top_speed'
+
+ESTÁ CONECTADA 
+
+
+
+
+A NOSSA CLASS,
+
+
+
+E MESMO 
+
+
+
+QUE ESSA FUNCTION DE 'drive()'
+
+
+
+
+TBM ESTEJA __
+
+CONECtada À CLASS,
+
+
+
+NÓS __ NÃO PODEMOS __ ACESSAR_ 
+
+
+ESSA VARIABLE 'top_speed' assim....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> se vocÊ escrever '.format(top_speed)',
+
+
+
+
+VOCÊ 
+
+FARÁ COM QUE O PYTHON __ PROCURE__ POR UMA VARIABLE _ 
+
+
+ QUE 
+
+
+
+ EXISTE/FOI DEFINIDA __ NO LADO_ _ DE FORA__ DE SUA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA QUE __ CONSIGAMOS __ USAR UMA 'VARIABLE' nesse 
+
+
+
+
+
+
+placeholder aí,
+
+
+
+O QUE O PROFESSOR DIZ QUE PODEMOS FAZER 
+
+
+
+É 
+
+
+__ADICIONAR_ UM ARGUMENTO  
+
+
+
+
+
+
+
+
+A __ ESSE METHOD DE 'drive()',
+
+
+
+QUE SERÁ 
+
+O 
+
+
+
+ARGUMENTO 
+
+
+
+'self'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class SportsCar:   # a sintaxe é assim, 'MultiPalavra' (exataemnte como no javascript)....
+    top_speed = 100 #attribute/propriedade
+    def drive():  #method
+        print('I am driving, but certainly not faster than {}'.format(top_speed))  ##ISSO NÃO FUNCIONA, PQ __ ESSE METHOD VAI PROCURAR POR UMA VARIABLE __ COM ESSE NOME __ NO LADO _ DE FORA DE SUA CLASS, e não dentro de sua class (aquele ATTRIBUTE 'top_speed' ali será IGNORADO)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELF -----> É O ARGUMENTO 'DEFAULT' de todos os methods,
+
+
+
+
+que existe em todos eles... .- -> VOCÊ 
+
+
+
+NÃO PRECISA 
+
+CHAMAR 
+
+ESSE 
+
+
+
+'''ARGUMENTO DEFAULT'''' de 'self',
+
+
+MAS A CONVENÇÃO É USAR 'self' 
+
+
+como seu nome...
+
+
+
+
+
+
+
+
+
+
+
+-------> obs: ESSE ARGUMENTO É __ OPCIONAL__..... ---> VOCÊ NÃO É OBRIGADO A SEMPRE 
+
+
+CHAMAR ESSE ARGUMENT no call de seus methods... (vocÊ pode deixar o slot de arguments vazio, e aí 
+executar seu method sem passar argumento..)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK...  --> ISSO SIGNIFICA QUE PODEMOS CHAMAR 
+
+
+
+'drive()' (sem argumento),
+
+
+SE O DESEJARMOS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O QUE INTERESSA É QUE 
+
+
+ESSE ARGUMENTO __ VAI SER SEMPRE 'AUTOMATICALLY  PASSED IN'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ESSE ARGUMENTO VAI TE DAR ACESSO à CLASSE EM SI,
+
+
+E 
+
+
+A 
+
+
+TODOS OS METHODS E ATTRIBUTES DELA...
+
+
+
+
+
+
+
+
+
+
+
+--> ou seja,
+
+
+
+o 
+
+
+self é tipo um 
+
+
+
+'MEGA THIS',
+
+
+pq 
+
+
+
+ele vai __CONTER TODOS OS METHODS E ATTRIBUTES DE SUA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA, PARA ACESSAR O ATTRIBUTE de 'top_speed'
+
+
+
+DENTRO 
+
+
+DE 'self' (que é nossa CLASS, REPRESENTAÇÃO DE NOSSA CLASS),
+
+
+
+
+escrevemos 
+
+
+
+
+'self.top_speed'
+
+LÁ NO  CALL DE '.format()":
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+class SportsCar:   # a sintaxe é assim, 'MultiPalavra' (exataemnte como no javascript)....
+    top_speed = 100 #attribute/propriedade
+    def drive(self):  #'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELF SE REFERE À CLASS EM SI,
+
+
+
+
+E AÍ USAMOS 
+
+
+
+
+A DOT NOTATION PARA FAZER O ACESSO 
+
+
+
+A 
+
+ATTRIBUTES,
+
+
+
+METHODS, ETC....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA QUE TEMOS ESSA CLASS DEFINIDA,
+
+
+
+__ COMO _ PODEMOS A UTILIZAR...?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> eu acho que NO LADO DE FORA 
+
+DE 
+
+NOSSA CLASS,
+
+
+PROVAEVLMENTE
+
+
+
+PRECISAMOS __ A INSTANCIAR...
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+class SportsCar:   # a sintaxe é assim, 'MultiPalavra' (exataemnte como no javascript)....
+    top_speed = 100 #attribute/propriedade
+    def drive(self):  #'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+newSportsCar = SportsCar()
+
+
+
+
+newSportsCar.drive()
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------
+
+
+
+
+
+MAS NÃO SEI SE É ASSIM QUE INSTANCIAMOS ESSA CLASS....
+
+
+
+
+
+
+
+
+-------> PRECISAMOS CRIAR UM OBJECT COM BASE NESSA CLASS...
+
+
+
+
+
+
+
+
+
+
+-------. CLASSES SÃO SÓ BLUEPRINTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CRIAR UM NOVO CAR,
+
+
+O PROFESSOR ESCREVE ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+car1 = Car()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK, _ACERTEI__.... ---> 
+
+
+
+
+
+essa sintaxe vai basicamente 
+
+
+
+'''CHAMAR O CONSTRUCTOR''',
+
+
+
+
+E AÍ __ ISSO __ FARÁ COM QUE 
+
+
+UMA 
+
+
+NOVA INSTANCE DESSA CLASS SEJA CRIADA, A PARTIR DESSA BLUEPRINT...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+class SportsCar:   # a sintaxe é assim, 'MultiPalavra' (exataemnte como no javascript)....
+    top_speed = 100 #attribute/propriedade
+    def drive(self):  #'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+
+
+
+
+newSportsCar = SportsCar()
+
+
+
+
+newSportsCar.drive()
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class SportsCar:   # a sintaxe é assim, 'MultiPalavra' (exataemnte como no javascript)....
+#     top_speed = 100 #attribute/propriedade
+#     def drive():  #method
+#         print('I am driving, but certainly not faster than {}'.format(top_speed))  ##ISSO NÃO FUNCIONA, PQ __ ESSE METHOD VAI PROCURAR POR UMA VARIABLE __ COM ESSE NOME __ NO LADO _ DE FORA DE SUA CLASS, e não dentro de sua class (aquele ATTRIBUTE 'top_speed' ali será IGNORADO)..
+
+
+
+
+
+
+
+class SportsCar:   # a sintaxe é assim, 'MultiPalavra' (exataemnte como no javascript)....
+    top_speed = 100 #attribute/propriedade
+    def drive(self):  #'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+        # print('I am driving, but certainly not faster than {}'.format(top_speed)) # não acesse seu attribute da class assim... 
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed)) #acesse ASSIM...
+
+
+
+
+
+
+newSportsCar = SportsCar() #Nova instanciacao/objeto dessa class.... --> podemos rodar METHODS nisso...
+
+
+
+
+
+newSportsCar.drive()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ok... 
+
+
+CHAMAMOS 
+
+
+
+
+ESSE 
+
+
+METHOD nesse object,
+
+tudo com a dot notation...
+
+
+
+
+
+
+
+
+
+
+
+-> A DOT NOTATION JÁ FOI USADA BASTANTE NO NOSSO CURSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ POR EXEMPLO, LÁ COM O CÓDIGO DE FILE ACCESS:
+
+
+
+
+
+
+
+
+
+ with open('blockchain.txt', mode='r') as f: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> o 
+
+ 'f',
+
+ que depois usamos com 
+
+ 'f.readlines()'
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ESSE 'f' É __ UM OBJECT_,
+
+ UM 
+
+
+
+ OBJECT CRIADO A PARTIR DE UMA CLASS 'File', 
+
+
+
+ PROVIDENCIADA PELO PYTHON (que não precisa ser escrita por nós),
+
+
+
+E O QUE 
+
+
+INTERESSA É 
+
+QUE 
+
+A 
+LÓGICA É SEMPRE A MESMA:
+
+
+
+
+
+
+
+
+
+NÓS CHAMAMOS METHODS EM CLASSES ,
+
+
+
+
+E AÍ __ ACESSAMOS ATTRIBUTES 
+
+DE 
+
+CLASSES...
+
+
+
+
+
+
+
+
+
+
+--> E É EXATAMENTE ISSO QUE ESTAMOS FAZENDO AQUI, POR MEIO DESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Car:
+    top_speed = 100
+
+
+    def drive(self):
+        print('Hey, {}'.format(self.top_speed))
+
+
+
+
+
+
+
+    newCar = Car()
+
+
+
+    newCar.drive()
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AGORA VAMOS SALVAR ESSA FILE E __ AÍ _ A EXECUTAR COM NOSSO 'python xxx..py'..
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop> python car.py
+I am driving, but certainly not faster than 100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... ISSO DEU CERTO....

@@ -1,0 +1,1526 @@
+
+
+
+
+
+
+
+
+
+-> NÓS AGORA TEMOS UMA MINING ROUTE, QUE TEM ESTE CÓDIGO:
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+
+    if (not blockchain.mine_block()):
+        response = {
+            'message': 'Failed to mine a block. Ensure that you have a wallet, and valid transactions in your blocks.',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500 ### erro padrão..
+
+    block = blockchain.chain[-1].__dict__.copy()
+    block['processed_transactions'] = [tx.__dict__ for tx in block['processed_transactions']]
+    
+    print(block['processed_transactions'], 'MESSAGE')
+    response = {
+        'message': 'Block added successfully.',
+        'added_block': block
+    }
+    return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS  AINDA NAÕ PODEMOS A UTILIZAR ADEQUADAMENTE,
+
+PQ 
+
+AINDA 
+
+
+NÃO 
+
+
+
+
+TEMOS 
+
+
+FUNCTIONS/ROUTES QUE MANAGEIAM NOSSA WALLET de maneira satisfatória...
+
+
+
+
+
+
+
+
+
+
+
+--> 'wallet creation'--> PRECISAMOS DE UM ROUTE PARA ISSO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> VAMOS QUERER SER CAPAZES DE CRIAR NOVAS WALLETS, OU DE CARREGAR UMA WALLET..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> serão as primeiras routes,
+
+
+
+de 
+
+'create_keys'...
+
+
+
+
+
+
+e 
+
+'load_keys'...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ JÁ TEMOS A WALLET, MAS AINDA NÃO TEMOS ESSAS FUNCTIONS/ROUTES AÍ, RESPONSÁVEIS 
+
+
+PELO 
+
+
+create das public e private keys usadas nas transactions (E como receptoras/enviadoras de coins)...
+
+
+
+
+
+
+
+
+
+
+
+--> ok..
+
+
+
+
+
+
+
+
+
+escrevemos assiom:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def create_keys():
+    pass
+
+
+
+
+
+
+
+
+
+def load_keys():
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... AÍ VAMOS VER A IMPLEMENTAÇÃO CONCRETA DESSAS FUNCTIONS... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR COM CREATE KEYSD...
+
+
+
+
+
+
+
+
+
+--> adicionamos um decorator, exatamente como fizemos até agora...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> o professor vai querer targettar uma route de '/wallet'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+@app.route('/wallet', methods=['POST'])
+def create_keys():
+
+
+
+
+
+
+
+
+@app.route('/wallet', methods=['GET'])
+def load_keys():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK...
+
+
+
+
+
+
+
+
+
+VAMOS CRIAR NOVAS KEYS, E AÍ VAMOS ARMAZENAR ESSAS KEYS _ EM UMA FILE __ NO SERVER... (
+
+
+
+importante!!!! --> AQUI,,
+
+
+
+
+O SERVER ESTÁ RODANDO NA NOSSA MÁQUINA, O QUE QUER DIZER QUE
+
+
+O SERVER SEMPRE ESTÁ NA NOSSA MÁQUINA,
+
+
+
+MAS 
+
+
+O QUE INTERESSA É 
+
+QUE 
+
+ESSE CREATE DA KEY OCORRE NO SERVER....
+
+
+)
+
+
+
+
+
+
+
+
+
+
+--> CERTO, ESSA FUNCTION PODE SER EXECUTADA...
+
+
+
+
+
+
+
+
+
+
+--> VAMOS QUERER USAR O METHOD DE 'wallet.create_keys()'
+
+
+LÁ 
+
+
+DA NOSSA WALLET...
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+@app.route('/wallet', methods=['POST'])
+def create_keys():
+    wallet.create_keys()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS A LÓGICA DE 'create_keys'
+
+APENAS AS INICIALIZA,
+
+
+COMO VEMOS NESTE CÓDIGO:
+
+
+    def create_keys(self): ###case de 'começar a wallet do 0'...
+         try:
+            private_key, public_key = self.generate_keys()
+            self.private_key = private_key
+            self.public_key = public_key
+            with open('wallet.txt', mode="w") as f:
+                # print(self.private_key)
+                f.write(str(self.private_key))
+                f.write('\n')
+                f.write(str(self.public_key))
+         except(IOError, IndexError):
+            print('Saving wallet failed!')
+        
+
+
+
+
+
+
+
+
+
+---------> CERTO... MAS, NA VERDADE, MEU CÓDIGO COM ESSAS LINHAS AÍ __ JÁ FAZIA O 'WRITE'
+
+
+de nossas 
+
+KEYS EM UM ARQUIVO... ------------> O QUE O PROFESSOR FAZ É 
+
+
+
+CHAMAR 
+
+'save_keys'
+
+
+DENTRO DE 'create_keys',
+
+PARA AÍ AS SALVAR EM UM ARQUIVO, COM ESSE OUTSOURCING...
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS NOSSO CÓDIGO VAI FUNCIOANR ASSIM MESMO...
+
+
+
+
+
+
+
+
+--> COM NOSSAS KEYS CRIADAS,
+
+
+DEVEMOS AGORA PREPARAR UMA RESPONSE... -> na response 
+
+
+
+VAMOS PREPARAR NOSSA '
+
+public_key'.. -----> A PUBLIC KEY SERÁ RETORNADA AO USER...
+
+
+
+
+
+
+
+
+-> NO CASO, A PUBLIC KEY SERÁ DE 'wallet.public_key'...
+
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+@app.route('/wallet', methods=['POST'])
+def create_keys():
+    wallet.create_keys()
+    response = {
+        'public_key': wallet.public_key
+    }
+
+
+
+
+
+
+
+
+
+
+O PROFESSOR TAMBÉM RETORNA A 'PRIVATE KEY':
+
+
+
+
+
+
+
+@app.route('/wallet', methods=['POST'])
+def create_keys():
+    wallet.create_keys()
+    response = {
+        'public_key': wallet.public_key,
+        'private_key': wallet.private_key
+    }
+
+
+
+
+
+
+
+
+
+
+----> PQ É CLARO QUE 
+
+O USER __ QUE __ CRIOU A WALLET _ DEVERÁ SER CAPAZ DE SABER QUAIS SÃO AS 'KEYS' dele... (retornamos as keys ao user para que ele CONSIGA AS guardar COM SEGURANÇA)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR USARÁ ESSAS KEYS, NO FUTURO, PARA LOGGAR AO NODE...
+
+
+
+
+
+
+
+
+--> O USER QUE __ DETEM_ ESSA 
+
+
+WALLET _ VAI _ sABER QUAL É A PRIVATE KEY DELE..
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... --> mas é claro que essa operação de 'create' PODE FALHAR.. -> PQ 
+
+
+
+
+
+
+LÁ ESTAMOS TENTANDO SALVAR as keys naquele documento 'wallet.txt',
+
+QUE PODE 
+
+
+ACABAR INCORRENDO EM UM ERRO... --------> É POR ISSO QUE 
+
+VAMOS QUERER 
+
+
+
+
+_retornar__ SE FORMOS BEM SUCEDIDOS E TAMBÉM SE NÃO FORMOS...
+
+
+
+
+
+
+
+
+
+
+-> CASO SEJAMOS BEM SUCEDIDOS,
+
+PROFESSOR VAI QUERER RETORNAR TRUE, CASO CONTRÁRIO, VAI QUERER RETORNAR FALSE...
+
+
+
+
+
+eX:
+
+
+
+
+
+
+
+
+
+
+    def create_keys(self): ###case de 'começar a wallet do 0'...
+         try:
+            private_key, public_key = self.generate_keys()
+            self.private_key = private_key
+            self.public_key = public_key
+            with open('wallet.txt', mode="w") as f:
+                # print(self.private_key)
+                f.write(str(self.private_key))
+                f.write('\n')
+                f.write(str(self.public_key))
+                return True
+         except(IOError, IndexError):
+            print('Saving wallet failed!')
+            return False
+
+
+
+
+
+
+
+
+
+
+
+
+-------> E AÍ HANDLAMOS ISSO LÁ NA ROUTE DO FLAASK:
+
+
+
+
+
+
+
+
+
+
+@app.route('/wallet', methods=['POST'])
+def create_keys():
+    if (wallet.create_keys()):
+        response = {
+        'public_key': wallet.public_key,
+        'private_key': wallet.private_key
+        }
+        return response, 201
+    else:
+        response = {
+            'message': 'Failed to create wallet.'
+        }
+        return response, 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ok... fiz isso... SE FOR SUCCESSFUL,
+
+vamos querer essa response aí....
+
+
+
+
+
+
+
+
+
+--> NO CASO DE ERROR, 
+
+professor coloca a mesma coisa...
+
+
+
+
+
+
+-----> NO CASO DO ERROR STATEMENT,
+
+O PROFESSOR RETORNA 'jsonify(response), 500'....
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+@app.route('/wallet', methods=['POST'])
+def create_keys():
+    if (wallet.create_keys()):
+        response = {
+        'public_key': wallet.public_key,
+        'private_key': wallet.private_key
+        }
+        return jsonify(response), 201
+    else:
+        response = {
+            'message': 'Failed to create wallet.'
+        }
+        return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> COM ISSO, JÁ VAMOS CONSEGUIR FAZER 'MINE' DE UM BLOCK, SUPOSTAMENTE....
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK.... ISSO DEU CERTO... -> a route de 'wallet' com o request de tipo POST 
+
+está 
+
+CONSEGUINDO CRIAR UMA WALLET,
+
+
+
+E 
+A ROUTE DE 'MINE' TAMBÉM ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O PROFESSOR DIZ QUE A VERSÃO DO CÓDIGO DELE _ _FALHOU_...
+
+
+
+
+
+-> ele resetta tudo, resetta o server e tenta dnv...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> mas meu código não está buggando como o dele, estranhahmente.......
+
+
+
+
+
+
+
+
+
+
+-> ELE ENTÃO NOS DIZ QUE 
+
+ISSO ESTÁ RELACIONADO COM UM PROBLEMA QUE JÁ VIMOS ANTES,
+
+
+
+
+
+
+
+
+
+
+
+PROBLEMA QUE RESIDE NAS LINHAS DE CÓDIGO:
+
+
+
+
+
+
+app = Flask(__name__)  ##devemos criar nosso APP FLASK, que vai nos permitir receber requests e enviar responses....
+                        ##o argumento '__name__' (special variable) é usado para INFORMAR AO FLASK __ SOBRE __ 'EM QUE CONTEXT ELE DEVERÁ SER EXECUTADO'... -> é uma informação importante...
+
+wallet = Wallet()   ###queremos ter uma Wallet LOGO DE INÍCIO...  OBS: só o call de 'Wallet()' não nos entrega private e public keys, precisamos de outros methods para isso...
+
+blockchain = Blockchain(wallet.public_key)  ##inicializa nossa blockchain ao mesmo tempo que é passada a 'public_key' da wallet que criamos/loadamos...
+
+CORS(app) 
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS ESTAMOS CRIANDO NOSSA WALLET POR MEIO DO PASS de 'public_key',
+
+
+
+
+MAS INICIALMENTE  _
+_ TEMOS __ 
+
+
+
+
+
+
+
+
+A WALLET COMO 'None',
+
+
+
+
+
+
+
+
+E NESSE MOMENTO AS 'PUBLIC' E 'PRIVATE KEYS' AINDA NÃO 
+
+
+FORAM CRIADAS... ----> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o negócio ainda está falhando, mas pq?
+
+
+
+
+
+
+
+
+
+
+-> AGORA, MESMO COM A WALLET SETTADA,
+RECEBEMOS ISTO:
+
+
+
+
+
+
+
+
+
+{
+    message: 'Adding a block failed'.,
+    'wallet_set_up': true
+} 
+
+
+
+
+
+
+
+
+
+
+
+-> É UM PROBLEMA QUE JÁ VIMOS ANTES... -> 
+
+CRIAMOS NOSSA WALLET POR MEIO DO PASS DA PUBLIC KEY NA ISNTANCIA,
+
+
+e inicialmente a wallet é 
+
+
+
+
+VAZIA,
+
+
+E SÓ DEPOIS É 
+
+
+
+INICIALIZADA A 'BLOCKCHAIN'... --> isso quer dizer que 
+
+
+SE NÓS 
+
+
+TENTAMOS 
+
+'CREATE KEYS' 
+
+
+_DEPOIS__ DE INICIALIZARMOS _ 
+
+
+O NOSSO APP (que sempre É INICIALIZADO __ SEM_ KEYS_ EM SEU INTERIOR,
+
+POR CAUSA DESSAS LINHAS:
+
+
+
+
+app = Flask(__name__)  ##devemos criar nosso APP FLASK, que vai nos permitir receber requests e enviar responses....
+                        ##o argumento '__name__' (special variable) é usado para INFORMAR AO FLASK __ SOBRE __ 'EM QUE CONTEXT ELE DEVERÁ SER EXECUTADO'... -> é uma informação importante...
+
+wallet = Wallet()   ###queremos ter uma Wallet LOGO DE INÍCIO...  OBS: só o call de 'Wallet()' não nos entrega private e public keys, precisamos de outros methods para isso...
+
+blockchain = Blockchain(wallet.public_key)
+
+
+
+
+),
+
+
+
+
+
+
+
+
+AS _ KEYS__ aCABAM ADICIONADAS__ AO 'wallet',
+
+
+sim,
+
+
+
+MAS _ O WALLET__ JÁ FOI/JÁ HAVIA SIDO INICIALIZADO COM A 'UNITIALIZED KEY'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE __ PRECISAMOS __ REINICIALIZAR__ A 
+
+
+BLOCKCHAIN SEMPRE QUE FORMOS FAZER O 'CREATE' DE UMA NOVA WALLET 
+
+
+POR MEIO DA ROUTE DE 'create_keys'...
+
+
+
+
+
+
+
+
+
+
+
+--> mas os meus blocks continuam sendo adicionados, pq minha lógica de 'mine' ficou um pouco diferente... (errada, minha lógica)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CONSERTEI ISSO AÍ, 
+
+POR MEIO DESTE CÓDIGO:
+
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+
+    if (not blockchain.mine_block() or wallet.public_key == None):
+        response = {
+            'message': 'Failed to mine a block. Ensure that you have a wallet, and valid transactions in your blocks.',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500 ### erro padrão..
+
+    block = blockchain.chain[-1].__dict__.copy()
+    block['processed_transactions'] = [tx.__dict__ for tx in block['processed_transactions']]
+    
+    print(block['processed_transactions'], 'MESSAGE')
+    response = {
+        'message': 'Block added successfully.',
+        'added_block': block
+    }
+    return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> agora se NÃO TEMOS ESSA 'public_key' (obtida através de 'create_keys' ou 'load_keys'),
+
+
+
+
+FICA IMPOSSÍVEL MINERAR BLOCKS....
+
+
+
+
+
+
+
+
+
+--> o professor me dá uma ideia:
+
+
+sempre que for 
+
+alcançado o 
+
+'create_keys',
+
+
+vou querer RODAR UMA INSTANCIAÇÃO 
+
+
+DE 
+
+
+'Blockchain',
+
+pq aí 
+
+
+NOVAS KEYS SERÃO INTRODUZIDAS NA NOSSA BLOCKCHAIN...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+@app.route('/wallet', methods=['POST'])
+def create_keys():
+    if (wallet.create_keys()):
+        response = {
+        'public_key': wallet.public_key,
+        'private_key': wallet.private_key
+        }
+        global blockchain
+        blockchain = Blockchain(wallet.public_key)
+        return jsonify(response), 201
+
+    response = {
+            'message': 'Failed to create wallet.'
+        }
+    return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, ISSO ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+
+
+---> COM ISSO ADICIONADO, SE AGORA RESETTARMOS NOSSO SERVER,
+
+
+
+SEREMOS CAPAZES DE CRIAR UMA NOVA WALLET 
+
+
+
+
+ao enviar um request a 'create_wallet',
+
+E TAMBÉM 
+
+DE 
+
+MINERAR 
+
+
+UM BLOCK 
+
+
+
+a partir dessa wallet...
+
+
+
+
+
+
+
+
+
+
+
+
+------> SE EXECUTARMOS ISSO MAIS E MAIS VEZES,
+
+GANHAMOS MAIS E MAIS BLOCKS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VAMOS TER A SEGUNDA FUNCTION, DE 'load_keys',
+
+
+QUE VAI COMEÇAR COM ESTE CÓDIGO:
+
+
+
+
+
+@app.route('/wallet', methods=['GET'])
+def load_keys():
+    if (wallet.load_keys()):
+            response = {
+        'public_key': wallet.public_key,
+        'private_key': wallet.private_key
+        }
+            global blockchain
+            blockchain = Blockchain(wallet.public_key)
+            return jsonify(response), 201
+
+    response = {
+            'message': 'Failed to load existing wallet. Loading new wallet...',
+            'public_key': wallet.public_key,
+            'private_key': wallet.private_key
+            
+        }
+    return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ----> SÓ NÃO SEI SE ESSE CÓDIGO FUNCIONARÁ....
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ele me deu 'failed' e iniciou uma NOVA WALLET (supostamente)...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> isso não aconteceu... (e nem um arquivo wallet foi criado, também)...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA ESCREVI UMA LÓGICA QUE ME DÁ 1 NOVA WALLET SE NENHUMA EXISTIR PREVIAMENTE:
+
+
+
+
+
+    def load_keys(self): 
+        try:
+            with open('wallet.txt', mode="r") as g:
+                keys = g.readlines()    ###entretanto, precisamos EXCLUIR O 'ÚLTIMO CARACTER' da linha de 'private_key', pq o ÚLTIMO CARACTER É UM LINE BREAK, é '\n'...
+            print(keys)
+            private_key = keys[0][:-1]   #### com '[:-1]' excluímos o último caracter, que é '\n'....
+            public_key = keys[1]
+            self.private_key = private_key
+            self.public_key = public_key
+            # print(self.private_key, self.public_key)
+        except(IOError, IndexError):
+            print('Loading wallet failed!')
+            print('In the absence of an existing wallet, a new one has been created.')
+            self.create_keys()
+            return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    E:
+
+
+
+
+    @app.route('/wallet', methods=['GET'])
+def load_keys():
+    if (wallet.load_keys()):
+            response = {
+        'public_key': wallet.public_key,
+        'private_key': wallet.private_key
+        }
+            global blockchain
+            blockchain = Blockchain(wallet.public_key)
+            return jsonify(response), 201
+
+    response = {
+            'message': 'Failed to load existing wallet. Loading new wallet...',
+            'public_key': wallet.public_key,
+            'private_key': wallet.private_key
+            
+        }
+    return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AGORA SÓ PRECISO FAZER COM QUE __ O ARQUIVO 'wallet.txt' CONSIGA SER _ CARREGADO_ 
+
+
+
+e lido, 'reconhecido' pelo python/flask, 
+
+
+para que 
+
+um 'LOAD' realmente aconteça....
+
+
+
+
+
+
+
+--> bem, o conteúdo está sendo LIDO, o único problema é que 
+
+
+ELE NAO ESTÁ SENDO UTILIZADO COMO KEYS Da 'wallet'...
+
+
+
+
+
+
+
+
+
+
+A LÓGICA ATUAL É ESTA:
+
+
+
+
+
+
+
+
+
+
+
+
+    def load_keys(self): 
+        try:
+            with open('wallet.txt', mode="r") as g:
+                keys = g.readlines()    ###entretanto, precisamos EXCLUIR O 'ÚLTIMO CARACTER' da linha de 'private_key', pq o ÚLTIMO CARACTER É UM LINE BREAK, é '\n'...
+            print(keys, 'LINE')
+            private_key = keys[0][:-1]   #### com '[:-1]' excluímos o último caracter, que é '\n'....
+            public_key = keys[1]
+            self.private_key = private_key
+            self.public_key = public_key
+            # print(self.private_key, self.public_key)
+        except(IOError, IndexError):
+            print('Loading wallet failed!')
+            print('In the absence of an existing wallet, a new one has been created.')
+            self.create_keys()
+            return False
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA FIZ FUNCIONAR, ERA UM RETURN DE 'True' QUE ESTAVA FALTANDO..:
+
+
+
+
+
+
+
+
+    def load_keys(self): 
+        try:
+            with open('wallet.txt', mode="r") as g:
+                keys = g.readlines()    ###entretanto, precisamos EXCLUIR O 'ÚLTIMO CARACTER' da linha de 'private_key', pq o ÚLTIMO CARACTER É UM LINE BREAK, é '\n'...
+            print(keys, 'LINE')
+            private_key = keys[0][:-1]   #### com '[:-1]' excluímos o último caracter, que é '\n'....
+            public_key = keys[1]
+            self.private_key = private_key
+            self.public_key = public_key
+            # print(self.private_key, self.public_key)
+            return True
+        except(IOError, IndexError):
+            print('Loading wallet failed!')
+            print('In the absence of an existing wallet, a new one has been created.')
+            self.create_keys()
+            return False
+
+
+
+
+
+
+
+
+
+
+
+------> devemos ver o que podemos adicionar em seguida....

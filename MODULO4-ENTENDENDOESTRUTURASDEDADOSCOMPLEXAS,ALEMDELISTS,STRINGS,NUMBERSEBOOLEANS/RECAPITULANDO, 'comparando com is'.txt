@@ -1,0 +1,255 @@
+
+
+
+
+
+
+
+
+
+
+-> DEVEMOS VER MAIS UM DETALHE DA COISA 'BY REFERENCE' VS 'BY VALUE'...
+
+
+
+
+
+
+
+
+
+
+
+--> NO ÚLTIMO MÓDULO VIMOS QUE TÍNHAMOS 2 BOOLEAN OPERATORS DISTINTOS,
+
+
+
+
+
+
+
+
+
+
+
+que eram 
+
+
+
+
+== 
+
+
+
+
+
+is 
+
+
+
+
+
+
+
+
+
+-->  O __ 'is' --> SERVE PARA _ DIFERENCIAR _ ENTRE OBJECTS/REFERENCE TYPES NA MEMÓRIA....
+
+
+
+
+
+
+
+
+
+
+
+
+-> IS É ÚTIL PARA 
+
+
+CHECAR 
+
+
+
+SE 
+
+aLGO 
+
+
+
+
+
+
+
+''SÓ TEM VALORES QUE SÃO PARECIDOS, MAS NÃO SÃO OS MESMOS '''
+
+
+
+OU SE 
+
+
+
+''AS 2 COISAS/VALORES SÃO EXATAMENTE O MESMO OBJETO/VALOR, no mesmo lugar da memória'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+O PROFESSOR CRIA UMA SIMPLE_lIST,
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+simple-list = [1, 2, 3, 4]
+
+
+
+
+second_list = [1,2 ,3 ,4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSAS 2 LISTS APARENTEMENTE CONTÊM OS MESMOS VALORES... parecem ser iguais...
+
+
+
+
+
+
+
+--> SE USAMOS o '==',
+
+QUE CONSIDERA OS VALUES NO INTERIOR DAS LISTS,
+
+ELE VAI NOS RETORNAR TRUE, NO REPL...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+simple-list = [1, 2, 3, 4] == second_list = [1,2 ,3 ,4]
+
+
+
+
+
+
+
+
+
+TRUE...
+
+
+
+
+
+
+
+
+
+
+
+-> MAS SE USARMOS O 'is'
+
+
+ELE VAI RETORNAR FALSE,
+
+PQ 
+
+OBVIAMENTE NAÕ SÃO O EXATO MESMO OBJETO...
+
+
+
+
+
+
+
+simple-list = [1, 2, 3, 4] is second_list = [1,2 ,3 ,4]
+
+
+
+
+
+
+
+
+
+
+False 
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMS SEGURAR OS MESMOS VALUES, MAS SÃO 2 OBJECTS DISTINTOS NA MEMORY...
+
+
+
+
+
+
+
+
+
+
+
+--> USE CASES BEM DIFERENTES,
+
+E àS VEZES PODEM SER IMPORTANTES.... -. pode ser crucial para seu app,
+
+
+
+e é importante entender essa diferença...

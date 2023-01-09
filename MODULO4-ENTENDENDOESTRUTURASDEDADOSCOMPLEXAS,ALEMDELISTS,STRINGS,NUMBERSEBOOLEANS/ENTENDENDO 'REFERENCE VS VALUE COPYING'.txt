@@ -1,0 +1,949 @@
+ 
+
+
+
+
+
+
+
+
+
+ ---> ACERCA DE NOSSA IMPLEMENTAÇÃO DA BLOCKCHAIN,
+
+ ESTAMOS CHEGANDO AO FINAL DESSE MÓDULO...
+
+
+
+
+
+
+
+
+
+
+
+ --> AINDA HÁ ALGUMAS COISAS SOBRE LISTS, TUPLES E ASSIM POR DIANTE 
+
+
+ QUE O PROFESSOR QUER NOS MOSTRAR,
+
+
+
+ PQ __ TALVEZ __ AS USE NO SEU PRÓXIMO APP... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> OK... --> MAS HÁ MAIS UMA COISA QUE O PROFESSOR QUER FAZER COM O BLOCKCHAIN..
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> LÓGICA DE 'mine_block()':
+
+
+
+
+
+ def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    previous_block = blockchain[-1]
+    hashed_block = hash_block(previous_block)
+    print(hashed_block)
+
+    reward_transaction = {
+        'sender': 'ourApp',
+        'recipient': owner,
+        'amount': MINING_REWARD
+
+    }
+    open_transactions.append(reward_transaction)
+    block = {'previous_block_hash': hashed_block,
+             'index': len(blockchain),
+             'processed_transactions': open_transactions,
+             }
+    blockchain.append(block)
+    print(blockchain, 'TRIED TO MINE BLOCK')
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> COMO VOCê PODE VER,
+
+
+
+
+     NÓS ESTAMOS SEMPRE FAZENDO 'APPEND'
+
+
+      
+
+
+
+DE NOSSA TRANSACTION 'bonus' 
+
+
+
+à LIST global de 'open_transactions'
+
+
+
+LOGO ANTES __   
+
+
+
+
+
+DE FINALMENTE __ FAZERMOS O APPEND DO BLOCK, com 'blockchain.append(block)'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... --> MAS AQUI NÃO HÁ MTAS COISAS QUE PODEM DAR ERRADO.... -> MAS SE PENSARMOS SOBRE 
+
+
+NOSSA IMPLEMENTAÇÃO FINAL DA BLOCKCHAIN,
+
+
+no entanto,
+
+
+
+EM QUE 
+
+
+
+__TAMBÉM __ FAREMOS 'BROADCAST'
+
+
+dessa transaction a OUTROS NODES,
+
+
+
+
+
+
+
+
+
+
+
+TALVEZ NÓS 
+
+
+
+__ NÃO VAMOS QUERER __ FAZER APPEND_ DESSA 
+
+
+
+TRANSACTION A __ NOSSA__ LISTA ORIGINAL DE 'open_transactions',
+
+
+
+
+PQ 
+
+
+
+LÁ, SE POSICIONARMOS A 'OPEN_TRANSACTION',
+
+
+
+ELA NÃO VAI FICAR TÃO BEM POSICIONADA -->   PQ __ SE ALGO _ DÁ ERRADO __ COM ALGUMA COISA 
+
+
+
+
+
+
+
+DO CÓDIGO de 'mine_block():',
+
+
+
+
+NÓS NÃO VAMOS CHEGAR NO CÓDIGO QUE FAZ ''clear'' de nossa list de 'open_transactions',
+
+auqele code 
+
+
+de 
+
+
+''    
+
+
+
+    elif(user_input == 'm'):
+
+        if mine_block():
+            open_transactions = []
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ, SE ISSO ACONTECESSE/ACONTECER,
+
+
+
+
+
+
+
+
+
+
+A 'REWARD_TRANSACTION' VAI ESSENCIALMENTE __ SE TORNAR PARTE DA 'open_transactions' LIST,
+
+
+MESMO QUE _ NAÕ EXISTA NENHUMA RAZÃO PARA A EXISTÊNCIA DE UMA REWARD (pq o add do block obviamente terá FALHADO)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É PARA O 'MINE DE UM BLOCK' que vamos adicionar essa transaction à list de transactions, é para isso que essa 'reward_transaction'
+
+existe, e é POR ISSO QUE É 
+
+APENSA... -----> 
+
+
+
+
+
+
+
+É POR ISSO QUE __ SERIA _ MELHOR ___ SE CONSEGUISSEMOS __ ADICIONAR_ 
+
+
+
+
+
+ESSA 'reward_transaction'
+ 
+
+  
+
+  A _ ALGUMA __ CÓPIA __ DE 
+
+
+  'open_transactions',
+
+
+
+
+
+
+
+  __ PARA __ QUE ENTÃO __ CONSEGUISSEMOS 
+
+
+
+
+
+  COLOCAR NO BLOCK __ 
+
+  UM CONJUNTO/COPIA DE TODAS AS 'OLD_TRANSACTIONS' + a old_transaction,
+
+
+  TUDO _ SEM 
+
+
+
+  __ ALTERAR__ O CONTEÚDO/VALOR DE 'open_transactions' original... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> PARA IMPLEMENTAR ISSO, DEVEMOS SIMPLESMENTE ADICIONAR UMA NOVA VARIABLE,
+
+
+  DE NOME 
+
+
+  'copied_transactions'...
+
+
+
+
+
+
+
+
+
+
+  -> MAS AÍ SURGE A PERGUNTA:
+
+
+
+
+
+
+
+
+  COMO PODEMOS __COPIAR_ NOSSAS 'open_transactions',
+
+
+
+
+  SEM _ FAZER UMA REFERENCIA DIRETA A ESSA VARIABLE?
+
+
+
+
+
+
+
+
+
+  --> pq o comportamento é o MESMO DO JAVASCRIRPT:]
+
+
+
+
+
+
+
+
+  se escrevemos assim:
+
+
+
+
+
+
+
+  copied_transactions = open_transactions,
+
+
+
+
+
+  ESTAREMOS APENAS ARMAZENANDO _UM POINTER_ A ESSE ARRAY/list (que funciona como um object/reference type)....
+
+
+
+
+
+
+
+
+
+
+  ---> ISSO ESTÁ ERRADO.... ---> LISTS- -> ASSIM COMO TODAS AS DATA STRUCTURES MAIS COMPLICADINHAS,
+
+
+COMPLEXAS,
+
+QUE SÃO 
+
+TODAS 
+
+AS 
+
+DATA STRUCTURES QUE NÃO SÃO BOOLEANS, STRINGS E NUMBERS,
+
+
+
+TODOS ELES SÃO COPIADOS 
+'BY REFERENCE',
+
+
+E NÃO PROPRIAMENTE POR 'VALUE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O QUE ISSO SIGNIFICA?
+
+BEM, DEVEMOS ESTUDAR AQUELA 
+
+
+
+COISA 
+DE 
+
+
+'BY REFERENCE VS BY VALUE '-->  isso é bem importante de entender...
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS UMA SIMPLE LIST, TIPO ASSIM:
+
+
+
+
+
+
+
+
+my_list  --> [A, B, C, D]
+
+
+
+
+
+
+
+
+
+-> aí tentamos escrever assim:
+
+
+
+
+
+
+
+dup_list = my_list 
+
+
+
+
+
+
+
+
+
+--> TENTAMOS ASSIGNAR O VALOR DA NOVA LIST COMO ESSA LIST VELHA, MAS ISSO NÃO FUNCIONARÁ.. 
+
+
+
+
+
+
+
+
+
+-------> O IMPORTANTE É QUE ESSA NOVA VARIABLE AINDA VAI SE REFERERIR à LIST ORIGINAL,
+
+
+PQ A LIST ORIGINAL N TERÁ SIDO COPIADA... ------> A RAZÃO PARA ISSO
+
+
+
+É QUE 
+
+
+
+DATA STRUCTURES MAIIS COMPLEXAS, COMO LISTS E SETS, POR EXEMPLO,
+
+
+
+SÃO 
+
+ARMAZENADAS NA MEMÓRIA __ APENAS 1 ÚNICA VEZ,
+
+
+
+E NÃO _ SÃO/ACABAM DUPLICADAS 
+
+
+
+QUANDO 
+
+
+
+
+APENAS AS ESCREVEMOS COMO VALOR DE OUTRA VARIABLE..
+
+
+
+
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO, VOCê PODE PENSAR NAS LISTS E ETC __ COMO ALGO SIMPLESMENTE ARMAZENADO NA MEMÓRIA,
+
+EM UM LOCAL ESPECÍFICO... 
+
+
+
+
+
+
+
+
+
+
+
+
+------>  A ÚNICA COISA QUE É COPIADA PARA DENTRO DA NOVA VARIABLE É O 'ADDRESS' DESSE NEGÓCIO NA MEMÓRIA...
+
+
+
+
+
+
+
+
+
+--> PORTANTO, 
+
+
+SE TENTAMOS USAR NOSSO 
+
+
+'dup_list'
+
+
+E ACESSAMOS O PRIMEIRO VALOR NA LIST,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+dup_list[0] = 'z' -----> ISSO VAI _ ALTERAR__ O VALOR _ DA 
+
+LIST __ 
+
+
+
+
+
+'my_list',
+
+
+
+AQUELA LIST ORIGINAL... ------> AS 2 VARIABLES ESTARÃO APONTANDO à MESMA LIST 
+
+NA MEMORY....
+
+
+
+
+
+
+
+
+
+
+
+
+(
+
+
+
+
+
+
+    SÓ A REFERENCE/ADDRESS MARKER TERÁ SIDO COPIADO..
+)
+
+
+
+
+
+
+
+
+
+--------> OK....  EU JÁ SABIA DISSO....
+
+
+
+
+
+
+
+
+
+
+-----> REFERENCE VALUES POSSUEM COMPORTAMENTO DISTINTO DE BOOLEANS E STRINGS --> 
+
+
+
+
+
+
+
+
+SE VOCê TENTA COPIAR ESSE TIPO DE DATA, REALMENTE A DATA É COPIADA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, O PROFESSOR NOS ENSINA QUE __ EXISTE_ UMA MANEIRA DE COPIAR UMA LIST....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DE VOLTA AO NOSSO EXEMPLO,
+
+
+PODEMOSS __ COPIAR_ UMA LIST _ POR MEIO DA SINTAXE DE 
+
+
+
+
+
+
+
+my_list = ['a', 'b', 'c']
+
+
+
+
+
+
+
+
+dup_list = my_list[:]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK, ISSO É TIPO UM USO DE SPREAD OPERATOR, ou um method de javascript, como 'splice ()'....
+
+
+
+
+
+
+
+
+
+
+----> CERTO....
+
+
+
+
+
+
+
+
+--> '[:]' --> ESSA NÃO É UMA SINTAXE ESPECIAL DIZENDO 'POR  FAVOR COPIE ISSO' ----> EM VEZ DISSO,
+
+
+O QUE 
+
+ESTÁ ACONTECENDO AQUI 
+
+
+]
+
+
+É __ 
+
+
+
+O SELECT_ DE UMA _ RANGE_ DAQUELA 'old list',
+
+
+
+O QUE SIGNIFICA QUE ISSO AÍ É UM __rANGE__ SELECTOR--- .>>>>> E NÓS PODERÍAMOS 
+
+TER 
+
+
+INPUTTADO 
+
+
+
+1 
+
+'STARTING E ENDING POINT' 
+
+
+
+
+nesse negócio aí,
+
+
+TAMBÉM EM NUMBERSD (
+
+
+
+
+    tipo assim:
+
+
+
+
+
+
+    dup_list = my_list[3:5]
+)
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE VOCÊ DEIXA SÓ UM ':', 
+
+
+
+
+
+
+ELE __ VAI ACTUALLY __ COPIAR__ A LIST VELHA _ INTEIRA__.... --> e a COISA IMPORTANTE,
+
+AQUI,
+
+
+É QUE 
+
+
+
+SE VOCê USA 
+
+ESSE SELECTOR DE 'range',
+
+
+ELE _ NAÕ __ COPIA APENAS UM POINTER/REFERENCE,
+
+E SIM 
+
+
+
+
+CRIA UMA NOVA LIST,
+
+POPULADA COM OS SELECTED ELEMENTS,
+E AÍ 
+
+
+TE RETORNA ESSA LIST ..... ----. aí vocÊ armazena essa nova list em 'dup_list'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR NOS MOSTRA ISSO NO REPL:
+
+
+
+>>> my_list = [1, 2, 3, 4
+... ]
+>>> second_list = my_list[:] 
+>>> second_list[2] = 9 
+>>> my_list
+[1, 2, 3, 4]
+>>> second_list
+[1, 2, 9, 4]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> 
+
+
+
+
+
+
+OK, MAS COMO ISSO É APLICADO NA NOSSA 
+
+
+
+
+'open_transactions' list,
+ 
+ LÁ NO NOSSO APP?
+
+
+
+
+
+
+
+
+
+ ----> CERTO.... ---> SE VOCê __PRECISA _ COPIAR UMA LIST,
+
+ USE 
+
+
+ ESSE RANGED SELECTOR DE '[:]' em cima do call da VELHA LSIT..
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK.... MAS FALANDO DO 'RANGE SELECTOR',
+
+
+
+
+ como diabos ele funciona se nÓS __ não 'PLAN' 
+
+ 
+ O COPY DE UMA LIST? 
+
+
+
+
+
+
+
+
+
+ --> VEREMOS ISSO NA PRÓXIMA AULA...

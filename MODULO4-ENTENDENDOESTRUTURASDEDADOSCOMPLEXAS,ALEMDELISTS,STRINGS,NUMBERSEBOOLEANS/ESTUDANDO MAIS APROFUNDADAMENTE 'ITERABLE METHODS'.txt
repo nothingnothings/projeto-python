@@ -1,0 +1,1370 @@
+
+
+
+
+
+
+
+
+
+
+
+
+-----> NOS DOCS OFICIAIS DO PYTHON, QUE O PROFESSOR RECOMENDA SE VOCÊ QUER APRENDER TODAS AS FUNCTIONS DISPONÍVEIS,
+
+
+
+
+
+O PROFESSOR ABRE O ARTIGO SOBRE  DATA STRUCTURES,]
+
+
+SOBRE LISTS...
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ PODEMOS VER QUAIS METHOSD PODEMOS CHAMAR EM UMA LIST PARA A MANIPULAR....
+
+
+
+
+
+
+
+
+
+
+
+
+-> TEMOS UM MONTE DE METHODS:
+
+
+
+
+
+
+1) 'extend' --> ADICIONA UMA 'NOVA LIST',
+
+OU __ OS _ ELEMENTOS _ DE UMA OUTRA LIST _ PARA _ DENTRO DA LIST EM QUE VOCê CHAMOU.. (ex: list_em_que_quero_novos_elementos.extend(listVelha))
+
+
+
+
+
+
+
+
+
+2) 'list.insert' --> ISSO _ INSERE_ 1 ELEMENT_ _EM UMA CERTA POSIÇÃO,
+ 
+
+__ EM VEZ   DE SEMPRE AO FINAL (que é o '.append()' ) ---------> PARA ISSO, TEMOS OS ARGUMENTOS 'i' e 'x' (i é o INDEXADOR DO ELEMENTO EM QUE VOCÊ VAI QUERER COLOCAR ESSE ELEMENTO NOVO NA FRENTE....)
+
+'x' é o NOVO ELEMENTO EM SI....
+
+
+
+ex: indexador '0' como primeiro argumento --> FARÁ COM QUE _ O ELEMENTO SEJA __ ADICIOANDO __ AO _ INÍCIO DA LIST..
+
+
+
+
+
+
+
+
+
+
+
+3) LIST.REMOVE() ------->  ISSO REMOVE UM ELEMENTO... -> VOCÊ PASSA O VALOR DO ELEMENTO QUE VOCÊ QUER REMOVER DA LIST... --> É RETORNADO UM ERRO SE NENHUM ITEM É ENCONTRADO PARA ESSE CÓDIGO...
+
+
+
+
+
+
+
+
+4) LIST.pop ----> ISSO REMOVE _ O ÚLTIMO ELEMENT DE UMA LIST... (se você passa um valor como parâmetro, um NUMBER, o elemento nesse indexador será REMOVIDO)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+5) LIST.clear() -> ISSO _ REMOVE TODOS OS ITEMS DE UMA DETERMINADA LIST...
+
+
+
+
+
+
+
+
+
+6) LIST.INDEX(x, [start, [end ]]) ------> ISSO _ CHECA_ SE UM DETERMINADO ELEMENTO _ FAZ PARTE DE UMA LIST... --> 
+
+
+
+SE SIM, esse method _ RETORNA O  INDEX _ DO LOCAL _ EM QUE ELE SE ENCONTRA....  ------> VOCê DEVE 
+
+
+TER NOÇÃO DE QUE _ SERÁ RETORNADO UM ERRO SE 
+
+O PYTHON NÃO CONSEGUIR ENCONTRAR O ELEMENTO 
+
+
+
+
+
+
+
+
+
+-> VEREMOS COMO HANDLAR ERROS, MAIS 
+TARDE....
+
+
+
+
+
+
+
+7) LIST.COUNT(x) -> RETORNA O NÚMERO DE VEZES QUE UM DETERMINADO ELEMENTO APARECE NA LIST... (elemento x)...
+
+
+
+
+
+
+
+
+8) LIST.SORT --> FAZ SORTING DOS ITEMS DA LIST, de acordo com critérios específicos...
+
+
+
+
+
+
+
+
+
+9) LIST.REVERSE() ----> REVERTE OS ELEMENTOS DA LIST...
+
+
+
+
+
+
+
+
+10) LIST.COPY() -----> ISSO RETORNA UMA CÓPIA SHALLOW DE UMA LIST.. --> É EQUIVALENTE A '[:]' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VOCê TAMBÉM ENCONTRA ARTIGOS SOBRE TUPLES  E SEQUENCES, 
+
+
+sets e etc...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE EXAMINAR OS DOCS DO PYTHON EM DETALHE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... O PROFESSOR VAI MOSTRAR ALGUNS EXEMPLOS EM 1 ARQUIVO SEPARADO QUE ELE CRIOU....
+
+
+
+
+
+
+
+
+
+
+
+
+--> SERÁ O ARQUIVO 'datastrucutres.py'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK...
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR COM OUTRA SIMPLES LIST...
+
+
+
+
+
+
+
+
+--> O PROFESSOR VAI USAR/USA ESSA FILE __ PQ __ 
+
+
+
+ELE VAI GANHAR UM POUCO DE AJUDA DO AUTOCOMPLETION...
+
+
+
+
+
+
+
+
+
+
+--> ajuda do IDE....
+
+
+
+
+
+
+
+
+
+
+
+> ---> O PROFESSOR USA O METHOD DE 'extend':
+
+
+
+
+
+
+
+
+
+
+simple_list = [1, 2, 3, 4]
+
+
+simple_list.extend([5, 6, 7])
+
+
+print(simple_list)
+
+
+
+
+
+
+
+
+
+
+-----> O RESULTADO FICA ASSIM:
+
+
+
+
+
+
+[1, 2, 3, 4, 5, 6, 7]
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> realmente estendemos a list com aqueles values de 5, 6 e 7....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> o interessante é que '[5, 6, 7]'
+
+
+
+
+
+
+
+NÃO É ADICIONADO COMO UM 'SINGLE ELEMENT AO FINAL',
+
+e sim 
+
+
+
+
+
+SÃO SOLTOS OS 3 ELEMENTOS, DE FORMA 'NORMAL', ao final..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS USAR UM DICTIOANRY....
+
+
+
+
+
+
+
+
+
+
+
+
+d = {'name': 'Max'}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... E COMO O PROFESSOR FALOU DA 'NECESSIDADE DE POSSIVELMENTE TER DE COPIAR UM NESTED ELEMENT',
+
+
+
+1
+ DICTIONARY  __ SEMPRE__ TEM 
+
+
+
+
+
+
+
+
+ O METHOD DE '.copy()',
+
+
+
+
+
+ QUE __ SEMPRE _ _RETORNA UMA 'SHALLOW COPY()"...
+
+
+
+
+
+
+
+
+
+
+
+ -----> SHALLOW COPY --> SIGNIFICA QUE 
+
+
+
+
+
+
+ __ O DICTIONARY EM QUESTÃO É COPIADO,
+
+ MAS 
+
+
+ QUE 
+
+ SE VOCê 
+
+
+ TIVER _ ARMAZENADO ALGUMA COMPLEX DATA STRUCTURE (como sets, lists, dictionaries) COMO VALUE,
+
+
+
+ ELA
+
+
+
+ __ NÃO SERÁ COPIADA por esse '.copy()'...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> E AQUI TEMOS ALGUMAS OUTRAS FEATURES ÚTEIS,
+
+
+
+
+
+
+ COMO POR EXEMPLO
+
+
+
+
+
+
+ O METHOD DE 
+
+
+
+
+ 'd.items()',
+
+
+
+
+
+ USADO EM CIMA DE DICTIONARIES ----------> O USO É 
+ 
+
+
+
+ ASSIM:
+
+
+
+
+
+
+
+
+ 
+d = {'name': 'Max'}
+
+
+print(d.items())
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR FAZ UM PRINT DESSE REWSULT -->  
+
+
+
+
+
+O QUE 'd.items()'
+
+
+
+FAZ É __ RETORNAR UMA __ LIST __ DE TODOS OS DICT ITEMS ----> 
+
+
+
+
+
+
+
+
+
+
+O OUTPUT FICA ASSIM:
+
+
+
+
+dict_items([('name', 'Max')])
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O INTERESSANTEDE 'd.items()' 
+
+É QUE 
+
+
+
+ESSE NEGÓCIO __ SEMPRE __ 
+
+
+
+ENTREGA  __ OS DICTS em 1 FORMATO _ READABLE, 
+
+
+
+
+
+
+
+
+PQ __ O FORMATO DA INFO DESSES DICT ITEMS _ SEMPRE SERÁ UMA TUPLE -------> E ISSO  PODE SER ÚTIL, NO CASO,
+
+
+
+PÁRA 
+
+CONSEGUIR ACCESS A TANTO AS KEYS COMO VALUES.... (por exemplo em 1 for loop)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, PARA DEMONSTRAR, O PROFESSOR USA A SINTAXE ESPECIAL DE 
+
+
+
+FOR LOOP:
+
+
+
+
+
+
+
+
+
+
+
+
+print(d.items())
+
+for key, value in d.items():
+    print(key, value)
+
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK.... --> SE RODARMOS ESSE ARQUIVO,
+
+
+VEREMOS O OUTPUT:
+
+
+
+[1, 2, 3, 4, 5, 6, 7]
+dict_items([('name', 'Max')])
+name Max
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ou seja,
+
+
+
+ESSA É UMA FUNCTION BEM ÚTIL PARA TANTO FAZER GET __ DAS KEYS COMO VALUES __DE UM DICT...  (em vez de 
+
+
+SÓ _AS KEYS,
+
+QUE É O QUE VOCê GANHA OUT OF THE BOX, EM 1 
+
+FOR IN LOOP,
+
+
+NORMALMENTE, 
+
+EM DICTS... 
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... MAS PARA TUPLES... -> +
+
+
+
+
+
+
+
+
+
+
+
+
+
+criamos uma tuple assim:
+
+
+
+
+
+
+
+
+
+t = (1,2, 3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> HÁ BEM MENOS METHODS DE TUPLES, SÃO MAIS LIMITADAS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR DIZ QUE PODEMOS IGNORAR OS METHODS ESTRANHOS COM SINTAXE 
+
+
+
+'__add__' 
+ 
+
+
+
+
+
+
+
+ -> METHODS DE TUPLES:
+
+
+
+
+
+
+
+
+
+
+ 1) index ---> SERVE PARA CHECAR SE 1 DETERMINADO ELEMENTO EXISTE DENTRO DA TUPLE..
+
+
+
+
+
+
+
+ex:
+
+
+
+
+tuple = (1, 2, 3)
+
+print(tuple.index(3))
+
+
+
+
+
+
+
+--> ISSO NOS RETORNA '2', PQ 
+
+O 
+
+ELEMENTO '3' PODE SER ENCONTRADO NO INDEXADOR '2'.....
+
+
+
+
+
+
+--> SE CHECAMOS POR UM ELEEMNT QUE _ NÃO FAZ PARTE DA TUPLE,
+
+
+RECEBEMOS UM ERROR...
+
+
+(devemos ter isso em mente)....
+
+
+
+
+
+
+
+
+--> 
+
+
+
+
+
+ 
+ 2) COUNT --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+POR FIM, O PROFESSOR FALA DOS SETS...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+SETS ----> 
+
+
+
+
+
+
+
+
+
+set = {'Max', 'Manu', 'Max'}
+
+
+
+
+
+
+
+
+
+
+
+
+----> ANTES DE MAIS NADA,
+O PROFESSOR 
+
+
+
+
+
+
+
+
+APONTA QUE SE TENTARMOS PRINTAR ESSE SET,
+
+
+
+SÓ 1 ÚNICO 'Max'
+
+
+VAI APARECER NO PRINT,
+
+JUSTAMENTE PQ É A NATUREZA DOS SETS _ RECHAÇAR _ VALUES QUE SÃO REPETIDOS (vai manter apenas 1 cópía do value no seu interior)....
+
+
+
+(
+    ELE SEMPRE VAI QUERER _ UNIQUE VALUES... 
+)
+
+
+
+
+
+
+
+
+
+-> MAS AÍ TEMOS UM MONTE DE METHODS:
+
+
+
+
+
+1) add 
+
+
+
+
+2) clear 
+
+
+
+3) copy 
+
+
+4) difference 
+
+
+
+5) difference_update
+
+
+
+
+
+
+6) discard ------->  NOS DEIXA DIZER 'QUAL ELEMENT ELE DEVE REMOVER' -->   E AÍ __ O SET NÃO VAI ATIRAR 1 ERROR SE NÃO ENCONTRAR 
+
+ESSE ELEMENT, OQUE É MUITO ÚTIL SE VOCê QUER 
+
+GARANTIR QUE __ ''REMOVA ISSO SE ESTIVER ALI, IGNORE SE NÃO ESTIVER'....
+
+
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE 'ADD' É IRMÃO DE 'discard' --> OS 2 NÃO DÃO THROW DE ERRORS (o add não reclama/da throw de error se ENCONTRA JÁ UMA DUPLICATA DO VALOR QUE 
+
+VOCê ESTÁ TENTNADO ADICIONAR, DENTRO DO SET... já o DISCARD NÃO DÁ THROW DE ERROR SE NÃO ENCONTRA O VALUE QUE VOCê QUER DESCARTAR....)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> também HÁ FEATURES BEM LEGAIS QUE NOS DEIXAM _ CHECAR__ SE 2 SETS POSSUEM UMA INTERSECTION,
+
+
+COISAS COMO ESSAS... 
+
+
+
+
+
+(
+'intersection'
+
+
+'intersection_update'...
+
+
+)
+
+
+
+
+
+
+
+
+
+
+---> OK.. --> ESSAS SÃO FEATURES MT ÚTEIS, USADAS PARA _ MANIPULAR__ NOSSAS DATA STRUCTURES E ASSIM POR DIANTE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> BEM, HÁ UMA FORMA DE MANIPULATION QUE JÁ VIMOS.... -> SE PRECISAMOS _ DELETAR 1 ELEMENT 
+
+DE
+ 
+
+
+ UMA LIST,
+
+
+
+
+
+
+ _ ALÉM DO METHOD DE '.remove()',
+
+
+
+
+
+
+ HÁ _ UMA FUNÇAÕ ESPECIAL QUE VOCÊ PODE USAR NO PYTHON, EM GERAL,
+
+
+
+ EM _ QUALQUER UMA DESSAS DATA STRUCTURES..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> NO CASO DE 'list',
+
+
+
+ É O 
+
+
+ 'del()' 
+
+
+
+
+
+
+
+
+
+ -> DENTRO DE del,
+
+ podemos simplesmnete ESCREVER QUAL ELEMENTO DENTRO DESSA LIST QUEREMOS REMOVER/DELETAR,
+
+
+ tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+simple_list = [1, 2, 3, 4]
+
+
+
+
+
+
+
+
+
+del(simple_list[2])
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OUTRA SINTAXE POSSÍVEL, E BEM MAIS COMUM,
+
+É 
+
+
+
+
+
+
+
+del simple_list[0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SERÁ QUE ESSA FUNÇAÕ TAMBÉM EXISTE PARA 'add'?
+
+
+
+
+
+
+
+
+
+
+-> acho que naõ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, SERÁ QUE ISSO TAMBÉM FUNCIONA EM DICTIONARIES ? 
+
+
+
+
+
+
+ex:
+
+
+
+
+d = {'name': 'Max'}
+
+
+
+
+del(d['name']) -------> ISSO FARÁ COM QUE 'd'
+
+
+
+
+
+VIRE UM EMPTY DICTIONARY,
+
+PQ A ÚNICA KEY QUE TEMOS LÁ DENTRO É ESSE 'name'...
+
+
+
+
+
+
+
+
+
+
+
+--> OK... --> E EM TUPLES, TAMBÉM FUNCIONA? 
+
+
+
+
+
+
+
+
+
+
+
+
+--> naõ, TUPLES NOS DÃO _ _ ERROS_ QUANTO A ESSA SINTAXE....
+
+
+
+
+
+
+
+
+
+---> PQ  TUPLES DÃO ERROS?  ---> É PQ __ TUPLES __ SÃO IMMUTABLE, SEUS VALORES NÃO PODEM SER ALTERADOS....
+
+
+
+
+
+--> NÇÃO PODEMOS EDITAR UMA TUPLE ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS E COM SETS, PODEMOS USAR ESSA SINTAXE?
+
+
+
+
+
+
+
+
+
+NÃO... --
+
+
+
+
+
+
+N É POSSÍVEL PQ;
+
+
+
+TAMBÉM NÃO FUNCIOAN COM SETS, PQ SETS NÃO SUPORTAM INDEXES...
+
+
+
+
+
+
+
+
+---->  SE VOCÊ QUER DELETAR UM ELEMENT DE UM SET POR MEIO DE UM METHOD, VOCÊ DEVE USAR 'set.discard()'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ---> ESSA SINTAXE ESPECIAL DE DELETE FUNCIONA:
+
+
+
+
+
+1) PARA NORMAL LSITS 
+
+
+2) PARA DICTIONARIES...
+
+
+
+
+
+
+
+
+
+
+
+NÃO FUNCIONA PARA SETS, NEM PARA TUPLES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... É UMA LIÇÃO BEM IMPORTANTE..

@@ -1,0 +1,1069 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... COM OS BASICS DOS NUMBERS E OPERATORS FORA DO CAMINHO,
+
+
+
+
+DEVEMOS ESTAR NOS PERGUNTANDO SOBRE ''COMO VAMOS USAR ESSES OPERATORS COM A BLOCK CHAIN?''
+
+
+
+
+
+
+
+
+
+
+--> bem, vamos usar aqueles operators para armazenar nossa data acerca dos coins (coins totais, por exemplo )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ANTES DE CONTINUARMOS,
+
+HÁ 
+
+2 COISAS 
+
+
+QUE 
+
+
+TALVEZ SEJA BOM ENTENDER SOBRE NUMBERS,
+
+2 COISAS QUE VOCÊ PODE ENCONTRAR QUE PODEM 'PARECER ESTRANHAS'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1A COISA ----->  VOCÊ TAMBÉM PODE 
+
+
+
+
+ESCREVER NÚMEROS MAIORES POR MEIO DE UMA 'EXPONENTIAL NOTATION',
+
+
+
+
+como 
+
+
+
+
+
+
+1e10 
+
+
+
+
+
+
+
+
+
+
+1 e 10 
+
+
+
+
+
+
+
+
+
+--> MAS O QUE É 1e10?
+
+
+
+
+
+
+
+
+
+--_> É UM NÚMERO VÁLIDO DO PYTHON,
+
+
+
+
+QUE VAI 
+
+SER LIDO 
+
+POR ELE 
+
+
+E ARMAZENADO 
+
+
+COMO 
+
+
+
+
+1000000000.0
+
+
+
+
+
+(
+
+    ou seja, 1 com 10 ZEROS...
+)
+
+
+
+
+
+
+
+1e6 ----------> 1000000.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> 1e3 ----> 1000.0 
+
+
+
+
+
+
+
+
+
+
+
+--------> O CURIOSO É QUE ESSA ESCRITA COM 'e' 
+
+AUTOMATICAMENTE 
+
+
+
+ARMAZENA O NUMBER __ COMO __ UM FLOAT_,
+
+
+
+
+
+
+ou seja,
+
+
+como coisas como 
+
+
+
+
+10000.0,
+
+
+
+
+100.0,
+
+
+10000000.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS A COISA MAIS IMPORTANTE 
+
+
+
+DISSO É QUE SE VOCê ESCREVER ALGO COMO 
+
+
+
+
+
+
+
+'1 - 0.9' ,
+
+
+
+
+
+
+
+
+
+
+O PYTHON VAI TE OUTPUTTAR ALGO DIFERENTE...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+>>> 1 - 0.9
+0.09999999999999998
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA, ELE __ NÃO NOS OUTPUTTOU__ 
+
+
+'0.1',
+
+
+como esperávamos,
+
+
+e sim 
+
+
+
+0.0999999999999998
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OU SEJA,
+
+
+RECEBEMOS UM __ VALOR__ PRÓXIMO DE '0.1',
+
+
+MAS QUE 
+
+
+
+___ NÃO __ É EXATAMENTE '0.1'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A RAZÃO PARA ESSE RESULTADO ESTRANHO/ERRADO É QUE __ COMPUTADORES___ FUNCIONAM
+
+
+
+
+
+
+COM 
+
+
+'0s' 
+
+e 
+'1s' -------> OU SEJA,
+
+
+COMPUTADORES SEMPRE TRABALHAM COM O SISTEMA BINÁRIO -->  PORTANTO,
+
+QUALQUER 
+
+
+
+
+'FLOATING POINT NUMBER'
+
+
+é 
+
+
+
+sempre 
+
+
+
+
+UM __ DESAFIO_ para linguagens de programação --------> e isso é um desafio não só para o python,
+
+
+
+
+MAS PARA __ QUALQUER _LINGUAGEM DE PROGRAMAÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A RAZÃO DE ISSO SER UM DESAFIO É QUE __ QUALQUER__ 
+
+COISA QUE 
+
+
+É 
+UM 
+
+
+'DECIMAL PLACE' (0.1 ),
+
+
+
+
+
+
+
+
+
+
+NÃO INTERESSA 
+
+
+SE É 
+
+
+
+
+
+
+
+100.1 
+
+
+
+OU 
+
+
+10.1,
+
+
+
+
+
+
+
+
+
+__ ESSA COISA _ SEMPRE SERÁ 'MENOR DO QUE 1' ------> ou seja,
+
+
+
+a 
+
+parte 
+
+
+
+APÓS 
+
+
+O 
+
+
+
+_ ZERO__ SEMPRE 
+
+SERÁ 
+
+
+
+
+___'INFERIOR A 1'...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ou seja...
+
+
+
+
+
+
+
+
+os sistemas computacionais gostam de ZERO E 1...
+
+
+
+
+
+
+--> mas decimal places __ EXISTEM __ ENTRE OS 0 E o 1 ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> valores 'menores do que 1' ( ou seja, valores QUEBRADOS, como 0.4, 0.6, 0.3)
+
+
+SÃO 
+
+
+DIFÍCEIS 
+
+
+JUSTAMENTE 
+
+PQ 
+
+
+OS SISTEMAS COMPUTACIONAIS APENAS CONHECEM 0 E 1...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VALORES MENORES DO QUE '1' TEM DE SER __ 'REFLECTED'
+
+
+COMO __ __ UMA FRAÇÃO__ DE 1,
+
+
+
+pelo 
+
+
+sistema computacional... -------> E QUANDO AS LINGUAGES DE PROGRAMAÇÃO 
+
+
+FAZEM 
+
+ESSE FRACIONAMENTO,
+
+
+
+ELAS 
+
+
+SE DEPARAM COM __ PROBLEMAS_... ----------> E OS PROBLEMAS FICAM AINDA PIORES 
+
+
+QUANDO 
+
+
+O TRABALHO É COM VALORES_ QUE _ SÃO _ DIFÍCEIS __ DE 
+
+SEREM 
+
+
+DIVIDIDOS 
+
+
+
+__ POR _ 2.... ---------------> ISSO SIGNIFICA QUE 
+
+
+
+
+
+
+
+
+
+
+
+__ SE NÓS_ _ ESTAMOS __ TRABALHANDO COM UMA __ FRACTION__ 
+
+
+
+
+
+
+DE '1'
+
+
+
+_ QUE NÃO É __ UMA 'BINARY FRACTION' (ou seja, que CONSEGUE SER DIVIDIDA POR 2, COMO '0.8' ou '0.4'),
+
+
+
+
+
+
+
+
+
+AÍ _ OBVIAMENTE __ VOCê TERÁ UM PROBLEMA... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NO NOSSO EXEMPLO,
+
+TENTAMOS 
+SUBTRAIR 
+
+
+
+0.9 de 1...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1 - 0.9 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O 
+
+
+0.9 
+
+
+
+
+
+É UM VALOR _ QUE NÃO É __ UMA 'BINARY FRACTION',
+
+
+
+por isso temos um PROBLEMA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É EXATAMENTE POR ISSO QUE 
+
+
+'1 - 0.5'
+
+
+
+
+
+
+
+RESULTA EM UM 'CLEAN RESULT',
+
+
+
+
+
+
+
+
+PQ __ '0.5'
+
+
+PODE SER 
+
+ESCRITO 
+
+
+COMO 
+
+'1/2'........
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> o 0.9 não tem essa regalia,
+
+pq 
+
+
+
+
+
+
+
+NÃO EXISTE NENHUM NÚMERO PELO QUAL PODEMOS 
+
+DIVIDIR '1' 
+
+
+QUE 
+
+RESULTE EXATAMENTE NO NÚMERO '9'...
+
+
+
+
+
+
+
+
+
+1/10 -----> é igual a 0.1
+
+
+
+
+0.9 -> a divisão vai resultar
+
+
+em
+
+
+
+
+1.11111111111
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O COMPUTADOR VAI REALIZAR DIVERSAS DIVISÕES PARA CHEGAR PERTO DE '0.9',
+
+
+
+
+MAS 
+
+
+ELE NUNCA _ VAI _ CONSEGUIR _ EFETIVAMENTE O ALCANÇAR.... (nunca fully)...
+
+
+
+
+
+
+
+
+
+
+
+
+----> E É EXATAMENTE POR ISSO QUE 
+
+
+
+'1 - 0.9'
+
+
+VAI LEVAR A ESSE OUTPUT ESTRANHO DE 
+
+
+
+
+0.099999999999999998
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------> MAIS ESTRANHO DO QUE ISSO:
+
+
+
+
+
+
+
+
+
+A EQUAÇÃO
+
+
+
+
+
+
+
+
+1 - 0.9 - 0.1 
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+>>> 1 - 0.9 - 0.1
+-2.7755575615628914e-17
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO _DEVERIA__ RESULTAR EM 0,
+
+MAS NÃO RESULTA,
+
+justamente pq o 
+
+
+'0.9' 
+
+NÃO CONSEGUE SER REPRESENTADO 
+
+
+SATISFATORIAMENTE PELO PYTHON... ---> pq a fração 9/10 NÃO CONSEGUE SER DIVIDIDA POR 2... (binary fractions)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... ESSA É UMA LIMITATION/MISSING PRECISION QUE VOCê TEM QUE TER EM MENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÃO É ALGO QUE VAI TER EFEITOS NO SEU DIA-A-DIA,
+
+PQ 
+
+ESSAS APROXIMAÇÕES SÃO REALMENTE BEM PRECISAS (very close approximation),
+
+
+
+
+
+
+
+
+
+
+
+
+
+E VOCÊ PODE USAR O int() e o float() 
+
+PARA CONSERTAR ESSAS IMPRECISÕES...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> SE VOCÊ ENCONTRAR ALGUM CÓDIGO 
+
+
+
+NO NOSSO CURSO QUE 
+
+
+
+
+
+
+FIQUE NESSES FORMATOS ESTRANHOS DE 
+
+
+
+
+
+
+
+
+
+
+
+0.09999999999999999998
+
+
+
+
+
+
+
+
+ou 
+
+
+
+
+-2767989381929080e-17,
+
+
+
+
+
+
+
+
+
+A RAZÃO DE TERMOS RECEBIDO ESSES RESULTADOS SERÁ JUSTAMENTE ESSA 
+
+
+'MISSING FLOATING POINT PRECISION'...,
+
+
+
+
+
+
+
+
+
+QUE É INHERENT A COMPUTERS,
+
+
+
+
+E PORTANTO A PYTHON... --> mas não é um problema exclusivo do python, 
+
+
+
+
+e sim de todas as linguagens de programação..
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS É ALGO COM QUE O COMPUTADOR TEM PROBLEMAS...

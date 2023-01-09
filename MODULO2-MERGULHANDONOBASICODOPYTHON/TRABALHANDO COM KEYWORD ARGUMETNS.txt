@@ -1,0 +1,344 @@
+
+
+
+
+
+
+
+
+--> veremos uma OUTRA FEATURE QUE VOCÊ DEVE SABER, SOBRE FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+--> SÃO KEYWORD ARGUMENTS... (kwargs)...
+
+
+
+
+
+
+
+
+
+
+
+--> DIGAMOS QUE TEMOS UMA FUNCTION,
+
+
+FUNCTION DE GREET:
+
+
+
+
+
+
+
+def greet(name, age):
+    print('Hello ' + name + ', I am' + age)
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO.... MAS COM KEYWORD ARGS,
+
+
+
+
+
+PODEMOS CHAMAR NOSSA FUNCTION DE UMA MANEIRA UM POUCO DIFERNETE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS CHAMAR ASSIM:
+
+
+
+
+
+
+
+greet(age=29, name='Max')
+
+
+
+
+
+
+
+
+
+
+
+--> NA NOSSA FUNCTION CALL, NÓS PODEMOS USAR O 'NOME DO NOSSO ARGUMENT' (
+
+
+    como 'age' e 'name'
+),
+
+
+
+
+
+
+
+E AÍ __ UM SINAL DE IGUAL,
+
+E AÍ 
+
+o
+
+
+VALOR QUE QUEREMOS PASSAR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NORMALMENTE, QUANDO VOCÊ NÃO FALA NADA DENTRO DO () no call,
+
+
+
+A POSIÇÃO 
+
+
+DOS ELEMENTOS/PARÂMETROS NA FUNCTION É QUE VAI DETERMINAR 'O QUE VAI EM QUE LUGAR.'...
+
+
+
+
+
+
+
+
+
+
+-----> A FIRST DATA VAI NO FIRST ARGUMENT,
+
+ETC ETC..
+
+
+
+
+
+
+
+
+
+
+--> MAS COM KEYWORD ARGS,
+
+
+você pode _ MUDAR _ A POSIÇÃO,
+
+
+OU ENTÃO ___ OMITIR__ 
+
+
+
+UM ARGUMENT
+
+
+
+
+que vem antes __ de OUTRO ARGUMENT...( algo que NÃO EXISTE NO JAVASCRIPT, ISSO É CERTO)...  
+
+
+
+
+
+
+
+
+
+---> OK, MAS COMO PODEMOS OMITIR UM DETERMINADO PARAMETER, com esse call com 'keyword arguments'?
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS TIRAR VANTAGEM DESSES 'POSITIONAL ARGUMENTS'
+
+
+
+
+
+
+
+
+
+já naquele call de 
+
+
+
+'add_value(0.9, get_last_blockchain_value())'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAI FICAR TIPO ASSIM:
+
+
+
+
+
+
+
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=0.9)
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+add_value(2, [1])
+add_value(0.9, get_last_blockchain_value())
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=0.9)  #EXEMPLO DE ___ 'KEYWORD ARGUMENTS' dentro de nossos calls (ou seja, DEIXAMOS DE LADO AQUELA 'IMPORTÂNCIA DA ORDEM' na call de nossas functions...) -> ESSA FUNCTION TERÁ O MESMO EFEITO DAQUELA DE CIMA, MAS COM UMA SINTAXE DIFERENTEZINHA....
+add_value(0.5, get_last_blockchain_value())
+add_value(0.34, get_last_blockchain_value())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->  OK, MAS COMO PODEMOS __ __oMITIR___ 1 ÚNICO ARGUMENTO DENTRO DE VÁRIOS, COM ESSE APPROACH?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR NÃO NOS EXPLICA COMO FAZER ISSO...
+
+
+
+
+
+
+
+
+
+-> MAS EU JÁ ENTENDI, É SÓ VOCÊ 
+
+
+
+NÃO ESCREVER NADA (se você não escrever nada, só 1 ÚNICO PARÃMETRO COM 'xxxx=yyyy' na sua function, você já vai estar OMITINDO TODOS OS OUTROS PARÂMETROS):
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+add_value(2, [1])
+add_value(0.9, get_last_blockchain_value())
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=0.9)  #EXEMPLO DE ___ 'KEYWORD ARGUMENTS' dentro de nossos calls (ou seja, DEIXAMOS DE LADO AQUELA 'IMPORTÂNCIA DA ORDEM' na call de nossas functions...) -> ESSA FUNCTION TERÁ O MESMO EFEITO DAQUELA DE CIMA, MAS COM UMA SINTAXE DIFERENTEZINHA....
+add_value(transaction_amount=0.9)
+add_value(0.5, get_last_blockchain_value())
+add_value(0.34, get_last_blockchain_value())
+
+
+
+
+
+
+
+
+
+
+
+RESULTADO:
+
+
+
+[[[1], 2], [[[1], 2], 0.9], [[[[1], 2], 0.9], 0.9], [[1], 0.9], [[[1], 0.9], 0.5], [[[[1], 0.9], 0.5], 0.34]]
+                                                    ^^^^^SUCESSO.

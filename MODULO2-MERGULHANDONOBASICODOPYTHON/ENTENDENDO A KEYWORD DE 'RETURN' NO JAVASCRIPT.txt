@@ -1,0 +1,499 @@
+
+
+
+
+
+
+
+
+FUNCTIONS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ APRENDEMOS UM BOCADO SOBRE COISAS DE FUNCTIONS..
+
+
+
+
+
+
+
+
+
+
+--> MAS ELAS PODEM FAZER MAIS COISAS AINDA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> def sum(a, b)
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS TODA E QUALQUER FUNCTION ACEITA __O  USO _ DA PALAVRA 'return'....
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ USAR ISSO DENTRO DE UMA FUNCTION, VOCÊ RETORNA UM VALOR... --> QUEM CHAMAR ESSA FUNÇÃO,
+
+
+VAI 
+
+
+
+GANHAR 
+
+O 
+
+RESULTADO 
+
+
+DERIVADO DE ALGUMA 
+
+OPERAÇÃO..
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+def sum(a,b):
+    return a + b 
+
+
+
+
+print(sum(2, 5))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VAMOS USAR ISSO A NOSSA BLOCKCHAIN, TAMBÉM...
+
+
+
+
+
+
+
+
+
+
+
+---> OQ TEMOS NO NOSSO BLOCKCHAIN, NO PRESENTE?
+
+
+
+
+
+
+
+
+
+
+--> BEM, AGORA TEMOS 1 FUNCTION QUE 
+
+FAZ 2 COISAS, NA VERDADE....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+def add_value():
+    blockchain.append([blockchain[-1], 5.3])
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA FUNCTION ACTUALLY FAZ 2 coisas, na verdade:
+
+
+1) ELE NOS DÁ O ÚLTIMO ELEMENT EM UMA DADA BLOCKCHAIN POR CONTA DE 'blockchain[-1]'
+
+
+
+
+
+
+
+
+2) ELE APPENDA ESSE VALUE, assim como nossa 'transaction_amount',
+
+
+
+
+
+__DENTRO __DA 'NOVA BLOCKCHAIN'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> O PROFESSOR EXPLICA QUE ELE VAI QUERER 
+
+
+
+OUTSOURCEAR ESSA FUNCTION,
+
+
+
+
+
+
+
+
+
+EM UMA FUNCTION CHAMADA DE 'GET_LAST_BLOCKCHAIN_VALUE' 
+
+
+
+
+
+
+
+
+
+
+-> é um nome bem comprido, mas bom....
+
+
+
+
+
+
+
+
+
+
+------> MAS A COISA LEGAL DO PYTHON É QUE 'VOCÊ ESCREVE CÓDIGO QUE É LEGÍVEL'...
+
+
+
+
+
+
+
+
+
+
+
+-> CÓDIGO LEGÍVEL É UM CORE VALUE DA COMUNIDADE PYTHON....
+
+
+
+
+
+
+
+----> é por isso que usar functions como essa aí, com esse nome grande, é perfectly fine...
+
+
+
+
+
+def get_last_blockchain_value():
+
+
+
+
+
+
+
+def add_value():
+    blockchain.append([blockchain[-1], 5.3])
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+-----> COMO RESULTADO DO CALL DESSA FUNCTION, VAMOS RETORNAR 
+
+'blockchain[-1]'...
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+def get_last_blockchain_value():
+    return blockchain[-1]
+
+
+def add_value():
+    blockchain.append(get_last_blockchain_value(), 5.3])
+    print(blockchain)
+
+
+
+
+
+
+
+
+add_value(2)
+add_value(0.9)
+add_value(10.89)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICOU MAIS LIMPO NOSSO CÓDIGO,
+
+PQ 
+
+
+
+AGORA  CADA FUNCTION TERÁ APENAS 1 ÚNICO OBJETIVO:
+
+
+
+
+
+1) 'get_last_blockchain_value' --> FAZ EXATAMETNE ISSO...
+
+
+
+
+2) 'add_value' --> FAZ EXATAMENTE ISSO (TBM PRINTA, MAS ISSO É IRRELEVANTE)...
+
+
+
+
+
+
+
+
+
+ 
+
+ EX:
+
+
+
+
+
+
+
+
+
+ blockchain = [[1]]
+
+
+# def add_value(transaction):
+#     blockchain.append(5.3)
+#     print(transaction)
+#     print(blockchain)
+
+
+# def add_value(transaction):
+#     blockchain.append([blockchain[blockchain. - 1] + transaction]) este código NÃO FUNCIONA.
+
+
+# essa function faz EXATAMENTE 1 ÚNICA COISA, o que é ótimo....
+def get_last_blockchain_value():
+    return blockchain[-1]
+
+
+def add_value():  # essa function faz EXATAMENTE 1 ÚNICA COISA, o que é ótimo....
+    blockchain.append([get_last_blockchain_value(), 5.3])
+    print(blockchain)
+
+
+add_value()
+add_value()
+add_value()
+add_value()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, O PROFESSOR REFERE QUE A CONVENÇÃO DO PYTHON É 'MANTER 2 EMPTY LINES ENTRE 
+
+
+FUNCTION DEFINITIONS'....
+
+
+
+
+
+
+
+
+
+
+
+------> é algo que existe lá no 
+
+
+
+OFFICIAL PYTHON STYLING GUIDE.... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> professor fala do auto-format do 
+
+
+
+visual studio code...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> certo, tudo certinho....
+
+
+
+
+
+
+
+
+--> agora conseguimos splittar esse nosso código em DUAS FUNCTIONS...

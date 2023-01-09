@@ -1,0 +1,449 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> QUANTO AO IMPORT DE PACKAGES:
+
+
+
+
+
+
+COMO ISSO FUNCIONA?
+
+
+
+
+
+
+
+
+
+
+
+
+-> VIMOS O IMPORT 
+
+
+
+DAS FUNCTOOLS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> import functools 
+
+
+
+
+
+
+--> HÁ ALGUMA ALTERNARTIVA A ESSA SINTAXE DE IMPORT?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> VEREMOS ISSO COM A PACKAGE DE 
+
+'random'....
+
+
+
+
+
+
+
+
+
+
+--> ELA TEM ALGUNS METHODS COMO 'random()', 'shuffle()"...
+
+
+
+
+
+
+
+
+
+-> VOCÊ PODE PENSAR EM UMA PACKAGE DESSAS COMO UMA '''FILE QUE DEFINE UM PUNHADO DE FUNCTIONMS'','
+
+
+
+essa é a maneiira mais simples de pensar nisso..
+
+
+
+
+
+
+
+
+
+--> QUEREMOS USAR 
+
+
+ESSAS FEATURES NO NOSSO 'blockchain.py'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> HÁ 1 PUNHADO DE SINTAXES DE IMPORT QUE PODEMOS USAR..
+
+
+
+
+
+
+
+
+
+
+
+1a) import random ...
+
+
+
+
+--> SE IMPORTAMOS ASSIM,
+
+
+
+
+
+escrevemos, depois,
+
+
+
+
+
+assim:
+
+
+
+
+
+random.random()
+
+
+random.shuffle(),
+
+
+
+etc etc...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, ESSE NEGÓCIO NOS DÁ UM OBJECT COM TODAS AS FEATURES/METHODS PROPORCIONADAS POR 
+ESSE  OBJECT,
+
+
+
+
+E AÍ __ 
+
+
+
+
+
+
+PODEMOS ACESSAR ESSES METHDOS ASSIM..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NÓS IMPORTAMOS OS FUNCTOOLS ASSIM...
+
+
+
+
+
+
+
+
+
+2a MANEIRA --> 
+
+
+
+
+
+
+
+
+
+A OUTRA MANEIRA É ESCREVER ASSIM:
+
+
+
+
+
+
+import reduce from functools....
+
+
+
+
+
+
+
+
+
+
+
+
+VOCÊ TAMBÉM PODE IMPORTAR ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+3)  
+
+import random as r 
+
+
+
+
+
+
+
+
+
+
+
+
+-> VOCÊ PODE USAR UM ALIAS,
+
+PARA SIMPLIFICAR O NOME DO SEU IMPORT...
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ TAMBÉM PODE FAZER ISSO COM 
+
+OS NAMED IMPORTS, 
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+from functools import reduce
+
+
+
+
+from random import random as r
+
+
+
+
+
+
+
+
+
+
+
+---------> OK... A VANTAGEM DESSE APPROACH 
+
+é qeu 
+
+vocE^
+
+
+pode chamar as coisas diretamente,
+
+tipo assim:
+
+
+
+
+
+
+reduce()
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS ESSE APPROACH _ NAÕ É O RECOMENDADO,
+
+PQ 
+
+É 
+
+MT FÁCIL 
+
+
+
+FICAR ___ COM __ MÚLTIPLAS _ LIBRARIES __ COM FUNCTIONS COM 
+
+
+MESMOS NOMES,,
+
+QUE 
+
+
+AÍ 
+
+FARIAM 'OVERWRITE'
+
+
+
+
+1 DA OUTRA...
+
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE A SINTAXE DO 'OBJECT' é bem mais recomendada....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+por isso faça coisas como 
+
+
+
+
+
+
+
+import functools 
+
+
+
+
+
+
+
+functools.reduce(argument)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AGORA VEREMOS COMO CRIAR UM HASH __ COM UMA DESSAS PACKAGES...

@@ -1,0 +1,1075 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AGORA QUE TRABALHAMOS UM POUCO MAIS COM 'MODULES' (múltiplos arquivos no nosso projeto),
+
+
+
+
+
+
+
+
+
+
+
+DEVEMOS __ VER COMO PODEMOS 'CONTROLAR O QUE É ACTUALLY EXPORTADO' por um 
+
+
+dos seus módulos/files...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AO CONTRÁRIO DE 'IMPORTS',
+
+
+
+isto aqui é BEM COMPLICADINHO, NA VERDADE...
+
+
+
+
+
+
+
+
+
+
+----> É UM POUCO DIFÍCIL... --> EM GERAL, NO PYTHON __ NADA É PRIVADO.. --> 
+
+
+
+NÓS JÁ VIMOS ESSE 'THEME' QUANDO TRABALHAMOS COM CLASSES--->  LÁ 
+
+
+
+VIMOS ALGUNS 'WORKAROUNDS'  e 'built-in workarounds'
+
+
+
+
+PARA CONSEGUIR TRANSFORMAR COISAS EM PRIVATE (como private attributes, com o uso de getters e setters com '@property' )....
+
+
+
+
+
+
+
+
+
+
+
+----> ENTRETANTO,
+
+
+MESMO COM ESSAS TENTATIVAS,
+
+
+
+
+
+
+
+
+COISAS COMO 
+
+'__nomeDoAttribute',
+
+
+
+
+
+
+
+TODAS ESSAS COISAS ERAM/SÃO APENAS  __ CONVENÇÕES,
+
+
+
+
+
+
+
+
+OU ENTÃO 'CONVENIENCE METHODS' providenciados pelo python 
+
+
+
+
+
+
+
+PARA __ 'KINDOF'
+
+
+
+conseguir um 'private attribute' -------> ISSO PQ 
+
+
+
+
+
+
+NÃO HÁ REALMETNE ESSE CONCEITO DE 'PRIVACY' BUILT-IN NO PYTHON....
+
+
+
+
+
+
+
+
+
+
+-------> A IDEIA GERAL DO CÓDIGO PYTHON AINDA É:
+
+
+
+''SE VOCÊ ESTÁ ESCREVENDO O CÓDIGO, VOCÊ É RESPONSÁVEL 
+
+PELO USO CORRETO DO CÓDIGO'' -->  E SE VOCÊ ESCREVE UMA PACKAGE QUE VOCÊ ACTUALLY FAZ 
+
+'SHIP' A OUTRAS PESSOAS,
+
+
+
+
+
+
+VOCê DEVE SÓ SE ASSEGURAR do jeito correto que deve ser  usado,
+
+
+
+
+
+
+MAS CABE ÀS PESSOAS 
+
+DECIDIR COMO USAR O SEU CÓDigo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+''in python, NOTHING IS PRIVATE''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> É POR ISSO QUE É BEM DIFÍCIL CONTROLAR 'O QUE PODE SER EXPORTADO'...
+
+
+
+
+
+
+
+
+----> MAS _ DIFICULTAR EXPORTS DE COISAS, NO SEU CÓDIGO,
+
+
+É ALGO QUE __ _PODE__ SER FEITO... ------> O QUE 
+
+VOCÊ 
+
+PODE 
+
+FAZER?
+
+
+
+
+
+
+
+
+
+
+
+
+) VOCÊ PODE USAR '_nomeDoAttribute' 
+
+
+
+
+,
+
+USAR 
+
+
+ESSE UNDERLINE AÍ,
+
+
+para 
+
+
+DIZER AO PYTHON 
+
+
+
+
+
+
+'''AQUELA SINTAXE DE                 "import * from xxx"
+
+
+
+
+
+
+NÃO DEVE FUNCIONAR'''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----->MAS ESSA SINTAXE DE 'import * from xx' 
+
+É ALGO QUE O PROFESSOR JÁ NOS CONTOU QUE DEVEMOS EVITAR,
+
+
+POR ISSO 
+
+
+
+
+
+
+
+
+
+
+
+ESSE USO De naming 
+
+
+com 
+
+
+
+
+'_nomeDoAttribute'
+
+
+
+
+NÃO É UMA COISA MT  ÚTIL.... --------> mas já veremos o uso disso..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> como segunda opção, temos:
+
+
+
+
+
+
+
+
+
+
+
+2) ALTERAR A VARIABLE DE '__all__',
+
+
+
+VARIABLE __ QUE PODE SER ENCONTRADA/MODIFICADA LÁ NO ARQUIVO DE 
+
+
+'__init__.py' 
+
+
+DE CADA 
+
+
+'PACKAGE' (ou seja, de cada package/folder do seu app), PARA 
+
+
+
+
+ENTÃO 
+DEFINIR 
+
+
+
+
+'''O QUE DEVERÁ SER EXPORTADO POR 1 DETERMINADA _PACKAGE__...''
+
+
+
+
+
+
+
+
+
+
+
+---------> MAS, NOVAMENTE, ISSO _ SÓ FAZ DIFERENÇA QUANDO/SE A PESSOA USAR AQUELA SINTAXE DE 
+
+
+'import * from xxx'...
+
+
+
+
+
+(
+
+    STAR IMPORT....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK, MAS COMO PODEMOS '''VER O QUE O PYTHON __ PENSA__ QUE ESTAMOS IMPORTANDO???''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> BEM, O PROFESSOR 
+
+
+VOLTA AO NOSSO CÓDIGO,
+
+DENTRO DO FOLDER DE NOSSO PROJETO...
+
+
+
+
+
+
+--> aí ele executa o REPL nesse folder, COM 'PYTHON' no terminal...
+
+
+
+
+
+
+
+
+
+
+----> O PROF NOS ENSINA QUE PODEMOS USAR A FUNCTION BUILT-IN 'dir' 
+
+
+PARA __ VER _ O QUE _ UM CERTO ARQUIVO ESTÁ EXPORTANDO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+dir() 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR EXEMPLO, O PROF DIZ QUE ELE PODE RODAR ESSA FUNCTION 
+
+SOBRE A PACKAGE DE 
+
+
+
+
+
+
+
+'util', 
+
+MAS ANTES ELE PRECISA IMPORTAR ESSE 'util' no repl, tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+import util.hash_util
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> QUANDO EXECUTAMOS O DIR COM ESSE IMPORT AÍ, TIPO ASSIM:
+
+
+
+
+
+
+
+dir(util.hash_util)
+
+
+
+
+
+
+
+
+
+
+
+----> FICAMOS COM ESTE OUTPUT:
+
+
+
+
+
+
+
+
+
+
+>>> import util.hash_util
+>>> dir(util.hash_util)
+['OrderedDict', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'hash_block', 'hash_string_256', 'hashlib', 'json']
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> É UMA LIST COM TODOS OS METHODS/COISAS EXPORTADOS DESSE ARQUIVO 'hash_util'....
+
+
+
+
+
+
+
+
+
+
+--> ESSAS SÃO AS COISAS QUE O PYTHON 'ACEITA' que eu use... .
+
+
+
+
+
+
+apareecm 'hash_block' 'hash_string_256'
+
+
+E AQUELES 
+
+
+
+
+'hashlib' 
+
+e 
+
+'json'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> E É ASSIM QUE O PYTHON FUNCIONA:
+
+
+
+
+
+
+POR DEFAULT,
+
+
+
+
+TUDO É 'DISPONÍVEL A TODOS',
+
+
+
+
+
+sem restrições.....
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS SE VOCê QUER CONTROLAR O QUE É EXPORTADO DE 1 ARQUIVO/MODULE,
+
+
+
+O QUE VOCÊ PODE FAZER É ADICIONAR UM 
+
+
+'_' 
+
+
+para 
+
+
+INDICAR QUE ESSE NEGÓCIO __ NÃO DEVE SER EXPORTADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> EX: VAMOS COLOCAR 'hashlib' COMO __ IMPOSSÍVEL DE SER IMPORTADO...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+import hashlib as _h1
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+"""contains import of 'hashlib', for creating random hashes that are used 
+in the verification of our blockchain (security mechanism built upon the comparison 
+between current and last block)"""
+
+
+import hashlib as _h1  ####QUANDO ESCREVEMOS com '_' no início, dizemos ao python que ESSE ARQUIVO NÃO DEVE SER EXPORTADO COM OS OUTROS,, QUANDO exportarmos esse module/arquivo de 'hash_util.py'
+import json
+from collections import OrderedDict
+
+
+def hash_block(block):
+    """Hashes a block and returns a string representation of it"""
+
+    converted_block = block.__dict__.copy()
+
+    converted_block['processed_transactions'] = [transaction.to_ordered_dict(
+    ) for transaction in converted_block['processed_transactions']]
+
+    return hash_string_256(json.dumps(converted_block, sort_keys=True).encode())
+
+
+def hash_string_256(string):
+
+    return _h1.sha256(string).hexdigest()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> BEM, SE AGORA TENTARMOS USAR ESSA SINTAXE DO 'from xxxx import *',
+
+
+
+
+
+
+
+
+
+__ ISSO NÃO FUNCIONARÁ... 
+
+
+
+
+
+
+--> aparecerá 'the  element _h1 could not be found'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA, ESSE 'BLOCK' nos exports SÓ FUNCIONA QUANDO O CARA TENTAR IMPORTAR COM '*'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A ALTERNATIVA, COMO MENCIONADO ANTERIORMENTE,
+
+
+
+É DEIXAR DE USAR '_',
+
+
+
+
+
+E PASSAR A USAR 
+
+
+
+
+'
+__all__'...
+
+
+
+
+
+
+
+
+
+
+
+
+ESSA VARIABLE DE 'ALL'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O '__all__' É ESCRITO __ EM CADA__ 
+
+
+
+ARQUIVO/MODULO DO SEU PROJETO,
+
+
+
+
+
+
+
+E __ DENTRO _ DELE _ VOCê ESPECIFICA, COM STRINGS,
+
+
+
+AS COISAS QUE DEVEM SER EXPORTADAS...
+
+
+
+
+
+
+
+
+
+fica tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+"""contains import of 'hashlib', for creating random hashes that are used 
+in the verification of our blockchain (security mechanism built upon the comparison 
+between current and last block)"""
+
+
+import hashlib  ####QUANDO ESCREVEMOS com '_' no início, dizemos ao python que ESSE ARQUIVO NÃO DEVE SER EXPORTADO COM OS OUTROS,, QUANDO exportarmos esse module/arquivo de 'hash_util.py'
+import json
+from collections import OrderedDict
+
+
+
+
+
+__all__ = ['hash_block', 'hash_string_256']
+
+
+
+
+
+
+def hash_block(block):
+    """Hashes a block and returns a string representation of it"""
+
+    converted_block = block.__dict__.copy()
+
+    converted_block['processed_transactions'] = [transaction.to_ordered_dict(
+    ) for transaction in converted_block['processed_transactions']]
+
+    return hash_string_256(json.dumps(converted_block, sort_keys=True).encode())
+
+
+def hash_string_256(string):
+
+    return hashlib.sha256(string).hexdigest()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AGORA SE TENTARMOS IMPORTAR ESSAS COISAS,
+
+
+
+
+
+
+IMPORTAR ESSE ARQUIVO DE 'hash_util,'
+
+
+
+
+SÓ __ SERÁ POSSÍVEL IMPORTAR 
+
+
+
+'hash_string_256'
+
+
+
+e 
+
+
+'hash_block'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, É POR MEIO DA VARIABLE DE '__all__' QUE CONTROLAMOS EFETIVAMENTE O QUE É EXPORTADO DE UM ARQUIVO,...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> SE VOCÊ ADICIONA '__all__ = []' 
+
+
+
+
+
+,
+
+
+VOCÊ PODE FAZER O CONTROLE DESSES 'EXPORTS PERMITIDOS' 
+
+
+
+ao longo do SEU MÓDULO INTEIRO ('module-wide')....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... AGORA FICOU MELHOR...
+
+
+
+
+
+
+
+
+
+
+----> MAS ISSO TBM É MEIO INÚTIL, PQ ISSO AÍ _ SÓ FUNCIONA COM A SINTAXE DE 'import *', que RARAMENTE USAMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> você não pode controlar mt coisa quando o assunto é 'LIMITE DE EXPORTS',
+
+
+
+
+vocÊ tem que usar as coisas responsavelmente,
+
+
+é NADA INTUITIIVO...

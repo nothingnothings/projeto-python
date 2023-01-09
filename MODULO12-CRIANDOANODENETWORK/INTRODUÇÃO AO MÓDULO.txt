@@ -1,0 +1,238 @@
+
+
+
+
+
+
+
+
+
+
+
+ADICIONANDO 'PEER NODES'...
+
+
+
+
+
+
+
+
+
+
+''leveraging the network''...
+
+
+
+
+
+
+
+
+
+
+--> NO ÚLTIMO MÓDULO, CONVERTEMOS NOSSO APP PYTHON EM UM PROGRAMA QUE 
+
+
+
+RODA EM UM 'LOCAL WEB SERVER',
+
+
+com a ajuda do flask..... --> NÓS FIZEMOS 
+
+
+ISSO 
+
+PARA QUE 
+
+
+FOSSE POSSÍVEL CONECTAR NOSSA 'WEB UI' (aquele index.html)
+
+
+
+
+
+AO 
+
+
+
+
+NOSSO CÓDIGO 'PYTHON WEB' -->  isso certamente é uma melhoria,
+
+
+
+
+
+pq 
+
+
+
+
+passamos a ter uma VERDADEIRA USER INTERFACE PARA INTERAGIR COM NOSSO NODE, 
+
+
+e com 
+
+
+nossa 
+
+blockchain..
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS A IDEIA POR TRÁS DA BLOCKCHAIN TECHNOLOGY É JUSTAMENTE 
+
+
+
+TER UMA 
+
+'DECENTRALIZED' 
+
+
+
+NETWORK 
+
+
+DE 
+
+
+CÓPIAS DE BLOCKCHAIN,
+
+
+
+
+E DE NODES QUE MANAGEIAM ESSAS 
+
+
+COPIES DE BLOCKCHAIN,
+
+
+
+
+E QUE __ ENTÃO INTERAGEM 1 COM O OUTRO... -->  E ISSO TAMBÉM FAZ PARTE 
+
+
+
+DA SEGURANÇA DA TECNOLOGIA DE BLOCKCHAIN,
+
+PQ 
+
+VOCê 
+
+TEM UM MONTE DE NODES 
+
+QUE 
+
+
+'CHECAM' UM AO OUTRO...
+
+
+
+
+
+
+
+
+
+
+---> nesse módulo,
+
+
+
+
+
+_ VEREMOS:
+
+
+
+
+
+
+
+
+1) COMO ENVIAMOS HTTP REQUESTS POR MEIO DO PYTHON (
+
+    pq vamos precisar ser capazes de 'BROADCAST'
+
+    novos blocks/transactions a OUTROS 'PEER NODES'...
+) ------> E ESSA É A PARTE DA 'BLOCKCHAIN' --------------> VAMOS 'MANAGE E WORk' COM PEER NODES...
+
+
+
+
+
+
+
+
+
+2) OS OUTROS NODES, QUE __ TAMBÉM _ 'RODAM A BLOCKCHAIN',
+
+
+
+que 
+
+
+
+também rodarão aquele 'blockchain server' visto na última aula,
+
+
+MAS QUE 
+
+
+
+ENTÃO 
+
+
+SERÁ CONECTADO AO NOSSO 'NODE',
+
+
+
+para _ QUE_ _ SEMPRE __ QUE 
+
+
+
+MINERARMOS UM NOVO BLOCK,
+
+NÓS INFORMEMOS ESSE 'OUTRO NODE',
+
+
+
+PARA ENTÃO INFORMAR OS 'OUTROS NODES' --> essa é a ideia por trás da NODE NETWORK...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> É CLARO QUE VAMOS CONSTRUIR ISSO DE UMA MANEIRA 'SIMPLIFICADA' NESSE MÓDULO,
+
+
+MAS AINDA 
+
+ASSIM VAMOS 
+
+MERGULHAR NESSE ASSUNTO E VER COMO A BLOCKCHAIN GERALMENTE FUNCIONA...
+
+
+
+
+

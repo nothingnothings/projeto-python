@@ -1,0 +1,1242 @@
+
+
+
+
+
+
+
+
+
+
+
+--> já 
+
+
+
+
+TEMOS UM OVERVIEW SÓLIDO DOS 
+
+
+FUNDAMENTOS DAS CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VEREMOS UM CONCEITO UM POUCO MAIS AVANÇADO,
+
+CHAMADO DE 
+
+
+
+
+
+
+
+
+
+'''ENCAPSULATION'',
+
+
+
+O QUAL 
+
+
+ENVOLVE A IDEIA 
+
+DE 
+
+TER 
+
+
+'PRIVATE'
+
+E
+ 
+ 'PUBLIC'
+
+
+ ATTRIBUTES 
+
+
+ EM UMA DETERMINADA CLASS....
+
+
+
+
+
+
+
+
+-----> NOSSO CÓDIGO ATÉ AGORA ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__(self):
+
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+car1 = SportsCar(1000)
+
+
+print(car1)
+
+
+print(car1.__dict__)
+
+
+new_dict = car1.__dict__
+
+
+new_dict.update({'newkey': 'value'})
+
+
+print(new_dict)
+
+
+print(car1.__dict__, 'OLD DICT')
+
+print(car1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> TODOS OS METHODS NESSA CLASS AÍ 
+
+ _ SÃO __ PUBLIC,
+
+
+ O QUE QUER DIZER 
+
+
+
+
+ QUE 
+
+
+
+
+ PODEMOS  ACESSÁ-LOS DO LADO DE FORA,
+ sem problemas... (e alterá-los)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -_> É CLARO QUE PODERÍAMOS ARGUMENTAR QUE 
+
+
+
+
+
+
+
+ ''NAÕ QUERO QUE 
+
+ ESSA LIST SEJA DISPONÍVEL DESSA FORMA'',
+
+  
+
+
+  ''NÃO QUERO QUE QUALQUER PESSOA SEJA CAPAZ DE FAZER APPEND DE QUALQUER COISA 
+
+  COMO UM WARNING, DO LADO DE FORA DE NOSSA CLASS''...
+
+
+
+
+
+
+
+
+
+
+
+
+  --> TALVEZ VOCÊ QUEIRA TER UMA 'ESTRUTURA CLARA',
+
+
+  UMA IDEIA BEM DEFINIDA DE 'o QUE UM WARNING DEVE SER'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A IDEIA É QUE DEVEMOS TER UM SPECIAL METHOD NA NOSSA CLASS,
+
+
+
+
+
+
+
+
+
+um method tvz chamado de 
+
+
+'add_warning',
+
+
+
+
+
+
+E LÁ DENTRO TEREMOS 
+UM PARÂMETRO DE 
+
+
+'warning_text' 
+
+
+
+
+
+
+
+
+
+----> ISSO PQ O WARNING SEMPRE DEVERÁ SER DATA DO TIPO TEXT...
+
+
+
+
+
+
+
+
+----> aí, dentro desse negócio, desse method,
+
+
+VAMOS CHECAR 
+
+SE O 
+
+
+
+'len(warning_text) > 0 '
+
+
+
+
+
+PARA QUE ESSE NEGÓCIO NÃO SEJA UMA EMPTY STRING...
+
+
+
+
+
+
+ex:
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__(self):
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+    def add_warning(warning_text):
+        if (len(warning_text) > 0):
+
+
+
+
+
+
+
+
+
+--> DEPOIS DISSO,
+
+
+PROFESSOR QUER CHAMAR 
+
+
+'self' -----> POR ISSO PRECISAMOS DEFINIR ESSE ARGUMENTO NESSE METHOD, tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__(self):
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+    def add_warning(self, warning_text):
+        if (len(warning_text) > 0):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, SE PASSAMOS POR ESSE IF CHECK,
+
+VAMOS QUERER CHAMAR 
+
+
+
+
+self.warnings.append(warning_text)
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__(self):
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+    def add_warning(self, warning_text):
+        if (len(warning_text) > 0):
+        self.warnings.append(warning_text)
+
+
+
+
+
+
+
+---------> OK... 
+
+
+
+
+
+
+AGORA TEMOS ESSA FUNCIONALIDADE,
+
+
+
+
+
+
+
+
+ESSE METHOD QUE FAZ ESSE ADD _ _INTERNO__ de 'warnings'.... --> 
+
+
+
+
+
+
+
+
+
+
+
+
+LÁ NOS NOSSOS CALLS EXTERNOS, NÃO VAMOS MAIS QUERER CHAMAR 
+
+
+
+'car1.warnings.append('xxx')'
+
+
+MANUALMENTE,
+
+E SIM 
+
+
+VAMOS QUERER SER FORÇADOS A ESCREVER 
+
+
+
+
+
+
+
+
+
+'car1.add_warning('My text')' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.warnings = []
+
+    def __repr__(self):
+
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text): ###exemplo de PUBLIC E PRIVATE ATTRIBUTES/methods....
+        if (len(warning_text) > 0):
+            self.warnings.append(warning_text)
+
+
+car1 = SportsCar(1000)
+
+
+print(car1)
+
+
+print(car1.__dict__)
+
+
+new_dict = car1.__dict__
+
+
+new_dict.update({'newkey': 'value'})
+
+
+print(new_dict)
+
+
+print(car1.__dict__, 'OLD DICT')
+
+print(car1)
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+ESSE INSERT DE 1 NOVO 'WARNING' está funcionando, sim, 
+
+
+MAS NADA __ NOS IMPEDE DE ESCREVER DIRETAMENTE 
+
+
+
+'car1.warnings.append(2121121)' 
+
+
+
+
+
+
+
+E AÍ INSERIR UM NÚMERO, VALOR QUE NÃO É STRING,
+
+
+
+DENTRO DESSA LIST...( que está como pública)...
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE VOU QUERER DEIXAR ESSA LIST COMO 'private'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> NO PYTHON,
+
+DIZEMOS QUE 
+
+'''QUERMOS QUE 
+
+
+
+ESSE ATTRIBUTE SEJA PRIVATE''' 
+
+
+por meio 
+
+DA ESCRITA 
+
+
+DOS ATTRIBUTES COM 
+
+'__" no início (doublescore)...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        self.__warnings = []  ###EIS O CÓDIGO EM QUESTÃO.
+
+    def __repr__(self):
+
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text): ###exemplo de PUBLIC E PRIVATE ATTRIBUTES/methods....
+        if (len(warning_text) > 0):
+            self.warnings.append(warning_text)
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+OK, É ASSIM QUE ESCREVEMOS ISSO COMO UMA PRIVATE VARIABLE/ATTRIBUTE:
+
+
+
+    def __init__(self, starting_top_speed=100):
+        self.__warnings = []  ###EIS O CÓDIGO EM QUESTÃO.
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+--> COM ISSO, 
+
+
+
+
+_ TEORICAMENTE SEUS ATTRIBUTES SÓ PODERÃO SER ACESSADOS/ALTERADOS __ DO LADO _ DE DENTRO _ 
+
+
+DE SUA 
+
+
+CLASS (por meio de methods)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, TENHA EM MENTE QUE ISSO AÍ, A EXISTÊNCIA DE '__' e 'private' ATTRIBUTES 
+
+
+
+É __ APENAS_ _UMA CONVENÇÃO....  ------> NAÕ É UMA 'HARD RULE'.. --> TECNICAMENTE,
+
+
+NADA VAI TE IMPEDIR DE ACESSAR ISSO DO LADO DE FORA DE UMA CLASS.... (
+
+    não é como no javascript, portanto...
+)
+
+
+
+
+
+
+
+
+
+
+
+----> ENTRETANTO, O PYTHON CERTAMENTE GRITA COM VOCÊ SE VOCÊ TENTAR FAZER ISSO, ACESSAR UMA PRIVATE 
+
+
+VARIABLE/ATTRIBUTE DO LADO  DE FORA DE UAM CLASS...
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO É UMA CONVENÇÃO.... --> 
+
+
+
+
+NADA TE IMPEDE DE FAZER ISSO,
+
+MAS 
+
+A 
+
+CORE IDEA 
+
+
+POR TRÁS 
+
+
+
+DO PYTHON É 
+
+
+
+'''você está escrevendo/escreve seus próprios programas'''' --> isso quer dizer que 
+
+
+
+SE VOCê QUER 
+
+
+HACKEAR SEU PRÓPRIO PROGRAMA E O UTILIZAR DE UMA MANEIRA 'ERRADA',
+
+
+
+você pode fazer isso, sem problemas.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> A IDEIA POR TRÁS DESSE CONCEITO DE 'PRIVATE' E 'PUBLIC'
+
+
+
+é que 
+
+você 
+
+estará COMPARTILHANOD ESSE CÓDIGO COM OUTRAS PESSOAS,
+
+
+
+
+OU A SI MESMO ,
+
+
+
+
+
+ SOBRE QUAL É SUA INTENÇÃO... --> E _ SE PESSOAS __ DESCOBRIREM ALGUMA 'WAY AROUND'
+
+
+ seu código,
+
+
+ alguma maneira de fazer A MESMA COISA QEU VOCÊ FEZ,
+
+
+ isso 
+
+
+ será 
+
+
+ 'fine',
+
+
+
+ MAS PELO MENOS VOCÊ FOI CLARO ACERCA DE SUA INTENÇÃO...
+
+
+
+
+
+
+
+
+
+
+ --> OK.... O NOME FOI ALTERADO PARA '__warnings'...
+
+
+
+
+
+
+
+
+ ---> temos que trocar todos os locais em que chamávamos 'warnings' para '__warnings':
+
+
+
+
+
+
+
+ class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        # self.warnings = []   ###PUBLIC ATTRIBUTE... é assim que são escritos/adicionados
+        self.__warnings = [] ###PRIVATE ATTRIBUTE.... necessário o '__', é assim que são escritos/adicionados... --> só pode ser acessado do lado de DEntro da sua class... (por meio de methods)..
+
+    def __repr__(self):
+
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.__warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text): ###exemplo de PUBLIC E PRIVATE ATTRIBUTES/methods....
+        if (len(warning_text) > 0):
+            self.warnings.append(warning_text)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ATÉ MESMO TEREMOS QUE FAZER ISSO _ NOS LOCAIS __ FORA DE NOSSA CLASS,
+
+LÁ NOS PRINT STATEMENTS:
+
+
+
+
+
+
+
+
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        # self.warnings = []   ###PUBLIC ATTRIBUTE... é assim que são escritos/adicionados
+        self.__warnings = [] ###PRIVATE ATTRIBUTE.... necessário o '__', é assim que são escritos/adicionados... --> só pode ser acessado do lado de DEntro da sua class... (por meio de methods)..
+
+    def __repr__(self):
+
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.__warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text): ###exemplo de PUBLIC E PRIVATE ATTRIBUTES/methods....
+        if (len(warning_text) > 0):
+            self.__warnings.append(warning_text)
+
+
+car1 = SportsCar(1000)
+
+
+print(car1)
+
+
+print(car1.__dict__)
+
+
+new_dict = car1.__dict__
+
+
+new_dict.update({'newkey': 'value'})
+
+
+print(new_dict)
+
+
+print(car1.__dict__, 'OLD DICT')
+
+print(car1)
+
+
+
+
+print(car1.__warnings)
+
+
+
+
+# car1.warnings.append('A WARNING TEXT')
+
+
+
+car1.add_warning('A WARNING TEXT')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> OK.... MAS AGORA SE TENTARMOS EXECUTAR ESSA LINHA DE 
+
+
+
+
+
+
+'car1.__warnings.append('valor)'',
+
+
+ISSO 
+
+
+VAI NOS DAR UM __ ERRO_ _ (
+    pq vamos estar tentando alterar o valor dessa LIST PRIVATE 
+
+    do lado de FORA DE NOSSA CLASS/object...
+)
+
+
+
+
+
+
+
+
+
+-----> JÁ OS PRINT STATEMENTS 
+DE 
+
+
+
+'car1.__warnings'
+
+
+
+VÃO NOS DAR UM ERRO, ESTE ERRO AQUI:
+
+
+AttributeError: 'SportsCar' object has no attribute '__warnings'. Did you mean: 'add_warning'?
+
+
+
+
+
+
+
+
+
+---> ISSO OCORRE JUSTAMENTE PQ 
+
+
+
+ESSE ATTRIBUTE FOI DEFINIDO COMO PRIVATE ('__warnings')
+
+
+
+
+
+
+
+
+
+
+
+
+-> PRIVATE --> TEMOS COMO ACESSAR DO LADO DE DENTRO,
+
+
+MAS NÃO DO LADO DE FORA...
+
+
+
+
+
+
+
+-> PARA CONSEGUIR FAZER O OUTPUT DESSE PRIVATE ATTRIBUTE,
+
+
+você 
+
+teria que adicionar um method DEDICADO A ISSO,
+
+COMO 
+
+
+'get_warnings',
+
+
+
+que seria escrito assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+def get_warnings(self):
+    return self.__warnings
+
+
+
+
+
+
+
+
+
+
+
+
+
+    TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+    
+class SportsCar:
+
+    top_speed = 100
+
+    def __init__(self, starting_top_speed=100):
+        self.top_speed = 200
+        self.normal_speed = starting_top_speed
+        # self.warnings = []   ###PUBLIC ATTRIBUTE... é assim que são escritos/adicionados
+        self.__warnings = [] ###PRIVATE ATTRIBUTE.... necessário o '__', é assim que são escritos/adicionados... --> só pode ser acessado do lado de DEntro da sua class... (por meio de methods)..
+
+    def __repr__(self):
+
+        print('Printing...')
+        return 'Top Speed: {}, warnings: {}'.format(self.normal_speed, len(self.__warnings))
+
+    def drive(self):
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+    def add_warning(self, warning_text): ###exemplo de PUBLIC E PRIVATE ATTRIBUTES/methods....
+        if (len(warning_text) > 0):
+            self.__warnings.append(warning_text)
+
+    def get_warnings(self):  #só assim você conseguirá printar os WARNINGS, se você usar uma function call como 'print(car1.get_warnings())'....
+        return self.__warnings
+
+
+
+
+
+
+
+
+
+
+E ASSIM:
+
+
+
+
+car1 = SportsCar(1000)
+
+
+print(car1)
+
+
+print(car1.__dict__)
+
+
+new_dict = car1.__dict__
+
+
+new_dict.update({'newkey': 'value'})
+
+
+print(new_dict)
+
+
+print(car1.__dict__, 'OLD DICT')
+
+print(car1) ###mostra como funciona o 'REPR' lá no 
+
+
+
+
+# print(car1.__warnings)
+
+
+print(car1)
+
+print(car1.get_warnings()) #vai nos printar os '__warnings' dentro desse object...
+
+# car1.warnings.append('A WARNING TEXT')
+
+
+
+car1.add_warning('A WARNING TEXT')
+
+
+
+
+
+
+
+
+
+

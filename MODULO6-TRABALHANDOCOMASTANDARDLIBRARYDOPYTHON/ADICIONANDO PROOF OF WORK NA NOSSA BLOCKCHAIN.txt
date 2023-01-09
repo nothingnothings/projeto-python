@@ -1,0 +1,716 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ADICIONAR ESSE 'PROOF OF WORk' 
+
+
+
+NOS NOSSOS BLOCKS,
+
+
+O PROFESSOR 
+
+
+
+
+
+
+
+CRIA UMA NOVA FUNCTION..
+
+
+
+
+
+
+
+
+--> É A FUNCTION DE 
+
+' valid_proof'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA FUNCTION VAI CONTER O ALGORITMO QUE __ VAI __ GERAR 
+
+
+1 NOVO HASH,,
+
+
+
+
+
+E QUE __ AÍ _ CHECA_ SE ESSE HASH 
+
+
+
+
+__ CUMPRE _ NOSSO 'CRITÉRIO DE DIFICULDADE'... --> OU SEJA,
+
+
+
+
+
+ELE __ CHECA__ SE ESSE HASH __ 
+
+É 
+
+VÁLIDO OU NÃO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+def valid_proof():
+
+
+
+
+
+
+
+
+
+
+
+----> VAMOS PRECISAR DE COISAS COMO INPUT... -as coisas serão:
+
+
+
+
+
+
+
+
+
+
+1) A list de open_transactions, transactions que vão ser inseridas nesse BLOCK QUE SERÁ GENERATED...
+
+
+
+
+
+
+
+2) o 'previous_block_hash' 
+    
+
+
+
+
+3) o 'proof number' -----> LEMBRE-SE: 
+
+
+NÓS ESTAMOS 'TRYING OUT' diferentes números, ver QUAL NÚMERO SE ENCAIXA NESSE 'PROOF OF WORk',
+
+O QUE 
+
+PROVAVELMENTE FAREMOS COM UM FOR LOOP (que vai por TODOS OS NUMBERS POSSÍVEIS, AO INFINITO),
+
+
+
+e esse number aí, desse for loop,
+
+
+VAI SER INSERIDO NESSE 
+
+
+
+SLOT AQUI.... 
+
+
+
+
+
+
+--> isso significa que 
+
+
+'valid_proof()'
+
+
+É UMA FUNCTION QUE PROVAVELMENTE SERÁ EXECUTADA __ DENTRO _ DE UM FOR LOOP...
+
+
+
+
+
+
+
+
+
+
+--> 'WE WILL CALL THIS FUNCTION FOR EVERY NUMBER WE WILL BE CHECKING''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok, a function vai ficando assim:
+
+
+
+
+
+
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> eu ACREDITO que essa function será executada _LÁ NA FUNCTION de 'mine_block'...
+
+
+
+
+
+
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof):
+
+
+
+
+
+
+
+
+
+
+
+---> OK, LÁ NO FUNCTION BODY,
+
+O QUE FAREMOS, NO CASO,
+
+
+É 
+
+
+'GUESS A NEW HASH'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> para isso, o professor cria uma variable de nome 
+
+'guess'...
+
+
+
+
+
+
+
+guess ------> O _ GUESS _ SERÁ __ UMA 
+
+
+
+
+
+STRING,
+
+
+
+STRING 
+
+
+
+COMPOSTA 
+
+
+
+
+POR 
+
+
+
+'transactions, last_hash e proof'...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof):
+    guess = transactions + previous_block_hash + str(proof)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NOSSA PROOF PROVAVELMENTE SERÁ UM NUMBER,
+
+
+
+E SERIA BOM 
+
+
+
+
+DEIXAR OS 2 VALORES COMO STRINGS, TAMBÉM, PARA GARANTIR..
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof):
+    guess = transactions + previous_block_hash + str(proof)
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof): #precisa retornar uma HASH, uma string hash.... e essa string precisa ser 'ACEITÁVEL' (ter número de 0s inicial compatível com o que definimos para nosso app... esse é o proof of work)...
+    guess = str(transactions) + str(previous_block_hash) + str(proof)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, MAS NÃO BASTA FAZER ISSO.... --> PRECISAMOS FAZER 'ENCODE'
+
+
+
+
+dessa string,
+
+
+TRANSFORMÁ-LO 
+
+
+EM __ UTF8 CHARACTERS....
+
+
+
+
+
+
+
+
+
+
+--> fazemos isso com 
+
+
+
+(str(transactions) + str(previous_block_hash) + str(proof)).encode()
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> ex:
+
+
+guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO AINDA NÃO SERÁ _UM HASH, E SIM _ APENAS UMA STRING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA O PROFESSOR VAI QUERER _ cALCULAR__ UM HASH/CRIAR UM HASH COM BASE NESSA STRING,
+
+
+
+
+POR ISSO ELE CHAMA:
+
+
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof): #precisa retornar uma HASH, uma string hash.... e essa string precisa ser 'ACEITÁVEL' (ter número de 0s inicial compatível com o que definimos para nosso app... esse é o proof of work)...
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+    guess_hash = hashlib.sha256(guess)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, A PROOF TEM QUE SER PARTE 
+
+
+DESSA STRING/hash...
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VAMOS QUERER __ EXECUTAR_ _UM IF CHECK,
+
+CHECANDO __ SE ESSE HASH 
+
+
+
+
+
+
+TEM OS PRIMEIROS 5 CARACTERES COMO '0', coisa assim...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof): #precisa retornar uma HASH, uma string hash.... e essa string precisa ser 'ACEITÁVEL' (ter número de 0s inicial compatível com o que definimos para nosso app... esse é o proof of work)...
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+    guess_hash = hashlib.sha256(guess) #esse hash deverá ter os PRIMEIROS 5 CARACTERES ( ou mais) como 0....
+    if guess_hash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS COMO 
+
+CHECAMOS POR NOSSA CONDITION?
+
+
+
+
+
+
+
+
+
+
+
+o professor por enquanto vai printar 'guess_hash' 
+
+
+,
+
+
+
+e aí 
+
+
+vai retornar um 
+
+
+
+
+
+
+
+
+CHECK,
+
+tipo assim:
+
+
+
+
+
+
+
+
+return guess_hash  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS AÍ ELE VAI QUERER CHECAR SE ESSE 'guess_hash' 
+
+
+STARTS WITH 'FIVE LEADING ZEROES' (mas não sei como escrever isso)...
+
+
+
+
+
+
+
+
+-> talvez usando indexadores COM A STRING, para aí checar se VÁRIOS DOS INDEXES SÃO 0...
+
+--> 
+
+
+
+MAS ISSO FICA UMA MERDA...
+
+
+
+
+
+
+
+
+
+
+
+--> MELHOR USAR O METHOD 'string.startswith('wel', 7, 20)
+
+
+
+
+wel ---> VALOR 
+
+
+
+7 --> START POINT 
+
+20 --> end point...
+
+
+
+
+
+
+
+
+
+
+
+
+ESCREVI ASSIM:
+
+
+
+def valid_proof(transactions, previous_block_hash, proof): #precisa retornar uma HASH, uma string hash.... e essa string precisa ser 'ACEITÁVEL' (ter número de 0s inicial compatível com o que definimos para nosso app... esse é o proof of work)...
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+    guess_hash = hashlib.sha256(guess) #esse hash deverá ter os PRIMEIROS 5 CARACTERES ( ou mais) como 0....
+    if str(guess_hash).startswith('00000', 0):
+        return guess_hash
+    else:
+        return False
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NÃO SEI SE ESTÁ BOM/CERTO....

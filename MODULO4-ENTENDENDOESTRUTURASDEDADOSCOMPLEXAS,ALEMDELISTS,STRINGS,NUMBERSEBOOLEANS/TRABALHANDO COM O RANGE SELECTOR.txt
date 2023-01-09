@@ -1,0 +1,934 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> DEMOS UMA OLAHDA NAQUELE 'RANGE SELECTOR',
+
+que é usado 
+PARA 
+
+
+COPIAR LISTS SEM COPIAR __ 'POINTERS'... (reference types, toda aquela lenga-lenga)...
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+>>> my_list = [1, 2, 3, 4
+... ]
+>>> second_list = my_list[:] 
+>>> second_list[2] = 9 
+>>> my_list
+[1, 2, 3, 4]
+>>> second_list
+[1, 2, 9, 4]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO.... --> AGORA DEVEMOS VER COMO PODEMOS __ USAR ESSE _ RANGE _ SELECTOR __  
+
+
+
+COM COISAS _ QUE NÃO SÃO O COPY DE LISTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PROFESSOR CRIA UMA NOVA SIMPLE_LIST,
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+simple_list = [1, 2, 3, 4, 5]
+
+
+
+dup_list = simple_list[0:2] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso CRIARÁ UMA LIST QUE _ _CONTERÁ __ APENAS OS 2 PRIMEIROS ELEMENTOS DA LIST ANTIGA....
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+>>> simple_list = [1, 2, 3, 4, 5]
+>>> dup_list = simple_list[0:2] 
+>>> dup_list
+[1, 2]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> UÉ... ACHAVA QUE ISSO ERA 'INDEX-BASED'.. --> mas aparentemente não é...
+
+
+
+
+
+>>> simple_list = [1, 2, 3, 4, 5]
+>>> dup_list = simple_list[0:2] 
+>>> dup_list
+[1, 2]
+>>> dup_list = simple_list[1:2
+... ]
+>>> 
+>>> 
+>>> 
+>>> dup_list = simple_list[3:4]
+>>> 
+>>> 
+>>> 
+>>> 
+>>> dup_list
+[4]
+>>> dup_list = simple_list[1:5]
+>>> dup_list
+[2, 3, 4, 5]
+>>> dup_list = simple_list[0:5]
+>>> dup_list
+[1, 2, 3, 4, 5]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK...
+
+
+
+
+
+
+
+
+
+
+
+A NOVA LIST DEVERÁ CONTER OS 3 PRIMEIROS ELEMENTS...
+
+
+
+
+
+
+
+
+
+A SINTAXE CORRETA É ASSIM:
+
+
+
+
+
+
+
+dup_list = simple_list[1:3]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO....
+
+
+
+
+
+
+
+
+
+
+
+
+-->  O PROFESSOR ESCREVE:
+
+
+
+
+dup_list = simple_list[0:3]
+
+
+
+
+
+
+
+
+
+
+
+--> E AÍ _ RECEBEMOS 
+
+
+1,2,3 ------> 3 ELEMENTS... mas eu pensei que seria 1,2,3,4 (4 elementos).... -->
+
+
+
+
+
+
+
+
+ISSO ACONTECE PQ __ O RANGE SELECTOR SEMPRE _ VAI __ COMEÇAR 
+
+
+
+
+
+NAQUELE NUMBER QUE VOCê INPUTTOU, E AÍ __ O _ LIMITE/FINAL/MURO será aquele number secundário...
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+1      2     3     4     5 
+
+0      1     2      3     4
+
+
+I                   I 
+
+
+
+
+
+
+
+
+
+
+-> FICOU ASSIM, PORTANTO... 
+
+
+
+
+
+(starting POINT -> INCLUI O NUMBER QUE EXISTE NESSE INDEX... 
+
+END POINT --> NÃO INCLUI O NUMBER QUE FICA NESSE INDEX...)
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO....
+
+
+
+
+
+
+
+
+
+O NÚMERO FINAL, EM OUTRAS PALAVRAS,
+
+É EXCLUÍDO DO RESULTADO...
+
+
+
+
+
+
+
+
+
+
+
+
+-> O ELEMENTO COLOCADO NESSE FINAL AÍ __ NÃO É INCLUÍDo...
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCê TAMBÉM PODE FAZER COISAS LEGAIS, COMO 'SELECT FROM THE RIGHT' (talvez por meio de '-1' )...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+
+VOCÊ ESCREVERIA ASSIM:
+
+
+
+
+
+
+
+
+
+
+new_list = simple_list[:-1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCê ESCREVER ASSIM, ESCREVER DESSA FORMA AÍ QUE __ OMITE __ O VALOR ANTES DE ':',
+
+
+
+
+
+O __ ZERO_ É ASSUMIDO COMO VALOR.... 
+
+
+
+
+
+
+--> E COMO COLOCAMOS ESSE VALOR _ NEGATIVO__, O NEGÓCIO ASSUME QUE ESTAREMOS __ SELECIONANDO 'COMEÇANDO DA DIREITA'...
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+>>> simple_list = [1, 2, 3, 4, 5]
+>>> new_list = simple_list[:-1]
+>>> new_list
+[1, 2, 3, 4]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> A RAZÃO PARA ESSE RESULTADO, PARA A __ EXCLUSÃO DO NÚMERO 5,
+
+
+
+
+
+É QUE ESSA SINTAXE DIZ:
+
+
+
+'comece do zero e SIGA ATÉ O FINAL, até que _ você chegue e EXCLUA _o PRIMEIRO ELEMENTO DA 
+
+DIREITA PARA A ESQUERDA' (Que é o 5, nesse caso, evidentemente)...
+
+
+
+
+
+
+
+
+
+
+---> OK.... ACHO QUE ENTENDI --> É POR ISSO QUE O 5 FOI EXCLUÍDO....
+
+
+
+
+
+
+
+
+
+
+--> E SE VOCê ESCREVER, POR EXEMPLOO,
+
+
+isto aqui:
+
+
+>>> simple_list = [1, 2, 3, 4, 5]
+>>> new_list = simple_list[:-2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA,
+
+
+'MENOS 2',
+
+
+
+FARÁ COM QUE __ OS 2 ELEMENTOS MAIS DA DIREITA SEJAM _ EXCLUÍDOS.... ( o último e penúltimo)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ESSAS SÃO COISAS QUE PODEMOS FAZER COM RANGE SELECTORS --> É UMA FERRAMENTA BEM LEGAL...
+
+
+
+
+
+
+
+
+
+
+----> E A PARTE NICE DE TUDO ISSO É QUE SEMPRE ACABAMOS RECEBENDO UMA _ NOVA LIST, COMPLETAMENTE INDEPENDENTE DA ANTIGA,
+
+
+com esse selector...
+
+
+
+
+
+
+
+
+
+
+
+
+-> O RANGE SELECTOR É NICE, SIM, 
+
+MAS POR ACASO ELE TAMBÉM FUNCIONA COM TUPLES?
+
+
+
+
+
+devemos criar uma tuple, tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+tuple = (1, 2, 3, 4)
+
+
+
+
+
+
+
+
+
+
+
+-> AÍ ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+
+new_tuple = tuple[0:2] -------> ISSO VAI ARMAZENAR '(1, 2)' DENTRO DESSA VARIABLE, SINAL QUE ISSO FUNCIONOU...
+
+
+
+
+
+
+
+
+
+
+
+
+-> E ISSO TAMBÉM FUNCIONA  com aquela 
+
+
+
+
+
+
+sintaxe de ':-1' 
+
+
+
+
+
+
+
+QUE O PROFESSOR NOS MOSTROU..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> certo... 
+
+
+
+
+
+
+
+
+MAS E QUANTO A DICTIONARIES E SETS?
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR PEDE QUE CRIEMOS UM SET...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+{
+    'Max', 'Manu' 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> SETS NÃO SÃO ORDERED, E NÃO ACEITAM REPETIÇÕES...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+>>> a = {'Max', 'Manu', 'Anna'}
+>>> 
+>>> a[0]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'set' object is not subscriptable
+>>>
+
+
+
+
+
+
+
+
+
+
+INDEXING DE SETS  __NÃO É ALGO SUPORTADO PELO PYTHON...
+
+
+
+
+
+
+
+
+----> É POR ISSO QUE 
+
+
+
+
+TENTAR USAR ESSE RANGE SELECTOR,
+
+TIPO ASSIM:
+
+
+
+
+
+a[0: 2] -------> ISSO TAMBÉM NÃO FUNCIONA COM SETS -------> A RAZÃO PARA ISSO É QUE _ SETS__ NÃO  SÃO 'ORDERED'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> COMO SETS NÃO TEM UMA ORDER,
+
+
+
+
+O SELECTOR DE RANGE NÃO FAZ SENTIDO, PQ VOCê NUNCA VAI SELECIONAR POR 'PLACE'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A VANTAGEM PRINCIPAL DO SET É QUE ELE _ SEMPRE GARANTE QUE _ OS VALUES QUE VOCê ENCONTRA DENTRO DELE SÃO _ UNIQUE_...
+
+
+
+
+
+
+
+
+
+
+
+--> CADA ELEMENT SERÁ UNIQUE,
+
+
+
+E A MESMA COISA SE APLICA PARA DICTIONARIES,
+
+BTW...
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+ --> OK... COM ESSE RANGE SELECTOR EM MÃOS,
+
+
+
+
+  
+
+  E ESSA TRICK DE COPIAR LISTS,
+
+
+
+  O PROFESSOR EXPLICA QUE _ PODEMOS __ FAZER UMA CÓPIA DE 'open_transactions' 
+
+
+
+
+
+
+
+
+
+
+
+  tipo 
+
+
+
+
+  copied_transactions = open_transactions[:]
+
+
+
+
+
+
+
+
+
+
+
+
+  -> AÍ, AGORA SE FIZERMOS APPEND DA 'reward_transaction'
+
+
+
+  NESSA VARIABLE/LIST DE 'copied_transactions',
+
+
+
+
+
+
+
+
+  E AÍ ADICIONARMOS 'copied_transactions'
+
+
+
+  COMO 
+
+  
+
+  TRANSACTIONS DE NOSSO BLOCK,
+
+
+  
+
+  AÍ ESTAREMOS ASSEGURANDO QUE 
+
+
+
+
+
+  _ ESTAMOS REALMENTE __ MANIPULANDO UMA LIST __ DE TRANSACTIONS 
+
+
+  QUE __ NAÕ É __ MANAGEADA __ GLOBALMENTE, E SIM LOCALMENTE... -----> E SE NOSSO 'mine_block()'
+
+
+
+  alguma hora 
+
+  DENAR _ O ADD_ DE NOSSA TRANSACTION,
+
+
+
+
+
+NÃO VAMOS ARRISCAR TER DEIXADO ESSA TRANSACTION NA NOSSA 'LOCAL/GENERAL' list de 'open_transactions',
+
+
+compartilhada por todos os users/nodes de nosso app...

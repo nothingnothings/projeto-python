@@ -1,0 +1,642 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) DATA STRUCTURE COM KEY-VALUE PAIRS, ordem não importa --> USADO PARA SENDER-RECIPIENT-AMOUNT 
+
+
+
+2) DATA STRUCTURE COM LISTA MUTÁVEL DE VALORES, ORDEM NÃO IMPORTA --> USADO PARA 'outstanding transactions' 
+
+
+
+
+3) DATA STRUCTURE COM __ LISTA MUTÁVEL DE VALORES, MAS __ ORDEM __iMPORTA__ --> usado para NOSSA BLOCKCHAIN EM SI....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> COMEÇAMOS COM ISSO AÍ...
+
+
+
+
+
+
+
+
+
+
+
+questão 1 --> vamos querer usar um DICTIONARY,
+
+
+
+
+
+
+
+
+que terá um formato assim:
+
+
+
+
+
+
+
+
+
+{
+    sender: 'John',
+    recipient: 'Mary',
+    amount: 3341241.3
+}
+
+
+
+
+
+
+
+
+
+---> É NAO ORDERED, NÃO ACEITA DUPLICATAS, MIXED DATA TYPES, KEY-VALUE PAIRS, E É MUTABLE.... (não sei se o mutable interssa)...
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... 
+
+
+
+QUESTÃO 2:
+
+
+
+
+
+
+
+--> ORDER NÃO IMPORTA, LISTA MUTÁVEL DE VALORES... --> DEVEMOS USAR UM SET....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+{
+
+
+    {
+    sender: 'John',
+    recipient: 'Mary',
+    amount: 3341241.3
+    },
+
+       {
+    sender: 'John',
+    recipient: 'Mary',
+    amount: 3341241.3
+    },
+
+
+       {
+    sender: 'John',
+    recipient: 'Mary',
+    amount: 3341241.3
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3) DATA STRUCTURE COM __ LISTA MUTÁVEL DE VALORES, MAS __ ORDEM __iMPORTA__ --> usado para NOSSA BLOCKCHAIN EM SI....
+
+
+
+
+
+
+
+
+
+
+---> SERÁ UMA LIST....
+
+
+
+
+ex:
+
+
+
+[
+
+{
+
+transactionList: {
+
+
+    {
+    sender: 'John',
+    recipient: 'Mary',
+    amount: 3341241.3
+    },
+
+       {
+    sender: 'John',
+    recipient: 'Mary',
+    amount: 3341241.3
+    },
+
+
+       {
+    sender: 'John',
+    recipient: 'Mary',
+    amount: 3341241.3
+    }
+
+
+
+
+},
+
+
+previousBlockHash: 'asojsaopasjasopjsapoasjosa',
+index: '?????'
+
+
+
+
+}
+
+
+
+
+
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK, ACHO QUE SERÁ ASSIM....
+
+
+
+
+
+
+
+
+
+---> VOU VER O VÍDEO DO PROFESSOR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> USE-CASE PARA DICTIONARIES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUEREMOS QUE NOSSAS TRANSACTIONS SEJAM DICTIONARIES, PQ TEREMOS KEY-VALUE PAIRS...
+
+
+
+
+
+
+
+
+
+
+
+---> PODERÍAMOS USAR TUPLES, SIM, 
+
+
+
+AÍ TERÍAMOS QUE FAZER UMA TUPLE, EM QUE A ORDEM IMPORTA,
+]
+ASSIM:
+
+
+
+
+
+1) SENDER 
+
+
+2) RECIPIENT 
+
+3) AMOUNT...
+
+
+
+
+
+
+
+
+
+---> VOCê PODERIA FAZER ISSO, SIM,
+
+MAS O PROFESSOR 
+
+
+
+
+ACHA QUE O USO DE KEY-VALUE PAIRS E DICTIONARIES É MAIS FÁCIL, PQ NUNCA PODEREMOS ERRAR A __ ORDEM__ DOS PARÂMETROS,
+
+
+COMO PODEMOS FAZER COM AS TUPLES, OCASIONALMENTE....
+
+
+
+
+  
+
+
+
+
+
+
+-->  OK, MAS E QUANTO A 'LIST' DE TRANSACTIONS? 
+
+
+
+
+
+
+
+
+
+--> PROFESSOR APONTA QUE ELA DEVE SER MUTABLE, 
+
+E QUE A ORDER NÃO DEVE IMPORTAR...
+
+
+
+
+
+
+
+
+
+
+OK, USAMOS _ _sETS_>..
+
+
+
+
+
+
+
+
+
+
+-----> ]
+
+
+
+
+UM 
+
+
+SET 
+
+
+{
+
+
+    xxxx,
+
+    yyyyy,
+
+    zzzz,
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... MAS PROFESSOR NOS EXPLICA QUE NÓS __ ACTUALLY_ VAMOS QUERER TER VALORES
+
+REPETIDOS...  (
+
+    pq eventualmente poderemos ter a 'EXATA MESMA TRANSAÇÃO MAIS DE 1 ÚNICA VEZ'...
+)
+
+
+
+
+
+
+
+---> SETS _ NÃO ACEITAM O DUPLÍCATE DE DATA,
+
+
+
+
+
+POR ISSO NÃO VAMOS O UTILIZAR..
+
+
+
+--> mesmo sender e recipient, 
+
+
+
+
+
+
+podemos ter o mesmo value ... --> Q 
+
+
+
+
+
+
+
+OK ... --> UM SET NÃO É UMA OPÇÃO,
+
+NEM 1 DICTIONARY( pq não percisamos de key-value pairs, e sim apenas de UMA LIST DE TRANSACTIONS ) ----> POR ISSO USAMOS A LIST,
+
+
+QUE 
+É 
+
+
+
+SUFICIENET....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS E QUANTO AO BLOCKCHAIN EM SI?
+
+
+
+
+
+
+
+
+
+PROFESSOR TBM ACHA QUE CABE UMA __ LIST COMUM.... -=> PQ VAMOS QUERER USAR UMA NORMAL LIST,
+PQ 
+
+
+ELA É  IMMUTABLE, E A ORDER VAI IMPORTAR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->
+ OK, MAS E QUANTO AO BLOCK EM SI..   ?
+
+
+
+
+
+
+
+
+
+
+
+ O BLOCK EM SI TEM ESTE FORMATO:
+
+
+
+
+
+
+
+ 1) HASH 
+
+
+
+
+ 2) INDEX  
+
+
+
+ 3) TRANSACTIONS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PROFESSOR APONTA QUE __ O USO DE UM DICTIONARY AQUI É UMA BOA OPÇÃO,
+
+ JUSTAMENTE PELA EXISTÊNCIA DE KEY-VALUE PAIRS.. ------> MAS, COMO VISTO LÁ NA TRANSACTION, AQUI 
+
+
+
+
+VOCê TAMBÉM PODERIA TER USADO 1 TUPLE PARA ESSE STORAGE... --> professor prefere isso..
+
+
+                                                       
+
+
+PREFERE PQ É MAIS FÁCIL DE ENTENDER, POIS NÃO HÁ A QUESTÃO DA 'ORDEM'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok, MAS E OS 'PARTICIPANTS'
+
+
+
+
+
+
+
+
+
+
+DEVERÁ SER UMA ESTRUTURA EM QUE A ORDEM NÃO IMPORTA, 
+
+
+MAS QUE 
+
+
+
+NÃO PODEM SER REPETIDOS OS VALORES (participants)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, PODEMOS USAR UM SET....
+
+
+
+
+
+
+
+
+
+AGORA QUE SABEMOS QUAIS ESTRUTURAS QUEREMOS USAR,
+
+
+
+
+
+DEVEMOS VER COMO CRIÁ-LAS E UTILIZÁ-LAS....

@@ -1,0 +1,1698 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> VOCÊ PROVAVELMENTE JÁ OUVIU FALAR SOBRE BLOCKCHAIN,
+
+
+
+
+OU ENTÃO SOBRE BITCOINS E CRYPTO CURRENCY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> BITCOIN É UMA CRIPTO CURRENCY,
+
+
+E 
+
+CRIPTO CURRENCIES 
+
+
+
+SÃO BASEADAS NA TECNOLOGIA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+--> A TECNOLOGIA BLOCKCHAIN PODE PARECER MT ABSTRATA,
+
+
+
+MAS 
+
+
+ELA É, NO FINAL DAS CONTAS,
+
+
+UMA 
+
+
+
+'DISTRIBUTED DATA STORAGE
+
+
+
+CONSISTIDA DE __ CONTAINERS (blocks) QUE 
+
+SÃO CONECTADAS'...
+
+
+
+
+
+
+
+
+
+
+
+
+------> DISTRIBUTED DATA STORAGE --> OU SEJA, A MESMA CÓPIA DA DATA É _ MANTIDA__ EM DIFERENTES MÁQUINAS, CONECTADAS.....
+
+
+
+
+--> E CADA 'DATA STORAGE'/machine na blockchain é APENAS UMA ___ CHAIN/LIST__ DE DATA STORES/CONTAINERS (blocks), QUE POR SUA VEZ ESTÃO CONECTADAS ENTRE SI...
+
+
+(
+
+
+    ISSO QUER DIZER QUE 
+
+    A ORDER DOS BLOCKS __ IMPORTA....
+)
+
+
+
+
+
+--> E CADA__ BLOCK __ É COMO 1 
+
+
+'FOLDER' NO SEU SISTEMA 
+QUE CONTÉM 
+
+
+ALGUMA DATA... ( não é um folder, mas é parecido com isso)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ok, temos todos esses folders, EM QUE CADA __ FOLDER_ 
+
+
+'CONHECE'/sabe ___ do FOLDER QUE VEIO _ ANTES _DELE... ----> E ISSO CONSTRÓI UMA CHAIN (e a ORDEM IMPORTA),
+
+
+
+
+
+
+
+e o FOLDER INTEIRO, O FOLDER SEGURANDO  __________TODOS__ OS SUBFOLDERS,
+
+
+
+
+ESSE É O SEU 'BLOCKCHAIN'....  ------> E __ O QUE __ EXISTE __ DENTRO 
+
+DE 
+
+1 
+
+FOLDER É 
+
+
+A 
+
+'DATA'
+
+
+ARMAZENADA NA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> E AS BLOCKCHAINS NÃO ESTÃO LIMITADAS APENAS A TRANSACTIONS .... ---> 
+
+
+
+
+
+UMA BLOCKCHAIN É UMA DATA STORE,
+
+
+
+
+
+
+
+
+E __  1 SINGLE BLOCK,
+
+NO FINAL DAS CONTAS,
+
+
+
+PODE SEGURAR _ QUALQUER __ DATA QUE VOCÊ QUISER...
+
+
+
+
+
+
+
+
+-> data suportada -->  TEXT, UM NUMBER, UM 'PROGRAM' que você pode executar...
+
+
+
+
+
+
+---> NO CASO DO BITCOIN, A DATA __ ARMAZENADA É SEMPRE UMA 'LIST OF TRANSACTIONS'...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+A block:
+
+
+
+-----------------------
+                        |
+                        |
+         DATA           |
+ 'HI, IM IN A BLOCK     |
+                        |
+                        |
+                        |
+                        |
+                        |
+                        |
+                        |
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+------> É CLARO QUE NÃO TEMOS APENAS 1 ÚNICO BLOCK,
+
+E SIM 
+
+
+
+__ MÚLTIPLOS BLOCKS....
+
+
+
+
+
+eX:
+
+
+
+
+
+
+A block:
+
+
+
+-----------------------
+                        |
+                        |
+         DATA           |
+ 'HI, IM IN A BLOCK'     |
+                        |
+                        |
+                        |
+                        |
+                        |
+                        |
+                        |
+------------------------
+
+
+
+
+A block:
+
+
+
+-----------------------
+                        |
+                        |
+         DATA           |
+  'I AM ALSO IN A BLOCK' |
+                        |
+                        |
+                        |
+                        |
+                        |
+                        |
+                        |
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS A PARTE INTERESSANTE DA BLOCKCHAIN ___ É QUE __ CADA __ BLOCK 
+
+'KNOWS ABOUT EACH OTHER'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E PARA __ GARANTIR_ QUE VOCÊ NÃO POSSA __ 'MANIPULAR' 
+
+
+
+A DATA NOS BLOCKS (pq os blocks sempre vão ficar
+
+ DENTRO DE MÁQUINAS ALHEIAS, TEORICAMENTE ''AO ALCANCE'' DE OUTRAS PESSOAS) ---> é necessário ficarem 
+
+ em outros pcs 
+
+ PQ _ É NECESSÁRIO _ QUE OS BLOCKS CONSIGAM FAZER 'CHECK' 1 EM RELAÇÃO AO OUTRO (eles tem que se 'checar', mas sem deixar as outras pessoas acessarem os dados, esse é o dilema)...
+
+
+
+
+
+
+
+
+
+--> PARA __ EVITAr__ QUE  A DATA DE __CADA BLOCK__ SEJA __ LIDO _ POR UMA OUTRA PESSOA, PESSOA/PESSOAS 
+
+QUE VÃO 
+
+
+TER ESSE BLOCK NOS SEUS Pcs,
+
+
+
+
+
+
+
+
+
+
+a blockchain TEM UM MECANISMO __ DE HASHING__, 
+
+
+
+
+QUE HASHEIA A DATA DE CADA BLOCK....
+
+
+ 
+
+ (
+     each block is HASHED...
+ )
+
+
+
+
+
+
+
+
+
+
+
+ ---> HASH ---> É SÓ UM LONG TEXT, QUE É GERADO __ AUTOMATICAMENTE__ A PARTIR 
+
+
+
+ DE 
+
+
+ 'TODAS AS PARTES QUE COMPÕEM O BLOCK''... ---> isso quer dizer que 
+
+
+TODOS OS BLOCKS ANTERIORES E SUAS DATAS (Que realmente COMPÕEM ESSE BLOCK MAIS 'UPPERMOST')
+
+
+
+
+
+
+
+SERÃO PARTE DESSE BLOCK, E O 'HASH' do block uppermost __ VAI __ 
+
+
+DEPENDER_ 
+
+DO CONTEÚDO DESSES BLOCKS ANTERIORES... -------->
+
+
+
+
+
+
+
+
+
+
+
+RESUMINDO:  
+
+
+
+
+
+SE VOCÊ TIVER UM BLOCK QUE DIZ 
+
+
+''HI IM IN A BLOCK'' 
+
+e
+ 
+
+ nesse MESMO BLOCK TEMOS UMA METADATA, UMA __ LISTA__ DE 'unique ids' 
+
+ PARA _ CADA_ BLOCK _ ANTERIOR A ELE,
+
+  
+
+
+
+
+
+
+VOCÊ PROVAVELMENTE VAI PEGAR ESSA STRING E USAR AMBOS, ESSA STRING E A LISTA DE 'UNIQUE IDS'
+
+
+ANTERIORES,
+
+
+
+
+USAR AMBOS COM UM 'HASHING ALGORYTHM' (usaremos um plugin para isso).... -----> 
+
+
+
+
+
+AÍ, ESSE PLUGIN VAI 'SPIT OUT SOME TEXT',
+
+E É CLARO QUE 
+
+
+ESSE TEXT VAI DEPENDER: 
+
+
+
+
+1) do 'Hi im in a block' 
+
+
+
+
+2) A LISTA _ DE TODOS OS UNIQUE IDS, QUE ESTAVAM ARMAZENADOS NESSE BLOCK... (metadata)
+
+
+
+
+
+
+
+
+
+
+
+
+E, DETALHE, É CLARO QUE VOCÊ 
+
+'SEMPRE VAI GANHAR O MESMO HASH PARA OS MESMOS INPUTS' ------. o que 
+
+
+
+
+SIGNIFICA QUE 
+
+
+
+
+
+
+____ SE __ UM DOS 'ELOS'/BLOCKS DE 
+
+
+
+SUA BLOCKCHAIN __ TIVER_ _ SUA DATA__ ALTERADA,
+
+
+
+ESSA ALTERAÇÃO VAI IMPACTAR__ TODOS __ OS BLOCKS_  QUE 
+
+
+
+VÊM __DEPOIS_ _ DELE (pq seus hashes, em contrapartida, dependem DO CONTEÚDO DESSE HASH, PQ 'HASHES IGUAIS === OUTPUTS IGUAIS'... )
+
+
+
+
+
+
+
+
+
+
+
+-----> se você MUDA O INPUT,
+
+VOCÊ MUDA O OUTPUT....
+
+
+
+
+
+
+
+
+--> nenhum outro input levará a um mesmo hash...
+
+
+
+
+
+
+--> OK.... --> SE VOCÊ MUDA O INPUT, VOCÊ MUDA O OUTPUT --> E AÍ,
+
+
+
+
+
+SE OCORRER UMA ALTERAÇÃO NA DATA,
+
+
+O 
+
+
+'NEXT BLOCK',
+
+que reconhece/armazenou o 'previous/old block' (o HASH do PREVIOUS/OLD block, na verdade),
+
+
+
+
+
+
+_ VAI RECONHECER QUE ALGO DEU ERRADO... -----> E ESSE É UM IMPORTANTE 
+
+
+
+
+_____MECANISMO_ DE SEGURANÇA......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E É ASSIM QUE A BLOCKCHAIN É CONSTRUÍDA:
+
+
+
+
+
+
+
+
+
+
+VOCÊ TEM TODOS ESSES BLOCKS;
+
+
+
+
+
+
+E AÍ, O PRÓXIMO BLOCK SEMPRE VAI 'SABER' acerca do previous block...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... --> ISSO FOI BASTANTE TEORIA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- MAS O QUE É UMA CRIPTOCURRENCY?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ CRIPTOCURRENCIES SÃO 
+
+
+
+
+A APLICAÇÃO MAIS DIRETA DE UMA BLOCKCHAIN....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CRIPTOCURRENCY -----> É, REALMENTE,
+
+
+
+
+APENAS UMA COISA __ QUE _ SE UTILIZA DA TECNOLOGIA BLOCKCHAIN....
+
+
+
+
+
+
+
+
+---> ok, é uma tecnologia uqe 
+
+
+se 
+
+utiliza da tecnologia blockchain...
+
+
+
+
+
+
+
+
+
+
+
+--> cryptocurrency --_> SE A DATA QUE VOCÊ ARMAZENA em 
+
+1
+ 
+
+ block  É UMA 'LISTA DE TRANSACTIONS' (e uma transação é, na verdade, apenas uma info que diz ''QUEM'' ENVIOU __ ''QUANTO'' A ''QUEM'' ----> essas 3 coisas são importantes..),
+
+
+
+
+
+
+
+
+
+SE VOCÊ TEM UMA LISTA DE TRANSACTIONS ASSIM EM 1 GIVEN BLOCK,
+
+
+
+VOCÊ OBVIAMENTE PODE TIRAR VANTAGEM DESSE 'SECURITY MECHANISM' (
+
+
+
+    esse fato de que esses blocks não podem ser editados 
+
+    sem todos os blocks subsequentes se ligarem nisso
+) --> pq 
+
+
+
+
+
+
+
+AGORA SERÁ FORMADA UMA CRIPTOCURRENCY (
+
+
+    pq nenhuma 'moeda' é igual,
+
+
+
+
+    todas elas são distintas, e serão garantidamente distintas 
+
+
+
+    pq 
+
+    dependem de 
+
+
+    TODAS AS 'MOEDAS' anteriores 
+
+    a
+     si, que formam o 'hash' que é replicado 
+
+
+     no próximo block, e assim por diante...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> E COMO ESSA CRIPTOCURRENCY É DISTRIBUÍDA AO LONGO DE VÁRIAS MÁQUINAS,
+
+
+ELA FICA 'SECURE' 
+
+
+
+por meio desse mecanismo aí.... --------> E ISSO É A TECNOLOGIA 
+
+
+
+USADA 
+
+PELO BITCOIN,
+
+PELO RIPPLE,
+
+
+POR TODAS AS MOEDAS QUE CONHECEMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O ESQUEMA TOTAL FICA ASSIM:
+
+
+
+
+
+
+
+
+BLOCK 1
+
+-----------------------
+                        |
+                        |
+      (HASH)            |  ---> É ESSE HASH QUE É TRANSPLANTADO E SERÁ O 'previous block hash' do próximo block....
+ 'dasjoajosjod12jx'     | --- HASH  original, que será formado a partir da combinação de: 1) A DATA QUE VOCê TEM ARMAZENADO NESSE BLOCK MESMO (como uma lista de transactions-data);  2) O ''HASH'' retirado do BLOCK ANTERIOR A ESTE AQUI (block 0, supostamente).... 
+                        |
+                        |
+    DATA                |
+                        |
+    (T1, T2, T3, T4, T5) |     --> LISTA DE TRANSACTIONS, PRÓPRIA DESTE BLOCK...       
+                        |
+                        |
+   PREVIOUS BLOCK HASH  | ---- HASH DO __ BLOCO __ ANTERIOR, formado a partir da combinação de '''' 1) A DATA QUE VOCê TEM ARMAZENADO NESSE BLOCK MESMO (como uma lista de transactions-data);  2) O ''HASH'' retirado do BLOCK ANTERIOR A ESTE AQUI (block 0, supostamente)....  '''' DO BLOCO ANTERIOR...
+                        |
+                        |
+                        |
+------------------------
+
+
+
+
+BLOCK 2 
+
+
+
+-----------------------
+                        |
+                        |
+      (HASH)            |
+ 'dasjoasggasasazxvjx'     | --- SEGUNDO HASH, que será formado a partir da combinação de: 1) A DATA QUE VOCê TEM ARMAZENADO NESSE BLOCK MESMO (como uma lista de transactions-data);  2) O ''HASH'' retirado do BLOCK ANTERIOR A ESTE AQUI (block 0, supostamente).... 
+                        |
+                        |
+    DATA                |
+                        |
+    (T1, T2, T3, T4, T5, T6) |     --> LISTA DE TRANSACTIONS, PRÓPRIA DESTE BLOCK...       
+                        |
+                        |
+   PREVIOUS BLOCK HASH  | ---- HASH DO __ BLOCO __ ANTERIOR, formado a partir da combinação de '''' 1) A DATA QUE VOCê TEM ARMAZENADO NESSE BLOCK MESMO (como uma lista de transactions-data);  2) O ''HASH'' retirado do BLOCK ANTERIOR A ESTE AQUI (block 0, supostamente)....  '''' DO BLOCO ANTERIOR...
+      'dasjoajosjod12jx' |
+                        |
+                        |
+------------------------
+
+
+
+BLOCK 3 
+
+
+
+-----------------------
+                        |
+                        |
+      (HASH)            |
+ 'dasjzxxzjajoajx'     | --- TERCEIRO HASH, que será formado a partir da combinação de: 1) A DATA QUE VOCê TEM ARMAZENADO NESSE BLOCK MESMO (como uma lista de transactions-data);  2) O ''HASH'' retirado do BLOCK ANTERIOR A ESTE AQUI (block 0, supostamente).... 
+                        |
+                        |
+    DATA                |
+                        |
+    (T1, T2, T3, T4, T5, T6, T7) |     --> LISTA DE TRANSACTIONS, PRÓPRIA DESTE BLOCK...       
+                        |
+                        |
+   PREVIOUS BLOCK HASH  | ---- HASH DO __ BLOCO __ ANTERIOR, formado a partir da combinação de '''' 1) A DATA QUE VOCê TEM ARMAZENADO NESSE BLOCK MESMO (como uma lista de transactions-data);  2) O ''HASH'' retirado do BLOCK ANTERIOR A ESTE AQUI (block 0, supostamente)....  '''' DO BLOCO ANTERIOR...
+                        |
+'dasjoasggasasazxvjx'    |
+                        |
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O MECANISMO DE SEGURANÇA ESSENCIALMENTE CHECA SE 
+
+
+
+'' PREVIOUS BLOCK HASH DO BLOCO 3   === HASH DO BLOCK 3 ''' 
+
+
+
+
+
+
+
+---> se isso resulta em 'FALSE', a moeda mais recente é FALSA, supostamente...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS O QUE SÃO OS COINS?
+
+
+
+
+
+
+
+
+
+
+
+
+os coins são só a 'THING' que você está transferindo.... -----> VOCê PODE DAR 
+
+
+
+ÀS COISAS QUE 
+
+VOCê 
+
+ESTÁ 
+
+TRANSFERINDO 
+
+
+
+QUALQUER NOME QUE VOCÊ QUISER...
+
+
+
+
+
+
+
+
+
+------> os coins são TRANSFERIDOS COM AS __TRANSACTIONS__, E É ISSO QUE INTERESSA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+TRANSACTIONS --> SÃO COMPOSTAS POR: 
+
+
+
+
+1) FROM WHO 
+
+
+
+2) HOW MUCH 
+
+
+
+
+3) TO WHOM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> OS COINS/CRYPTOCOINS _ _NORMALMENTE__ NÃO PODEM SER CONVERTIDOS EM OUTRAS 
+
+
+
+MOEDAS,
+
+
+
+
+
+A NÃO SER QUE VOCÊ ENCONTRE ALGUÉM 
+
+
+
+
+
+QUE 
+
+
+DIGA 
+
+
+
+'ME DÊ ESSA QUANTIDADE DE COINS, QUE EU TE DOU ESSA QUANTIDADE DE DOLLARS'..
+
+
+
+
+
+
+
+
+
+
+
+
+------> OU SEJA,
+
+O __ VALOR__ DE 1 COIN ___ É DETERMINADO _ PELO 
+
+
+
+
+_____VALOR__ ASSIGNADO __A ELA _ PELOS ___ PARTICIPANTES_ _ 
+
+
+
+DA BLOCK CHAIN (
+
+    em outros termos, 
+
+
+
+    é determinado por 'AQUILO QUE VOCÊ ESTÁ DISPOSTO A PAGAR, EM DINHEIRO 
+
+    DE VERDADE'....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O 'VALOR' DOS COINS É, NA VERDADE,
+
+
+SÓ O QUE AS PESSOAS PENSAM QUE É/ acham que é... -------> E É ASSIM QUE 
+
+
+
+TODAS ESSAS CRIPTO MOEDAS FUNCIONAM,
+
+
+
+E ISSO 
+
+
+EXPLICA 
+
+SUA ALTA VOLATILIDADE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> É UM MERCADO NOVO,
+
+E O VALOR  DE VERDADE DESSAS COISAS AINDA É ALGO QUE DEVEMOS 
+
+
+
+
+
+MEDIR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> COINS __ SÃO __ CRIADOS __ POR MEIO DE 'MINING' (
+
+
+
+
+COMO UMA ___ RECOMPENSA__ PELO __ '''ESFORÇO''''_...
+
+)
+
+
+
+
+
+
+
+
+
+
+-_> mas pq criar coins através de mining?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ SE NÓS TIVERMOS UMA CURRENCY,
+
+PODEMOS 'SEND IT AROUND', claro, 
+
+
+transactions,
+
+
+
+
+
+MAS 
+
+ISSO 
+
+NÃO VAI 'CRIAR' ESSES COINS ... -->  O MINING É UMA PARTE CRUCIAL,
+
+
+
+
+
+pq 
+
+
+É COM O 'MINING' QUE __ NOVOS _ BLOCKS SÃO ADICIONADOS A BLOCK CHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+========== E NÓS TEREMOS 'OPEN TRANSACTIONS', em que 
+
+vocÊ vai querer 
+
+
+ENVIAR 1 VALOR A ALGUÉM.... ----------> E PARA QUE ESSA TRANSACTION SEJA 'CONFIRMED',
+
+
+
+É NECESSÁRIO QUE ELA SEJA __ INCLUÍDA COMO UM NOVO 'BLOCK',
+
+
+
+ao final da block chain...
+
+
+
+
+
+
+
+
+
+
+----> e as pessoas que vão fazendo isso, adicionando blocks,
+
+
+
+
+SÃO AS PESSOAS QUE ESTÃO FAZENDO O CHAMADO 'MINING',
+
+
+
+
+
+
+pq 
+
+
+esse processo aí actually demora um pouco mais... as pessoas/suas máquinas têm que 
+
+actually 
+
+
+
+SOLVE UM ALGORITMO COMPLEXO para adicionar esse block ao final da blockchain.... --> E, COMO RECOMPENSA 
+
+
+
+POR ESSE ESFORÇO DE 
+
+'ADICIONAR O BLOCK AO FINAL DA BLOCK CHAIN',
+
+
+
+
+
+
+AS PESSOAS/SUAS MÁQUINAS RECEBEM 'ALGUNS DESSES BLOCKS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BIG PICTURE DA BLOCKCHAIN:
+
+
+
+
+
+
+
+
+
+[
+
+    [
+        TA 
+    ]
+]
+
+
+
+[
+
+    [
+        TA 
+    ]
+]
+
+
+
+
+
+[
+
+    [
+        TA 
+    ]
+]
+
+
+
+[
+
+    [
+        TA 
+    ]
+]
+
+
+[
+
+    [
+        TA 
+    ]
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(imagine setas entre todos esses negócios)....
+
+
+
+
+
+
+
+
+
+
+
+-------> a blockchain actually 'roda' em múltiplas máquinas, chamadas de 'NODES'... (são as máquinas dos usuários)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> você tbm ja´deve ter ouvido falar no termo 
+
+
+
+'WALLET'  -------------> 1 WALLET 
+
+
+
+
+É SIMPLESMENTE 
+
+
+
+1
+ NODE,
+
+
+
+
+
+
+
+
+
+ É 
+
+
+
+
+
+
+
+ 1 NODE __ QUE TE ENABLA A 'SEND' E 'RECEIVE' coins...
+
+
+
+
+
+
+
+
+
+
+
+ --> É UMA 'PIECE OF DATA' 
+
+
+ que te permite 
+
+ _ 'IDENTIFY YOURSELF'....
+
+
+
+
+
+
+
+
+
+
+
+
+ -----------> POR MEIO DE WALLETS, VOCÊ 
+
+ PODE:
+
+
+
+
+
+
+
+
+ 1) SEND COINS 
+
+
+
+
+
+ 2) RECEIVE COINS 
+
+
+
+
+
+
+
+
+
+
+
+ --> ambos são feitos/DESTINADOS __ A OUTRAS WALLETs...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> E SE UMA NOVA TRANSACTION DESSAS É CRIADA (por meio de mt mining),
+
+  
+
+  ela é 
+
+
+  'BROADCASTED'
+
+
+
+  AO LONGO DE OUTROS NODES,
+
+
+
+
+
+  NODES QUE ENTÃO A DISTRIBUEM (a info de que ela existe)
+
+
+
+  A TODOS 
+
+  OS OUTROS NODES NA NETWORK.. --------> E AO MESMO 
+
+
+
+
+  TEMPO QUE 
+
+
+
+  ADICIONAM/REPASSAM ESSA INFO DA 'NOVA TRANSACTION',
+
+
+
+  eles VERIFICAM SE ELA É REALMENTE VÁLIDA... (
+
+      certificam-se  SE 
+
+
+
+      VOCÊ TEM FUNDS SUFICIENTES (blocks),
+
+
+
+      E 
+
+      SE VOCÊ É QUEM VOCÊ REALMENTE DIZ QUE É...
+  )
+
+
+
+
+
+
+
+
+
+
+  ----> E, ASSIM QUE ALGUMAS TRANSACTIONS FOREM COLETADAS,
+
+
+
+
+
+
+  1 DETERMINADO NODE VAI 
+
+
+
+  'BUNDLE THEM UP' (essas transactions )
+
+
+
+
+
+  EM 1 NOVO BLOCK (minerado, gerado),
+
+
+
+
+
+
+
+E AÍ __ VAI INFORMAR 
+
+
+
+
+OS __ OUTROS__ NODES 
+
+ACERCA DESSE NOVO 'BLOCK',
+
+
+
+
+PARA 
+
+QUE 
+
+
+
+ELE ENTÃO 
+
+
+
+SEJA ADICIONADO à BLOCKCHAIN DE TODOS OS DIFERENTES NODES,
+
+
+
+EM TODOS DIFERENTES COMPUTERS,
+
+
+
+APENAS __ DEPOIS _ QUE ESSE NOVO BLOCK (e a chain a que ele pertence) 
+
+
+
+FOR _VERIFICADO__ POR TODOS OS NODES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UFA... --> ESSE É O BLOCKCHAIN.... -> professor voltará 
+
+a 
+esses 
+
+core 
+
+concepts 
+
+
+
+
+
+
+
+ao longo do curso.... -> NO FINAL DAS CONTAS,
+
+
+
+
+
+
+
+A BLOCKCHAIN 
+
+É UMA DISTRIBUTED SECURE DATA STORAGE,
+
+
+EM QUE 
+
+CADA 
+
+
+'BLOCK' 
+
+
+É UM __ FOLDER___ COM 'SOME CONTENT/SOME DATA ' 
+
+
+
+dentro 
+
+de si...  ------------> E A BLOCKCHAIN É UMA __ CRIPTOCURRENCY_  SE ESSA 'DATA' ARMAZENADA EM CADA BLOCK É UMA __ TRANSACTION, __ TRANSACTION EM QUE 'ENVIAMOS SOME VALUE FROM A TO B'...

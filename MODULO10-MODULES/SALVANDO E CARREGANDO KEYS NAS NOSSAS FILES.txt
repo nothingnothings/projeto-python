@@ -1,0 +1,680 @@
+
+
+
+
+
+
+
+
+--> NÓS AINDA ESTAMOS TRABALHANDO NESSAS 'PUBLIC' E 'PRIVATE' keys...
+
+
+
+
+
+
+
+
+
+----> CHEGAMOS A UM PONTO  EM QUE __ 
+
+
+
+
+
+
+INICIALIZAMOS 
+
+
+
+
+
+nossa blockchain __ APÓS__ CRIARMOS A PUBLIC E PRIVATE KEYS,
+
+
+como visto nessa linha de nosso código:
+
+
+
+
+
+
+            elif(user_input == 'c'):
+                # self.create_wallet()
+                # wallet = Wallet()  ###vai criar NOVA WALLET, vazia...]
+                self.wallet.create_keys()
+                self.blockchain = Blockchain(self.wallet.public_key)
+                self.message = f"""A new wallet was created. 
+
+Private key: {self.wallet.private_key}
+
+Public key: {self.wallet.public_key}
+                """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ISSO, É CLARO, TAMBÉM IMPLICA QUE 
+
+VÁRIAS OUTRAS FUNCTIONS 
+
+
+(todas as outras functions)
+
+
+
+
+
+,
+
+
+TODAS AS FUNCTIONS QUE USAM A BLOCKCHAIN,
+
+
+
+vao _ FALHAR__ se tentarmos 
+
+
+
+
+as utilizar (pq vão tentar acessar a blockchain, que estará settada como 'None' inicialmente, até o momento em que são criadas as keys e a blockchain a partir dessas keys,  com 'create wallet'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSERTAR ISSO, PRECISAMOS COLOCAR IF CHECKS EM TODAS NOSSAS OPERAÇÕES,
+
+
+para IMPOSSIBILITAR O 'PROCEED' se não 
+
+
+existir wallet...
+
+
+
+
+
+
+
+
+----> na verdade, o ideal seria OCULTAR TODAS ESSAS OPERAÇÕES SE A WALLET AINDA NÃO EXISTIR (não for criada/carregada)...
+
+
+
+
+
+
+
+
+
+
+
+--> em vez de fazer isso, para salvar tempo,
+
+O PROFESSOR VAI 
+
+
+COLOCAR O CÓDIGO QUE CRIA A WALLET E A BLOCKCHAIN LÁ NO 
+
+
+
+CONSTRUCTOR... (mas isso significa que SEMPRE SERÃO CRIADAS NOVAS KEYS QUANDO COMEÇARMOS NOSSO NODE, O QUE NÃO É IDEAL)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> dei uma incrementada na interface...
+
+
+
+
+
+
+
+
+
+--> agora quando o programa é iniciado, ele te dá uma opção entre 'create wallet' ou 
+
+'load existing wallet'...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def listen_for_input(self, blockchain):
+        waiting_for_input = True
+
+        while waiting_for_input:
+
+
+            if (self.blockchain == None):
+                print('No wallet loaded')
+                print('c: Create a new wallet')
+                print('l: Load an existing wallet')
+                user_input = self.get_user_choice()
+                if(user_input == 'c'):
+                    # self.create_wallet()
+                    # wallet = Wallet()  ###vai criar NOVA WALLET, vazia...]
+                    print("""Warning: creating a new wallet will overwrite contents in the wallet.txt file.
+
+Proceed(Y/N)?
+""")
+                    answer = input('Your choice: ')
+                    if (answer == 'Y' or 'y'):
+                        self.wallet.create_keys()
+                        self.blockchain = Blockchain(self.wallet.public_key)
+                        self.message = "A new wallet was created."
+                    elif(answer == 'N' or 'n'):
+                        print('')
+
+                    # self.wallet.create_keys()
+                elif(user_input == 'l'):
+                    self.wallet.load_keys()
+                    self.blockchain = Blockchain(self.wallet.public_key)
+                    self.message = """Your wallet was loaded.
+    """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok...
+
+
+
+
+
+
+AGORA ESTAMOS CRIANDO KEYS, E ELAS ESTÃO SENDO ARMAZENADAS 
+
+em 
+
+'
+wallet.txt'...
+
+
+
+EX:
+
+
+
+b'3082025c02010002818100e03bdf4a07dd19f63a96606bb7e3a0df0fa29bcb6e9b3e0a351e2376bafcc800a843808e17018e1aa9482042fd38486ebbdbd05890b5250f9b4367e9a398847b730511abfea45b812adf1b0d9efe317ca84a8358ce453056bdc07cd6117dbc30d51a43c768e94b7ceb132bf8c9c80988582b0303142dab0628b168d5ac496bd50203010001028180187b48f570f6d99d09c7fdc67cf9000922909f205e96d9f6ecd639ca7e7f5749c5153b9da7d2de64384bbce3fb780fe67121be7550f54a12d26191608fa139037a0b021fa39a6733ce923c5173e8f04bf1658188542f1010c62e1daf3bbe056c8b683e8bea8eec1511ce594ef0f69481a5f30e709c4ef5fe7309836fec05d0e1024100e4917f4ea412854a354d7f8217941bce579c27647fd36d24058aa242c57d9d286969079c85d8ef795c4f9bb1e3c3de435060d21b1f99deccfb480af792c5f275024100fb2534035413108d513f89786eeb5a1566ffd890d8518919c17435ebfbe95321d43be973c1000a278026cc6b0f6db02ae32559242dbae21d1bc63f40bff1a7e1024040333df6f0cee2f17d174f8152ee1f014e4a66262c614e7e97afe0f3b055201781c4268728714e9260035c501311a9146f3742ccab8ba4b11ec395910480e521024043b6a62d778fa458d5dd31ad7d0a8bc1558209dc13d6f8062fb8ab8932e497fb7903a650056b83515f2616db8ecf5e3e51fc11eac541ac1179199c9852a84f41024100968a44fa832250da205e532014e4b507afdda9d20c0099eda3ea69888921db98efa7feba0fb12ccfa89a7ad79a36cb5a8c62543e40ffd29b34e1cff9175d4768'
+b'30819f300d06092a864886f70d010101050003818d0030818902818100e03bdf4a07dd19f63a96606bb7e3a0df0fa29bcb6e9b3e0a351e2376bafcc800a843808e17018e1aa9482042fd38486ebbdbd05890b5250f9b4367e9a398847b730511abfea45b812adf1b0d9efe317ca84a8358ce453056bdc07cd6117dbc30d51a43c768e94b7ceb132bf8c9c80988582b0303142dab0628b168d5ac496bd50203010001'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> o professor escreve um código lá nos methods de wallet, código para SALVAR ARQUIVOS...
+
+
+ex:
+
+
+
+
+
+
+
+    def create_keys(self): ###case de 'começar a wallet do 0'...
+        private_key, public_key = self.generate_keys()
+        self.private_key = private_key
+        self.public_key = public_key
+        with open('wallet.txt', mode="w") as f:
+            # print(self.private_key)
+            f.write(str(self.private_key))
+            f.write('\n')
+            f.write(str(self.public_key))
+
+
+
+--------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> em load_keys, o professor escreve um código similar:
+
+
+
+
+
+
+
+    def load_keys(self):
+        with open('wallet.txt', mode="r") as g:
+            private_key, public_key = g.readlines()
+        self.private_key = private_key
+        self.public_key = public_key
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, MAS AQUI TEMOS UM __PROBLEMA__...
+
+
+
+
+
+
+
+
+OBSERVE:
+
+
+
+
+     f.write(str(self.private_key))
+            f.write('\n')
+            f.write(str(self.public_key))
+
+
+
+
+
+
+
+
+
+
+--> como você pode ver,
+
+
+esse CARACTER AÍ,
+
+
+
+
+'line break'... --> ELE VAI SER CONSIDERADO NA HORA DO 
+
+
+
+'f.readlines()'.... -> 
+
+
+
+
+
+
+PARA QUE NOSSO MECANISMO DE VERIFY _ FUNCIIONE,
+
+
+
+ESSE '\n'
+
+
+
+
+PRECISA SER ___ REMOVIDO _ 
+
+
+
+
+do final da linha de 'private_key'...
+
+
+
+
+
+
+
+
+--> MAS COMO FAZEMOS ISSO?
+
+
+
+
+
+
+
+
+
+--> BEM, ISSO SERÁ __ o 'VERY LAST CHARACTER OF THE FIRST LINE'...
+
+
+
+
+
+
+
+
+--> para EXCLUIR ESSE CARACTER, o que podemos fazer é usar aquela gambiarra do 
+
+
+range selector com strings, 
+
+que é 
+
+escrever 
+
+
+
+
+'string[:-1]' PARA _ EXCLUIR __TODOS OS CARACTERES MENOS O ÚLTIMO (que é '\n'...)..
+
+
+
+
+
+
+
+
+
+--> mas não sei se isso funcionou...
+
+
+
+
+
+
+
+
+
+
+
+--> FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+    def load_keys(self): 
+        with open('wallet.txt', mode="r") as g:
+            keys = g.readlines()    ###entretanto, precisamos EXCLUIR O 'ÚLTIMO CARACTER' da linha de 'private_key', pq o ÚLTIMO CARACTER É UM LINE BREAK, é '\n'...
+        private_key = keys[0][:-1]   #### com '[:-1]' excluímos o último caracter, que é '\n'....
+        public_key = keys[1]
+        self.private_key = private_key
+        self.public_key = public_key
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR NOS EXPLICA QUE ESSAS 2 OPERAÇÕES, TANTO o 'load' como o 'create',
+PODEM 
+
+
+FALHAR, POR ISSO WRAPPAMOS OS STATEMENTS DE 'open' COM 
+
+
+
+TRY-EXCEPT..
+
+
+
+
+
+--> VAMOS TENTAR CAPTURAR OS ERRORS DE 'IOError'... ----> também 'INDEX ERRORS',
+
+
+PARA O CASO DA FILE EXISTIR MAS ESTIVER VAZIA...
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+    def create_keys(self): ###case de 'começar a wallet do 0'...
+         try:
+            private_key, public_key = self.generate_keys()
+            self.private_key = private_key
+            self.public_key = public_key
+            with open('wallet.txt', mode="w") as f:
+                # print(self.private_key)
+                f.write(str(self.private_key))
+                f.write('\n')
+                f.write(str(self.public_key))
+         except(IOError, IndexError):
+            print('Loading wallet failed!')
+        
+
+
+    def load_keys(self): 
+        try:
+            with open('wallet.txt', mode="r") as g:
+                keys = g.readlines()    ###entretanto, precisamos EXCLUIR O 'ÚLTIMO CARACTER' da linha de 'private_key', pq o ÚLTIMO CARACTER É UM LINE BREAK, é '\n'...
+            private_key = keys[0][:-1]   #### com '[:-1]' excluímos o último caracter, que é '\n'....
+            public_key = keys[1]
+            self.private_key = private_key
+            self.public_key = public_key
+            # print(self.private_key, self.public_key)
+        except(IOError, IndexError):
+            print('Saving wallet failed!')
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok... agora o professor vincula esses methods lá no 'node'...
+
+
+
+
+
+
+
+
+
+MEU CÓDIGO DE FALLBACK EM CASO DE ERROR FICOU ASSIM:
+
+
+
+
+
+
+
+
+    def load_keys(self): 
+        try:
+            with open('wallet.txt', mode="r") as g:
+                keys = g.readlines()    ###entretanto, precisamos EXCLUIR O 'ÚLTIMO CARACTER' da linha de 'private_key', pq o ÚLTIMO CARACTER É UM LINE BREAK, é '\n'...
+            private_key = keys[0][:-1]   #### com '[:-1]' excluímos o último caracter, que é '\n'....
+            public_key = keys[1]
+            self.private_key = private_key
+            self.public_key = public_key
+            # print(self.private_key, self.public_key)
+        except(IOError, IndexError):
+            print('Loading wallet failed!')
+            print('In the absence of an existing wallet, a new one has been created.')
+            return False
+            
+
+
+
+
+
+
+
+
+
+
+E ASSIM:
+
+
+
+
+
+
+
+                elif(user_input == 'l'):
+                    if (self.wallet.load_keys() == False):
+                        self.wallet.create_keys()
+                        self.blockchain = Blockchain(self.wallet.public_key)
+                        self.message = "A new wallet was created."
+                    else:
+                        self.blockchain = Blockchain(self.wallet.public_key)
+                        self.message = """Your wallet was loaded.
+
+
+
+
+
+
+
+
+
+
+
+
+---> AGORA VOU TESTAR O MINE DE UM BLOCK....
+
+
+--> parece estar funcionando...
+
+
+
+
+--> está funcionando, mas ainda não colocamos 
+
+
+
+a lógica de INCLUIR ESSAS KEYS NAS NOSSAS TRANSACTIONS..

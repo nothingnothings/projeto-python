@@ -1,0 +1,1035 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE EXPLORAMOS LOOPS E IF STATEMENTS UM BOCADO,
+
+
+
+DEVEMOS 
+
+
+REVISITAR O CÓDIGO USADO PARA 
+
+NOSSA 
+
+'FIRST TRANSACTION'...
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+É AQUELE CÓDIGO DE 
+
+
+
+''tx_amount = get_transaction_value()
+add_value(tx_amount)''
+
+
+
+
+
+
+
+
+
+
+
+
+----->  O PROFESSOR QUER INCORPORAR ESSE 'get_transaction_value()"
+
+
+
+DENTRO DE NOSSO CÓDIGO do while loop....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> em 'get_last_blockchain_value()',
+
+
+PRECISAMOS __ CHECAR__ SE ESSE VALOR JÁ EXISTE OU NÃO... (if statement)...
+
+
+
+
+
+
+
+
+
+
+--> E ISSO, É CLARO, SERÁ FEITO LÁ EM 'get_last_blockchain_value':
+
+
+
+
+
+
+
+
+
+
+
+
+--> EU JÁ HAVIA FEITO ISSO, HAVIA FICADO ASSIM:
+
+
+
+
+
+
+
+
+def get_last_blockchain_value():
+    if(len(blockchain) > 0):
+        return blockchain[-1]
+    else:
+        return [1]
+
+
+
+
+
+
+
+
+
+
+
+-> EU CHECAVA SE A BLOCKCHAIN ESTAVA VAZIA...
+
+
+
+
+
+
+
+--> ESSE É O CÓDIGO QUE FAZIA 'FAIL' PARA 
+UM BLOCKCHAIN VAZIO....
+
+
+
+
+
+
+
+
+--> por isso o professor coloca um if check,
+e aí 
+
+faz 
+check 
+
+pela LENGTH DE NOSSA BLOCKCHAIN(exatamente como eu fiz)...
+
+
+
+
+
+
+
+
+
+
+--> SE A LENGTH FOR MENOR DO QUE 1,
+
+
+NÃO VAMOS QUERER RETORNAR 'blockchain[-1]'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O MEU CÓDIGO HAVIA FICADO ASSIM:
+
+
+
+
+
+def get_last_blockchain_value():
+    """returns a blockchain"""  # exemplo de COMMENT INTERATIVO... (passe o mouse em cima de 'get_last_blockchain_value()' para VER QUE ELE TE DÁ ESSA INFO AÍ...)
+    if(len(blockchain) > 0):
+        return blockchain[-1]
+    else:
+        return [1]
+
+
+
+
+
+
+
+
+--> SE A LENGTH É MAIOR DO QUE 0,
+
+SABEMOS QUE NÃO É UMA EMPTY BLOCKCHAIN,
+
+
+POR ISSO A RETORNAMOS...
+
+
+
+
+
+
+
+--> JÁ SE A LENGTH É IGUAL OU MENOR DO QUE 0,
+
+
+VAMOS SÓ RETORNAR UM VALOR DE 
+
+'[1]'... (array com '1' dentro)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NESSE CASO ALTERNATIVO AÍ, VAMOS QUERER RETORNAR  TVZ OUTRA COISA (e não '[1]'..) ----> 
+
+
+
+
+
+VOCÊ PODERIA RETORNAR UMA STRING QUE DIZ 'EMPTY',
+
+
+
+para então mais tarde adicionar um if check CHECANDO 
+
+
+
+
+'IF ITS EMPTY''...
+
+
+
+
+
+
+
+
+
+--> OK... ---> O PROFESSOR ADMITE QUE PODERÍAMOS, SIM,
+
+RETORNAR 
+
+'[1]' aqui.... --> mas isso aí NÃO É ALGO MT CLEAN... -->  NÃO É CLEAN 
+
+
+
+PQ _ AÍ __ ESSA FUNCTION DE 'get_last_blockchain_value' 
+
+
+vai 
+
+
+'ASSUME SOMETHING ABOUT THE LOGIC OF YOUR OTHER CODE' (????? ) -----> E O PROFESSOR DIZ QUE 
+
+NÃO É UM FÃ DISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONTORNAR ESSE PROBLEMA DE 'ASSUME' do código,
+
+
+
+
+
+O PROFESSOR FAZ O RETURN DE UM _ _ TYPE__ QUE AINDA __ NÃO VIMOS NO CURSO....
+
+
+
+
+
+
+
+
+
+--> É O TYPE DE 'None' ---> ESSE É UM TYPE QUE É SIMPLESMENTE USADO 
+
+
+
+SE VOCÊ __ qUER_ dIZER__ aO SEU PROGRAMA QUE 
+
+
+
+
+'''THERE IS NOTHING''', nothing a ser retornado, nesse caso... -----> 
+
+
+
+
+
+
+
+
+E, às VEZES,
+
+ O RETURN DE 'None' PODE SER ÚTIL... --> COMO NESSE CASO,
+
+
+
+
+
+
+
+
+ PQ NESSE CASO __ SOMOS __ FORÇADOS__ A RETORNAR ALGUMA COISA,
+
+
+
+ pq o CÓDIGO/LOCAL EM QUE CHAMAMOS ESSA FUNCTION DE 
+
+
+ 'get_last_blockchain_value()'
+
+
+ ESPERA (Expects)
+  
+
+  OBRIGATORIAMENTE ' TO GET BACK SOMETHING'... --> MAS ESSE SOMETHING 
+
+
+
+
+
+  DEVERÁ MOSTRAR, NESSE NOSSO CASO,
+
+  QUE 
+
+
+
+  'THERE IS NOTHING THERE'...
+
+
+
+
+
+
+
+
+
+
+
+  --> NO LUGAR DE 'None', VOCê __ PODERIA_ FAZER O RETURN DE 'False',
+
+
+  sim,
+
+
+
+  MAS 
+  O PROFESSOR QUER MOSTRAR O TYPE DE 'None', que pode ser usado aqui....
+
+
+
+
+
+
+
+
+
+
+  --> RESUMINDO:
+  
+
+  '''NORMALMENTE NÓS VAMOS MOSTRAR O ÚLTIMO ELEMENT DA BLOCKCHAIN LIST... ---> MAS SE NENHUM ELEMENT
+  EXISTIR NA BLOCKCHAIN LIST,
+
+  VAMOS QUERER__ SIMPLESMENTE "RETURN NOTHING" ''''
+
+
+
+
+
+
+  ex:
+
+
+
+  def get_last_blockchain_value():
+    """returns a blockchain"""  # exemplo de COMMENT INTERATIVO... (passe o mouse em cima de 'get_last_blockchain_value()' para VER QUE ELE TE DÁ ESSA INFO AÍ...)
+    if(len(blockchain) > 0):
+        return blockchain[-1]
+    else:
+        return None
+
+
+
+
+
+
+
+
+
+------> OK....
+
+
+
+
+
+
+
+
+
+
+-------> MAS O CÓDIGO DO PROFESSOR FICOU UM POUCO DIFERENTE,
+
+FICOU ASSIM:
+
+
+--------------------------------
+
+
+
+  def get_last_blockchain_value():
+    if(len(blockchain) < 1):
+        return None
+    return blockchain[-1]
+
+
+
+
+--------------------------
+
+
+
+você pode estar se perguntando:
+
+
+
+''pq diabos não colocamos esse return blockchain[-1] 
+
+
+em um 
+
+
+ELSE BLOCK?'''
+
+
+
+
+
+
+
+
+
+
+--> é pq o write de if-else, aqui, é EXATAMENTE IGUAL AO 
+
+
+
+
+
+DO JAVASCRIPT, 
+
+QUE 
+
+FICARIA ESCRITO ASSIM:
+
+
+
+function getLastBlockchainValue() {
+    if (blockchain.length < 1) {
+        return None
+    }
+
+    return blockchain[-1]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+
+SE NÓS ACABARMOS ENTRANDO NO BLOCK DE 'blockchain.length'
+
+E EXECUTARMOS ESSE CÓDIGO DE 'return None',
+
+
+A EXECUÇÃO DO BLOCK DE 'return blockchain[-1]' SERÁ
+
+AUTOMATICAMENTE SKIPPADA...
+
+
+
+
+
+
+
+
+
+
+É POR ISSO QUE ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+
+  def get_last_blockchain_value():
+    if(len(blockchain) < 1):
+        return None
+    return blockchain[-1]
+
+
+
+
+
+
+
+
+
+
+
+
+-----> SE O 'return None' 
+
+for executado,
+
+A LINHA DE 'return blockchain[-1]'
+
+
+NÃO SERÁ 
+
+
+EXECUTADA ( ou seja, temos um 'IMPLICIT ELSE CASE', por assim dizer)....
+
+
+
+
+
+
+
+
+
+
+--> APENAS 1 DESSES RETURN STATEMENTS SERÁ EXECUTADO; ELES NUNCA SERÃO EXECUTADOS OS 2 NA MESMA EXECUÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... --> AGORA TEMOS ESSA FUNCTION BEM CERTINHA DE 'get_last_blockchain_value'... ----> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> AGORA, POR FIM,
+
+
+O PROFESSOR VAI QUERER MUDAR A FUNCTION DE 'add_value',
+
+
+
+QUE USA ESSA FUNCTION DE 'get_last_blockchain_value'... 
+
+
+
+
+
+
+--> ELE VAI QUERER COLOCAR UM IF CHECK CHECANDO 
+
+por 
+
+
+
+
+'if last_transaction == None' 
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ _ SE A 'last_transaction'
+
+FOR IGUAL A 'None' (um de nossos return statements),
+
+
+
+O PROFESSOR VAI QUERER __ FAZER_ APPEND_ DE UM TIPO _ _DIFERENTE__ DE TRANSACTION (provavelmente com '[1]' como primeiro elemento)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> RESULTADO:
+
+
+
+
+
+
+def add_value(transaction_amount, last_transaction=[1]):
+
+
+    if (last_transaction == None): ///eis o código em questão.
+        blockchain.append([[1], transaction_amount ]) //append daquele value de '[1]' QUE NÃO EXISTE NO INÍCIO DO RUNTIME (não existe dentro de 'blockchain=[]'...)
+    blockchain.append([last_transaction, transaction_amount])
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE ISSO SIGNIFICA QUE PODEMOS _ TIRAR__ AQUELE 'DEFAULT' de nosso parâmetro 'last_transaction',
+
+
+
+pq essa function de 'add_value' 
+
+NÃO SERÁ MAIS CHAMADA __ SEM _ _EXPLICITAMENTE PASSAR UMA 'LAST TRANSACTION' como parâmetro...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> RESULTADO:
+
+
+
+
+
+
+def add_value(transaction_amount, last_transaction):
+    """Faz append de um novo value, assim como o value do ÚLTIMO BLOCKCHAIN, à blockchain global do arquivo
+
+        Arguments:
+    :transaction_amount: The amount that should be added.
+    :last_transaction: The last blockchain transaction (default [1]).
+    """
+
+
+    if (last_transaction == None):
+        blockchain.append([[1], transaction_amount ])
+    blockchain.append([last_transaction, transaction_amount])
+
+
+
+
+
+
+
+
+
+
+
+    ----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+     SEMPRE EXISTIRÃO CASES PARA 'DEFAULT ARGUMENTs'... MAS DEVEMOS PROSSEGUIR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     -> OK, MAS OUTRO DETALHE:
+
+
+
+
+
+
+
+
+
+
+
+
+     1) ESPECIFICAR 'NONE' como RETURN VALUE DE UMA FUNCTION __ 
+
+     _ NÃO -_ É A MESMA COISA QUE 
+
+
+
+
+
+
+
+     '''NÃO PROVIDENCIAR/ASSIGNAR 1 VALUE COMO ARGUMENTO''' -->  é exatamente por conta disso que 
+
+
+    aquele 
+
+
+    nosso 
+
+
+    'last_transaction=[-1]'
+
+
+
+
+
+NÃO HANDLA ___ O CASE DE 'None' POR CONTA PRÓPRIA... ->  ISSO PQ __ 
+
+
+
+'None' NA REALIDADE É UM TYPE TOTALMENTE DISTINTO/DIFERENTE 
+
+
+
+
+DE 
+
+
+'APENAS NÃO PASSAR NADA A ESSA FUNÇÃO' (usuário).... -----> PQ, com o 'None',
+
+
+
+
+NÓS ACTUALLY PASSAMOS ALGUMA COISA à FUNÇÃO, 
+
+MAS ESSA COISA É O 'None' (
+
+
+    que é um TYPE ESPECIAL NO PYTHON...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR SALVA ESSE ARQUIVO E TESTA TUDO ISSO...
+
+
+
+
+
+
+
+
+
+
+
+--> ele tenta criar algo com nosso console...
+
+
+
+
+
+
+
+--> fiquei com um bug no meu código-> 
+
+
+este problema:
+
+
+
+
+Please choose an option: 2
+Outputting block
+[[1], 1.0]
+Outputting block
+[None, 1.0]
+Outputting block
+[[None, 1.0], 2.0]
+Choice registered
+
+
+
+
+
+
+
+
+
+
+
+
+--> esse 'None' tem que sumir...
+
+
+
+
+
+
+
+
+
+---> CONSERTEI, CRIEI UM NOVO ARQUIVO 'blockchain2.py',
+
+
+
+
+EM QUE 
+
+
+
+
+EU CONSERTEI O PROBLEMA DE INDENTAÇÃO DO IF-ELSE cases de 'add_value':
+
+
+
+
+
+
+
+
+
+blockchain = []
+
+
+def get_last_blockchain_value():
+    """returns a blockchain"""
+    if(len(blockchain) > 0):
+        print('blockchain')
+        return blockchain[-1]
+    return None
+
+
+def get_user_choice():
+    """ Returns the input of the user (either 1 or 2) to proceed with the options """
+    return input('Please choose an option: ')
+
+
+def get_user_transaction_input():
+    """ Returns the input of the user (transaction amount) to proceed with the option 1 """
+    return float(input('Please enter your transaction amount: '))
+
+
+def add_value(transaction_amount, last_transaction=[1]):
+    """Faz append de um novo value, assim como o value do ÚLTIMO BLOCKCHAIN, à blockchain global do arquivo
+
+        Arguments:
+    :transaction_amount: The amount that should be added.
+    :last_transaction: The last blockchain transaction (default [1]).
+    """
+    if (last_transaction == None):
+        return blockchain.append([[1], transaction_amount])
+
+    blockchain.append([last_transaction, transaction_amount])
+
+
+def output_blockchain():
+    for block in blockchain:
+        print('Outputting block')
+        print(block)
+
+
+while True:
+    print('------------------------------')
+    print('1: Add a new transaction value')
+    print('2: display current blockchain')
+    print('q: Quit the program.')
+    print('------------------------------')
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        tx_amount = get_user_transaction_input()
+        add_value(tx_amount, get_last_blockchain_value())
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        break
+    else:
+        print('----------------------------------------')
+        print('Invalid command, please input 1, 2 or q.')
+    print('Choice registered')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------- 
+
+
+
+
+
+o return de 'None' __ NÃO É A MESMA COISA QUE 'NÃO RETORNAR NADA',
+
+
+
+pq 
+
+
+o
+ 
+
+ 'None' é um TYPE ESPECIAL NO PYTHON, QUE PODE SER HANDLADO DE MANEIRAS ESPECÍFICAS, COMO FIZEMOS AQUI 
+
+
+
+ COM ESTE CÓDIGO:
+
+
+
+
+     if (last_transaction == None):
+        return blockchain.append([[1], transaction_amount])
+
+
+
+
+
+
+
+
+
+
+-----------------

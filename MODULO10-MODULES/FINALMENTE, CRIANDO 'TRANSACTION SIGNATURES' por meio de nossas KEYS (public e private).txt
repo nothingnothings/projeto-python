@@ -1,0 +1,1593 @@
+
+
+
+
+
+
+
+
+
+--> AGORA QUE TEMOS AQUELA 'public_key' armazenada 
+na 
+
+
+NOSSA WALLET (que é conectada ao node, sempre),
+
+
+
+
+
+
+
+aquela _ PUBLIC __ KEy_ QUE É/SERÁ USADA PARA 
+
+
+__SALVAR NOSSAS TRANSACTIONS,
+
+
+
+
+
+
+
+
+
+devemos fazer 'sign' das transactions...
+
+
+
+
+
+
+
+
+
+
+--> isso pq NO NOSSO CÓDIGO, AINDA NAÕ ESTAMOS FAZENDO 'sign' de coisa alguma... (ou seja, nossa PROTEÇÃO CONTRA O MANIPULATE DE 'open_transactions' ainda não foi implementada)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NA NOSSA WALLET,
+
+
+ 
+ O PROFESSOR VAI __ ADICIONAR NOVOS METHODS...
+
+
+
+
+
+
+
+
+
+
+
+
+ 1) PRIMEIRAMENTE, UM METHOD PARA 'CREATING SIGNATURES' --> será usado para 'SIGN TRANSACTIONS'...
+
+
+
+
+
+
+
+
+
+
+
+ 2) O SEGUNDO METHOD SERÁ USADO PARA 'VERIFY THE SIGNATURE' de uma determinada transaction (
+     e provavelmente retornará True/False....
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA ISSO,
+
+
+
+
+ NOSSO CÓDIGO COMEÇA ASSIM:
+
+
+
+
+
+class Wallet:
+    
+    
+    
+
+    def __init__(self):
+        self.private_key = None
+        self.public_key = None
+        
+
+
+
+    def generate_keys(self):
+        """CREATES OUR PRIVATE AND PUBLIC KEYS; the public key is built upon the private key, and its job is to identify that its corresponding private_key is in a transaction, valid transaction. 
+        As both keys will be produced in binary formats, we convert them to strings using the 'binascii' package """
+        
+        private_key = RSA.generate(1024, Crypto.Random.new().read) 
+        public_key = private_key.public_key()   
+
+        
+
+        
+        
+        
+
+        
+         
+        
+
+        
+
+        
+        
+        
+        
+
+        return (self.convert_binary_to_string(private_key), self.convert_binary_to_string(public_key))
+        
+
+
+    def create_keys(self): 
+         try:
+            private_key, public_key = self.generate_keys()
+            self.private_key = private_key
+            self.public_key = public_key
+            with open('wallet.txt', mode="w") as f:
+                
+                f.write(str(self.private_key))
+                f.write('\n')
+                f.write(str(self.public_key))
+         except(IOError, IndexError):
+            print('Saving wallet failed!')
+        
+
+
+    def load_keys(self): 
+        try:
+            with open('wallet.txt', mode="r") as g:
+                keys = g.readlines()    
+            private_key = keys[0][:-1]   
+            public_key = keys[1]
+            self.private_key = private_key
+            self.public_key = public_key
+            
+        except(IOError, IndexError):
+            print('Loading wallet failed!')
+            print('In the absence of an existing wallet, a new one has been created.')
+            return False
+            
+
+
+        
+
+
+
+
+
+    def convert_binary_to_string(self, key):
+        return binascii.hexlify(key.exportKey(format='DER'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> VAMOS ATÉ O FINAL DESSA CLASS E ADIICONAMOS UM NOVO METHOD...
+
+
+
+
+
+
+
+
+
+
+--> será o method de 'sign'()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+def sign_transaction():
+
+
+
+
+
+
+
+
+
+
+
+
+---> O SIGN VAI RECEBER O SELF COMO PARÂMETRO,
+
+
+MAS TAMBÉM 
+
+
+
+
+
+
+
+NOSSO 'sender', 'recipient' e 'amount'...
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+def sign_transaction(self, amount, recipient, sender):
+
+
+
+
+
+
+
+
+
+
+
+
+---> 
+
+
+
+
+
+
+OK.... --> NESSE METHOD,
+
+
+
+
+o professor vai querer FAZER 
+
+'GENERATE'
+
+da SIGNATURE 
+
+
+para essa transaction...
+
+
+
+
+
+
+
+
+
+
+
+--> se me lembro bem, a signature 
+
+
+era/é composta de...
+
+
+
+
+
+'public_key + transaction'.... 
+
+
+
+
+
+
+------> PROVAVELMENTE VAMOS Instanciar a class de 'Transaction', e aí 
+
+
+
+vamos PROVAVELMENTE ENFIAR NOSSA TRANSACTION JUNTO COm a 'public_key',
+
+
+
+
+
+mas com algum method especial que faça isso..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA GERAR ESSA SIGNATURE (Que será incluída DENTRO DE CADA TRANSACTION),
+
+
+
+
+
+
+O PROFESSOR EXPLICA QUE _ VAMOS PRECISAR DE ALGUMAS COISAS DAQUELA PACKAGE DE 
+
+'
+Crypto' (Que foi instalada por meio da anaconda, virtual environment)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... MAS O QUE VAMOS QUERER?
+
+
+
+
+
+
+
+
+
+
+
+
+---> vamos QUERER IMPORTAR A SUBPACKAGE de 'Signature' de 'Crypto'...
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from Crypto.Signature import PKCS1_v1_5
+
+
+
+
+
+
+
+
+
+
+
+
+
+------>  É UM ALGORITMO ESPECIAL QUE GERA 'SIGNATURES'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR TAMBÉM IMPORTA 
+
+
+
+lá de 
+
+
+'Crpyto.Hash' 
+
+
+
+
+
+o object/algoritmo de 
+
+
+
+'SHA256'... --->  NÓS HAVÍAMOS USADO ISSO ANTERIORMENTE,
+
+
+
+LÁ COM 
+
+
+
+O 'hash_util',
+
+
+
+
+por meio daquele 'hashlib' do python........ ---> O PROFESSOR EXPLICA QUE 
+
+
+VAMOS USAR a
+
+VERSÃO DO 'SHA256'
+
+do 
+
+
+'Crypto' PACKAGE PQ 
+
+já estamos usando esse pacote anyways, então não faz mal...  (se você quiser usar do hashlib, é a mesma coisa)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> VAMOS ATÉ O METHOD DE 'sign_transaction' 
+
+
+
+
+
+e 
+
+
+aÍ 
+
+
+
+ESCREVEMOS LÓGICA...
+
+
+
+
+
+
+
+
+
+
+
+----> primeiramente,
+
+
+o professor cria 
+
+
+
+
+
+
+
+UMA VARIABLE De 'signer',
+
+
+EM QEU VAMOS COLOCAR A 'IDENTIDADE' do signer...
+
+
+
+
+
+
+
+
+
+
+--> para isso,
+
+
+O PROFESSOR 
+
+
+
+
+
+
+chama 
+
+o algoritmo de 
+
+
+
+
+PKCS1_v1_5 
+
+
+
+
+
+
+
+
+
+E AÍ CHAMA O METHOD DE '.new()"
+
+nesse negócio...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+    def sign_transaction(self, amount, recipient, sender):
+        sender = PKCS1_v1_5.new()
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> COMO PODEMOS VER,
+
+
+o '.new()'
+
+
+PARECE SER UMA CLASS METHOD, ou então um STATIC METHOD...
+
+
+
+
+
+
+
+from Crypto.PublicKey import RSA    ###'Crypto' --> é a package de 'Pycrypto'...
+                        ##### 'RSA' -> é um ALGORITMO USADO PARA O GENERATE E TRABALHO COM PUBLIC E PRIVATE KEYS...
+
+
+
+--> BEM... DENTRO DE ESSE 'PKCS1_v1_5',
+
+
+
+
+VAMOS USAR AQUELA MESMA PACKAGE DE 'RSA' que usamos anteriormente...
+
+
+
+
+
+
+
+
+--> é um algoritmo, essencialmente...
+
+
+
+
+
+
+
+
+
+--> NESSE 'RSA', nós chamamos o method de 'importKey'...
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, É O CONTRÁRIO DO QUE FIZEMOS ANTERIORMENTE... ANTES NÓS HAVÍAMOS CHAMADO
+
+
+
+
+'''
+  return binascii.hexlify(key.exportKey(format='DER'))
+
+
+'''
+
+
+
+
+
+
+
+
+
+--> HAVÍAMOS CHAMADO 'KEY.exportKey'
+
+
+para _ ACTUALLY __ PEGAR O VALUE DE NOSSA KEY... (extrair o value de nossa key)....
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ AQUI VAMOS QUERER _________iMPORTAR__ UMA KEY... --> OU SEJA,
+
+VAMOS 
+
+
+
+
+
+QUERER PEGAR UMA KEY DE NOSSA 'wallet', provavelmente a PUBLIC KEY,
+
+
+
+
+
+E A 'importar' nesse slot aí (ou seja, enfiar dentro de esse method call de 'PKCS1_v1_5.new()'...)
+
+
+
+
+
+
+
+
+
+
+------>  MAS É CLARO QUE _ DEVEMOS _ TER EM MENTE _ QUE AS KEYS 
+
+
+
+QUE VAMOS IMPORTAR AQUI,
+
+
+
+EXTRAÍDAS __ LÁ 
+
+
+
+DE 
+
+
+'self.public_key' e 'self.private_key',
+
+
+
+
+
+SÃO __ 
+
+
+
+KEYS __ QUE FORAM ARMAZENADAS COMO _ sTRINGS... --> E PRECISAMOS DELA EM UM FORMATO BINARY... (PRECISAMOS AS CONVERTER DE VOLTA AO ESTADO ORIGINAL, QUE ERA BINARY)....
+
+
+
+
+
+
+
+
+----> COMO PRECISAMOS AS CONVERTER DE VOLTA EM FORMATO BINARY (string -> binary),
+
+
+somos obrigados a usar a package de 'binascii' NOVAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DE 'binascii',
+
+
+TEMOS UMA PACAKGE ESPECIAL, 
+
+
+
+DE NOME 
+
+
+'unhexlify',
+
+
+
+
+QUE FAZ EXATAMENTE ISSO, O CONTRÁRIO DE hexlify,
+
+
+
+que é 
+
+'CONVERT A STRING TO BINARY DATA'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> CERTO.... E VAMOS USAR ISSO_ _ COM NOSSA PRIVATE _ KEY... -----> ESSE DETALHE É IMPORTANTE:
+
+
+
+
+
+
+
+
+'''A PRIVATE_KEY_ É QUE SERÁ USADA PARA O SIGNING'''...
+
+
+
+
+
+
+
+
+
+
+
+---> o CÓDIGO FICA ASSIM:
+
+
+
+
+
+  sender = PKCS1_v1_5.new(RSA.importKey(binascii.unhexlify(self.private_key)))     ###precisamos que nossas KEYS ESTEJAM EM FORMATO BINARY (desconverter elas, que agora estarão armazenadas como STRINGS lá nesse nosso 'wallet', nos attributes)... --> para isso, usamos 'binascii', a package que consegue converter strings em binary data e vice-versa...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> COM ISSO, ESTAMOS IMPORTANDO NOSSA 'private_key',
+
+
+
+
+
+  E AGORA ESTAMOS A PASSANDO A ESSE ALGORITMO  de 'PKCS1_v1_5'... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -----> ISSO VAI settar O 'SIGNER' QUE VAI _ USAR _ ESSE ALGORITMO AÍ _ QUANDO NÓS _ EFETIVAMENTE __ criarmos a signature...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> É CLARO QUE PARA QUE A SIGNATURE SEJA CRIADA,
+
+
+  SERÁ NECESSÁRIO MAIS DO QUE APENAS A 'PRIVATE_KEY'... -----> VAMOS PRECISAR TAMBÉM DO 
+
+
+  'PAYLOAD'
+
+
+  da coisa que vamos 'SIGN'.. -> ou seja,
+
+
+
+  PRECISAMOS __ 
+
+
+
+
+  DA 'TRANSACTION EM SI'...
+
+
+
+
+
+
+
+
+
+  --> para isso, vamos usar 'sender', 'recipient' e 'amount',
+
+
+  E PROVAVELMENTE _ USAREMOS ___ A CLASS DE 'Transaction' PARA INSTANCIAR UMA NOVA TRANSACTION,
+
+  QUE VAI 
+
+  SER USADA 
+
+
+  NA FORMAÇÃO DESSA SIGNATURE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> O 'PAYLOAD' da coisa que vamos 'SIGN' 
+
+
+   
+   SERÁ __ ARMAZENADO EM UM 'HASH COMUM'..
+
+
+
+
+
+
+
+
+
+
+   --> para isso,
+
+   o professor escreve:
+
+
+
+
+
+
+
+
+   h = 
+
+
+
+
+
+
+
+
+
+
+
+   -> ELE USA 'h' pq 'hash' É UMA RESERVED WORD DO PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+   h = SHA256
+
+
+
+
+
+
+
+
+
+
+
+
+
+   --> vai chamar esse algoritmo sha256....
+
+
+
+
+
+
+
+
+
+   --> AÍ VAI CHAMAR O METHOD DE '.new()',
+
+
+
+
+
+
+   E AÍ _ VAI PASSAR _ NOSSA DATA _ PARA _ DENTRO 
+
+
+
+
+
+   DO 'new()'...
+
+
+
+
+
+
+
+
+
+   -> para isso, O PROFESSOR USA O 'str()" para criar uma STRING, E AÍ 
+
+
+
+
+
+
+   CONCATENA 'sender', 'recipient' e 'amount'...
+
+
+
+
+
+
+
+
+   -----> ELE WRAPPA OS 3 com 'str' PARA ASSEGURAR QUE OS 
+
+
+
+   3 SERÃO/FICARÃO COMO _ STRINGS...
+
+
+
+
+
+
+
+
+
+   ex:
+
+
+
+
+
+
+
+
+       def sign_transaction(self, amount, recipient, sender):
+        sender = PKCS1_v1_5.new(RSA.importKey(binascii.unhexlify(self.private_key)))  
+        h = SHA256.new(str(sender) + str(recipient) + str(amount))
+
+
+
+
+
+
+
+
+
+
+-------> OK...
+
+
+
+
+
+
+
+
+MAS SÓ ESSE ´CODIGO NÃO BASTA, essa string aí _ NÃO FICARÁ _ COMPATÍVEL COM o 'SHA256.new()'...
+
+
+
+
+
+
+---> O PROFESSOR PRECISA, COMO ANTES, QUE ESSA STRING SEJA UMA STRING DO TIPO 'BINARY STRING',
+
+por isso 
+
+
+ELE USA 
+
+'.encode('utf8') '
+
+
+PARA 
+
+
+
+ENCODAR NOSSA STRING NESSE FORMATO 'utf8'...   -> e ele wrappa a expressão toda com '()' para poder chamar '.encode()" nela...
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICA ASSIM:
+
+
+
+
+
+
+
+
+       def sign_transaction(self, amount, recipient, sender):
+        sender = PKCS1_v1_5.new(RSA.importKey(binascii.unhexlify(self.private_key)))  
+        h = SHA256.new((str(sender) + str(recipient) + str(amount)).encode('utf8'))
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+    def sign_transaction(self, amount, recipient, sender):
+        sender = PKCS1_v1_5.new(RSA.importKey(binascii.unhexlify(self.private_key)))     ###precisamos que nossas KEYS ESTEJAM EM FORMATO BINARY (desconverter elas, que agora estarão armazenadas como STRINGS lá nesse nosso 'wallet', nos attributes)... --> para isso, usamos 'binascii', a package que consegue converter strings em binary data e vice-versa...
+        ###unhexlify é o contrário de hexlify --> cnoverte STRINGS DE VOLTA EM BINARY DATA...
+        h = SHA256.new((str(amount) + str(recipient) + str(sender).encode('utf8')))  ##o 'encode('utf8')'  vai CONVERTER NOSSA DATA da transaction (inicialmente STRINGS) em uma BINARY STRING
+        ### h é um 'hash'... hash do CONTEÚDO/PAYLOAD DA TRANSACTION....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK, AGORA TEMOS O PAYLOAD DA TRANSACTION NESSA 'hash form'... e também temos o SIGNER...
+
+
+
+
+
+
+
+
+
+
+------> PARA  __ GERAR _UMA __ SIGNATURE PARA A NOSSA TRANSACTION, TUDO QUE TEMOS QUE FAZER É CHAMAR O 
+
+
+'signer' E 
+
+
+ENTÃO CHAMAR O METHOD DE '.sign()" 
+
+
+
+
+,
+
+
+
+
+EM QUE _ VAMOS PASSAR O PAYLOAD (ou seja, a variável 'h') 
+
+
+
+COMO ARGUMENTO....
+
+
+
+
+
+
+
+
+
+
+
+
+-------> POR FIM, RETORNAMOS ESSA 'signature' COMO __ UMA STRING, AO FINAL DO METHOD...
+
+
+
+
+
+
+
+
+
+-> MAS É CLARO QUE ESSA SIGNATURE VAI ESTAR EM FORMATO 'BINARY', e naõ string... -> temos que usar 'binascii.hexlify()'
+
+
+MAIS _ UMA VEZ__ para_  então _ CONSEGUIR CONVERTER 'string data' em 'binary data'...
+
+
+
+
+
+
+
+--> É CLARO QUE O 'hexlify' SÓ CONVERTE ESSA BINARY DATA EM 'HEXADECIMAL DATA' --> é necessário chamarmos 'encode('utf8')'
+
+
+EM CIMA 
+
+
+
+DE 'hexlify'
+
+PARA QUE 
+ESSA DATA binary, que virou 'hexadecimal', SEJA REALMENTE CONVERTIDA EM UMA STRING...
+
+
+
+EX:
+
+
+
+
+
+
+    def sign_transaction(self, amount, recipient, sender):
+        signer  = PKCS1_v1_5.new(RSA.importKey(binascii.unhexlify(self.private_key)))     ###precisamos que nossas KEYS ESTEJAM EM FORMATO BINARY (desconverter elas, que agora estarão armazenadas como STRINGS lá nesse nosso 'wallet', nos attributes)... --> para isso, usamos 'binascii', a package que consegue converter strings em binary data e vice-versa...
+        ###unhexlify é o contrário de hexlify --> cnoverte STRINGS DE VOLTA EM BINARY DATA...
+        h = SHA256.new((str(amount) + str(recipient) + str(sender).encode('utf8')))  ##o 'encode('utf8')'  vai CONVERTER NOSSA DATA da transaction (inicialmente STRINGS) em uma BINARY STRING
+        ### h é um 'hash'... hash do CONTEÚDO/PAYLOAD DA TRANSACTION....
+
+        signature = signer.sign(h)
+
+        return binascii.hexlify(signature).decode('ascii')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... E A SIGNATURE, USADA NA TRANSACTION/PARA A TRANSACTION,
+
+
+
+será criada __ COM UMA COMBINAÇÃO ENTRE 
+
+
+o 'hash DA TRANSACTION/data da transaction' ('h')
+
+
+e 
+
+
+o 'SIGNER' ( QUE É UMA STRING HASHEADA, CRIADA A PARTIR DE NOSSA 'private_key'... )
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+def sign_transaction(self, amount, recipient, sender):
+        signer = PKCS1_v1_5.new(RSA.importKey(binascii.unhexlify(self.private_key)))     ###precisamos que nossas KEYS ESTEJAM EM FORMATO BINARY (desconverter elas, que agora estarão armazenadas como STRINGS lá nesse nosso 'wallet', nos attributes)... --> para isso, usamos 'binascii', a package que consegue converter strings em binary data e vice-versa...
+        ###unhexlify é o contrário de hexlify --> cnoverte STRINGS DE VOLTA EM BINARY DATA...
+        h = SHA256.new((str(amount) + str(recipient) + str(sender)).encode('utf8'))  ##o 'encode('utf8')'  vai CONVERTER NOSSA DATA da transaction (inicialmente STRINGS) em uma BINARY STRING
+        ### h é um 'hash'... hash do CONTEÚDO/PAYLOAD DA TRANSACTION....
+        signature = signer.sign(h) ## 'signature' vai estar em formato  BINARY, E NAÕ STRING...
+        return binascii.hexlify(signature).decode('ascii')  ##assim conseguimos retornar esse value como STRING, e não como BINARY DATA... (chamamos '.decode('ascii')' em cima do '.hexlify()' pq ELE VAI TRANSFORMAR ESSA BINARY DATA EM HEXADECIMAL DATA, que TAM´BEM PRECCISAMOS CONVERTER, por meio de esse '.decode('ascii')'... (que vai transformar isso em uma STRING)...
+
+
+
+
+
+
+
+
+
+---> ESSE METHOD INTEIRO VAI NOS DAR DE VOLTA UMA STRING,
+
+
+STRING QUE VAI ___REPRESENTAR A SIGNATURE DE NOSSA TRANSACTION..
+
+
+
+
+
+
+----> ESSA É A SIGNATURE QUE VAMOS QUERER PRODUZIRR _ SEMPRE QUE _ 
+
+CRIARMOS UMA NOVA TRANSACTION...
+
+
+
+
+
+
+
+
+
+----> o professor volta ao 'node.py',
+
+
+
+
+
+
+
+EM QUE VAI 'SETUP' 
+
+O DEFINE 
+
+
+DE ESSA NOVA 'signature' nas nossas transactions...
+
+
+
+
+
+
+
+
+
+
+
+
+--> A  SIGNATURE DEVERÁ SER ADICIONADA _ SEMPRE que 
+
+
+
+
+UMA TRANSACTION FOR CRIADA/ADICIONADA...
+
+
+
+
+
+
+
+
+-_> COMO EM 'add_transaction' 
+
+JÁ PASSAMOS O RECIPIENT, AMOUNT E SENDER,
+
+
+
+
+
+é nessa function qeu vamos querer 
+
+
+
+executar o 'sign_transaction'...
+
+
+
+
+
+
+
+
+-------> MAS PARA ISSO, VAMOS ATÉ 'blockchain.py',
+
+
+EM QUE 
+
+DEFINMOS ANTERIORMETNE O METHOD DE '
+
+
+
+
+'add_transaction'..
+
+
+
+
+
+
+
+--> NO MOMENTO, ELE ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+    def add_transaction(self, sender, recipient, amount=1.0):
+
+
+
+
+        new_transaction = Transaction(amount, recipient, sender)
+
+        if not Utility.verify_transaction(new_transaction, self.get_balance):
+            # print('Your funds are not enough for the chosen operation')
+            return False
+        else:
+            self.__open_transactions.append(new_transaction)
+            self.participants.add(sender)
+            self.participants.add(recipient)
+            print(self.__open_transactions)
+
+            # FileAccess.save_data(self._chain, self.__open_transactions)
+            # FileAccess.save_data(self._chain, self.get_open_transactions())
+            self.save_data()
+            return True
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+O PROFESSOR QUER COLOCAR MAIS UM ARGUMENTO NESSE NEGÓCIO, QUE SERÁ 
+
+A PRÓPRIA 
+
+'signature'... ------> ISSO SIGNIFICA QUE VAMOS TER QUE EXECUTAR 
+
+
+'wallet.sign_transaction'
+
+
+
+
+___ANTES__ DE CHAMARMOS ESSE 'add_transaction' do object 'blockchain'..
+
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+                      signature = self.wallet.sign_transaction(amount, recipient, sender)
+                            
+                            if self.blockchain.add_transaction(sender, recipient, signature, amount):
+
+
+
+
+
+
+
+
+
+
+
+------------------
+
+
+
+
+
+
+
+-> OK, MAS AINDA NAÕ ESTAMOS FAZENDO COISA ALGUMA COM ESSA SIGNATURE (temos que a incluir na transaction)...
+
+
+
+--> veremos como INCLUIR ESSa 'signature' na próxima aula...

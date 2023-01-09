@@ -1,0 +1,1460 @@
+
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR COM  
+
+O 
+
+'WARNING' de 
+
+
+
+
+
+'SEU BLOCK NÃO FOI MINERADO/ACEITO NOS OUTROS NODES'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> EM 'broadcast_block',
+
+
+
+no 'node.py',
+
+
+
+
+TEMOS UM PUNHADO DE CASOS EM QUE 
+
+
+
+
+NOSSO BLOCK __ NÃO É ACEITO....
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+    block = values['block']
+    if block['index'] == blockchain._chain[-1].index + 1:
+        if blockchain.add_block(block):
+            response = {'message': 'A new block was added, reloading blockchain..'}
+            return jsonify(response), 201
+    elif block['index'] > blockchain._chain[-1].index:
+        pass
+    else:
+        response = {'message': 'Blockchain seems to be shorter, block not added.'}
+        return jsonify(response), 409
+        
+
+
+
+
+
+
+
+
+--> para sermos mais precisos,
+
+
+o único case em que o block é REALMENTE ADICIONADO é este aqui:
+
+
+
+
+
+    if block['index'] == blockchain._chain[-1].index + 1:
+        if blockchain.add_block(block):
+            response = {'message': 'A new block was added, reloading blockchain..'}
+            return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+--> no case seguinte, este aqui:
+
+
+    elif block['index'] > blockchain._chain[-1].index:
+        pass
+
+
+
+
+
+--> o block é considerado INVÁLIDO POR SER MAIOR do que 
+
+
+nosso último block + 1 
+
+
+
+
+
+
+
+
+
+-->     else:
+        response = {'message': 'Blockchain seems to be shorter, block not added.'}
+        return jsonify(response), 409
+        
+
+
+
+
+
+
+
+
+
+--> AQUI NÃO ESTAMOS ACEITANDO PQ 
+
+O BLOCK QUE ESTAMOS RECEBENDO PARECE __ MENOR__ DO que o nosso local block chain...
+
+
+
+
+
+
+
+
+
+
+-> quanto ao case do 'blockchain maior,'
+
+o professor escreve:
+
+
+    elif block['index'] > blockchain._chain[-1].index:
+        response = {'message': 'Blockchain seems to differ from local blockchain.'}
+        return jsonify(response), 409
+
+
+
+
+
+
+
+
+
+
+--> MAS AQUI TEMOS UM PONTO FORA DA CURVA... --> 
+
+
+
+ESSA RESPONSE DE ERROR QUE ENVIAREMOS NÃO SERÁ ENVIADA 
+
+
+
+
+__AO __  'NODE QUE NOS ENVIOU ESSE BLOCK'... -----> ISSO PQ __ 
+
+
+SE A 
+
+BLOCKCHAIN QUE TEMOS É __ MENOR __ DO QUE 
+
+A BLOCKCHAIN DO BLOCK QUE ESTAMOS RECEBENDO,
+
+
+
+
+O __ PROBLEMA_ SERÁ __ UM PROBLEMA DE NOSSO PRÓPRIO 'peer node',
+
+
+
+e não do node que enviou o block a nós/ao peer node...
+
+
+
+
+
+
+
+
+
+
+
+
+------> É POR ISSO QUE EM VEZ DO PROFESSOR RETORNAR UM ERROR CODE DE 200,
+
+
+ELE VAI RETORNAR  um 
+
+STATUS CODE DE 200 ('sucesso') ----> PORÉM, A MENSAGEM DE 'blockchain parece ser diferente'
+
+
+
+
+AINDA SERÁ 
+
+ENVIADA AO 'PEER  NODE',
+
+mas isso será considerado 'AN ISSUE WITH OURSELVES',
+
+
+
+e aí 
+
+
+TEREMOS QUE 
+
+'TAKE CARE' 
+
+
+desse problema...
+
+
+
+
+
+
+
+--> A LÓGICA VAI FICANDO ASSIM:
+
+
+
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+    block = values['block']
+    if block['index'] == blockchain._chain[-1].index + 1:
+        if blockchain.add_block(block):
+            response = {'message': 'A new block was added, reloading blockchain..'}
+            return jsonify(response), 201
+        else:
+            response = {'message': 'Block seems to be invalid.'}
+            return jsonify(response), 409
+    elif block['index'] > blockchain._chain[-1].index:
+        presponse = {'message': 'Blockchain seems to differ from local blockchain.'}
+        return jsonify(response), 200
+    else:
+        response = {'message': 'Blockchain seems to be shorter, block not added.'}
+        return jsonify(response), 409
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA, ESTE AQUI:
+
+
+
+    elif block['index'] > blockchain._chain[-1].index:
+        presponse = {'message': 'Blockchain seems to differ from local blockchain.'}
+        return jsonify(response), 200
+
+
+
+
+
+
+--> É UM ERRO NO PRÓPRIO 'peer node'...
+
+
+
+
+
+
+
+
+
+
+
+-> SE OLHARMOS, POR SUA VEZ,
+
+O 'add_transaction',
+
+TAMBÉM TEMOS UM TRECHO QUE FALA 
+
+DO 
+
+FAIL NO CREATE DE UMA TRANSACTION:
+
+
+
+
+
+
+        else: 
+            response = {
+                'message': 'Creating a transaction failed.',
+                'wallet_set_up': wallet.public_key != None
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+    --> QUANTO A ESSA HIPÓTESE DE FAIL,
+
+    É BEM MAIS PROVÁVEL QUE ELA VENHA 
+
+    A 
+
+    SER UM PROBLEMA EM RELAÇAÕ AO 
+
+
+    'NODE DE ONDE ESTÁ VINDO',
+
+
+
+
+
+
+
+
+
+
+    MAS É CLARO QUE ESSE CÓDIGO DE FAIL TAMBÉM PODE SER ALCANÇADO _ 
+
+
+
+    SE NO NOSSO 'PEER_NODE'
+
+    nós
+
+    tivermos uma 
+
+    INVALID BLOCKCHAIN, por exemplo... (talvez uma blockchain ATRASADA, essa é uma hipótese)
+
+
+
+
+
+    -> nesse case, nós também não adicionamos a transaction ao peer node,
+
+    mas isso não é necessariamente errado/incorreto..
+
+
+
+
+
+
+
+
+
+
+
+    -->  OK... COM ISSO, ESTAMOS MANAGEANDO NOSSAS RESPONSES,
+
+
+
+
+    MAS 
+
+    A PARTE INTERESSANTE, AGORA, É:
+
+
+    COMO NÓS 
+
+    'KEEP TRACK'  
+
+
+
+,
+
+
+EM UMA BLOCKCHAIN, EM UM NODE,
+
+
+
+ACERCA DA PERGUNTA:
+
+
+'nós fazemos algo sobre os conflicts ou não?'
+
+
+
+
+
+
+
+
+
+-> PARA ISSO,
+
+
+O PROFESSOR ADICIONA UM NOVO ATTRIBUTE 
+
+
+À CLASS DE 
+
+
+'blockchain',
+
+
+
+
+
+
+QEU É O ATTRIBUTE DE 
+
+
+
+'self.resolve_conflicts'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> INICIALMENTE, ESSE ATTRIBUTE ESTARÁ COMO 'FALSE'..--> o que significa que 
+
+INICIALMENTE _ NOSSO NODE/BLOCKCHAIN __ NÃO TERÁ DE RESOLVER CONFLICTS...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+    def __init__(self, hosting_node_id, node_port):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+
+        self._chain = [GENESIS_BLOCK]
+        self.__open_transactions = []
+        self.participants = {'Max'}
+        self.__peer_nodes = set()
+        self.node_port = node_port
+        self.resolve_conflicts = False
+        self.load_data()
+        self.hosting_node = str(hosting_node_id)
+
+
+
+
+
+
+
+
+
+
+--> CERTO... ---> E NÓS PODEMOS MANAGEAR ISSO EM 
+
+
+
+UMA BLOCKCHAIN, EM UM GIVEN NODE,
+
+E AÍ __ TROCAR ISSO PARA 'TRUE',
+
+
+e aí 
+
+
+ADICIONAR UM CHECK EM ALGUM LOCAL DE NOSSO CÓDIGO 
+
+PARA 
+
+ENTÃO SABER _ SE 
+
+
+PRECISAMOS/PRECISAREMOS 'RESOLVE CONFLICTS'
+
+
+ou não...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> O QUE PODEMOS FAZER, POR EXEMPLO, 
+
+É IR ATÉ NODE.py
+
+
+
+
+
+
+
+
+e então 
+
+
+seguir até aquela 
+route de 
+
+'broadcast_block'..
+
+
+
+
+
+
+
+--> ESSA ROUTE AQUI:
+
+
+
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+    block = values['block']
+    if block['index'] == blockchain._chain[-1].index + 1:
+        if blockchain.add_block(block):
+            response = {'message': 'A new block was added, reloading blockchain..'}
+            return jsonify(response), 200
+        else:
+            response = {'message': 'Block seems to be invalid.'}
+            return jsonify(response), 409
+    elif block['index'] > blockchain._chain[-1].index:  ###este é um problema no PRÓPRIO 'peer_node', E NÃO NO NODE QUE ENVIOU O BLOCK que foi considerado 'inválido' ----> por isso o return de uma response com status code de 200, pq isso será handlado de forma DISTINTA..
+        response = {'message': 'Blockchain seems to differ from local blockchain.'}
+        return jsonify(response), 200
+    else:
+        response = {'message': 'Blockchain seems to be shorter, block not added.'}
+        return jsonify(response), 409
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO.... NO CASE EM QUE 
+
+
+DIZEMOS QUE O PROBLEMA É COM O 'PEER NODE',
+
+
+
+LÁ JÁ PODEMOS ACESSAR 
+
+
+'blockchain.resolve_conflicts' 
+
+
+
+E AÍ TROCAR PARA TRUE... -------> ISSO TROCARÁ O VALOR DE 
+
+'resolve_conflicts'
+
+
+
+APENAS _ NESSE PEER NODE,
+
+
+
+
+E É EXATAMENTE POR ISSO QUE O PROFESSOR
+
+ESTÁ 
+
+FAZENDO 
+
+ESSA TROCA EM 
+
+'broadcast_block',
+
+
+PQ 
+
+
+
+
+esse method é executado 
+
+
+
+
+
+NO BLOCKCHAIN/NODE QUE RECEBE 
+
+
+ESSE BLOCK/info do block...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE TAMBÉM TEMOS/TEREMOS CASOS
+
+
+
+
+
+EM QUE O 
+
+ERROR SERÁ ATRIBUÍDO AO NODE QUE _ ENVIOU _ O BLOCK... -----> É POR ISSO QUE 
+
+DEVEMOS IR 
+
+
+ATé 
+
+
+
+'blockchain.py'
+
+
+E ENTÃO 
+
+
+
+AO method de 'mine_block',
+
+PQ ESSE 
+
+é o LOCAL EM QUE CONTATAMOS NOSSOS PEER NODES,
+
+
+COMO VISTO PELO CÓDIGO:
+
+
+        for node in self.__peer_nodes:
+            url = f'http://{node}/broadcast-block'
+            converted_block = block.__dict__.copy()
+            converted_block['processed_transactions'] = [tx.__dict__ for tx in converted_block['processed_transactions']]
+        
+            try:
+                response = requests.post(url, json={'block': converted_block})
+                if response.status_code == 400 or response.status_code == 500:
+                    print('Block declined, needs resolving.')
+            except requests.exceptions.ConnectionError:
+                continue
+                # FileAccess.save_data(self._chain, self.__open_transactions)
+                # FileAccess.save_data(self._chain, copied_transactions)
+        return block
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> PARA SERMOS MAIS PRECISOS,
+
+         
+
+
+
+         NAQUELE BLOCK ALI,
+
+         em qeu 
+         o professor checa 
+
+         SE 
+
+         ESTAMOS RECEBENDO UM CÓDIGO DE ERRO 400 OU 500... ------> 
+
+
+
+
+
+
+
+
+         SE DERMOS UMA BOA OLHADA EM 
+
+         'broadcast_block',
+
+
+         VEREMOS QUE 
+
+
+
+        O STATUS CODE QUE ESTÁ SENDO RETORNADO EM CASO DE 'Block seems to be invalid' (erro genérico, atribuído ao NODE QUE ENVIA O BLOCK)
+
+
+
+        É DE 409...
+
+
+
+
+
+
+        --> É POR ISSO QUE ADICIONAREMOS 
+
+        MAIS UM 
+
+
+        IF CASE 
+
+
+
+        NO  'MINE_BLOCK',
+
+
+        PARA O CASE DE STATUS CODE 
+
+        409,
+
+
+        que é esse aí mesmo...
+
+
+
+e
+x:
+
+
+
+
+
+
+
+
+        for node in self.__peer_nodes:
+            url = f'http://{node}/broadcast-block'
+            converted_block = block.__dict__.copy()
+            converted_block['processed_transactions'] = [tx.__dict__ for tx in converted_block['processed_transactions']]
+        
+            try:
+                response = requests.post(url, json={'block': converted_block})
+                if response.status_code == 400 or response.status_code == 500:
+                    print('Block declined, needs resolving.')
+                if response.status_code == 409:
+                    self.resolve_conflicts = True ##EIS O CÓDIGO EM QUESTÃO.
+            except requests.exceptions.ConnectionError:
+                continue
+                # FileAccess.save_data(self._chain, self.__open_transactions)
+                # FileAccess.save_data(self._chain, copied_transactions)
+        return block
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+
+ISSO VAI MUDAR ESSE ATTRIBUTE de 'resolve_conflicts'
+
+
+PARA TRUE,
+
+SIM,
+
+
+
+MAS _ VAI _ FAZER ISSO _ NO 
+
+NODE EM QUE 
+
+ACTUALLY MINERAMOS O NOSSO BLOCK (e não no node que RECEBE ESSA INFO ---> a troca desse attribute nesse node que RECEBE A INFO SÓ ACONTECE LÁ NO 'broadcast_block'...)
+
+
+
+
+
+
+
+
+
+
+
+-> OK... AGORA QUE TEMOS 
+
+
+ESSA TROCA DE BOOLEAN NO LUGAR, TROCA DE ATTRIBUTE,
+
+SERIA 
+
+legal 
+
+SE
+
+
+CONSEGUISSEMOS PROVIDENCIAR ESSA INFO AO USER...-----> TAMBÉM 
+
+
+
+
+SERIA LEGAL 
+
+DEIXAR O USER SABER DISSO,
+
+PARA ENTAÕ, COMO PRÓXIMA ETAPA,
+
+
+ADICIONAR UM METHOD QUE ACTUALLY FAÇA ESSE 
+
+
+
+CONFLICT RESOLVING...
+
+
+
+
+
+
+
+
+TEMOS 2 alternativas EM QUE ESSE esse inform do 'RESOLVE CONFLICT' PODE ACONTECER:
+
+
+
+
+
+
+
+
+1) __ OU __- NÓS 'FIND OUT' QUE PRECISAMOS 'RESOLVE CONFLICTS' 
+
+
+_ NO MOMENTO _ EM QUE TENTAMOS INFORMAR NOSSOS PEER NODES (em 'mine_block'),
+
+
+
+
+
+
+2) OU, NO 'PEER_NODE',
+
+
+QUANDO _NÓS ACTUALLY DESCOBRIMOS QUE O BLOCK QUE ESTAMOS RECEBENDO _ 
+
+NÃO É COMPATÍVEL/DOESNT MATCH A BLOCKCHAIN QUE TEMOS, blockchain QUE É MENOR...
+
+
+
+
+
+
+
+
+
+-> BEM... NO CASO 2,
+
+HÁ POUCA COISA QUE PODEMOS  FAZER PARA _ INFORMAR _ O USER 
+
+
+ACERCA DESSE PROBLEMA -->  PQ __ ISSO NÃO É UM PROBLEMA 
+
+
+DO __ NODE __ QUE CRIOU O BLOCK, não é problema dele _ 
+SE ALGUM PEER NODE 
+
+
+TEM ALGUM 'INVALID BLOCKCHAIN' 
+
+
+ou  não... -------> É POR ISSO QUE PODEMOS IGNORAR O 'INFORM' DO 
+
+USER QUE ACTUALLY ENVIOU O BLOCK... -->  MAS 
+
+
+
+__ SE O __ NODE EM QUE __ TENTAMOS MINERAR UM BLOCK 
+
+
+POSSUI/VEIO A POSSUIR ESSE ATTRIBUTE DE 
+
+'resolve_conflicts'
+
+DEFINIDO COMO TRUE,
+
+
+
+ 
+
+
+SE ESSE FOR O CASO,
+
+VAMOS CERTAMENTE QUERER _ FAZER__ ALGUMA COISA.... -=> O QUE O PROFESSOR FARÁ, NO CASO,
+
+
+
+
+É 
+
+
+
+
+
+MEXER 
+
+NO METHOD DE 'mine()'
+
+
+
+
+QUE TEMOS LÁ EM 'node.py'... --> nesse method aí,
+
+
+
+
+
+
+
+
+
+A LÓGICA É ESTA:
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine():
+    block = blockchain.mine_block()
+    if block != None:
+        print(block)
+        dict_block = block.__dict__.copy()
+        dict_block['processed_transactions'] = [
+            tx.__dict__ for tx in dict_block['processed_transactions']]
+        response = {
+            'message': 'Block added successfully.',
+            'block': dict_block,
+            'funds': blockchain.get_balance()
+        }
+        return jsonify(response), 201
+    else:
+        response = {
+            'message': 'Adding a block failed.',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O PROFESSOR VAI COMPLEMENTAR:
+
+
+
+
+
+ANTES DE FAZER__ QUALQUER_ COISA NESSE 'MINE',
+
+
+
+
+O PROFESSOR 
+
+VAI CHECAR 
+
+
+
+
+se 
+
+
+'if blockchain.resolve_conflicts'
+
+
+
+
+,
+
+OU SEJA,
+
+SE ESSE ATTRIBUTE ESTÁ COMO TRUE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE ISSO FOR REALMENTE TRUE,
+
+VAMOS QUERER RETORNAR UMA RESPONSE EM QUE 
+
+
+diremos 
+
+
+
+
+response = {'message': 'Block not added, please resolve conflicts first!'}
+return jsonify(response), 409
+
+
+
+
+
+
+
+
+
+-> VAMOS RETORNAR UMA RESPONSE DE ERROR,
+
+
+
+JUNTO COM UM STATUS CODE DE 409...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine():
+    if blockchain.resolve_conflicts: ## isso será checado no NODE QUE MINERA O BLOCK, e naõ nos peer nodes que recebem essa info...
+        response = {'message': 'Block not added, please resolve conflicts first!'}
+        return jsonify(response), 409
+    block = blockchain.mine_block()
+    if block != None:
+        print(block)
+        dict_block = block.__dict__.copy()
+        dict_block['processed_transactions'] = [
+            tx.__dict__ for tx in dict_block['processed_transactions']]
+        response = {
+            'message': 'Block added successfully.',
+            'block': dict_block,
+            'funds': blockchain.get_balance()
+        }
+        return jsonify(response), 201
+    else:
+        response = {
+            'message': 'Adding a block failed.',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500
+
+
+
+---------------------
+
+
+
+
+--> OU SEJA,
+
+
+SE TEMOS ESSE 'resolve_conflicts',
+
+
+
+
+NOSSO APP _ NÃO VAI NEM MESMO __COGITAR__ O MINE DE UM BLOCK....
+
+
+
+
+
+
+
+
+        response = {'message': 'Block not added, please resolve conflicts first!'}
+        return jsonify(response), 409
+
+
+--> isso, btw,
+
+
+É TAMBÉM O QUE VAMOS RECEBER NO 'PEER_NODE'
+
+SE _ FORMOS__ O 'OWNER' 
+
+
+
+DESSE NODE _ E ENTÃO TENTARMOS MINERAR UM BLOCK E, PREVIAMENTE,
+
+UM OUTRO NODE NOS ENVIOU UM REQUEST E DESCOBRIMOS '''HEY, NOSSA LOCAL BLOCKCHAIN NÃO ESTÁ SINCRONIZADA''...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, AGORA TEMOS ESSE ATTRIBUTE DE 'RESOLVE CONFLICTS'
+
+E ESTAMOS RETORNANDO ESSA RESPONSE...
+
+
+
+
+
+
+
+--> DEVEMOS MOSTRAR ALGUMA COISA AO USER __ QUANDO REALMENTE TIVERMOS ESSA 'ISSUE'
+
+
+
+,
+
+QUE RETORNA O STATUS CODE DE 409... --> 
+
+
+
+
+NO CASO,
+
+
+
+DEVEMOS FAZER O HANDLE DESSE STATUS DE 409 
+
+
+LÁ 
+
+
+
+NO CÓDIGO QUE FAZ O MINE DE UM BLOCK,
+
+o 
+
+
+
+'onMine',
+
+
+
+
+QUE É UM LOCAL EM QUE 
+
+__ JÁ TEMOS UM 
+
+
+CÓDIGO 
+
+
+
+QUE FAZ O DISPLAY DA MENSAGEM DE ERRORr:
+
+
+
+
+
+
+          onMine: function () {
+            // if (Math.random() > 0.5) {  /////DUMMY CODE
+            //   this.error = null;
+            //   this.success = 'Successfully mined coins!';
+            //   this.funds = this.funds + 10;
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            // }
+            this.dataLoading = true;
+            axios
+              // .post('/mine')
+              .post(`/mine`)
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success = 'Successfully mined coins!';
+                  // this.funds = this.funds + 10;
+                  response.data.funds;
+                  this.blockchain = response.data.blockchain;
+                  this.dataLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.blockchain = null;
+                  this.dataLoading = false;
+                }
+              })
+              .catch((err) => {
+                this.success = null;
+                this.error = err.response.data.message;
+                this.blockchain = null;
+                this.dataLoading = false;
+              });
+          },
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR REINICIA OS SERVERS E TESTA....
+
+
+
+
+
+--> carrega 2  wallets.. ---> 
+
+
+aí 
+
+ele tenta minerar um block,
+
+e imediatamente ganha o erro de 
+
+'resolve conflicts first, block not added',
+
+pq 
+
+
+
+NÓS JÁ ESTÁVAMOS NESSE ESTADO DE CONFLITO ANTERIORMENTE...
+
+
+
+
+
+
+
+
+
+
+-> mas ainda estou com um problemão:
+
+
+
+
+
+os funds ainda são adicionados 1 única vez (de 10),
+
+
+
+
+E O negócio só não me deixa mais 
+
+
+
+minerar na 2a e subsequentes vezes...
+
+
+
+
+
+
+
+
+
+É ESTE CÓDIGO AQUI QUE ESTÁ ERRADO:
+
+
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success = 'Successfully mined coins!';
+                  // this.funds = this.funds + 10;
+                  response.data.funds;
+                  this.blockchain = response.data.blockchain;
+                  this.dataLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.blockchain = null;
+                  this.dataLoading = false;
+                }
+              })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              ------> mas meu comportamento de 'deixo a primeira vez, não deixo a segunda' ainda persiste....
+
+
+
+
+
+
+
+
+
+              --> parece que esse é o comportamento desejado,
+
+              pq 
+
+
+
+              ao tentarmos   MINERAR O SEGUNDO BLOCK,
+
+              UM PEER NODE VAI LÁ E NOS DIZ ''HEY, EU TENHO MAIS BLOCKS DO QUE VOCÊ, O QUE SIGNIFICA QUE 
+              HÁ ALGO DE ERRADO COM SUA CHAIN'... 
+
+
+
+
+
+
+
+              ok, sucesso...
+
+
+
+
+
+
+
+
+              ok..... AGORA TEMOS A LÓGICA PARA 'FIND OUT THAT WE NEED TO RESOLVE CONFLICTS.'... -> 
+
+              agora só 
+
+              FALTA IMPLEMENTAR A LÓGICA DE 'COMO RESOLVER ESSES TAIS CONFLICTS'...

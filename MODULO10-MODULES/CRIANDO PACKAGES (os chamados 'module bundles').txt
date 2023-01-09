@@ -1,0 +1,682 @@
+
+
+
+
+
+
+
+
+
+
+
+----> ANTES DE COMEÇARMOS VER O TÓPICO DA WALLET,
+
+
+DEVEMOS 
+
+
+EXPLORAR NOSSAS FILES UM POUCO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR QUER REORGANIZAR NOSSAS COISAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE DERMOS UMA OLHADA MAIS APROFUNDADA,
+
+
+VEREMOS QUE 
+
+
+NOSSAS FILES 
+
+
+
+
+
+de 
+
+'hash_util.py'
+
+
+
+e 
+
+'verification.py'
+
+
+
+
+
+SÃO 
+
+
+
+
+KINDA 
+
+
+'helper files/utility files' -------> 
+
+
+
+
+
+
+
+
+É EXATAMENTE POR ISSO QUE PODEMOS AS COLOCAR EM 1 FOLDER PRÓPRIO, O QUAL PODEMOS TRATAR QUASE COMO 
+
+
+SE 
+
+FOSSE UM 'MODULE'...
+
+
+
+
+
+
+
+
+
+
+
+-> coloquei um folder de 'util'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ, LÁ DENTRO, COLOCAMOS 'Utility2',
+
+
+
+
+'transaction',
+
+
+
+
+'printable' 
+
+
+
+e 
+
+'hash_util'
+
+
+
+
+
+
+
+
+--> também 'fileRelated'...
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ATUALIZEI TODOS OS IMPORTS...
+
+
+
+
+
+
+
+
+
+
+
+ficou tipo assim:
+
+
+from util.printable import Printable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> UMA FEATURE QUE O PYTHON NOS OFERECE, NO ENTANTO,
+
+
+
+QUE AINDA NÃO VIMOS,
+ 
+ É A OPÇÃO DE 
+
+
+
+ 'CRIAR UMA FILE __ ADICIONAL, NESSE FOLDER AÍ,
+
+
+ '',
+
+
+
+ QUE ESSENCIALMENTE __ VAI CONVERTER ESSES ARQUVIOS TODOS (o folder inteiro, na verdade),
+
+
+
+
+
+
+ EM __ UMA PACKAGE...
+
+
+
+
+
+
+
+
+ --> ESSE ARQUIVO DEVE OBRIGATORIAMENTE SER CHAMADO DE 
+
+
+
+ '__init__py'...
+
+
+
+
+
+
+
+
+
+
+
+ A ESTRUTURA DE 'util', o folder, fica assim:
+
+
+
+
+
+
+
+
+ > __init__.py
+
+ > fileRelated.py 
+
+ > printable.py 
+
+> hash_util.py 
+
+> utility2.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> ESSA FILE_ __ PODE_ FICAR VAZIA, VOCÊ NÃO É OBRIGADO A ESCREVER QUALQUER COISA DENTRO DELA,
+
+
+
+MAS A EXISTÊNCIA DESSA FILE EM 1 FOLDER_ _ AUTOMATICAMENTE_ 
+
+
+
+TRANSFORMA ESSE FOLDER INTEIRO EM UMA 'PACKAGE'.....
+
+
+
+
+
+
+
+
+
+
+
+
+--> PACAKGE PYTHON -------> O QUE ISSO SIGNIFICA? ------> SIGNIFICA QUE 
+
+ 
+ AGORA PODEMOS __ FACILMENTE_ __ 
+
+ IMPORTAR 
+
+
+ COISAS DESSE FOLDER,
+
+ NOS NOSSOS ARQUIVOS PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> SE FORMOS ATÉ O ARQUIVO 'blockchain14',
+
+
+
+ EM QUE IMPORTAMOS VÁRIAS COISAS,
+
+
+
+ PODEMOS 
+
+ AGRUPAR 
+
+
+
+
+
+
+
+
+
+ AS PACAKGES DE 'utility' e 'hash_util'
+  
+
+
+
+  EM 
+
+
+  1 
+
+  MESMA PACKAGE,
+
+  A PACKAGE DE 'util'...
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+
+
+  from util import hash_util, printable, verification 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -------> OU SEJA,
+
+
+  PODEMOS IMPORTAR, DESSE FOLDER, NOSSAS 3 COISAS, dessa forma..
+
+
+
+
+
+
+
+
+
+
+
+
+  ------> AINDA, PODEMOS __ IMPORTAR COISAS ESPECÍFICAS DOS SUBARQUIVOS DESSA PACKAGE,
+
+  TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+  from util.hash_util import hash_block 
+
+
+  from util.utility2 import Utility
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, ISSO  SIGNIFICA QUE AINDA VAMOS TER 2 IMPORT STATEMENTS, 
+
+MAS A IDEIA 
+
+
+AQUI NÃO ERA A DE 'REDUZIR IMPORT STATEMENTS',
+
+
+e sim 
+
+
+
+
+era de 'AGRUPAR TODOS ESSES IMPORTS SOB UM MESMO PACKAGE' ... ------> PQ ESSE 
+
+NEGÓCIO AGORA REALMENTE PASSARÁ A SER TRATADO COMO 1 PACKAGE ÚNICO...
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+from util.utility2 import Utility
+
+from util.hash_util import hash_block  ##assim conseguimos AGRUPAR TODOS NOSSOS IMPORTS SOB UMA MESMA 'package'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... MAS AGORA QUANDO INICIARMOS NOSSO CÓDIGO, GANHAREMOS UM ERROR....:
+
+
+
+
+
+
+
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO10-MODULES> & C:/Python310/python.exe a:/projeto7-PYTHON/MODULO10-MODULES/novonovoprojeto14/node.py
+Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO10-MODULES\novonovoprojeto14\node.py", line 7, in <module>
+    from blockchain14MODULESETPPS import Blockchain
+  File "a:\projeto7-PYTHON\MODULO10-MODULES\novonovoprojeto14\blockchain14MODULESETPPS.py", line 16, in <module>
+    from util.utility2 import Utility
+  File "a:\projeto7-PYTHON\MODULO10-MODULES\novonovoprojeto14\util\utility2.py", line 5, in <module>
+    from hash_util import hash_string_256, hash_block
+ModuleNotFoundError: No module named 'hash_util'
+PS A:\projeto7-PYTHON\MODULO10-MODULES> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+------->  É UM ERRO NO ARQUIVO 'utility2.py' --> O IMPORT QUE HAVÍAMOS ESCREVIDO É ESTE:
+
+
+
+from hash_util import hash_string_256, hash_block
+
+
+
+
+
+
+
+
+
+
+-----> MAS ISSO AGORA DEVERÁ SER IMPORTADO COM 
+
+
+'''''
+
+
+from util.hash_util import hash_string_256, hash_block
+
+
+
+'''
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import json
+
+# from hash_util import hash_string_256, hash_block
+
+from util.hash_util import hash_string_256, hash_block   ##vamos importar DESSE MESMO MÓDULO AÍ.. ('util')..
+
+
+class Utility:
+
+    @staticmethod
+    def verify_chain(blockchain, valid_proof):
+
+        for(index, block) in enumerate(blockchain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain[index - 1]):
+                return False
+
+            if not valid_proof(block.processed_transactions[:-1], block.previous_block_hash, block.proof):
+                print('Proof of work is invalid.')
+                return False
+        return True
+
+    @staticmethod
+    def verify_transaction(transaction, get_balance):
+
+        sender_balance = get_balance(transaction.sender)[2]
+        return sender_balance >= transaction.amount
+
+    @staticmethod
+    def verify_transactions(open_transactions, get_balance, verify_transaction):
+        return all([verify_transaction(transaction, get_balance) for transaction in open_transactions])
+
+    @staticmethod
+    def valid_proof(transactions, previous_block_hash, proof):
+
+        ordered_transactions = [transaction.to_ordered_dict()
+                                for transaction in transactions]
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+        guess = (str(verifiable_transactions) +
+                 str(previous_block_hash) + str(proof)).encode()
+
+        guess_hash = hash_string_256(guess)
+        print(guess_hash)
+
+        return guess_hash[0:5] == '00000'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> PRONTO, AGORA NOSSO CÓDIGO ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+----> AGORA TEMOS NOSSA PRÓPRIA 'utility package',
+
+
+
+
+PACKAGES POSSUEM ESSE PROPÓSITO,
+
+DEIXAR NOSSA ESTRUTURA DE FOLDERS MAIS FÁCIL DE SER 
+
+LIDA...
+

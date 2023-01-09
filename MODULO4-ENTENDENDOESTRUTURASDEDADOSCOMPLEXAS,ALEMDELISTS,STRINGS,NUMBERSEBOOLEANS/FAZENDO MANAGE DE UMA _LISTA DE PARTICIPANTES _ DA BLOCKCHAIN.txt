@@ -1,0 +1,796 @@
+
+
+
+
+
+
+
+
+
+--> UMA FEATURE QUE AINDA NÃO VIMOS, MAS QUE O PROFESSOR 
+
+DISCUTIU AO INÍCIO DO MÓDULO,
+
+
+É QUE 
+
+
+VAMOS QUERER TER UMA LISTA DE PARTICIPANTES..
+
+
+
+
+
+
+
+
+
+---> SERÁ UMA ITERABLE:
+
+
+
+
+
+
+1) SEM ORDER 
+
+
+
+2) SEM DUPLICATES 
+
+
+
+3) MUTABLE 
+
+
+
+4) DATA TYPE ÚNICO..
+
+
+
+
+
+
+
+
+
+
+--> sets parecem bons para isso (sem duplicates, mutable, sem order).....
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS MAIS TARDE NO CURSO SUBSTITUIR ESSA LISTA DE PARTICIPANTS POR 
+
+
+
+
+__UMA LISTA __ DE NODES_, NODES_ CONECTADAS AO NOSSO NODE... (
+
+    pq vamos construir uma NETWORK DE CONNECTED BLOCKCHAIN INSTANCES...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA DEVEMOS ORGANIZAR NOSSA LISTA DE PARTICIPANTS..
+
+
+
+
+
+
+
+
+(
+
+serão os names de todas pessoas sender e recipient de transactions....
+)
+
+
+
+
+
+
+
+
+
+
+-> O PROFESSOR QUER USAR UM SET, PQ 
+
+QUEREMOS UMA DATA STRUCTURE QUE ARMANZENE 'UNIQUE VALUES',
+
+
+
+E EM QUE A ORDER NÃO INTERESSA....
+
+
+
+
+
+
+
+
+
+
+
+--> de volta ao código, o professor quer adiiconar uma variable nova,
+
+
+
+
+
+chamada de participants...
+
+
+
+
+
+
+-> PARA ISSO,
+
+ 
+
+
+
+
+
+ poderíamos escrever assim:
+
+
+
+
+
+
+
+
+ participants = set() 
+
+
+
+
+
+
+
+
+ --> ESSA É A FUNÇÃO 'set()'.. ---> ELA CRIA UM 'EMPTY SET' ...
+
+
+
+
+
+
+
+
+
+ ---> OPÇÕES:
+
+
+
+
+ set() ----> NEW EMPTY SET OBJECT 
+
+
+ set(iterable) -> ISSO CRIA UM NOVO OBJETO SET, MAS NÃO É UM OBJETO VAZIO, E SIM UM _ OBJETO JÁ FORRADO COM A DATA DA ITERABLE QUE VOCÊ PASSOU... (como um array/list)
+
+
+
+
+
+
+
+
+
+se você escrever 
+
+
+set(ITERABLE), você verá que 
+O 
+SET 
+
+VAI 
+
+'PULL OUT' 
+
+o elemento/elementos desse array e então vai os armazenar no seu interior....
+
+
+
+
+
+
+
+
+
+
+
+--> professor nos mostra isso no REPL...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+>>> set(['Max'
+... ])
+{'Max'}
+>>>    
+
+
+
+
+
+
+
+
+
+
+
+---> OK, ENTENDI... ---> ISSO CONVERTE NOSSO ITERABLE EM UM SET, SE ASSIM O DESEJARMOS...
+
+
+
+
+
+
+
+
+
+
+
+----> OK, E SE PASSARMOS UMA STRING, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+--> AÍ ACONTECE ISTO:
+
+>>> set('Max')
+{'M', 'x', 'a'}
+>>> 
+
+
+
+
+
+
+
+
+
+
+--> ISSO ACONTECEU _ _PQ _ UMA STRING _ PODE SER CONSIDERADA __ COMO UM 'ITERABLE'__,
+
+
+
+
+
+E AÍ 
+
+ACABAMOS COM UM SET MALUCO DESSES (a order é aleatorizada)..
+
+
+
+
+
+
+
+
+
+
+OUTRO EXEMPLO:
+
+
+>>> set(['Max', 'Michael'
+... ])  
+{'Max', 'Michael'}
+>>> 
+
+
+
+
+
+
+
+
+
+
+---> É ASSIM QUE PODEMOS INICIALIZAR UM SET, 
+
+
+
+
+
+
+OU DESSA FORMA EMPTY,
+
+OU DESSA FORMA FORRADA....
+
+
+
+
+
+
+
+
+
+
+
+--> outra alternativa é 
+
+
+
+escrever 
+
+
+
+participants = {
+
+}
+
+
+
+
+
+
+
+
+
+-> ESSE ÚLTIMO APPROACH É O QUE EU JÁ UTILIZEI,
+
+EM QUE 
+
+ESCREVEMOS NO SET COMO SE ELE FOSSE UM DICTIONARY...
+
+
+
+
+
+EX:
+
+
+
+
+
+
+# participants = set() # approach n1 de COMO CRIAR UM SET  (dessa vez, um set vazio)
+# participants = set(['Max1', 'Max2']) # approach n2 DE COMO CRIAR UM SET  (dessa vez forrado com valores de nossa iterable/list)...
+# participants = {} # approach n3 de COMO CRIAR UM SET, ESSE É O APPROACH MAIS USADO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... MAS AO CONTRÁRIO DE DICTIONARIES,
+
+AQUI APENAS 
+
+COLOCAMOS NOSSOS VALUES SOLTOS,
+
+
+SEM  KEY-VALUE PAIRS,
+
+
+
+
+
+ok....
+
+
+
+
+
+
+
+
+
+
+CRIAMOS ASSIM:
+
+
+
+
+
+
+
+
+
+participants = {
+    'Max'
+}
+
+
+
+
+
+
+
+
+
+
+--> AGORA, LÁ EM 'ADD TRANSACTION',
+
+
+OBVIAMENTE VAMOS QUERER ADICIONAR NOVOS PARTICIPANTS,
+
+
+
+POR ISSO 
+
+
+
+
+VAMOS QUERER 
+
+
+
+ 
+ ROdar os códigos de 
+
+
+
+
+ 'participants.add(sender)',
+
+
+
+ 'participants.add(recipient)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> A COISA LEGAL DE UM 'SET' É QUE SE TENTAMOS ADICIONAR ( com 'add') um valor 
+
+ a
+  um 
+  set 
+
+
+  QUE JÁ TEM ESSE VALOR,
+
+
+
+
+  SIMPLESMENTE NÃO SERÁ CRIADA UMA DUPLICATA 
+
+
+  DESSE VALUE....
+
+
+(o add dessa duplicata será IGNORADO)....
+
+
+
+  EX:
+
+
+
+
+
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+    """
+    new_transaction = {
+
+        'sender': sender,
+        'recipient': recipient,
+        'amount': amount
+    }
+
+    open_transactions.append(new_transaction)
+    participants.add(sender)
+    participants.add(recipient)
+    print(open_transactions)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O SET NÃO VAI FAZER O THROW DE UM ERROR,
+
+E SIM 
+
+
+SÓ VAI GARANTIR QUE NÃO SEJA POSSÍVEL 
+
+
+
+TER 'DUPLICATE VALUES'
+
+
+
+em sua data strucutre....
+
+
+
+
+
+
+
+
+
+
+--> MAS SERIA LEGAL SERMOS CAPAZES DE OUTPUTTAR OS PARTICPANTS,
+
+
+POR ISSO O PROFESSOR ADICIONA UMA NOVA OPTION NO WHILE LOOP,
+
+ A OPTION 4,
+
+
+ 'output participants'...
+
+
+
+
+
+
+
+
+ -----> OK.... NOVO ELIF ....
+
+
+
+
+
+
+
+
+
+
+
+ -> fica tipo assim;
+
+
+
+
+
+
+
+
+
+
+
+
+
+while waiting_for_input:
+    print('-' * 30)
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('3: Show participants')
+    print('h: Manipulate the chain')
+    print('m: Mine a block')
+    print('q: Quit the program')
+    print('-' * 30)
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        user_transaction = get_transaction_value()
+        # UNPACKING DE TUPLE.... É EXATAMENTE A MESMA COISA QUE ARRAY DESTRUCTURING.
+        sender, recipient, amount = user_transaction
+        if(user_transaction == None):
+            print('Please enter a valid sender, recipient and transaction value')
+        else:
+            add_transaction(sender, recipient, amount)
+            # add_transaction(user_transaction[0], user_transaction[1], user_transaction[2]) # SINTAXE OLDSCHOOL (sem 'TUPLE UNPACKING', que é basicamente ARRAY DEESTRUCTURING)...
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        waiting_for_input = False
+
+    # elif(user_input == 'h'):
+    #     elementIndex = input(
+    #         'Enter the number of the element you want to manipulate: ')
+    #     if (elementIndex.isnumeric()):
+    #         if (len(blockchain) >= int(elementIndex) + 1):
+    #             elementValue = input(
+    #                 ' Please Enter the value you want to insert: ')
+    #             blockchain[int(elementIndex)] = [float(elementValue)]
+    #         else:
+    #             print(
+    #                 'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+    #     else:
+    #         print('Invalid index entered, please try again')
+
+    elif(user_input == 'h'):
+        print(blockchain)
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(
+                    ' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)]['processed_transactions'] = [
+                    {'sender': 'test', 'recipient': 'tested', 'amount': 1212}]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+
+    elif(user_input == 'm'):
+        mine_block()
+    elif(user_input == '3'):
+        print(participants)
+    else:
+        print('-' * 40)
+        print('Invalid command, please input 1, 2 or q.')
+    if(not verify_chain()):
+        print(blockchain)
+        # print(open_transactions)
+        # print(verify_chain())
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        waiting_for_input = False
+        # break
+    else:
+        print('Blockchain is valid')
+    print(blockchain, 'LINE')
+
+else:  # complemento do while loop
+    print('User left')
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, DEU CERTO....
+
+
+
+
+
+
+
+
+-----------
+
+
+
+
+
+
+
+
+
+---> NOSSO SET DE PARTICIPANTS:
+
+{'1', 'Max', 'Arthur'}
+
+
+
+
+
+
+
+
+
+-> E, ASSIM COMO OUTROS ITERABLES,
+
+PODEMOS USAR ESSE SET EM 
+
+FOR LOOPS,
+
+
+LIST COMPREHENSIONS,
+
+
+
+TODAS ESSAS COISAS SÃO POSSÍVEIS...
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS UM POUCO MAIS DO QUE PODEMOS FAZER COM CADA ITERABLE,
+
+NO FINAL DESSE MÓDULO..
+
+
+
+
+
+
+
+
+
+
+--> ESTAMOS OUTPUTTANDO OS PARTICIPANTS,
+
+
+
+MAS SERIA 
+
+LEGAL
+
+
+SE FOSSEMOS CAPAZES DE VER 'QUANTOS COINS/BLOCKS CADA PARTICIPANT TEM'... -----> 
+
+
+
+
+
+VEREMOS ISSO NA PRÓXIMA AULA,
+
+
+
+E TAMBÉM DEVEMOS REFINAR UM POUCO NOSSA TRANSACTION LOGIC,
+
+NAS PRÓXIMAS AULAS...

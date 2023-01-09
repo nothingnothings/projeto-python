@@ -1,0 +1,781 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUAndo minero um block,
+
+
+
+ESSE MINE AINDA NÃO ESTÁ SENDO COMUNICADO A TODOS OUTROS 'PEER NODES'...
+
+
+
+
+--> tenho que fazer com que um request seja DISPARADO A ESSES 'PEER NODES',
+
+de dentro do python..
+
+
+
+
+
+o código de 
+
+
+'mine_block' está assim:
+
+
+
+
+
+
+
+
+
+@app.route('/mine', methods=['POST'])
+def mine_block():
+    
+    print(wallet.public_key, 'LINE')
+    if (not blockchain.mine_block() or wallet.public_key == None):
+        response = {
+            'message': 'Failed to mine a block. Ensure that you have a wallet, and valid transactions in your blocks.',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500 ### erro padrão..
+
+    block = blockchain.chain[-1].__dict__.copy()
+    block['processed_transactions'] = [tx.__dict__ for tx in block['processed_transactions']]
+
+    chain_snapshot = blockchain.chain
+    dict_chain = [block.__dict__.copy() for block in chain_snapshot]
+    for dict_block in dict_chain:
+        dict_block['processed_transactions'] = [tx.__dict__ for tx in dict_block['processed_transactions']]
+    
+    response = {
+        'message': 'Block added successfully.',
+        'added_block': block,
+        'blockchain': dict_chain, ####
+        'funds': blockchain.get_balance()[2]
+    }
+    return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+e
+ o method de 'mine_block',
+
+
+ em 
+
+
+ blockcahin:
+
+
+
+
+
+
+
+
+
+
+   def mine_block(self):
+        """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+        previous_block = self._chain[-1]
+        # print(previous_block)
+
+        hashed_block = hash_block(previous_block)
+        print(hashed_block)
+        print(hashed_block)
+
+        proof = self.proof_of_work()
+        print(self.hosting_node, 'HOSTNODE')
+        reward_transaction = Transaction(
+            MINING_REWARD, self.hosting_node, 'signature', 'ourApp')
+
+        copied_transactions = self.__open_transactions[:]
+
+
+        for transaction in copied_transactions:
+            if (not Wallet.verify_transaction(transaction)):
+                self.__open_transactions.remove(transaction)
+                return False
+
+        copied_transactions.append(reward_transaction)
+        print(copied_transactions, 'COPIED_TRANSACTIONS')
+        
+        block = Block(hashed_block, len(self._chain),
+                      copied_transactions, proof)
+        
+        
+        self._chain.append(block)
+        self.__open_transactions = []
+        self.save_data()
+
+        # FileAccess.save_data(self._chain, self.__open_transactions)
+        # FileAccess.save_data(self._chain, copied_transactions)
+
+        # print(self._chain, 'TRIED TO MINE BLOCK')
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -> PRECISAMOS CHAMAR 'add_block'
+
+
+        EM ALGUM LUGAR DE ESSE 'mine_block',
+
+        para ai´
+
+        DISPARAR REQUESTS HTTP (de dentro do python)
+
+
+        AOS NOSSOS OUTROS NODES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -> ok.. agora está QUASE DANDO CERTo...
+
+
+
+
+
+
+
+
+
+
+        --> MAS GANHEI OUTRO ERROR:
+
+
+    
+
+
+127.0.0.1 - - [22/Apr/2022 02:34:01] "GET /wallet HTTP/1.1" 201 -
+[2022-04-22 02:34:13,591] ERROR in app: Exception on /broadcast-block [POST]
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\envs\OnlineMyCoin\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\ProgramData\Anaconda3\envs\OnlineMyCoin\lib\site-packages\flask\app.py", line 1519, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "C:\ProgramData\Anaconda3\envs\OnlineMyCoin\lib\site-packages\flask\app.py", line 1538, in finalize_request  
+    response = self.make_response(rv)
+  File "C:\ProgramData\Anaconda3\envs\OnlineMyCoin\lib\site-packages\flask\app.py", line 1701, in make_response     
+    raise TypeError(
+TypeError: The view function for 'broadcast_block' did not return a valid response. The function either returned None or ended without a return statement.
+127.0.0.1 - - [22/Apr/2022 02:34:13] "POST /broadcast-block HTTP/1.1" 500 -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> estou com um bug .... -> quando tento minerar mais de 1 vez em 1 mesmo app, ganho este rror:
+
+
+
+
+
+    if (not blockchain.mine_block() or wallet.public_key == None):
+  File "A:\projeto7-PYTHON\MODULO12-CRIANDOANODENETWORK\novonovoprojeto18,versaowebserverdeverdade,comnodes ,versaodoprofessor\blockchain14MODULESETPPS.py", line 204, in mine_block
+    hashed_block = hash_block(previous_block)
+  File "A:\projeto7-PYTHON\MODULO12-CRIANDOANODENETWORK\novonovoprojeto18,versaowebserverdeverdade,comnodes ,versaodoprofessor\util\hash_util.py", line 30, 
+in hash_block
+    converted_block['processed_transactions'] = [transaction.to_ordered_dict( 
+  File "A:\projeto7-PYTHON\MODULO12-CRIANDOANODENETWORK\novonovoprojeto18,versaowebserverdeverdade,comnodes ,versaodoprofessor\util\hash_util.py", line 30, 
+in <listcomp>
+    converted_block['processed_transactions'] = [transaction.to_ordered_dict( 
+AttributeError: 'dict' object has no attribute 'to_ordered_dict'
+127.0.0.1 - - [22/Apr/2022 03:32:13] "POST /mine HTTP/1.1" 500 -
+
+
+
+
+
+
+
+
+
+
+--> minhas transactions estão acabando como TRANSACTION OBJECTS Nessa function...
+
+
+
+
+
+
+
+
+
+
+
+
+--> continuo recebendo ESTE ERROR:
+
+
+AttributeError: 'dict' object has no attribute '__dict__' 
+
+
+
+
+
+
+
+
+
+
+---> provavelmente é o código das TRANSACTIONS QUE ESTÁ FODIDO...
+
+
+
+
+
+
+
+
+
+-> a versão do professor de 'mine_block' do blockchain é assim:
+
+
+
+
+
+
+
+
+    def mine_block(self):
+        """Create a new block and add open transactions to it."""
+        # Fetch the currently last block of the blockchain
+        if self.public_key == None:
+            return None
+        last_block = self.__chain[-1]
+        # Hash the last block (=> to be able to compare it to the stored hash value)
+        hashed_block = hash_block(last_block)
+        proof = self.proof_of_work()
+        # Miners should be rewarded, so let's create a reward transaction
+        # reward_transaction = {
+        #     'sender': 'MINING',
+        #     'recipient': owner,
+        #     'amount': MINING_REWARD
+        # }
+        reward_transaction = Transaction(
+            'MINING', self.public_key, '', MINING_REWARD)
+        # Copy transaction instead of manipulating the original open_transactions list
+        # This ensures that if for some reason the mining should fail, we don't have the reward transaction stored in the open transactions
+        copied_transactions = self.__open_transactions[:]
+        for tx in copied_transactions:
+            if not Wallet.verify_transaction(tx):
+                return None
+        copied_transactions.append(reward_transaction)
+        block = Block(len(self.__chain), hashed_block,
+                      copied_transactions, proof)
+        self.__chain.append(block)
+        self.__open_transactions = []
+        self.save_data()
+        for node in self.__peer_nodes:
+            url = 'http://{}/broadcast-block'.format(node)
+            converted_block = block.__dict__.copy()
+            converted_block['transactions'] = [
+                tx.__dict__ for tx in converted_block['transactions']]
+            try:
+                response = requests.post(url, json={'block': converted_block})
+                if response.status_code == 400 or response.status_code == 500:
+                    print('Block declined, needs resolving')
+            except requests.exceptions.ConnectionError:
+                continue
+        return block
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ------> ou seja,
+
+        meu código está com este trecho faltando:
+
+
+
+
+        for node in self.__peer_nodes:
+            url = 'http://{}/broadcast-block'.format(node)
+            converted_block = block.__dict__.copy()
+            converted_block['transactions'] = [
+                tx.__dict__ for tx in converted_block['transactions']]
+            try:
+                response = requests.post(url, json={'block': converted_block})
+                if response.status_code == 400 or response.status_code == 500:
+                    print('Block declined, needs resolving')
+            except requests.exceptions.ConnectionError:
+                continue
+        return block
+
+
+
+
+
+
+
+
+
+
+
+---> o erro continua...
+
+
+
+
+
+
+-> a razão desse error SÓ PODE SER:
+
+
+
+
+1) nossa blockchain velha 
+
+
+
+
+2) as functions de 'add_block' ou 
+
+'add_transaction'...
+
+
+
+
+
+
+
+
+
+--> nada disso consertou o erro....
+
+
+
+
+
+
+
+
+
+
+
+--> finalmente consertei o erro... era um line extra em 'mine_block'..
+
+
+
+
+
+
+
+
+
+
+hora de ver o vídeo do professor....
+
+
+
+
+
+
+
+
+--> mas o problema é que os novos 'blocks' NAÕ ESTÃO APARECENDO 
+
+
+
+
+NOS 
+PEER NODES..
+
+
+
+
+
+professor fala de um erro em 'add_block()':
+
+
+
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+        converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+        if not (Utility.valid_proof(converted_tx[:-1], block['previous_block_hash'], block['proof'])) or not hash_block(self._chain[-1]) == block['previous_block_hash']:
+            return False
+        new_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+        self._chain.append(new_block)
+        stored_transactions = self.__open_transactions[:]
+        for itx in block['processed_transactions']:
+            for opentx in stored_transactions:
+                if opentx.sender == itx['sender'] and opentx.recipient == itx['recipient'] and opentx.amount == itx['amount'] and opentx.signature == itx['signature']:
+                    try:
+                        self.__open_transactions.remove(opentx)
+                    except ValueError:
+                        print('Item was already removed')
+        self.save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> QUANDO ESTAMOS VALIDANDO O PROOF OF WORK ,por meio de 
+
+'proof_is_valid',
+
+
+
+ESTAMOS PASSANDO ISTO:
+
+Utility.valid_proof(converted_tx, block['previous_block_hash'], block['proof' 
+
+
+
+
+
+
+
+
+
+
+
+-> ESTAMOS PASSANDO PARA DENTRO UMA _ LIST_ DE TODAS AS TRANSACTIONS QUE ESTAMOS RECEBENDO, 
+
+CERTO?
+
+
+
+
+
+
+ok, mas o que há de errado com isso?
+
+
+
+
+
+
+
+
+--> DEVEMOS IR ATÉ A FUNCTION DE 'mine_block' para detectar isso... ---> QUANDO 
+
+
+
+A 
+
+'proof of work' 
+
+É CALCULADAM NO NOSSO CÓDIGO?
+
+
+
+
+
+
+
+--> É _ ANTES_ DE A 'reward_transaction'
+
+
+SER 
+
+
+
+ADICIONADA... --> E COMO A REWARD_TRANSACTION É ADICIOANDA POR ÚLTIMO,
+
+
+
+DEVE SER _ EXCLUÍDO__ O ÚLTIMO ELEMENTO DE NOSSAS TRANSACTION (Que é a reward transaction)
+
+
+PARA QUE 
+
+
+O INCOMING PROOF OF WORK _- CONSIGA _ SER VALIDADO...
+
+
+
+
+
+
+
+->
+
+
+É POR ISSO QUE O CÓDIGO FINAL FICOU ASSIM:
+
+ if not (Utility.valid_proof(converted_tx[:-1], block['previous_block_hash'], block['proof'])) or not hash_block(self._chain[-1]) == block['previous_block_hash']:
+
+
+
+
+
+
+
+
+
+
+
+ -> usamos o range selector PARA REMOVER O ÚLTIMO ELEMENTO DESSE NEGÓCIO...
+
+
+
+
+
+
+
+
+
+
+
+
+(para que o validate consiga ser executado adequadamente)...
+
+
+
+
+
+
+
+
+
+
+
+---> ok... ---> agora quando checamos o terminal dos 
+
+
+
+nodes,
+
+
+
+VEREMOS 
+
+
+
+
+
+QUE 
+
+
+
+A FUNÇÃO DE BROADCAST DE NOSSOS COINS _ ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+(
+    tudo  que é minerado em 1 instancia 'node' APARECE 
+
+
+
+    NA OUTRA INSTANCIA, O BLOCK EM SI...
+)
+
+
+
+
+
+
+
+
+-> mas o problema é que o OUTRO NODE ESTÁ RECEBENDO OS BLOCKS DE FORMA MEIO ERRADA...
+
+
+
+
+
+
+
+-> na verdade, ele naõ está RECEBENDO COISA ALGUMA, SINAL DE QUE NOSSO CÓDIGO _ NÃO ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+
+--> talvez o problema esteja NO NOSSO FRONTEND...
+
+
+
+
+
+
+
+
+
+náo, mas acho que esse não é o problema..
+
+
+
+
+
+
+
+
+
+
+--> ah.... eu ainda não havia adicioando os 2 peer nodes como 'amigos' na route de 'network'...
+
+
+
+
+
+
+
+
+
+
+--> agora FINALMENTE FUNCIONOU....
+
+
+
+
+
+
+
+
+
+
+
+--> minha UI precisa de um MAJOR OVERHAUL, é mt confusa e ruim... 
+
+
+
+
+
+erros de ui...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... agora a UI está um pouco MENOS pior...

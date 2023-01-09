@@ -1,0 +1,3193 @@
+
+
+
+
+
+
+
+
+
+--> VAMOS AJUSTAR NOSSO CÓDIGO HTML,
+
+
+
+
+
+QUE TEM ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockchain Management and Bootstrap</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+      crossorigin="anonymous"    />
+    <style>
+      .lds-ring {
+        display: inline-block;
+        position: relative;
+        width: 64px;
+        height: 64px;
+      }
+
+      .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 51px;
+        height: 51px;
+        margin: 6px;
+        border: 6px solid #fa923f;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #fa923f transparent transparent transparent;
+      }
+
+      .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+
+      .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+
+      .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+      }
+
+      @keyframes lds-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+      <div class="row mb-3">
+        <div class="col">
+          <h1>Manage your Blockchain</h1>
+        </div>
+      </div>
+      <div v-if="error" class="alert alert-danger" role="alert">{{error}}</div>
+      <div v-if="error" class="alert alert-danger" role="alert">
+        {{success}}
+      </div>
+      <div class="row">
+        <div class="col">
+          <div v-if="!walletLoading">
+            <button class="btn btn-primary" @click="onCreateWallet">
+              Create new Wallet
+            </button>
+            <button class="btn btn-primary" @click="onLoadWallet">
+              Load Wallet
+            </button>
+          </div>
+                    <div v-if="walletLoading" class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="col text-right">
+          <h2>Funds: {{ funds }}</h2>
+        </div>
+      </div>
+      <hr />
+      <div v-if="!wallet" class="row">
+        <div class="col">
+          <div class="alert alert-warning">
+            Create a Wallet to start sending or mining coins!
+          </div>
+        </div>
+      </div>
+      <div v-if="wallet" class="row">
+        <div class="col">
+          <form @submit.prevent="onSendTx">
+            <div class="form-group">
+              <label for="recipient">Recipient Key</label>
+              <input
+                v-model="outgoingTx.recipient"
+                type="text"
+                class="form-control"
+                id="recipient"
+                placeholder="Enter key"
+              />
+            </div>
+            <div class="form-group">
+              <label for="amount">Amount of Coins</label>
+              <input
+                v-model.number="outgoingTx.amount"
+                type="number"
+                step="0.001"
+                class="form-control"
+                id="amount"
+              />
+              <small class="form-text text-muted"
+                >Fractions are possible (e.g. 5.67)</small
+              >
+            </div>
+            <div v-if="txLoading" class="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <button
+              :disabled="txLoading || outgoingTx.recipient.trim() === '' || outgoingTx.amount <= 0"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Send
+            </button>
+          </form>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                :class="{active: view === 'chain'}"
+                href="#"
+                @click="view = 'chain'"
+              >
+                Blockchain
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                :class="{active: view === 'tx'}"
+                href="#"
+                @click="view = 'tx'"
+              >
+                Open Transactions
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col">
+          <button class="btn btn-primary" @click="onLoadData">
+            {{ view === 'chain' ? 'Load Blockchain' : 'Load Transactions'}}
+          </button>
+          <button
+            v-if="view === 'chain' && wallet"
+            class="btn btn-success"
+            @click="onMine"
+          >
+            Mine Coins
+          </button>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div v-if="dataLoading" class="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div v-if="!dataLoading" class="accordion">
+              <div class="card" v-for="(data, index) in loadedData">
+                <div v-if="view === 'chain'" class="card-header">
+                  <h5 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      @click="showElement === index ? showElement = null : showElement = index"
+                    >
+                      Block #{{ data.index }}
+                    </button>
+                  </h5>
+                </div>
+                <div
+                  v-if="view === 'chain'"
+                  class="collapse"
+                  :class="{show: showElement === index}"
+                >
+                  <div class="card-body">
+                    <p>Previous Hash: {{ data.previous_hash }}</p>
+                    <div class="list-group">
+                      <div
+                        v-for="tx in data.transactions"
+                        class="list-group-item flex-column align-items-start"
+                      >
+                        <div>Sender: {{ tx.sender }}</div>
+                        <div>Recipient: {{ tx.recipient }}</div>
+                        <div>Amount: {{ tx.amount }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="view === 'tx'" class="card-header">
+                  <h5 class="mb-0">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      @click="showElement === index ? showElement = null : showElement = index"
+                    >
+                      Transaction #{{ index }}
+                    </button>
+                  </h5>
+                </div>
+                <div
+                  v-if="view === 'tx'"
+                  class="collapse"
+                  :class="{show: showElement === index}"
+                >
+                  <div class="card-body">
+                    <div class="list-group">
+                      <div
+                        class="list-group-item flex-column align-items-start"
+                      >
+                        <div>Sender: {{ data.sender }}</div>
+                        <div>Recipient: {{ data.recipient }}</div>
+                        <div>Amount: {{ data.amount }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          blockchain: [
+            {
+              previous_hash: 'fawsqwar2',
+              index: 0,
+              transactions: [
+                {
+                  sender: 'fsdf23',
+                  recipient: 'fadwfs314',
+                  amount: 5.5,
+                },
+                {
+                  sender: 'fssfsddf23',
+                  recipient: 'fadewasfwfs314',
+                  amount: 15.5,
+                },
+              ],
+            },
+
+            {
+              previous_hash: 'awdsf14',
+              index: 1,
+              transactions: [
+                {
+                  sender: 'afe',
+                  recipient: 'fadwe322fs314',
+                  amount: 1.5,
+                },
+                {
+                  sender: 'fssddf23',
+                  recipient: 'fadesfwfs314',
+                  amount: 4.5,
+                },
+              ],
+            },
+          ],
+
+          openTransactions: [
+            {
+              sender: '23r32r3fsas',
+              recipient: 'feadsf25',
+              amount: 5.9,
+            },
+            {
+              sender: '23r23r2ra3fsas',
+              recipient: 'sdfsfa',
+              amount: 1.5,
+            },
+          ],
+
+          wallet: null,
+          view: 'chain',
+          walletLoading: false,
+          txLoading: false,
+          dataLoading: false,
+          showElement: null,
+          error: null,
+          success: null,
+          funds: 0,
+          outgoingTx: {
+            recipient: '',
+            amount: 0,
+          },
+        },
+
+        computed: {
+          loadedData: function () {
+            if (this.view === 'chain') {
+              return this.blockchain;
+            } else {
+              return this.openTransactions;
+            }
+          },
+        },
+        methods: {
+          onCreateWallet: function () {
+            //Send HTTP REQUEST TO CREATE A NEW WALLET (and return keys)
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully stored transaction!';
+              this.wallet = {
+                private_key: 'fsde2523tfasg234twfg24qafew',
+                public_key: '532fsdarf23rf',
+              };
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+              this.wallet = null;
+            }
+          },
+
+          onLoadWallet: function () {
+            //Send HTTP REQUEST TO LOAD AN EXISTING WALLET (from a file on the server)
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully stored transaction!';
+              this.wallet = {
+                private_key: 'fsde2523tfasg234twfg24qafew',
+                public_key: '532fsdarf23rf',
+              };
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+              this.wallet = null;
+            }
+          },
+
+          onSendTx: function () {
+            //Send Transaction to backend
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully stored transaction!';
+              this.funds = this.funds - this.outgoingTx.amount;
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+            }
+          },
+          onMine: function () {
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully mined coins!';
+              this.funds = this.funds + 10;
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+            }
+          },
+          onLoadData: function () {
+            if (this.view === 'chain') {
+              // Load blockchain data
+              if (Math.random() > 0.5) {
+                this.error = null;
+              } else {
+                this.success = null;
+                this.error = 'Something went wrong!';
+              }
+            } else {
+              //Load transaction data
+              if (Math.random() > 0.5) {
+                this.error = null;
+              } else {
+                this.success = null;
+                this.error = 'Something went wrong!';
+              }
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROEFSSOR NÃO VAI MOSTRAR TUDO COM PROFUNDIDADE,
+
+
+MAS ELE ESTÁ USANDO O VUEJS,
+
+
+
+QUE É UM FRAMEWORK 
+
+DE JAVASCRIPT UQE 
+
+
+
+
+
+NOS DEIXA USAR ALGUMAS COISAS CURIOSAS...
+
+
+
+
+
+
+
+
+
+COISAS QUE PODEMOS FAZER COM VUEJS:
+
+
+
+
+
+
+1) USAR __ MARKUP__ EM ARQUIVOS HTML...
+
+
+
+
+--> ISSO É ENCONTRADO EM TRECHOS COMO ESTE:
+
+
+
+
+    <div class="card-body">
+                    <p>Previous Hash: {{ data.previous_hash }}</p>
+                    <div class="list-group">
+                      <div
+                        v-for="tx in data.transactions"
+                        class="list-group-item flex-column align-items-start"
+                      >
+                        <div>Sender: {{ tx.sender }}</div>
+                        <div>Recipient: {{ tx.recipient }}</div>
+                        <div>Amount: {{ tx.amount }}</div>
+                      </div>
+                    </div>
+
+
+
+
+
+
+
+
+                    {{tx.amount}}
+
+
+
+
+
+
+
+
+
+
+---> ISSO AÍ,
+ 
+
+ ESSAS SECTIONS 'MARKUP',
+
+ SERÃO 
+
+
+
+ 'PREENCHIDAS COM VIDA'
+
+
+
+ ATRAVÉS
+
+
+ DAQUELA
+
+
+
+ COISA QUE CHAMAMOS DE 'VIEW INSTANCE',
+
+
+
+ que existe lá em baixo (é isto):
+
+
+
+
+
+
+
+
+
+  <script>
+      new Vue({
+        el: '#app',
+        data: {
+          blockchain: [
+            {
+              previous_hash: 'fawsqwar2',
+              index: 0,
+              transactions: [
+                {
+                  sender: 'fsdf23',
+                  recipient: 'fadwfs314',
+                  amount: 5.5,
+                },
+                {
+                  sender: 'fssfsddf23',
+                  recipient: 'fadewasfwfs314',
+                  amount: 15.5,
+                },
+              ],
+            },
+
+            {
+              previous_hash: 'awdsf14',
+              index: 1,
+              transactions: [
+                {
+                  sender: 'afe',
+                  recipient: 'fadwe322fs314',
+                  amount: 1.5,
+                },
+                {
+                  sender: 'fssddf23',
+                  recipient: 'fadesfwfs314',
+                  amount: 4.5,
+                },
+              ],
+            },
+          ],
+
+          openTransactions: [
+            {
+              sender: '23r32r3fsas',
+              recipient: 'feadsf25',
+              amount: 5.9,
+            },
+            {
+              sender: '23r23r2ra3fsas',
+              recipient: 'sdfsfa',
+              amount: 1.5,
+            },
+          ],
+
+          wallet: null,
+          view: 'chain',
+          walletLoading: false,
+          txLoading: false,
+          dataLoading: false,
+          showElement: null,
+          error: null,
+          success: null,
+          funds: 0,
+          outgoingTx: {
+            recipient: '',
+            amount: 0,
+          },
+        },
+
+        computed: {
+          loadedData: function () {
+            if (this.view === 'chain') {
+              return this.blockchain;
+            } else {
+              return this.openTransactions;
+            }
+          },
+        },
+        methods: {
+          onCreateWallet: function () {
+            //Send HTTP REQUEST TO CREATE A NEW WALLET (and return keys)
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully stored transaction!';
+              this.wallet = {
+                private_key: 'fsde2523tfasg234twfg24qafew',
+                public_key: '532fsdarf23rf',
+              };
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+              this.wallet = null;
+            }
+          },
+
+          onLoadWallet: function () {
+            //Send HTTP REQUEST TO LOAD AN EXISTING WALLET (from a file on the server)
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully stored transaction!';
+              this.wallet = {
+                private_key: 'fsde2523tfasg234twfg24qafew',
+                public_key: '532fsdarf23rf',
+              };
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+              this.wallet = null;
+            }
+          },
+
+          onSendTx: function () {
+            //Send Transaction to backend
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully stored transaction!';
+              this.funds = this.funds - this.outgoingTx.amount;
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+            }
+          },
+          onMine: function () {
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully mined coins!';
+              this.funds = this.funds + 10;
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+            }
+          },
+          onLoadData: function () {
+            if (this.view === 'chain') {
+              // Load blockchain data
+              if (Math.random() > 0.5) {
+                this.error = null;
+              } else {
+                this.success = null;
+                this.error = 'Something went wrong!';
+              }
+            } else {
+              //Load transaction data
+              if (Math.random() > 0.5) {
+                this.error = null;
+              } else {
+                this.success = null;
+                this.error = 'Something went wrong!';
+              }
+            }
+          },
+        },
+      });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    o formato de uma 'view instance' é assim:
+
+
+
+
+
+    new Vue(
+        {
+            el,
+            data: {...},
+            computed: {}
+            methods: {},
+
+
+        }
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ----> PARA ___ CONSEGUIRMOS USAR O VUE,
+
+
+    SOMOS OBRIGADOS (o professor nos explica)
+
+    A _ IMPORTAR_O FRAMEWORK VUE __ 
+
+    NO NOSSO ARQUIVO HTML...
+
+
+
+
+
+
+
+
+    -> O IMPORT DO VIEW 
+
+    é obtido por meio dessa tag:
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+-> o curioso é que o professor TAMBÉM COLOCOU 
+
+o 
+AXIOS_ COMO UM IMPORT INLINE,
+
+nesse html aí...
+
+
+
+
+
+
+
+
+
+
+------> axios --> behind the scenes HTTP REQUESTS... (para nos conectarmos ao serveR)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> LÁ NA 'Vue',
+
+O PROFESSOR 
+
+
+HAVIA DEFINIDO UMA 'DUMMY BLOCKCHAIN DATA',
+
+
+
+
+que 
+
+
+
+
+é vista em 
+
+
+
+'''
+
+
+
+
+
+
+ data: {
+          blockchain: [
+            {
+              previous_hash: 'fawsqwar2',
+              index: 0,
+              transactions: [
+                {
+                  sender: 'fsdf23',
+                  recipient: 'fadwfs314',
+                  amount: 5.5,
+                },
+                {
+                  sender: 'fssfsddf23',
+                  recipient: 'fadewasfwfs314',
+                  amount: 15.5,
+                },
+              ],
+            },
+
+            {
+              previous_hash: 'awdsf14',
+              index: 1,
+              transactions: [
+                {
+                  sender: 'afe',
+                  recipient: 'fadwe322fs314',
+                  amount: 1.5,
+                },
+                {
+                  sender: 'fssddf23',
+                  recipient: 'fadesfwfs314',
+                  amount: 4.5,
+                },
+              ],
+            },
+          ],
+
+          openTransactions: [
+            {
+              sender: '23r32r3fsas',
+              recipient: 'feadsf25',
+              amount: 5.9,
+            },
+            {
+              sender: '23r23r2ra3fsas',
+              recipient: 'sdfsfa',
+              amount: 1.5,
+            },
+          ],
+
+          wallet: null,
+          view: 'chain',
+          walletLoading: false,
+          txLoading: false,
+          dataLoading: false,
+          showElement: null,
+          error: null,
+          success: null,
+          funds: 0,
+          outgoingTx: {
+            recipient: '',
+            amount: 0,
+          },
+        },
+
+
+
+
+
+
+
+
+
+    ''''''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> ELE APAGA TUDO ISSO,
+
+    ESSE OBJECT INTEIRO,
+
+
+
+
+
+
+
+    __ PQ __ AGORA __ESSA COISA/data do user 
+
+
+    VAI _ SER 
+
+    MANAGEADA _ 
+
+    LÁ NO WEBSERVER FLASK... (eu acho que é isso)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -------->  
+
+
+
+
+
+
+
+    MAS HÁ UM TRECHO QUE FICA NO LUGAR,
+
+    QUE 
+
+    É AQUELE TRECHO DAS 'HELPER VARIABLES' (parecido com o REACT),
+
+
+
+
+
+    o trecho de 
+
+
+    ''
+    
+    wallet: null,
+          view: 'chain',
+          walletLoading: false,
+          txLoading: false,
+          dataLoading: false,
+          showElement: null,
+          error: null,
+          success: null,
+          funds: 0,
+          outgoingTx: {
+            recipient: '',
+            amount: 0,
+          },
+        
+
+    ''
+
+
+
+
+
+
+    --> VÁRIAS DESSAS COISAS SÃO NECESSÁRIAS PARA MOSTRAR _ SPINNERS__ AO USER...
+
+
+
+
+
+
+
+    -----> 'showElement' -> ('se estamos expandindo um determinado element no blockchain/open_transactions')..
+
+
+
+
+
+
+
+
+
+    outgoingTx ---> é a data que ESTAMOS INSERINDO NA NOSSA 'OUTGOING TRANSACTION'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ----> VAMOS COMEÇAR COM ALGO SIMPLES:
+
+
+
+
+
+
+
+
+    VAMOS __ VER __SE CONSEGUIMOS __ 
+
+
+    CARREGAR 
+
+    'open_transactions'
+
+
+    E 
+
+    'blockchain'
+
+
+    PARA O USER/VISITANTE DE NOSSO SITE...
+
+
+
+
+
+
+
+
+
+
+    ---> bem, nós já temos as ROUTES PARA ISSO:
+
+
+
+
+
+    
+@app.route('/chain', methods=['GET'])
+def get_chain():
+    chain_snapshot = blockchain.chain
+    dict_chain = [block.__dict__.copy() for block in chain_snapshot]
+    for dict_block in dict_chain:
+        dict_block['processed_transactions'] = [tx.__dict__ for tx in dict_block['processed_transactions']]
+    print(dict_chain)
+    return jsonify(dict_chain), 200
+
+
+
+
+
+
+
+--> AGORA SÓ NOS RESTA CARREGAR ESSA DATA LÁ NO FRONTEND...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE PARA QUE O LOAD DE BLOCKCHAIN/TRANSACTIONS FUNCIONE,
+
+VAMOS PRECISAR INICIALMENTE DE 
+
+'CREATE WALLET' 
+
+E 
+
+'LOAD WALLET',
+
+
+
+
+
+que possuem estas lógicas, por enquanto:
+
+
+
+
+
+
+
+
+
+          onCreateWallet: function () {
+            //Send HTTP REQUEST TO CREATE A NEW WALLET (and return keys)
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully stored transaction!';
+              this.wallet = {
+                private_key: 'fsde2523tfasg234twfg24qafew',
+                public_key: '532fsdarf23rf',
+              };
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+              this.wallet = null;
+            }
+          },
+
+          onLoadWallet: function () {
+            //Send HTTP REQUEST TO LOAD AN EXISTING WALLET (from a file on the server)
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully stored transaction!';
+              this.wallet = {
+                private_key: 'fsde2523tfasg234twfg24qafew',
+                public_key: '532fsdarf23rf',
+              };
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+              this.wallet = null;
+            }
+          },
+
+
+
+
+
+
+
+          ----------> É CLARO QUE ESSA É APENAS 
+
+          'DUMMY DATA'..
+
+
+
+
+
+
+
+
+
+    --> VAMOS QUERER _ USAR__ O AXIOS _ PARA _ ENVIAR _ 
+
+
+
+    FORM DATA AO NOSSO APP...
+
+
+
+
+
+
+
+
+
+
+
+    ESCREVI ESTE CÓDIGO:
+
+
+
+
+
+
+
+
+
+           onLoadWallet: function () {
+            //Send HTTP REQUEST TO LOAD AN EXISTING WALLET (from a file on the server)
+
+            // if (Math.random() > 0.5) { //isto é DUMMY DATA
+            //   this.error = null;
+            //   this.success = 'Successfully stored transaction!';
+            //   this.wallet = {
+            //     private_key: 'fsde2523tfasg234twfg24qafew',
+            //     public_key: '532fsdarf23rf',
+            //   };
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            //   this.wallet = null;
+            // }
+
+            walletData = axios
+              .get('localhost:5000/wallet')
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                if (data) {
+                  this.error = null;
+                  this.success = 'Successfully stored transaction!';
+                  this.wallet = {
+                    private_key: data.private_key,
+                    public_key: data.public_key,
+                  };
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                }
+              });
+          },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> MAS GANHEI UM ERROR, ERRO DE CORS:
+
+
+
+
+    Access to XMLHttpRequest at 'localhost:5000/wallet' from origin 'http://localhost:5000' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ---> eu achava que o axios já resolvia prooblemas de cors automatiacmente,
+
+
+    mas aparentemente estava enganado...
+
+
+
+
+
+
+
+
+
+    -> talvez o problema seja _ A RESPONSE DE NOSSO WEBSERVER, QUE NÃO POSSUI OS HEADERS APROPRIADOS..
+
+
+
+
+
+    -> não, mas é o REQUEST MESMO...
+
+
+
+
+
+
+
+
+
+    -> tenho que configurar o axios, aparentemente...
+
+
+
+
+
+
+
+
+
+    -> o problema é no server, mesmo...
+
+
+
+
+
+
+
+
+    ok, mas isso NÃO ESTÁ FUNCIONANDO (E o professor NÃO MOSTRA COMO CONSERTAr)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTENDI O ERROR...
+
+
+
+
+
+
+
+-> ERA A FALTA DE 'http' 
+
+no write do request do axios:
+
+
+
+
+
+
+
+
+
+
+ onLoadWallet: function () {
+            //Send HTTP REQUEST TO LOAD AN EXISTING WALLET (from a file on the server)
+
+            // if (Math.random() > 0.5) { //isto é DUMMY DATA
+            //   this.error = null;
+            //   this.success = 'Successfully stored transaction!';
+            //   this.wallet = {
+            //     private_key: 'fsde2523tfasg234twfg24qafew',
+            //     public_key: '532fsdarf23rf',
+            //   };
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            //   this.wallet = null;
+            // }
+
+            axios
+              .get('http://localhost:5000/wallet',
+              { withCredentials: true }
+              )
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                if (data) {
+                  this.error = null;
+                  this.success = 'Successfully stored transaction!';
+                  this.wallet = {
+                    private_key: data.private_key,
+                    public_key: data.public_key,
+                  };
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                }
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          },
+
+
+
+
+
+
+
+ok... hora de codar a próxima route/reception no frontend....
+
+
+
+
+
+
+
+
+--> codar o request de 'create wallet'....
+
+
+
+
+
+
+
+
+fica tipo assim:
+
+
+
+
+
+    onLoadWallet: function () {
+            //Send HTTP REQUEST TO LOAD AN EXISTING WALLET (from a file on the server)
+
+            // if (Math.random() > 0.5) { //isto é DUMMY DATA
+            //   this.error = null;
+            //   this.success = 'Successfully stored transaction!';
+            //   this.wallet = {
+            //     private_key: 'fsde2523tfasg234twfg24qafew',
+            //     public_key: '532fsdarf23rf',
+            //   };
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            //   this.wallet = null;
+            // }
+
+            axios
+              .get('http://localhost:5000/wallet',
+              { withCredentials: true }
+              )
+              .then((response) => {
+                if (data) {
+                  this.error = null;
+                  this.success = 'Successfully loaded wallet!';
+                  this.wallet = {
+                    private_key: response.data.private_key,
+                    public_key: response.data.public_key,
+                  };
+                  console.log(this.wallet)
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                }
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          -> o código estava meio errado, mas agora está certo (o axios quer que acessemos data em 'response.data', e naõ só em 'data'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--. OK, AÍ TEMOS OUTRO MISTÉRIO, 
+
+A PROPRIEDADE VUE de 
+
+
+'computed'...
+
+
+
+
+ex:
+
+
+
+
+
+        computed: {
+          loadedData: function () {
+            if (this.view === 'chain') {
+              return this.blockchain;
+            } else {
+              return this.openTransactions;
+            }
+          },
+        },
+
+
+
+
+
+
+
+
+        ----> essa coisa aí é curiosa...
+
+
+
+
+
+
+
+
+
+
+
+--> vou ver o que ela faz _ DEPOIS_...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> depois de nossa 'Wallet',
+
+ficamos 
+
+
+COM 
+
+
+o negócio de 
+
+
+
+'load blockchain', que deve ser usado para CARREGAR A BLOCKCHAIN QUANDO TIVERMOS UMA 'WALLET'...
+
+
+
+
+
+
+
+
+
+a lógica desse negócio é esta:
+
+
+
+
+
+
+
+
+
+
+          onLoadData: function () {
+            if (this.view === 'chain') {
+              // Load blockchain data
+              if (Math.random() > 0.5) {
+                this.error = null;
+              } else {
+                this.success = null;
+                this.error = 'Something went wrong!';
+              }
+            } else {
+              //Load transaction data
+              if (Math.random() > 0.5) {
+                this.error = null;
+              } else {
+                this.success = null;
+                this.error = 'Something went wrong!';
+              }
+            }
+          },
+
+
+
+
+
+
+
+
+
+
+
+
+---> esse 'this.view' aÍ é utilizado para ALTERNAR O FRONTEND ENTRE 'MOSTRAR BLOCKCHAIN' e 'MOSTRAR TRANSACTIONS'...
+
+
+
+
+-> cada vez que esse 'state' for alterado, vamos querer DISPARAR UM REQUEST PARA 'GET TRANSACTIONS'/'GET BLOCKCHAIN'...
+    
+
+
+
+
+
+
+--> ok... acho que estou entendendo...
+
+
+
+
+
+
+
+
+
+
+
+
+--> SERIA BOM FAZER A MESMA COISA COM O CÓDIGO DE 'MINE A BLOCK':
+
+
+
+        onMine: function () {
+            if (Math.random() > 0.5) {
+              this.error = null;
+              this.success = 'Successfully mined coins!';
+              this.funds = this.funds + 10;
+            } else {
+              this.success = null;
+              this.error = 'Something went wrong!';
+            }
+          },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> tenho que alterar esse código..
+
+
+
+
+
+
+--> mas meu código está com um problema (ele só renderiza os blocks na blockchain QUANDO EU TROCO DE CHAIN > TRANSACTIONS > CHAIN...)
+
+
+
+
+
+
+
+
+
+
+
+--> isso também está acontecendo com 'open_transactions'... (o 'state' de nossa list só É ATUALIZADO QUANDO TROCAMOS O 'state' de 'transactions' para 'blockchain' e vice-versa...)
+
+
+
+
+
+
+
+
+
+
+
+
+-> também seria ideal ter ERROR HANDLING de 'vocÊ naõ tem uma carteira ainda'.. ( ou então nem mesmo mostrar o button, nesse caso)...
+
+
+
+
+
+
+
+
+
+
+
+--> fiz um error handling básico..
+
+
+
+
+
+
+
+
+
+--> Agora o problema é fazer a 'BLOCKCHAIN'
+
+e as 
+'TRANSACTIONS' aparecerem __IMEDIATAMENTE QUANDO EU CLICO EM 'load transactions' 
+
+ou 
+
+'load blockchain'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSERTEI... A SOLUÇÃO ERA COLOCAR 
+
+
+
+''
+
+         blockchain: [],
+          openTransactions: [],
+
+          ''
+
+
+
+
+          no 'STATE' do Vue...
+           
+
+      
+
+  --> agora meu app está funcionando BEM MELHOR do que antes...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -> só há um problema.... --> se eu REINICIO A PÁGINA,
+
+  EU PERCO O 
+
+  'state' 
+
+  que mostra 
+
+
+
+
+  'add a transaction'.... --> mas isso pode ser facilmente consertado, é só clicar em 'Load wallet' 
+
+  mais uma vez... (apesar de isso ser meio REDUNDANTE)...
+
+
+
+
+
+
+
+
+
+
+
+
+  -> agora a UI está funcionando adequadamente, + ou -...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> está faltando uma feature, a de 
+
+
+
+  'get transaction' (uma SINGLE TRANSACTION).... ----> 
+
+
+
+
+
+  ESSA ROUTE É _ ATIVADA__ QUANDO CLICAMOS _ EM 
+
+
+
+  1 ÚNICO 'Block' 
+
+
+
+  na nossa UI...
+
+
+
+
+
+
+
+
+
+  --> 2 OPÇÕES:
+
+
+
+
+
+  1) DISPARAR UM REQUEST PROCURANDO POR ESSE BLOCK ESPECÍFICO LÁ NO NOSSO BACKEND (meio ruim, pois aí 
+  
+  
+
+  teríamos de disparar outro request de 'GET', com uma response apropriada....
+  
+  )
+
+
+
+
+
+  2) SÓ ACESSAR ESSA INFO __ DENTRO DO NOSSO 'STATE' de 'blockchain' no vue,
+
+  de alguma forma... (acho que esse é o approach melhor)...
+
+
+
+
+
+
+
+
+
+  --> Bem, o 'Open transactions' JÁ ESTÁ COM ISSO FUNCIONANDO... AGORA 
+
+
+
+  A MORAL É SÓ REPLICAR ISSO COM 'LOAD BLOCKCHAIN'... (em que o 'previous_hash' está faltando)....
+
+
+
+
+
+
+
+
+
+
+  --> acho que SEI QUAL É O PROBLEMA..... -> O NOME ESTÁ COMO 'Previous Hash',
+
+
+  MAS NO MEU CÓDIGO CADA BLOCK TEM 'Previous Block Hash' (previous_block_hash)...
+
+
+
+
+
+
+
+
+  --> consertei... consertei tudo...
+
+
+
+
+
+  agora é hora de ver a aula do professor, ver se fiz tudo certo...
+
+
+
+
+
+
+
+
+
+
+
+
+  ---> 'onLoadData' --> O CÓDIGO É ESTE:
+
+
+
+            onLoadData: function () {
+            if (this.view === 'chain') {
+
+              axios
+                .get('http://localhost:5000/chain')
+                .then((response) => {
+                  if (response) {
+                    console.log(response)
+                    this.success = 'Successfully retrieved blockchain!';
+                    this.error = null;
+                    this.blockchain = response.data
+                    this.data
+                  }
+                })
+                .catch((err) => {
+                  if (err.response.status === 403) {
+                  this.error = err.response.data;
+                  this.success = null;
+                  this.blockchain= null;
+                
+                  } else {
+                    this.error = err;
+                  this.success = null;
+                  this.blockchain = null;
+                  }
+
+                });
+            } else {
+              //Load transaction data
+              // if (Math.random() > 0.5) {
+              //   this.error = null;
+              // } else {
+              //   this.success = null;
+              //   this.error = 'Something went wrong!';
+              // }
+
+              axios
+                .get('http://localhost:5000/transactions')
+                .then((response) => {
+                  console.log(response);
+                  if (response) {
+                    this.success = 'Successfully retrieved transactions!';
+                    this.error = null;
+                    this.openTransactions = response.data.transactions;
+                  }
+                })
+                .catch((err) => {
+                  console.log(err.response)
+                  if (err.response.status === 403) {
+                  this.error = err.response.data;
+                  this.success = null;
+                  this.openTransactions = null;
+                  } else {
+                    this.error = err;
+                  this.success = null;
+                  this.openTransactions = null;
+                  }
+                  // this.error = err;
+ 
+                });
+            }
+          },
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ----> ESSA FUNCTION COMEÇA 'CHECANDO POR QUAL VIEW ESTAMOS'... ---> (looking at the chain or transactions)...
+
+
+
+
+
+
+
+
+
+
+
+      ----> aí deletamos o DUMMY CODE DE ANTES,
+
+
+      E AÍ USAMOS O AXIOS (é isso que o professor diz)...
+
+
+
+
+
+
+
+
+
+
+
+
+      -> O PROFESSOR JÁ IMPORTOU O AXIOS, POR 
+
+
+
+      MEIO DAQUELE IMPORT DE SCRIPT...
+
+
+
+
+
+
+
+
+      ---> PARA CONSEGUIR A CHAIN, O PROFESSOR ESCREVE ESTA LÓGICA:
+
+
+
+
+
+
+
+
+
+      onLoadData: function() {
+        if (this.view === 'chain') {
+          axios.get('/chain')
+
+        } else {
+
+
+        }
+      }
+
+
+
+
+
+
+
+
+
+      --> O PROFESSOR FALA 
+
+
+
+      DO USO DE PROMISES, ETC ETC...
+
+
+
+
+
+
+      ex:
+
+
+
+      
+      onLoadData: function() {
+        if (this.view === 'chain') {
+          axios.get('/chain')
+          .then(
+            () => {
+
+            }
+          )
+
+        } else {
+
+
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+
+    --> NO THEN BLOCK RECEBEMOS A DATA...
+
+
+
+
+
+
+    --> ok, aí o professor insere essa data 
+
+
+    na nossa page..
+
+
+
+
+
+
+
+    --> ele faz isso tipo assim...
+
+
+
+
+
+
+
+
+    --> ELE DIZ QUE VAI QUERER ARMAZENAR ESSA 'BLOCKCHAIN' 
+
+
+
+    na nossa 'VIEW INSTANCE'..
+
+
+
+
+
+
+
+    --> aí ele usa um formato de código que eu AINDA NÃO HAVIA VISTO...
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ele cria uma variable, 'vm' (view module -->  É UMA CONVENÇÃO EM 'VUEjs' NOMEAR COISAS ASSIM...)
+
+
+
+
+
+
+
+
+    ex:
+
+
+
+
+
+
+          
+      onLoadData: function() {
+        if (this.view === 'chain') {
+
+          var vm = this
+          axios.get('/chain')
+          .then(
+            () => {
+
+            }
+          )
+
+        } else {
+
+
+        }
+      }
+
+
+
+
+
+
+
+
+-------->  O PROFESSOR FAZ ALGO BIZARRO, ELE ARMAZENA 'this' 
+
+dentro dessa variable (aí, sempre que queremos referenciar 'this', basta chamar 'vm')...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+          
+      onLoadData: function() {
+        if (this.view === 'chain') {
+
+          var vm = this;
+          axios.get('/chain')
+          .then(
+            () => {
+
+            }
+          )
+
+        } else {
+
+
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> O 'this' NÃO VAI SE REFERIR À 'view instance'
+
+
+DENTRO DE ESSA FUNCTION DE 
+
+
+''(response) => {
+   
+}
+''
+,
+
+
+
+
+
+
+
+(JAVASCRIPT AVANÇADO)...
+
+
+
+
+
+-> MAS O QUE INTERESSA É QUE O PROFESSOR DEFINE 
+
+
+
+'vm.blockchain = response.data',
+
+
+
+
+
+
+
+
+-> mas isso de 'vm = this' NÃO PARECE FAZER A MENOR DIFERENÇA.... 
+
+
+
+
+
+
+
+
+
+
+
+e 'print()' no browser FAZ COM QUE SUA PAGE SEJA PRINTADA...
+
+
+
+
+
+
+
+
+
+--> OK, MAS SE CLICAMOS EM 1 BLOCK, EXPANDIMO-NO,
+
+  
+
+  como consegui fazer anteriormente...
+
+
+
+
+
+
+
+
+
+
+  -> ok... agora podemos examinar nossa blockchain de maneira mais gráfica...
+
+
+
+
+
+
+
+
+
+
+
+  --> QUANTO ÀS TRANSACTIONS,
+
+
+
+
+
+
+  o código vai ficando assim:
+
+
+
+
+
+
+
+
+
+
+
+
+     axios
+                .get('http://localhost:5000/transactions')
+                .then((response) => {
+                  console.log(response);
+                  if (response) {
+                    this.success = 'Successfully retrieved transactions!';
+                    this.error = null;
+                    this.openTransactions = response.data.transactions;
+                  }
+                })
+                .catch((err) => {
+                  console.log(err.response)
+                  if (err.response.status === 403) {
+                  this.error = err.response.data;
+                  this.success = null;
+                  this.openTransactions = null;
+                  } else {
+                    this.error = err;
+                  this.success = null;
+                  this.openTransactions = null;
+                  }
+                  // this.error = err;
+ 
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          -----> CREATE E LOAD WALLET --> também já fiz isso, o código ficou assim:
+
+
+
+
+
+
+
+
+
+
+
+              onCreateWallet: function () {
+            //Send HTTP REQUEST TO CREATE A NEW WALLET (and return keys)
+            // if (Math.random() > 0.5) { //isto é DUMMY DATA
+            //   this.error = null;
+            //   this.success = 'Successfully stored transaction!';
+            //   this.wallet = {
+            //     private_key: 'fsde2523tfasg234twfg24qafew',
+            //     public_key: '532fsdarf23rf',
+            //   };
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            //   this.wallet = null;
+            // }
+
+            axios
+              .post('http://localhost:5000/wallet', { withCredentials: true })
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success = 'Successfully created wallet!';
+                  this.funds = 0;
+                  this.wallet = {
+                    private_key: response.data.private_key,
+                    public_key: response.data.public_key,
+                  };
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                  this.funds = 0;
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                this.error = err;
+                this.funds = 0;
+                this.success = null;
+                this.wallet = null;
+              });
+          },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> MAS HÁ UM PROBLEMA __ GERAL__ NO NOSSO CÓDIGO.... -> queremos que 
+
+
+
+
+
+  O SPINNEr DE LOADING REAJA 
+
+
+
+  às interações com nosso código (trocar de 'true' para 'false' enquanto o negócio está carregando)...
+
+
+
+
+
+
+
+  --> certo, coloquei todas essas interações...
+
+
+
+
+
+
+
+
+
+
+
+  --> professor fala de ERROR HANDLING...
+
+
+
+
+
+
+  --> ELE COLOCA UM CATCH BLOCK,
+
+  aí escreve tipo assim:
+
+
+
+
+
+
+
+
+
+  .catch(
+    (err) => {
+
+
+    }
+  )
+
+
+
+
+
+
+
+
+
+
+  --> colocamos coisas para printar messages...
+
+
+
+
+  eX:
+
+
+
+
+
+
+
+
+
+
+
+  this.error = 'Something went wrong!'
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> ok.... o spinner está no lugar...
+
+
+
+
+
+
+
+
+
+  --> a wallet eu já settei, também...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OS HTTP REQUESTS DE WALLET FICARAM 
+
+
+
+
+ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          onCreateWallet: function () {
+            this.walletLoading = true;
+            axios
+              .post('http://localhost:5000/wallet', { withCredentials: true })
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success = 'Successfully created wallet!';
+                  this.funds = 0;
+                  this.wallet = {
+                    private_key: response.data.private_key,
+                    public_key: response.data.public_key,
+                  };
+                  this.walletLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                  this.funds = 0;
+                  this.walletLoading = false;
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                this.error = err;
+                this.funds = 0;
+                this.success = null;
+                this.wallet = null;
+                this.walletLoading = false;
+              });
+          },
+
+          onLoadWallet: function () {
+
+            this.walletLoading = true;
+            axios
+              .get('http://localhost:5000/wallet', { withCredentials: true })
+              .then((response) => {
+                if (response) {
+                  this.error = null;
+                  this.success = 'Successfully loaded wallet!';
+                  this.funds = response.data.funds;
+                  this.wallet = {
+                    private_key: response.data.private_key,
+                    public_key: response.data.public_key,
+                  };
+                  console.log(this.wallet);
+                  this.walletLoading = false;
+                } else {
+                  this.success = null;
+                  this.error = 'Something went wrong!';
+                  this.wallet = null;
+                  this.walletLoading = false;
+                }
+              })
+              .catch((err) => {
+                this.success = null;
+                this.error = err;
+                this.wallet = null;
+                this.walletLoading = false;
+              });
+          },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> ESSE CÓDIGO MANDA UM POST REQUEST, O OUTRO MANDA UM GET REQUEST...
+
+
+
+
+
+
+
+
+
+        -> certo... tudo funcionando...
+
+
+
+
+
+
+
+
+
+
+
+        o professor faz exatamente a mesma coisa que eu fiz:
+
+
+
+
+
+      
+
+      axios.post(
+        '/wallet'
+      )
+      .then(
+        (resp) => {
+          this.error = null;
+          this.success = 'Created Wallet! Public Key: ' + response.data.public_key + ', Private Key: ' + response.data.private_key;
+        }
+      )
+      .catch(
+        (err) => {
+
+          this.success = null;
+          this.error = error.data.message;  
+        }
+      )
+
+
+
+
+
+
+
+
+
+
+
+
+
+      -> certo....
+
+
+
+
+
+
+
+
+      ok... testamos tudo isso..
+
+
+
+
+
+
+      -> CRÍAMOS UMA NOVA WALLET, E ISSO DÁ CERTO...
+
+
+
+
+
+
+
+      --> mas o print daquele negócio, para o professor, ficou DIFERENTE... (ficou verde, e bem bonito... não sei como ele fez isso)..
+
+
+
+
+
+
+
+
+      -> consertei... era um problema no meu html,
+
+
+      nessa linha aqui:
+
+
+
+              </div>
+        <div v-if="error" class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+        <div v-if="success" class="alert alert-success" role="alert">
+          {{ success }}
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  --> problema de 'Vue', essencialmente...
+
+
+
+
+
+  ok, está funcionando... só o styling está meio feio (tentar consertar...)
+
+
+
+
+
+
+
+
+
+  --> consertei... 
+
+
+
+
+
+
+
+  OK, QUAL É O PRÓXIMO PASSO?
+
+
+
+
+
+
+
+
+
+
+
+  -> professor faz a mesma coisa com o 'send transaction'....
+
+
+
+
+
+
+
+
+  ex:
+
+
+
+
+
+
+
+
+
+
+
+
+   onSendTx: function () {
+            // //Send Transaction to backend
+            // if (Math.random() > 0.5) {
+            //   this.error = null;
+            //   this.success = 'Successfully sent transaction!';
+            //   this.funds = this.funds - this.outgoingTx.amount;
+            // } else {
+            //   this.success = null;
+            //   this.error = 'Something went wrong!';
+            // }
+
+              this.txLoading = true;
+            //Send Transaction to backend
+                       axios.post('http://localhost:5000/transaction', {
+                        // body: {
+                        //   recipient: this.outgoingTx.recipient,
+                        //   amount: this.outgoingTx.amount
+                        // }
+                        recipient: this.outgoingTx.recipient,
+                        amount: this.outgoingTx.amount
+                        
+                      })
+                      .then(
+                        (response) => {
+                            this.openTransactions = response.data.transactions
+                            this.txLoading = false;
+                        }
+                      )
+                      .catch(
+                        (err) => {
+                            if (err.response.data.wallet_set_up === false) {
+                              this.success = null;
+                              this.error = 'Failed to add transaction. Please ensure that your wallet was loaded';
+                              this.wallet = null;
+                              this.txLoading = false;
+                            } 
+
+                            else if (err.response.data.wallet_set_up === true && err.response.status === 500) {
+                              this.success = null;
+                              this.error = 'Failed to add transaction. Please ensure that you have enough funds.';
+                              this.wallet = null;
+                              this.txLoading = false;
+                            }
+                            else {
+                              this.success = null;
+                              this.error = err;
+                              this.txLoading = false;
+                            }
+                        }
+                      )
+
+
+          },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          -----> ok... já fiz tudo isso....
+
+
+
+
+
+
+
+
+
+
+
+
+
+          ---> OK ... O PROFESSOR DIZ QUE TEMOS QUE 'LOAD A WALLET' 
+
+
+
+          PQ ela está 'DECOUPLED' em relação ao nosso server...
+
+
+
+
+
+
+
+          -> se tentamos enviar uma transaction com mais funds do que temos,  (e isso não funciona, há algo de errado no nosso código -- >conseguimos enviar transactions com values INCORRETOS......)
+
+
+      -> como consertar isso?
+
+
+
+          --> os funds ficam com 
+
+          '0.1000000000000000000000000142' em caso de imprecisoes (mesmo problema do python) --> vocE^pode usar 
+
+          ALGUMAS FUNCTIONS JAVASCRIPT PARA 
+
+
+
+          'ROUND' esse value...
+
+
+
+
+
+
+
+  --> javascript round up function/method...
+
+
+
+
+
+
+
+
+  ---> mas primeiro, consertar o 'get_balance' com o 'add_Transaction'...
+
+
+
+
+
+
+
+
+
+
+
+  -> acabei alterando alguma coisa em meu código, pq agora 
+
+
+  o negócio NÃO ESTÁ MAIS ADICIONANDO TRANSACTIONS SEM TERMOS OS FUNDS NECESSÁRIOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> certo.... e o `roundup`... --> o que podemos fazer quanto a isso?
+
+
+
+
+
+
+
+
+  -> talvez usar 'toFixed'...
+
+
+
+
+
+  ou 'toPrecision()'...
+
+
+
+
+
+
+
+
+  +(number.toPrecision())
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ok... ficou + ou -...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  --> javascript também tem esse problema de rounding up...
+
+
+
+
+
+
+
+
+  --> ok, tudo isso está funcionando...
+
+
+
+
+
+
+
+
+
+
+  -> O PROFESSOR QUER CONSERTAR ESSE NEGÓCIO DE rounding up -->  
+
+
+
+
+
+
+
+
+  PARA CONSERTAR, O QUE ELE FEZ, MAIS SIMPLES DO QUE NO NOSSO CÓDIGO,
+
+
+
+
+
+
+
+
+
+
+  foi escrever 
+
+
+
+
+
+
+
+
+  lá no html:
+
+
+
+
+
+
+
+
+
+
+  <h2> Funds: {{ funds.toFixed(2)}}
+
+
+
+
+
+  -> mas é a mesma coisa que meu código..

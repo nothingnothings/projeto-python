@@ -1,0 +1,1184 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NA ÚLTIMA LIÇÃO,
+
+
+VIMSO 
+
+
+'COMO FAZER WRITE DE UM POUCO DE DATA __ EM 1 FILE'..
+
+
+
+
+
+
+
+
+
+--> nosso código havia ficado assim:
+
+
+
+
+
+
+
+f = open('demo.txt', mode='w')  #MODO DE WRITE --> vamos querer ESCREVER ALGO NESSE ARQUIVO...
+
+
+
+f.write('Hello from Python!')
+
+
+
+f.close() #absolutamente INDISPENSÁVEL PARA CONSEGUIRMOS FAZER 'WRITE' de coisas no python... (você tem que FECHAR ESSA EXECUTION DE 'write' ANTES DE TENTAR EXECUTAR QUALQUER OUTRA LINHA DE CÓDIGO POSTERIOR, como esse 'input', no nosso exemplo...)
+
+
+
+user_input = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ISSO CRIAVA/CRIA UM ARQUIVO 
+
+
+
+
+
+DE TEXTO COM OS DIZERES 'hello Python'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS __ TAMBÉM _ FAZER _ rEAD__ DA __ DATA DESSE ARQUIVO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS _ COMO FAZER ISSO?
+
+
+
+
+
+
+
+
+
+
+
+--> TALVEZ COM 
+
+
+
+
+
+open('demo.txt', 'r')
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PQ ESSE PARECE SER O APPROACH PARA ACESSAR/LER DATA __ NO 
+
+
+
+
+PYTHON..
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+g = open('demo.txt', mode='r')
+
+print(g)
+
+
+g.close()
+
+
+user_input = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+
+
+
+---> BEM, ISSO ''FUNCIONOU''' --> funcionou, 
+
+
+
+mas 
+
+
+NOSSO ARQUIVO/FILE __ FOI RETORNADO EM UM 
+
+FORMATO ESTRANHO, COMO PODEMOS OBSERVAR:
+
+
+<_io.TextIOWrapper name='demo.txt' mode='r' encoding='cp932'>
+
+
+
+
+
+
+
+
+
+
+
+--> eu acho que esse encoding de 'cp932'
+
+
+É O __ ENCODING __ DO WINDOWS... --> 
+
+
+
+PARA CONSEGUIR O CONTEÚDO DE VERDADE, QUE E´UMA STRING,
+
+
+
+
+ACHO QUE DEVO UTILIZAR O 
+
+
+METHOD DE 'encode'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS PARA ISSO _ EU PRECISARIA __ DO PACKAGE DE 'json',
+
+
+para aí acessar 'json.encode' ou algo assim...
+
+
+
+
+
+
+
+
+
+OK, MAS AÍ _ RECEBI UM ERRO:
+
+
+TypeError: Object of type TextIOWrapper is not JSON serializable
+
+
+
+
+
+
+
+
+
+
+
+---> O CÓDIGO HAVIA FICADO ASSIM (mas não funciona):
+
+
+
+
+
+
+
+
+
+
+
+import json
+
+
+
+f = open('demo.txt', mode='w')  #MODO DE WRITE --> vamos querer ESCREVER ALGO NESSE ARQUIVO...
+
+
+
+f.write('Hello from Python!')
+
+
+
+f.close() #absolutamente INDISPENSÁVEL PARA CONSEGUIRMOS FAZER 'WRITE' de coisas no python... (você tem que FECHAR ESSA EXECUTION DE 'write' ANTES DE TENTAR EXECUTAR QUALQUER OUTRA LINHA DE CÓDIGO POSTERIOR, como esse 'input', no nosso exemplo...)
+
+
+
+
+
+
+g = open('demo.txt', mode='r')
+
+print(json.dumps(g).encode())
+
+
+
+
+
+g.close()
+
+
+user_input = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PRECISO DE ALGUMA COISA QUE CONSIGA CONVERTER ESSE FORMATO DE 
+
+
+
+
+'TextIOWrapper' 
+
+
+
+
+
+EM _ UMA STRING _ VÁLIDA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--->  OK... MAS ACHO QUE SEI __ PQ __ ESSE CÓDIGO DEU ERRADO... -> 
+
+
+
+É 
+
+
+PQ 
+
+
+ESTAMOS SÓ EXECUTANDO 'f = open('demo.txt', mode='r')' 
+
+
+
+
+
+
+
+
+
+
+
+---> PARA CONSEGUIRMOS _ REALMENTE _ FAZER __ READ 
+
+
+DESSE FILE,
+
+
+ACHO QUE __ TEMOS QUE _ TAMBÉM 
+
+
+
+ESCREVER 
+
+
+
+
+'f.read(
+)
+
+'
+
+
+
+
+
+
+
+
+LOGO DEPOIS DESSE STATEMENT (para aí _TAMBÉM CONSEGUIR _ CONVERTER ESSE FORMATO ESTRANHO DE '<_io.TextIOWrapper name='demo.txt' mode='r' encoding='cp932'>' )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, ESCREVEMOS:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS ISSO _ _TAMBÉM NÃO FUNCIONOU:
+
+
+
+
+
+
+
+f = open('demo.txt', mode='w')  #MODO DE WRITE --> vamos querer ESCREVER ALGO NESSE ARQUIVO...
+
+
+
+f.write('Hello from Python!')
+
+
+
+f.close() #absolutamente INDISPENSÁVEL PARA CONSEGUIRMOS FAZER 'WRITE' de coisas no python... (você tem que FECHAR ESSA EXECUTION DE 'write' ANTES DE TENTAR EXECUTAR QUALQUER OUTRA LINHA DE CÓDIGO POSTERIOR, como esse 'input', no nosso exemplo...)
+
+
+
+
+
+
+g = open('demo.txt', mode='r')
+
+
+
+g.read()
+
+
+
+print(g, 'LINE')
+
+g.close()
+
+
+user_input = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RESULTADO:
+
+
+
+PS A:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9> python files.py
+<_io.TextIOWrapper name='demo.txt' mode='r' encoding='cp932'> LINE
+Enter something... we will bother write script execution:   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'xxxxx.read()'
+
+
+
+É NA VERDAED 
+
+UM METHOD 
+
+
+QUE 
+
+
+
+
+
+VAI 'READ THE ENTIRE CONTENT'
+
+
+de um  determinado arquivo...
+
+
+
+
+
+
+
+
+
+
+
+---> O PROFESSOR 
+
+VAI QUERER __ ARMAZENAR ESSE NEGÓCIO EM UMA VARIÁVEL.... --> PORTANTO, ELE VAI FAZER ALGO DIFERENTE,
+
+PQ 
+
+
+EU 
+
+
+
+
+__ SÓ ESCREVI 
+
+
+
+'f.read()',
+
+
+
+
+__ SEM _ ARMAZENAR ISSO EM UMA VARIABLE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a versão corrigida fica assim:
+
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='w')  #MODO DE WRITE --> vamos querer ESCREVER ALGO NESSE ARQUIVO...
+
+
+
+f.write('Hello from Python!')
+
+
+
+f.close() #absolutamente INDISPENSÁVEL PARA CONSEGUIRMOS FAZER 'WRITE' de coisas no python... (você tem que FECHAR ESSA EXECUTION DE 'write' ANTES DE TENTAR EXECUTAR QUALQUER OUTRA LINHA DE CÓDIGO POSTERIOR, como esse 'input', no nosso exemplo...)
+
+
+
+g = open('demo.txt', mode='r')
+
+
+
+g_content_read = g.read() #necessário pARA CONSEGUIRMOS ACESSAR O VALOR DESSE ARQUIVO 'demo.txt'...
+
+
+
+print(g_content_read, 'LINE')
+
+g.close()
+
+
+user_input = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E ISSO REALMENTE FUNCIONOU, PQ 
+
+
+
+agora 
+
+FICAMOS COM ESTE OUTPUT:
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9> python files.py
+Hello from Python! LINE
+Enter something... we will bother write script execution:   
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, CONSEGUIMOS _ FAZER GET __ DO ACESSO_ _ 
+
+
+AO ARQUIVO 'demo.txt',
+
+E AÍ __ CONSEGUIMOS OBTER AQUELA STRING de 'Hello from Python!'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OBS::: --> ESSA OPERAÇÃO __ SÓ FUNCIONOU _ PQ 
+
+
+
+
+
+ESCREVEMOS 
+
+
+
+'mode=r',
+
+
+
+E TIRAMOS AQUELE 'mode=w' (modo de WRITE)..
+
+
+
+
+
+
+
+--> SE VOCÊ TENTAR __ EXECUTAR ESSA OPERAÇÃO DE 'read' TENDO UM MODO DE 'write'
+
+
+
+DEFINIDO LÁ NO SEU OPEN,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='w')
+
+
+file_content = f.read()
+
+
+f.close()
+
+
+
+
+
+
+
+
+
+----> ISSO VAI RESULTAR EM UM GORDO ERRO,
+
+que diz 
+
+
+'io.UnsupportedOperation: not readable'...
+
+
+
+
+
+
+
+
+
+
+---------> ISSO QUER DIZER, EM OUTRAS PALAVRAS,
+
+QUE O 'mode' uSADO PARA ACESSAR 
+
+
+
+1 FILE _ É __ EXTREMAMENTE IMPORTANET...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+ESTE CÓDIGO É BEM FINNICKY,
+
+
+
+você precisa especificar que 
+
+
+QUER ABRIR COM O MODO DE 'READ',
+
+
+
+e aí 
+
+
+
+
+
+__PRECISA __ ARMAZENAR__ O CONTEÚDO __ 
+
+
+
+
+
+DA 
+
+
+FILE 'LIDA'
+
+
+
+
+
+
+
+EM UMA VARIABLE,
+
+
+
+por meio do código 
+
+
+
+
+
+
+file_content = f.read()
+
+
+
+f.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o código completo, seu formato,
+
+é:
+
+
+
+
+f = open('demo.txt', mode='r')
+
+
+
+
+file_content = f.read()
+
+
+
+f.close()
+
+
+
+print(file_content)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OBS::: O 
+
+
+
+
+
+mode de 'write' ('w') 
+
+
+
+
+VAI __ OVERWRITTAR _-
+ 
+ SEU CONTEÚDO __ 
+
+
+
+
+
+
+ MESMO NO CASO __ EM QUE _ VOCê _ NÃO ESCREVE NADA 
+
+ NESSA FILE...
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+ f = open('demo.txt', mode='w') -----> ISSO AINDA VAI OVERWRITTAR NOSSO FILE, MESMO QUE NÃO TENHA CONSEGUIDO LER NADA, NEM TENTADO ESCREVER COISA ALGUMA...
+ file_content = f.read()
+ f.close()
+
+ print(file_content)
+
+
+
+
+
+
+
+ -----------------------------
+
+
+
+
+
+
+
+
+ -> JÁ 
+
+ o 
+
+ modo 
+
+ 'a'
+
+
+
+ _VAI __ MANTER__ O CONTEÚDO __ 
+
+
+ DO NOSSO FILE ANTIGO,
+
+
+
+ E AÍ _ VAI FAZER 'APPEND' do nosso novo conteúdo/coisa escrita __, ao FINAL __ 
+
+
+
+
+ DESSE ARQUIVO AÍ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----->  OK.... ENTÃO AÍ TEMOS 2 BEHAVIORS QUE TEMOS QUE TER EM MENTE:
+
+
+
+
+ 1) W --> SÓ TE DÁ WRITE ACCESS, SEM READ ACCESS.. 
+    ----> E TAMBÉM __ SEMPRE OVERWRITTA O FILE CONTENT DA FILE QUE VOCÊ ESTÁ/ESTARÁ ACESSANDO... 
+        (e isso 
+        
+        FREQUENTEMENTE SERÁ O QUE 
+        
+        VOCÊ VAI QUERER,
+        
+
+        PQ VOCÊ FREQUENTEMENTE VAI QUERER _TER _ 
+
+
+        UMA SNAPSHOT DE DATA QUE E´_ FREQUENTEMENTE OVERWRITTADA...
+        
+        )
+
+
+
+
+
+
+
+
+ 2) MAS SE VOCÊ QUER FAZER 'APPEND',
+
+ VOCÊ DEVE USAR O MODO 
+
+
+ 'a'...
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+
+
+ 
+g = open('demo.txt', mode='a') #MODO DE APPEND --> vamos querer FAZER APPEND DE ALGO AO FINAL DE UM ARQUIVO JÁ EXISTENTE, SEM DELETAR A DATA ANTIGA CONTIDA NELE...
+
+
+
+g_content_read = g.write('CONTENT ADDED TO THE END OF YOUR FILE') #necessário pARA CONSEGUIRMOS ACESSAR O VALOR DESSE ARQUIVO 'demo.txt'...
+
+
+
+print(g_content_read, 'LINE')
+
+g.close()
+
+
+user_input2 = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> AGORA CADA VEZ QUE EXECUTARMOS NOSSO CÓDIGO PYTHON, 
+
+
+ESSA FRASE 
+DE 
+
+
+'CONTENT ADDED TO THE END OF YOUR FILE''
+
+
+
+
+
+
+
+
+SERÁ APENSA AO NOSSO ARQUIVO 'demo.txt'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> CERTO.... MAS SE EXAMINARMOS O CONTEÚDO DE NOSSO ARQUIVO,
+
+
+VEREMOS ESTE OUTPUT AQUI:
+
+
+
+
+
+
+
+
+
+
+
+CONTENT ADDED TO THE END OF YOUR FILE'CONTENT ADDED TO THE END OF YOUR FILE'CONTENT ADDED TO THE END OF YOUR FILE'CONTENT ADDED TO THE END OF YOUR FILE'CONTENT ADDED TO THE END OF YOUR FILE'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA QUE _ ESSA 
+
+
+FRASE AÍ __ 
+
+
+
+
+FOI COLOCADA _ TODA EM 1 ÚNICA LINHA DE NOSSO ARQUIVO DE TEXTO (em vez de 'multi-line')...
+
+
+
+
+
+
+--> ISSO FUNCIONA, MAS FICA BEM FEIO...
+
+
+
+
+
+
+
+
+
+--> NA PRÓXIMA AULA VEREMOS ''COMO ESCREVER MULTI-LINE CONTENT'...

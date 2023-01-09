@@ -1,0 +1,1164 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE 
+
+DEMOS UMA PRIMEIRA OLHADA NOS DATA TYPES IMPORTANTES 
+
+E 
+
+COMO 
+
+
+
+
+OS UTILIZAMOS COM O CONCEITO IMPORTANTE DAS VARIABLES,
+
+
+
+
+DEVMOS 
+
+
+DAR UMA BREVE OLHADA NO QUE 
+
+PODEMOS 
+
+FAZER COM NUMBERs,
+
+
+
+
+
+
+
+
+
+
+
+uma info importante sobre eles...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, TEMOS INTEGERS E FLOATS:
+
+
+
+
+
+
+
+
+
+
+
+
+10, -55, 5421...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> IMPORTANTE !!!! ---> 
+
+
+O TAMANHO DOS NUMBERS 
+
+
+NO PYTHON 
+
+
+
+É LIMITADO ___ POR SUA MEMÓRIA E OPERATING SYSTEM ---> 64 BITS SYSTEM PODEM 
+
+
+
+
+
+
+ADMINISTRAR/USAR MAIS DA MEMÓRIA DO QUE __ SYSTEMS 32 BITS.... -------> É POR ISSO QUE 
+
+
+
+
+
+A OS TAMBÉM IMPORTA....
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS A PARTE IMPORTANTE É QUE ESSE É O ÚNICO FATOR LIMITADOR (ao contrário do javascript por exemplo)..
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE SE VOCÊ QUER ARMAZENAR UM VALOR BEM GRANDE EM UMA VARIABLE,
+
+VOCÊ PROVAVELMENTE PODERÁ FAZER ISSO,
+
+SE SUA MEMÓRIA SUPORTAR...
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... --> OUTRA 
+
+
+INFORMAÇÃO IMPORTANTE!!!! 
+
+
+
+
+
+
+
+
+
+--> ÀS VEZES VOCÊ VAI TER 
+
+
+UMA DATA 
+
+EM __ UM _ DATA__ TYPE __ DIFERNETE... --> EX: 
+
+
+
+VOCÊ 
+TEM 
+UM 
+VALID 
+
+NUMBER,
+
+MAS QUE 
+
+
+ESTÁ ARMAZENADO COMO UMA 
+
+'STRING'...
+
+
+
+
+
+ex:
+
+
+
+"10" 
+
+
+
+
+
+
+
+
+
+--> OK, MAS DIGAMOS QUE QUEREMOS RODAR UM CÁLCULO COM ESSE 10...
+
+
+
+
+
+
+
+--> SE FOSSE JAVASCRIPT, PODERÍAMOS RODAR +nomeDaVariable, ou algo assim,
+
+
+PARA 
+
+CONVERTER ESSE VALOR....
+ 
+
+
+
+
+
+
+
+
+ --> AGORA O PROFESSOR VAI NOS MOSTRAR COMO ISSO FUNCIONA 
+
+
+
+
+ NO PYTHOn...
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+>>> age = '29'
+>>> age + 1 
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... 
+
+
+
+esse erro nos diz que '1' 
+
+D
+EVE SER UMA STRING, E NÃO UM INTEGER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE SEGUIRMOS O CONSELHO DO TERMINAL E ESCREVERMOS 
+
+
+age + '1' ,
+
+
+
+
+
+(STRING + STRING),
+
+
+FICAREMOS COM UM OUTPUT DE 
+
+
+'291'....
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+NÃO FOI FEITA A ADIÇÃO ARITMÉTICA ENTRE OS 2 VALORES,
+
+
+
+
+E SIM _ A CONCATENAÇÃO DAS STRINGS DOS 2...  -------> ISSO É 'FINE'
+
+
+
+
+
+SE VOCÊ 
+
+TIVER ALGO COMO 
+
+'Hello ' + 'World' 
+
+
+
+
+
+
+
+---> MAS ISSO NÃO É FINE SE VOCÊ ESTÁ TRABALHANDO COM NUMBERS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E PARA CONSERTAR ISSO/TER UMA SOLUÇÃO PARA ESSE CASE,
+
+
+HÁ UMA SOLUÇÃO ÚTIL,
+
+
+
+
+
+
+
+
+QUE É 
+
+
+
+A FUNCTION DE 'int()'...
+
+
+
+
+
+
+
+
+
+
+-> SE VOCê _ WRAPPA __ UMA 
+
+
+STRING__ OU UM FLOAT__ COM 
+
+'int()',
+
+
+VOCÊ 
+
+ACTUALLY __ CONVERTE__ ESSE VALOR __ EM 1 INT,
+ 
+ EM UM NÚMERO INTEGRAL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> VOCÊ AÍ PODERÁ USAR ESSE VALOR COMO UM 'NORMAL INTEGER'...
+
+
+
+
+
+
+
+
+ ex:
+
+
+ >>> age = '29'
+>>> age + 1 
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+>>> age + '1'
+'291'
+>>> int(age) + 1
+30
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> COMO VOCÊ PODE VER,
+
+
+AGORA 
+CONSEGUIMOS 
+
+
+
+CONVERTER 
+
+
+AQUELE 
+VALOR, QUE ERA UMA STRING,
+
+EM UM NUMBER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> certo....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O ERRO SUMIU, E AGORA GANHAMOS 30 COMO UM RESULTADO...
+
+
+
+
+
+
+
+
+
+--> E SE VOCÊ TENTA WRAPPAR ALGUMA COISA QUE NÃO CONSEGUE SER CONVERTIDA, COMO 
+
+UMA __ STRING QUE NÃO É UM NUMBER,
+
+
+VOCÊ 
+
+
+
+GANHA UM ERROR..
+
+
+
+
+
+
+
+>>> int('Hello')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: invalid literal for int() with base 10: 'Hello'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> SE VOCÊ WRAPPAR UM FLOAT,
+
+
+VOCÊ TERÁ O 'ROUNDED INTEGER' --> 
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+ValueError: invalid literal for int() with base 10: 'Hello'
+>>> int(1.8)
+1
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+ELE SEMPRE VAI 'ROUND DOWN',
+
+vai cortar para baixo,
+
+
+
+o 
+
+'FLOOR',
+
+e não o 
+
+'CEILING'...
+
+
+
+
+
+
+
+
+
+--> corta a casa decimal... ------> 
+
+
+
+
+
+
+
+OUTRA COISA IMPORTANTE:
+
+
+
+
+
+
+
+SE VOCÊ WRAPPA 
+
+'True' 
+
+
+
+COM 'int()',
+
+
+VOCÊ RECEBE 1,
+
+
+
+e 
+
+se 
+
+vocÊ 
+
+
+wrappa 
+
+'False',
+
+VOCÊ GANHA 0...
+
+
+
+
+
+
+
+ex:
+
+
+
+>>> int(True)
+1
+
+
+
+>>> int(False)
+0
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA É UMA CONVENTION... -------> 0 É FALSE, 1 É TRUE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM PODEMOS FAZER ESSA CONVERSÃO 
+
+
+
+
+COM NEGATIVE NUMBERS...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+>>> int(-1.8)
+-1
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> aqui ele 'round up', na verdade, mas isso é 
+
+
+uma tecnicalidade....
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO... PARA FLOATS,
+
+
+
+
+
+TEMOS NUMBERS COMO 
+
+
+
+1.591,
+
+
+
+-0.81,
+
+
+
+5000
+
+
+
+
+
+
+
+
+
+
+
+---> E, ASSIM COMO 'int()',
+
+NÓS TEMOS 
+
+A FUNÇÃO DE 
+
+'float()",
+
+QUE 
+
+É USADA 
+
+PARA CONVERTER STRINGS E INTS 
+
+em 
+
+FLOATS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> EX:
+
+
+
+>>> age = '29'
+>>> float(age)
+29.0
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO FAZ SENTIDO...
+
+
+
+
+
+
+
+
+
+-> essa string foi CONVERTIDA EM UM FLOAT (number de tipo float)...
+
+
+
+
+
+
+
+
+
+
+
+-----> SE ESCREVEMOS:
+
+
+
+
+
+
+>>> float(True)
+1.0
+>>> float(False)
+0.0
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO TAMBÉM É MUITO ÚTIL SE VOCê TEM DATA NO DATA TYPE ERRADO,
+
+
+
+
+
+
+
+MAS COM UM _ VALUE_ QUE VOCÊ SABE QUE CONSEGUE SER TRATADO COMO UM NUMBER -> aí vocÊ 
+
+
+fica 
+
+
+
+com essa maneira fácil de converter essa string em um number....
+
+
+
+
+
+
+
+
+
+
+float(age)
+
+
+
+
+
+
+
+
+
+
+
+>>> float(True) + float(False)
+1.0
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO.... MAS HÁ UM DETALHE FINAL QUE O PROFESSOR QUER NOS ENSINAR:
+
+
+
+
+
+
+
+
+
+
+TANTO INTEGERS COMO FLOATS PODEM 
+
+
+
+SER 
+
+
+ESCRITOS __ 
+
+
+
+
+
+DE UMA MANEIRA DIFERENTE/ESPECIAL,
+
+
+QUE É TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+1_000_000.0 
+
+
+
+
+
+
+
+
+
+
+------> '''WRITE LONG NUMBERS IN A EASILY READABLE WAY''''
+
+
+
+
+
+
+
+
+
+
+--> acho que '_' é igual a '.', 
+
+
+
+e 
+
+
+'.' 
+
+
+
+
+É USADO PARA DIVIDIR A PARTE INTEGRAL DA DECIMAL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+VOCÊ PODE USAR UNDERSCORES 
+
+PARA 
+
+
+
+FACILITAR A LEITURA DE NÚMEROS REALMENTE COMPRIDOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1_000_000_000_000
+
+
+
+
+
+
+
+
+fans = 1_000_000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EX:
+
+
+
+
+
+
+>>> fans = 1_000_000
+>>> fan
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'fan' is not defined. Did you mean: 'fans'?
+>>> fans
+1000000
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> OU SEJA,
+
+ISSO FUNCIONA,
+
+QUANDO 
+
+
+REFERENCIARMOS ESSA VARIABLE,
+
+
+AINDA VAMOS PEGAR 
+
+
+O NÚMERO 
+
+'normal',
+
+com 
+
+
+
+
+1 milhao...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS QUANDO ASSIGNARMOS/FORMOS ASSIGNAR O VALOR, É CLARO QUE ESCREVER 
+
+
+'1_xxx_yyyy_zzzz'
+
+
+
+
+
+
+
+
+É REALMENTE MAIS FÁCIL DE LER... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> INTERNAMENTE,
+
+
+
+SÓ EXISTE 1 TIPO DE NUMBER,
+
+
+ essa sintaxe de '1_xxx_xxx'
+
+
+
+ SÓ EXISTE PARA MELHORAR A READABILITY...

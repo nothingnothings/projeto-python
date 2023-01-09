@@ -1,0 +1,155 @@
+
+
+
+
+
+
+
+QUAIS ENDPOINTS PRECISAMOS NO NOSSO APP?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) MINE A BLOCK
+
+
+2) ADD TRANSACTION 
+
+3) VERIFY TRANSACTIONS 
+
+
+
+4) CREATE WALLET 
+
+
+5) LOAD WALLET 
+
+
+
+
+
+6) CHECK BALANCE 
+
+
+
+
+7) OUTPUT BLOCKCHAIN 
+
+
+8) OUTPUT PARTICIPANTS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CHEGA DE TEORIA, É HORA DE COMEÇAR O TRABALHO COM NOSSA BLOCKCHAIn...
+
+
+
+
+
+
+
+
+
+-> VAMOS TRANSFORMAR NOSSA BLOCKCHAIN EM UM NODE... 
+
+
+
+
+
+
+---> vamos ter que instalar uma package para fazer o manage do 'RECEIVE' dos http requests...
+
+
+
+
+
+
+
+
+
+
+
+--> 3 MAJOR FEATURES:
+
+
+
+1) BLOCKS NA BLOCKCHAIN 
+
+a) mine a block (POST REQUEST) --> '/mine' é o path...
+
+
+b) OUTPUT BLOCKCHAIN --> /'chain' --> SERÁ UM GET REQUEST... 
+
+
+
+
+
+2) TRANSACTIONS 
+
+a) ADD A NEW TRANSACTION  (POST '/transaction')
+
+b) GET ALL OPEN TRANSACTIONS (GET '/transactions')
+
+
+3)WALLET...
+
+
+a) CREATE A NEW WALLET (POST '/WALLET')
+
+
+b) LOAD A WALLET (GET '/WALLET')  --> escanearemos nosso server, procurando por um arquivo 'wallet.txt', e aí o retornaremos ao user....
+
+
+c) WALLET BALANCE (GET '/BALANCE')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> VAMOS USAR  A PUBLIC KEY PARA _ _SABER QUANTO BALANCE/FUNDS ESSE USER TEM, E AÍ RETORNAR ESSE VALOR...
+
+
+
+
+
+
+
+
+--> ok, vamos começar...

@@ -1,0 +1,611 @@
+e
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ANTES DE COMEÇARMOS A SETTAR UM 'LOCAL ENVIRONMENT',
+
+
+
+DEVEMOS REVISITAR AQUELE APPROACH 'COMMAND LINE',
+
+que é o REPL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+REPL -------> READ EVAL PRINT LOOP....
+
+
+
+
+
+
+
+
+
+
+READ --> É A PARTE EM QUE INPUTTAMOS ALGO NA COMMAND LINE, COMO 2 + 2...
+
+
+
+
+
+
+
+
+EVALUATE --> É A PRÓXIMA FASE, EM QUE O PYTHON ANALISA __ NOSSO COMANDO, QUANDO APERTAMOS 'enter'....
+
+
+
+
+
+
+
+
+PRINT --> ELE PRINTA O RESULTADO DA OPERAÇÃO QUE COMEÇOU NO EVALUATE...
+
+
+
+
+
+
+
+
+
+
+
+
+LOOP --> ELE VOLTA AO INÍCIO, E AÍ AGUARDA O PRÓXIMO 
+
+INPUT....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR ISSO QUE É O REPL,
+É UMA 
+
+INTERACTIVE SHELL EM QUE 
+
+
+
+
+PODEMOS ISSUE COMMANDS E AÍ DEIXAR O PYTHON FAZER O TRABALHO...
+
+
+
+
+
+
+
+
+
+
+
+--> NÃO É BOM 
+
+
+PARA ESCREVER PROGRAMAS GRANDES,
+
+
+MAS É 
+
+BOM PARA PRATICAR E RODAR CÁLCULOS...
+
+
+
+
+
+
+
+
+
+
+
+---> VOLTAMOS 
+
+
+
+
+
+
+AO REPL ANTES DE COMEÇARMOS A ESCREVER UM PROJETO DE VERADDE..
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS VOLTAR AO REPL PARA COMEÇAR A TRABALHAR NA NOSSA BLOCK CHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR ENQUANTO, VAMOS DEIXAR DE LADO A PARTE DOS 'MÚLTIPLOS NODES/WALLETS' que fazem transactions (send e receive de coins),
+
+
+
+E VAMOS 
+
+
+FOCAR 
+
+
+
+NA NOSSA 
+
+'CHAIN QUE CONTÉM DADOS' (a blockchain em si, sem os mineradores)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK.... --> PARA AS CHAINS DE DATA, BLOCKCHAINS,
+
+
+TEMOS 
+
+
+2
+
+
+
+
+
+PARTES ESSENCIAIS:
+
+
+
+
+
+
+
+
+1) A DATA 
+
+
+
+
+
+
+
+
+2) A CHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUANTO À DATA,
+
+NESSE MÓDULO 
+
+
+DAREMOS UMA OLHADA EM QUAIS TIPOS DE DADOS PODEMOS USAR EM PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+
+---> PQ NÃO INTERESSA QUAL PYTHON PROGRAM VOCÊ VAI ESCREVER,
+
+
+SE 
+
+É UM 
+
+
+
+FLIGHT BOOKING SYSTEM,
+
+SE É SUA PRÓPRIA ENGINE DE SEARCH,
+
+
+
+UMA BLOCKCHAIN,
+
+
+VOC~E 
+
+
+SEMPRE 
+
+
+
+
+TRABALHARÁ 
+
+
+COM 
+
+DATA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA DATA,
+
+
+
+
+PODEMOS TRABALHAR:
+
+
+
+
+
+
+
+1) NUMBERS 
+
+
+
+
+2) STRINGS 
+
+
+
+3) BOOLEANS...
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM TEMOS DATA STRUCTURES MAIS COMPLEXAS,
+
+QUE 
+
+EXAMINAREMOS MAIS TARDE NESSE CURSO...
+
+
+
+
+
+
+
+--> UMA CHAIN É UM 'LIST', QUE É UM TYPE ESPECIAL DE 
+
+
+
+DATA EM PYTHON,
+
+COMO APRENDEREMOS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NUMBERS --> SÃO DIVIDIDOS EM 'INTEGERS' (NÚMEROS SEM CASAS DECIMAIS)
+
+
+E 
+
+
+FLOATS --> NÚMEROS COM CASAS DECIMAIS....
+
+
+
+
+
+
+
+
+
+TEMOS TANTO NÚMEROS POSITIVOS COMO NEGATIVOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> TRABALHAMOS UM MONTE COM NUMBERS EM PROGRAMAS...
+
+
+
+
+
+
+
+EX: ACCOUNTING SOFTWARE,
+
+EM QUE 
+
+USERS 
+
+
+
+INPUTTAMOS DATA, QUE COMUMMENTE SERÁ NUMBERS...
+
+
+
+
+
+
+--> ou então sua BLOCKCHAIN,
+EM QUE 
+
+OS USERS TRANSMITEM DINHEIRO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM TEMOS BOOLEANS:
+
+
+
+
+
+
+TRUE--> FALSE...
+
+
+
+
+
+
+
+
+
+
+
+SER CAPAZ DE DETERMINAR SE ALGO É TRUE/FALSE É 
+
+
+
+
+MT IMPORTANTE 
+
+QUANDO VOCÊ TRABALHA COM CONDITIONS...
+
+
+
+
+
+
+
+
+
+
+--> àS VEZES VOCê VAI QUERER CHECAER 
+
+SE 
+
+
+
+
+
+ALGO É TRUE/FALSE, E AÍ EXECUTAR PARTE DO SEU CÓDIGO 
+
+
+
+
+DEPENDENDO DISSO...
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ STRINGS SÃO APENAS TEXT...
+
+
+
+
+
+
+
+
+--> TEXT--> VOCÊ USA EM QUALQUER PROGRAM... --> 
+
+
+
+
+
+
+
+TANTO EM ACCOUNTING SOFTWARE, COMO NA SUA BLOCKCHAIN.... (nome do sender e receiver da transaction, etc)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+STRINGS EM PYTHON PODEM SER ESCRITAS TANTO COM 
+
+
+'' 
+
+
+como 
+
+""
+
+
+
+
+
+
+
+
+----> ok.... --> 
+
+
+NÓS TAMBÉM 
+
+TEMOS 
+
+
+COMPLEX DATA TYPES 
+
+como
+
+
+
+
+
+
+
+
+
+
+1) DICTIONARIES 
+
+
+
+2) OBJECTS...
+
+
+
+
+
+
+
+
+ESTUDAREMO-NOS 
+
+
+MAIS TARDE NO CURSO...
+ 
+
+
+
+
+
+ --> COM ISSO,
+
+ DEVEMOS VER 
+
+
+ O QUE 
+
+ EXATAMENTE NUMBERS SÃO, E COMO 
+
+ PODEMOS OS USAR EM UM 
+ APP TÍPICO PYTHON..

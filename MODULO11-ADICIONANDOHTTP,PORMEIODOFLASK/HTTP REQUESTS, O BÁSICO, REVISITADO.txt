@@ -1,0 +1,818 @@
+
+
+
+
+
+
+
+
+
+
+
+HTTP REQUEST BASICS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> HYPERTEXT TRANSFER PROTOCOL....
+
+
+
+
+
+
+
+
+
+
+--> É UM PROTOCOLO QUE CONTROLA COMO UM 'CLIENT' E 'SERVER'
+
+
+CONSGUEM 
+
+TROCAR
+
+
+
+
+
+INFORMAÇÃO..
+
+
+
+
+
+
+
+
+
+--> O CLIENT ENVIA UM _ REQUEST__ --> O CLIENT PODE SER SEU 
+
+
+
+BROWSER, 
+
+
+
+
+UM DESKTOP APP, UM SCRIPT,
+
+
+OU UM MOBILE APp..
+
+
+
+
+
+
+
+
+--> MAS é comum SER UM BROWSER...
+
+
+
+
+
+
+
+
+--> QUANDO VOCÊ ENTRA EM UMA URL NO SEU BROWSER,
+
+
+VOCÊ 
+
+ESTÁ ESSENCIALMENTE 
+
+
+
+ENVIANDO UM REQUEST AO 
+
+
+
+SERVER DESSA URL.. --> NO NOSSO CASO,
+
+
+
+ESSE 
+
+
+
+SERVER 
+
+
+
+VAI RODAR LOCALMENTE NA NOSSA MÁQUINA,
+
+
+
+PQ É POSSÍVEL
+ 
+
+ RODAR UM SERVER 
+
+
+
+
+ NA NOSSA MÁQUINA,
+
+ E EM QUE 
+
+ PODEMOS 
+
+ CONECTAR A PARTIR DE NOSSA MÁQUINA, TBM.. ->  TAMBÉM É POSSÍVEL 
+
+
+
+
+
+
+ ABRIR ALGUNS PORTS E ENTÃO 
+
+
+ CONFIGURAR NOSSA MÁQUINA COMO UM 'GENERAL SERVER',
+
+
+ poderíamos usar nosso COMPUTADOR __ COMO UM WEB SERVEDR,
+
+
+ 
+ O QUE VOCÊ _ _TECNICAMENTE __ SERIA OBRIGADO A FAZER,
+
+
+
+
+ SE QUISER/QUISESSE QUE OUTROS NODES SE CONECTASSEM A ELE...
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> MAS NESSE CURSO, VAMOS FOCAR NO BÁSICO, E NO 'LOCAL SERVER'...
+
+
+
+
+
+
+
+
+
+
+ ----> TEMOS NOSSO SERVER,
+
+
+
+ E NOSSO SERVER É SÓ NOSSO 'PYTHON CODE'... 
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS USAR __ UM CERTO PACKAGE __ PARA __ 'EXPOSE SOME HTTP FUNCTIONALITIES' (para possibilitar o uso de nossa 
+ 
+ máquina como server, através do código python)........
+
+
+
+
+
+
+
+
+
+ --> AÍ O NOSSO SERVER VAI EXECUTAR CERTA LÓGICA _ SEMPRE _ QUE UM DETERMINADO REQUEST CHEGAR A ELE...
+
+
+
+
+
+
+
+
+
+ -> E, DE NOVO, NÃO INTERESSA QUAL FOI A ENTIDADE QUE ENVIOU ESSE REQUEST:
+
+
+
+ pode ser o browser,
+
+
+ um script em um browser,
+
+
+ outro desktop app,
+
+ etc etc...
+
+
+
+
+
+
+
+
+
+
+ --> MAS O QUE INTERESSA É QUE 
+
+
+
+ O NOSSO SERVER TAMBÉM RETORNA UMA RESPOSNE...
+
+
+
+
+
+
+
+(DEPOIS DE PROCESSAR O REQUEST)....
+
+
+
+
+
+
+
+
+
+----> REQUEST E RESPONSE --> ambos TIPICAMENTE CONTÊM ALGUMA DATA, E META DATA.. -> (form, JSON, HTML, etc)..
+
+
+
+
+
+
+
+
+
+
+--> o request NUNCA ENVIA HTML...
+
+
+
+
+
+
+
+
+
+
+--> METADATA --> COISAS COMO '''WHO SENT THAT, ETC'''..
+
+
+
+
+--> CONCRETE DATA --> COMO 'FORM DATA', se o  user preencheu uma form de 'login', por exemplo...
+
+
+
+
+
+
+
+
+
+--> HTML, JSON --> NA RESPONSE,
+
+
+
+
+
+PARA _ RENDERIZAR COISAS NO BROWSER...
+
+
+
+
+
+
+
+
+
+--> JSON DATA--> É VANTAJOSO PQ É MACHINE READABLE E TAMBÉM É HUMAN READABLE E TAMBÉM POSSUI UM TAMANHO PEQUENO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> É ASSIM QUE A WEB FUNCIONA, OS BASICS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS E QUANTO AO HANDLE DE HTTP NO PYTHON?
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, TEMOS QUE CONSIDERAR 2 'LADOS':
+
+
+
+PODEMOS OU:
+
+
+
+1) ENVIAR__ HTTP _ REQUESTS__ DE DENTRO __ DO PYTHON (usar o python para enviar http requests)... -->>>> ISSO É __ SUPORTADO_,
+
+
+VÔCÊ PODE _ ENVIAR HTTP REQUESTS A ALGUM SERVER,
+
+
+
+
+
+MAS....
+
+
+
+
+
+
+
+
+2) VOCÊ TAMBÉM PODE SER O __ PRÓPRIO SERVEr,
+
+
+E AÍ ACEITAR HTTP REQUESTS --->  E AÍ VOCê PODE _ ACTUALLY _ 
+
+
+
+
+TER OS 2 EM UM MESMO APP,
+
+
+E É ISSO 
+
+
+QUE 
+
+
+
+
+TEREMOS,
+
+
+TEREMOS 
+
+
+OS 
+
+
+2 
+
+NO 
+
+
+NOSSO APP BLOCKCHAIN,
+
+
+
+
+
+
+
+
+E NO FINAL DO CURSO SERÁ 
+
+
+
+
+
+
+
+TANTO UM 'node' QUE ACEITA 'incoming requests' (tanto de NOSSA WEB UI que adicionaremos, OU __ ENTÃO DE OUTRO NODE),
+
+
+
+
+
+
+
+
+
+
+
+
+MAS _ CADA __ NODE TAMBÉM SERÁ CAPAZ DE 'BROADCAST INFO' 
+
+a outros nodes,
+
+
+O QUE 
+
+ESSENCIALMENTE SIGNIFICA QUE _ SEREMOS CAPAZES DE ENVIAR HTTP REQUESTS __A  OUTROS NODES...
+
+
+
+
+
+
+
+
+
+
+
+---> OK... MERGULHAREMOS NO  'SEND DE HTTP REQUESTS'
+
+
+NO PRÓXIMO MÓDULO,
+
+
+
+EM QUE 
+
+VEREMOS 
+
+
+
+'COMO NOS CONECTAR A OUTROS NODES'... .-->  AÍ VEREMOS COMO 'BROADCAST INFO',  como 
+
+
+
+
+
+
+
+'um novo block' ou UMA NOVA TRANSACTION, a eles.....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS NESSE MÓDULO, JÁ VEREMOS COMO PODEMOS 
+
+'BUILD A WEB APP'
+
+
+e 
+
+
+'BUILD A WEB SERVER'
+
+COM O PYTHON... 
+
+
+
+
+
+
+
+
+
+---> PEGAREMOS NOSSO APP 'BLOCKCHAIN'  que já existe 
+
+
+E 
+
+VAMOS 
+
+BASICAMENTE 
+
+
+O SETTAR COMO UM _ _SERVER,
+
+
+SERVER A QUE 
+
+PODEMOS 
+CONECTAR POR MEIO DE UMA UI NICE...
+
+
+
+
+
+
+
+
+
+
+
+-_> A CRIAÇÃO DE UM WEB APP  SIMPLESMENTE __ SIGNIFICA QUE 
+
+
+
+
+VAMOS EXPOR ALGUNS 'HTTP ENDPOINTS' ,
+
+
+
+
+
+
+
+
+HTTP ENDPOINTS --> URLS,
+
+
+URLS A QUE 
+
+REQUESTS PODERÃO SER ENVIADOS...
+
+
+
+
+
+
+
+
+------> '''SE VOCÊ ENVIA UM REQUEST AO IP DE NOSSO SERVER/meu-path',
+
+
+
+UMA _ CERTA__ PYTHON FUNCTION VAI EXECUTAR''' -> ESSA SERÁ A 'CORE IDEA'...
+
+
+
+
+
+
+
+
+
+-> É CLARO QEU TAMBÉM SEREMOS CAPAZES 
+
+DE 
+
+FAZER 
+
+
+
+'SEND DO REQUEST'......
+
+
+
+
+
+
+
+
+--> AO FINAL DO CURSO,
+
+
+
+
+SEREMOS _ CAPAZES _ DE ACTUALLY _ FAZER ISSO 
+
+POR DENTRO 
+
+
+
+
+DO PYTHON EM SI,
+
+
+QUANDO TARGETTARMOS OS 
+
+ENDPOINTS/URLs 
+
+
+
+DE __ OUTROS __ NODES...
+
+
+
+
+
+
+
+
+
+--> ESSE PROCESSO DE SETTAR 
+
+
+
+
+'SOME HTTP ENDPOINTS'
+
+
+A QUE VOCe^PODE ENVIAR REQUESTS 
+
+
+
+É ALGO QUE 
+
+É CHAMADO DE 
+
+'CREATING AN API' ( ou RESTFUL API)... ---> 
+
+
+
+
+
+RESTFUL API ------> É SÓ UMA ESPECIFICAÇÃO TÉCNICA DE COMO UMA API TEM QUE SER ESTRUTURADA PARA SER CONSIDERADA 'RESTFUL'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> NO FINAL DAS CONTAS,
+
+PODEMOS SÓ CAHMAR ISSO DE 'Api' 'REST API',
+
+'RESTFUL API' -> SÓ SIGNIFICA QUE 
+
+
+
+TEMOS UM PUNHADO DE ENDPOINTS A QUE PODEMOS ENVIAR REQUESTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CLIENTS, QUE PODEM ENVIAR HTTP REQUESTS,
+
+
+PODEM SER 'PYTHON' (código python, clients com código python) --> VEREMOS ISSO MAIS TARDE.. -----> mas 
+
+
+
+
+OS CLIENTS TAMBÉM PODEM SER 
+BROWSERS,
+
+OU ENTÃO O 'POSTMAN',
+
+QUE É UMA FERRAMENTA 
+
+
+UTILIZADA 
+
+
+PARA 
+O 
+
+TEST 
+
+DE 
+
+REST APIs 
+
+
+
+OU QUALQUER API...
+
+
+
+
+
+
+
+
+
+
+--> NESSE MÓDULO JÁ USAREMOS BROWSERS E O POSTMAN....
+
+
+
+
+
+
+
+
+
+
+
+-> FINALMENTE,
+
+UMA PARTE IMPORTANTE DO ACCEPT DE HTTP REQUESTS 
+
+
+É A RESPOTSA,
+
+
+
+
+
+O 
+
+
+
+CÓDIGO QUE EXECUTAMOS NO SERVER 
+
+
+
+
+E 
+
+A DATA QUE RETORNAMOS JUNTO COM A RESPONSE... --> 
+
+
+
+
+SE 
+
+UMA RESPONSE NÃO É EJNVAIDA,
+
+O
+ 
+
+ REQUEST É CONSIDERADO 'TIMED OUT'' ------> A DATA RETORNADA É IMPORTANTE,
+
+
+
+ E 
+
+
+
+
+ O RETORNO DE DATA, AQUI, É IMPORTANTE,
+
+
+ PQ 
+
+ VAI DIZER COISAS/INFO SOBRE O BLOCK QUE 
+
+ RECÉM FOI ADICIONADO OU 
+
+
+
+ A 
+
+
+
+ 'TOTAL CHAIN' do user que requisitou o blokc,
+
+
+
+ coisas assim...

@@ -1,0 +1,259 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> PARA ACABAR ESSE MÓDULO, DEVEMOS VER A HISTÓRIA DO PYTHON,
+
+
+
+
+AS 
+
+2 IMPORTANTES VERSÕES 
+DO PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+
+
+AS VERSÕES DO PYTHON:
+
+
+
+
+
+
+
+
+
+
+
+
+2.7 
+
+
+
+
+
+
+
+
+
+3.x 
+
+
+
+
+
+
+
+
+
+
+
+
+--> A VERSÃO DE HOJE É 3.10...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2.7 --> É A VERSÃO 'LEGACY' do PYTHON ----> HÁ CASOS MT NICHO PARA ISSO,
+
+
+
+
+E 
+
+NÃO É MT BOM USAR O CÓDIGO LEGACY...
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCê APRENDE O CÓDIGO 3.X,
+
+
+
+
+você pode usar 
+
+
+O CÓDIGO 2.7, COM ADAPTAÇÕES...
+
+
+
+
+
+
+
+
+
+
+
+--> EVENTUALMENTE TEREMOS A VERSÃO 4.0,
+
+MAS 
+
+É 
+
+ALGO  
+
+
+BEM DISTANTE...
+
+
+
+
+
+
+
+
+
+
+---> CERTO....
+
+
+
+
+
+
+2.7 --> FOI LANÇADA EM 2010, E SERÁ SUPORTADA ATÉ 2020...
+
+
+
+
+
+
+
+
+
+3.x -------> FOI LANÇADA EM 2018,
+
+
+
+
+
+é o futuro do python, etc etc....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3.X --> AINDA GANHA NOVAS FEATURES, NOVOS DESENVOLVIMENTOS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> 2.7 --> TEM UMA SINTAXE 1 POUCO DIFERENTE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> 3.X --> ADICIONOU UM MONTE DE COISAS NOVAS,
+
+
+
+DEIXOU MELHOR, FEZ ALGUMAS COISAS FICAR 'IN-LINE',
+
+coisas que 
+
+antes eram STRANGE..
+
+
+
+
+
+
+
+
+
+
+--> ALGUMAS LIBRARIES, POUQUÍSSIMAS, QUE 
+
+
+
+AINDA SÓ FUNCIONAM COM PYTHON 2.7...
+
+
+
+
+
+
+
+
+
+
+--> MAS TODAS AS LIBRARIES IMPORTANTES JÁ FORAM PORTADAS AO 3.X...
+
+
+
+
+
+
+
+--> VOCÊ QUER APRENDER O 3.X, QUE É O FUTURO DO PYTHON...

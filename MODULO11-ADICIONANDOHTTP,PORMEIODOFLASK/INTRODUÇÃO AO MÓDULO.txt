@@ -1,0 +1,276 @@
+
+
+
+--> FAZENDO HANDLE DE HTTP...
+
+
+
+
+
+
+
+
+
+
+
+
+'''PQ O NOSSO APP DEVE SER UMA NODE NETWORK, NO FINAL DAS CONTAS'...
+
+
+
+
+
+
+
+
+
+
+
+
+-> estamos no final do curso...
+
+
+
+
+
+
+
+
+
+---> nesse módulo, veremos 
+
+
+
+HTTP REQUESTS...
+
+
+
+
+
+
+
+
+-->  NO FINAL DO CURSO, QUEREMOS TER UMA 'NODE NETWORK',
+
+
+e naõ 
+só 
+
+
+nossa 
+
+
+
+LOCAL NODE APP...
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE VAMOS PROSSEGUIR COM O BUILD DE NOSSA NODE COMO UM WEBSERVER 
+
+
+NESSE MÓDULO ,PARA QUE 
+
+MAIS TARDE 
+
+
+OUTROS NODES CONSIGAM 
+
+
+
+
+
+SE CONECTAR A ELE,
+
+
+E TAMBÉM PARA QUE 
+
+
+NÓS CONSIGAMOS CONECTAR UMA UI MAIS 
+
+LEGAL DO QUE 
+
+
+
+NOSSA 
+
+
+CURRENT TERMINAL INTERFACE...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA SERMOS MAIS PRECISOS,
+
+
+NESSE MÓDULO VEREMOS BREVEMENTE 
+
+
+O BÁSICO DO HTTP DNV..
+
+
+
+
+
+
+
+
+--> VEREMOS COMO REQUESTS FUNCIONAM,
+
+
+COMO A WEB GERALMENTE FUNCIONA...
+
+
+
+
+
+
+
+
+
+
+--> AÍ 
+
+
+
+
+
+CRIAREMOS UMA REST API COM O FLASK..
+
+
+
+
+
+
+
+
+
+'FLASK' ---> É UMA PACKAGE PYTHON, TPP QUE PODEMOS INSTALAR,
+
+
+QUE DEIXA FÁCIL O HANDLE DE HTTP REQUESTS 
+
+
+E RETORNO DE RESPONSES..
+
+
+
+
+
+
+
+
+--> AO FINAL DO MÓDULO,
+
+ATTACHAREMOS UM 
+
+FRONTEND/UI/WEBCLIENT ,
+
+
+
+
+
+uma INTERFACE QUE RODA NO BROWSER,
+
+
+QUE 
+
+VAI 
+
+INTERAGIR COM NOSSO NODE SERVER QUE ESTAMOS CRIANDO AQUI,
+
+
+para que 
+
+tenhamos uma 
+
+
+
+UI MAIS LEGAL PARA O CREATE DE UMA WALLET,
+
+MINE 
+
+
+E 
+
+ADD DE TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+
+--> QUANTO À BLOCKCHAIN,
+
+
+
+
+
+VAMOS MOVER NOSSA BLOCKCHAIN DO CONTEXTO DE 'DESKTOP PROGRAM'
+
+PARA UM 'LOCAL SERVER'... 
+
+
+
+
+
+
+
+
+----> O NEGÓCIO VAI CONTINUAR RODANDO NA NOSSA MÁQUINA,
+
+
+MAS TECNICAMEJNTE ELE 
+
+VAI 
+
+'SPIN UP A WEB SERVER'
+
+
+
+
+
+
+
+
+
+
+--> ISSO SE TORNARÁ IMPORTANTE MAIS TARDE,
+
+
+QUANDO FORMOS CONSTRUIR UMA NODE NETWORK,
+
+
+
+
+para uqe outros consigam se conectar a nós... --> já nesse módulo 
+
+ESSE BUILD SERÁ INTERESSANTE 
+
+PQ 
+
+
+VAI NOS DAR UMA NOVA MANEIRA DE INTERAGIR COM NOSSO SERVIÇO 
+
+
+
+'BLOCKCHAIn' (através dessa web ui que vamos adicionar)...

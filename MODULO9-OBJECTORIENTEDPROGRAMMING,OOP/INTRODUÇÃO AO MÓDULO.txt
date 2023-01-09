@@ -1,0 +1,190 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OBJECT-ORIENTED PROGRAMMING, COM 
+
+
+__CLASSES...
+
+
+
+
+
+
+
+
+
+
+--> CLASSES, INHERITANCE, E MAis..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AO LONGO DESSE CURSO, APRENDEMOS UM MONTE DAS CORE FEATURES 
+
+
+E SINTAXES, CONCEITOS,
+
+
+
+
+DO PYTHON..
+
+
+
+
+
+
+
+
+
+
+
+
+--> OOP É OUTRA FEATURE/CONCEITO DO PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+
+-. vAMOS APRENDER O QUE É ISSO,
+
+
+QUE ESTÁ CONECTADO COM AS CLASSES,
+
+
+E AÍ 
+
+
+
+VEREMOS O QUE É INHERITANCE..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS:
+
+
+
+
+
+
+
+
+
+1) CLASSES E OBJECTS ---> O PROFESSOR VAI NOS MOSTRAR O QUE SÃO, COMO USAMOS, E PQ...
+
+
+
+
+
+
+
+
+
+
+2) DEPOIS, VEREMOS 'ATTRIBUTES E METHODS',que 
+
+
+
+SÃO FIGURAS 
+
+
+_ CONECTADAS__ A CLASSES E OBJECTS...
+
+
+
+
+
+
+
+
+
+3) DEPOIS VEREMOS 'INHERITANCE',
+
+
+QUE É 
+
+
+
+__OUTRO_ KEY __ CONCEPT DE 
+
+
+OBJECT ORIENTATED PROGRAMMING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ACERCA DE NOSSO BLOCKCHAIN,
+
+
+NÃO VAMOS ADICIONAR NENHUMA FUNCIONALIDADE INÉDITA.. --> MAS VAMOS 
+
+
+
+
+
+__ AACABAR COM UMA 
+
+ESTRUTURA MAIS 'CLEAN'
+
+
+
+POR MEIO 
+
+D
+E 
+
+CLASSES E OBJECTS --> NOSSO CÓDIGO FICARÁ MAIS 'READABLE',
+
+
+E 
+FARÁ _ MAIS SENTIDO_... (para aquelas pessoas que o leem)...

@@ -1,0 +1,308 @@
+
+
+
+
+
+
+este é o código que resolveu o conflito:
+
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+        converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+        if not (Utility.valid_proof(converted_tx[:-1], block['previous_block_hash'], block['proof'])) or not hash_block(self._chain[-1]) == block['previous_block_hash']:
+            return False
+        new_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+        self._chain.append(new_block)
+        stored_transactions = self.__open_transactions[:]
+        for itx in block['processed_transactions']:
+            for opentx in stored_transactions:
+                if opentx.sender == itx['sender'] and opentx.recipient == itx['recipient'] and opentx.amount == itx['amount'] and opentx.signature == itx['signature']:
+                    try:
+                        self.__open_transactions.remove(opentx)
+                    except ValueError:
+                        print('Item was already removed')
+        self.save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+-> ESSA É A LÓGICA PARA __ UPDATAR_ AS OPEN _TRANSACTIONS __ NO 'PEER NODE'
+
+sempre que 
+
+UM NOVO BLOCK É BROADCASTEADO...
+
+
+
+
+
+-> antes de salvarmos a data sobre o NOVO BLOCK nesse arquivo blockchain de esse PEER NODE,
+
+
+devemos _ACTUALLY _ UPDATAR AS OPEN TRANSACTIONS DESSE NODE EM SI...
+
+
+
+
+
+
+
+
+-> esse código vai remover TODAS AS OPEN TRANSACTIONS QUE SÃO _ EQUIVALENTES (iguais) ENTRE O 
+
+'RECEIVED BLOCK' 
+
+
+
+E O NOSSO 'open_transactions' local/atual....
+
+
+
+
+
+
+
+
+
+stored_transactions = self.__open_transactions[:]
+
+
+
+
+
+
+
+
+-> O PROFESSOR CRIA UMA CÓPIA DAS OPEN TRANSACTIONS DO PEER NODE PQ ELE PLANEJA LOOPAR POR DENTRO DELe, loopar por dentro 
+
+MAS SEM MODIFICAR o open_transactions original, nesse loop.. 
+
+
+
+
+
+
+
+itx --> INCOMING TRANSACTIONS...
+
+
+
+
+
+
+
+stored_transactions = self.__open_transactions[:]
+for itx in block['processed_transactions']:
+
+
+
+
+
+
+
+
+
+
+-> dentro desse FOR LOOP, 
+PODEMOS TER UM NESTED FOR LOOP,
+
+
+
+
+
+
+
+em que fazemos 
+
+
+'for opentx in stored_transactions'...
+
+
+
+
+
+
+
+_> AÍ, PARA CADA 'incoming transaction',
+
+VAMOS CEHCAR __ SE ISSO É PARTE/É IGUAL LÁ NOS OPEN TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+--> aí checamos:
+
+
+
+
+
+
+if opentx.sender == itx['sender'],
+
+
+
+
+
+
+
+
+
+SE OS 2 FOREM IGUAIS, E SE 
+
+
+OS RECIPIENTS FOREM EQUAL TAMBÉM, tudo mais,
+
+
+
+VAMOS QUERER __ REMOVER__ ESSE 'opentx'
+
+ESPECÍFICO (na verdade, TODOS OS opentx que correspondam a esse critério) 
+
+
+
+DE NOSSO OPEN TRANSACTIONS (pq é a mesma transaction que foi minerada/adicionada a um block LA´NO NODE ORIGINÁRIO..)
+
+
+
+
+
+
+
+
+
+-> o professor vai então tentar REMOVER ESSA TRANSACTION.... 
+
+
+
+
+
+ele faz isso por meio de um TRY EXCEPT BLOCK,
+
+
+
+PQ HÁ A POSSIBILIDADE DE TENTARMOS _ REMOVER UMA TRANSACTION _ QUE JÁ FOI REMOVIDA,
+
+E QUE 
+
+AÍ 
+
+ACABARÍAMOS TENTANDO REMOVER UMA SEGUNDA VEZ... (se o item não existir mais, ele pula para o EXCEPTBLOCK, em qque temos o object except de 'ValueError'..)
+
+
+
+
+
+
+
+
+
+
+
+-> ok... aí testamos nosso código, mais uma vez...
+
+
+
+
+
+
+
+
+
+ok, sucesso, isso funcionou...
+
+
+
+
+
+
+
+
+
+
+--> MAS AINDA TEMOS UM PROBLEMA... --> É O PROBLEMA DE 'BLOCKCHAINS FICANDO OUT OF SYNC'.. ->>> 
+
+
+
+e esse é um problema que pode acontecer, coisa bem comum... -> 
+
+
+
+TEMOS QUE RESOLVER ESSES CONFLITOS... --> JÁ TEMOS ALGUMAS DESSAS PARTES 
+
+
+DE 
+
+RESOLUÇÃO de conflitos no nosso código,
+
+como 
+
+
+
+
+
+NESSES TRECHOS AQUI (em que só colocamos 'pass'):
+
+
+
+
+@app.route('/broadcast-block', methods=['POST'])
+def broadcast_block():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+    if 'block' not in values:
+        response = {'message': 'Some data is missing.'}
+        return jsonify(response), 400
+    block = values['block']
+    if block['index'] == blockchain._chain[-1].index + 1:
+        if blockchain.add_block(block):
+            response = {'message': 'A new block was added, reloading blockchain..'}
+            return jsonify(response), 200
+    elif block['index'] > blockchain._chain[-1].index:
+        pass
+    else:
+        response = {'message': 'Blockchain seems to be shorter, block not added.'}
+        return jsonify(response), 409
+        
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS PRECISAMOS TRABALHAR NESSES CONFLICTS,
+
+FAZER COM QUE O BLOCKCHAIN SAIBA QUE EXISTE UM CONFLICT, E AÍ ADICIONAR UM METHOD PARA RESOLVER O CONFLICT...
+
+
+
+
+
+
+
+-> É ISSO QUE VEREMOS NA PRÓXIMA AULA...

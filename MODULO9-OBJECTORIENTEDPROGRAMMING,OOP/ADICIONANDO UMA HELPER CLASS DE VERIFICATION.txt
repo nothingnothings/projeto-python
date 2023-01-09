@@ -1,0 +1,2643 @@
+
+
+
+
+
+
+
+
+
+
+
+JÁ ADICIONAMOS CLASSES PARA A TRANSACTION E PARA O BLOCK...
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS ADICIONAR UMA CLASS PARA A FIGURA DA 'VERIFICATION' de nosso app...
+
+
+
+
+
+
+
+
+
+
+
+
+---->  ESSA CLASS DE 'verification' 
+
+
+
+VAI SER _ KIND _ OF  
+
+UMA 
+
+HELPER CLASS,
+
+
+
+E VAI __ BUNDLAR__ ALGUNS 
+
+METHODS DE UTILITY E VERIFICATION,
+
+
+
+
+
+
+
+METHODS QUE USAMOS NA BLOCKCHAIN 
+
+
+
+
+
+
+
+
+
+MAS __ QUE __ NOS SENTIMOS SEGUROS COM O OUTSOURCE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS VER O QUE PODEMOS FAZER COM ISSO...
+
+
+
+
+
+
+
+
+
+
+
+--> VOLTAMOS À BLOCKCHAIN.PY...
+
+
+
+
+
+
+
+
+
+
+--> LOAD E SAVE DE DATA,
+
+
+
+por meio dos códigos 
+
+'''
+
+
+
+
+
+
+
+
+def load_data():
+    global blockchain
+    global open_transactions
+    try:
+        with open('blockchain.json', mode='r') as g:
+            # read_blockchain, read_transactions = g.readlines()
+            file_content = g.readlines()
+            blockchain = json.loads(file_content[0][:-1])
+            updated_blockchain = []
+            for block in blockchain:
+                # updated_block = {
+                #     'previous_block_hash': block['previous_block_hash'],
+                #     'index': block['index'],
+                #     'proof': block['proof'],
+                    # 'processed_transactions': [OrderedDict(
+                    #     [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+                # }
+                # converted_transaction = [OrderedDict([('amount', transaction['amount']), ('recipient', transaction['recipient']), ('sender', transaction['sender'])]) for transaction in block['processed_transactions']], block['proof']
+                # updated_block = Block(block['previous_block_hash'], block['index'], converted_transaction, block['timestamp'])
+
+
+
+                # converted_tx = [OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])]) for tx in block['processed_transactions']] ###sem o uso de OBJECTs...
+
+                converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block['processed_transactions']]
+
+                updated_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+                updated_blockchain.append(updated_block)
+                blockchain = updated_blockchain
+                # open_transactions = [OrderedDict([('amount', transaction['amount']), ('recipient', transaction['recipient']), ('sender', transaction['sender'])]) for transaction in json.loads(read_transactions)]  # com list comprehension...
+                open_transactions = json.loads(file_content[1])
+                # print(open_transactions)
+            #     updated_transactions = []
+    
+            #     for tx in open_transactions:
+            #         updated_transaction = OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])])
+
+            #         updated_transactions.append(updated_transaction)
+            # open_transactions = updated_transactions
+                updated_transactions = []
+    
+                for tx in open_transactions:
+                    updated_transaction = Transaction(tx['amount'], tx['recipient'], tx['sender'])
+
+                    updated_transactions.append(updated_transaction)
+            open_transactions = updated_transactions
+
+    except (IOError, IndexError):
+        print('File not found!')
+
+        # GENESIS_BLOCK = {
+        # 'previous_block_hash': '',
+        # 'index': 0,
+        # 'processed_transactions': [],
+        # 'proof': 100,
+        # t 'timestamp': 12121212122121
+        # }
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+
+    # except(ValueError): ###usei isto, mas é meio um workaround... o ideal é não usar esse error type....
+    #     blockchain = [GENESIS_BLOCK]
+    #     open_transactions = []
+    finally:
+        print('Your data was or was not loaded. See error statements')
+        print('clean-up work')
+
+
+
+load_data()
+
+
+
+
+
+
+
+
+
+
+
+
+
+''''''''''
+
+
+
+
+
+
+
+
+
+
+
+
+e
+
+
+
+
+
+
+
+
+
+
+def save_data(): ## para o save de nossa data, nesse caso concreto, a 'ORDER DE NOSSAS DICTS' não interessa, pq só vamos ARMAZENAR AS TRANSACTIONS EM UM ARQUIVO JSON, e não 'checar a validade' de nossa blockchain/transactions (isso é apenas feito lá nos methods de VERIFY, em 'hash_util.py')...
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        # with open('blockchain.txt', mode='w') as f:
+        with open('blockchain.json', mode='w') as f:
+            # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+            # print(open_transactions)
+            # print(open_transactions)
+            # converted_transactions = []
+
+            # for transaction in open_transactions:
+            #     converted_transactions.append(Transaction(transaction['amount'], transaction['recipient'], transaction['sender']))
+            # converted_transactions = [transaction.__dict__ for transaction in converted_transactions]
+            ##mesma coisa que isto:
+            # converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+
+            converted_transactions = [tx.__dict__ for tx in open_transactions]
+
+
+            # converted_blockchain = [] ### meu código, que não funcionou...
+            # for block in blockchain:
+            #     # não é necessário '.__dict__.copy()' aqui pQ NÃO VAMOS MANIPULAR ESSE DICT (situação diferente daquela vista em 'hash_block', pq lá VAMOS MANIPULAR NOSSO DICT)....
+            #     converted_blockchain.append(block.__dict__) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+            
+
+            
+            # for block in converted_blockchain:
+            #     dict_transactions = []
+            #     for transaction in block['processed_transactions']:
+            #         # dict_transactions.append(transaction.to_ordered_dict())
+            #         dict_transactions.append(transaction.__dict__)
+            #     block['processed_transactions'] = dict_transactions
+
+            #código do professor...  --> o objetivo desse código era CONVERTER AO MESMO TEMPO OS BLOCKS E AS TRANSACTIONS (dentro de cada um desses block objects) EM DICTS...
+            converted_blockchain = [block.__dict__ for block in [ Block(block_el.previous_block_hash, block_el.index, [tx.__dict__ for tx in block_el.processed_transactions], block_el.proof, block_el.timestamp) for block_el in blockchain ]  ] ##'block_el' é originalmente um OBJECT.... por isso a refeerncia a seus valores, nessa list comprehension,... --> queremos converter TANTO OS OBJECTS 'Block' como 'Transacion' EM __ DICTS__, PARA QUE POSSAM SER ARMAZENADOS COMO JSON DATA EM ARQUVIOS JSON/TEXT...
+
+            
+            f.write(json.dumps(converted_blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(converted_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> BEM, O NOME 'VERIFICATION' 
+
+para 
+
+
+
+nossa class é meio ERRADO... ---> professor constata que um nome como 
+
+'utility' ou algo do gênero é  MELHOR..
+
+
+
+
+
+
+
+
+
+
+
+--> mas por enquanto vamos deixar 'save' e 'load' 
+
+
+
+
+NO NOSSO CÓDIGO,
+
+
+PQ 
+
+
+VOCÊ 
+
+PODERIA ARGUMENTAR QUE O 'LOAD' E 'SAVE DA BLOCKCHAIN É UM ATO  __ MAIS _ PRÓXIMO/RELACIOONADO 
+
+
+
+COPM A _ BLOCKCHAIN EM SI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, MAS O QUE MAIS PODEMOS OUTSOURCEAR? 
+
+
+
+
+
+
+
+
+
+--> TALVEZ AQUELE METHOD DE 'valid_proof',
+
+
+QUE É ESTE:
+
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof): 
+
+
+    ordered_transactions = [transaction.to_ordered_dict() for transaction in transactions]
+
+
+    verifiable_transactions = json.dumps(ordered_transactions)
+
+
+
+    # guess = (str(ordered_transactions) + str(previous_block_hash) + str(proof)).encode()
+
+
+    guess = (str(verifiable_transactions) + str(previous_block_hash) + str(proof)).encode()
+
+    guess_hash = hash_string_256(guess)
+
+    return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PODEMOS CRIAR UM NOVO ARQUIVO PY,
+
+'Utility',
+
+
+
+
+que vai conter esse method de verification...
+
+
+
+
+
+COMO FAZER ISSO?
+
+
+escrevo assim:
+
+
+
+
+
+
+def valid_proof(transactions, previous_block_hash, proof): 
+
+
+
+    ordered_transactions = [transaction.to_ordered_dict() for transaction in transactions]
+
+
+    verifiable_transactions = json.dumps(ordered_transactions)
+
+
+
+    guess = (str(verifiable_transactions) + str(previous_block_hash) + str(proof)).encode()
+
+
+    return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+
+
+
+
+    -> PRECISO ESCREVER ISSO DENTRO DAQUELA CLASS....
+
+
+
+
+
+
+
+
+
+
+class Utility:
+
+
+    def __init__():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> MAS O QUE MAIS PODERÍAMOS OUTSOURCEAR?
+
+
+
+
+
+
+
+
+
+-> 'valid_proof' --> aceita inputs e RETORNA TRUE/FALSE A PARTIR DESSES INPUTS... -->  
+
+
+
+
+
+ESSE METHOD NÃO PRECISA ACESSAR NADA LÁ DA CLASS DE 'BLOCKCHAIN',
+
+
+
+
+
+pq recebe TUDO AQUILO DE QUE PRECISA 
+
+
+
+
+__  DIRETAMENTE na sua function... ------> É UMA FUNCTION _ PERFEITA__ 
+
+
+
+
+PARA SER INCLUÍDA 
+
+
+EM UMA OUTRA CLASS,
+
+
+CLASS DE 
+
+'verification'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SERÁ INCLUÍDA COMO UM 'HELPER METHOD'...
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ALGO ASSIM:
+
+
+
+
+
+
+
+
+
+class Utility:
+    def __init__(self):
+        print('something')
+
+   
+    def valid_proof(self, transactions, previous_block_hash, proof): 
+
+        ordered_transactions = [transaction.to_ordered_dict() for transaction in transactions]
+
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+
+
+
+        guess = (str(verifiable_transactions) + str(previous_block_hash) + str(proof)).encode()
+
+        guess_hash = hash_string_256(guess)
+
+        return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+-------> Já 'proof_of_work' é uma function QUE ACESSA A BLOCKCHAIN,
+
+
+FAZ O GET DO 'ÚLTIMO BLOCK' 
+
+
+
+
+
+
+E TAMBÉM ACESSA 'open_transactions'... -------> MAS PODERÍAMOS PASSAR ESSES VALORES COMO PARÂMETROS A ESSA FUNCTION,
+
+
+
+por isso 
+
+
+
+o mantemos como POSSÍVEL OPORTUNIDADE DE OUTSOURCING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> mas você pode argumentar que 'proof_of_work'
+É UM CONCEITO 
+
+
+
+MUITO CORRELATO à BLOCKCHAIN EM SI,
+
+
+razão pela qual ele deve ficar aqui....
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'get_balance' POSSUI RELAÇÃO PRÓXIMA COM A BLOCKCHAIN, PQ 
+
+NELE ESTAMOS INDO POR DENTRO DA BLOCKCHAIN 
+
+
+
+
+E TAMBÉM POR DENTRO DAS open_transactions... .--> MAS PODEMOS 
+
+,
+
+
+COMO SEMPRE,
+
+
+
+ACEITAR 
+
+
+
+
+A BLOCKCHAIN E AS TRANSACTIONS COMO ARGUMENTOS NESSA FUNCTION,
+
+E AÍ 
+
+A _ OUTSOURCEAR_ 
+
+
+LÁ 
+
+
+NA CLASS DE 
+
+'Utility'... --> OU SEJA, É OUTRA POSSIBILIDADE DE OUTSOURCING,...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'get_last_blockchain_value'  --------> É OUTRO METHOD DA BLOCKCHAIN, MELHOR O DEIXAR AQUI....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM TEMOS O VERIFY_transaction:
+
+
+
+
+
+
+
+def verify_transaction(transaction):
+    """Retorna True ou False a DEPENDER DO CHECK DA TRANSACTION; SE O USER NÃO TIVER FUNDS SUFICIENTES, RETORNA FALSE E A OPERAÇÃO/TRANSACTION NÃO É REALIZADA. É chamado lá em 'add_transaction()'.."""
+    sender_balance = get_balance(transaction.sender)[2]
+
+    return sender_balance >= transaction.amount
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> essa tbm é uma que poderia ser outsourceada, só teríamos que conseguir acesso a 
+
+'get_balance' 
+
+
+naquela outra class...  ---> É POSSÍVEL _ PASSAR UM  'FUNCTION ADDRESS' como argumento, por isso poderíamos implementar isso.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.. --> 'add_transaction' --> ISSO VAI FICAR NO ARQUIVO BLOCKCHAIN, PQ POSSUI RELAÇÃO PRÓXIMA COM ELE...
+
+
+
+
+
+
+
+
+
+---> mesma coisa com 'mine_block'....
+
+
+
+
+
+
+
+
+
+--> 'get_transaction_value'  --> ISSO SERÁ PASSADO PARA A CLASS DE 'USER INTERFACE/INPUT'...
+
+
+
+
+
+
+
+
+
+
+--> 'get_user_choice' --->  mesma coisa 
+
+
+
+
+
+
+
+
+
+
+
+---> 'verify_chain' --> um ótimo CANDIDATO PARA O OUTSOURCING, PQ AÍ 
+
+SÓ VAMOS PRECISAR ACEITAR O BLOCKCHAIN COMO ARGUMENTO.... --> e isso 
+
+
+
+é algo que podemos 
+
+
+usar em outra class...
+
+
+
+
+
+
+
+
+
+--> ok, vou tentar fazer esse outsourcing SOZINHO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Utility:
+    def __init__(self):
+        print('something')
+
+
+    def valid_proof(self, transactions, previous_block_hash, proof):
+
+        ordered_transactions = [transaction.to_ordered_dict()
+                                for transaction in transactions]
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+        guess = (str(verifiable_transactions) +
+                 str(previous_block_hash) + str(proof)).encode()
+        
+        guess_hash = hash_string_256(guess)
+
+        return guess_hash[0:4] == '0000'
+
+
+    def verify_chain(self, blockchain):
+        for (index, block) in enumerate(blockchain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain[index - 1]):
+                return False
+
+            if not self.valid_proof(block.processed_transactions[:-1], block.previous_block_hash, block.proof):
+                print('Proof of work is invalid.')
+                return False
+        return True
+
+
+    def verify_transaction(self, transaction):
+        """Retorna True ou False a DEPENDER DO CHECK DA TRANSACTION; SE O USER NÃO TIVER FUNDS SUFICIENTES, RETORNA FALSE E A OPERAÇÃO/TRANSACTION NÃO É REALIZADA. É chamado lá em 'add_transaction()'.."""
+        sender_balance = get_balance(transaction.sender)[2]
+        return sender_balance >= transaction.amount
+
+
+    def verify_transactions(self, open_transactions):
+
+        if open_transactions == []:
+            return None
+        else:
+            # exemplo de uso de LIST COMPREHENSION COM __ BOOLEAN OPERATORS (verify_transaction(transaction), que é true ou false) __ COM __ ANY()/ALL() (retorna true ou false a partir da existência/inexistência de 'false' nessa list aí)...
+            return all([self.verify_transaction(transaction) for transaction in open_transactions])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> AGORA SÓ TENHO QUE CHAMAR ESSA CLASS EM TODOS OS 
+
+
+
+LUGARES DE 'blockchain12' 
+
+
+
+em que preciso dessas functions...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+http://hplgit.github.io/primer.html/doc/pub/class/._class-solarized006.html#:~:text=We%20can%20also%20make%20class,are%20known%20as%20static%20methods.
+
+
+
+
+The methods we have seen so far must be called through an instance, which is fed in as the self variable in the method. We can also make class methods that can be called without having an instance. The method is then similar to a plain Python function, except that it is contained inside a class and the method name must be prefixed by the classname. Such methods are known as static methods. Let us illustrate the syntax by making a very simple class with just one static method write:
+
+>>> class A(object):
+...     @staticmethod
+...     def write(message):
+...         print message
+...
+>>> A.write('Hello!')
+Hello!
+As demonstrated, we can call write without having any instance of class A, we just prefix with the class name. Also note that write does not take a self argument. Since this argument is missing inside the method, we can never access non-static attributes since these always must be prefixed by an instance (i.e., self). However, we can access static attributes, prefixed by the classname.
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+class Utility:
+    def __init__(self):
+        print('something')
+
+    @staticmethod
+    def valid_proof(self, transactions, previous_block_hash, proof):
+
+        ordered_transactions = [transaction.to_ordered_dict()
+                                for transaction in transactions]
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+        guess = (str(verifiable_transactions) +
+                 str(previous_block_hash) + str(proof)).encode()
+        
+        guess_hash = hash_string_256(guess)
+
+        return guess_hash[0:4] == '0000'
+
+    @staticmethod
+    def verify_chain(self, blockchain):
+        for (index, block) in enumerate(blockchain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain[index - 1]):
+                return False
+
+            if not self.valid_proof(block.processed_transactions[:-1], block.previous_block_hash, block.proof):
+                print('Proof of work is invalid.')
+                return False
+        return True
+
+    @staticmethod
+    def verify_transaction(self, transaction):
+        """Retorna True ou False a DEPENDER DO CHECK DA TRANSACTION; SE O USER NÃO TIVER FUNDS SUFICIENTES, RETORNA FALSE E A OPERAÇÃO/TRANSACTION NÃO É REALIZADA. É chamado lá em 'add_transaction()'.."""
+        sender_balance = get_balance(transaction.sender)[2]
+        return sender_balance >= transaction.amount
+
+    @staticmethod
+    def verify_transactions(self, open_transactions):
+
+        if open_transactions == []:
+            return None
+        else:
+            # exemplo de uso de LIST COMPREHENSION COM __ BOOLEAN OPERATORS (verify_transaction(transaction), que é true ou false) __ COM __ ANY()/ALL() (retorna true ou false a partir da existência/inexistência de 'false' nessa list aí)...
+            return all([self.verify_transaction(transaction) for transaction in open_transactions])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+-> fiz a substituição de todos os function calls pelo call de methods 
+
+daquela class, 
+
+mas aí recebi um erro;
+
+
+
+
+
+
+
+
+
+from oop.utility import Utility
+
+
+
+ImportError: cannot import name 'Utility' from partially initialized module 'oop.utility' (most likely due to a circular import) (a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\utility.py)
+
+
+
+
+EX:
+
+
+
+
+
+For future readers, this can also happen if you name a python file the same name as a dependency your project uses.
+
+For example:
+
+I cannot have a file named retrying.py that is using the retrying package.
+
+Assuming I had the retrying package in my project, I could not have a file called retrying.py with the below contents:
+
+
+
+
+from retrying import retry
+print("HI")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o erro aconteceu por conta de 'get_balance'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> eu fiz um workaround, o código ficou bem feio.... (cheio de referências por toda parte)....
+
+
+
+
+
+
+
+
+
+
+--> o problema é que 
+
+
+
+
+o nosso código de 'work' 
+
+está mt rápido.... --> o mining ocorre de maneira mt rápida...
+
+
+
+
+
+
+
+--> seguir os passos do professor, pq não estou chegando a lugar algum...
+
+
+
+
+
+
+
+
+
+
+
+- o nome da class do professor ficou diferente, ficou 'verification'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DENTRO DE LÁ,
+ele coloca 
+
+'verify_chain'...
+
+
+
+
+
+
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+class Utility:
+
+
+    def verify_chain():
+    for(index, block) in enumerate(blockchain):
+        if index == 0:
+            continue
+        if block.previous_block_hash != hash_block(blockchain[index - 1]):
+            return False 
+        if not valid_proof(block.transactions[:-1], block.previous_block_hash, block.proof)
+            print('Proof of work is invalid.')
+            return False
+    return True
+
+
+
+    def verify_transactions():
+
+        return all([verify_transactions(transaction) for transaction in open_transactions])
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ok....... O QUE MAIS QUEREMOS OUTSOURCEAR? 
+
+
+
+
+
+
+
+
+
+
+--> verify_transaction também....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> 'get_balance' o PROFESSOR VAI DEIXAR LÁ...
+
+
+
+
+
+
+
+
+--> MAS VALID_PROOF__ será transplantada...
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICOU TIPO ASSIM, POR ENQUANTO:
+
+
+
+
+
+
+class Utility:
+
+    def verify_chain():
+        for(index, block) in enumerate(blockchain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain[index - 1]):
+                return False
+            if not valid_proof(block.transactions[:-1], block.previous_block_hash, block.proof)
+            print('Proof of work is invalid.')
+            return False
+        return True
+
+    def verify_transaction(transaction):
+
+        sender_balance = get_balance(transaction.sender)
+        return sender_balance >= transaction.amount
+
+    def verify_transactions():
+
+        return all([verify_transactions(transaction) for transaction in open_transactions])
+        
+
+    def valid_proof(transactions, previous_block_hash, proof):
+
+        ordered_transactions = [transaction.to_ordered_dict()
+                                for transaction in transactions]
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+        guess = (str(verifiable_transactions) +
+                 str(previous_block_hash) + str(proof)).encode()
+
+        guess_hash = hash_string_256(guess)
+
+        return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+--> VOLTAMOS À BLOCKCHAIN.... ------. savedata e loaddata 
+
+vão continuar ali, 
+
+por  enquanto..
+
+
+
+
+
+
+
+
+
+
+----> AS COISAS VÃO ESTAR QUEBRADAS, É CLARO...
+
+
+
+
+
+
+
+
+
+
+
+--> vamos começar pelo 'valid_proof'...
+
+
+
+
+
+
+
+
+------> O ERRO QUE ESTAREMOS RECEBENDO É 'NÓS NÃO ESTAMOS PASSANDO O ARGUMENTO DE SELF A ESSE METHOD'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR FAZ ALGUNS AJUSTES, AJUSTES QUE EU HAVIA FEITO ANTERIORMENTE (adição de 'self' a call de methods, 'self' como parâmetro ,etc etc)...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+class Utility:
+
+    def verify_chain(self, blockchain):
+        for(index, block) in enumerate(blockchain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain[index - 1]):
+                return False
+            if not self.valid_proof(block.transactions[:-1], block.previous_block_hash, block.proof)
+            print('Proof of work is invalid.')
+            return False
+        return True
+
+    def verify_transaction(self, transaction):
+
+        sender_balance = get_balance(transaction.sender)
+        return sender_balance >= transaction.amount
+
+    def verify_transactions(self):
+
+        return all([verify_transactions(transaction) for transaction in open_transactions])
+
+
+    def valid_proof(self, transactions, previous_block_hash, proof):
+
+        ordered_transactions = [transaction.to_ordered_dict()
+                                for transaction in transactions]
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+        guess = (str(verifiable_transactions) +
+                 str(previous_block_hash) + str(proof)).encode()
+
+        guess_hash = hash_string_256(guess)
+
+        return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> FINALMENTE,
+
+
+O PROFESSOR FALA DE 'get_balance',
+
+QUE 
+
+AQUI 
+
+ESTAMOS CHAMANDO UMA FUNCTION QUE NÃO ESTÁ NESSE ARQUIVO...
+
+
+
+
+
+
+
+--------> OK, POR ISSO O PROFESSOR COLOCA 'get_balance'
+
+
+COMO UM DOS ARGUMENTOS DE 'verify_transaction'... (exatamente como eu havia feito)...
+
+
+
+
+
+
+
+
+
+
+--> quer dizer, eu HAVIA FEITO DE FORMA PARECIDA, MAS NÃO IGUAL...
+
+
+
+
+
+
+
+
+
+
+
+--> mentira, meu código havia ficado diferente (acho que eu talvez havia IMPORTADO essa function nesse arquivo, para então o utilizar nesse method, o que é errado)...
+
+
+
+
+
+
+
+
+
+ 
+ FICA TIPO ASSIM:
+
+
+
+
+
+
+     def verify_transaction(self, transaction, get_balance):
+
+        sender_balance = get_balance(transaction.sender)
+        return sender_balance >= transaction.amount
+
+
+
+
+
+
+
+
+
+
+
+
+---> VAMOS ESPERAR GANHAR UMA REFERENCE A ESSA FUNCTION lá em 'blockchain.py',
+
+PQ 
+
+
+ESSA FUNCTION REALMENTE SERÁ EXECUTADA AQUI....
+
+
+
+
+
+
+
+
+
+
+ATÉ AGORA O CÓDIGO ESTÁ FICANDO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import json
+
+from hash_util import hash_string_256, hash_block
+
+from functools import reduce
+
+
+
+
+
+class Utility:
+
+    def verify_chain(self, blockchain):
+        for(index, block) in enumerate(blockchain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain[index - 1]):
+                return False
+            if not self.valid_proof(block.transactions[:-1], block.previous_block_hash, block.proof)
+            print('Proof of work is invalid.')
+            return False
+        return True
+
+    def verify_transaction(self, transaction, get_balance):
+
+        sender_balance = get_balance(transaction.sender)
+        return sender_balance >= transaction.amount
+
+    def verify_transactions(self):
+
+        return all([verify_transactions(transaction) for transaction in open_transactions])
+
+
+    def valid_proof(self, transactions, previous_block_hash, proof):
+
+        ordered_transactions = [transaction.to_ordered_dict()
+                                for transaction in transactions]
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+        guess = (str(verifiable_transactions) +
+                 str(previous_block_hash) + str(proof)).encode()
+
+        guess_hash = hash_string_256(guess)
+
+        return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok....  
+
+
+
+
+
+
+
+
+AÍ AJEITAMOS O 'verify_transactions'...
+
+
+
+
+
+
+
+
+---> ele recebe 'self' e 'open_transactions' como argumentos...
+
+
+
+
+
+
+
+
+--> 
+
+FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+class Utility:
+
+    def verify_chain(self, blockchain):
+        for(index, block) in enumerate(blockchain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain[index - 1]):
+                return False
+            if not self.valid_proof(block.transactions[:-1], block.previous_block_hash, block.proof)
+            print('Proof of work is invalid.')
+            return False
+        return True
+
+    def verify_transaction(self, transaction, get_balance):
+
+        sender_balance = get_balance(transaction.sender)
+        return sender_balance >= transaction.amount
+
+    def verify_transactions(self, open_transactions):
+
+        return all([self.verify_transactions(transaction) for transaction in open_transactions])
+
+
+    def valid_proof(self, transactions, previous_block_hash, proof):
+
+        ordered_transactions = [transaction.to_ordered_dict()
+                                for transaction in transactions]
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+        guess = (str(verifiable_transactions) +
+                 str(previous_block_hash) + str(proof)).encode()
+
+        guess_hash = hash_string_256(guess)
+
+        return guess_hash[0:4] == '0000'
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+certo... -->  O PROFESSOR PARECE TER UMA EXTENSION DE 'pylint',
+
+QUE 
+
+
+
+
+
+AGORA EU INSTALEI E COLOQUEI NO MEU PROJETO.... --> deve melhorar o suporte do meu IDE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O 'pyLint' APONTA QUE 
+
+
+
+
+
+ESTÁ FALTANDO O ARGUMENTO DE 'get_balance' NO 
+
+
+CALL DO MÉTODO 
+
+
+
+'verify_transactions'....
+
+
+
+
+
+
+
+
+
+
+
+
+-> ok.. o professor nos explica que 
+
+
+devemos adicionar o 
+
+
+'get_balance' 
+
+
+
+COMO ARGUMENTO DE 'verify_TRANSActions'...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+    def verify_transactions(self, open_transactions, get_balance):
+        return all([self.verify_transaction(transaction, get_balance) for transaction in open_transactions])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... agora esse arquivo de 'verification' está consertado... --> basta importá-lo lá em 
+
+
+'blockchain.py''
+
+
+E AJUSTAR OS CALLS DESSAS FUNCTIONS de acordo com o necessário..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> O PROFESSOR FALA QUE __ 
+
+VAMOS USAR __ NOSSAS FUNCTIONS/METHODS DE NOSSA CLASS _DE UMA MANEIRA UM POUCO ESTRANHA,
+
+
+E QUE 
+
+MAIS TARDE VEREMOS UMA MANERIA MELHOR DE USAR ESSES METHODS..
+
+
+
+
+
+
+
+
+
+
+-> meu código, QUE NÃO ESTÁ FUNCIONANDO,
+
+
+É ESTE AQUI:
+
+
+
+
+
+
+
+def proof_of_work():
+    last_block = blockchain[-1]
+    last_hash = hash_block(last_block)
+    proof = 0
+    # while not valid_proof(open_transactions, last_hash, proof):
+    print(proof)
+    while not Utility.valid_proof(open_transactions, last_hash, proof):
+        proof += 1
+    return proof
+
+
+
+
+
+
+
+
+
+
+-------> ele naõ está funcionando por conta do erro:
+
+
+
+
+'''TypeError: Utility.valid_proof() missing 1 required positional argument: 'proof''''
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR MENCIONA QUE __ SSE __ QUISERMOS __ USAR AQUELE METHOD DE 'valid_proof',
+
+
+
+SOMSO OBRIGADOS __ A CRIAR UMA INSTANCE (pq esse method não é um CLASS OU STATIC METHOD, é um INSTANCE METHOD)...
+
+
+
+
+
+
+
+
+
+
+BEM, AGORA O CÓDIGO PAROU DE APITAR:
+
+
+
+
+def proof_of_work():
+    last_block = blockchain[-1]
+    last_hash = hash_block(last_block)
+    proof = 0
+    
+    new_utility = Utility() ####versão bosta do código de 'helper class' (pq vamos querer que essa class tenha METHODS ESTÁTICOS, e não METHODS/ATTRIBUTOS DE 'INSTANCE')...
+    while not new_utility.valid_proof(open_transactions, last_hash, proof):
+        proof += 1
+    return proof
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+ESSE É UM CÓDIGO CLUNKY, SUBÓPTIMO, É CLARO..
+
+
+
+
+
+
+
+
+
+-> TEMOS QUE FAZER A MESMA COISA COM TODOS NOSSOS CALLS DESSES METHODS DE VERIFICATION...
+
+
+
+
+
+
+
+
+
+
+
+
+-> ok... fiz isso.... ainda assim, meu código está dando um ERROR:
+
+
+Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12comCLASSESEOBJECTS.py", line 831, in <module>
+    if(not new_utility.verify_chain(blockchain)):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\utility2.py", line 105, in verify_chain
+    if not self.valid_proof(block.transactions[:-1], block.previous_block_hash, block.proof):
+AttributeError: 'Block' object has no attribute 'transactions'
+PS A:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP>
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> BEM, MAS AGORA O CÓDIGO DO PROFESSOR ESTÁ COM O MESMO PROBLEMA QUE EU HAVIA ANTES:
+
+
+
+o 
+
+
+
+'MINE' de blocks ESTÁ ACONTEECNDO DE MANIERA INSTANTÂNEA...
+
+
+
+
+
+
+
+
+
+
+
+qual será a razão disso?
+
+
+
+
+
+o código inteiro está assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import json
+
+# import os.path
+
+# from collections import OrderedDict
+
+
+# from hash_util import valid_proof, hash_block
+
+from functools import reduce
+
+from hash_util import hash_block
+
+
+from oop.block import Block
+
+from oop.transaction import Transaction
+
+
+from oop.utility2 import Utility
+
+
+OWNER = 'Arthur'
+
+MINING_REWARD = 10
+
+
+blockchain = []
+
+
+open_transactions = []
+
+
+participants = {
+    'Max'
+}
+
+
+def load_data():
+    global blockchain
+    global open_transactions
+    try:
+        with open('blockchain.json', mode='r') as g:
+            # read_blockchain, read_transactions = g.readlines()
+            file_content = g.readlines()
+            blockchain = json.loads(file_content[0][:-1])
+            updated_blockchain = []
+            for block in blockchain:
+                # updated_block = {
+                #     'previous_block_hash': block['previous_block_hash'],
+                #     'index': block['index'],
+                #     'proof': block['proof'],
+                    # 'processed_transactions': [OrderedDict(
+                    #     [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+                # }
+                # converted_transaction = [OrderedDict([('amount', transaction['amount']), ('recipient', transaction['recipient']), ('sender', transaction['sender'])]) for transaction in block['processed_transactions']], block['proof']
+                # updated_block = Block(block['previous_block_hash'], block['index'], converted_transaction, block['timestamp'])
+
+
+
+                # converted_tx = [OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])]) for tx in block['processed_transactions']] ###sem o uso de OBJECTs...
+
+                converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block['processed_transactions']]
+
+                updated_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+                updated_blockchain.append(updated_block)
+                blockchain = updated_blockchain
+                # open_transactions = [OrderedDict([('amount', transaction['amount']), ('recipient', transaction['recipient']), ('sender', transaction['sender'])]) for transaction in json.loads(read_transactions)]  # com list comprehension...
+                open_transactions = json.loads(file_content[1])
+                # print(open_transactions)
+            #     updated_transactions = []
+    
+            #     for tx in open_transactions:
+            #         updated_transaction = OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])])
+
+            #         updated_transactions.append(updated_transaction)
+            # open_transactions = updated_transactions
+                updated_transactions = []
+    
+                for tx in open_transactions:
+                    updated_transaction = Transaction(tx['amount'], tx['recipient'], tx['sender'])
+
+                    updated_transactions.append(updated_transaction)
+            open_transactions = updated_transactions
+
+    except (IOError, IndexError):
+        print('File not found!')
+
+        # GENESIS_BLOCK = {
+        # 'previous_block_hash': '',
+        # 'index': 0,
+        # 'processed_transactions': [],
+        # 'proof': 100,
+        # t 'timestamp': 12121212122121
+        # }
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+
+    # except(ValueError): ###usei isto, mas é meio um workaround... o ideal é não usar esse error type....
+    #     blockchain = [GENESIS_BLOCK]
+    #     open_transactions = []
+    finally:
+        print('Your data was or was not loaded. See error statements')
+        print('clean-up work')
+
+
+
+load_data()
+
+# def verify_chain(): ####       outsourceado
+#     # print(blockchain)
+#     for (index, block) in enumerate(blockchain):
+#         if index == 0:
+#             continue
+#         if block.previous_block_hash != hash_block(blockchain[index - 1]):
+#             return False
+
+#         # if not valid_proof(block['processed_transactions'][:-1], block['previous_block_hash'], block['proof']):
+#         #     print('Proof of work is invalid.')
+#         #     return False
+#         if not valid_proof(block.processed_transactions[:-1], block.previous_block_hash, block.proof):
+#             print('Proof of work is invalid.')
+#             return False
+#     return True
+
+
+# def verify_transaction(transaction): ### outsourceado
+#     """Retorna True ou False a DEPENDER DO CHECK DA TRANSACTION; SE O USER NÃO TIVER FUNDS SUFICIENTES, RETORNA FALSE E A OPERAÇÃO/TRANSACTION NÃO É REALIZADA. É chamado lá em 'add_transaction()'.."""
+#     # sender_balance = get_balance(transaction['sender'])[2]
+#     sender_balance = get_balance(transaction.sender)[2]
+#     # print(sender_balance)
+#     # return sender_balance >= transaction['amount']
+#     return sender_balance >= transaction.amount
+
+
+
+def proof_of_work():
+    last_block = blockchain[-1]
+    last_hash = hash_block(last_block)
+    proof = 0
+    # while not valid_proof(open_transactions, last_hash, proof):
+    
+    new_utility = Utility() ####versão bosta do código de 'helper class' (pq vamos querer que essa class tenha METHODS ESTÁTICOS, e não METHODS/ATTRIBUTOS DE 'INSTANCE')...
+    # while not Utility.valid_proof(open_transactions, last_hash, proof):
+    while not new_utility.valid_proof(open_transactions, last_hash, proof):
+        proof += 1
+    return proof
+
+
+
+##### def get_value(person): ###versão com DICTS
+######     return [[transaction['amount'] for transaction in block['processed_transactions'] if transaction[person] == OWNER] for block in blockchain]
+
+
+
+
+
+
+# def get_balance(participant):  # versão COM O USO DE REDUCE NA NOSSA LIST...
+#     transaction_sender = get_value('sender')
+#     open_transactions_sender = [transaction['amount']
+###   ###                             for transaction in open_transactions if transaction['sender'] == participant]
+#     transaction_sender.append(open_transactions_sender)
+
+#     print(transaction_sender[0])
+
+#     print(transaction_sender)
+
+#     amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+#                          if len(tx_amt) > 0 else tx_sum + 0, transaction_sender, 0)
+
+#     print(amount_sent)
+
+#     transaction_recipient = get_value('recipient')
+
+#     amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+#                              if len(tx_amt) > 0 else tx_sum + 0, transaction_recipient, 0)
+#     print(amount_received)
+#     return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+def get_value(person):  # versão com OBJECTS (block) NO LUGAR DE 'dicts'...
+    return [[transaction.amount for transaction in block.processed_transactions if getattr(transaction, person) == OWNER] for block in blockchain]
+
+
+def get_balance(participant):  # versão COM O USO DE REDUCE NA NOSSA LIST...
+    transaction_sender = get_value('sender')
+    open_transactions_sender = [transaction.amount
+                                for transaction in open_transactions if transaction.sender == participant]
+                                 
+    transaction_sender.append(open_transactions_sender)
+
+    print(transaction_sender[0])
+
+    print(transaction_sender)
+
+    amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                         if len(tx_amt) > 0 else tx_sum + 0, transaction_sender, 0)
+
+    print(amount_sent)
+
+    transaction_recipient = get_value('recipient')
+
+    amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                             if len(tx_amt) > 0 else tx_sum + 0, transaction_recipient, 0)
+    print(amount_received)
+    return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+
+
+
+
+# def verify_transactions(): ####OUTSOURCEADO 
+#     # return all([True, True, True, False])  --> acaba resolvido para 'False'...
+#     if open_transactions == []:
+#         return None
+#     else:
+#         # exemplo de uso de LIST COMPREHENSION COM __ BOOLEAN OPERATORS (verify_transaction(transaction), que é true ou false) __ COM __ ANY()/ALL() (retorna true ou false a partir da existência/inexistência de 'false' nessa list aí)...
+#         return all([verify_transaction(transaction) for transaction in open_transactions])
+
+
+
+
+def save_data(): ## para o save de nossa data, nesse caso concreto, a 'ORDER DE NOSSAS DICTS' não interessa, pq só vamos ARMAZENAR AS TRANSACTIONS EM UM ARQUIVO JSON, e não 'checar a validade' de nossa blockchain/transactions (isso é apenas feito lá nos methods de VERIFY, em 'hash_util.py')...
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        # with open('blockchain.txt', mode='w') as f:
+        with open('blockchain.json', mode='w') as f:
+            # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+            # print(open_transactions)
+            # print(open_transactions)
+            # converted_transactions = []
+
+            # for transaction in open_transactions:
+            #     converted_transactions.append(Transaction(transaction['amount'], transaction['recipient'], transaction['sender']))
+            # converted_transactions = [transaction.__dict__ for transaction in converted_transactions]
+            ##mesma coisa que isto:
+            # converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+
+            converted_transactions = [tx.__dict__ for tx in open_transactions]
+
+
+            # converted_blockchain = [] ### meu código, que não funcionou...
+            # for block in blockchain:
+            #     # não é necessário '.__dict__.copy()' aqui pQ NÃO VAMOS MANIPULAR ESSE DICT (situação diferente daquela vista em 'hash_block', pq lá VAMOS MANIPULAR NOSSO DICT)....
+            #     converted_blockchain.append(block.__dict__) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+            
+
+            
+            # for block in converted_blockchain:
+            #     dict_transactions = []
+            #     for transaction in block['processed_transactions']:
+            #         # dict_transactions.append(transaction.to_ordered_dict())
+            #         dict_transactions.append(transaction.__dict__)
+            #     block['processed_transactions'] = dict_transactions
+
+            #código do professor...  --> o objetivo desse código era CONVERTER AO MESMO TEMPO OS BLOCKS E AS TRANSACTIONS (dentro de cada um desses block objects) EM DICTS...
+            converted_blockchain = [block.__dict__ for block in [ Block(block_el.previous_block_hash, block_el.index, [tx.__dict__ for tx in block_el.processed_transactions], block_el.proof, block_el.timestamp) for block_el in blockchain ]  ] ##'block_el' é originalmente um OBJECT.... por isso a refeerncia a seus valores, nessa list comprehension,... --> queremos converter TANTO OS OBJECTS 'Block' como 'Transacion' EM __ DICTS__, PARA QUE POSSAM SER ARMAZENADOS COMO JSON DATA EM ARQUVIOS JSON/TEXT...
+
+            
+            f.write(json.dumps(converted_blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(converted_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+    previous_block = blockchain[-1]
+    print(previous_block)
+    # print(blockchain[-1])
+    hashed_block = hash_block(previous_block)
+    print(hashed_block)
+    print(hashed_block)
+    # proof = 0
+
+    proof = proof_of_work()
+    # reward_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+    #     ('amount', MINING_REWARD),
+    #     ('recipient', OWNER),
+    #     ('sender', 'ourApp')
+    # ])
+    reward_transaction = Transaction(MINING_REWARD, OWNER, 'ourApp')
+    copied_transactions = open_transactions[:]
+    copied_transactions.append(reward_transaction)
+
+
+    # block = {'previous_block_hash': hashed_block,
+    #          'index': len(blockchain),
+    #          #  ssssssssssssssssssssssssssssssssssssssssssssss'processed_transactions': open_transactions,
+    #          'processed_transactions': copied_transactions,
+    #          'proof': proof
+    #          }
+
+    block = Block(hashed_block, len(blockchain), copied_transactions, proof)
+    blockchain.append(block)
+    # save_data() #código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+    print(blockchain, 'TRIED TO MINE BLOCK')
+    return True
+
+
+def get_user_choice():
+    """ Returns the input of the user (either 1, 2, h or q) to proceed with the options """
+    user_input = input('Please choose an option: ')
+
+    return user_input
+
+
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+    """
+    # new_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+    #     ('amount', amount),
+    #     ('recipient', recipient),
+    #     ('sender', sender)
+    # ])
+
+
+    new_transaction = Transaction(amount, recipient, sender)
+    # if not verify_transaction(new_transaction)
+    new_utility = Utility()
+    # if not Utility.verify_transaction(new_transaction, get_balance(OWNER)):
+    if not new_utility.verify_transaction(new_transaction, get_balance(OWNER)):
+        print('Your funds are not enough for the chosen operation')
+        return False
+    else:
+        open_transactions.append(new_transaction)
+        participants.add(sender)
+        participants.add(recipient)
+        print(open_transactions)
+        save_data()
+        return True
+
+
+
+def get_transaction_value():
+    """ Returns the input of the user (sender, recipient, amount) as a tuple, to proceed with option 1 """
+
+    user_transaction_sender = OWNER
+
+    user_transaction_recipient = input("Please enter the recipient's name: ")
+    if (user_transaction_recipient == '' or not isinstance(user_transaction_sender, str)):
+        return None
+    user_transaction_amount = input('Please enter transaction amount: ')
+    if (user_transaction_amount == '' or not user_transaction_amount.isnumeric() or isinstance(user_transaction_amount, bool)):
+        print('TEST')
+        return None
+    user_transaction_input = (
+        user_transaction_sender, user_transaction_recipient, float(user_transaction_amount))
+    return user_transaction_input
+
+
+
+
+
+
+# def verify_transaction(transaction):
+#     """Retorna True ou False a DEPENDER DO CHECK DA TRANSACTION; SE O USER NÃO TIVER FUNDS SUFICIENTES, RETORNA FALSE E A OPERAÇÃO/TRANSACTION NÃO É REALIZADA. É chamado lá em 'add_transaction()'.."""
+#     # sender_balance = get_balance(transaction['sender'])[2]
+#     sender_balance = get_balance(transaction.sender)[2]
+#     print(sender_balance)
+#     # return sender_balance >= transaction['amount']
+#     return sender_balance >= transaction.amount
+
+
+
+
+
+
+def output_blockchain():
+    for block in blockchain:
+        print('Outputting block')
+        print(block)
+    # else:
+    #     print('-' * 20)
+
+
+
+
+
+waiting_for_input = True
+
+
+while waiting_for_input:
+    # load_data()
+    print('-' * 30)
+    print('1: Add a new transaction value')
+    print('2: Display current blockchain')
+    print('3: Show participants')
+    print("b: Show user's balance")
+    print('h: Manipulate the chain')
+    print('m: Mine a block')
+    print('q: Quit the program')
+    print('v: Verify open transactions')
+    print('-' * 30)
+    user_input = get_user_choice()
+    if(user_input == '1'):
+        user_transaction = get_transaction_value()
+
+        if(user_transaction == None):
+            print('Please enter a valid sender, recipient and transaction value.')
+        else:
+            sender, recipient, amount = user_transaction
+            if add_transaction(sender, recipient, amount):
+                print('Added transaction!')
+            else:
+                print('Transaction failed')
+
+    elif(user_input == '2'):
+        output_blockchain()
+    elif(user_input == 'q'):
+        waiting_for_input = False
+
+    elif(user_input == 'h'):
+        print(blockchain)
+        elementIndex = input(
+            'Enter the number of the element you want to manipulate: ')
+        if (elementIndex.isnumeric()):
+            if (len(blockchain) >= int(elementIndex) + 1):
+                elementValue = input(
+                    ' Please Enter the value you want to insert: ')
+                blockchain[int(elementIndex)]['processed_transactions'] = [
+                    {'sender': 'test', 'recipient': 'tested', 'amount': 1212}]
+            else:
+                print(
+                    'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+        else:
+            print('Invalid index entered, please try again')
+
+    elif(user_input == 'm'):
+        if mine_block():
+            print(' MINED')
+            open_transactions = []
+            save_data() #código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+    elif(user_input == '3'):
+        print(participants)
+    elif(user_input == 'b'):
+        sent, received, balance = get_balance(OWNER)
+        print(f'Blocks sent by {OWNER}: ' + '{sent:>6.2f}'.format(sent=sent))
+        print(f'Blocks received by {OWNER}: ' +
+              '{received:>6.2f}'.format(received=received))
+        print(f'Total Balance of {OWNER}: ' +
+              '{balance:>6.2f}'.format(balance=balance))
+    elif(user_input == 'v'):
+        # if (verify_transactions()):
+        # if (Utility.verify_transactions(open_transactions, get_balance(OWNER))):
+        new_utility = Utility()
+        if (new_utility.verify_transactions(open_transactions, get_balance(OWNER))):
+            print('Transactions are valid.')
+        # elif(verify_transactions() == None):
+        elif(new_utility.verify_transactions(open_transactions, get_balance(OWNER)) == None):
+            print('No transactions to verify, please add a transaction.')
+        else:
+            print('Invalid transactions detected.') 
+    else:
+        print('-' * 40)
+        print('Invalid command.')
+    # if(not verify_chain()):
+    new_utility = Utility()
+    if(not new_utility.verify_chain(blockchain)):
+        print('Blockchain was found invalid.')
+        print(blockchain)
+        waiting_for_input = False
+    else:
+        print('Blockchain is valid')
+else:
+    print('User left')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+consegui restaurar o comportamento antigo de 'mine_block' (que deve demorar um pouco antes de conseguir mninerar 1 block)...
+
+
+
+
+
+
+
+--> SÓ DEMORA UM POUCO MAIS, AGORAW...
+
+
+
+
+
+
+
+
+--> MAS HÁ MAIS UMA COISA QUE PODEMOS MELHORAR (aquela coisa de não ter que criar várias instances)...
+
+
+
+
+
+

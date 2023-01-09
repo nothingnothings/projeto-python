@@ -1,0 +1,628 @@
+
+
+
+
+
+
+
+
+
+
+
+--> DE VOLTA AO NOSSO PROJETO,
+
+
+
+TEMOS A CLASS DE 'Utility',
+
+QUE É ESTA AQUI;
+
+
+
+class Utility:
+    def verify_chain(self, blockchain):
+        for(index, block) in enumerate(blockchain.chain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain.chain[index - 1]):
+                return False
+
+            if not self.valid_proof(block.processed_transactions[:-1], block.previous_block_hash, block.proof):
+                print('Proof of work is invalid.')
+                return False
+        return True
+
+    def verify_transaction(self, transaction, get_balance):
+
+        sender_balance = get_balance(transaction.sender)[2]
+        return sender_balance >= transaction.amount
+
+    def verify_transactions(self, open_transactions, get_balance):
+        return all([self.verify_transaction(transaction, get_balance) for transaction in open_transactions])
+
+
+    def valid_proof(self, transactions, previous_block_hash, proof):
+
+        ordered_transactions = [transaction.to_ordered_dict()
+                                for transaction in transactions]
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+        guess = (str(verifiable_transactions) +
+                 str(previous_block_hash) + str(proof)).encode()
+
+        guess_hash = hash_string_256(guess)
+        print(guess_hash)
+
+        return guess_hash[0:5] == '00000'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> COMO VOCÊ PODE VER, AINDA NÃO ESTAMOS USANDO STATIC METHODS ('@staticmethod')..
+
+
+
+
+
+
+
+
+----> é por isso que devo MUDAR ESSE CÓDIGO TODO AÍ, TIPO ASSIM:
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Utility:
+
+    @staticmethod
+    def verify_chain(blockchain):
+        for(index, block) in enumerate(blockchain.chain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain.chain[index - 1]):
+                return False
+
+            if not self.valid_proof(block.processed_transactions[:-1], block.previous_block_hash, block.proof):
+                print('Proof of work is invalid.')
+                return False
+        return True
+
+
+    @staticmethod
+    def verify_transaction(transaction, get_balance):
+
+        sender_balance = get_balance(transaction.sender)[2]
+        return sender_balance >= transaction.amount
+
+
+    @staticmethod
+    def verify_transactions(open_transactions, get_balance):
+        return all([self.verify_transaction(transaction, get_balance) for transaction in open_transactions])
+
+
+
+
+
+    @staticmethod
+    def valid_proof(transactions, previous_block_hash, proof):
+
+        ordered_transactions = [transaction.to_ordered_dict()
+                                for transaction in transactions]
+
+        verifiable_transactions = json.dumps(ordered_transactions)
+
+        guess = (str(verifiable_transactions) +
+                 str(previous_block_hash) + str(proof)).encode()
+
+        guess_hash = hash_string_256(guess)
+        print(guess_hash)
+
+        return guess_hash[0:5] == '00000'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO, MAS AQUI ENCONTRAMOS UM PROBLEMA... -> 
+
+
+
+
+
+
+
+HÁ METHODS AÍ QUE FAZEM REFERÊNCIA A __ OUTROS __ METHODS__, NESSA MESMA CLASS AÍ (
+
+
+    e se queremos usar esses outros methods, TERÍAMOS DE CHAMAR OU 'self.method()' ou 'cls.method' (transformar o method que chama o outro method em um CLASSMETHOD)...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> outra alternativa é simplesmente chamar esse method outro com 
+
+
+'Utility.nomeDoMethod()' lá 
+
+
+
+
+no local em que o METHOD QUE PRECISA DESSE OUTRO METHOD É CHAMADO..
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+    @staticmethod
+    def verify_transactions(open_transactions, get_balance, verify_transaction):
+        return all([verify_transaction(transaction, get_balance) for transaction in open_transactions])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> e aí, no local em que chamamos esse negócio, escreveríamos a call desse method assim:
+ 
+
+
+
+''''
+
+
+verify_transactions(open_transactions, NUMBER, Utility.verify_transaction)
+
+
+
+
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ajeitei um monte de lugares do código....
+
+
+
+
+
+
+
+
+
+
+--> agora testo o mine de um novo block...
+
+
+
+
+
+
+
+--> agora ganhei um error:
+
+
+Blockchain was found invalid.
+<blockchain12comCLASSESEOBJECTS.Blockchain object at 0x00000297D09EF6A0>
+User left
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ainda estou recebendo esse error...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARECE QUE ERA BOBAGEM, PQ O CÓDIGO REALMENTE ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+-> devo assistir a aula do professor:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> PROFESSOR ADMITE QUE __ ALGUNS METHODS SERIAM MELHOR DECORADOS COM '@classmethod' (pq acabam acessando outros methods dentro do próprio 'Utility', eis a necessidade de ser um CLASS METHOD),
+
+em vez de 
+
+'@staticmethod',
+
+
+
+
+
+MAS AGORA É TARDE, PQ JÁ ESCREVI TODOS COMO 'STATIC'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 'valid_proof' --> É UM METHOD QUE CONSEGUE FUNCIONAR COM APENAS OS INPUTS QUE RECEBE... (não acessa nada da class)..
+
+
+
+
+
+
+
+->´e um bom use-case para STATIC METHOD...
+
+
+
+
+
+ex:
+
+
+
+
+
+
+@staticmethod
+def valid_proof(transactions, last_hash, proof):
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ verify_chain
+
+
+
+
+
+
+ACESSA O METHOD DE 'valid_proof',
+
+
+POR ISSO 
+
+
+
+USAREMOS 
+
+
+
+'cls' e '@classmethod'  nesse method...
+
+
+
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+    @classmethod
+    def verify_chain(cls, blockchain):
+        for(index, block) in enumerate(blockchain.chain):
+            if index == 0:
+                continue
+            if block.previous_block_hash != hash_block(blockchain.chain[index - 1]):
+                return False
+
+            if not cls.valid_proof(block.processed_transactions[:-1], block.previous_block_hash, block.proof):
+                print('Proof of work is invalid.')
+                return False
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok... -----.
+
+
+
+
+
+
+
+
+nossa blockchain está funcionando sem problemas...
+
+
+
+
+
+
+
+
+
+
+
+
+--> o professor também deixa 'classmethod' o 'verify_transactions',
+
+pq ele depende 
+de 
+
+
+'verify_transaction'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> A CLASS DE 'Utility' foi 
+
+
+
+atualizada, e agora devemos mudar a sintaxe dos locais em que seus methods são chamados...
+
+
+
+
+
+
+
+--> chamamos os methods DIRETAMENTE NO CLASS OBJECT,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+Utility.verify_transactions ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> PROFESSOR MOSTRA UM RECURSO DO IDE: 
+
+
+
+--> SE VOCÊ CLICA EM ALGUMA FEATURE IMPORTADA 
+
+EM 1 FILE,
+
+VOCê PODE VER, NA DIREITA, OS LOCAIS EM QUE ESSE NEGÓCIO FOI UTILIZADO..
+
+
+
+
+
+
+
+
+
+
+
+--> mas essa feature é meio bosta....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, prosseguindo...
+
+
+
+
+
+
+
+
+
+
+
+--> agora isso está funcionando, com static methods nessa class de 'Utility' ------> ESSE É UM USE-CASE DE CLASSES BEM COMUM, SÓ USÁ-LOS PARA AGRUPAR DIFERENTES FUNCTIONALITIES... 

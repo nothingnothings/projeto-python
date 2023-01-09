@@ -1,0 +1,432 @@
+
+
+
+
+
+
+
+
+
+
+
+--> OBVIAMENTE NOSSAS 'TRANSACTIONS' ESTÃO FALTANDO,
+
+
+
+
+
+
+MAS PARA QUE 
+
+CONSIGAMOS REALIZAR/ADICIONAR TRANSACTIONS,
+
+
+
+
+PRIMEIRAMENTE PRECISAMOS SABER OS NOSSOS 'FUNDS'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> para isso,
+
+devemos adicionar uma 
+
+
+
+
+
+route de 
+
+
+'get_balance',
+
+
+ou algo assim....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> A ROUTE INICIALMENTE FICA ASSIM:
+
+
+
+
+@app.route('/funds', methods=['GET'])
+def get_balance():
+    if (wallet.public_key != None):
+        user_balance = blockchain.get_balance()
+        print(user_balance)
+        response = {
+            'message': 'balance successfuly retrieved',
+            'Funds sent':  user_balance[0],
+            'Funds received': user_balance[1],
+            'Total funds': user_balance[2]
+        }
+        return jsonify(response), 200
+    else:
+        response = {
+            'message': 'Failed to retrieve your balance'
+        }
+        return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+--> MAS ISSO (o 'get_balance') 
+
+
+ESTÁ RETORNANDO '0, 0, 0',
+
+
+
+
+
+O QUE SIGNIFICA QUE HÁ ALGO DE ERRADO NO CÓDIGO.... (na lógica do method em 'blockchain')...
+
+
+
+
+
+
+
+
+
+-> já sei o problema, é que 
+
+
+
+
+o 
+
+
+
+NOSSO 'user'
+
+não está figurando como o 'recipient'...
+
+
+
+
+
+
+
+
+
+ok... acho que agora estou conseguindo...
+
+
+
+
+
+
+
+
+
+ok, agora o get balance está funcionando....
+
+
+
+
+
+EX:
+
+
+
+
+{
+    "Funds received": 20,
+    "Funds sent": 0,
+    "Total funds": 20,
+    "message": "balance successfuly retrieved"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... agora que me liguei:
+
+
+
+
+
+estamos rodando TANTO O SERVER COMO O 'USER' EM 1 MESMO LUGAR, POR ENQUANTO.... (não estamos com eles 'separados' um em relaçaõ ao outro)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR EXPLICA QUE PODERÍAMOS RETORNAR OS FUNDS COMO PARTE DE NOSSA 'MINING FUNCTION' (
+
+
+    quando mineramos um block,
+    poderíamos colocar um outro 
+
+    entry, em que diz 'funds'...
+)
+
+
+
+
+
+
+
+
+--> MAS VAMOS QUERER ADICIONAR UMA ROUTE DE BALANCE, QUE É O QUE EU FIZ... 
+
+
+
+(
+
+
+    return the balance for the CURRENTLY REGISTERED PUBLIC_KEY OF 
+
+    THE WALLET.TXT FILE MAANGED ON THE SERVER..
+)
+
+
+
+
+
+
+
+
+
+
+
+rodei a function de 'get_balance',
+
+
+
+
+
+nessa route ali:
+
+
+
+
+
+
+
+@app.route('/funds', methods=['GET'])
+def get_balance():
+    if (wallet.public_key != None):
+        user_balance = blockchain.get_balance()
+        print(user_balance)
+        response = {
+            'message': 'Balance successfuly retrieved',
+            'Funds sent':  user_balance[0],
+            'Funds received': user_balance[1],
+            'Total funds': user_balance[2]
+        }
+        return jsonify(response), 200
+    else:
+        response = {
+            'message': 'Failed to retrieve your balance',
+            'wallet_set_up': wallet.public_key != None
+        }
+        return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK...
+
+
+
+
+
+
+
+
+AGORA VAMOS QUERER PROSSEGUIR...
+
+
+
+
+
+
+
+
+
+---> QUEREMOS RETORNAR A BALANCE __ _TAMBÉM _ QUANDO 
+
+
+
+
+SETTARMOS UMA WALLET (Carregarmos/criarmos uma nova wallet)...
+
+
+
+
+
+
+
+
+
+
+
+
+-> para isso, editamos as responses de 'create_keys'
+
+e 
+
+'load_keys'...
+
+
+
+
+
+FUNCIONOU:
+
+
+
+
+@app.route('/wallet', methods=['GET'])
+def load_keys():
+    if (wallet.load_keys()):
+            response = {
+        'public_key': wallet.public_key,
+        'private_key': wallet.private_key
+        }
+            global blockchain
+            blockchain = Blockchain(wallet.public_key)
+            return jsonify(response), 201
+
+    response = {
+            'message': 'Failed to load existing wallet. Loading new wallet...',
+            'public_key': wallet.public_key,
+            'private_key': wallet.private_key,
+            'funds': blockchain.get_balance()[2]
+            
+        }
+    return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MESMA COISA COM O 'CREATE A WALLET'...
+
+
+EX:
+
+
+
+
+
+
+
+
+
+@app.route('/wallet', methods=['GET'])
+def load_keys():
+    if (wallet.load_keys()):
+ 
+            global blockchain
+            blockchain = Blockchain(wallet.public_key)
+            response = {
+                'public_key': wallet.public_key,
+                'private_key': wallet.private_key,
+                'funds': blockchain.get_balance()[2]
+                }
+            return jsonify(response), 201
+
+    response = {
+            'message': 'Failed to load existing wallet. Loading new wallet...',
+            'public_key': wallet.public_key,
+            'private_key': wallet.private_key,
+           
+            
+        }
+    return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+certo, tudo funcionando...

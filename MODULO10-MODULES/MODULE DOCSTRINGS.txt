@@ -1,0 +1,232 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ --> QUANDO TRABALHAMOS COM MÚLTIPLOS ARQUIVOS,
+
+
+ E 1 ARQUIVO 
+
+ É 
+
+ FREQUENTEMENTE REFERENCIADO COMO 'module' (esse é o nome que os desenvolvedores usam),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ E ESPECIALMENTE QUANDO CRIAMOS HELPER PACKAGES COMO ESSE NOSSO 'utility',
+
+
+
+
+
+
+ __ TALVEZ __ VOCÊ QUEIRA FAZER 'COMMENT' DE SEUS MODULES,
+
+
+
+
+ ESCREVER AQUELES 
+
+
+ '''   ''',
+
+
+
+
+
+
+
+
+TUDO PARA QUE FIQUE BEM CLARO __ O QEU ACONTECE NESSE ARQUIVOO,
+
+
+
+QUAIS FEATURES ESSA FILE PROVIDENCIA...
+
+
+
+
+
+
+
+
+
+
+
+----> AS ANOTAÇÕES ÚTEIS PODEM SER FEITAS POR MEIO DE 'docstrings',
+
+COMO O PROFESSOR MOSTROU NO PASSADO..
+
+
+
+
+
+
+
+
+
+
+
+""" EI EI EI EI EI EI""" 
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO AÍ, VISTO LOGO ACIMA, É UM 'ARTICLE', e é FREQUENTEMENTE ADICIONADO __ a METHODS...
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+def valid_proof(transactions, last_hash, proof):
+    """validate a proof of work number and see if it solves the puzzle for the hash production"""...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> JÁ COM 'MODULES', a coisa é um pouco mais diferente (pq é o arquivo inteiro),
+
+
+
+
+
+
+
+E POR ISSO O PROFESSOR VAI NOS DAR UMA EXPLICAÇAÕ..
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ ADICIONA UMA DOCSTRING A UM MODULO 
+
+
+
+por meio do 
+
+simples 
+
+
+ADD 
+
+
+
+
+
+
+
+de 
+
+
+
+
+
+"""         """ 
+
+
+
+
+
+
+
+
+BEM AO INÍCIO DO ARQUIVO,..
+
+
+
+
+
+
+
+
+
+
+
+--> TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+"""Provides verification helper methods"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR PROVIDENCIA UM ARTIGO COM ALGUNS EXEMPLOS DE DOCSTRINGS....

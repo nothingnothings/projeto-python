@@ -1,0 +1,701 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> HÁ VÁRIAS RAZÕES BOAS PARA APRENDER UMA LINGUAGEM COMO O PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+--> É VERSÁTIL, FÁCIL DE USAR 
+
+
+
+E POPULAR..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> HÁ OUTRAS LINGUAGENS POPULARES:
+
+
+
+
+
+
+
+
+
+C++ ------->  TAMBÉM É SUPER POPULAR, SUPER FORTE, E É USADA PARA CONSTRUIR TODO TIPO DE COISAS...
+
+
+
+
+
+
+
+
+--> MAS É MAIS COMPLEXA DO QUE PYTHON.... --> VOCê CONSTRÓI AS COISAS MAIS 'FROM SCRATCH' 
+
+
+do que o python --> É MAIS USADO PARA CRIAR DESKTOP APPS -_> VOCê TEM QUE SOLUCIONAR 
+
+MAIS AS COISAS 
+
+POR 
+
+'CONTA PRÓPRIA' DO QUE COM O PYTHON...
+
+
+
+
+
+
+
+
+
+
+--> NÓS USAMOS BASTANTE COM DESKTOP APPS---> É MT USADO NA CRIAÇÃO DE JOGOS--> mas, pela maior parte,
+
+
+
+
+ELE RODA 'POR TRÁS DAS CENAS' E AÍ VOCÊ USA UM FRAMEWORK/ENGINE _ QUE __ RODA EM CIMA DELE..... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É CLARO QUE VOCÊ PODE ESCREVER CÓDIGO C++,
+ 
+
+
+ MAS É UMA LINGUAGEM COMPLEXA,
+
+
+ E FREQUENTEMENTE VOCÊ 
+
+
+ TERÁ 
+
+
+
+ LINGUAGENS QUE USARÁ NO SEU LUGAR...
+
+
+
+
+
+
+
+
+
+
+
+ --> POR EXEMPLO, 'PYTHON',
+
+
+
+
+ a versão que estamos usando,
+
+
+ ELA 'BUILDS UPON' 'C',
+
+
+
+
+
+
+
+ QUE NÃO É EXATAMENTE A MESMA COISA QUE O 'C++',
+
+
+
+
+
+ MAS É GERALMENTE 
+
+ RELACIONADO 
+
+
+
+ A ELA...
+
+
+
+
+
+
+
+
+
+
+
+ --> E O PYTHON É UM 'EXTRA LAYER' acima do 'C',
+
+ que 
+
+ é 
+
+ MAIS ACESSÍVEL DO QUE O C++ 
+
+
+
+
+
+
+
+
+
+
+
+ --> NÓS TAMBÉM TEMOS LINGUAGENS COMO 
+
+
+ 'JAVA' 
+
+
+
+
+
+
+
+
+
+
+
+ --> JAVA É UMA LINGUAGEM VERSÁTIL QUE PODEMOS USAR 
+
+
+
+
+ PARA __ CONSTRUIR __ DESKTOP APPS,
+
+ webapps
+
+
+
+ E ATÉ 
+
+
+
+ MOBILEAPPS (com o android, mas não o IOS)...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> FALANDO DE ANDROID,
+
+
+
+ NÓS TAMBÉM TEMOS COISAS 
+
+
+ COMO 
+
+
+
+
+ 'SWIFT' E 'OBJECTIVE C',
+
+
+
+ USADAO PARA RODAR 
+
+
+
+
+
+IOS APPS (
+
+
+    ou macOS apps....
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS LINGUAGENS COMO O JAVASCRIPT,
+
+
+QUE 
+RODAM 
+
+NO BROWSER,
+
+
+
+OU QUE PODEM SER USADOS NO SERVER (NODE, EXPRESS, DENO),
+
+
+
+
+
+
+
+
+QUE VOCê TIPICAMENTE SÓ USA PARA RODAR WEBAPPS.... 
+
+
+
+
+
+
+
+
+
+
+--> PHP É OUTRO EXEMPLO:
+
+
+
+É UMA LINGUAGEM QUE VOCÊ SÓ USA  __ PARA CONSTRUIR __ WEBSITES E WEBAPPS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ VOCÊ TEM O PYTHON, QUE É MT VERSÁTIL,
+
+
+QUE
+
+VOCÊ USA PARA DATA SCIENCE,
+
+
+
+
+DESKTOP APPS/UTILITY sCRIPTS 
+
+
+
+
+
+E WEBAPPS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->OK, MAS QUAL VOCÊ DEVE ESCOLHER,
+
+PQ 
+
+
+PYTHON É A 
+
+
+ESCOLHA CORRETA? 
+
+
+
+
+
+
+
+
+
+
+--> BEM, TUDO DEPENDE DO QUE VOCÊ ESTÁ CONSTRUINDO....
+
+
+
+
+
+
+
+
+
+
+
+
+--> A COISA BOA DE LINGUAGENS COMO PYTHON É QUE SE VOCÊ 
+
+APRENDER ESSA LINGUAGEM,,
+
+
+
+VOCÊ ESTÁ BASICAMETNE LIVRE PARA 
+
+CONSTRUIR 
+
+
+
+QUALQUER COISA QUE VOCÊ QUISER,
+
+A QUALQUER TEMPO,
+
+NO FUTUOR...
+
+
+
+
+
+
+
+
+
+
+
+--> HÁ ALGUMAS LINGUAGENS COMO O JAVASCRIPT, NO BROWSER,
+
+
+EM QUE 
+
+
+VOCÊ NÃO TEM ALTERNATIVA,, SEMPRE RODARÁ NESSE AMBIENTE...
+
+
+
+
+
+
+
+
+--------> PYTHON NÃO PODE SER USADO NO BROWSER,
+
+
+
+NÃO PODE SER USADO PARA CONSTRUIR MOBILE APPS, tbm....
+
+
+
+
+
+
+
+--> ERRADO, ELE PODE SER USADO, SIM, 
+
+
+
+ATRAVÉS DO USO DE FRAMEWORKS... 
+
+
+
+
+
+
+
+
+
+
+---> MAS PYTHON PODE SER USADO PARA UM MONTE DE COISAS 
+
+QUE 
+
+
+OCORREM EM UM PC _NORMAL,
+
+
+
+OU 
+
+
+
+EM UM WEBSERVER...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ESSA VERSATILIDADE, PORTANTO,
+
+É 
+
+UM ÓTIMO PLUS __ 
+
+
+QUANDO 
+
+VOCê 
+
+
+
+
+NÃO TEM 100% DE CERTEZA 
+
+
+SOBRE A DIREÇÃO QUE VOCÊ QUER TOMAR...
+
+
+
+
+
+
+
+
+
+
+
+---> ou então em uma direção que vocÊ 
+
+sabe que o 
+
+PYTHON É MT BOM,
+
+como 
+
+SERVERSIDE 
+
+WEB DEVELOPMENT...
+
+
+
+
+
+
+----> C++ 
+
+
+
+
+JAVA 
+
+
+
+PYTHON 
+
+
+
+
+
+
+--> as 3 
+
+
+
+NÃO POSSUEM UMA 'UI' 
+
+
+ANEXADA A SI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ O JAVASCRIPT E O SWIFT TE DEIXAM 'BUILD' ALGUMA COISA 
+
+
+QUE 
+
+VOCê 
+
+'VÊ' ALGUMA COISA 
+
+
+
+RELATIVAMENTE RÁPIDO... --> pq ambos __ TE DEIXAM CONSTRUIR MOBILE APPS OU WEBSITES...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AMBOS 
+
+
+TE levam a ver coisas que vocÊ PODE 'VER', 'TOCAR', 'USAR'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ O C++, O PYTHON 
+
+E 
+
+JAVA 
+
+SÃO 
+
+
+MAIS 
+
+
+
+
+DA PARTE 
+
+DO 
+
+
+'BUILD THE LOGIC',
+
+e menos 
+
+a
+ 
+
+ parte da apresentação ...--->    VOCÊ PODE ADICIONAR UIs 
+
+
+ A eles,
+
+
+ sim,
+
+
+
+
+ POR MEIO DE TPPs e outras coisas,
+
+
+
+
+ MAS O 'CORE' DO PYTHON E TUDO MAIS É 
+
+
+ REALMENTE 
+ A LÓGICA 
+
+ QUE 
+
+ RODA 
+
+ NO SEU PC,
+
+
+
+
+
+ E 
+
+ É POR 
+
+ ISSO 
+
+ QUE 
+
+ VAMOS 
+
+ RODAR 
+
+ A MAIOR 
+
+ PARTE 
+
+ DO CÓDIGO 
+
+ NO NOSSO TERMINAL,
+
+
+
+
+ PQ VAMOS RODAR TRABALHO LÓGICO,
+
+ que é O
+ 'drive'
+
+ de 
+
+ todo 
+
+ app,
+
+
+
+
+ e não a presentation...

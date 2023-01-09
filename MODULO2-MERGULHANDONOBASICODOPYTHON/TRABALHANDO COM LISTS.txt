@@ -1,0 +1,644 @@
+
+
+
+
+
+
+
+
+
+
+--> CHEGA DE VER 
+
+
+OS 
+
+BASIC DATA TYPES....
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUEREMOS CONSTRUIR 'BLOCK CHAIN',
+
+
+por isso precisamos entender LISTS no python...
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ estudamos 1 pouco 
+
+
+
+a data que vamos querer aramzenar na nossa block chain.. --> NA VERDADE, 
+
+NOS __ BLOCKS__ DE NOSSA BLOCK CHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAIS TARDE NO CURSO VAMOS REFINIR ESSA DATA PARA 
+
+REFLETIR UMA __ TRANSACTION COMPLETA,
+
+
+
+
+E NÃO SÓ 
+
+'1 WORD' ou '1 number'...
+
+
+
+
+
+
+
+
+
+--> MAS PARA O BLOCK CHAIN,
+
+
+PRECISAMOS DA PARTE DA 'CHAIN'... --> PARA A LIST NO PYTHON,
+
+
+PRECISAMOS DE '[]' (square brackets)...
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE CONHECER COMO UM 'ARRAY', em outras linguagens de programação...
+
+
+
+
+
+
+
+
+
+
+
+
+--> AS LISTS PODEM SER DE 1 MESMO TYPE (lsita de numbers, lista de strings, etc),
+
+
+
+OU ENTÃO 
+
+
+
+SER UMA ___ MIXED LIST_...
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> Ex:
+
+
+
+
+[
+    "some text", 12.9, True, ["nested!", 8]
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+ESSA LIST 
+
+POSSUI 
+
+1) UMA STRING 
+
+
+2) UM NUMBER 
+
+
+3) UM BOOLEAN 
+
+
+4) UM ARRAY, que tem uma string e um number....
+
+
+
+
+
+
+
+
+
+
+
+------> IMPORTANTE -------> OS ELEMENTOS EM UMA LIST SÃO SEMPRE SEPARADOS POR VÍRGULAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> E UMA LIST,
+EM 
+
+
+PYTHON,
+
+SEMPRE TEM UMA 
+
+'LENGTH'
+
+
+que podemos obter...
+
+
+
+
+
+
+
+
+
+
+
+
+
+no caso dessa list de cima,
+
+a length é de 
+
+QUATRO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO NOS DÁ INFO SOBRE QUANTOS VALUES TEMOS DENTRO DE 1 LIST...
+
+
+
+
+
+
+
+
+
+----> TIPICAMENTE,
+
+
+NÃO VAMOS QUERER TER UMA LIST 
+
+APENAS 
+
+
+
+PARA 'OLHAR PARA ela'... ->
+
+
+
+
+
+
+nós também vamos querer 
+
+ser capazes de ACESSAR OS ELMENTOS DE NOSSA LIST,
+
+E AÍ 
+
+
+OS ALTERAR/OUTPUTTAR...
+
+
+
+
+
+
+
+
+
+
+---> PARA ISSO,
+
+
+
+VAMOS PRECISAR 
+
+DE 
+
+ALGO QUE É CHAMADO DE 'INDEX' ( mesma coisa com o javascript)...
+
+
+
+
+
+
+
+
+
+
+
+
+--> CADA ELEMENTO NA LISTA TEM SEU PRÓPRIO INDEX...
+
+
+
+
+
+
+
+
+
+
+
+--> E O INDEX, EM PYTHON LISTS,
+
+
+
+COMECA COM 0...
+
+
+
+
+
+
+
+
+
+É A MESMA COISA COM 
+
+
+
+JAVASCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+E O ACESSO A VALORES POR MEIO DOS SEUS INDEXES É ALGO SUPER SIMPLES,
+
+
+BASTA ESCREVER O NOME DA VARIABLE EM QUE ARMAZENAMOS 
+
+A LIST E ENTÃO ESCREVMOS 
+
+
+
+
+
+'my_list[0]' -----> ISSO SERIA A STRING 'some text'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> exemplo:
+
+
+
+
+>>> blockchain = ['a', 'b', 'c']
+>>> blockchain[1]
+'b'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO NOS RETORNA 'B',
+
+
+exatamente como no javascript...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... 
+
+
+
+JÁ ENTENDI...
+
+
+
+
+
+
+
+
+--> VAMOS DEIXAR O TRABALHO COM ESSA LIST MAIS COMPLEXO,
+
+AO LONGO DO CURSO....
+
+
+
+
+
+
+
+
+
+--> POR ENQUANTO,
+
+
+É UM HARDCODED ARRAY,
+
+SEM CHANCE DO USER INPUTTAR SEUS PRÓPRIOS VALORES...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+'b'
+>>> blockchain[1], blockchain[2]
+('b', 'c')
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS DIGAMOS QUE SOMOS 1 HACKER,
+
+E QUE 
+
+ESTAMOS MUDANDO 
+
+
+
+
+OS VALORES 
+
+NESSA 
+
+LIST..
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+>>> blockchain[1] = 'z'
+>>> blockchain
+['a', 'z', 'c']
+>>>
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... BEM SIMPLES...
+
+
+
+
+
+
+
+
+
+--> TAMBÉM PODEMOS ALTERAR COISAS ASSIM:
+
+
+
+
+
+>>> blockchain[1] = 'z' + 'a'
+>>> blockchain
+['a', 'za', 'c']
+>>>
+
+
+
+
+
+
+
+
+
+
+
+-_> AÍ O PROFESSOR NOS FALA DE ALGO IMPORTANTE:
+
+
+
+
+se você escrever assim:
+
+
+
+>>> blockchain[1] + 'b'
+'zab'
+>>> blockchain
+['a', 'za', 'c']
+
+
+
+
+
+
+
+
+
+
+
+--> COMO VOCÊ PODE VER,
+
+
+AQUI NÓS __ COPIAMOS__ O PRIMEIRO VALOR E ADICIONAMOS 'b', 
+
+aí o terminal nos retornou aquela string composta __ SEM _ ALTERAR__ O VALOR __ 
+
+DAQUELE ELEMENTO NO ARRAY (que continuou como 'za')...
+
+
+
+
+
+
+
+
+
+-> ISSO É IMPORTANTE PQ DEPOIS O PROFESSOR 
+
+
+
+
+VAI NOS MOSTRAR DATA STRUCTURES MAIS COMPLEXAS, 
+
+EM QUE 
+
+LÁ 
+
+ELE 
+
+VAI NOS MOSTRAR COMO NÓS TEMOS QUE 
+
+'ACTUALLY DIFFERENTIATE'  
+
+
+
+ENTRE __ DIFERENTES__ DATA TYPES,
+
+
+EM QUE 
+
+
+ALGUMAS (data types)
+
+
+SÃO 
+
+COPIADAS__ AUTOMATICAMENTE,
+
+AO PASSO QUE OUTRAS __ NÃO SÃO_...
+
+
+
+
+
+
+
+
+
+
+--> MAS POR ENQUANTO, COM STRINGS, NUMBERS E BOOLEANS,
+
+AS COISAS FUNCIONAM EXATAMENTE DESTA MANEIRA AQUI....

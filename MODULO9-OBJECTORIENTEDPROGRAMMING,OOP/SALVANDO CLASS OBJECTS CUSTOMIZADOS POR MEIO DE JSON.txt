@@ -1,0 +1,1240 @@
+
+
+
+
+
+
+
+
+
+
+--> Estamos falhando naquela etapa de 'hash_block()',
+
+
+que é esta aqui:
+
+
+
+
+
+
+
+
+def hash_block(block):
+    """Hashes a block and returns a string representation of it"""
+    # return hashlib.sha256(json.dumps(block, sort_keys=True).encode()).hexdigest()
+    hash_string_256(json.dumps(block, sort_keys=True).encode())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> estamos tentando hashear nosso block,
+
+
+
+nesse trecho em que 
+
+tentamos  converter esse block em um json string, para sermos mais precisos...
+
+
+
+
+
+
+
+
+
+
+----> ISSO __ FALHA__ PQ?
+
+
+
+
+
+
+
+
+
+PQ __ OBJECTS (objects clássicos do python)__ NÃO PODEM SER CONVERTIDOS EM JSON.... --> ESSE É UM HARD LIMIT, UMA COISA QUE 
+
+
+NAÕ PODEMOS EVITAR....
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS NOS LEMBRAR DAQUELE SLIDE, EM QUE O PROFESSOR AFIRMOU QUE 
+
+
+
+'JSON', sua conversão, só funciona para uma 
+
+quantidade 
+
+
+limitada de 
+python data types...
+
+
+
+
+
+
+
+
+
+
+------> esse é o problema que estamos vendo...
+
+
+
+
+
+
+---> MAS PODEMOS CONVERTER ESSE BLOCK EM 1 data type 
+
+
+que é suportado... ---> converter em um dict, talvez...  ---> EXATAMENTE ISSO,
+
+DEVEMOS 
+
+CONVERTER 
+
+
+
+ESSE 
+
+OBJECT 
+
+EM UMA 
+
+__DICt__...
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+LÁ EM 
+
+'hash_block',
+
+vamos criar uma nova variable,
+
+
+em que 
+
+vamos armazenar 'block',
+
+mas um block 
+
+
+assim:
+
+
+block.__dict__...
+
+
+
+
+EX:
+
+
+
+
+
+
+
+def hash_block(block):
+    """Hashes a block and returns a string representation of it"""
+    # return hashlib.sha256(json.dumps(block, sort_keys=True).encode()).hexdigest()
+
+    converted_block = block.__dict__ ##isso vai CONVERTER NOSSO BLOCK (que é um object) EM UM DICT, PARA QUE ESSE DICT POSSA ENTÃO SER CONVERTIDO EM JSON...
+    hash_string_256(json.dumps(block, sort_keys=True).encode())
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK... GANHAREMOS UMA DICT VERSION DO BLOCk... -->  
+
+
+
+
+
+
+
+
+OK... MAS AQUI HÁ UMA COISA __ MT __ IMPORTANTE__ QUE DEVEMOS FAZER...
+
+
+
+
+
+
+
+
+--> NÓS SOMOS OBRIGADOS A CHAMAR 
+
+'.copy()'
+
+
+
+NESSE CALL DE DICT/DICT QUE ESTAMOS RECEBENDO... 
+
+
+
+
+
+
+
+
+---> tipo assim:
+
+
+
+
+
+
+hashable_block = block.__dict__.copy()
+
+
+
+
+
+
+
+
+mas pq isso?
+
+
+
+
+
+
+
+
+
+
+
+
+
+acho que entendi... --> é pq 
+
+
+
+
+'block.__dict__' 
+
+
+VAI RETORNAR UM __ DICT___...
+
+
+
+
+
+
+
+-----> E DICTS_ _ SÃO _ REFERENCE TYPES.... -----> 
+
+
+
+
+
+
+
+isso quer dizer que quando essa function for EXECUTADA DE NOVO,
+
+E O CÓDIGO 
+
+DE 
+
+
+
+
+'hashable_block = block.__dict__' 
+
+
+
+
+FOR EXECUTADO DE NOVO,
+
+
+
+
+
+
+o 'block.__dict__' 
+
+
+armazenado 
+
+nessa variable 
+
+SEMPRE VAI __ ACABAR 
+
+
+
+SE
+
+
+REFERINDO AO 
+
+
+
+''CURRENT block.__dict__'''
+
+
+e 
+
+ao 
+
+'OLD block.__dict__' 
+
+
+AO  MESMO TEMPO....
+
+
+
+
+
+
+
+
+
+
+
+-->  SE VOCê NÃO FIZER ESSAS COPIES, O QUE ACONTECERÁ 
+
+
+É QUE 
+
+
+
+vocÊ acabará com 
+
+hashes não 
+funcionando 
+
+
+bem juntos, pq 
+
+
+
+
+você estará MUDANDO DE FORMA INVISÍVEL DICTS ANTIGOS, de outros blocks...
+
+
+
+
+
+
+
+
+
+
+
+
+------->  É POR ISSO QUE QUEREMOS CRIAR UMA NOVA COPY,
+
+
+UM NOVO DICTIONARY,
+
+
+
+TODA VEZ QUE 
+
+
+HASHEAMOS UM NOVO BLOCK...
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+OK, O CÓDIGO FICA ASSIM:
+
+
+
+import hashlib
+import json
+
+
+def hash_block(block):
+    """Hashes a block and returns a string representation of it"""
+    # return hashlib.sha256(json.dumps(block, sort_keys=True).encode()).hexdigest()
+
+    # converted_block = block.__dict__ ##isso vai CONVERTER NOSSO BLOCK (que é um object) EM UM DICT, PARA QUE ESSE DICT POSSA ENTÃO SER CONVERTIDO EM JSON...
+    
+    converted_block = block.__dict__.copy() ### é necessário chamar esse '.copy()' sobre esse dict retornado aí..
+    
+    hash_string_256(json.dumps(converted_block, sort_keys=True).encode())
+
+
+
+
+def hash_string_256(string):
+    return hashlib.sha256(string).hexdigest()
+
+
+###precisa retornar TRUE/FALSE (o hash precisa ter número de 0s inicial compatível com o que definimos para nosso app... esse é o proof of work)...
+def valid_proof(transactions, previous_block_hash, proof): 
+    guess = (str(transactions) + str(previous_block_hash) + str(proof)).encode()
+    # esse hash deverá ter os PRIMEIROS 5 CARACTERES ( ou mais) como 0....
+    # guess_hash = hashlib.sha256(guess).hexdigest()
+    guess_hash = hash_string_256(guess)
+    # if str(guess_hash).startswith('00000', 0): #meio alternativo.
+    #     return guess_hash
+    # else:
+    #     return False
+    print(guess_hash)
+    return guess_hash[0:4] == '0000'
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, AGORA TEMOS ESSE HASHABLE BLOCK,
+QUE VAMOS PASSAR PARA DENTRO DAQUELE 
+
+
+
+
+METHOD CONVERSOR DE JSON...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+def hash_block(block):
+    """Hashes a block and returns a string representation of it"""
+
+    converted_block = block.__dict__.copy() 
+    
+    hash_string_256(json.dumps(converted_block, sort_keys=True).encode())
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EXECUTAMOS NOSSO CÓDIGO MAIS UMA VEZ...
+
+
+
+
+
+
+
+--> TENTAMOS MINERAR UM BLOCK, MAS GANHAMOS MAIS UM ERROR:
+
+
+
+
+
+
+    converted_block = block.__dict__.copy() ### é necessário chamar esse '.copy()' sobre esse dict retornado aí..
+AttributeError: 'dict' object has no attribute '__dict__'. Did you mean: '__dir__'?
+
+
+
+
+
+
+
+
+
+
+--> mistype, talvez...
+
+
+
+
+
+
+
+
+-> ou é pq eu já havia convertido esse negócio em um 'dict' anteriormente (acho que é isso)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... agora ganhamos outro output...
+
+
+
+
+
+--> GANHAMOS AINDA OUTRO ERROR, 
+
+QUE É 
+
+
+
+'TypeError: Object of type Block is not JSON serializable'''
+
+
+
+
+
+
+
+
+--> esse error aconteceu lá em 'save_data()'...
+
+
+
+
+
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        # with open('blockchain.txt', mode='w') as f:
+        with open('blockchain.json', mode='w') as f:
+            # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+            f.write(json.dumps(blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(open_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+-----------------------
+
+
+
+
+
+
+
+--> PQ ISSO DEU PROBLEMA?
+
+
+
+é pq estamos tentando CONVERTER 'blockchain', que contém VÁRIOS OBJECTS 'Block',
+
+
+
+
+EM __ JSON DATA__....
+
+
+
+
+
+
+
+
+
+
+--> O FIX AQUI É O __MESMO DE ANTES__... --> TEMOS QUE PEGAR O 'DICT'
+
+
+DE TODOS 
+
+ESSES 
+
+
+OBJECTS,
+
+
+por meio de um código como:
+
+
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        # with open('blockchain.txt', mode='w') as f:
+        with open('blockchain.json', mode='w') as f:
+            # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+            
+            converted_blockchain = []
+            for block in blockchain:
+                converted_blockchain.append(block.__dict__.copy()) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+            f.write(json.dumps(converted_blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(open_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+
+
+
+EU FIZ ASSIM:
+
+
+
+
+
+
+            converted_blockchain = []
+            for block in blockchain:
+                converted_blockchain.append(block.__dict__.copy()) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+                -------------> o professor usa uma LIST COMPREHENSION, mas eu usei um for loop...
+
+
+
+
+
+
+
+
+
+
+
+            -----> CERTO, MAS MEU CÓDIGO ESTÁ MEIO ERRADO, AQUI.... --> nós não precisamos 
+
+
+            chamar 
+
+            '__dict__.copy()'
+
+
+            PQ __ NÃO ESTAMOS 
+
+
+            MANIPULANDO ESSE DICTIONARY AÍ... (lá em 'hash_block' ainda não estamos fazendo isso, também, mas logo faremos)...
+
+
+
+
+
+
+
+
+
+
+        OK, MAS AÍ RECEBEMOS __ OUTRO ERROR_:
+
+
+
+
+
+    
+
+
+ValueError: not enough values to unpack (expected 2, got 0)
+
+
+Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 439, in <module>
+    load_data()
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 399, in load_data
+    read_blockchain, read_transactions = g.readlines()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> PROFESSOR APONTA QUE 
+
+
+
+
+
+    NOSSO 
+
+
+
+    HANDLER DE ERRORS,
+
+
+    lá 
+
+
+    naquele 'try-except-finally',
+
+
+
+
+
+    NÃO ESTÁ HANDLANDO O ERROR 
+
+    DE 
+
+
+    '
+    NOSSA FILE ESTÁ VAZIA' (blockchain.json),
+
+
+
+
+    POR ISSO 
+
+    O PROFESSOR 
+
+
+
+    COLOCA 
+
+
+    UM ERROR TYPE DE 
+
+
+    'IndexError' (pq se a file estiver VAZIA, ocorre/ocorrerá o error de 'index not in range')
+
+
+
+
+
+
+
+
+
+
+
+
+    --> consertei, era um problema de um arquivo VAZIO...
+
+
+
+
+
+
+
+
+
+    --> tento repetir esse erro....
+
+
+
+
+
+
+
+
+    -> ele continua existindo...
+
+
+
+    ValueError: not enough values to unpack (expected 2, got 0)
+
+
+
+
+
+
+
+
+
+    --> PARA CONSERTAR ESSE PROBLEMA, FUI OBIRGADO A USAR O ERROR TYPE DE 
+
+    'ValueError':
+
+    
+    except(ValueError): ###usei isto, mas é meio um workaround... o ideal é não usar esse error type....
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+
+
+--> OK,
+
+
+AGORA 
+
+
+
+TENHO QUE VER SE HÁ OUTRO ERRO..
+
+
+
+
+
+
+
+
+
+
+
+
+----> OUTRO ERRO APARECEU:
+
+
+
+
+Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 720, in <module>
+    if(not verify_chain()):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\blockchain12,comCLASSESEOBJECTS.py", line 445, in verify_chain
+    if not valid_proof(block['processed_transactions'][: -1], block['previous_block_hash'], block['proof']):
+TypeError: 'Block' object is not subscriptable
+
+
+
+
+
+
+
+TypeError: 'Block' object is not subscriptable
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO SIGNIFICA QUE 
+
+
+
+ESSE NEGÓCIO NÃO É INDEXABLE... (ou seja, não é uma list ou algum objeto desse gênero.... --> pode ser um OBJECT CLÁSSICO, eles naõ são indexable)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o código deu '+ OU - CERTO'... --> mais ou menos 
+
+
+
+PQ 
+
+
+
+
+NOSOS OUTPUT ESTÁ FICANDO ASSIM:
+
+
+
+[{"previous_block_hash": "", "index": 0, "processed_transactions": [], "proof": 100, "timestamp": 0}, {"previous_block_hash": null, "index": 1, "processed_transactions": [{"amount": 10, "recipient": "Arthur", "sender": "ourApp"}], "proof": 103210, "timestamp": 1648965819.5435586}]
+[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> como você pode ver, 
+
+
+
+
+o 'previous_block_hash' ESTÁ COMO 'null'..
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+The TypeError: 'NoneType' object is not subscriptable error is the most common exception in Python, 
+and it will occur if you assign the result of built-in methods like append() , sort() , and reverse() to
+ a variable. When you assign these methods to a variable, it returns a None value.
+
+
+
+
+
+
+
+
+
+---> o problema é que um OBJECT ESTÁ SENDO ARMAZENADO, QUANDO DEVERIA SER UM DICT...
+
+
+
+
+
+
+
+
+
+
+
+--> era a falta de um 'return statement', 
+
+lá 
+
+
+em 
+
+
+
+'hash_util.py'...
+
+
+
+
+
+
+
+
+
+
+--> bem, mas agora tenho OUTRO PROBLEMA:
+
+
+
+o 'index' e o 'previous_block_hash'
+
+
+ESTÃO TROCADOS....
+
+
+
+
+
+
+ok, prosseguindo...
+
+
+
+
+
+
+
+
+
+
+
+--> agora estamos usando nossa class de 'block' com sucesso...
+
+
+
+
+
+
+
+
+
+--> testo algumas operações....
+
+
+
+
+
+--> já ganho um ERROR, em 'load_data()'....
+
+
+
+
+
+
+
+
+
+
+o código está COMPLETAMENTE QUEBRADo...
+
+
+
+
+
+
+--> consertei... (era aquele código fodido em 'save_data()'...)
+
+
+
+
+
+
+
+
+
+
+
+-> ok, mas agora OUTRO KEY ERROR:
+
+'KeyError: 0 '...
+
+
+
+
+
+
+
+--> ISSO SIGNIFICA 'ALGUMA DICTIONARY KEY NÃO EXISTE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> CONSEGUI... TIVE DE FAZER UM MONTE DE CONVERSÕES E 
+
+
+COISAS DIFERENTES,
+
+MAS O CÓDIGO DE 'add transaction' está funcionando, 
+
+
+
+
+
+está funcionando pq usei uma class de 'Transaction' e aí 
+
+
+manipulei o código de maneira que tudo encaixasse:
+
+
+
+
+
+
+
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        # with open('blockchain.txt', mode='w') as f:
+        with open('blockchain.json', mode='w') as f:
+            # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+            print(open_transactions)
+            print(open_transactions)
+            converted_transactions = []
+
+            for transaction in open_transactions:
+                converted_transactions.append(Transaction(transaction['amount'], transaction['recipient'], transaction['sender']))
+
+
+
+            converted_transactions = [transaction.__dict__ for transaction in converted_transactions]
+            # converted_blockchain = []
+            # for block in blockchain:
+            #     # não é necessário '.__dict__.copy()' aqui pQ NÃO VAMOS MANIPULAR ESSE DICT (situação diferente daquela vista em 'hash_block', pq lá VAMOS MANIPULAR NOSSO DICT)....
+            #     converted_blockchain.append(block.__dict__) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+            
+            saveable_chain = [block.__dict__ for block in blockchain]
+            print(converted_transactions, 'LINE')
+            f.write(json.dumps(saveable_chain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(converted_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+
+
+
+
+
+
+
+--> agora devo rodar alguns testes...
+
+
+
+
+
+
+
+
+
+
+
+ok, tudo funcionando....
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+--> vou ver se o error de 'arquivo vazio' também é handlado..
+
+
+
+
+
+
+
+
+--> parece que sim..
+
+
+
+
+
+
+
+na próxima aula o professor adicionará 
+
+a 
+
+
+class de 'transaction', mas eu já fiz isso...

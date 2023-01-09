@@ -1,0 +1,1336 @@
+
+
+
+
+
+
+
+
+
+
+
+
+PRECISAMSO ADICIONAR TRANSACTIONS.. --> 
+
+
+
+
+
+2 ROUTES:
+
+
+
+1) POST TRANSACTIONS 
+
+
+
+
+2) GET TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+---> para isso, 
+
+
+
+
+
+criamos uma nova route, de 'transaction'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, MAS AÍ FICAMOS COM UM PROBLEMA...
+
+
+
+
+
+
+--> 
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        blockchain.add_transaction(wallet.public_key, 'xx', '', 1)
+
+
+
+
+
+
+
+        -> NÃO SEI COMO VOU IMPLEMENTAR AQUELE NEGÓCIO DOS INPUTS ,
+
+
+        DE PERGUNTAR 
+
+
+        'qual é o recipient, qual é o amount'...
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, ANTES DISSO,
+
+O PROFESSOR VAI QUERER RETORNAR UMA LIST DE OPEN TRANSACTIONS...
+
+
+
+
+-> isso é bem mais fácil...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+@app.route('/transaction', methods=['GET'])
+def get_open_transactions():
+    if (wallet.public_key != None):
+        response = {
+        'transactions': blockchain.get_open_transactions
+        }
+    
+    return response, 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ------> OK, MAS COMO DIABOS _VAMOS __ CONSEGUIR ADICIONAR 
+
+
+
+
+    NOVAS TRANSACTIONS?
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        blockchain.add_transaction(wallet.public_key, 'xx', '', 1)
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+EM ADD TRANSACTION , É CLARO QUE VAMOS CHAMAR 
+
+
+
+'add_transaction',
+
+MAS PRECISAMOS 
+
+
+PASSAR INFORMATION..
+
+
+
+
+
+
+
+
+--> A INFORMATION 
+
+SERÁ 
+
+
+
+1) sender
+
+
+
+2) RECIPIENT 
+
+
+3) amount
+
+
+
+
+
+
+
+
+
+
+
+-> MAS AQUI NÃO TEMOS 
+
+
+
+INPUTs como no código 'local'...
+
+
+
+
+
+
+
+
+
+
+
+-------> EM VEZ DISSO,
+
+
+ESPERAMOS QUE O USER VÁ ENVIAR A 'TRANSACTION DATA'
+
+
+
+
+JUNTO COM UM POST REQUEST... (no request body, essencialmente)...
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS COMO EXTRAÍMOS ESSA 'INCOMING DATA'
+
+
+
+
+
+por meio do flask? (essa POST DATA, do body do request)...
+
+
+
+
+
+
+
+--> BEM, PARA ISSO O PROFESSOR EXPLICA QUE VAMOS TER QUE USAR ALGO NOVO, OUTRO OBJECT/PACOTE LÁ DO FLASK...
+
+
+
+
+
+
+
+
+---> SERÁ A FUNCTION/OBJECT 'request'...
+
+
+
+
+
+
+
+
+
+
+-----> 'request' 
+
+
+
+
+é um OBJECT QUE NOS DÁ ALGUMAS 'HELPER TOOLS'/utilities
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESCREVEMOS TIPO ASSIM>:
+
+
+
+
+
+from flask import request ####OUTRA COISA BOA IMPORTADA DO FLASK, NOS AJUDA _ A EXTRAIR__ DATA DE REQUESTS DE TIPO POST (do body, por exemplo)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> VAMOS EXTRAIR OS VALUES 
+
+QUE O USER NOS ENVIOU/ENVIARÁ 
+
+
+POR MEIO DA escrita
+
+
+
+
+
+values = request.get_json()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+''''request.get_json()''''' ---> É UM METHOD QUE O FLASK NOS DÁ 
+
+
+
+NESSE OBJECT AÍ,
+
+
+E QUE 
+
+
+__ NOS _ ENTREGA _ A DATA_ ANEXADA AO INCOMING REQUEST,
+
+
+DESDE QUE ESSA DATA ESTEJA EM UM FORMATO JSON (e a data realmente precisa estar nesse formato)..
+
+
+
+
+
+
+eX:
+
+
+
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        blockchain.add_transaction()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> E O IMPORTANTE É QUE 
+
+
+
+'values' 
+
+
+
+SERÁ __ UM DICTIONARY__ SEGURANDO TODA ESSA DATA AÍ DO REQUEST (pq é isso que o request.get_json() nos dá, nos dá um DICTIONARY)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ PODEMOS PEGAR ESSE DICT 
+
+E ENTÃO 
+
+
+
+TRABALHAR __ COM ISSO, NO PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS DEVEMOS ASSEGURAR QUE ISSO SERÁ EXTRAÍDO DE FORMA ADEQUADA...
+
+
+
+
+
+
+
+
+-----> SE O EXTRACT NÃO DER CERTO, VAMOS QUERER RODAR UM CÓDIGO ESPECIAL,
+
+POR MEIO DE UM IF CHECK, DIZENDO QUE A DATA ESTAVA INCORRETA/NÃO EXISTIA DATA JSON....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    response = ''
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+
+        if not values:
+            response = {'messasge': 'No json data attached to request'}
+            return response, 400
+
+
+        
+        
+        blockchain.add_transaction()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR  RETORNA UM ERROR STATUS DE '400' pq se isso acontecer, será um erro do CLIENT...
+
+
+
+
+
+
+
+
+
+
+
+----> É CLARO QUE EXISTE OUTRA POSSIBILIDADE, AQUI, 
+
+
+A POSSIBILIDADE 
+
+
+DE 
+TERMOS RECEBIDO 'VALUES',
+
+mas não 
+
+termos RECEBIDO TODOS OS FIELDS DE QUE PRECISAMOS...
+
+
+
+
+
+
+
+
+
+
+----> É POR ISSO QUE O PROFESSOR INVENTA UMA VARIABLE DE NOME 
+
+
+'required_field',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+required_fields = ['sender'] ---------->  OU SEJA, VAMOS QUERER _ QUE UM DOS FIELDS__ SEJA OBRIGATORIAMENTE 'SENDER'...
+
+
+
+
+ 
+ --> OUTRO FIELD SERÁ 'recipient' 
+
+
+ E OUTRO 
+
+
+ SERÁ 'amount'...
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+ @app.route('/transaction', methods=['POST'])
+def add_transaction():
+    response = ''
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+
+        if not values:
+            response = {'messasge': 'No json data attached to request'}
+            return response, 400
+        required_fields = ['sender', 'recipient', 'amount']
+
+        
+        
+        blockchain.add_transaction()
+
+ 
+
+------------------------------
+
+
+
+
+
+
+
+
+
+OK, AGORA PODEMOS CHECAR SE O INCOMING REQUEST POSSUI DATA, E ENTÃO SE A DATA É A DATA NECESSÁARIA (esses 3 fiellds)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ESCREVEMOS TIPO ASSIM:
+
+
+
+
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        required_fields = ['recipient', 'amount', 'sender']  ##ESSES FIELDS DEVEM EXISITR DENTRO DO REQUEST ENVIADO PELO USER(a transaction em si) PARA QUE ELE SEJA CONSIDERADO VÁLIDO....
+        if not values:
+                response = {'messasge': 'No json data attached to request'}
+                return response, 400
+        if (not all(field in values for field in required_fields)):  #com isso, checamos se aqueles keynames em 'required_fields' EXISTEM NO INTERIOR DOS FIELDS dentro de 'values' (dict obtido através de 'request.get_json()')....
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA,
+
+
+
+
+
+'SE NÃO EXISTIREM FIELDS COM ESSES KEYNAMESD' DENTRO 
+
+
+
+DAQUELE DICT DE 'values'...   (ou seja, deverão existir esses FIELDS dentro do dict de 'values' )
+
+
+
+
+
+,
+
+VAMOS QUERER RETORNAR UMA MENSAGEM DE ERRO DIZENOD 'required data is missing'...
+
+
+
+
+
+
+
+
+
+
+
+Ex:
+
+
+
+
+
+
+
+
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        required_fields = ['recipient', 'amount', 'sender']  ##ESSES FIELDS DEVEM EXISITR DENTRO DO REQUEST ENVIADO PELO USER(a transaction em si) PARA QUE ELE SEJA CONSIDERADO VÁLIDO....
+        if not values:
+                response = {'messasge': 'No JSON data attached to request'}
+                return response, 400
+        if (not all(field in values for field in required_fields)):  #com isso, checamos se aqueles keynames em 'required_fields' EXISTEM NO INTERIOR DOS FIELDS dentro de 'values' (dict obtido através de 'request.get_json()')....
+            response = {
+                'message': 'Required data is missing'
+            }
+            return jsonify(response), 400
+        
+        blockchain.add_transaction()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS SE PASSAMOS ESSES 2 CHECKS,
+
+SABEREMOS 
+
+QUE TEMOS A DATA DE QUE PRECISAMOS PARA 'CREATE A NEW TRANSACTION'...
+
+
+
+
+
+
+
+
+--> é por isso que vamos executar 
+
+'blockchain.add_transaction()'...
+
+
+
+
+
+
+
+
+
+-> E ESSA DATA NECESSÁRIA ESTARÁ DENTRO DA VARIABLE/DICT DE 'values'...
+
+
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE HÁ OUTRO ELEMENTO FALTANDO, AQUI... -> NÃO TEMOS A 'SIGNATURE'
+
+
+AINDA...
+
+
+
+
+
+
+
+--> E A SIGNATURE, COMO VOCÊ BEM LEMBRA, ERA UM NEGÓCIO ESPECIAL,
+
+
+CRIADO A PARTIR DA 
+
+
+'PRIVATe_KEY'
+
+
+E DO 'TRANSACTION PAYLOAD'...
+
+
+
+
+
+
+
+
+
+--> por isso escrevemos uma variable de 'signature',
+
+em que a ELABORAMOS...
+
+
+
+
+
+
+
+
+
+
+-> PARA CONSEGUIR UMA SIGNATURE, TÍNHAMOS AQUELA FUNCTION:
+
+
+
+def sign_transaction(self, amount, recipient, sender):
+        print(self.private_key, 'TEXT')
+        signer = PKCS1_v1_5.new(RSA.importKey(binascii.unhexlify(self.private_key)))     ###precisamos que nossas KEYS ESTEJAM EM FORMATO BINARY (desconverter elas, que agora estarão armazenadas como STRINGS lá nesse nosso 'wallet', nos attributes)... --> para isso, usamos 'binascii', a package que consegue converter strings em binary data e vice-versa...
+        ###unhexlify é o contrário de hexlify --> cnoverte STRINGS DE VOLTA EM BINARY DATA...
+        h = SHA256.new((str(amount) + str(recipient) + str(sender)).encode('utf8'))  ##o 'encode('utf8')'  vai CONVERTER NOSSA DATA da transaction (inicialmente STRINGS) em uma BINARY STRING
+        ### h é um 'hash'... hash do CONTEÚDO/PAYLOAD DA TRANSACTION....
+        signature = signer.sign(h) ## 'signature' vai estar em formato  BINARY, E NAÕ STRING...
+        return binascii.hexlify(signature).decode('ascii') 
+
+
+
+
+
+
+
+
+--> basta chamar esse 'sign_transaction',
+
+lá de 'wallet.py',
+
+
+na nossa function de 'add_transaction'...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        required_fields = ['recipient', 'amount', 'sender']  ##ESSES FIELDS DEVEM EXISITR DENTRO DO REQUEST ENVIADO PELO USER(a transaction em si) PARA QUE ELE SEJA CONSIDERADO VÁLIDO....
+        if not values:
+                response = {'messasge': 'No JSON data attached to request'}
+                return response, 400
+        if (not all(field in values for field in required_fields)):  #com isso, checamos se aqueles keynames em 'required_fields' EXISTEM NO INTERIOR DOS FIELDS dentro de 'values' (dict obtido através de 'request.get_json()')....
+            response = {
+                'message': 'Required data is missing'
+            }
+            return jsonify(response), 400
+        ### se passamos por esse if checks, já ficamos com A DATA de 'sender', 'recipient' e 'amount' válida dentro de 'values'...
+        signature = wallet.sign_transaction(values['amount'], values['recipient'], values['sender'])
+
+        blockchain.add_transaction(values['amount'], values['recipient'], signature, values['sender'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> o negócio fica tipo assim, eu acho..
+
+
+
+
+
+
+
+--> e é claro que vamos querer RETORNAR AS OPEN_tRANSACTIONS AO USER...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        required_fields = ['recipient', 'amount', 'sender']  ##ESSES FIELDS DEVEM EXISITR DENTRO DO REQUEST ENVIADO PELO USER(a transaction em si) PARA QUE ELE SEJA CONSIDERADO VÁLIDO....
+        if not values:
+                response = {'messasge': 'No JSON data attached to request'}
+                return response, 400
+        if (not all(field in values for field in required_fields)):  #com isso, checamos se aqueles keynames em 'required_fields' EXISTEM NO INTERIOR DOS FIELDS dentro de 'values' (dict obtido através de 'request.get_json()')....
+            response = {
+                'message': 'Required data is missing'
+            }
+            return jsonify(response), 400
+        ### se passamos por esse if checks, já ficamos com A DATA de 'sender', 'recipient' e 'amount' válida dentro de 'values'...
+        signature = wallet.sign_transaction(values['amount'], values['recipient'], values['sender'])
+        blockchain.add_transaction(values['amount'], values['recipient'], signature, values['sender'])
+        response = {
+            'message': 'Successfully added transaction.',
+            'transactions': blockchain.get_open_transactions()
+        }
+        return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+ 
+ FALTOU HANDLAR OS CASES DE 'FALSE' EM 'add_transaction'..
+
+
+
+
+
+
+
+
+ --> wpor isso escrevo:
+
+
+
+ @app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        required_fields = ['recipient', 'amount', 'sender']  ##ESSES FIELDS DEVEM EXISITR DENTRO DO REQUEST ENVIADO PELO USER(a transaction em si) PARA QUE ELE SEJA CONSIDERADO VÁLIDO....
+        if not values:
+                response = {'messasge': 'No JSON data attached to request'}
+                return jsonify(response), 400
+        if (not all(field in values for field in required_fields)):  #com isso, checamos se aqueles keynames em 'required_fields' EXISTEM NO INTERIOR DOS FIELDS dentro de 'values' (dict obtido através de 'request.get_json()')....
+            response = {
+                'message': 'Required data is missing'
+            }
+            return jsonify(response), 400
+        ### se passamos por esse if checks, já ficamos com A DATA de 'sender', 'recipient' e 'amount' válida dentro de 'values'...
+        signature = wallet.sign_transaction(values['amount'], values['recipient'], values['sender'])
+        if not (blockchain.add_transaction(values['amount'], values['recipient'], signature, values['sender'])):
+            response = {
+                'message': 'Failed to add transaction.',
+                'wallet_set_up': wallet.public_key != None
+            }
+            return jsonify(response), 400
+        response = {
+            'message': 'Successfully added transaction.',
+            'transactions': blockchain.get_open_transactions()
+        }
+        return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> CERTO...
+
+
+
+
+
+
+
+
+
+
+
+        -> jsonify() define os headers corretos para os requets que enviamos por meio do flask...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        required_fields = ['recipient', 'amount', 'sender']  ##ESSES FIELDS DEVEM EXISITR DENTRO DO REQUEST ENVIADO PELO USER(a transaction em si) PARA QUE ELE SEJA CONSIDERADO VÁLIDO....
+        if not values:
+                response = {'messasge': 'No JSON data attached to request'}
+                return jsonify(response), 400
+        if (not all(field in values for field in required_fields)):  #com isso, checamos se aqueles keynames em 'required_fields' EXISTEM NO INTERIOR DOS FIELDS dentro de 'values' (dict obtido através de 'request.get_json()')....
+            response = {
+                'message': 'Required data is missing'
+            }
+            return jsonify(response), 400
+        ### se passamos por esse if checks, já ficamos com A DATA de 'sender', 'recipient' e 'amount' válida dentro de 'values'...
+        signature = wallet.sign_transaction(values['amount'], values['recipient'], values['sender'])
+        if not (blockchain.add_transaction(values['amount'], values['recipient'], signature, values['sender'])):
+            response = {
+                'message': 'Failed to add transaction.',
+                'wallet_set_up': wallet.public_key != None
+            }
+            return jsonify(response), 500
+        response = {
+            'message': 'Successfully added transaction.',
+            'transactions': blockchain.get_open_transactions(),
+            'added_transaction': {
+                'sender': values['sender'],
+                'recipient': values['recipient'],
+                'amount': values['amount'],
+                'signature': signature,
+            }
+        }
+        return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> o professor também retorna a quantidade de funds....
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        required_fields = ['recipient', 'amount', 'sender']  ##ESSES FIELDS DEVEM EXISITR DENTRO DO REQUEST ENVIADO PELO USER(a transaction em si) PARA QUE ELE SEJA CONSIDERADO VÁLIDO....
+        if not values:
+                response = {'messasge': 'No JSON data attached to request'}
+                return jsonify(response), 400
+        if (not all(field in values for field in required_fields)):  #com isso, checamos se aqueles keynames em 'required_fields' EXISTEM NO INTERIOR DOS FIELDS dentro de 'values' (dict obtido através de 'request.get_json()')....
+            response = {
+                'message': 'Required data is missing'
+            }
+            return jsonify(response), 400
+        ### se passamos por esse if checks, já ficamos com A DATA de 'sender', 'recipient' e 'amount' válida dentro de 'values'...
+        signature = wallet.sign_transaction(values['amount'], values['recipient'], values['sender'])
+        if not (blockchain.add_transaction(values['amount'], values['recipient'], signature, values['sender'])):
+            response = {
+                'message': 'Failed to add transaction.',
+                'wallet_set_up': wallet.public_key != None
+            }
+            return jsonify(response), 500
+        response = {
+            'message': 'Successfully added transaction.',
+            'transactions': blockchain.get_open_transactions(),
+            'added_transaction': {
+                'sender': values['sender'],
+                'recipient': values['recipient'],
+                'amount': values['amount'],
+                'signature': signature,
+                'funds': blockchain.get_balance()
+            }
+        }
+        return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, REINICIAMOS TUDO ISSO E TENTAMOS ADICIONAR UMA NOVA TRANSACTION...
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, É IMPOSSÍVEL _ ADICIONAR UMA TRANSACTION _ SE VOCÊ NÃO 
+
+
+
+COLOCAR UM 'BODY' NO SEU REQUEST COM 
+
+__JSON __ DATA__ NO INTERIOR...
+
+
+
+
+
+
+
+
+BEM, GANHEI UM ERROR:
+
+TypeError: '>=' not supported between instances of 'int' and 'str'
+
+
+
+
+
+--> consertei...
+
+
+
+
+
+
+
+
+MAIS UM ERROR:
+
+TypeError: Object of type Transaction is not JSON serializable
+
+
+
+
+
+
+
+
+
+
+
+
+-> O PROBLEMA É ESTE CÓDIGO AQUI:
+
+
+'transactions': blockchain.get_open_transactions(),
+
+
+
+
+
+
+
+
+
+
+ERA UMA TRANSFORMAÇÃO ERRADA COM LIST COMPREEHENSION...
+
+
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/transaction', methods=['POST'])
+def add_transaction():
+    if (wallet.public_key != None):
+        values = request.get_json()  ### a data precisa estar em formato json para que esse method funcione  --> e values será um DICTIONARY...
+        required_fields = ['recipient', 'amount']  ##ESSES FIELDS DEVEM EXISITR DENTRO DO REQUEST ENVIADO PELO USER(a transaction em si) PARA QUE ELE SEJA CONSIDERADO VÁLIDO....
+        if not values:
+                response = {'message': 'No JSON data attached to request'}
+                return jsonify(response), 400
+        if (not all(field in values for field in required_fields)):  #com isso, checamos se aqueles keynames em 'required_fields' EXISTEM NO INTERIOR DOS FIELDS dentro de 'values' (dict obtido através de 'request.get_json()')....
+            response = {
+                'message': 'Required data is missing'
+            }
+            return jsonify(response), 400
+        ### se passamos por esse if checks, já ficamos com A DATA de 'sender', 'recipient' e 'amount' válida dentro de 'values'...
+        signature = wallet.sign_transaction(values['amount'], values['recipient'], wallet.public_key)
+        if (not blockchain.add_transaction(wallet.public_key, values['recipient'], signature, values['amount'])):
+            response = {
+                'message': 'Failed to add transaction. Please ensure that your wallet was loaded and that you have sufficient funds.',
+                'wallet_set_up': wallet.public_key != None
+            }
+            return jsonify(response), 500
+
+        funds = blockchain.get_balance()
+        response = {
+            'message': 'Successfully added transaction.',
+            # 'transactions': blockchain.get_open_transactions().__dict__,
+            'transactions': [transaction.__dict__ for transaction in blockchain.get_open_transactions()],
+            'added_transaction': {
+                'sender': wallet.public_key,
+                'recipient': values['recipient'],
+                'amount': values['amount'],
+                'signature': signature,
+                'funds': {
+                    'sent': funds[0],
+                    'received': funds[1],
+                    'total': funds[2]
+                }
+            }
+        }
+        return jsonify(response), 201
+
+
+
+
+
+
+
+
+
+
+
+ok, sucesso...
+
+
+
+
+
+
+--> o professor fala do 'body' lá no postman... ---> nada de mais...
+
+
+
+
+--> estrutura:
+
+{
+    "data": "contents"
+}
+
+
+
+
+
+
+
+--> ok.... tudo isso agora está funcionando...
+
+
+
+
+
+
+
+
+--> PROEFSSOR FALA DA ROUTE QUE ESTÁ FALTANDO, QUE DEVE RETORNAR 'OPEN_TRANSACTIONS'... 
+
+--> mas já coloquei essa route...

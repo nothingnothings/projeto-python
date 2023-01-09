@@ -1,0 +1,353 @@
+
+
+
+
+
+
+
+
+
+
+VEJA O CÓDIGO
+
+
+
+
+
+print(input_amount) 
+# add_value(2, [1])
+add_value(input_amount, [1])
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+
+add_value(0.9, get_last_blockchain_value())
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=0.9)  #EXEMPLO DE ___ 'KEYWORD ARGUMENTS' dentro de nossos calls (ou seja, DEIXAMOS DE LADO AQUELA 'IMPORTÂNCIA DA ORDEM' na call de nossas functions...) -> ESSA FUNCTION TERÁ O MESMO EFEITO DAQUELA DE CIMA, MAS COM UMA SINTAXE DIFERENTEZINHA....
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+
+add_value(transaction_amount=0.9)
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+
+add_value(0.5, get_last_blockchain_value())
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+add_value(0.34, get_last_blockchain_value())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> AQUI ESTAMOS FAZENDO ALGO QUE DEVEMOS _ EVITAR_ fAZER....
+
+
+
+
+
+
+
+
+--> ESTAMOS SEMPRE NOS _ REPETINDO..... ----> ESTAMOS REPETINDO ESSE CALL DE 'input()',
+
+
+
+
+
+QUE REPETIMOS mais de 3x aqui...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> dEVEMOS __ TENTAR__ MINIMIZAR_ _ O CÓDIGO EM QUE 
+
+
+
+
+
+
+'NOS REPETIMOS' ------> E ISSO VAI SE TORNAR MAIS FÁCIL NO PRÓXIMO MÓDULO,
+
+
+EM QUE 
+
+APRENDEMOS SBORE __ COMO __ fAZER 'LOOP THROUGH CODE'  ------> quando fazemos 'LOOP' por nosso código,
+
+
+
+NÓS REPETIMOS FUNCTIONS COMO 'input' AUTOMATICAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PARA _ eVITAR__ O CALL 
+
+
+
+
+DESSE 
+
+
+
+''input_amount = float(input('Please enter the value of your transaction: '))''
+
+
+
+
+REPETIDAMETNE,
+
+
+
+
+
+
+
+
+
+PODEMOS DEFINIR UMA NOVA FUNCTION,
+
+
+com 
+
+'def',
+
+
+que será
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def get_user_input(): 
+    float(input('Your transaction plase: '))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> É CLARO __ QUE _ O VALUE QUE OBTEMOS POR MEIO DESSE CALL DE 'input()"
+
+
+    NÃO __ É ÚTIL NO INTERIOR DESSA FUNCTION... --> POR ISSO PRECISAMOS DE 'return', para fazer com que 
+
+    ELE EXISTA/SEJA OUTPUTTADO NO LADO DE FORA....
+
+
+
+
+
+
+    eX:
+
+
+
+
+
+    def get_user_input(): 
+        return float(input('Your transaction plase: '))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+add_value(get_user_input(), [1])
+
+
+
+
+
+add_value(get_user_input(), get_last_blockchain_value())
+
+
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=get_user_input())  #EXEMPLO DE ___ 'KEYWORD ARGUMENTS' dentro de nossos calls (ou seja, DEIXAMOS DE LADO AQUELA 'IMPORTÂNCIA DA ORDEM' na call de nossas functions...) -> ESSA FUNCTION TERÁ O MESMO EFEITO DAQUELA DE CIMA, MAS COM UMA SINTAXE DIFERENTEZINHA....
+
+
+add_value(transaction_amount=get_user_input())
+
+
+add_value(get_user_input(), get_last_blockchain_value())
+
+
+add_value(get_user_input(), get_last_blockchain_value())
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS ISSO ME DEU UM ERRO:
+
+
+
+  File "A:\projeto7-PYTHON\MODULO2-MERGULHANDONOBASICODOPYTHON\novoprojeto\blockchain.py", line 37, in get_user_input     
+    return float(input('Please enter the value of your transaction: '))
+ValueError: could not convert string to float: ''
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS AGORA FUNCIONOU:
+
+
+
+
+
+
+Please enter the value of your transaction: 1
+[[[1], 1.0]]
+[[[1], 1.0], [[[1], 1.0], 0.9]]
+Please enter the value of your transaction: 2
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0]]
+Please enter the value of your transaction: 3
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0]]
+Please enter the value of your transaction: 4
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0], [[[1], 3.0], 4.0]]
+Please enter the value of your transaction: 5
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0], [[[1], 3.0], 4.0], [[[[1], 3.0], 4.0], 5.0]]
+PS A:\projeto7-PYTHON\MODULO2-MERGULHANDONOBASICODOPYTHON\novoprojeto>
+
+
+
+
+
+
+
+
+
+-> AINDA ESTAMOS NOS REPETINDO, CLARO, MAS __ MENOS_...
+
+
+
+
+
+
+--> VAMOS CONSERTAR ESES REPEAT NOS PRÓXIMOS MÓDULOS..
+
+
+
+
+
+
+
+
+
+
+
+--> fizemos o outsource de 'input()' e 'float()'
+
+
+
+
+nesse call de function, que estamos chamando em 'add_value'...
+
+
+
+
+
+
+
+
+
+
+--> MAS ESTAMOS COM CÓDIGO MAIS LEAN, E ESTAMOS EVITANDO O 'REPEAT OURSELVES'...
+
+
+

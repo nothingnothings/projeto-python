@@ -1,0 +1,373 @@
+
+
+
+
+
+
+
+
+
+
+
+---> CONTINUANDO O ASSUNTO DE LIST COMPREHENSIONS... 
+
+
+
+
+
+
+
+
+
+
+TÍNHAMOS AUQELA BÁSICA, LÁ NA NOSSA BLOCKCHAIN:
+
+
+
+
+[previous_block[key] for key in previous_block]
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ISSO CRIA/CRIAVA UMA LIST DE VALUES A PARTIIR DAQUELE ICTIONARY  de 'previous_block'...
+
+
+
+
+
+
+
+
+
+--> MAS AGORA QUEREMOS USAR 'IF' 
+
+
+COM LIST COMPREHENSIon...
+
+
+
+
+
+
+
+
+--> NO CASO, VAMOS QUERER __ DUPLICAR __ TODOS __ OS VALORES_ DE UMA LIST QUE __ SÃO DIVISÍVEIS POR 2....
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+simple_list = [1, 2, 3, 4]
+
+
+
+
+
+
+escreevmos assim:
+
+
+
+
+
+
+
+
+
+
+divided_list = [
+    el * 2 for el in simple_list
+]
+
+
+
+
+
+
+
+
+
+--> O IF STATEMENT SERÁ CHAINADO AO FINAL DA EXPRESSION, TIPO ASSIM:
+
+
+
+divided_list = [
+    el * 2 for el in simple_list if 
+]
+
+
+
+
+
+
+
+
+
+
+
+--> 'DUPLICATE IF __ XXXX___ '''
+
+
+
+
+
+
+
+--> AGORA PODEMOS ADICIONAR UMA EXPRESSION/CONDITION ALI....
+
+
+
+
+
+
+
+if (el % 2  )
+
+
+
+
+
+
+
+
+
+--> QUEREMOS DIZER 
+
+
+
+
+'SE EL, MODULUS 2,
+
+
+FOR IGUAL A 0,
+
+'
+
+
+
+
+
+
+
+
+
+
+
+
+---> PQ 'X MODULUS 2 === 0 '
+
+
+
+
+significa que 
+
+
+
+
+
+O ELEMENTO PODE SER DIVIDIDO POR 0, E AÍ NADA VAI 'SOBRAR' DA DIVISÃO...
+
+
+
+
+
+
+eX:
+
+
+
+
+if (el % 2 === 0  )
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO SIGNIFICA QUE O ELEMENTO PODE SER DIVIDIDO POR 2...  --> COMO RESULTADO DISSO,
+
+
+
+FICAMOS COM A LIST DE 
+
+
+[
+    4, 8
+]
+
+
+
+
+
+
+
+
+--> ISSO PQ SÓ OS VALORES '2' e '4' PODEM SER DIVIDIDOS POR 2, SEM SOBRAS...
+
+
+
+EX:
+
+
+
+
+
+>>> simple_list = [1, 2, 3, 4]
+>>> divided_list = [el * 2 for el in simple_list if (el % 2 == 0)]
+>>> divided_list
+[4, 8]
+
+
+
+
+
+
+
+
+
+
+
+
+--> É ASSIM QUE PODEMOS USAR A KEYWORD DE 'if'
+ 
+
+
+ com as LIST COMPREHENSIONS...
+
+
+
+
+
+
+
+ ---> MAS DIGAMOS, AGORA, QUE TEMOS OUTRA LIST,,
+
+
+
+
+
+
+
+DE 'calc_items'...
+
+
+
+
+calc_items = [1, 2]
+
+
+
+
+
+
+--> AGORA, QUEREMOS QUE SÓ OS ELEMENTOS/VALUES DE DENTRO DE 'calc_items' 
+
+
+
+QUE SÃO __ IGUAIS__ A ELEMENTOS DENTRO DA LIST DE 'simple_list' sejam duplicados...
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, ESCREVEMOS:
+
+
+
+
+
+
+
+
+
+reserved_items = [
+    el * 2 for el in calc_items if el in simple_list
+]
+
+
+
+
+
+
+FUNCIONOU:
+
+
+
+
+>>> calc_items = [1, 2]
+>>> reserved_items = [
+...     el * 2 for el in calc_items if el in simple_list
+... ]
+>>> reserved_items
+[2, 4]
+
+
+
+
+
+-----> FUNCIONOU...
+
+
+
+
+
+
+
+PROFESSOR TAMBÉM ESCREVEU ESSE STATEMENT,
+
+
+
+
+
+exatamente igual...
+
+
+
+
+
+
+
+
+
+
+
+-->TER CIÊNCIA DE QUE VOCÊ PODE USAR 
+
+
+
+IF STATEMENTS DENTRO DE 'LIST COMPREHENSIONS' É ESSENCIAL, COISA BEM IMPORTANTE...
+
+
+
+
+
+
+
+--. PRATIQUE SEU USO, PARA QUE CONSIGA FICAR CRAQUE...

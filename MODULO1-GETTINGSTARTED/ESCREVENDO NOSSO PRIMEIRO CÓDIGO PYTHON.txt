@@ -1,0 +1,1646 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS COMEÇAR A ESCREVER ALGO MAIS LEGAL DO QUE 
+UMA SIMPLES CALCULADORA,
+
+
+COM ESSE MODO REPL...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ASSIM QUE VOCÊ ESCREVER 'python' no terminal,
+
+
+
+estará 
+
+NO REPL MODE....
+
+
+
+
+
+
+
+
+
+
+----> OK.... --> O QUE O PROFESSOR VAI QUERER FAZER É 
+
+
+
+1)  GET THE INPUT FROM THE USER 
+
+
+
+
+
+
+
+
+2) ARMAZENAR ESSE INPUT EM UMA FILE 
+
+
+
+
+
+
+
+
+
+3) ABRIR ESSA FILE 
+
+
+
+
+
+
+4) LER O QUE TEMOS NESSA FILE 
+
+
+
+
+5) outputtar o que FOI LIDO NESSA FILE NO TERMINAL..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSEGUIR/FAZER GET DO __ INPUT__ COLOCADO PELO USER,
+
+
+
+
+PODEMOS USAR UMA 
+
+FUNCTION 
+
+
+
+BUILT-IN DO PYTHON,
+
+
+
+QUE É 
+
+
+
+
+A 
+
+'input()' ...
+
+
+
+
+
+
+
+
+
+
+
+
+------>  INPUT É UMA FUNÇÃO 
+
+
+
+
+
+
+
+
+QUE VOCê EXECUTA COM 
+
+
+
+'input + ()'....
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRE OS PARÊNTESES,
+
+VOCê 
+
+PASSA UM ARGUMENTO,
+
+
+
+
+QUE É 
+
+
+ALGO QUE ESSA FUNCTION VAI USAR..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O INPUT É UMA FUNCTION  SHIPPADA PELO PYTHON,
+
+
+
+
+
+
+que você pode usar...
+
+
+
+
+
+
+
+
+
+
+--> quando você executa essa function,
+
+
+
+
+
+
+
+
+ela 'SHOW THE TEXT YOU ARE ENTERING AS A ARGUMENT,
+ 
+
+ AND THEN WAIT FOR THE USER TO WRITE SOMETHING'...
+
+
+
+
+
+
+
+
+
+
+
+ ou seja,
+
+
+
+ o nosso código terá esse resultado:
+
+
+
+
+
+
+ >>> input('Please enter something: ')
+Please enter something: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ou seja,
+
+
+NO EXATO MOMENTO EM QUE ESCREVI esse argumento de 'input',
+
+
+
+ele 
+
+
+já disparou essa mensagem aí, 
+
+
+
+
+
+
+que foi displayada logo abaixo...
+
+
+
+
+
+
+
+
+agora digitei 'aaa' no terminal:
+
+
+
+
+
+
+
+Please enter something: aaaaaaa
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> ISSO QUER DIZER QUE ELE ESTÁ EM UM MODO DE 'WAIT', esperando 
+
+por meu input, ao mesmo tempo que mostra essa mensagem...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> COMO __ SABEMOS__ QUE ELE ESTÁ EM MODO DE 'WAIT' POR UM INPUT? 
+
+
+
+BEM, ISSO É CONSTATADO PELA AUSÊNCIA DOS '>>>' NA PARTE DA ESQUERDA...
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem, agora se digitamos 
+
+'something',
+
+
+O
+
+
+
+'SOMETHING' SERÁ OUTPUTTADO DE VOLTA, IMEDIATAMENTE..
+
+
+
+
+
+
+
+>>> input('Please enter something: ')
+Please enter something: something
+'something'
+>>>       
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------
+
+
+
+
+
+
+ok.... ISSO É NICE, MAS VAMOS QUERER ARMAZENAR ESSE INPUT __ EM 1 ARQUIVO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> como fazemos isso? 
+
+
+
+
+
+
+
+
+
+
+--> BEM, DEVEMOS USAR __ AQUI __ UM OUTRO _ _CONCEITO,
+
+ 
+
+
+ 'VARIABLES' (Exatamente como no javascript),
+
+
+
+
+
+ E PODEMOS 
+
+ ADICIONAR UMA VARIABLE
+
+
+
+
+
+
+
+
+
+ por meio 
+
+ do 
+ write 
+
+
+ de 
+
+ qualquer 
+
+
+
+ nome que 
+
+ vocÊ 
+ quiser,
+
+
+
+ e aí 
+
+
+
+
+ '=',  
+
+
+
+ E AÍ _ UM __ VALOR__....
+
+
+
+
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+ my_name_variable = input('Please enter something: ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---------> EX:
+
+
+
+
+
+
+ >>> input('Please enter something: ')
+Please enter something: something
+'something'
+>>>  my_name_variable = input('Please enter something: ')
+  File "<stdin>", line 1
+    my_name_variable = input('Please enter something: ')
+IndentationError: unexpected indent
+>>> my_name_variable = input('Please enter something: ')
+Please enter something: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> com isso, o que estamos fazendo é:
+
+
+
+
+
+
+
+1) CRIANDO UMA 'VARIABLE' com um valor que é ESSE INPUT AÍ..
+
+
+
+
+
+
+
+2) entretanto, o VALOR ___ DESSE INPUT AINDA NÃO TERÁ SIDO SETTADO, PQ O USER AINDA NÃO ESCREVEU...
+
+
+
+
+
+3) 'Please enter something' ---->  no momento que o user escrever algo, isso será ARMAZENADO NESSA VARIABLE 'my_name_variable'...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+>>> input('Please enter something: ')
+Please enter something: something
+'something'
+>>>  my_name_variable = input('Please enter something: ')
+  File "<stdin>", line 1
+    my_name_variable = input('Please enter something: ')
+IndentationError: unexpected indent
+>>> my_name_variable = input('Please enter something: ')
+Please enter something:
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+E AÍ:
+
+
+
+
+
+>>> input('Please enter something: ')
+Please enter something: something
+'something'
+>>>  my_name_variable = input('Please enter something: ')
+  File "<stdin>", line 1
+    my_name_variable = input('Please enter something: ')
+IndentationError: unexpected indent
+>>> my_name_variable = input('Please enter something: ')
+Please enter something: Arthur
+>>> my_name_variable
+'Arthur'
+>>>     
+
+
+
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+E QUANDO ARMAZENAMOS NOSSO NAME NESSA VARIABLE,
+
+
+O CONSOLE/TERMINAL N NOS DÁ NENHUM OUTPUT, apenas armazena SILENCIOSAMENTE...
+
+
+
+
+
+
+
+
+
+--> mas se escrevemos 'my_name_variable',
+
+
+
+
+
+IMEDIATAMENTE VEMOS O OUTPUT...
+
+
+
+
+
+
+
+
+
+
+--> ISSO NOS DEIXA, AGORA,
+
+
+
+PODER USAR 
+
+ESSE 
+
+
+VALOR QUANTAS VEZES QUISERMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> E, AGORA, SE QUEREMOS ARMAZENAR ESSE VALOR DE 'Arthur'
+
+
+EM UM ARQUIVO,
+
+
+
+
+PODEMOS _ USAR_ OUTRA FUNÇÃO QUE 
+
+SHIPPA 
+
+
+COM 
+
+O 
+
+
+PYTHON,
+
+
+
+
+
+
+
+QUE É 
+
+
+
+A 'open()',
+
+
+
+
+QUE 
+
+
+VAI ABRIR __  
+
+
+1 
+
+
+ARQUIVO __ PARA NÓS__....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR ENTÃO ARMAZENA 
+
+
+
+
+O 'RESULTADO' DESSE OPEN EM 
+
+
+UMA OUTRA VARIABLE,
+
+DE 
+
+NOME 
+
+
+
+'fileVariable'....
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> MAS O OPEN É UMA FUNÇÃO QUE 
+
+REQUER MAIS ALGUMAS COISINHAS,
+
+REQUER 2 PARÂMETROS:
+
+
+
+
+
+
+
+
+
+1) ''''QUAL FILE ABRIR'''' 
+
+
+
+
+
+
+
+
+
+
+2) '''COMO''' ABRIR ESSA FILE... (é o 'MODE' do open)....
+
+
+
+
+'w' --> WRITE 
+
+
+'r' --> read 
+
+
+
+
+
+
+
+
+
+
+-> você vai querer fazer read, vai querer fazer write... o que você vai querer fazer?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+
+ele escreve assim:
+
+
+
+
+
+
+
+fileVariable = open('name.txt', mode='w')
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+VAMOS 'ABRIR'
+
+
+
+
+O ARQUIVO 'name.txt'
+
+
+
+E NOSSO MODO SERÁ 
+
+DE 
+
+'WRITE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, ESTAMOS BASICAMENTE DIZENDO AO PYTHON PARA 
+
+ABRIR 
+
+ESSA FILE E 
+
+NOS DAR 
+
+
+'WRITE-ACCESS'
+
+
+a ela... ----->  E AÍ,
+
+
+
+
+
+
+
+
+O '''POINTER/ADDRESS''' 
+
+
+A 
+
+ESSE 
+
+
+
+ARQUIVO 'name.txt'
+
+
+
+
+VAI SER __ ARMAZENADO__ 
+
+
+
+NESSA VARIABLE DE NOME 
+
+'fileVariable'...
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+>>> input('Please enter something: ')
+Please enter something: something
+'something'
+>>>  my_name_variable = input('Please enter something: ')
+  File "<stdin>", line 1
+    my_name_variable = input('Please enter something: ')
+IndentationError: unexpected indent
+>>> my_name_variable = input('Please enter something: ')
+Please enter something: Arthur
+>>> my_name_variable
+'Arthur'
+>>> fileVariable = open()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: open() missing required argument 'file' (pos 1)
+>>> fileVariable = open('name.txt', mode='w')
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> BEM, 
+
+
+
+SE VOCÊ 
+
+
+
+TENTAR OUTPUTTAR ESSA VARIABLE,
+
+
+
+VOCÊ GANHA ESTE OUTPUT:
+
+
+
+>>> fileVariable
+<_io.TextIOWrapper name='name.txt' mode='w' encoding='cp1252'>
+
+
+
+
+
+(obs: o encoding do professor está como 'UTF-8'...) -----> É PQ O SISTEMA OPERACIONAL DELE É MAC,
+
+E O NOSSO 
+
+É 
+
+
+WINDOWS (cujo formato de codificação de bytes é o mais popular do mundo....)
+
+
+
+
+
+
+------> ESSE OUTPUT 
+
+ESTRANHO (parece um elemento HTML) 
+
+
+ESSENCIALMENTE 
+
+
+
+
+NOS GARANTE QUE 
+
+ESSE STORAGE 
+
+
+FUNCIONOU...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK, ISSO SIGNIFICA QUE AGORA TEMOS ESSE 'ENDEREÇO' a esse arquivo,
+
+
+
+com uma permissão de 'WRITE' já embutida...
+
+
+
+
+
+
+
+
+
+---> COM ISSO,
+
+PODEMOS 
+
+
+ESCREVER 
+
+
+
+
+''''
+
+
+file.write()
+
+
+
+'''''
+
+
+
+
+
+
+
+
+
+e aí 
+
+
+PASSAR 
+
+AQUELE PARÂMETRO/variable
+
+
+
+
+'my_name_variable'
+
+
+
+
+
+
+COMO ARGUMENTO...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI BASICAMENTE COMUNICAR AO PYTHON QUE QUEREMOS ESCREVER ESSE VALOR 'Arthur' dentro desse file...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK, APERTAMOS 
+
+e aí 
+
+
+
+GANHAMOS O OUTPUT....
+
+
+
+
+
+
+
+
+
+--> foi '6'... ----> É O NÚMERO DE LETRAS INSERIDA, BASICAMENTE....
+
+
+
+
+
+
+
+
+
+
+-> PROFESSOR PEDE PARA QUE IGNOREMOS ESSE RESULTADO....
+
+
+
+
+
+
+
+
+
+--> PROFESSOR ENTÃO ESCREVE 
+
+'fileVariable.close()',
+
+
+
+PARA __ FECHAR__ ESSE ARQUIVO.... --> 
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>> input('Please enter something: ')
+Please enter something: something
+'something'
+>>>  my_name_variable = input('Please enter something: ')
+  File "<stdin>", line 1
+    my_name_variable = input('Please enter something: ')
+IndentationError: unexpected indent
+>>> my_name_variable = input('Please enter something: ')
+Please enter something: Arthur
+>>> my_name_variable
+'Arthur'
+>>> fileVariable = open()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: open() missing required argument 'file' (pos 1)
+>>> fileVariable = open('name.txt', mode='w')
+>>> fileVariable
+<_io.TextIOWrapper name='name.txt' mode='w' encoding='cp1252'>
+>>> fileVariable.write(my_name_variable)
+6
+>>> file.close()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'file' is not defined. Did you mean: 'filter'?
+>>> fileVariable.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO FECHOU O ARQUIVO/link a ele....
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO... AGORA PODEMOS NAVEGAR ATÉ O FOLDER EM QUE 
+
+
+
+
+ESSE NEGÓCIO FOI ESCRITO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, O ARQUIVO JÁ ESTÁ ALI... 
+
+
+
+'name.txt',
+
+
+
+COM 
+
+
+
+NOSSO WRITE DE 'Arthur'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... AÍ EU BRINCO UM POUCO MAIS COM O PYTHON:
+
+
+
+
+
+
+
+>>> fileVariable = open('name.txt', mode='w')
+>>> fileVariable.write('Arthur2')       
+7
+>>> fileVariable.close()
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> parece que quando abrirmos esse 
+
+arquivo mais 1 vez,
+e aí 
+
+
+
+DEFINIRMOS O ACESSO DE 'WRITE',
+
+
+
+
+
+
+
+sempre 
+
+
+
+que eu usar 
+
+
+'xxx.write()',
+
+
+
+
+
+ESSE PARÂMETRO/VALOR __ QUE EU WRITTAR__ VAI __ 
+
+
+
+
+
+
+
+SEMPRE __ 
+
+
+
+OVERWRITTAR __ O VALOR ANTERIOR, QUE EXISTIA NESSA FILE....
+
+
+
+
+
+
+
+
+
+
+-> mas talvez exista um method que faz 'append', e não overwrite....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> É CLARO QUE PODEMOS FAZER ALGO __ MAIS LEGAL __ DO QUE APENAS __ 
+
+
+ARMAZENAR NOSSA STRING LÁ DENTRO... --> PODEMOS 
+
+
+
+FAZER 'READBACK' desse arquivo 
+
+
+
+no próprio python...
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO,
+
+
+PROFESSOR 
+
+
+
+ESCREVE NOVAMENTE 
+
+
+
+
+fileVariable = open('name.txt', mode='r')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEITO,
+
+VOCÊ TERÁ __ '''ABERTO''' ESSE ARQUIVO MAIS UMA VEZ,
+
+
+
+NESSA SUA VARIABLE DE 'fileVariable',
+
+
+
+MAS 
+
+AGORA 
+
+
+
+NO 'READ MODE'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PARA EXTRAIR O VALOR DESSE FILE NO 'read mode',
+
+
+
+
+
+PROVAVELMENTE ESCREVEMOS:
+
+
+
+fileVariable.read()
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+>>> fileVariable = open('name.txt', mode='r')
+>>> fileVariable
+<_io.TextIOWrapper name='name.txt' mode='r' encoding='cp1252'>
+>>> fileVariable.read()
+'Arthur2'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> 
+
+
+
+
+
+
+
+
+
+
+OK...
+
+
+
+
+
+
+
+
+RESUMINDO:
+
+
+
+
+
+
+
+
+input()
+
+
+
+
+
+
+open()
+
+
+
+
+nomeDaVariableOpenada.close()
+
+
+
+
+
+nomeDaVariableOpenada.write() 
+
+
+
+
+
+
+nomeDaVariableOpenada.read()
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, UM MONTE DE COISA NOVA,
+
+
+
+
+
+
+E APRENDEREMOS UM MONTE DELAS (mas já sei fazer bastante coisa)....
+
+
+
+
+
+
+
+
+
+
+
+--> OK, AGORA JÁ SABEMOS COMO PODEMOS DAR INSTRUÇÕES AOS COMPUTADORES, PARA QUE RODEM CERTAS COISAS...
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE USAR ESSAS INSTRUCTIONS E COMANDOS, BEM MAIS DO QUE ESSES, PARA CONSTRUIR QUALQUER PROGRAMA QUE VOCÊ QUISER...
+
+
+
+
+
+
+
+
+--> NESSE CURSO CONSTRUÍREMOS UMA BLOCKCHAIN...

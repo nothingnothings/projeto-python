@@ -1,0 +1,698 @@
+
+
+
+
+
+
+
+
+
+VAMOS COMEÇAR PELO DEBUGGING..
+
+
+
+
+
+
+
+
+
+
+--> NO ÚLTIMO MÓDULO, TIVEMOS O PROBLEMA DE QUE 
+
+SE 
+
+
+IMPORTÁVAMOS NOSSA DATA VIA 'JSON',
+
+
+
+NÓS _ ACABÁVAMOS 
+
+
+PERDENDO 
+
+A 
+INFO  ACERCA 
+
+
+
+DAS 
+
+'OrderedDict'...  --------> 
+
+
+
+
+
+
+
+
+
+
+
+PARA DETECTAR __ ESSE ERRO,
+
+O PROFESSOR 
+
+
+
+ADICIONOU 
+
+
+UM
+
+
+
+
+PRINT 
+
+
+de 
+
+'guess'
+
+
+lá 
+
+na nossa function 'valid_proof,'
+
+
+
+
+PARA ENTÃO 
+
+VER O QUE 
+
+
+
+ACONTECEU 
+
+
+
+
+
+COM NOSSO CÓDIGO ANTES 
+
+
+
+
+DE TENTARMOS CRIAR 1 HASH... 
+
+
+
+
+
+
+
+
+
+ex>:
+
+
+
+
+
+guess = (str(transactions) + str(last_hash) + str(proof)).encode()
+
+
+print(guess)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> APESAR DO ADD 
+
+DE 
+
+'print()"
+
+
+
+ser bom para esclarecer algumas coisas no seu código,
+
+
+O 
+
+
+ADD 
+
+DE 
+
+
+PRINT STATEMENTS 
+
+
+
+COMO ESSE NO SEU CÓDIGO NÃO É ALGO IDEAL.... --> OBVIAMENTE 
+
+
+
+
+ISSO 
+
+LEVA BASTANTE TEMPO, SE VOCÊ RECORRER SÓ A ESSE RECURSO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ TEM QUE ADICIONAR UM MONTE DE PRINT STATEMENTS. .. --> E VOCÊ 
+
+PODE 
+
+
+ACABAR 
+
+SE 
+
+ESQUECENDO DELES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SÃO BONS PARA 
+
+VER 
+
+
+RAPIDAMENTE 
+
+
+COMO ANDA SEU PROGRAMA 
+
+EM 
+ALGUM 
+
+
+PONTO DO TEMPO...
+
+
+
+
+
+
+
+
+
+
+--> MAS É MELHOR USAR UM DEBUGGER, COMO 
+
+
+
+AQUELE QUE O VISUAL STUDIO CODE OFERECE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA O VISUAL STUDIO CODE,
+
+
+
+
+
+TEMOS OS PYTHON DEBUGGING DOCS...
+
+
+
+
+
+
+
+
+
+
+--> NO VISUAL STUDIO CODE,
+
+
+LÁ EM 'view,'
+
+VOCÊ PODE USAR 
+
+
+
+O 'view > DEBUG'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A VANTAGEM DO DEBUGGER É QUE 
+
+
+VOCÊ 
+
+PODE VER 
+
+
+
+COISAS DE SEU CÓDIGO __ ENQUANTO ELE ESTÁ SENDO EXECUTADO...
+
+
+
+
+
+
+
+
+
+
+
+--> você pode editar a 'config file' do seu debugger, se quiser... --> 
+
+
+
+
+O PROFESSOR VAI USAR A DEFAULT, NO ENTANTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR EXPLICA QUE TERÁ SIDO CRIADO O ARQUIVO 'launch.json',
+
+QUE E´
+
+SÓ UM 
+ARQUIVO DE CONFIGURAÇAÕ, NADA DE MAIS...
+
+
+
+
+
+
+
+
+
+
+
+
+A CONFIG FILE É ASSIM>:
+
+
+
+
+
+
+
+
+
+
+
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Arquivo Atual",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> SE AGORA SALVARMOS ESSE ARQUIVO E EXECUTARMOS NOSSO PROGRAMA,
+
+
+
+
+VEREMOS 
+
+
+
+
+
+QUE 
+
+
+o debug estará ativo....
+
+
+
+
+
+
+
+
+
+
+
+
+--> O DEBUGGER NÃO NOS AJUDA COM ERROS 'COMUNS'...
+
+
+
+
+
+
+
+
+
+
+
+--> SE O PROGRAMA CRASHA BEM NO INÍCIO, NÃO HÁ MT QUE PODEMOS FAZER....
+
+
+
+
+
+
+
+
+
+
+--> MAS PODEMOS COLOCAR BREAKPOINTS NOS LUGARES EM QUE NOSSO CÓDIGO CRASHOU... (por exemplo,
+professor 
+
+coloca 
+
+bem 
+
+
+
+no 
+
+'with open('blockchain.txt', mode='r')  as f',
+
+
+
+PARA 
+
+VER 
+
+
+
+PQ 
+
+ESSA LINHA CRASHOU O CÓDIGO (é pq esse arquivo não existe, mas tudo bem)...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROGRAMA NÃO VAI CRASHAR, 
+
+E AÍ 
+
+VAI PARAR A EXECUÇÃO NESSE PONTO AÍ... --> vai nos dar uns controles para 'STEP INTO A FUNCTIOjn' 
+
+
+
+
+
+
+
+ou 
+
+
+STEP OVER...
+
+
+
+
+
+
+
+
+
+
+
+-------> TAMBÉM GANHAMOS UM OVERVIEW SOBRE 
+
+AS VARIABLES 
+
+de nosso código,
+
+
+e sobre os valores que elas seguram... (
+
+    ex:
+
+
+
+
+{'previous_block_hash': '', 'index': 0, 'processed_transactions': [], 'proof': 100}
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+--> podemos ver os items da list e seus valores... ---> isso pode ser mt útil quando estamos procurando por erros lógicos...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS CONTINUAR E CLICAR EM 'STEP OVER',
+
+
+
+
+
+
+
+e aí vamos vendo etapa-por-etapa...
+
+
+
+
+
+
+
+
+
+
+--> AGORA DIGAMOS QUE QUEREMOS DAR UMA OLHADA NA GERAÇÃO DE NOSSA 'PROOF OF WORK'...
+
+
+
+
+
+
+-_> para isso, vamos querer DAR UMA OLHADA NO VALOR DO NOSSO 'GUESS'...
+
+
+
+
+
+
+usamos 'step into' para ir para dentro dessa function...
+
+
+
+
+
+
+
+
+
+---> mas ainda não consigo ver o valor  de 'guess'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> agora vi.... é possível ver que o valor de 'guess'
+
+está como 
+
+
+b'[]None0'
+
+
+
+
+
+
+
+
+--->   depois conseguimos ver o valor do HASH criado a partir  desse guess:
+
+
+'c3b469a098023c9577525564f2a99a835670ce67a3350e6fc9f6b26ba076e257'
+
+
+
+
+
+
+
+
+
+--> com isso, podemos ver todos os diferentes valores de nossas variables ao longo do tempo... --> e isso 
+
+
+É MUITO ÚTIL PARA DETECTAR __ ERROS __ LÓGICOS..
+
+
+
+
+
+
+
+
+
+
+
+ERROS LÓGICOS SÃO O PIOR TIPO DE ERRO... ------> PQ, COMO ANTES, COM O ORDERED DICT,
+
+NOSSO 
+
+
+
+PROGRAMA NUNCA CRASHA,
+
+NUNCA 
+
+TIRA UM ERRO,
+
+
+
+SÓ 
+
+SE 
+
+
+COMPORTA __INCORRETAMENTE__... -> NÓS VAMOS 
+
+
+RECEBER UMA PROOF INVÁLIDA,
+
+
+
+MESMO NÓS SABENDO QUE NOSSA BLOCKCHAIN ESTAVA VÁLIDA.. --> 
+
+
+E ACHAR 
+
+
+
+ERROS LÓGICOS É ALGO QUE VOCÊ PODE FAZER COM O DEBUGGER..
+
+
+
+
+
+
+--> vá colocando breakpoints, etc etc...
+
+
+
+--> é assim que usamos o debugger..

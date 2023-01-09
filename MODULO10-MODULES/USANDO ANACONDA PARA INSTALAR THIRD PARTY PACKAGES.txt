@@ -1,0 +1,1005 @@
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... --> QUEREMOS INSTALAR UMA NOVA PAKCAGE,
+
+
+
+QUE VAI NOS DAR AQUELAS FEATURES LÁ,
+
+
+
+
+
+
+
+
+public-private key _ SIGNATURES,
+
+
+E O VERIFY DESSAS SIGNATURES..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> PARA ISSO, PODEMOS __ INSTALAR_  UMA NOVA PACKAGE_ _
+
+
+NO NOSSO SISTEMA...
+
+
+
+
+
+
+
+
+
+
+
+--> AQUI TEMOS UM CONCEITO IMPORTANTE...
+
+
+
+
+
+
+
+
+--> não é possível instalar 'ON THIS PROJECT ONLY'... --> o python não tem um mecanismo desses...
+
+
+
+
+
+
+
+
+---> VOCê É __ OBRIGADO__ A INSTALAR __ O PYTHON NO SEU SISTEMA INTEIRO (environment do python)...
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS COMO LIMITAR ESSE ' INSTALL' no futuro,
+
+
+
+MAS POR ENQUANTO SEGUIREMOS COM 'O  SISTEMA INTEIRO',
+
+essa package será instalada no SYSTEM INTEIRO,...
+
+
+
+
+
+
+
+
+
+
+
+
+------> PODEMOS FAZER ISSO POR MEIO DO 
+
+
+
+
+
+'_ PYTHON _ PACKAGE MANAGER OFICIAL',
+
+
+
+
+
+
+QUE É 
+
+O 
+
+'pip'.......
+
+
+
+
+
+
+
+
+
+PIP... 
+
+
+
+
+
+
+
+
+PIP 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PIP INSTALL PACKAGES... (PIP)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> vocÊ pode rodar 'pip install' + O NOME DA PACKAGE QUE VOCÊ QUER INSTALAR,
+
+
+
+para 
+
+
+aí 
+
+INSTALAR ESSA PACKAGE 
+
+NO SEU SISTEMA... (system-wide)...
+
+
+
+
+
+
+
+
+
+
+
+--> A PACKAGE DE QUE PRECISAMOS é 
+
+
+
+
+
+
+
+'pycrypto'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> se rodarmos isso no MAC/LINUX,
+
+RODARMOS 
+
+
+
+
+'pip install pycrypto',
+
+
+
+
+isso provavelmente 
+
+
+VAI FUNCIONAR IMEDIATAMENTE --> MAS NO WINDOWS,
+
+ESSE 
+
+
+COMANDO __ PROVAVELEMNTE FALHARÁ... --> 
+
+
+
+
+
+
+
+
+
+
+lá você terá de rodar 
+
+
+
+
+
+
+
+
+
+
+'python -m pip install pycrypto'...
+
+
+
+
+
+
+
+
+-----> ok...  'precisamos de esse "python -m" ' 
+
+
+para CONSEGUIR INSTALAR O 'pycrypto'...
+
+
+
+
+
+
+------> 
+
+
+WARNING: You are using pip version 21.2.3; however, version 22.0.4 is available.
+You should consider upgrading via the 'C:\Python310\python.exe -m pip install --upgrade pip' command.
+PS A:\projeto7-PYTHON\MODULO10-MODULES> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK, MAS MEU COMANDO AINDA __FALHOU__...
+
+
+
+
+
+
+
+
+
+
+--> O INSTALL DE DEPENDENCIES PODE SER ___ BEM CHATO DE SE FAZER,  NO WINDOWS...
+
+
+
+
+
+
+
+
+
+
+
+
+----> É POR ISSO QUE O PESSOAL INSTALA ESSA PACKAGE __ DE UMA MANEIRA DIFERENTE...
+
+
+
+
+
+
+
+
+
+
+
+--> A MANEIRA É 
+
+UMA EM QUE 
+
+
+
+
+
+'VAMOS QUERER CONTROLAR PARA __ QUAL __ PROJECT__ UMA DETERMINADA PACKAGE É INSTALADA'... 
+
+
+
+
+
+
+---> ISSO PQ, COMO O PROFESSOR MENCIONOU,
+
+
+POR DEFAULT __ TODAS AS PACKAGES DO PYTHON SÃO INSTALADAS SYSTEM-WIDE...
+
+
+
+
+
+
+
+
+
+
+----> MAS SE VOCÊ ESTIVER TRABALHANDO COM MÚLTIPLOS PROJETOS,
+
+
+EM QUE 
+
+
+VOCÊ TALVEZ PRECISE DA MESMA PACKAGE,
+
+MAS COM DIFERENTES VERSÕES,
+
+
+VOCÊ TERÁ UM PROBLEMÃO,
+
+
+pq você 
+
+
+terá de usar a mesma 'PACKAGE VERSION' para todos os projects...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE EXISTE A 'ANACONDA'...
+
+
+
+
+
+
+
+
+
+--> É UMA FERRAMENTA QUE TE AJUDA COM PYTHON DEVELOPMENT,
+
+
+PRINCIPALMENTE COM PYTHON PACKAGE MANAGEMENT...
+
+
+
+
+
+
+
+
+
+
+
+--> DOWNLOAD ANACONDA --> É DE GRAÇA...
+
+
+
+
+
+
+
+
+
+
+--> ESCOLHA O WINDOWS... --> AÍ BAIXE O ANACONDA 
+
+
+E 
+
+
+
+
+
+AVANCE ATRAVÉS DO INSTALLER...
+
+
+
+
+
+
+
+
+--> ESCOLHA A VERSÃO PYTHON 3.6...
+
+
+
+
+
+
+
+
+-----> DEPOIS QUE TERMINAR O INSTALLER,
+
+PODE COMEÇAR O 
+
+
+'ANACONDA NAVIGATOR'....
+
+
+
+
+
+
+
+
+
+--> OK.. NO WINDOWS, DURANTE A INSTALAÇÃO,
+
+
+
+VOCÊ NÃO DEVE CHECAR AQUELA PRIMEIRA OPÇÃO DE 'PEDIR PYTHON PELO LOCAL PATH'... ----> VOCÊ NÃO PRECISA 
+
+DISSO 
+
+PQ 
+VOCe^
+
+VAI 
+
+
+SER CAPAZ DE INICIÁ-LO ATRAVÉS DO ANACONDA NAVIGATOR, QUE USAREMOS ASSIM QUE O INSTALL ACABAR...
+
+
+
+
+
+
+
+
+
+
+
+NOSSO OBJETIVO É:
+
+
+
+1) INSTALAR PACKAGES CONVENIENTEMENTE
+
+
+
+
+
+
+
+
+
+2) MANAGEAR DIFERENTES 'VIRTUAL ENVIRONMENTS',
+
+
+
+QUE BASICAEMNTE 
+
+
+MANAGEIAM DIFERENTES CONJUNTOS DE PACKAGES PARA DIFERENTES PROJETOS...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS CONSTRUIR DIFERENTES VIRTUAL ENVIRONMENTS COM A SEÇÃO 
+
+
+
+
+'environments'
+
+DO ANACONDA...
+
+
+
+
+
+
+
+
+
+
+
+--> A BOA NOTÍCIA É QUE ISSO NÃO VAI 'CRIAR UM BRAND NEW OPERATING SYSTEM NA SUA MÁQUINA'...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI SÓ CRIAR UM 'PYTHON-FOCUSED VIRTUAL ENVIRONMENT',
+
+ 
+
+
+ QUE SIMPLESMNETE MANAGEIA  DIFERENTES PACKAGES ___ PARA O PYTHOn...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> VOCÊ PODE GERAR UM NOVO ENVIRONMENT COM 'create',
+
+
+ AÍ VOCÊ COLOCA UM ENVIRONMENT NAME...
+
+
+
+
+
+
+
+
+
+
+ -----> PYTHON, VERSÃO MAIS RECENTE... --> PROFESSOR COLOCA O NOME DE 'pycoin'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> AÍ CLIQUE EM CREATE,
+
+
+
+ E AÍ SERÁ SETTADO ESSE SEU 
+
+
+ NOVO 
+
+
+
+ VIRTUAL ENVIRONMENT..
+
+
+
+
+
+
+
+
+
+ --> ASSIM QUE ISSO ACABAR, CLIQUE NA SETA VERDE E 
+
+
+ digite 
+
+ 'open terminal' -->  ISSO VAI ABRIR UM TERMINAL CARREGADO DIRETAMENTE NESSE 
+
+
+ 'VIRTUAL ENVIRONMENT'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> JÁ POR MEIO DA OPÇÃO 'open with python',
+
+ PODEMOS ESCOLEHR 
+
+
+
+ ABRIR ESSE PROJETO COM O 'REPL',
+
+
+
+ mas vamos fechar isso....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ------->  na direita você vê as packages 
+
+ QUE FORAM INSTALADAS PARA ESSE VIRTUAL ENVIRONMENT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> O QUE VOCê PODE FAZER É 
+
+ ABRIR UM TERMINAL,
+
+
+
+ e aí NAVIGATE ATÉ SEU PROJECT FOLDER (com cd)
+
+
+
+ PARA AÍ _ EXECUTAR_ SEU PROJECT FILE,
+
+
+
+ COM AQUELE 
+
+
+
+ COMANDO 
+
+
+
+
+
+ SIMPLES DE 
+
+
+
+ 'python + nome do seu arquivo.py',
+
+
+
+ tipo 
+
+
+
+ 'python node.py'...,
+
+
+
+
+
+
+
+
+
+
+ para aí _ USAR_ ESSE 'VIRTUAL ENVIRONMENT'
+
+
+
+
+ __ APENAS_ NAS PACKAGES_ QUE FAZEM PARTE DESSE PROJETO AÍ..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> OK... OUTRO DETALHE É QUE ENTÃO VOCÊ PODE VOLTAR AO SEU 'IDE'
+
+
+ E
+  AÍ __ ACTUALLY_ 'ativar'
+
+
+
+
+  ESSE VIRTUAL ENVIRONMENT...
+
+
+
+
+
+
+
+
+
+
+
+  --> PARA _ ATIVAR__ SEU VIRTUAL ENVIRONMENT,
+
+  você 
+
+
+  DEVE 
+
+
+
+
+
+  IR NO TERMINAL E ESCREVER 'source activate _ NOME DO PROJETO/ENVIRONMENT'...
+
+
+
+
+
+
+
+--> parece que isso NÃO FUNCIONA COM A 'VERSÃO DE NOSSO SISTEMA OPERACIONAL EM JAPONES' (ienes)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> no nosso caso, é 
+
+
+'source activate mycoin'...
+
+
+
+
+
+
+
+
+
+--> AGORA AINDA ESTAREMOS NO TERMINAL NORMAL, SIM,
+
+
+MAS _ ESSE __ VIRTUAL ENVIRONMENT ESPECÍFICO E AS PAKCAGES _ _ INSTALADAS__ 
+
+
+
+
+
+NELE/ANEXADAS A ELE 
+
+
+
+
+_  FORAM CARREGADAS no nosso pc...  
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ NO WINDOWS O COMANDO É 'activate mycoin' (ou qualquer outro nome que escolhemos)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ESSA É APENAS A PRIMEIRA PARTE,
+
+
+PQ É ÓBVIO QUE _ TAMBÉM VAMOS QUERER __ INSTLAR_ PACKAGES __ 
+
+
+
+NESSE ENVIRONMENT... 
+
+
+
+
+
+
+
+
+
+
+--> ISSO PQ ESSE ENVIRONMENT SÓ VEM COM UM PUNHADO DE 'STARTER PACKAGES'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E O PYCRYPTO, pacakge que desejamos,
+
+NÃO ESTÁ INSTALADA...
+
+
+
+
+
+
+
+
+
+
+
+---> podemos convenientemente _ instalar__ PACKAGES__ NO ANACONDA NAVIGATOR_  
+
+
+se __ 
+seguirmos 
+
+
+
+
+
+
+ATÉ uma aba ali emcima, 
+
+
+
+
+que diz 
+
+
+'installed',
+
+e aí _ PROCURAR_ POR PACKAGES QUE __ NÃO FORAM INSTALADAS...
+
+
+
+
+
+
+
+
+
+cliquei e apliquei...
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... ISSO FEITO, SE VOLTARMOS ATÉ 'INSTALLED',
+
+veremos que ELE FOI INSTALADO...
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS CONTINUAR COM O CÓDIGO, E VER O QUE PODEMOS FAZER COM ESSA PACKAGE...
+
+
+
+
+
+
+
+
+--> bem mais fácil só digitar 
+
+
+'CTRL + SHIFT + P' --> aí 'select interpreter',
+
+
+
+
+AÍ ESCOLHER 'anaconda(my-coin)'
+
+
+
+
+E AÍ 
+
+
+FICAR COM O ENVIRONMENT DESEJADO...

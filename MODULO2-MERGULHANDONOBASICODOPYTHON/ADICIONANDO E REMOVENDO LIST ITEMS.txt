@@ -1,0 +1,459 @@
+
+
+
+
+
+
+
+
+
+NO JAVASCRIPT, FAZÍAMOS ISSO COM METHODS COMO FILTER, POP, UNSHIFT,
+
+
+
+
+TAMBÉM PUSH,
+
+
+SLICE,
+ 
+ SPLICE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> aqui eu não sei como funciona...
+
+
+
+
+
+
+
+ --> se queremos ALTERAR ALGUM ELEMENTO,
+
+ BASTA ESCREVER ASSIM:
+
+
+
+ >>> blockchain[1] = 'z'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> TIPICAMENTE,
+
+
+
+ VOCÊ NÃO VAI QUERER HARDCODAR SEU ARRAY E DEIXÁ-LO INTACTO... 
+
+
+
+
+
+
+
+
+
+
+ --> VOCÊ VAI TER CERTAS CIRCUNSTÂNCIAS EM QUE 
+
+ VOCê VAI QUERER FAZER ALGO COM SUA LIST EM CERTOS PONTOS NO TEMPO, no seu código...
+
+
+
+
+
+
+
+
+
+
+
+ --> DIGAMOS QUE QUEREMOS ADICIONAR UM ELEMENTO 
+
+
+ A NOSSA LISTA...
+
+
+
+
+
+
+
+
+
+
+
+ --> podemos adicionar um element, É CLARO,
+
+
+
+ PELO SIMPLES REDEFINE 
+ DE TODA 
+
+
+ NOSSA LIST,
+
+ TIPO ASSIM
+
+
+
+
+
+  
+
+
+
+
+>>> blockchain
+['a', 'za', 'c']
+>>>blockchain = ['a', 'za', 'c', 'd']
+>>> blockchain
+['a', 'za', 'c', 'd']
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO É MT CUMBERSOME,
+VOCÊ NÃO VAI QUERER TER QUE RECRIAR LISTAS MANUALMENTE TODA HORA....
+
+
+
+
+
+
+
+
+
+--> AINDA BEM QUE TEMOS UMA FUNÇÃO/METHOD ESPECIAL QUE PODEMOS USAR...
+
+
+
+
+
+
+
+
+
+--> PROFESSOR NOS MOSTRARÁ O QUE SÃO FUNCTIONS E METHODS DEPOIS....
+
+
+
+
+
+
+
+
+--> A FUNÇÃO QUE O PROFESSOR USA É '.append()'...
+
+
+
+
+
+
+
+
+
+
+
+.APPEND() -----> É UM BUILTIN METHOD QUE VEM COM O PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+--> ok... 
+
+
+DENTRO DE 'append',
+
+
+colocamos o parâmetro que 
+
+queremos adicionar 
+
+
+
+AO FINAL DA LIST...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+>>> blockchain
+['a', 'za', 'c', 'd']
+>>> blockchain.append('e')
+>>> blockchain
+['a', 'za', 'c', 'd', 'e']
+
+
+
+
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+
+--> OK... COLOCOU AO FINAL DA LIST...
+
+
+
+
+
+
+
+
+--> MAS TEMOS OUTRO METHOD QUE PODEMOS CHAMAR,
+
+
+QUE é o method de 'pop'...
+
+
+
+
+
+
+
+
+
+
+
+--> e há mt mais methods do que apenas esses 2...
+
+
+
+
+
+
+
+
+
+
+
+-----> O 'pop()' VAI NOS RETORNAR UM VALOR INSTANTANEAMENTE,
+
+E ESSE VALOR SEMPRE SERÁ __ O _ ÚLTIMO VALOR DO SEU ARRAY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> --> POP ACTUALLY REMOVE O ÚLTIMO ELEMENTO DE UMA LIST,
+
+
+
+
+
+__ FAZ OUTPUT DELE... --> também podemos armazenar 
+esse 
+
+valor 
+
+em 
+
+1 
+
+
+
+
+constante... --> ENTRETANTO,
+
+
+
+
+
+QUANDO CHAMAMOS 
+
+
+
+
+
+
+'pop',
+
+
+
+NÓS ACTUALLY __ ALTERAMOS __ O VALOR DA LIST.... (ela vai ficar sem o último elemento, no caso)...
+
+
+
+
+
+
+
+
+
+
+
+
+->EX:
+
+
+>>> list.pop()
+'c' 
+>>> list       
+['a', 'b']
+>>> list       
+['a', 'b']
+>>> list2 = list.pop()
+>>> list2
+'b' 
+>>> list
+['a']
+>>>  
+
+
+
+
+
+
+
+
+
+------> OK... O ELEMENTO DO ARRAY ORIGINAL É COMPLETAMENTE REMOVIDO, E PODE SER OU 'LARGADO FORA'
+
+ou armazenado em uma variable...
+
+
+
+
+
+
+
+
+--> É O MESMO COMPORTAMENTO VISTO NO JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+--> É ASSIM QUE PODEMOS, EM GERAL, TRABALHAR COM A LIST,
+
+E COMO PODEMOS 
+
+TRABALHAR COM A BLOCKCHAIN...
+
+
+
+
+
+
+
+--> VAMOS MANAGEAR NOSSA 
+
+BLOCKCHAIN EM UMA LISTA.... --> ISSO VAI MUDAR POSTERIORMENTE,
+
+
+
+
+PQ VAMOS TER ALGMAS COISAS EXTRAS,
+
+COMO MANIPULAÇÃO DE LISTS,
+
+
+
+TAMBÉM VERIFY/VALIDATE A LIST (CHECAR SE É VÁLIDA).... 
+
+
+
+
+
+
+
+->  A DATA ARMAZENADA SERÁ MAIS COMPLEXA,
+
+
+E TAMBÉM
+
+VEREMOS COMO __PODEMOS __ ARMAZENAR__ ESSA LIST EM UM 
+
+
+
+
+
+ARQUIVO...
+ 
+
+
+
+
+
+
+ -> pq se reiniciarmos o python, veremos que todas essas lists estarão GONE... (suas variables estarão gone)..
+
+
+
+
+
+
+
+ 

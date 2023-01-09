@@ -1,0 +1,757 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... ADICIONAMOS UM FOR LOOP...
+
+
+
+
+
+
+
+
+--> AGORA É HORA DE ADICIONAR UM WHILE LOOP...
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR QUER USAR ESSE WHILE LOOP PARA 'CRIAR UMA USER INTERFACE UM POUCO MAIS REALISTA'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> isso pq até agora ESTAMOS PEDINDO __ AO USER_ 'INPUT'
+
+
+3x seguidas,
+
+
+
+
+e nessas 3x,
+
+
+
+NÓS _ PARAMOS A EXECUÇÃO DE TODO O CÓDIGO ENQUANTO ELE NÃO RESPONDE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR QUER ACTUALLY ESCREVER 1 LOOP QUE 'KEEPS ON GOING' 
+
+
+ATÉ O MOMENTO EM  QUE O USER QUITA... -----> ISSO PARA QUE __ SEJA __ POSSÍVEL __ 
+
+
+INPUTTAR _ QUANTOS 
+
+
+
+BLOCKS E TRANSACTIONS QUISERMOS (e não ser limitados a um número fixo)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR ESTÁ PENSANDO EM 1 INTERFACE 
+
+EM QUE 
+
+
+
+
+
+'''SOMOS DADOS DIFERENTES OPÇÕES PARA ESCOLHER''' -> e a depender 
+
+
+
+
+DESSA OPÇÃO ESCOLHIDA, PODEMOS/PODEREMOS 
+
+
+
+REALIZAR DIFERNTES AÇÕES...
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, VAMOS COMEÇAR PELO LOOOP INFINITO....
+
+
+
+
+
+
+
+
+
+
+
+
+--> para isso,
+
+
+o professor escreve 'while'..
+
+
+
+
+
+
+
+
+
+
+while True:
+    print('THIS IS TRUE')
+
+
+
+
+
+
+
+
+
+
+
+
+    EX:
+
+
+
+
+
+
+
+    THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+THIS IS TRUE
+
+
+
+
+
+
+
+
+
+
+
+-------------------
+
+
+
+
+
+
+
+
+
+
+OK.... --> ISSO VAI CONTINUAR PRINTANDO 
+
+
+esse 
+
+
+
+valor definido em 'while' 
+
+PERMANENTEMENTE...
+
+
+
+
+
+
+
+
+
+
+-> OK... MAS AGORA O QUE O PROFESSOR QUER FAZER É 
+
+
+
+
+
+'GET THE USER INPUT' (através de 'get_user_input()')
+
+
+
+
+E AÍ __ ADICIONAR UM VALUE NA NOSSA BLOCKCHAIN, através 
+
+
+de 
+
+
+
+'add_value(get_user_input(), get_last_blockchain_value())' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------->   O professor VAI ADICIONAR ESSA LINHA DE CÓDIGO DENTRO DO 'FOR LOOP',
+
+TUDO PARA QUE FIQUEMOS 'ATIVAMENTE QUERYING FOR NEW INPUT'....
+
+
+
+
+
+
+ex:
+
+
+
+add_value(get_user_input(), get_last_blockchain_value())
+
+
+while True:
+    # print('THIS IS TRUE')
+    add_value(get_user_input(), get_last_blockchain_value())
+
+
+for block in blockchain:
+    print('Outputting block')
+    print(block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> BEM, O PROBLEMA, AGORA, É QUE ___ ESSE WHILE LOOP _ NUNCA ESTÁ ACABANDO, 
+
+
+
+mesmo depois de pedir o input 200x:
+
+
+
+STARTED
+Please enter the value of your transaction: 1
+[[[1], 1.0]]
+[[[1], 1.0], [[[1], 1.0], 0.9]]
+Please enter the value of your transaction: 2
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0]]
+Please enter the value of your transaction: 3
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0]]
+Please enter the value of your transaction: 4
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0], [[[1], 3.0], 4.0]]
+Please enter the value of your transaction: 5
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0], [[[1], 3.0], 4.0], [[[[1], 3.0], 4.0], 5.0]]
+Please enter the value of your transaction: 6
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0], [[[1], 3.0], 4.0], [[[[1], 3.0], 4.0], 5.0], [[[[[1], 3.0], 4.0], 5.0], 6.0]]
+Please enter the value of your transaction: 7
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0], [[[1], 3.0], 4.0], [[[[1], 3.0], 4.0], 5.0], [[[[[1], 3.0], 4.0], 5.0], 6.0], [[[[[[1], 3.0], 4.0], 5.0], 6.0], 7.0]]
+Please enter the value of your transaction: 8
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0], [[[1], 3.0], 4.0], [[[[1], 3.0], 4.0], 5.0], [[[[[1], 3.0], 4.0], 5.0], 6.0], [[[[[[1], 3.0], 4.0], 5.0], 6.0], 7.0], [[[[[[[1], 3.0], 4.0], 5.0], 6.0], 7.0], 8.0]]        
+Please enter the value of your transaction: 9
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 2.0], [[1], 3.0], [[[1], 3.0], 4.0], [[[[1], 3.0], 4.0], 5.0], [[[[[1], 3.0], 4.0], 5.0], 6.0], [[[[[[1], 3.0], 4.0], 5.0], 6.0], 7.0], [[[[[[[1], 3.0], 4.0], 5.0], 6.0], 7.0], 8.0], [[[[[[[[1], 3.0], 4.0], 5.0], 6.0], 7.0], 8.0], 9.0]]
+Please enter the value of your transaction:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------->   O CÓDIGO, ATÉ AGORA, ESTÁ ASSIM:
+
+
+
+
+
+
+
+while True:
+    # print('THIS IS TRUE')
+    add_value(get_user_input(), get_last_blockchain_value())
+
+
+for block in blockchain:
+    print('Outputting block')
+    print(block)
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR VAI QUERER COLOCAR ESSE FOR LOOP DENTRO DO WHILE LOOP, PARA QUE CONSTANTEMENTE TENHAMOS 
+
+O OUTPUT DESSA BLOCKCHAIN/list...
+
+
+
+
+
+
+ficará tipo assim:
+
+
+
+while True:
+    # print('THIS IS TRUE')
+    add_value(get_user_input(), get_last_blockchain_value())
+
+
+    for block in blockchain:
+        print('Outputting block')
+        print(block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -----> DEIXE ESSE NEGÓCIO INDENTADO DENTRO DO 'while loop' de 'True'....
+
+
+
+
+
+
+
+
+
+
+        DEU CERTo:
+
+
+
+
+
+
+
+
+Outputting block
+[[1], 1.0]
+Outputting block
+[[[1], 1.0], 2.0]
+Outputting block
+[[[[1], 1.0], 2.0], 3.0]
+Outputting block
+[[[[[1], 1.0], 2.0], 3.0], 4.0]
+Outputting block
+[[[[[[1], 1.0], 2.0], 3.0], 4.0], 5.0]
+Outputting block
+[[[[[[[1], 1.0], 2.0], 3.0], 4.0], 5.0], 6.0]
+
+
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+OK... MAS O PROBLEMA É QUE AGORA NOSSO CÓDIGO DE 'WHILE' nunca acabará sua execução.. -> podemos ir escrevendo transactions PARA SEMPRE.. -> e ele vai outputtar o novo block toda santa vez...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO TUDO NOS MOSTRA__ QUE _ PODEMOS __ ACTUALLY__ NESTEAR__ LOOPS....
+
+
+
+
+
+
+
+
+
+
+--> NÓS NUNCA VEMOS 'done' SENDO PRINTADO AO FINAL DESSE WHILE LOOOP,
+
+
+PQ NÓS NUNCA VAMOS SAIR DESSE WHILE LOOP...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PRECISMAOS DE UMA EXIT CONDITION....
+
+
+
+
+
+
+
+
+
+
+--> CONTROL + Z PARA QUITAR, aí vai acabar esse loop...
+
+
+
+
+
+
+
+
+
+--> MAS ISSO ACABA TODO NOSSO SCRIPT....
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ESSE JÁ É NOSSO PRIMEIRO WHILE LOOP EM AÇÃO, E JÁ MELHOROU NOSSO PROGRAMA, PQ PODEMOS ADICIONAR O NÚMERO DE BLOCKS QUE QUISRMOS, QUALQUER Um..

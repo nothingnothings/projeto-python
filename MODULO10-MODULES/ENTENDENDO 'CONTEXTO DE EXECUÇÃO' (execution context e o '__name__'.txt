@@ -1,0 +1,972 @@
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE DEMOS UMA OLHADA NO TÓPICO 'NÃO CONSEGUIMOS CONTROLAR/LIMITAR O QUE É EFETIVAMENTE EXPORTADO',
+
+
+
+
+
+
+
+
+
+
+
+__ devemos VER __ OUTRA _ VARIABLE_ _ IMPORTANTE OFERECIDA PELO PYTHON,
+
+que também 
+
+é 
+uma 
+
+
+
+
+DUNDER VARIABLE COMO 
+
+
+
+'__init__' 
+
+
+
+E 
+
+
+
+
+'__all__'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> É UMA DUNDER VARIABLE,
+
+o 
+
+
+
+
+'__name__'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> VAMOS USAR ESSA DUNDER VARIABLE LÁ EM 'node.py',
+
+QUE É 
+
+O 
+
+ __ ARQUIVO_ QUE COMEÇA O 'FLOW ' DE NOSSO RUNTIME...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> LÁ, BEM AO FINAL DO RUN,
+
+
+ debaixo de 
+
+
+
+
+
+ 'node = Node() 
+ node.listen_to_input()',
+
+
+
+ EM QUE 
+
+ INICIALIZAMOS O NODE,
+
+
+
+
+
+ vamos 
+
+
+ ESCREVER 
+
+
+
+
+ print(__name__)
+
+
+
+
+
+
+
+
+ EX:
+
+
+
+
+
+
+
+
+ 
+
+
+print(__name__)   ####special DUNDER VARIABLE oferecida pelo python... built-in...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AO SAIRMOS DO APP (com 'q', quit the app, como tinhamos codado),
+
+
+
+
+
+
+O QUE VEREMOS DE OUTPUT É ISTO:
+
+
+
+
+
+__main__
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA COISA '__main__' É ALGO QUE 
+
+
+
+
+________sOMENTE__ É EXECUTADO __ QUANDO QUITTAMOS NOSSO APP,
+
+
+PQ 
+
+
+
+
+
+O NOSSO WHILE LOOP BLOQUEIA O CÓDIGO DE 
+
+
+
+'print(__name__)'
+
+
+
+até que ele é concluído (o while loop)
+
+
+
+
+
+
+
+
+
+
+------> MAS O QUE INTERESSA, AQUI, É QUE O '__main__' É O VALUE QUE 
+
+O 
+
+PYTHON 
+
+ARMAZENOU AUTOMATICAMENTE 
+
+
+NAQUELA 
+
+SPECIAL 
+
+
+VARIABLE 
+DE 
+
+
+'__name__'...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O output de    '__main__' INDICA QUE 
+
+
+
+ESSE ARQUIVO 'node.py', 
+
+
+EXECUTADO POR NÓS,
+
+
+
+___ É __ O 
+
+
+'MAIN FILE'
+ 
+
+
+
+
+executado por nosso projeto... -->  OK, MAS QUAL É A ALTERNATIVA AO '__main__'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PODEMOS OBSERVAR ESSA ALTERNATIVA LÁ EM 'blockchain14.py',
+
+
+
+
+SE COLOCARMOS AQUELE 'print(__name__)'
+tambem
+
+
+no texto..
+
+
+
+
+
+
+
+
+
+
+
+
+--> COLOQUEI ESSE print no final, mas aí nada aconteceu... --> O PROFESSOR DIZ QUE DEEVMOS COLOCAR ISSO NO INÍCIO DO ARQUIVO,
+
+para que esse código realmente seja executado....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+o OUTPUT FICA ESTE:
+
+
+
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO10-MODULES> & C:/Python310/python.exe a:/projeto7-PYTHON/MODULO10-MODULES/novonovoprojeto14/node.py
+blockchain14MODULESETPPS
+6b3cf498-f0ec-49e7-8ee1-857a8837e4f6
+GETTER method called
+Handled exception...
+Your data was or was not loaded. See error statements
+clean-up work
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+v: Verify open transactions
+------------------------------
+Please choose an option:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> A LINE QUE INTERESSA É AQUELA 
+
+
+
+
+''' blockchain14MODULESETPPS'''
+
+
+
+
+
+
+
+
+--> ISSO ESTÁ VINDO DE ESSE 'print(__name__)'
+
+
+lá 
+
+
+
+no 
+
+
+
+'blockchain14.py'....  -------> ISSO SIGNIFICA QUE 
+
+O 
+
+
+
+PYTHON 
+
+
+
+
+
+''''ARMAZENOU O NOME DO MÓDULO (blockchain14) QUE FOI EXECUTADO _ DENTRO__ DE ESSE "__name__"  '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS PQ O NOME FICOU COMO 'blockchain' nesse exemplo?
+
+e pq 
+
+
+ficou como '__main__' 
+
+
+lá em 
+
+'node.py?'
+
+
+
+
+
+------> bem, o '__main__' 
+
+
+
+APARECEU EM 'node.py'
+
+
+PQ 
+
+
+
+
+
+___ O PYTHON FOI EXECUTADO DIRETAMENTE NESSE ARQUIVO,..
+
+
+
+
+
+
+
+
+
+
+
+
+-->RESUMINDO:
+
+
+
+
+
+1) QUANDO EXECUTAMOS DIRETAMENTE UM ARQUIVO, o nome em '__name__' fica como '__main__'...
+
+
+
+
+
+
+
+2) QUANDO O __ ARQUIVO __ É IMPORTADO__, o __name__ fica como o NOME DO ARQUIVO  (ex: 'node.py')..
+
+
+
+
+
+
+
+
+
+
+-> E, ACERCA DE 2,
+
+
+
+QUANDO UMA 
+
+
+
+FILE __ É IMPORTADA _ NO FLOW DE NOSSO PROJETO,
+
+
+TODO O 
+
+
+CÓDIGO 
+
+
+DENTRO DA FILE ACABA EXECUTADO,
+
+
+
+
+
+
+
+NÃO É COMO SE ELE FOSSE APENAS ''OK, LI A CLASS DEFINITION E AGORA ESTOU ESPERANDO POR SEU USO''  --> É BEM PELO CONTRÁRIO,
+
+
+
+
+TODO 
+O 
+
+
+CÓDIGO QUE FICA NO CONTEXTO 'GLOBAL' é automaticamente executado,
+é lido 
+
+
+e 
+
+executado NA ORDEM QUE SEU IMPORT É USADO NO ARQUIVO 'main'...
+
+
+
+
+
+
+
+(
+    AS CLASSES ACABAM REGISTRADAS, SIM, MAS O CÓDIGO DO CONTEXTO 'GLOBAL' também acaba executado...
+)
+
+
+
+
+
+
+
+
+
+
+----> E O '__name__' PODE SER __ BEM ÚTIL PARA __ DESCOBRIR O _ QUE __ ESTÁ 
+
+CAUSANDO O 
+
+
+
+'EXECUTE' 
+
+DE 
+CADA 
+
+FILE 
+
+
+
+NO SEU 
+
+
+PROJETO.. ('__main__' --> fomos nós.... se for um nome de arquivo, FOI ESSE ARQUIVO AÍ (que o IMPORTOU e o utilizou)...)
+
+
+
+
+
+
+-------------
+
+
+
+
+
+
+
+
+
+--> se executamos uma file diretamente, no '__name__' será armazenado '__MAIN__'...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS SE UMA FILE __ ACABA SENDO __ iMPORTADA, COMO 
+
+
+
+
+ESSE arquivo de 'blockchain14.py',
+
+
+
+
+QUE FOI IMPORTADO LÁ EM 'node.py',
+
+
+
+
+
+------ SE ISSO ACONTECE, AÍ _ _TODO __ CÓDIGO __ DE ESSA FILE IMPORTADA __ 
+
+
+ACABA _ SENOD _EXECUTADO TAMBÉM... (todas as linhas de código, e naõ só as CLASS DEFINITIONS)...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... ESSE PRINT STATEMENT  DE 
+
+
+
+
+
+'print(__name__)'
+
+
+
+ACABA SENDO EXECUTADO... ------> E AÍ _O __NAME__ SE TORNA IMPORTANET 
+
+
+
+
+
+
+
+
+PARA __ 'ENTENDER' O QUE ESTÁ RODANDO/CHAMANDO ESSE ARQUIVO... ---> por meio de 
+
+
+
+
+
+
+
+'__main__' vs 'nomeDoArquivoCaller',
+
+
+
+
+
+
+
+
+VOCê __ PODE _ dESCOBRIR QUAL CÓDIGO FOI EXECUTADO DIRETAMENTE (Starter do projeto)
+
+
+
+E QUAL 
+
+
+FOI 'CHAMADO POR OUTRO ARQUIVO/MOODULE'... -----> E ISSO PODE TER IMPLICAÇÕES IMPORTANTES 
+
+
+PARA AQUILO QUE VOCÊ VAI QUERER FAZER... ---> 
+
+
+
+
+
+
+
+
+
+
+
+
+VOLTAMOS AO 'node.py',
+
+
+
+
+
+
+
+E AÍ REFLETIMOS UM POUCO...
+
+
+
+
+
+
+
+
+
+
+1) NÃO ESTAMOS IMPORTANDO ESSE ARQUIVO DE 'node.py' EM QUALQUER LOCAL 
+
+
+DE NOSSO CÓDIGo...
+
+
+
+
+
+
+
+2) MAS DIGAMOS QUE HÁ UMA PROBABILIDADE HIPOTÉTICA DE _ QUE __ VAMOS,
+
+
+
+DE ALGUM MODO,
+
+
+
+IMPORTAR ESSE ARQUIVO EM ALGUM LUGAR... -------> NESSE CASO AQUI,
+
+
+
+
+NÃO VAMOS QUERER FAZER 'SPIN UP' DE NOSSA USER INTERFACE,
+
+
+
+
+
+
+
+não vamos querer FAZER ESSE SPIN UP __ SE ESTIVERMOS __ IMPORTANDO ESSE FILE.... (ou seja, se ele estiver sendo importado 'SECUNDARIAMENTE', como explicado logo assima , e não DIRETAMENTE)...
+
+
+
+
+
+
+
+
+
+----> OK.... ISSO SIGNIFICA QUE VAMOS QUERER CODAR NOSSO C´DOIGO DE UMA 
+
+
+
+
+
+
+MANEIRA QUE _ 
+
+
+
+
+
+SE NOSSO ARQUIVO 
+
+
+
+'node.py'
+
+
+NÃO TIVER SIDO EXECUTADO DE FORMA 'DIRETA' (diretaemnte do nosso file system, sem ser importado em mais lugar algum)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> para ADICIONAR ESSE CHECK,
+
+
+
+BASTA ESCREVER:
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    node = Node()
+    node.listen_to_input()
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+if __name__ =='__main__':  ###esse check serve para INTERROMPER NOSSA EXECUÇAÕ DO APP SE FOR _ CONSTATADO QUE ESSE ARQUIVO 'node.py' NÃO FOI O 'STARTER FILE', o arquivo INICIAL DE CÓDIGO QUE __ INICIALIZA TODOS OS OUTROS ARQUVOS....
+    node = Node()
+    node.listen_to_input()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO, NO CASO, É UM NORMAL IF STATEMENT...
+
+
+
+
+
+
+
+
+
+
+---> TUDO QUE ESTAMOS FAZENDO AQUI É 'CHECANDO O CONTEXT DA EXECUTIOn', E AÍ 
+
+
+
+
+
+___ CONSTATANDO __ SE O EXECUTADOR DESSE CÓDIGO É 'NÓS' (ou seja, O RUNTIME DO PROJETO __ SE INICIA POR ESSE ARQUIVO AÍ)
+
+,
+
+
+
+
+
+OU _ SE ENTÃO O EXECUTADOR É __ 'algum outro arquivo/módulo' --->  
+
+
+
+
+
+
+
+
+
+
+
+a PARTIR DESSE CÓDIGO, SE
+
+FOR CONSTATADO QUE 
+
+
+
+
+
+O EXECUTADOR DESSE ARQUIVO NÃO É '__main__', como QUEREMOS,
+
+
+
+
+
+
+
+
+
+
+
+
+
+SE ESSA CONDIÇÃO NÃO FOR SATISFEITA,,
+
+
+
+
+
+O NOSSO RUNTIME NÃO PROSSEGUIRÁ...
+
+
+
+
+
+
+
+
+
+--> ESSE IF CHECK POR '__name__' , por seu value,
+
+
+
+
+
+
+PODE SER ÚTIL PQ __ VOCê _ PODE TER 
+
+
+
+
+
+
+
+
+
+ARQUIVOS QUE __ AO MESMO TEMPO __ podem ser ou 
+
+
+
+
+
+
+
+1) executados diretaemntne 
+
+
+
+
+
+
+
+
+
+2) executados quando CHAMADOS POR OUTRO ARQUIVO..
+
+
+
+
+
+
+
+
+
+
+
+
+--> nesses cases, o '__name__' é seu amigo...

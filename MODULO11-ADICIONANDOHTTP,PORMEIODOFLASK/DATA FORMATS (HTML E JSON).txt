@@ -1,0 +1,401 @@
+
+
+
+
+
+
+
+
+
+
+
+FORMATOS DE DATA...
+
+
+
+
+
+
+
+
+
+
+
+-_ .VIMOS COMO HTTP REQUESTS FUNCIONAM E COMO OS ESTRUTURAMOS COM PATHS E TYPES...
+
+
+
+
+
+
+
+
+
+
+--> AGORA VEREMOS 'DATA FORMATS'...
+
+
+
+
+
+
+
+
+
+
+-> HTTP REQUESTS E RESPONSES TAMBÉM DEPENDEM DE DATA FORMATS...
+
+
+
+
+
+
+
+
+--> HÁ VÁRIOS DATA FORMATS QUE VOCÊ USA.....
+
+
+
+
+
+
+
+
+
+--> OS 2 MAIS IMPORTANTES, EM VÁRIOS APPS,
+
+
+
+são 
+HTML 
+
+E 
+JSON..
+
+
+
+
+
+
+
+
+
+<div>
+    <h1>This is a Title</h1>
+</div>
+
+
+
+
+
+
+
+
+JSON:
+
+
+
+
+
+
+{
+    "blockchain": [{
+        "name": "..."
+    }
+    ]
+}
+
+
+
+
+
+
+
+
+ACEITA NESTED OBJECTS, 
+
+FIELDS EM QUE 
+
+
+A DATA É CONTAINED BY "" ...
+
+
+
+
+
+
+
+
+
+-> JÁ USAMOS JSON NA NOSSA BLOCKCHAIN,
+
+
+
+
+
+NAQUELE ARQUIVO blockchain.json,
+
+
+
+COM A PACKAGE DE 
+
+'json,'
+
+QUE USAMOS 
+
+PARA 
+
+ARMAZENAR 
+
+
+
+SNAPSHOTS DE 
+
+NOSSA BLOCKCHAIN....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> HTML --> É ÓTIMO 
+
+SE 
+
+VOCÊ 
+
+ESTÁ TARGETTANDO UM BROWSER,
+
+PQ 
+
+É 
+
+COMPREENDIDO PELO BROWSER... --> AS WEBPAGES SÃO ESCRITAS EM HTML, NAS RESPONSES,
+
+
+
+
+
+
+
+E AÍ SÃO RECEBIDAS PELO BROWSER..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JSON ---> É MT MACHINE READABLE,
+
+
+
+E TAMBÉM NÃO 
+
+
+PEGA MT ESPAÇO (pouco overhead),
+
+
+E TAMBÉM 
+
+
+É HUMAN READABLE.. --> USAMOS 
+
+ELE 
+
+PARA 
+
+TRANSFERIR DATA QUE É PROCESSADA POR ALGUM APP ANTERIOREMENTE (
+
+
+    como em um webapp 
+
+    rodando 
+
+    no browser,
+
+
+    por meio de javascript,
+
+
+
+    QUE RODA CÓDIGO NO BROWSER APÓS A PÁGINA TER SIDO CARREGADA...
+)
+
+
+
+
+
+
+
+
+-> O JAVASCRIPT TAM´BEM CONSEUGE FETCEHAR DATA POR TRÁS DAS CENAS,
+
+
+
+DEPOIS DE SUA PAGE TER SIDO CARREGADA,
+
+E AÍ 
+
+
+CONSEGUE 
+
+'GET BACK'
+
+json data 
+
+E 
+AÍ 
+
+
+A PROCESSAR 
+
+E 
+
+
+
+RE-RENDERIZAR PARTES DA PÁGINA CARREGADA COM ESSA 'LOADED DATA '--> E SEU BROWSER CONSEGUE FAZER ISSO COM O JSOON 
+
+
+
+
+PQ ELE É PEQUENO,
+
+
+
+E PQ 
+
+
+ELE É 
+
+
+
+DE FÁCIL PROCESSAMENTO, POR SER MACHINE READABLE,
+
+
+E POR SEGUIR UMA SINTAXE 
+
+BEM 
+
+
+COERENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> HTML É SUA ESCOLHA 
+
+
+SE 
+
+
+
+UM BROWSER TE ENVIOU UM REQUEST,
+
+E SE VOCe^
+
+
+
+
+PLANEJA DISPLAYAR A RESPOSTA/PÁGINA 
+
+DIRETAMENTE... .(
+
+
+    É USADA PARA WEBPAGE CONTENT,
+
+    E TAMBÉM 
+
+    PODE INCLUIR JAVASCRIPT E CSS...
+)
+
+
+
+
+
+
+
+
+--> E USAREMOS HTML NESSA SEÇÃO PARA 
+
+
+
+RENDERIZAR UMA WEB UI para o nosso node..
+
+
+
+
+
+
+
+
+
+--> AGORA O JSON É ÓTIMO _ SE __ OUTRO APP __ MANDOU O REQUEST,
+
+
+
+OU SE A PORÇÃO JAVASCIRPT DO SEU WEBSITE CONSEUGE O HANDLAR --> O JSON É EXCELENTE PARA ENVIAR DATA,
+
+
+
+como 
+
+
+a 
+DATA 
+
+SOBRE 
+
+TODOS OS 
+
+BLOCKS DE NOSSO BLOCKCHAIN (
+
+
+    aí fazemos o parse dessa data 
+
+    NO CLIENT EM QUE REQUISITAMOS 
+
+    ESSA RESPONSE DESSE SERVER...
+)
+
+
+
+
+
+
+
+
+HÁ OUTROS FORMATOS COMO XML E TXT,
+
+MAS FOCAREMOS 
+
+
+
+NO HTML E JSON,
+
+
+QUE COBREM 90% DOS USE CASES...

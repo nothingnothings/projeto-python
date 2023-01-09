@@ -1,0 +1,880 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> NAQUELE SLIDE DE BOOLEANS,
+
+
+
+
+NÓS TÍNHAMOS 2 OPERATORS QUE AINDA 
+
+
+NÃO 
+
+
+CONHECEMOS:
+
+
+
+
+
+
+
+
+
+
+1) IS 
+
+
+
+2) IN 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------> o '!=' é fácil, pq é só 'not equal'...
+
+
+
+
+
+
+
+
+
+
+
+----> mas o que 'is' e 'in' fazem?
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS USAR O REPL PARA ISSO.... (pq esses operators não encaixam no nosso projeto atual)...
+
+
+
+
+
+
+
+
+
+
+--> A COISA LEGAL DO REPL É QUE SE VOCê ESCREVE ISTO:
+
+
+
+
+
+
+
+
+'1 == 1' 
+
+
+
+
+
+
+-> VOCê VAI RECEBER DE VOLTA 'True'... -----> PQ ESSES 2 MATCHEAM...
+
+
+
+
+
+
+
+
+
+
+-> o '!=' 
+
+
+
+SE VOCÊ USAR COM 1 E 1,
+
+
+
+GANHAMOS FALSE.... --> 
+
+
+
+
+pq 
+
+
+
+
+OS 2 SÃO EXATAMENTE IGUAIS,
+
+E O 
+
+
+
+'!=' 
+CHECA 
+
+SE 
+
+1 
+
+NÃO É IGUAL A 1..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> UM USE CASE MAIS REALISTA SERIA ASSIM:
+
+
+
+
+
+
+
+
+
+
+name = input('Your name: ')
+
+
+
+
+
+
+
+
+e depois 
+
+
+
+
+name != 'Max' 
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ INPUTTOU MAX, ISSO VAI RETORNAR FALSE...
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... -> ESSE É UM COMMON-CASE: 
+
+
+
+
+''VOCÊ VAI QUERER CHECAR SE UM CERTO VALOR NÃO É IGUAL A UM OUTRO VALOR''...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS E 'is' 
+
+
+e 
+
+
+'in'? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O OPERATOR DE 'is' 
+
+É + OU -  
+
+
+
+
+
+
+
+COMPARÁVEL AO OPERATOR DE 
+
+'=='....
+
+
+
+
+
+
+
+
+
+.... 
+
+
+
+
+
+
+
+
+
+
+
+--> SE DIGITAMOS ''' 1 is 1'''',
+
+
+
+
+
+NÓS RECEBEMOS DE VOLTA 'TRUE'... 
+
+
+
+
+(
+    ou seja, é APARENTEMENTE IGUAL A '=='....
+)
+
+
+
+
+
+
+
+
+
+--> NÓS SÓ VAMOS SABER A DIFERENÇA ENTRE 'is' e '==' 
+
+
+
+
+NO PRÓXIMO MÓDULO,
+
+
+
+EM QUE 
+
+
+
+APRENDEREMOS A DIFERENÇA 
+
+
+
+ENTRE 
+
+
+
+'REFERENCE E VALUE TYPES' (seriam esses primitive types?)
+
+
+
+
+
+
+
+
+
+
+
+-----> mas aqui há um pequeno preview:
+
+
+
+
+
+
+
+
+
+
+
+--> SE TEMOS UM ARRAY chamado de 'data',
+
+
+com 
+
+
+
+
+os dados de 
+
+
+
+
+
+
+
+
+
+data = [1, 1.5, 3.4]
+
+
+
+
+
+
+
+
+
+
+E AÍ UM 
+
+
+
+
+
+OUTRO ARRAY,
+
+
+
+
+
+CHAMADO DE 
+
+
+'test_data',
+
+
+
+
+com OS EXATOS MESMOS VALORES...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+data = [1, 1.5, 3.4]
+
+test_data = [1, 1.5, 3.4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... ESCREVA ESSES 2 ,
+
+E ÁI 
+
+
+
+
+EXECUTE 
+
+
+
+
+
+'data == test_data',
+
+
+
+
+
+
+
+para ver SE OS 2 SÃO REALMENTE IGUAIS... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE OPERATOR VAI RETORNAR 'True',
+
+
+
+
+
+PQ ELE VAI ESTAR CHECANDO _ OS VALORES__ E A DISPOSIÇÃO DOS VALORES DENTRO DESSE ARRAY.... (ok... entendi).
+
+
+
+
+
+
+
+
+
+
+--> MAS SE TENTARMOS USAR 'is' com esses 2 valores,
+
+vamos receber FALSE...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+>>> data = [1, 1.5, 3.4]
+>>> test_data = [1, 1.5, 3.4]
+>>> data == test_data
+True
+>>> data is test_data
+False
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> certo.... é bem simples, 
+
+
+
+é algo parecido com REFERENCE E PRIMITIVE TYPES...
+
+
+
+
+
+
+
+
+
+
+ok, mas e se meu array estiver em uma ordem DIFERENTE,  aí o 
+
+
+'test_data == data' 
+
+
+
+vai resultar em 'True' também?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÃO, ELE RESULTA EM 'FALSE':
+
+
+
+
+>>> data = [1, 1.5, 3.4]
+>>> data2 = [1.5, 1, 3.4]
+>>> data2 == data
+False
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OU SEJA, É UM COMPORTAMENTO BEM SIMILAR ÀQUELE DO JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO... --> MAS A COISA IMPORTANTE, AQUI, É 
+
+
+
+QUE 
+
+
+
+
+
+
+
+'data' 
+e 
+
+
+'test_data'
+
+
+
+
+ACTUALLY _ _SEGURAM__ OS MESMOS VALUES,
+
+
+
+
+
+
+MAS _ SÃO 2 _ DIFERENTES _ oBJECTS NA MEMÓRIA.... -->  E ISSO É ALGO QUE VEREMOS MAIS TARDE, no próximo módulo (e que eu ja sei)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+data is test_data ----> VAI RESULTAR EM 'FALSE'.... -----> ISSO ACONTECE PQ 'is' 
+
+
+
+VAI 
+
+CHECAR 
+
+
+
+
+SE ELES SÃO O MESMO OBJECT NA MEMÓRIA, E ELES _ NÃO SÃO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK.... -> O PROFESSOR VOLTARÁ A ISSO MAIS TARDE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS E QUANTO AO OPERATOR DE 'in'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, COM ESSE OPERATOR PODEMOS __ CHECAR_ 
+
+
+SE 1 
+
+
+CERTO VALUE ESTÁ DENTRO DE 
+
+
+
+
+
+
+1 'ITERABLE' ... -----> no nosso caso,
+
+
+
+CHECAMOS __ SE 1 CERTO VALUE __ ESTÁ __ DENTRO ___DE UMA __ _LIST__ (Que é um iterable)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> EXISTEM OUTROS ITERABLES, 
+
+
+
+MAS AINDA NÃO APRENDEMOS SOBRE ELES....
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR FAZ UM CHECK 
+
+DE 
+
+
+
+
+
+'1 in data'  ----> ISSO VAI RESULTAR EM 'TRUE',
+
+
+
+pq 
+
+nossa data é 
+
+assim:
+
+
+
+data = [1, 1.5, 3.4]
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS SE DIGITAMOS 
+
+
+
+'2 in data',
+
+
+
+RECEBEMOS FALSE,
+
+JUSTAMENTE 
+
+PQ 
+
+
+
+NÃO TEMOS ESSE NUMBER DENTRO DESSA LIST....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, 
+
+
+
+
+
+ESSES FORAM OS 
+
+
+
+!=
+
+
+
+
+IS 
+
+
+
+
+e 
+
+
+IN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> VAMOS VOLTAR A ISSO 
+
+
+
+NO PRÓXIMO MÓDULO...
+
+
+
+
+
+
+
+
+
+
+

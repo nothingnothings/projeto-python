@@ -1,0 +1,2587 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... vamos ajustar o 'node.py'...
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ATUAL ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from oop.utility2 import Utility
+
+
+from blockchain12comCLASSESEOBJECTS import Blockchain
+
+
+OWNER = 'Arthur'
+
+
+class Node:
+
+
+    def __init__(self):
+        self.blockchain = Blockchain(OWNER)
+
+    def listen_for_input(self, blockchain):
+        waiting_for_input = True
+
+        while waiting_for_input:
+            print('-' * 30)
+            print('1: Add a new transaction value')
+            print('2: Display current blockchain')
+            print('3: Show participants')
+            print("b: Show user's balance")
+            print('h: Manipulate the chain')
+            print('m: Mine a block')
+            print('q: Quit the program')
+            print('v: Verify open transactions')
+            print('-' * 30)
+            user_input = self.get_user_choice()
+            if(user_input == '1'):
+                user_transaction = self.get_transaction_value()
+
+                if(user_transaction == None):
+                    print(
+                        'Please enter a valid sender, recipient and transaction value.')
+                else:
+                    sender, recipient, amount = user_transaction
+                    if add_transaction(sender, recipient, amount):
+                        print('Added transaction!')
+                    else:
+                        print('Transaction failed')
+
+            elif(user_input == '2'):
+                self.output_blockchain()
+            elif(user_input == 'q'):
+                waiting_for_input = False
+
+            elif(user_input == 'h'):
+                print(self.blockchain)
+                elementIndex = input(
+                    'Enter the number of the element you want to manipulate: ')
+                if (elementIndex.isnumeric()):
+                    if (len(self.blockchain) >= int(elementIndex) + 1):
+                        elementValue = input(
+                            ' Please Enter the value you want to insert: ')
+                        blockchain[int(elementIndex)]['processed_transactions'] = [
+                            {'sender': 'test', 'recipient': 'tested', 'amount': 1212}]
+                    else:
+                        print(
+                            'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+                else:
+                    print('Invalid index entered, please try again')
+
+            elif(user_input == 'm'):
+                if mine_block():
+                    print(' MINED')
+                    open_transactions = []
+                    # código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+                    save_data()
+            elif(user_input == '3'):
+                print(participants)
+            elif(user_input == 'b'):
+                sent, received, balance = get_balance(OWNER)
+                print(f'Blocks sent by {OWNER}: ' +
+                      '{sent:>6.2f}'.format(sent=sent))
+                print(f'Blocks received by {OWNER}: ' +
+                      '{received:>6.2f}'.format(received=received))
+                print(f'Total Balance of {OWNER}: ' +
+                      '{balance:>6.2f}'.format(balance=balance))
+            elif(user_input == 'v'):
+                # if (verify_transactions()):
+                # if (Utility.verify_transactions(open_transactions, get_balance(OWNER))):
+                new_utility = Utility()
+                if (new_utility.verify_transactions(open_transactions, get_balance(OWNER))):
+                    print('Transactions are valid.')
+                # elif(verify_transactions() == None):
+                elif(new_utility.verify_transactions(open_transactions, get_balance(OWNER)) == None):
+                    print('No transactions to verify, please add a transaction.')
+                else:
+                    print('Invalid transactions detected.')
+            else:
+                print('-' * 40)
+                print('Invalid command.')
+            # if(not verify_chain()):
+            new_utility = Utility()
+            if(not new_utility.verify_chain(self.blockchain)):
+                print('Blockchain was found invalid.')
+                print(self.blockchain)
+                waiting_for_input = False
+            else:
+                print('Blockchain is valid')
+        else:
+            print('User left')
+
+    def get_user_choice(self):
+        """ Returns the input of the user (either 1, 2, h or q) to proceed with the options """
+        user_input = input('Please choose an option: ')
+
+        return user_input
+
+    def get_transaction_value(self, OWNER):
+        """ Returns the input of the user (sender, recipient, amount) as a tuple, to proceed with option 1 """
+
+        user_transaction_sender = OWNER
+
+        user_transaction_recipient = input(
+            "Please enter the recipient's name: ")
+        if (user_transaction_recipient == '' or not isinstance(user_transaction_sender, str)):
+            return None
+        user_transaction_amount = input('Please enter transaction amount: ')
+        if (user_transaction_amount == '' or not user_transaction_amount.isnumeric() or isinstance(user_transaction_amount, bool)):
+            print('TEST')
+            return None
+        user_transaction_input = (
+            user_transaction_sender, user_transaction_recipient, float(user_transaction_amount))
+        return user_transaction_input
+
+    def output_blockchain(self):
+        for block in self.blockchain:
+            print('Outputting block')
+            print(block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> e esse código está cheio de erros...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->  PROFESSOR IMPORTA A CLASS DE BLOCKCHAIN NESSE ARQUIVO..
+
+
+
+
+
+
+aí ele simplesmente instancia uma nova blockchain nessa class de 'Node',
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+    def __init__(self):
+        self.blockchain = Blockchain()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -------> OK.... ----> E PODEMOS __ PASSAR INFO _ SOBRE O 'NODE'
+
+    A ESSE BLOCKCHAIN, também..
+
+
+
+
+
+
+
+
+
+
+    -----> DIGAMOS QUE O BLOCKCHAIN CONHECE O 'hosting_node',
+
+
+
+    QUE É O _ OWNER, ESSENCIALMENTE....
+
+
+
+
+
+
+
+
+
+
+
+---> E A INFO USADA PARA CRIAR ESSE 'hosting_node'
+
+
+
+
+SERÁ PASSADA AO CONSTRUCTOR DE 'blockchain', POR MEIO DA CLASS 'node'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NA VERDADE, O 'hosting_node_id' 
+
+FICARÁ CONTIDO DENTRO DE NOSSA BLOCKCHAIN,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+class Blockchain:
+
+
+
+
+    def __init__(self, hosting_node_id):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        self.chain = [GENESIS_BLOCK]
+        self.open_transactions = []
+        self.participants = {'Max'}
+        self.load_data()
+        self.hosting_node = hosting_node_id
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> CERTO... 
+
+
+
+
+
+
+
+
+--> AÍ LA NO ARQUIVO/CLASS DE 'noDE'
+
+vamos querer PASSAR ESSE UNIQUE HOST ID..
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, O PROFESSOR 
+
+
+
+IMPORTA UMA PACKAGE QUE PODEMOS USAR PARA CRIAR ESSE ID....
+
+
+
+
+
+
+
+
+
+
+
+
+-> É A PACKAGE DE 
+
+
+''''uuid''' (UNIFORM UNIQUE ID)....
+
+
+
+
+
+
+
+
+
+
+
+-----> basta escrever 
+
+
+
+
+
+
+
+
+
+
+from uuid import uuid4
+
+
+
+
+
+
+
+
+
+
+
+
+
+uuid4 --> É UM ALGORITMO PARA GERAR UNIQUE IDs...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pronto....
+
+
+
+
+
+
+
+
+
+
+
+
+
+AÍ O PROFESSOR VAI PASSAR O VALOR DO RESULTADO DESSE METHOD AÍ 
+
+como PARÂMETRO 
+
+
+'hosting_node_id' 
+
+
+
+
+
+de 'Blockchain()':
+
+
+
+
+
+
+
+
+    def __init__(self):
+        self.blockchain = Blockchain(uuid4())
+
+
+
+
+
+
+
+
+
+MAS AINDA ESTOU RECEBENDO AUQELE ERROR/aviso:
+
+
+Too many positional arguments for constructor callPylint(E1121:too-many-function-args)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA VAMOS SUBSTITUIR TODAS AS MENÇÕES A 'owner' lá em 
+
+
+
+'blockchain.py'
+
+
+
+POR 
+
+'hosting_node'...
+
+
+
+
+
+
+
+
+
+--> MAS DE VOLTA À 'node.py',
+
+
+
+
+
+
+temos que consertar algumas coisas....
+
+
+
+
+
+
+-->  BLOCKCHAIN AGORA É UM OBJECT... --> 
+
+
+
+
+
+ISSO SIGNIFICA QUE 
+SE 
+
+
+
+
+QUEREMOS 
+
+LOOPAR 
+
+
+
+
+por dentro dela para printar coisas,
+
+
+temos que loopar por dentro de 
+
+
+'for block in self.blockchain.chain'....
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+    def output_blockchain(self):
+        for block in self.blockchain.chain:
+            print('Outputting block')
+            print(block)
+
+
+
+----------------------------
+
+
+
+
+
+
+
+
+BLOCKCHAIN É O OBJECT INTEIRO, COM TODOS OS METHODS,
+
+AO PASSO QUE 'chain' é a blockchain de verdade, aquela lista de blocks,
+
+contida dentro desse object...
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO INTEIRO FICOU MAIS OU MENOS ASSIM;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Node:
+
+    # def __init__(self, blockchain):
+    #     self.blockchain = blockchain
+    def __init__(self):
+        self.blockchain = Blockchain(uuid4())
+
+    def listen_for_input(self, blockchain):
+        waiting_for_input = True
+
+        while waiting_for_input:
+            print('-' * 30)
+            print('1: Add a new transaction value')
+            print('2: Display current blockchain')
+            print('3: Show participants')
+            print("b: Show user's balance")
+            print('h: Manipulate the chain')
+            print('m: Mine a block')
+            print('q: Quit the program')
+            print('v: Verify open transactions')
+            print('-' * 30)
+            user_input = self.get_user_choice()
+            if(user_input == '1'):
+                user_transaction = self.get_transaction_value(OWNER)
+
+                if(user_transaction == None):
+                    print(
+                        'Please enter a valid sender, recipient and transaction value.')
+                else:
+                    sender, recipient, amount = user_transaction
+                    if self.blockchain.add_transaction(sender, recipient, amount):
+                    # if add_transaction(sender, recipient, amount):
+                    # if add_transaction(sender, recipient, amount):
+                        print('Added transaction!')
+                    else:
+                        print('Transaction failed')
+
+            elif(user_input == '2'):
+                self.output_blockchain()
+            elif(user_input == 'q'):
+                waiting_for_input = False
+
+            elif(user_input == 'h'):
+                print(self.blockchain)
+                elementIndex = input(
+                    'Enter the number of the element you want to manipulate: ')
+                if (elementIndex.isnumeric()):
+                    if (len(self.blockchain) >= int(elementIndex) + 1):
+                        elementValue = input(
+                            ' Please Enter the value you want to insert: ')
+                        blockchain[int(elementIndex)]['processed_transactions'] = [
+                            {'sender': 'test', 'recipient': 'tested', 'amount': 1212}]
+                    else:
+                        print(
+                            'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+                else:
+                    print('Invalid index entered, please try again')
+
+            elif(user_input == 'm'):
+                # if mine_block():
+                  if self.blockchain.mine_block():
+                    print(' MINED')
+                    open_transactions = []
+                    # código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+                    self.blockchain.save_data()
+                    # save_data()
+            elif(user_input == '3'):
+                print(self.blockchain.participants)
+            elif(user_input == 'b'):
+                sent, received, balance = self.blockchain.get_balance(OWNER)
+                print(f'Blocks sent by {OWNER}: ' +
+                      '{sent:>6.2f}'.format(sent=sent))
+                print(f'Blocks received by {OWNER}: ' +
+                      '{received:>6.2f}'.format(received=received))
+                print(f'Total Balance of {OWNER}: ' +
+                      '{balance:>6.2f}'.format(balance=balance))
+            elif(user_input == 'v'):
+                # if (verify_transactions()):
+                # if (Utility.verify_transactions(open_transactions, get_balance(OWNER))):
+                new_utility = Utility()
+                if (new_utility.verify_transactions(open_transactions, self.blockchain.get_balance(OWNER))):
+                    print('Transactions are valid.')
+                # elif(verify_transactions() == None):
+                elif(new_utility.verify_transactions(open_transactions, self.blockchain.get_balance(OWNER)) == None):
+                    print('No transactions to verify, please add a transaction.')
+                else:
+                    print('Invalid transactions detected.')
+            else:
+                print('-' * 40)
+                print('Invalid command.')
+            # if(not verify_chain()):
+            new_utility = Utility()
+            if(not new_utility.verify_chain(self.blockchain)):
+                print('Blockchain was found invalid.')
+                print(self.blockchain)
+                waiting_for_input = False
+            else:
+                print('Blockchain is valid')
+        else:
+            print('User left')
+
+    def get_user_choice(self):
+        """ Returns the input of the user (either 1, 2, h or q) to proceed with the options """
+        user_input = input('Please choose an option: ')
+
+        return user_input
+
+    def get_transaction_value(self, OWNER):
+        """ Returns the input of the user (sender, recipient, amount) as a tuple, to proceed with option 1 """
+
+        user_transaction_sender = OWNER
+
+        user_transaction_recipient = input(
+            "Please enter the recipient's name: ")
+        if (user_transaction_recipient == '' or not isinstance(user_transaction_sender, str)):
+            return None
+        user_transaction_amount = input('Please enter transaction amount: ')
+        if (user_transaction_amount == '' or not user_transaction_amount.isnumeric() or isinstance(user_transaction_amount, bool)):
+            print('TEST')
+            return None
+        user_transaction_input = (
+            user_transaction_sender, user_transaction_recipient, float(user_transaction_amount))
+        return user_transaction_input
+
+    def output_blockchain(self):
+        for block in self.blockchain.chain:
+            print('Outputting block')
+            print(block)
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> professor faz a mesma coisa...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA A ÚNICA PERGUNTA É:
+
+
+
+COMO _ INICIAMOS NOSSO 
+
+
+
+
+
+APP? 
+
+
+
+
+
+
+
+----> PRECISAMOS __ CHAMAR ESSA CLASS DE Node (instanciá-la) 
+
+
+
+NO ARQUIVO DE 'node',
+
+EU ACHO....
+
+
+
+
+
+
+
+
+
+
+
+----> O PROFESSOR DECIDE ARMAZENAR 'uuid4()' (o valor desse negócio) 
+
+
+
+DENTRO DE UM 
+
+ATTRIBUTE EM 'node.py',
+
+
+PARA ENTÃO PASSAR ISSO AO 'BLOCKCHAIN' e a todos outros methods de nosso flow de arquivos..
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+from uuid import uuid4 ###algoritmo usado para CRIAR UNIQUE IDS....
+
+from oop.utility2 import Utility
+
+
+from blockchain12comCLASSESEOBJECTS import Blockchain
+
+
+OWNER = 'Arthur'
+
+
+class Node:
+
+    # def __init__(self, blockchain):
+    #     self.blockchain = blockchain
+    def __init__(self):
+        self.id = uuid4()
+        self.blockchain = Blockchain(self.id)
+
+    def listen_for_input(self, blockchain):
+        waiting_for_input = True
+
+        while waiting_for_input:
+            print('-' * 30)
+            print('1: Add a new transaction value')
+            print('2: Display current blockchain')
+            print('3: Show participants')
+            print("b: Show user's balance")
+            print('h: Manipulate the chain')
+            print('m: Mine a block')
+            print('q: Quit the program')
+            print('v: Verify open transactions')
+            print('-' * 30)
+            user_input = self.get_user_choice()
+            if(user_input == '1'):
+                user_transaction = self.get_transaction_value(self.id)
+
+                if(user_transaction == None):
+                    print(
+                        'Please enter a valid sender, recipient and transaction value.')
+                else:
+                    sender, recipient, amount = user_transaction
+                    if self.blockchain.add_transaction(sender, recipient, amount):
+                    # if add_transaction(sender, recipient, amount):
+                    # if add_transaction(sender, recipient, amount):
+                        print('Added transaction!')
+                    else:
+                        print('Transaction failed')
+
+            elif(user_input == '2'):
+                self.output_blockchain()
+            elif(user_input == 'q'):
+                waiting_for_input = False
+
+            elif(user_input == 'h'):
+                print(self.blockchain)
+                elementIndex = input(
+                    'Enter the number of the element you want to manipulate: ')
+                if (elementIndex.isnumeric()):
+                    if (len(self.blockchain) >= int(elementIndex) + 1):
+                        elementValue = input(
+                            ' Please Enter the value you want to insert: ')
+                        blockchain[int(elementIndex)]['processed_transactions'] = [
+                            {'sender': 'test', 'recipient': 'tested', 'amount': 1212}]
+                    else:
+                        print(
+                            'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+                else:
+                    print('Invalid index entered, please try again')
+
+            elif(user_input == 'm'):
+                # if mine_block():
+                  if self.blockchain.mine_block():
+                    print(' MINED')
+                    open_transactions = []
+                    # código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+                    self.blockchain.save_data()
+                    # save_data()
+            elif(user_input == '3'):
+                print(self.blockchain.participants)
+            elif(user_input == 'b'):
+                sent, received, balance = self.blockchain.get_balance(self.id)
+                print(f'Blocks sent by {self.id}: ' +
+                      '{sent:>6.2f}'.format(sent=sent))
+                print(f'Blocks received by {self.id}: ' +
+                      '{received:>6.2f}'.format(received=received))
+                print(f'Total Balance of {self.id}: ' +
+                      '{balance:>6.2f}'.format(balance=balance))
+            elif(user_input == 'v'):
+                # if (verify_transactions()):
+                # if (Utility.verify_transactions(open_transactions, get_balance(OWNER))):
+                new_utility = Utility()
+                if (new_utility.verify_transactions(open_transactions, self.blockchain.get_balance(self.id))):
+                    print('Transactions are valid.')
+                # elif(verify_transactions() == None):
+                elif(new_utility.verify_transactions(open_transactions, self.blockchain.get_balance(self.id)) == None):
+                    print('No transactions to verify, please add a transaction.')
+                else:
+                    print('Invalid transactions detected.')
+            else:
+                print('-' * 40)
+                print('Invalid command.')
+            # if(not verify_chain()):
+            new_utility = Utility()
+            if(not new_utility.verify_chain(self.blockchain)):
+                print('Blockchain was found invalid.')
+                print(self.blockchain)
+                waiting_for_input = False
+            else:
+                print('Blockchain is valid')
+        else:
+            print('User left')
+
+    def get_user_choice(self):
+        """ Returns the input of the user (either 1, 2, h or q) to proceed with the options """
+        user_input = input('Please choose an option: ')
+
+        return user_input
+
+    def get_transaction_value(self, OWNER):
+        """ Returns the input of the user (sender, recipient, amount) as a tuple, to proceed with option 1 """
+
+        user_transaction_sender = OWNER
+
+        user_transaction_recipient = input(
+            "Please enter the recipient's name: ")
+        if (user_transaction_recipient == '' or not isinstance(user_transaction_sender, str)):
+            return None
+        user_transaction_amount = input('Please enter transaction amount: ')
+        if (user_transaction_amount == '' or not user_transaction_amount.isnumeric() or isinstance(user_transaction_amount, bool)):
+            print('TEST')
+            return None
+        user_transaction_input = (
+            user_transaction_sender, user_transaction_recipient, float(user_transaction_amount))
+        return user_transaction_input
+
+    def output_blockchain(self):
+        for block in self.blockchain.chain:
+            print('Outputting block')
+            print(block)
+
+
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------>ok........
+
+
+
+
+
+
+
+
+
+
+
+colocamos também 'self.blockchain.open_transactions'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ENTRETANTO,
+
+
+O PROFESSOR VAI QUERER __ TORCAR A MANEIRA 
+
+
+PELA QUAL 
+
+
+
+_ _FAZEMOS O 'RESET' (empty da list)
+
+
+
+
+
+DAS NOSSAS OPEN TRANSACTIONS, PQ É CLARO QUE ISSO FAZ BEM MAIS SENTIDO (esse clear)
+
+
+
+SE _ ESSE 
+
+METHOD 
+
+
+AÍ 
+
+__ FOR ESCRITO/POSICIONADO DENTRO DO OBJECT/CLASS DE 'blockchain'..
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE O PROFESSOR REMOVE ESSE 'self.blockchain.open_transactions = []' 
+
+
+
+
+
+
+
+
+
+E O COLOCA LÁ NA CLASS DE 'blockchain'..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM ,LÁ NO 'MINE BLOCK':
+
+
+
+
+
+
+
+
+
+
+    def mine_block(self):
+        """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+        # previous_block = blockchain[-1]
+        previous_block = self.chain[-1]
+        print(previous_block)
+        # print(blockchain[-1])
+        hashed_block = hash_block(previous_block)
+        print(hashed_block)
+        print(hashed_block)
+        # proof = 0
+
+        # proof = proof_of_work()
+        proof = self.proof_of_work()
+        # reward_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+        #     ('amount', MINING_REWARD),
+        #     ('recipient', OWNER),
+        #     ('sender', 'ourApp')
+        # ])
+        reward_transaction = Transaction(MINING_REWARD, self.hosting_node, 'ourApp')
+        # copied_transactions = open_transactions[:]
+        copied_transactions = self.open_transactions[:]
+        copied_transactions.append(reward_transaction)
+
+
+        # block = Block(hashed_block, len(blockchain), copied_transactions, proof)
+        block = Block(hashed_block, len(self.chain), copied_transactions, proof)
+        # blockchain.append(block)
+        self.chain.append(block)
+        self.open_transactions = []
+        self.save_data()
+        # save_data() #código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+        print(self.chain, 'TRIED TO MINE BLOCK')
+        return True
+
+
+
+
+
+
+
+
+
+    ------> OU SEJA, A LIST DE OPEN_TRANSACTIOSN SERÁ 
+    ALTERADA, E AÍ 
+
+    USAREMOS 'save_data()' 
+
+
+
+
+    para salvar esse mudança, ao ocorrer um mine..
+
+
+
+
+
+
+
+
+
+
+    -----> O PROFESSOR TIRA O IF STATEMENT DE 
+
+
+
+    ''
+            elif(user_input == 'm'):
+                # if mine_block():
+                  if self.blockchain.mine_block():
+
+
+
+
+
+
+                  ''',
+
+
+
+
+
+
+
+
+
+
+        PQ POR ENQUANTO A CHEGADA A UM 'FAIL CASE'
+
+        
+
+
+        ainda é impossível.. ()
+
+
+
+
+
+
+
+
+
+
+        isso quer dizer que ele APENAS CHAMA 'mine_block':
+
+
+
+            elif(user_input == 'm'):
+                  if self.blockchain.mine_block():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO... MAIS EM BAIXO TEMOS UM RPOGBLEMA,
+
+
+PROBLEMA QUE APARECEU PQ NÃO ESTAMOS CON O IMPORT DE 'Verify'...
+
+
+
+
+
+
+
+
+
+
+
+---> PROFESSOR IMPORTA ESSENEGÓCIO..
+
+
+
+
+--> AÍ FICA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+from oop.utility2 import Utility
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MUDAMOS UM MONTE DE COISAS... -> O PROFESSOR  DIZ UQE DEVEMOS  
+
+
+TESTAR 
+
+SE NOSSO CÓDIGO FUNCIONA...
+
+
+
+
+
+
+
+
+--> ELE EXECUTA 'node.py'... -----> MAS NADA ACONTECE,,, --> TALVEZ PQ NÃO INSTANCIAMOS ESSA CLASS...
+
+
+
+
+
+
+
+
+
+
+
+ex: python node.py.......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ISSO ACONTECE PQ LÁ EM 'NODE.JS' nós criamos, SIM, UMA CLASS DE NODE,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MAS NAÕ USAMOS ESSA CLASS EM LUGAR ALGUM(INSTANCIAÇÃO)...)
+
+
+
+
+
+
+
+
+
+
+
+
+-----> EM VEZ DSSO,  DEVEMOS  A INSNTACNIARe aí SERMPe simplesmente chamar o 
+
+'listne_for_input...''
+
+
+
+
+
+
+
+
+
+
+
+
+------> É ISSO QUE FAZEMOS , LOGO ABAIXO DA DEFINIÇÃO DA CLASS DE 'node'..
+
+
+
+
+
+
+
+
+
+
+
+
+---->  ok, para conseguir esse node
+
+
+
+
+
+
+
+
+
+
+--> agora não vamos mais executar 'blockchain.py',
+
+
+E SIM VAMOS EXECUTAR 'node.py'.... ----> esse é o 'starter' do nosso app..
+
+
+
+
+
+
+--> já ganhamos um error:
+
+ModuleNotFoundError: No module named 'oop'
+
+
+
+
+
+
+
+
+
+-> consertei o error...
+
+
+
+
+
+
+
+
+--> devemos instanciar 
+
+
+
+
+ESSA CLASS DE 'node',
+
+
+E AÍ 
+SIMPLESMENTE 
+
+
+EXECUTAR O METHOD DE 'listen_for_input',
+
+
+QUE É 
+
+
+
+O METHOD QUE VAI REALMENTE REGISTRAR NOSSOS INPUTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> o código do professor funciona, mas o meu, não...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\node.py", line 154, in <module>
+    new_node = Node()
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\node.py", line 19, in __init__
+    self.blockchain = Blockchain(self.id)
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\blockchain12comCLASSESEOBJECTS.py", line 719, in __init__
+    self.load_data()
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\blockchain12comCLASSESEOBJECTS.py", line 733, in load_data
+    converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block.processed_transactions]
+AttributeError: 'dict' object has no attribute 'processed_transactions
+
+
+
+
+
+
+
+
+
+
+
+
+--> apaguei o 'blockchain.json',
+
+e isso 
+
+
+fez com que meu código iniciasse...
+
+
+
+
+
+
+
+
+
+
+
+----> ok... agora está funcionando....
+
+
+
+
+
+
+
+
+
+
+
+minerei 1 block... sem problemas... --> mentira, recebi um ERRO... 
+
+
+
+
+TypeError: Object of type UUID is not JSON serializable
+
+
+
+
+
+
+
+
+
+
+--> tenho que converter isso em alguma coisa PARA QUE 
+
+
+
+
+ESSE 'UUID' consiga ser convertido em JSON...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESTE É O 'UUID' que tentamos armazenar:
+
+
+
+
+
+
+
+649976e4-e47b-43e8-acf3-a565143ca18b
+
+
+
+
+
+
+
+
+
+
+
+--> como converter isso em json? --> talvez converter em uma STRING, antes..
+
+
+
+
+
+
+
+
+
+
+TALVEZ COM ESTE CÓDIGO AQUI:
+
+
+
+
+
+
+
+    def __init__(self, hosting_node_id):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        self.chain = [GENESIS_BLOCK]
+        self.open_transactions = []
+        self.participants = {'Max'}
+        self.load_data()
+        self.hosting_node = str(hosting_node_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ok.... ISSO CONSERTOU ESSE 'PROBLEMA'..
+
+
+
+
+
+
+
+--> mas agora recebemos outro problema,
+
+
+que é 
+
+
+
+''
+
+Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\node.py", line 159, in <module>
+    new_node.listen_for_input(new_node.blockchain)
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\node.py", line 108, in listen_for_input
+    if(not new_utility.verify_chain(self.blockchain)):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\utility2.py", line 99, in verify_chain
+    for(index, block) in enumerate(blockchain):
+TypeError: 'Blockchain' object is not iterable
+
+
+
+
+'''
+
+
+
+
+
+
+
+
+escrevo 'blockchain.block' (a list de BLOCKS DENTRO DO OBJECT 'BLOCKCHAIN', é isso que interesssa) para tentar consertar esse problema...
+
+
+
+
+
+
+
+
+
+
+
+--> agora o block foi minerado corretamente:
+
+
+
+
+
+
+
+
+
+[{"previous_block_hash": "", "index": 0, "processed_transactions": [], "proof": 100, "timestamp": 0}, {"previous_block_hash": "206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321", "index": 1, "processed_transactions": [{"amount": 10, "recipient": "6f3682c9-2318-4aa0-aef4-6d24467814fb", "sender": "ourApp"}], "proof": 428210, "timestamp": 1649302534.7138138}]
+[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> TENHO QUE TENTAR ADICIONAR UMA TRANSACTION, E AÍ MINERAR esse block com ela....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> acho que agora nosso código está funcionando.. só tive de converter os 'uuid'.... ---> agora consigo adicioanr transactions sem erros....
+
+
+
+
+
+
+
+
+--> mas o mine está realmenmte demorando MUITO agora....
+
+
+
+
+
+
+
+
+--> bem, mas está funcionando...
+
+
+
+
+
+
+
+
+--> O PROFESSOR FALA DO PROBLEMA DE 'OBJECT UUID IS NOT JSON SERIALIZABLE'...
+
+
+
+
+
+
+
+
+
+
+---> O PROBLEMA É QUE 
+
+
+ESSE 
+
+
+
+OBJETO TEM ESTA ESTRUTURA:
+
+
+
+
+UUID('assaasjioas-asjsaishjaiashi-ashjasiashias')
+
+
+
+
+
+E POR ISSO ELE FALHA....
+
+
+
+
+
+
+
+
+
+
+
+----> O PROFESSOR EXPLICA QUE PODEMOS CONSERTAR ISSO FACILMENTE, BASTA 
+
+
+
+WRAPPAR O NEGÓCIO COM 'str()'...
+
+
+
+
+
+
+
+
+
+
+
+------> professor recebe mais alguns errors,
+
+
+
+mas ele conserta como eu fiz...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ele ganha os mesmos errors que eu,
+
+
+
+
+
+
+conserta tudo isso. (em verify_transaction)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... MAS AQUI TEMOS UM __ _PROBLEMA... --> 
+
+
+
+
+
+
+
+
+
+SEMPRE QUE INICIAMOS UM __ NOVO ___ NODE (um novo run de nosso programa),
+
+
+
+
+
+
+
+
+
+
+_ UM NOVO 'UUID' é gerado e armazenado no nosso node... ----->
+
+
+
+
+
+
+
+O IDEAL SERIA __ CRIAR __ UM NOVO _ NODE _ E AÍ _TER 
+
+
+SEMPRE O MESMO 'UUID' 
+
+para esse node...
+
+
+
+
+
+
+
+
+--> mas não sei como fazer isso.... (talvez extrair o 'uuid' do PRIMEIRO BLOCK QUE É MINERADO EM 1 DETERMINADO ARQUIVO? não sei...)
+
+
+
+
+
+
+
+
+
+
+-> professor diz que consertaremos isso mais tarde....
+
+
+
+
+
+
+
+
+
+----> adicionamos uma nova transaction, e tudo isso funciona....
+
+
+
+
+
+
+
+
+
+
+------> MAS É CLARO QUE ESSE PROBLEMA DO 'RESETTOU, PERDEU O ID DO NODE'
+
+
+
+
+
+
+
+
+AINDA PERSISTE.... --> NOSSA BALANCE VAI FICAR COMO 0, 
+
+
+E VAMOS GANHAR UM NOVO 'UNIQUE ID',
+
+
+
+SEMPRE QUE 
+
+
+REINICIARMOS NOSSO APP.... --> ESSE COMPORTAMENTO _ NÃO É DESEJADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> e mais, meu código ESTÁ MAIS BUGADO DO _ QUE O DO _ PROFESSOR:
+
+
+
+quando reinicio meu código,
+
+recebo o error de 
+
+
+
+
+'''
+
+
+Traceback (most recent call last):
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\node.py", line 155, in <module>
+    new_node = Node()
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\node.py", line 20, in __init__
+    self.blockchain = Blockchain(self.id)
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\blockchain12comCLASSESEOBJECTS.py", line 
+719, in __init__
+    self.load_data()
+  File "a:\projeto7-PYTHON\MODULO9-OBJECTORIENTEDPROGRAMMING,OOP\novonovooprojeto11\oop\blockchain12comCLASSESEOBJECTS.py", line 
+733, in load_data
+    converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block.processed_transactions]
+AttributeError: 'dict' object has no attribute 'processed_transactions'
+
+
+
+
+
+
+''
+
+
+
+
+
+
+
+
+
+--> tenho que consertar esse error... -> consertei, mas o Pylint reclama desse código, diz que ele é uma bosta (pq ele depende de 1 if statement para evitar o SEU CRASH)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, mas como posso consertar esse problema de 'perdemos nosso user/blockchain ao reiniciar o app, por conta da geração automática de UUID novo....' (esse código qeu cria um UUID é executado lá no CONSTRUCTOR DE 'node'...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> não sei como fazer isso...
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS PRECISAR INVENTAR ALGUM JEITO DE FAZER 'STORE' dessa string-uuid... 
+
+
+
+
+
+
+
+
+
+
+--> COMO NÃO VAMOS CONSEGUIR FAZER ISSO POR ENQAUNTO,
+
+
+
+o professosr 
+
+
+
+SO´ESCREVE UM HARDOCDE DE 'self.id = 'MAX' '
+...
+
+
+
+
+
+
+
+
+--> FAREMOS ISSO SÓ PARA ASSEGURAR QUE NOSSAS 'CHANGES' vão persistir ao longo dos mines....
+
+
+
+
+
+
+
+
+
+
+--> MAIS TARDE NO CURSO ADICIONAREMOS UMA WALLET DE VERDADE,
+
+
+
+WALLET EM QUE TEREMOS UMA 'PUBLIC KEY
+a qual 
+
+
+TAMBÉM 
+
+
+ARMAZENAREMOS EM 1 ARQUVIO,
+para 
+
+que 
+ela tbm 
+persista... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS POR ENQUANTO USAREMOS ESSE DUMM Y ID...
+
+
+
+
+
+
+
+--> ADICIONAMOS A USER INTERFACE, 
+
+
+a BLOCK,
+
+
+A BLOCKCHAIN,
+
+
+AS TRANSACTIONS,
+
+
+
+E A CLASS DE VERIFICATION,
+
+
+O QUE SIGNIFICA QUE 
+
+
+NOSSO CÓDIGO FOI TODO SPLITTADO, O QUE FEZ COM QUE CADA ARQUVO FICASSE BEM MENOR...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> MAS SE VOCê EXAMINAR TODOS OS ARQUIVOS, VOCê CONSTATARÁ    
+
+
+
+
+
+
+
+
+
+QUE O ARQUIVO DE 'blockchain12.py'
+
+
+AINDA __ POSSUI CONTEÚDO CONSIDERÁVEL; 
+
+
+
+QUE 
+
+
+
+ELE NAÕ ESTÁ TOTALEMTNE VAZIO, AINDA...
+
+
+
+
+
+
+
+-------> NÃO ESTÁ VAZIO... -> MAS JÁ LIMPAMOS BASTANTE DO CÓDIGO DELE...
+
+
+
+
+
+
+
+
+
+
+-> COMO PRÁTICA,
+
+VOCê PODE TENTAR OUTSOURCEAR MAIS ALGUMAS COISAS DESSE ARQUIVO 'blockchain.py' --> TALVEZ 
+
+
+
+
+OUTSOURCEAR AS 'FILE-RELATED OPERATIONS' ---> VOCê SÓ TEM QUE ASSEGURAR QUE 
+
+VOCÊ 
+
+ESTÁ RECEBENDO OS ARGUMENTOS CORRETOS...
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROFESSOR ESTÁ FELIZ COM O ESTADO ATUAL DE NOSSO CÓDIGO..
+
+
+
+
+
+
+
+
+
+
+
+--> ELE ACHA QUE TODAS AS CLASSES ESTÃO BEM CONCENTTRADAS...
+
+
+
+
+
+
+
+
+
+-> MAS ACHO QUE TENTAREI OUTSOURCEAR 'SAVE DATA' 
+
+E 
+
+
+'LOAD DATA'...
+
+
+
+
+
+
+
+
+
+--> COM ISSO, ESTAMOS TIRANDO VANTAGEM DO 'OBJECT ORIENTATED APPROACH' --> TEMOS OBJECTS COM 
+
+FUNCIONALIDES PRÓPRIAS, E, PORTANTO, CÓDIGO MAIS LIMPO...
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS O PROFESSOR NÃO ESTÁ CONTENTE COM 1 DETALHE --> É AQUELA COISA QUE EU HAVIA VISTO MAIS CEDO,
+
+de que 
+preicsamos 
+
+
+INSTANCIAR AQUELA CLASS DE 'Utility()'
+
+PARA 
+
+QEU 
+
+CONSIGAMOS USAR METHODS COMO 'valid_proof' e 'verify_transactions...'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR FALA DE ALGO QUE JÁ SABÍAMOS:
+
+
+
+
+
+
+
+
+UMA UTILITY CLASS COMO ESSA __ SÓ EXISTE_ PQ QUEREMOS 'BUNDLE'
+
+funcionalidades diversas de nosso app em 1 só class... ------> E NAÕ PQ QUEREMOS FAZER MANAGE DE UMA INSTANCE (pq não vamos ter quaisquer attributes dentro dessa instance que mudariam)
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO  QUE EXISTE UMA MANEIRA MELHOR DE DEFINIR ESSA 'HELPER CLASS',
+
+
+
+que obviamente é o uso de 'STATIC METHODS'...
+
+
+
+
+
+
+
+
+@staticmethod
+
+
+
+
+
+
+
+
+
+
+
+--> mas antes, devo tentar outsourcear 'save_data' e 'load_data'...
+
+
+
+
+
+
+
+
+
+
+
+ok, outsourceei....
+
+
+
+
+
+--> mas ganhei um error:
+
+
+
+
+
+AttributeError: 'Blockchain' object has no attribute 'save_data'
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> consertei..
+
+
+
+
+
+
+
+código ficou assim:
+
+
+
+
+
+
+
+
+
+from uuid import uuid4 ###algoritmo usado para CRIAR UNIQUE IDS....
+
+from utility2 import Utility
+
+
+from blockchain12comCLASSESEOBJECTS import Blockchain
+
+
+
+from fileRelated import FileAccess
+
+
+OWNER = 'Arthur'
+
+
+class Node:
+
+    # def __init__(self, blockchain):
+    #     self.blockchain = blockchain
+    def __init__(self):
+        self.id = uuid4()
+        print(self.id)
+        self.blockchain = Blockchain(self.id)
+
+    def listen_for_input(self, blockchain):
+        waiting_for_input = True
+
+        while waiting_for_input:
+            print('-' * 30)
+            print('1: Add a new transaction value')
+            print('2: Display current blockchain')
+            print('3: Show participants')
+            print("b: Show user's balance")
+            print('h: Manipulate the chain')
+            print('m: Mine a block')
+            print('q: Quit the program')
+            print('v: Verify open transactions')
+            print('-' * 30)
+            user_input = self.get_user_choice()
+            if(user_input == '1'):
+                user_transaction = self.get_transaction_value(self.id)
+
+                if(user_transaction == None):
+                    print(
+                        'Please enter a valid sender, recipient and transaction value.')
+                else:
+                    sender, recipient, amount = user_transaction
+                    if self.blockchain.add_transaction(sender, recipient, amount):
+                    # if add_transaction(sender, recipient, amount):
+                    # if add_transaction(sender, recipient, amount):
+                        print('Added transaction!')
+                    else:
+                        print('Transaction failed')
+
+            elif(user_input == '2'):
+                self.output_blockchain()
+            elif(user_input == 'q'):
+                waiting_for_input = False
+
+            elif(user_input == 'h'):
+                print(self.blockchain)
+                elementIndex = input(
+                    'Enter the number of the element you want to manipulate: ')
+                if (elementIndex.isnumeric()):
+                    if (len(self.blockchain) >= int(elementIndex) + 1):
+                        elementValue = input(
+                            ' Please Enter the value you want to insert: ')
+                        self.blockchain.chain[int(elementIndex)]['processed_transactions'] = [
+                            {'sender': 'test', 'recipient': 'tested', 'amount': 1212}]
+                    else:
+                        print(
+                            'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+                else:
+                    print('Invalid index entered, please try again')
+
+            elif(user_input == 'm'):
+                # if mine_block():
+                  if self.blockchain.mine_block():
+                    print(' MINED')
+                    # open_transactions = []
+                    self.blockchain.open_transactions = []
+                    # código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+                    # self.blockchain.save_data()
+                    FileAccess.save_data(self.blockchain.chain, self.blockchain.open_transactions)
+                    # save_data()
+            elif(user_input == '3'):
+                print(self.blockchain.participants)
+            elif(user_input == 'b'):
+                sent, received, balance = self.blockchain.get_balance(self.id)
+                print(f'Blocks sent by {self.id}: ' +
+                      '{sent:>6.2f}'.format(sent=sent))
+                print(f'Blocks received by {self.id}: ' +
+                      '{received:>6.2f}'.format(received=received))
+                print(f'Total Balance of {self.id}: ' +
+                      '{balance:>6.2f}'.format(balance=balance))
+            elif(user_input == 'v'):
+                # if (verify_transactions()):
+                # if (Utility.verify_transactions(open_transactions, get_balance(OWNER))):
+                new_utility = Utility()
+                if (new_utility.verify_transactions(self.blockchain.open_transactions, self.blockchain.get_balance(self.id))):
+                    print('Transactions are valid.')
+                # elif(verify_transactions() == None):
+                elif(new_utility.verify_transactions(self.blockchain.open_transactions, self.blockchain.get_balance(self.id)) == None):
+                    print('No transactions to verify, please add a transaction.')
+                else:
+                    print('Invalid transactions detected.')
+            else:
+                print('-' * 40)
+                print('Invalid command.')
+            # if(not verify_chain()):
+            new_utility = Utility()
+            if(not new_utility.verify_chain(self.blockchain)):
+                print('Blockchain was found invalid.')
+                print(self.blockchain)
+                waiting_for_input = False
+            else:
+                print('Blockchain is valid')
+        else:
+            print('User left')
+
+    def get_user_choice(self):
+        """ Returns the input of the user (either 1, 2, h or q) to proceed with the options """
+        user_input = input('Please choose an option: ')
+
+        return user_input
+
+    def get_transaction_value(self, OWNER):
+        """ Returns the input of the user (sender, recipient, amount) as a tuple, to proceed with option 1 """
+
+        user_transaction_sender = OWNER
+
+        user_transaction_recipient = input(
+            "Please enter the recipient's name: ")
+        if (user_transaction_recipient == '' or not isinstance(str(user_transaction_sender), str)):
+            return None
+        user_transaction_amount = input('Please enter transaction amount: ')
+        if (user_transaction_amount == '' or not user_transaction_amount.isnumeric() or isinstance(user_transaction_amount, bool)):
+            print('TEST')
+            return None
+        user_transaction_input = (
+            user_transaction_sender, user_transaction_recipient, float(user_transaction_amount))
+        return user_transaction_input
+
+    def output_blockchain(self):
+        for block in self.blockchain.chain:
+            print('Outputting block')
+            print(block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok.... o próximo passo é CONSERTAR A COISA DO 'UUID SEMPRE RESETTa'....

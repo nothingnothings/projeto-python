@@ -1,0 +1,999 @@
+
+
+
+
+
+
+
+
+
+ANTES DE ACABARMOS ESTE MÓDULO, HÁ 2 COISAS QUE O PROFESSOR QUER MELHROAR... 
+
+
+
+
+
+
+
+
+
+
+
+
+---> NÓS JÁ TEMOS 1 METHOD DE 'verify_transactions',
+
+
+
+
+
+TÍNHAMOS ANTES,
+
+
+
+ELE EXISTE LÁ EM 'utility.py',
+
+
+naquela class de 'Utility'...
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ, NÓS CHECÁVAMOS  TODAS AS TRANSACTIONS,
+
+e aí 
+
+no 'verify_transaction'
+
+
+NÓS CHECÁVAMOS CADA 1 DELAS 1 POR UMA... ---> E AÍ FAZÍAMOS 'CHECK' pelA POSSIBILIDADE DE AQUELA TRANSACTION 
+
+EXISTIR/ SER APLICADA,
+
+
+
+pq 
+
+
+ela poderia n caber no 'BALANCE' DO USER, COMO VISTO NESSA LÓGICA AQUI:
+
+
+
+
+    @staticmethod
+    def verify_transaction(transaction, get_balance):
+
+        # sender_balance = get_balance(transaction.sender)[2]
+        sender_balance = reduce(lambda x,y: x+y, get_balance())
+
+        # print(sender_balance)
+        return sender_balance >= transaction.amount
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->  OK... COMO JÁ TEMOS ESSA CLASS DE UTILITY, VOCÊ NÃO ACHA QUE FARIA MAIS SENTIDO 
+
+
+
+TER 
+
+
+
+
+ESSA FUNCTION DE 'verify_transaction' (a segunda delas, que verifica se o USER NÃO MEXEU NO AMOUNT/OUTROS DADOS _ ENQUANTO O APP ESTAVA _-DESLIGADO)
+
+
+
+EXISTIR 
+
+
+
+LÁ DENTRO DE 'Utility'
+
+também (e não em 'wallet.py'...)? 
+
+
+
+
+
+
+
+
+-----> O PROFESSOR DIZ QUE ISSO FAZ SENTIDO,
+
+
+
+
+
+POR ISSO ELE DECIDE TRANSPLANTAR ESSE METHOD PARA LÁ....
+
+
+
+
+
+
+
+
+---> para isso,
+
+ELE IMPORTA NOSSA 'WALLET' lá no arquivo de 'Utility.py'...
+
+
+
+
+
+
+
+
+
+
+
+
+-> tipo assim:
+
+
+
+
+
+'from wallet import Wallet'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> LÁ NA VERSÃO 'original' de verify_transaction,
+
+
+
+
+O PROFESSOR 
+
+
+SÓ VAI QUERER 
+
+
+
+RETORNAR 
+
+
+
+
+'True'
+
+
+
+
+SE TANTO A EXPRESSÃO 
+
+
+
+'sender_balance >= transaction.amount' 
+
+
+
+E 
+
+
+
+A EXPRESSÃO 
+
+
+
+
+'Wallet.verify_transaction(transaction)'
+
+
+
+
+
+
+
+
+FOREM VERDADEIRAS...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+    @staticmethod
+    def verify_transaction(transaction, get_balance):
+
+        # sender_balance = get_balance(transaction.sender)[2]
+        sender_balance = reduce(lambda x,y: x+y, get_balance())
+
+        # print(sender_balance)
+        return sender_balance >= transaction.amount and Wallet.verify_transaction(transaction)
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+    @staticmethod
+    def verify_transaction(transaction, get_balance):
+
+        # sender_balance = get_balance(transaction.sender)[2]
+        sender_balance = reduce(lambda x,y: x+y, get_balance())
+
+        # print(sender_balance)
+        return sender_balance >= transaction.amount and Wallet.verify_transaction(transaction)
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS NESSE METHOD AÍ TAMBÉM __ TEMOS UMA PEQUENA FALHA DE LÓGICA.... --> NÓS SEMPRE 
+
+
+ESTAMOS CHECANDO SE 'A BALANCE DO SENDER É MAIOR DO QUE A QUANTIDADE DA TRANSACTION'...
+
+
+
+
+
+
+
+
+
+---> mas isso AÍ __ NÃO INTERESSA NO CASO 
+
+
+
+
+DO 'verify open transactions' (realizado por 'verify_transactions', esse method aí),
+
+
+
+PQ ___ ESSE CHECK NÃO VAI MAIS NOS INTERESSAR (a tranasction JÁ FOI APROVADA,  não interessa saber se a BALANCE ATUAL DO USER é 
+maior/igual ao 'amount' dessas transactions que '''JÁ PASSARAM''', pq as transactions que estão em 'open_transactions' serão as TRANSACTIONS QUE JÁ 
+TERÃO SIDO CONSIDERADAS 'VÁLIDAS', ou seja, dentro dos limites do balance do user... )
+
+
+
+
+
+
+
+--------> é por isso que no caso do 'verify_transactions' NÓS SÓ TEREMOS INTERESSE NO CHECK DA 'signature' 
+
+daquela transaction, E NÃO 
+
+DO AMOUNT DA TRANSACTION EM RELAÇÃO AO 'balance' do user...
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE VAMOS QUERER ADAPTAR A LÓGICA DE 'verify_transaction'
+
+
+PARA __ QUE TAMBÉM CONSIGA VERIFICAR 'apenas a signature' 
+
+
+
+
+DAS TRANSACTIONS QUE JÁ FORAM ADICIONADAS AO 'open_transactions'...
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, PARA FAZER ESSE __CHECK ESPECÍFICO,
+
+
+O PROFESSOR 
+
+
+
+SIMPLESMENTE ADICIONA UM TERCEIRO ARGUMENTO EM 'def verify_transaction',
+
+QUE 
+
+
+SERÁ UM 
+
+
+
+
+'check_funds'
+
+
+
+
+
+
+
+
+
+----> ESSA VARIÁVEL SERÁ DEFINIDA COMO 'True' por default,
+
+MAS QUANDO CHAMARMOS ESSA FUNCTION DE 'verify_transaction'
+
+
+NO CONTEXTO DE 'verify_transactions',
+
+
+VAMOS QUERER PASSAR 'False' como argumento, para que então SEJA EXECUTADA A LÓGICA ALTERNATIVA QUE __ SÓ FAZ __ 
+
+CHECK 
+
+
+DA SIGNATURE DAS TRANSACTIOSN EM 'open_transactions'...
+
+
+
+
+
+
+o  código fica assim:
+
+
+
+
+
+
+
+
+
+
+    @staticmethod
+    def verify_transaction(transaction, get_balance, check_funds=True):  ##só não checará os 'funds'/balance do USER em relaçaõ ao amount da given transaction _ NO CASE DO 'verify_transactions', em que ESSA INFO DO BALANCE NÃO INTERESSA (e em que APENAS A validade da 'signature' em uma transaction vai interessar)....
+        
+        if (not check_funds):
+            return Wallet.verify_transaction(transaction)
+
+        # sender_balance = get_balance(transaction.sender)[2]
+        sender_balance = reduce(lambda x,y: x+y, get_balance())
+
+        # print(sender_balance)
+        return sender_balance >= transaction.amount and Wallet.verify_transaction(transaction)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E AÍ ADAPTAMOS O 'verify_transactions'
+
+
+PARA QUE ELE CHAME 'verify_transaction'
+
+com esse pass de parâmetro...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+    @staticmethod
+    def verify_transactions(open_transactions, get_balance, verify_transaction):
+        return all([verify_transaction(transaction, get_balance, False) for transaction in open_transactions])
+
+
+
+
+
+
+
+
+
+---------------------------------
+
+
+
+
+
+
+
+
+
+CERTO.. MAS HÁ MAIS UMA COISA QUE O PROFESSOR QUER MELHORAR...
+
+
+
+
+
+
+
+
+
+--> em 'wallet.py',
+
+
+
+temos uma FALHA DE SEGURANÇA.... --> 
+
+
+
+
+se o sender é 'ourApp',
+
+
+
+NÓS _ SEMPRE__ PERMITIMOS A TRANSACTION,
+
+
+
+NÃO IMPORTA  PARA QUEM SEJA... -----------> ISSO ABRE UMA VULNERABILIDADE,
+
+
+
+
+PQ 
+
+SE 
+
+NÓS 
+
+
+ALGUMA HORA ABRIRMOS NOSSA BLOCKCHAIN 
+
+
+
+
+
+
+
+
+E __ MANIPULARMOS UMA OPEN_TRANSACTION 
+
+
+
+DE FORMA QUE o 'sender' 
+é definido como 
+
+
+
+'ourApp',
+
+
+
+ESSA TRANSACTION SERÁ TIDA COMO 'verified'... -------->
+
+
+
+
+
+
+
+
+
+
+MAS MAIS TARDE, QUANDO TIVERMOS UMA 'NODE NETWORK',
+
+
+teremos uma 
+
+PROTEÇÃO CONTRA ISSO TBM,
+
+ 
+
+
+
+ MAS _ O PROFESSOR ACHA QUE 
+
+ ESSA NÃO É A MELHOR SOLUÇÕA, NO MOMENTO...
+
+
+
+
+
+
+
+
+
+
+ --> em vez disso,
+
+
+ ele remove 
+
+
+o check 
+
+
+
+de 
+
+
+
+'if transaction.sender == 'ourApp' 
+    return True' 
+
+
+
+
+
+
+    E AÍ __ ELE SEGUE __ ATÉ _o 
+
+
+
+
+
+ arquivo de 'blockchain.py'...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> LÁ, QUANDO NÓS MINERAMOS UM NOVO BLOCK,
+
+  
+
+  TEMOS ESTAS LINHAS DE CÓDIGO:
+
+
+
+
+
+
+
+          copied_transactions = self.__open_transactions[:]
+        copied_transactions.append(reward_transaction)
+
+        block = Block(hashed_block, len(self._chain),
+                      copied_transactions, proof)
+
+        
+        for transaction in block.processed_transactions:
+            if (not Wallet.verify_transaction(transaction)):
+                self.__open_transactions.remove(transaction)
+                return False
+
+        self._chain.append(block)
+        self.__open_transactions = []
+        self.save_data()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> É CLARO QUE NÃO VAMOS QUERER FAZER 'VERIFY' 
+
+da 
+
+'reward_transaction',
+
+
+
+POR ISSO 
+
+
+
+TROCAMOS AS COISAS DE LUGAR:
+
+
+
+vamos colocar o '
+
+            if (not Wallet.verify_transaction(transaction)):
+                self.__open_transactions.remove(transaction)
+                return False
+
+                '
+
+
+
+                __ANTES__ DO ADD 
+
+                
+                da 'reward_transaction'
+
+
+
+                NAS NOSSAS TRANSACTIONS (assim, a reward_transaction acaba EXCLUÍDA DO CHECK realizado por 'verify_transaction')...
+
+
+
+
+
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+        reward_transaction = Transaction(
+            MINING_REWARD, self.hosting_node, 'signature', 'ourApp')
+
+        copied_transactions = self.__open_transactions[:]
+
+
+        for transaction in copied_transactions:
+            if (not Wallet.verify_transaction(transaction)):
+                self.__open_transactions.remove(transaction)
+                return False
+
+        copied_transactions.append(reward_transaction)
+
+        
+        block = Block(hashed_block, len(self._chain),
+                      copied_transactions, proof)
+        
+        
+ 
+
+
+        self._chain.append(block)
+        self.__open_transactions = []
+        self.save_data()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM,
+
+
+
+TEMOS UM POUCO DE REDUNDÂNCIA NO NOSSO METHOD DE 'add_transaction'
+
+LÁ EM 'blockchain.py'...
+
+
+
+
+
+
+-> LÁ,
+
+
+nós estamos rodando 
+
+
+
+
+
+
+A LÓGICA DE 
+
+2 verifications, tipo assim:
+
+
+
+
+
+
+
+
+    def add_transaction(self, sender, recipient, signature, amount=1.0):
+
+
+
+
+
+
+        new_transaction = Transaction(amount, recipient, signature, sender)
+
+
+        if (not Wallet.verify_transaction(new_transaction)):
+            return False
+
+        if not Utility.verify_transaction(new_transaction, self.get_balance):
+            return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OU SEJA,
+
+
+2 VERIFIES,
+
+
+
+MAS AQUELE PRIMEIRO VERIFY ALI NÃO INTERESSA, PQ 
+O 
+
+S
+EGUNDO VERIFY (de 'Utility')
+
+
+JÁ 
+
+
+TEM ESSE CALL DE 'verify_transaction' do wallet no interior...
+
+(
+
+
+    como visto na lógica de 
+
+    ''
+
+
+
+    @staticmethod
+    def verify_transaction(transaction, get_balance, check_funds=True):  ##só não checará os 'funds'/balance do USER em relaçaõ ao amount da given transaction _ NO CASE DO 'verify_transactions', em que ESSA INFO DO BALANCE NÃO INTERESSA (e em que APENAS A validade da 'signature' em uma transaction vai interessar)....
+        
+        if (not check_funds):
+            return Wallet.verify_transaction(transaction)   ###eis o código em questão.
+
+      
+        sender_balance = reduce(lambda x,y: x+y, get_balance())
+
+        return sender_balance >= transaction.amount and Wallet.verify_transaction(transaction)  ###eis o código em questão.
+
+
+
+
+''''
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> COMO A SIGNATURE TAMBÉM É CHECADA NESSE 'verify_transaction',
+
+
+PODEMOS SÓ REMOVER ESSE 
+
+'Wallet.verify_transaction'
+
+
+lá 
+
+
+de 
+
+
+
+'blockchain.py'...
+
+
+
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+
+        new_transaction = Transaction(amount, recipient, signature, sender)
+
+
+        # if (not Wallet.verify_transaction(new_transaction)): ##redundante (já temos esse check no method call logo abaixo, de 'Utility')..
+        #     return False
+
+        if not Utility.verify_transaction(new_transaction, self.get_balance):
+            # print('Your funds are not enough for the chosen operation')
+            return False        new_transaction = Transaction(amount, recipient, signature, sender)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK... 
+
+
+
+
+
+
+ATÉ AÍ, TUDO BEM...
+
+
+
+
+
+
+
+
+
+
+
+
+
+COM ISSO, SE REINICIAMOS NOSSA BLOCKCHAIN E TESTAMOS TUDO,
+
+
+MINERANDO UM NOVO BLOCK,
+
+TUDO ISSO FUNCIONA...
+
+
+
+
+
+
+
+
+
+-> PROFESSOR MANDA UMA TRANSACTION EXEMPLO,
+
+SALVA TUDO E QUITTA,
+
+VOLTA,
+
+tudo funciona...
+
+
+
+
+
+
+
+
+
+
+---> ok... tudo está funcionando como antes, mas agora o código está melhor...

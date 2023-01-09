@@ -1,0 +1,634 @@
+
+
+
+
+
+
+
+
+AGORA QUE APRENDEMOS SOBRE ERROR HANDLING,
+
+A 
+PERGUNTA ÓBVIA É:
+
+
+
+
+'''QUAIS ERRORS VOCê DEVE HANDLAR?'''  
+
+
+
+
+
+
+
+
+
+
+
+--> HÁ ALGUNS TROUXAS QUE PODEM DIZER
+
+
+
+''DEVO HANDLAR TODOS OS ERRORS''
+
+
+
+
+
+--> OU SEJA,
+
+
+
+__ TENTAR__ WRAPPAR 
+
+TODO 
+
+
+NOSSO CÓDIGO PYTHON COM 
+
+
+
+TRY-EXCEPT-FINALLY...
+
+
+
+
+
+
+
+
+
+--> ESSA É UMA PÉSSIMA IDEIA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+try:
+    something()
+except Error: 
+    handle_error()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BTW: ----------> 'Error' É O TIPO DE ERRO _ MAIS GENÉRICO CONHECIDO PELO PYTHON... TENTE 
+
+
+NUNCA O UTILIZAR,
+
+
+POIS 
+É 
+
+MT GENÉRICO (handla __ TODOS OS TIPOS DE ERRORS)....
+
+
+
+
+
+
+
+
+
+--> ESSA __ NÃO É UMA BOAS IDEIA,
+
+NÃO FAÇA ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> EM VEZ DISSO,
+
+
+VOCÊ 
+
+DEVE, 
+
+
+NO PYTHON,
+
+
+
+
+__ APENAS__ HANDLAR__ ERRORS 
+
+
+QUE 
+
+VOCê 
+
+
+__ NÃO PODE PREDICTAR/EVITAR...
+
+
+
+
+
+
+
+
+
+
+NÃO PODE PREDICTAR 
+
+
+
+
+
+
+
+
+
+NÃO PODE EVITAR...
+
+
+
+
+
+
+
+
+
+
+
+ERRORS COMO ESSES SÃO:
+
+
+
+
+1) FILE ACCESS ERRORS ('IOError')
+
+
+
+
+
+2) OPERATING SYSTEM ERRORS --> 'Os-related Error'...
+
+
+
+
+
+
+
+
+
+
+
+---> TALVEZ VOCÊ ESTEJA FICANDO SEM MEMÓRIA EM ALGUMA OPERAÇAÕ ,
+
+
+O QUE VAI FAZER COM QUE VOCÊ 
+
+QUEIRA 
+
+
+HANDLAR ESSE CASE....
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PQ ISSO É IMPORTANTe?
+
+
+
+
+
+--> É IMPORTANTE PQ 
+
+
+SE 
+VOCÊ 
+
+HANDLAR 
+
+
+
+'TODOS OS TIPOS DE ERRORS',
+
+
+
+
+
+
+
+
+
+
+
+COMO ESTAMOS FAZENDO COM ESSA SÉRIE DE EXCEPTS AQUI:
+
+
+
+
+
+
+
+
+
+
+
+    except IOError:
+        print('File not found!') #com isso, será printada essa mensagem em casos desse tipo de error, mas o APP NÃO CRASHARÁ... (handled error, em vez de unhandled)...
+    except ValueError:
+        print('You cannot do that, so you get a Value Error.') #podemos adicionar múltiplos except cases, 
+    except:
+        print('You cannot do that, so you get a generic error. WILDCARD ERROR') # WILDCARD except case, que vai HANDLAR TODOS OS ERRORS QUE NÃO FOREM 'CAUGHT'/handlados nos cases anteriores, mais específicos...
+       
+    finally:
+        print('Your data was or was not loaded. See error statements')
+        print('clean-up work')
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ FIZER ISSO,
+
+
+O CÓDIGO _ ACABARÁ __ 
+
+
+EM UMA SITUAÇÃO EM QUE ]
+
+
+
+
+
+ELE 
+
+
+'WILL NEVER BE ABLE TO FAIL,'
+
+
+
+o 
+
+que 
+
+LEVARÁ 
+
+A 
+UMA 
+
+SITUAÇÃO 
+
+
+
+EM QEU 
+
+
+
+
+CÓDIGO __ REALMENTE __ BEM RUIM SERÁ ESCRITO.... --> isso 
+
+
+
+PQ 
+
+
+
+
+NA MESMA MEDIDA 
+
+EM QUE 
+
+
+EXISTEM ERRORS 
+
+QUE 
+
+VOCÊ 
+
+
+
+
+__ NÃO PODE __ EVITAR 
+
+
+
+(
+
+
+    como FILE ERRORS, representados por 'except IOError'
+),
+
+
+
+
+
+
+
+
+NÃO PODE EVITAR, SIM...
+
+
+
+
+
+
+
+
+
+
+
+
+--> em casos de erros que você NAÕ  PODE EVITAR,
+
+
+
+COMO FILE-RELATED ERRORS,
+
+
+É 
+
+BOM USAR 
+
+ERROR HANDLING COMO ESSE, 
+
+
+
+PQ AÍ VOCÊ PODE/PÓDERÁ FAZER 
+COISAS 
+
+COMO 
+
+'create the file in the except block itself', 
+
+tipo assim:
+
+
+
+
+
+
+
+
+    except IOError:
+        print('File not found!') #com isso, será printada essa mensagem em casos desse tipo de error, mas o APP NÃO CRASHARÁ... (handled error, em vez de unhandled)...
+        with open('blockchain.txt', mode='w') as f 
+        f.write(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... O HANDLE DE FILE ERRORS É ALGO BEM COMUM E FREQUENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> JÁ O HANDLE DE 'ValueErrors'
+
+
+
+,
+
+
+REPRESENTADO PELO TYPE DE 'ValueError',
+
+
+
+
+PODEM __ SER EVITADOS....
+
+
+
+
+
+
+
+
+
+
+
+--. SE VOCÊ ESTÁ ACIDENTALMENTE __ ADICIONANDO UMA STRING A UM NUMBER,
+
+
+
+VOCÊ PROVAVELMENTE __ JÁ PODERIA SABERR_ QUE 
+
+
+VOCÊ ESTAVA TENTANDO FAZER ESSA BESTEIRA... 
+
+
+
+
+
+
+
+
+
+
+--> EX: LÁ NO NOSSO WHILE LOOP,
+
+NOS INPUT STATEMENTS,
+
+
+
+EM QUE 
+PEDIMOS PELO INPUT DO USER...
+
+
+
+
+
+
+
+
+
+
+
+--> PEDIMOS INPUT DO USER 
+
+AO 
+
+CRIARMOS TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+--> LÁ EM 'get_transaction_value',
+
+
+
+TEMOS ESTE CÓDIGO:
+
+
+
+    user_transaction_input = (
+        user_transaction_sender, user_transaction_recipient, float(user_transaction_amount))
+    return user_transaction_input
+
+
+
+
+
+
+
+
+--> JÁ ESTAMOS CONVERTENDO ESSE INPUT EM UMA FLOAAT,
+
+PQ 
+
+SABEMOS QUE 
+
+VAI SE TRATAR DE UMA STRING..
+
+
+
+
+
+
+
+
+
+--> É CLARO  QUE PODERÍAMOS DEIXAR ESSE NEGÓCIO COMO UMA STRING E ENTÃO 
+
+
+TENTAR 
+
+
+
+WRAPPAR ESSE CÓDIGO COM UM 'try-except' PARA CAPTURAR ESSE ERROR... -----> MAS A QUESTÃO É QUE 
+
+ESSE 
+
+É 
+UM 
+
+ERROR  QUE 
+
+
+'''PODEMOS EVITAR''' (por meio da conversão da string em um FLOAT)...
+
+
+
+
+
+
+
+
+
+
+--> E NÃO DEVEMOS FAZER CATCH DE 'ERRORS QUE PODEMOS EVITAR'
+
+
+
+com try-except-finally
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> APENAS WRAPPE 
+
+CÓDIGO COM TRY-EXCEPT 
+
+
+
+
+QUE __ POSSA __ FALHAR DURANTE O RUNTIME E QUE 
+
+VOCÊ  
+
+
+NÃO POSSA EVITAR 'AHEAD OF TIME'...
+
+
+
+
+
+
+
+
+(ou seja, não tente capturar errors de 'ValueError'..)
+
+
+
+
+
+
+
+
+
+
+
+(mas isso é fine cmo 'File-related errors'...)

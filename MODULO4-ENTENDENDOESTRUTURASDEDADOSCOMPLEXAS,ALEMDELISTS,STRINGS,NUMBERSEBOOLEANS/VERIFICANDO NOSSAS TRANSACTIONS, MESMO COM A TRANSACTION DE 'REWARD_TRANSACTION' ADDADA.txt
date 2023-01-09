@@ -1,0 +1,907 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ADICIONAMOS UM MONTE DE LÓGICA:
+
+
+
+
+
+
+1) UMA MINING REWARD..
+
+
+
+2) TAMBÉM UMA MANEIRA DE CONSEGUIR O 'BALANCE' DE UM PARTICIPANT, ATRAVÉS DA FUNCTION 'get_balance'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> AGORA DEVEMOS FAZER 'VERIFY' DE NOSSAS TRANSACTIONS,
+
+
+PARA DETERMINAR SE AQUELE MINER/INSTANCE POSSUI A CAPACIDADE/POSSUIA A CAPACIDADE 
+
+
+
+DE 
+
+
+
+ENVIAR AQUELA QUANTIDADE DE BLOCKS/'COINS', LÁ 
+
+
+
+NA TRANSACTION QUE EXPEDIU...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, PROFESSOR  VAI ADICIONAR UMA NOVA FUNCTION DEDICADA,
+
+QUE SERÁ 
+'verify_transactions' (distinta de 'verify_blockchain')...
+
+
+
+
+
+
+
+
+
+
+
+
+
+def verify_transaction();
+
+
+
+
+
+
+
+
+
+
+
+---. NESSE LUGAR VAMOS _ VERIFICAR_ UMA TRANSACTION QUE VAMOS PASSAR..
+
+
+
+
+
+--> AÍ VAI RETORNAR 'TRUE' se a transaction é '''possível'' e false se não for (nenhum fund disponível  para esse valor...)
+
+
+
+
+
+
+
+
+
+-> O ÚNICO CHECK QUE REALIZAREMOS AGORA É O DE ''O OWNER TEM ENOUGH FUNDS''
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+def verify_transaction(transaction):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PRIMEIRA COISA QUE FAREMOS É CONSEGUIR O VALOR DO 'SENDERS BALANCE'.... --> para isso,
+vamos chamar aquela 
+
+function de 
+
+
+'get_balance()',
+
+e aí pegar o TERCEIRO VALOR (balance)...
+
+
+
+
+
+
+def verify_transaction(transaction):
+    sender_balance = get_balance(transaction['sender'])[2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo....
+
+
+
+
+
+
+
+
+--> AGORA VAMOS CHECAR SE 'sender_balance' (relação entre valores SENT E RECEIVED)
+
+
+
+
+é _ MAIOR OU IGUAL A 'transaction['amount']' , que é ESSE VALOR QUE ESTÁ SENDO 'sent'..
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+def verify_transaction(transaction):
+    sender_balance = get_balance(transaction['sender'])[2]
+    if sender_balance >= transaction['amount']:
+        return True
+    else:
+        return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+        --> MAS ISSO É UM STATEMENT REDUNDANTE,
+
+
+        MELHOR É SÓ OMITIR VÁRIAS COISAS E DEIXAR SÓ O RETURN DESSA BOOLEAN OPERATION,
+
+        QUE CERTAMENTE RETORNARÁ 'True' ou 'False':
+
+
+
+
+
+
+        
+
+def verify_transaction(transaction):
+    sender_balance = get_balance(transaction['sender'])[2]
+    return sender_balance >= transaction['amount']:
+   
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK... COM ISSO PODEMOS NOS LIVRAR DAQUELA GLOBAL VARIABLE DE 'AVAILABLE_FUNDS'..
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+def verify_transaction(transaction):
+    """Retorna True ou False a DEPENDER DO CHECK DA TRANSACTION; SE O USER NÃO TIVER FUNDS SUFICIENTES, RETORNA FALSE E A OPERAÇÃO/TRANSACTION NÃO É REALIZADA."""
+    sender_balance = get_balance(transaction['sender'])[2]
+    return sender_balance >= transaction['amount'] #retornará TRUE OU FALSE....
+    # if sender_balance >= transaction['amount']: #mesma coisa que o return da operation logo acima....
+    #     return True
+    # else:
+    #     return False
+
+
+
+
+
+
+
+
+
+
+
+----> OK, VAMOS QUERER EXECUTAR ESSA FUNCTION NÁ NO _ 'add_transaction',
+
+
+
+
+LOGO ANTES _ DO 'open_transactions.append(new_transaction)'
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------> fica tipo assim:
+
+
+
+
+
+
+    new_transaction = {
+
+        'sender': sender,
+        'recipient': recipient,
+        'amount': amount
+    }
+    if not verify_transaction(new_transaction):
+        print('No funds available for that transaction')
+    else:
+        open_transactions.append(new_transaction)
+        participants.add(sender)
+        participants.add(recipient)
+        print(open_transactions)
+
+
+
+
+    -----------------------------
+
+
+
+
+
+
+
+
+
+
+
+    OK....... --> MAS HÁ UMA OUTRA COISA QUE O PROFESSOR QUER ADICIONAR:
+
+
+
+
+
+
+
+
+
+
+    --> QUANDO NÓS _ ADICIONARMOS essa TRANSACTION VERIFICADA __ à LIST DE 
+
+    'open_transactions',
+
+
+
+    NÓS __ TAMBÉM __ DEVEMOS CONSIDERAR _ O VALOR _ QUE ENVIAMOS __ EM 
+
+
+    OUTRAS 'open_'TRANSACTIONS....'  ---> PQ 
+
+
+
+    SE NÓS OLHARMOS SÓ AS 'processed_transactions' (transactions que fazem parte da BLOCKCHAIN, NOS BLOCKS),
+
+
+
+
+
+
+
+    há o perigo de NÓS TERMOS SÓ  '10 COINS AVAILABLE' E AÍ _ 
+
+
+    FAZEMOS 'ISSUE' DE 3 TRANSACTIONS DE 10 COINS...  ----> E CADA 
+
+
+
+
+    TRANSACTION SERÁ 'SUCCESSFUL',
+    
+    PQ 
+
+    CADA UMA DELAS, POR SI ´SO,
+
+
+    SERÁ 'COVERED' PELAS 'processed_transactions' 
+
+
+
+
+    da blockchain... -> MAS, COMBINADAS, ESSAS TRANSACTIONS NAÕ SERÃO SUCCESSFUL...
+
+
+
+
+
+
+
+
+
+
+
+
+-> ah, agora entendi o que ele está falando...
+
+
+
+
+
+
+
+
+----> imagine que vocÊ tem o programa recém-iniciado..
+
+
+
+
+
+
+
+
+--> aí vocÊ tem 10 coins, supondo....
+
+
+
+
+
+--> digamos que vocÊ faça QUATRO TRANSACTIONS, cada uma delas enviando 10 coins...
+
+
+
+
+
+
+--> CADA TRANSACTION SERÁ 'SUCCESSFUL'
+
+
+
+
+por si só,
+
+MAS O PROBLEMA É QUE _ A SUA QUANTIDADE _ INICIAL DE COINS( que era/é de 10)
+
+
+
+TERÁ SIDO EXTRAPOLADA, 
+
+
+
+
+e não há nenhum check colocado no nosso código para IMPEDIR ESSE CASE....
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ENTÃO 'COMBINED' as transactions, naõ temos proteçaõ alguma....
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE DEVEMOS TAMBÉM FAZER 'GET' DO AMOUNT SENT NAS OPEN TRANSACTIONS... (só o SENT)
+
+
+
+
+
+
+
+
+
+
+
+--> é por isso que em 'get_balance' o professor adiciona uma NOVA CONSTANTE, de nome 
+
+
+'open_transactions_sender'....
+
+
+
+
+
+EX:
+
+
+
+ open_transactions_sender = []
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> OK, NESSE SENDER __ TAMBÉM VAMOS PRECISAR DE UMA LIST COMPREHENSION...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+ open_transactions_sender = [transaction['amount'] for transaction in open_transactions if transaction['sender'] == participant]
+
+
+
+
+
+
+
+
+
+ --> OK... AÍ O PROFESSOR VAI QUERER FAZER APPEND desse 'open_transactions_sender'
+
+
+
+
+ dentro do 'transaction_sender'....]
+
+
+
+
+
+
+
+
+
+ -> PARA QUE FAZER ISSO?
+
+
+
+
+
+
+ É PQ A NOSSA LÓGICA TERÁ DE SER:
+
+
+
+
+
+
+
+ '''VALORES GASTOS COM AS TRANSACTIONS ANTIGAS''' +++ '''VALORES QUE SERÃO GASTOS COM AS TRANSACTIONS ATUAIS (open_transactions)''  DEVEM 
+
+ SER MAIORES 
+
+
+
+ DO QUE O VALOR QUE O USER JÁ HAVIA RECEBIDO/TINHA GUARDADO (Que é aquele 'received' nessa função 'get_balance()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ O CÓDIGO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+ def get_balance(participant):
+    transaction_sent_amount = 0
+    transaction_received_amount = 0
+    
+    transaction_sender = get_value('sender')
+    open_transactions_sender = [transaction['amount'] for transaction in open_transactions if transaction['sender'] == participant]
+ 
+
+    transaction_sender.append(open_transactions_sender) # vai somar os custos/'sent' de todas as TRANSACTIONS JÁ PROCESSADAS + 'open_transactions' que ainda não foram processdas (para que o user não possa adicionar 3 transaction de 10 quando só tem 10 funds, por exemplo...)
+
+    for transaction in transaction_sender:
+        transaction_sent_amount = transaction_sent_amount + transaction
+    transaction_recipient = get_value('recipient')
+    for transaction in transaction_recipient:
+        transaction_received_amount = transaction_received_amount + transaction
+
+    return (transaction_sent_amount, transaction_received_amount, transaction_received_amount - transaction_sent_amount)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, AGORA O BALANCE ESTÁ SENDO CALCULADO DE UMA MANEIRA MELHRO...
+
+
+
+
+VOLTAMOS AO NOSSO WHILE LOOP...
+
+
+
+
+
+
+
+
+
+
+
+-- LÁ, QUANDO ADICIOANMOS UMA TRANSACTION,
+
+
+VAMOS QUERER _ _CHECAR__ SE ELA FOI BEM SUCEDIDA... --> 
+
+
+SE FOR,
+
+
+
+VAMOS QUERER PRINTAR 'ADDED TRANSACTION' , caso contrário vamos printar transaction faield...
+
+
+
+
+
+
+
+
+PARA ISSO, O CÓDIGO FICA ASSIM:
+
+
+
+
+
+    if(user_input == '1'):
+        user_transaction = get_transaction_value()
+        # UNPACKING DE TUPLE.... É EXATAMENTE A MESMA COISA QUE ARRAY DESTRUCTURING.
+        
+        if(user_transaction == None):
+            print('Please enter a valid sender, recipient and transaction value.')
+        else:
+            sender, recipient, amount = user_transaction
+            if add_transaction(sender, recipient, amount):
+               print('Added transaction!')
+            else:
+               print('Transaction failed')
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> CÓDIGO DE ADD TRANSACTION:
+
+
+
+
+
+
+
+
+
+
+
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+    """
+
+
+
+    new_transaction = {
+
+        'sender': sender,
+        'recipient': recipient,
+        'amount': amount
+    }
+    if not verify_transaction(new_transaction):
+        print('Your funds are not enough for the chosen operation')
+        return False
+    else:
+        open_transactions.append(new_transaction)
+        participants.add(sender)
+        participants.add(recipient)
+        print(open_transactions)
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... TESTAMOS NOSSO CÓDIGO COM 10 NOVOS COINS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----  --> minha versaõ do 'get_balance' não estava funcionando, por isso peguei a versaõ do código do professor, que estava um pouco diferente( e funciona)...
+
+
+
+a parte da 'if len(tx) > 0' não estava funcionando,....
+
+
+
+EX:
+
+
+
+
+
+
+
+Please choose an option: b
+Blocks sent: 2.0
+Blocks received: 10
+Total Balance: 8.0
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+------------------------------
+Please choose an option:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> conseguimso fazer manage das BALANCES, e isso ja é um tremendo passo em frente...
+
+
+
+
+
+
+
+
+
+
+
+-> mas ainda tenho o problema do '2x mine dá erro'..
+
+
+
+
+
+
+
+
+--> mas ainda não sei qual é a razão desse error..
+
+
+
+
+
+
+
+
+
+--> hmmm a solução envolve o uso de
+
+
+
+''''    copied_transactions = open_transactions[:]''''
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROVAVELMENTE ISSO SERÁ MOSTRADO NA AULA DE 'REFERENCE VS VALUE COPYTING'...
+
+
+(próxima aula)...

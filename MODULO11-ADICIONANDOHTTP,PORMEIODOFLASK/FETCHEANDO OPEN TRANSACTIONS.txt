@@ -1,0 +1,123 @@
+
+
+
+
+
+
+
+
+
+JÁ FIZ ISSO, O CÓDIGO FICOU ASSIM:
+
+
+@app.route('/transactions', methods=['GET'])
+def get_open_transactions():
+    if (wallet.public_key != None):
+        response = {
+        'transactions': [transaction.__dict__ for transaction in blockchain.get_open_transactions()]
+        }
+    
+    return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+
+
+-----------------
+
+
+
+
+
+NÃO SEI SE ESSE CÓDIGO ESTÁ TÃO BOM, MAS FUNCIONA....
+
+
+
+
+
+
+
+
+
+
+
+--> professor fala que vai chamar o method de 'get_open_transactions'....
+
+
+
+
+
+
+
+
+
+
+
+certo... --> blockchain.get_open_transactions()
+
+
+
+
+
+
+
+
+
+--> ISSO SERÁ UMA LIST DE TRANSACTION OBJECTS,
+
+
+POR ISSO USAMOS LIST COMPREHENSION PARA AS 
+
+CONVERTER 
+
+EM 
+
+
+DICTS.... 
+
+
+
+__dict__ --> FUNÇÃO DUNDER de '__dict__' em cada object...
+
+
+
+
+
+
+ok, professor fez exataemnte o que eu fiz...
+
+
+
+
+
+
+
+
+
+--> profesor decide só retornar as transactions, sem uma response com '{
+    
+}' 
+
+
+
+
+
+
+MAS EU PREFIRO RETORNAR ALGO COMO 
+'{
+    'transactions': []
+}
+'
+
+
+
+
+
+
+

@@ -1,0 +1,152 @@
+
+
+
+
+
+
+
+
+
+AGORA TEREMOS UM BREVE RESUMO DE 
+
+
+
+
+PICKLE 
+
+VS 
+JSON:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PICKLE  -----> 
+
+
+
+JSON -----> 
+
+
+
+
+
+
+
+
+
+
+
+AMBOS PODEM SER USADOS PARA 
+
+
+'SERIALIZE/UNSERIALIZE'
+
+
+NOSSA DATA PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------> PICKLE:
+
+
+
+
+1) FUNCIONA __ COM __ TODOS _ OS DATA TYPES DO _ PYTHON (dicts, sets, tuples, lists, OrderedDicts, etc)....
+
+
+
+
+
+
+
+2) O PICKLE SERIALIZA NOSSA DATA EM FORMATO 'BINARY', BINARY DATA ---> BINARY FORMAT SIMPLESMENTE SIGNIFICA QUE 
+
+ELE PRINTA NOSSA DATA EM UM FORMATO 'printable and non-printable characters', ambos combinados...  (
+    isso quer dizer que 
+
+
+    ELE É MAIS PRÓXIMO DE 'BITS E BYTES', como o SAVE DE UMA IMAGE... --> isso quer dizer que ele não 
+
+    segura TEXT por trás das cenas,
+
+    e sim 
+
+    BITS E BYTES...
+     
+)
+
+
+
+
+
+JSON:
+
+
+
+
+1) NÃO FUNCIONA COM TODOS OS DATA TYPES DO PYTHON (por isso que tivemos problemas com 'OrderedDicts', que NÃO SÃO CONVERTIDOS COM SUCESSO EM JSON DATA)... -------> NÓS TIVEMOS DE 'MANUALMENTE CONVERTER' esses types em 'KNOWN DATA TYPES', types conhecidos pelo json..
+
+--> essa conversão foi vista lá no 'LOAD' de nossa data, lá em 'load_data()'... ----> é algo que DEVEMOS TER EM MENTE.
+
+
+
+
+
+
+
+
+2) json é MAIS FÁCIL DE LER, PQ 
+
+A DATA 
+
+
+É CONVERTIDA EM TEXT,
+
+E ISSO É MAIS FÁCIL DE LER....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS OPTAR POR QUALQUER UM DOS 2... -> O PROFESSOR POR ENQUANTO VAI 
+
+VOLTAR AO JSON,
+PQ 
+
+
+
+COM O JSON É MAIS FÁCIL DE EXAMINAR SE A SEGURANÇA DE NOSSO APP ESTÁ 
+
+BOA...

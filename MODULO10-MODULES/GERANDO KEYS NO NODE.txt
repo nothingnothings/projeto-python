@@ -1,0 +1,904 @@
+
+
+
+
+
+
+
+
+
+
+
+--> adicionamos nossa WALLET BÁSICa... ->  E AGORA CRIAMOS KEYS, SE ASSIM O DESEJAMOS...
+
+
+
+
+ex:
+
+
+
+
+
+
+  def listen_for_input(self, blockchain):
+        waiting_for_input = True
+
+        while waiting_for_input:
+            print('-' * 30)
+            print('1: Add a new transaction value')
+            print('2: Display current blockchain')
+            print('3: Show participants')
+            print("b: Show user's balance")
+            print('c: Create wallet')
+            print('h: Manipulate the chain')
+            print('l: Load wallet')
+            print('m: Mine a block')
+            print('q: Quit the program')
+            print('v: Verify open transactions')
+            print('-' * 30)
+            user_input = self.get_user_choice()
+            if(user_input == '1'):
+                # user_transaction = self.get_transaction_value(self.id)
+                user_transaction = self.get_transaction_value(self.wallet.public_key)
+
+                if(user_transaction == None):
+                    print(
+                        'Please enter a valid sender, recipient and transaction value.')
+                else:
+                    sender, recipient, amount = user_transaction
+                    if self.blockchain.add_transaction(sender, recipient, amount):
+
+                        print('Added transaction!')
+                    else:
+                        print('Transaction failed')
+
+            elif(user_input == '2'):
+                self.output_blockchain()
+            elif(user_input == 'q'):
+                waiting_for_input = False
+            elif(user_input == 'c'):
+                # self.create_wallet()
+                # wallet = Wallet()  ###vai criar NOVA WALLET, vazia...]
+                self.wallet.create_keys()
+                # self.wallet.create_keys()
+
+            elif(user_input == 'l'):
+                self.wallet.load_keys()
+               
+
+            elif(user_input == 'h'):
+                print(self.blockchain)
+                elementIndex = input(
+                    'Enter the number of the element you want to manipulate: ')
+                if (elementIndex.isnumeric()):
+                    if (len(self.blockchain) >= int(elementIndex) + 1):
+                        elementValue = input(
+                            ' Please Enter the value you want to insert: ')
+                        chain = self.blockchain.get_chain()
+
+                        chain[int(elementIndex)]['processed_transactions'] = [
+                            {'sender': 'test', 'recipient': 'tested', 'amount': 1212}]
+                    else:
+                        print(
+                            'No block for that index, please insert sufficient number of blocks before trying to manipulate a specific one')
+                else:
+                    print('Invalid index entered, please try again')
+
+            elif(user_input == 'm'):
+                if self.blockchain.mine_block():
+                    print(' MINED')
+
+                    # self.blockchain.open_transactions = []
+
+                    # FileAccess.save_data(
+                    #     self.blockchain.chain, self.blockchain.get_open_transactions())
+
+            elif(user_input == '3'):
+                print(self.blockchain.participants)
+            elif(user_input == 'b'):
+                sent, received, balance = self.blockchain.get_balance()
+                print(f'Blocks sent by {self.wallet.public_key}: ' +
+                      '{sent:>6.2f}'.format(sent=sent))
+                print(f'Blocks received by {self.wallet.public_key}: ' +
+                      '{received:>6.2f}'.format(received=received))
+                print(f'Total Balance of {self.wallet.public_key}: ' +
+                      '{balance:>6.2f}'.format(balance=balance))
+            elif(user_input == 'v'):
+
+                if (Utility.verify_transactions(self.blockchain.get_open_transactions(), self.blockchain.get_balance, Utility.verify_transaction)):
+                    print('Transactions are valid.')
+
+                elif(Utility.verify_transactions(self.blockchain.get_open_transactions(), self.blockchain.get_balance, Utility.verify_transaction) == None):
+                    print('No transactions to verify, please add a transaction.')
+                else:
+                    print('Invalid transactions detected.')
+            else:
+                print('-' * 40)
+                print('Invalid command.')
+
+            if(not Utility.verify_chain(self.blockchain.chain, Utility.valid_proof)):
+                print('Blockchain was found invalid.')
+                print(self.blockchain.get_chain())
+                waiting_for_input = False
+            else:
+                print('Blockchain is valid')
+        else:
+            print('User left')
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ---------------------------
+
+
+
+
+
+
+
+
+
+    ok... 
+
+
+
+
+
+
+
+
+
+
+-> MAS O PROBLEMA É QUE 
+
+
+
+SE NÃO QUEREMOS 
+
+LOADAR UMA WALLET QUE JÁ EXISTE,
+
+
+ACABAMOS 
+
+
+
+
+COM UMA WAlLET COM PRIVATE E PUBLIC KEY DE 'none',
+
+
+
+
+E AÍ SE MINERARMOS ALGUMA COISA, O AUTOR TERÁ SIDO 'none' -> temos que adicijonar um if check para IMPOSSIBILITAR ISSO...
+
+
+
+
+
+
+
+
+
+
+
+--> 
+
+
+
+
+
+
+O CÓDIGO DO CONSTRUCTOR DE 'node' está assim:
+
+
+
+
+    def __init__(self):
+        self.wallet = Wallet() #### a wallet inicialmente nÃO TERÁ COISA ALGUMA, pq o user ainda não decidiu se quer CARREGAR UMA WALLET QUE JÁ EXISTIA, ou se então quer 'COMEÇAR DO 0', com uma NOVA WALLET...
+
+        self.blockchain = Blockchain(self.wallet.public_key)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok.... --> agora, lá em 
+
+
+'mine_block()',
+
+
+
+precisamos adicionar um if check para IMPEDIR __ 
+
+
+o block de ser minerado se a 'public_key' estiver como NONE...
+
+
+
+
+--> ou então adicionamos esse if check no PRÓPRIO NODE, antes dessa linha aqui:
+
+
+
+
+
+
+
+
+
+
+
+            elif(user_input == 'm'):
+                if self.blockchain.mine_block():
+                    print(' MINED')
+
+
+
+
+
+
+
+
+
+
+        ---> acho mais prático fazer isso, mesmo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> dei uma bela tunada no código...
+
+
+
+
+
+
+
+
+
+
+--> agora a interface está melhor, e agora 
+
+
+
+
+
+a private e public keys são mostradas ao user quando ele cria a wallet...
+
+
+
+
+
+
+
+
+
+
+
+-_> PARA IMPEDIR_ O MINE SE a 'public_key' está como none,
+
+O PROFESSOR 
+
+DECIDE COLOCAR O IF CHECK  LÁ 
+NO INTERIOR 
+DO 
+
+METHJOD 'mine_block',
+
+lá em 
+
+
+'blockchain.py'...
+
+
+
+
+
+
+
+
+-> se estiver como 'None', não devemos ser capazes de ADD TRANSACTIONS ou MINE A BLOCK... 
+
+
+
+
+
+
+
+
+
+
+
+
+---> na verdade, foda-se esse código do professor, é bem mais conveniente ter esse check lá em 
+
+'node.py',
+
+pq 
+
+É LÁ QUE TEMOS A PUBLIC E PRIVATE_KEYs,
+
+
+
+
+e é LÁ QUE TENHO O ATTRIBUTE DE 'message' que uso para printar mensagens no console...
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            if(user_input == '1'):
+                # user_transaction = self.get_transaction_value(self.id)
+
+                if (self.wallet.public_key == None):
+                    self.message = 'No public key detected. Please load in a valid wallet before trying to add a transaction.'
+                else:
+                    user_transaction = self.get_transaction_value(self.wallet.public_key)
+
+                    if(user_transaction == None):
+                        # print(
+                        #     'Please enter a valid sender, recipient and transaction value.')
+                        self.message = 'Please enter a valid sender, recipient and transaction value'
+                    else:
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+ok, colocamos um pouco de proteção...
+
+
+
+
+
+
+
+-> voltamos ao tópico do 'GET' da wallet....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> de volta ao 'get do wallet'..
+
+
+
+
+
+
+
+
+
+-> 'self.wallet.create_keys()'
+
+
+ADICIONA PRIVATE E PUBLIC KEYS A NOSSA WALLET...
+
+
+
+
+
+
+
+
+--> ok... o create da wallet está funcionando...
+
+
+
+
+
+
+
+----> O MINING AINDA ESTÁ FALHANDO, NO ENTANTO... (mesmo com essa 'public_key' com O VALOR DESSA STRING no lugar daquele 'None' anterior)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> pq isso acontece? ---> não sei... 
+
+
+
+
+
+
+
+--> testo no meu código, vejo se ocorre o mesmo erro...
+
+
+
+
+
+
+
+
+
+
+
+--> no meu código...  --> no meu código não aparece um error,
+
+
+
+
+
+
+
+
+mas acho que mesmo assim meu código está errado...
+
+
+
+
+
+
+
+
+
+-->  o problema está no código do CONSTRUCTOR, DIZ O PROFESSOR:
+
+
+
+    def __init__(self):
+        self.message = ''
+        self.wallet = Wallet() #### a wallet inicialmente nÃO TERÁ COISA ALGUMA, pq o user ainda não decidiu se quer CARREGAR UMA WALLET QUE JÁ EXISTIA, ou se então quer 'COMEÇAR DO 0', com uma NOVA WALLET...
+
+        self.blockchain = Blockchain(self.wallet.public_key)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> a parte em que SETTAMOS A BLOCKCHAIN COM AQUELA 'public_key'
+
+
+
+OCORRE_ BEM NO INÍCIO DA INICIALIZAÇÃO DE 'node', e aí _
+_ NUNCA _ MAIS...
+
+
+
+
+
+---> ou seja, isso significa que 
+
+
+
+o 'public_key' NÃO ESTA´SENDO PASSADO COMO PARÂMETRO DE 'Blockchain'... ('''hosting_node_id''')...
+
+
+
+
+
+
+
+
+
+----> isso significa que será _ IMPOSSÍVEL__ DAR 'sign' nas nossas transactions __ 
+
+
+
+COM O FLOW ATUAL DO CÓDIGO, PQ PRECISAMOS QUE ESSE 'hosting_node_id'
+
+
+SEJA __ PASSADO..
+
+
+
+
+
+
+
+
+--> PARA CONSERTAR ESSE PROBLEMA, O PROFESSOR DECIDIU DEIXAR A BLOCKCHAIN
+
+
+de 
+
+
+'self.blockchain'
+
+
+
+como sendo INICIALMENTE 'None',
+
+
+PARA __ SÓ _ ENTÃO MAIS TARDE,
+
+
+
+
+em 'create_keys',
+
+efetivamente 
+
+DEFINIRMOS O VALOR DA BLOCKCHAIN COMO 
+
+
+
+SENDDO 
+
+
+
+'self.blockchain = Blockchain(self.wallet.public_key)'...
+
+
+
+
+
+
+
+
+REPRESENTAÇÃO:
+
+
+
+
+
+
+
+    def __init__(self):
+
+        self.message = ''
+        self.wallet = Wallet() #### a wallet inicialmente nÃO TERÁ COISA ALGUMA, pq o user ainda não decidiu se quer CARREGAR UMA WALLET QUE JÁ EXISTIA, ou se então quer 'COMEÇAR DO 0', com uma NOVA WALLET...
+
+        self.blockchain = None ##eis o código em questão.
+
+
+
+
+
+
+
+
+        ...
+
+
+
+
+
+
+    elif(user_input == 'c'):
+
+                self.wallet.create_keys()
+                self.blockchain = Blockchain(self.wallet.public_key)
+                self.message = f"""A new wallet was created. """
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+--> AO FAZERMOS ISSO, O MINE _ INICIAL_ VAI SEMPRE FALHAR... --> pq se não tivermos uma 
+
+
+BLOCKCHAIN INICIALIZADA no startup do app,
+
+
+
+
+NÓS VAMOS SEMPRE FALHAR O MINE BLOCK,
+
+
+PQ O CÓDIGO DE MINEBLOCK É :
+
+
+
+
+
+
+    def mine_block(self):
+        """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+        previous_block = self._chain[-1]
+        print(previous_block)
+
+        hashed_block = hash_block(previous_block)
+        print(hashed_block)
+        print(hashed_block)
+
+        proof = self.proof_of_work()
+
+        reward_transaction = Transaction(
+            MINING_REWARD, self.hosting_node, 'ourApp')
+
+        copied_transactions = self.__open_transactions[:]
+        copied_transactions.append(reward_transaction)
+
+        block = Block(hashed_block, len(self._chain),
+                      copied_transactions, proof)
+
+        self._chain.append(block)
+        self.__open_transactions = []
+        self.save_data()
+
+        # FileAccess.save_data(self._chain, self.__open_transactions)
+        # FileAccess.save_data(self._chain, copied_transactions)
+
+        # print(self._chain, 'TRIED TO MINE BLOCK')
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> basta colocar OUTRO IF CHECK LÁ NO NOSSO NODE, para prevenir isso...
+
+
+
+
+
+
+
+
+
+--> na verdade, nem preciso disso, pq já adicionei um check competente:
+
+
+            elif(user_input == 'm'):
+                if (self.wallet.public_key != None):
+                        if self.blockchain.mine_block():
+                            self.message = 'MINED'
+                else:
+                    self.message = 'No public key detected. Please load in a valid wallet'
+
+
+
+
+
+
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> certo.... agora SE TIVERMOS AS KEYS REALMENTE CRIADAS,
+
+
+PODEMOS __ 
+
+
+
+
+CONTINUAR COM O PROCESSO DE 'mine_block' 
+e 
+
+de 
+
+'add a transaction'....
+
+
+
+
+
+
+
+--> só que o 'add_transaction' está meio bugado...
+
+
+
+
+
+
+
+
+
+--> consertei o add_transaction... (conversão de data types, de 'bytes' para string)..
+
+
+
+
+
+--> era o código de 'save_data' que estava bugado..
+
+
+
+
+
+ficou tipo assim:
+
+
+
+
+
+
+            print('Cleanup!')
+
+    def save_data(self):
+        """Save blockchain + open transactions snapshot to a file."""
+        try:
+            with open('blockchain.json', mode='w') as f:
+                saveable_chain = [block.__dict__ for block in [Block(block_el.previous_block_hash, block_el.index, [
+                    tx.__dict__ for tx in block_el.processed_transactions], block_el.proof, block_el.timestamp) for block_el in self.chain]]
+                f.write(json.dumps(saveable_chain))
+                f.write('\n')
+                saveable_tx = [tx.__dict__ for tx in self.__open_transactions]
+
+                for transaction in saveable_tx:
+                    transaction['sender'] = str(transaction['sender'])
+
+                
+                print(saveable_tx, 'PRINTTRANSACTIONS')
+
+
+                f.write(json.dumps(saveable_tx))
+
+                # save_data = {
+                #     'chain': blockchain,
+                #     'ot': open_transactions
+                # }
+                # f.write(pickle.dumps(save_data))
+        except IOError:
+            print('Saving failed!')
+
+
+
+
+
+
+
+
+
+
+
+
+    --------------------
+
+
+
+
+
+
+
+    OK, AGORA TEMOS __ NOSSA PUBLIC E PRIVATE KEYS __ EM EFEITO...
+
+
+
+
+
+
+
+
+    --> E AGORA NÓS __ SÓ _cRÍAMOS _ A BLOCKCHAIN  DEPOIS __ DE CONSEGUIRMOS UMA PUBLIC KEY,
+
+
+    isso pq 
+a 
+
+BLOCHAIN É OBVIAEMNTE CONECTADA A NOSSA WALLET..
+
+
+
+
+
+
+
+
+
+
+--> E PRECISAMOS _ DA PUBLIC _KEY __ PARA CONSEGUIRMOS ENVIAR TRANSACTIONS, E TAMBÉM  
+
+PARA _cONSEGUIR _ REWARDS  AOS MINERADORES, PQ ESSAS REWARDS __ TAMBÉM _ SERÃO ENVIADAS AOS 
+
+NOSSOS PUBLIC KEYS,
+
+
+
+é claro...

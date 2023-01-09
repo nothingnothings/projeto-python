@@ -1,0 +1,187 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LER PEP 8 DE TEMPOS EM TEMPOS...
+
+
+
+
+
+
+
+
+
+-> VOCê DEVE ENABLAR ALGUM LINTING NO SEU IDE... -> JÁ FIZ ISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ ESTÁ NO VISUAL STUDIO CODE,
+ 
+ VOCÊ PODE IR NOS SETTINGS ,
+
+
+ AÍ 
+
+ 'WORKSPACE SETTINGS' --> 
+
+
+
+
+
+
+
+AI 
+
+
+VOCÊ 
+
+
+
+PODE 
+
+PROCURAR POR 'pep8'... -> ALGUNS ARGUMENTOS/OPTIONS DO 
+
+PEP 8-->
+
+
+
+
+
+
+
+
+alguns argumentos para o pep8 liting.. ----->
+
+
+
+
+
+MAS O IMPORTANTE É 
+
+
+O python.linting.pep8Enabled... ---> ESSA É A OPTION INTERESSANTE.. PODEMOS A DEFINIR COMO TRUE...
+
+
+
+
+
+
+
+
+
+
+
+--> ACHO QUE ISSO É A MESMA COISA QUE 
+
+
+
+
+
+
+
+O 'pylint' que instalamso...
+
+
+
+
+
+
+
+
+
+-> MAS É MELHOR EU ATIVAR ESSE PEP 8 AÍ, DE ALGUMA FORMA....
+
+
+
+
+File > Preferences > Settings > Workspace Settings > Python Configuration
+Click Edit in settings.json
+
+EX:
+
+
+
+The problem with pep8 is because vscode now is using flake8, is basically the same, pep8 was renamed to pycodestyle, flake8 use pycodestyle, this is the old config:
+
+"python.linting.pep8Enabled": true, // Don't use it
+But now you can't find that config in vscode, the new config line now is:
+
+"python.linting.flake8Enabled": true, // This is the new config for pep8
+If the second option didn't work, you can try this:
+
+"python.linting.pycodestyleEnabled": true // You need: pip install pycodestyle
+
+
+
+
+
+EX:
+
+
+
+
+{
+    "python.autoComplete.extraPaths": [
+
+    
+    ],
+
+"python.linting.flake8Enabled": true,
+    "python.analysis.extraPaths": [],
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+-> REALMENTE, ISSO NOS AJUDA BASTANTE....
+
+
+
+
+
+
+
+
+
+
+-> devemos estilizar isso, criar uma versão 'LIMPA' de nosso código...
+
+
+
+
+
+
+
+-> código fica bem mais legível...

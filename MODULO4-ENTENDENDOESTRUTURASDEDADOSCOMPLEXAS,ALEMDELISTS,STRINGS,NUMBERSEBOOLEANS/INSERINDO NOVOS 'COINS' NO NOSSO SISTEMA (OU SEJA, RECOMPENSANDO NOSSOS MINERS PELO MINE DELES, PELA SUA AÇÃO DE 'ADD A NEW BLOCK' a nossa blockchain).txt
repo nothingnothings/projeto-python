@@ -1,0 +1,726 @@
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... ADICIONAMOS AQUELA FUNCTION 
+
+
+QUE FAZ O CÁLCULO DO NOSSO 'BALANCE',
+
+tudo por meio de NESTED LIST COMPREHENSIONS...:
+
+
+
+
+
+def get_value(person):
+    return [[transaction['amount'] for transaction in block['processed_transactions'] if transaction[person] == owner] for block in blockchain][1]
+
+
+def get_balance(participant):
+    # transaction_sender = [block['processed_transactions'] for block in blockchain
+    # transaction_sender = [(transaction for transaction in block['processed_transactions'] if transaction['sender'] == participant) for block in blockchain] ///NÃO FUNCIONA...
+
+    transaction_sent_amount = 0
+    transaction_received_amount = 0
+    # transaction_sender = [[transaction['amount'] for transaction in block['processed_transactions'] if transaction['sender'] == participant] for block in blockchain][1]
+    transaction_sender = get_value('sender')
+    # print(transaction_sender)
+    for transaction in transaction_sender:
+        transaction_sent_amount = transaction_sent_amount + transaction
+    # transaction_recipient = [[transaction['amount'] for transaction in block['processed_transactions'] if transaction['recipient'] == participant] for block in blockchain][1]
+    transaction_recipient = get_value('recipient')
+    for transaction in transaction_recipient:
+        transaction_received_amount = transaction_received_amount + transaction
+
+    return (transaction_sent_amount, transaction_received_amount, transaction_received_amount - transaction_sent_amount)
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS AGORA SABEMOS QUE TEMOS UM __ PROBLEMA NO NOSSO CÓDIGO:
+
+
+
+
+
+
+
+NÃO TEMOS NENHUM COIN NO NOSSO SISTEMA,
+
+    
+
+    E NENHUMA MANEIRA DE FAZER 'GET DE COINS' no nosso sisetma..
+
+
+
+
+
+
+
+
+--> DEVEMOS ADICIOANR UMA REWARD PARA MINERS....
+
+
+
+
+
+
+
+
+
+
+
+
+-> PQ É ASSIM QUE O BITCOIN FUNCIONA, TBM ....->  SEMPRE QUE UM 'MINER' CRIA UM NOVO BLOCK,
+
+
+
+ELE _ RECEBE UMA RECOMPENSA POR SEU TRABALHO --> PQ, NA VIDA REAL, O CREATE DE UM NOVO BLOCK É ALGO QUE 
+
+
+TOMA UM MONTE DE TRABALHO, REQUER UM MONTE DE PODER COMPUTACIONAL... ------> VEREMOS 
+
+
+
+
+NOSSA PRÓPRIA MANEIRA DE 'MINE BLOCKS' no nosso curso, para qeu ela também seja mais complexa...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, queremos receber uma REWARD QUANDO MINERARMOS UM NOVO BLOCK... -----> É ASSIM QUE PODEMOS GANHAR 
+
+
+COINS, E É ASSIM QUE COINS 'ENTRAM NO SISTEMA'...
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ, SE NÓS ENVIAMOS NOSSOS COINS A OUTRAS PESSOAS, HÁ TBM A CHANCE 
+
+
+DE 
+
+'PESSOAS QUE NÃO ESTÃO MINERANDO' 
+
+
+
+TAMBÉM RECEBEREM COINS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PROFESSOR CRIA UMA NOVA VARIABLE GLOBAL,
+QUE 
+
+
+SERÁ 
+
+
+
+
+
+
+
+
+UMA VARIABLE EM MAIÚSCULAS,
+
+TIPO 
+
+
+
+
+
+
+
+
+MINING_REWARD 
+
+
+
+
+
+
+
+
+
+
+--> ISSO SERÁ _ EM CAPITAL__CASE__ PQ 
+
+
+O PROFESSOR QUER SINALIZAR QUE ISSO AÍ É UMA 'GLOBAL CONSTANT'... --> 
+
+
+
+
+
+COMO É UMA GLOBAL CONSTANT, ELA DEVE NUNCA MUDAR,
+
+
+
+
+
+
+
+
+
+EXATAMENTE COMO O 'genesis_block'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... --> A MINING_REWARD,
+
+ 
+
+ NO NOSSO CASO,
+
+ DEVERÁ SER 
+
+
+
+ '10 COINS' --> 
+
+
+ essa é uma recompensa que deverá ser entregue à pessoa que 
+
+
+
+ CRIA __ UM NOVO __ BLOCK...
+
+
+
+
+
+
+
+
+
+
+ --> VAMOS ATÉ 'mine_block',
+
+ E AÍ _ VAMOS QUERER __ ADICIONAR UMA TRANSACTION EXTRA,
+
+
+
+
+ EM QUE __ O PARTICIPANT, QUE MINEROU ESSE BLOCK,
+
+ _ VAI GANHAR _ A REWARD (
+     que será fixa, inicialmente...
+ )
+
+
+
+
+
+
+
+
+
+ -> código de mine_block atual:
+
+
+
+
+ def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+   
+
+    previous_block = blockchain[-1]
+    hashed_block = hash_block(previous_block)
+    print(hashed_block)
+
+    block = {'previous_block_hash': hashed_block,
+
+             'index': len(blockchain),
+             'processed_transactions': open_transactions,
+
+             }
+    blockchain.append(block)
+    print(blockchain, 'TRIED TO MINE BLOCK')
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> hmmm isso significa que vamos querer ADICIONAR UMA NOVA TRANSACTION A 'open_transactions'_,
+
+
+
+
+    UMA TRANSACTION QUE TERÁ UM FORMATO ASSIM:
+
+
+
+
+
+
+    {
+        'sender': 'ourApp',
+        'recipient': owner,
+        'amount': MINING_REWARD
+    }
+
+
+
+
+
+
+
+
+
+
+
+    ASSIM:
+
+
+
+
+
+
+
+
+    reward_transaction = {
+                'sender': 'ourApp',
+        'recipient': owner,
+        'amount': MINING_REWARD
+    
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+    --> PROFESSOR EXPLICA QUE TEREMOS UM VALUE HARDCODED Em 'sender', como 
+
+    'ourApp',
+
+    JUSTAMENTE PQ ESSE VALOR ESTARÁ 'COMING OUT OF THE SYSTEM' (saindo do admin, na verdade)...
+
+
+
+
+
+
+
+
+
+
+    ----> O RECIPIENT SERÁ O OWNER.. (variable que segura o nome do owner que está FAZENDO ESSE MINING, NESSA MINING INSTANCE)...
+
+
+
+
+
+
+
+
+
+
+
+
+    -> É CLARO QUE AINDA VAMOS QUERER TER O AMOUNT, que 
+
+
+    será a 'MINING_REWARD'... 
+
+
+
+
+
+
+
+
+
+
+
+
+    CÓDIGO VAI FICANDO ASSIM:
+
+
+
+
+
+
+
+
+    def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+    # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+    previous_block = blockchain[-1]
+    # hashed_block = str([previous_block[key] for key in previous_block]) #feature da LIST COMPREHENSION.... (faz com que evitemos o write de um loop, que e´cumbersome)
+    # 'str()' converte essa LISTA DE VALUES em uma string única... que será nosso hash...
+    # hashed_block = '-'.join([str(previous_block[key]) for key in previous_block]) #feature da LIST COMPREHENSION.... (faz com que evitemos o write de um loop, que e´cumbersome)
+    hashed_block = hash_block(previous_block)
+    print(hashed_block)
+
+    reward_transaction = {  #usado para RECOMPENSAR NOSSOS MINERS PELO SEU TRABALHO (pelo add de um novo block à blockchain... esse é o mining)...
+        'sender': 'ourApp',
+        'recipient': owner,
+        'amount': MINING_REWARD
+
+
+    }
+    block = {'previous_block_hash': hashed_block,
+
+             'index': len(blockchain),
+             'processed_transactions': open_transactions,
+             # 'previous_block_hash': 'placeholder2',
+             # 'previous_block_hash': previous_block_hash,
+
+             # 'current_block_hash': 'asasojsaosajoj12o12jojasdopj1', #esse valor será comparado ao VALOR DE 'previous_block_hash' __ DO PRÓXIMO BLOCK, QUANDO O PRÓXIMO BLOCK FOR CRIADO.... (deverão ser equivalentes, esse é o mecanismo de segurança) ---> ATENÇÃO: O HASH DE UM DEWTERMINADO BLOCK É FORMADO A PARTIR DA LISTA DE TRANSACTIONS NO INTERIOR DELE...
+             # totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+
+             }
+    # open_transactions.clear()
+    blockchain.append(block)
+    print(blockchain, 'TRIED TO MINE BLOCK')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> MAS É CLARO QUE VAMOS QUERER ADICIONAR ISSO A NOSSAS 'GLOBAL TRANSACTIONS' (open_transactions)
+
+
+
+    ANTES 
+
+
+    DE 
+
+
+    AS PROCESSAR E LIMPAR (aS TRANSACTIONS)..
+
+
+
+
+    EX:
+
+
+
+    
+
+
+
+
+
+        reward_transaction = {  #usado para RECOMPENSAR NOSSOS MINERS PELO SEU TRABALHO (pelo add de um novo block à blockchain... esse é o mining)...
+        'sender': 'ourApp',
+        'recipient': owner,
+        'amount': MINING_REWARD
+
+
+    }
+
+    open_transactions.append(reward_transaction)
+    block = {'previous_block_hash': hashed_block,
+
+             'index': len(blockchain),
+             'processed_transactions': open_transactions, #nossa 'reward', a REWARD AO 'USER'/instance/miner TAMBÉM SERÁ CONSIDERADA UMA INSTANCE...
+             # 'previous_block_hash': 'placeholder2',
+             # 'previous_block_hash': previous_block_hash,
+
+             # 'current_block_hash': 'asasojsaosajoj12o12jojasdopj1', #esse valor será comparado ao VALOR DE 'previous_block_hash' __ DO PRÓXIMO BLOCK, QUANDO O PRÓXIMO BLOCK FOR CRIADO.... (deverão ser equivalentes, esse é o mecanismo de segurança) ---> ATENÇÃO: O HASH DE UM DEWTERMINADO BLOCK É FORMADO A PARTIR DA LISTA DE TRANSACTIONS NO INTERIOR DELE...
+             # totalmente opcional, pq já teremos um index na nossa blockchain; isso so´serve para dizer que 'PODEMOS ADICIONAR METADATA NOS NOSSOS BLOCKS'...
+
+             }
+    # open_transactions.clear()
+    blockchain.append(block)
+
+
+
+
+
+
+
+
+
+
+-------->
+
+
+
+
+
+
+
+OK, COM ISSO ESSA TRANSACTION FARÁ PARTE DAS 
+
+'TRANSACTIONS QUE SÃO COMMITED',
+
+
+
+E COM ISSO 
+
+
+PASSA A FAZER PARTE DO 'SISTEMA'.. 
+
+
+
+
+
+
+
+
+
+
+
+--> SALVAMOS E EXECUTAMOS NOSSO SCRIPT MAIS UMA VEZ...
+
+
+
+
+
+
+
+
+
+
+
+---> SE RODAMOS 'M' (para mine )
+
+
+
+
+
+
+
+
+
+SEM __ ADICIONARMOS TRANSACTION ALGUMA A NOSSO 'BLOCK' ADICIONADO,
+
+
+
+
+
+
+
+
+NÓS AINDA RECEBEMOS O VALUE DE '10 COINS',
+
+
+com visto nesse código:
+
+
+
+
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+------------------------------
+Please choose an option: b
+Blocks sent: 0
+Blocks received: 10
+Total Balance: 10
+valid block
+Blockchain is valid
+------------------------------
+1: Add a new transaction value
+2: Display current blockchain
+3: Show participants
+b: Show user's balance
+h: Manipulate the chain
+m: Mine a block
+q: Quit the program
+------------------------------
+Please choose an option:
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> MAS, COM ISSO,
+
+
+
+JÁ ESTAMOS ADICIONADO COINS NO NOSSO SISTEMA (de forma bem rústica)..
+
+
+
+
+
+
+
+
+
+
+
+------------> AGORA _ O PRÓXIMO PASSO É CHECAR A BALANCE DO USER,
+
+
+PARA ENTÃO SÓ DEIXAR QUE ELE DEIXE UMA TRANSACTION SER ACEITA SE O _ USER __ TIVER ALGUMA COIN QUE POSSA SER ENVIADA (não seja 0 o seu 'balance')
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS ISSO NA PRÓXIMA AULA....
+
+
+
+
+
+
+
+
+-> MINHA VERSÃO FOI O ADD DE UMA VARIABLE GLOBAL ,
+
+'MINING_FUNDS',
+
+
+que começa com 0.... --> mas isso leva a alguns problemas..
+
+
+
+
+
+
+
+
+
+--> ESSE VALOR É AUMENTADO QUANDO FAÇO 'mine_block()':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... mas o verify de nossa blockchain ESTÁ SENDO AFETADO POR ESSE add da transaction de 'transaction_reward'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A PRIMEIRA COISA QUE FAREMOS É CONSEGUIR O VALOR DO 'SENDERS BALANCE'.... --> para isso,
+vamos chamar aquela 
+
+function de 
+
+
+'get_balance()',
+
+e aí pegar o TERCEIRO VALOR (balance)...

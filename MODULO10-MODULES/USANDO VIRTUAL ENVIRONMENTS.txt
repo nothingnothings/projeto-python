@@ -1,0 +1,6 @@
+Virtual Environments allow you to only install certain Python packages for some projects - instead of globally
+
+ on your machine. This is helpful when working with multiple projects where you might want to use 
+
+
+a different set of packages (=> dependencies) for every project.

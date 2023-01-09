@@ -1,0 +1,489 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA QUE PODEMOS FAZER O BROADCAST DE BLOCKS,
+
+DEVEMOS FAZER O BROADCAST DE TRANSACTIONS TAMBÉM..
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR PEGA A 'PUBLIC KEY'
+
+
+
+do node número 2,
+
+
+
+
+
+DE NÚMERO 4000,
+
+
+E AÍ 
+
+
+
+VAMOS ATÉ O NODE 
+
+
+
+
+
+localhost:2000,
+
+
+
+em que
+
+
+temos alguns coins... --> aí tentamos enviar alguns 
+
+
+
+COINS, por meio de uma transaction, 
+
+
+
+
+
+AO __ node de localhost:4000...
+
+
+
+
+
+
+
+
+
+
+--> E ISSO _ AINDA FALHA_....
+
+
+
+
+
+
+
+
+
+
+
+---> SE CHECARMOS O CONSOLE,
+
+
+
+
+
+E O CÓDIGO DE 'ADD_BLOCK',
+
+que é assim:
+
+
+
+
+
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+        converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+        if not (Utility.valid_proof(converted_tx[:-1], block['previous_block_hash'], block['proof'])) or not hash_block(self._chain[-1]) == block['previous_block_hash']:
+            return False
+        new_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+        self._chain.append(new_block)
+        self.save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS QUE 
+
+
+
+
+ESSE 
+
+
+
+
+CÓDIGO DE 'add_block'
+
+NUNCA FOI EXECUTADO  
+
+
+
+
+
+
+
+NO NODE DE NÚMERO 2...
+
+
+
+
+
+
+
+
+
+
+
+-> a razão para isso é:
+
+
+
+
+
+o profesor está checando 
+
+
+
+'if self.public_key:
+    return False',
+
+
+    QUANDO ELE DEVERIA ESTAR CHECANDO 
+
+
+
+
+    if self.public_key == None:
+        return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+FICA TIPO ASSIM:
+
+
+
+
+    def add_transaction(self, sender, recipient, signature, amount=1.0, is_receiving=False):
+
+        if self.hosting_node == None:
+            return False 
+        transaction = Transaction(amount, recipient, signature, sender)
+        if Utility.verify_transaction(transaction, self.get_balance):
+            self.__open_transactions.append(transaction)
+            self.save_data()
+            if not is_receiving:
+                for node in self.__peer_nodes:
+                    url = f'http://{node}/broadcast-transaction'
+                    try:
+                        response = requests.post(url, json={
+                                                'sender': sender, 'recipient': recipient, 'amount': amount, 'signature': signature})
+                        if response.status_code == 400 or response.status_code == 500:
+                            print('Transaction declined, needs resolving')
+                            return False
+                    except requests.exceptions.ConnectionError:
+                        continue
+            return True
+        return False
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> com isso reiniciamos nossos nodes e tentamos enviar outra transaction...
+
+
+
+
+
+
+--> bem, as transactions ESTÃO SENDO BROADCASTZADAS,
+
+MAS 
+
+
+
+1)  NÃO INSTANTANEAMENTE (não é tipo 'websockets')
+
+
+
+
+2)  TAMBÉM NÃO ESTÁ SENDO ATUALIZADO OS 'FUNDS' do 'receiving node'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mas é claro que esse código SÓ ESTÁ FUNCIONANDO PQ 
+
+MEU CÓDIGO ATUAL ESTÁ ASSIm:
+
+
+
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+        converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+        if not (Utility.valid_proof(converted_tx[:-1], block['previous_block_hash'], block['proof'])) or not hash_block(self._chain[-1]) == block['previous_block_hash']:
+            return False
+        new_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+        self._chain.append(new_block)
+        stored_transactions = self.__open_transactions[:]
+        for itx in block['processed_transactions']:
+            for opentx in stored_transactions:
+                if opentx.sender == itx['sender'] and opentx.recipient == itx['recipient'] and opentx.amount == itx['amount'] and opentx.signature == itx['signature']:
+                    try:
+                        self.__open_transactions.remove(opentx)
+                    except ValueError:
+                        print('Item was already removed')
+        self.save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+-> ele possui aquele código adicional de 
+
+
+
+'
+
+
+
+
+        stored_transactions = self.__open_transactions[:]
+        for itx in block['processed_transactions']:
+            for opentx in stored_transactions:
+                if opentx.sender == itx['sender'] and opentx.recipient == itx['recipient'] and opentx.amount == itx['amount'] and opentx.signature == itx['signature']:
+                    try:
+                        self.__open_transactions.remove(opentx)
+                    except ValueError:
+                        print('Item was already removed')
+        self.save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ --> PROFESSOR EXPLICA:
+
+
+
+
+ 1) 'É CLARO QUE OS FUNDS NÃO UPDATARAM,
+
+ PQ 
+
+
+ ESSA AINDA É UMA __ OPEN TRANSACTION''' .... -> a transaction tem que ser MINED para que os funds do outro user SUBAM...
+
+
+
+
+
+
+
+
+
+
+
+-----> ok... e se eu tentar agora, 
+
+
+será que os funds updatam?
+
+
+
+
+
+
+
+
+
+-> updatam, sim.... --> essa lógica já está no lugar..
+
+
+
+
+
+
+
+
+
+--> MAS RESTA UM PROBLEMA:
+
+
+
+
+
+
+
+
+MESMO QUANDO NOSSA TRANSACTION É MINERADA, ELA CONTINUA 'EXISTINDO' no node 
+
+que a adicionou e minerou....
+
+
+
+
+--> queremos que essa transaction seja APAGADA após 
+
+
+
+
+o 'mine' dela..
+
+
+
+
+
+
+
+
+--> precisamos UPDATAR AS OPEN TRANSACTION quando adicioanrmos um novo block no nosso broadcasting...
+
+
+
+
+
+
+(
+    o CÓDIGO EM QUESTÃO É ESTE:
+
+
+
+
+
+
+
+
+
+
+
+
+    def add_block(self, block):
+        """Usado para ADICIONAR O BLOCK QUE FOI MINERADO NO 'NODE ORIGINÁRIO' em todos os PEER NODES conectados a ele (parelhamento)"""
+
+        converted_tx = [Transaction(transaction['amount'], transaction['recipient'], transaction['signature'], transaction['sender']) for transaction in block['processed_transactions']]
+        if not (Utility.valid_proof(converted_tx[:-1], block['previous_block_hash'], block['proof'])) or not hash_block(self._chain[-1]) == block['previous_block_hash']:
+            return False
+        new_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+        self._chain.append(new_block)
+        stored_transactions = self.__open_transactions[:]
+        for itx in block['processed_transactions']:
+            for opentx in stored_transactions:
+                if opentx.sender == itx['sender'] and opentx.recipient == itx['recipient'] and opentx.amount == itx['amount'] and opentx.signature == itx['signature']:
+                    try:
+                        self.__open_transactions.remove(opentx)
+                    except ValueError:
+                        print('Item was already removed')
+        self.save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+)
+
+
+
+
+
+devo assistir a próxima aula...

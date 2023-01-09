@@ -1,0 +1,1003 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ANTES DE EXAMINARMOS STRING FORMATTING,
+
+
+
+
+O PROFESSOR QUER NOS MOSTRAR 
+
+
+
+UM POUCO DAS DIFERENÇAS ENTRE STRINGS E LISTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ANTES DE MAIS NADA,
+
+O PROFESSOR CRIA UMA LIST,
+
+
+
+
+assim:
+
+
+
+
+>>> my_list = ['h', 'e', 'l', 'p']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... CRIAMOS ESSA STRING COMO 4 DIFERENTES CARACTERES NA NOSSA LIST...
+
+
+
+
+
+
+
+
+
+
+--. É CLARO QUE PODEMOS ESCREVER ISSO ASSIM:
+
+
+
+
+
+
+
+
+
+>>> my_list = ['h', 'e', 'l', 'p']
+>>> my_text = ['h', 'e', 'l', 'p']
+>>> my_text = 'help'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR NOS RELEMBRA QUE PODEMOS LOOPAR __ POR DENTRO __ DOS 
+ELEMENTS 
+
+
+
+
+DENTRO 
+
+DA STRING DE 'my_text'... -->
+
+
+
+
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+for el in my_text:
+    print(el)
+
+
+
+
+
+
+
+
+
+
+    --> RESULTADO:
+
+
+    >>> for el in my_text:
+...     print(el)
+... 
+h   
+e   
+l   
+p   
+>>> 
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE É O EXATO MESMO RESULTADO QUE OBTEREMOS SE TENTARMOS LOOPAR POR DENTRO DA LIST DE 
+
+'h e l p'....
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, ISSO SIGNIFICA QUE 
+
+HÁ UMA SEMELHANÇA ENTRE OS 2,
+
+
+
+
+
+PQ OBVIAMENTE PODEMOS PENSAR EM UMA STRING COMO UMA LISTA DE CARACTERES INDIVIDUAIS --> ENTRETANTO,
+
+
+
+
+___TECNNICAMENTE__ 
+
+
+
+
+ELAS SÃO 
+
+
+2 DATA STRUCTURES __ COMPLETAMENTE DIFERENTES, NO PYTHON --=-> 
+
+
+
+
+
+
+
+
+
+PODEMOS VER QUE SÃO ESTRUTURAS DIFERENTES
+
+
+SE USARMOS 
+
+
+A FUNCTION DE 'help()'
+
+
+
+
+QUE VEM JUNTO COM O  PYTHON....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> podemos executar isso NA NOSSA LIST, PARA 
+GANHAR UM POUCO DE INFO...
+
+
+
+
+
+
+
+
+help(my_list)
+
+
+ex:
+
+
+
+
+Help on list object:
+
+class list(object)
+ |  list(iterable=(), /)
+ |
+ |  Built-in mutable sequence.
+ |
+ |  If no argument is given, the constructor creates a new empty list.
+ |  The argument must be an iterable if specified.
+ |
+ |  Methods defined here:
+ |
+ |  __add__(self, value, /)
+ |      Return self+value.
+ |
+ |  __contains__(self, key, /)
+ |      Return key in self.
+ |
+ |  __delitem__(self, key, /)
+ |      Delete self[key].
+ |
+ |  __eq__(self, value, /)
+ |      Return self==value.
+-- Mais  --
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK, 
+
+
+ISSO NOS MOSTRA TODOS OS METHODS 
+
+
+QUE PODEMOS USAR EM 1 LIST,
+
+
+
+
+ASSIM COMO ]
+
+
+
+__DICAS__ 
+
+DE COMO PODEMOS CRIAR UMA NOVA LIST (
+
+
+
+
+    com 
+
+    'list()',
+
+    ou 
+
+    'list(iterable)',
+
+
+
+    SE NÃO QUISERMOS 
+    USAR 
+
+
+    AQUELA SINTAXE CLÁSSICA DE 
+
+    '['list,' 'list2' ]' 
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... --> SE IGNORARMOS ESSES METHODS ESTRANHOS COM 
+
+
+'__xxxx__',
+
+
+
+
+COM UNDERLINES,
+
+
+
+VEREMOS _ 
+
+
+
+
+
+
+OS METHODS QUE 
+
+JÁ CONHECEMOS,
+
+
+
+
+
+
+
+
+
+
+
+
+como 
+
+
+
+
+
+'list.pop()',
+
+
+
+
+'list.insert()',
+
+
+
+
+
+'list.extend()'...
+
+
+
+
+
+
+
+
+
+
+'list.remove()'...
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM TEMOS '.append()'
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSAS SÃO FUNCTIONS QUE PODEMOS USAR EM UMA LIST JÁ EXISTENTE...
+
+
+
+
+
+
+
+
+
+--> CERTO... -> E SE VOCÊ RODAR 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'help(my_text)',
+
+
+
+
+EM CIMA 
+
+DESSA VARIABLE QUE CONTÉM NOSSA STRING,
+
+
+O QUE 
+
+
+
+
+OBTEREMOS, NA VERDADE,
+
+
+SERÁ UM ERROR/WARNING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> O COMANDO PARA CONSEGUIR AJUDA COM STRINGS É DIFERENTE,
+
+
+É ASSIM:
+
+
+
+
+
+
+
+help(str) -------> 
+
+
+
+
+ISSO JÁ NOS MOSTRA QUE 
+
+
+PARECE EXISTIR UMA DIFERENÇA 
+
+ENTRE 
+
+LISTS 
+
+E 
+
+
+
+STRINGS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM HELP str ,
+
+
+
+
+
+
+GANHAMOS HELP SOBRE O OBJETO STRING....]
+
+
+
+
+
+
+
+
+
+
+
+class str(object)
+ |  str(object='') -> str
+ |  str(bytes_or_buffer[, encoding[, errors]]) -> str
+ |
+ |  Create a new string object from the given object. If encoding or
+ |  errors is specified, then the object must expose a data buffer
+ |  that will be decoded using the given encoding and error handler.
+ |  Otherwise, returns the result of object.__str__() (if defined)
+ |  or repr(object).
+ |  encoding defaults to sys.getdefaultencoding().
+ |  errors defaults to 'strict'.
+ |
+ |  Methods defined here:
+ |
+ |  __add__(self, value, /)
+ |      Return self+value.
+ |
+ |  __contains__(self, key, /)
+ |      Return key in self.
+ |
+ |  __eq__(self, value, /)
+-- Mais  --
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É AJUDA SOBRE _ COMO PODEMOS __ CRIAR UMA NOVA STRING,
+
+
+
+
+
+A MANEIRA ÓBVIA DE USAR '',
+
+E
+ QUAIS 
+
+
+
+ METHODS EXISTEM EM UMA STIRNG...
+
+
+
+
+
+
+
+
+
+
+
+
+ -> HÁ ALGUNS FAMILIARES,
+
+
+ COMO 
+ '.count()',
+
+
+
+ MAS 
+
+
+ HÁ ___ BEM MAIS __ METHODS DISPONÍVEIS PARA STRINGS 
+
+ DO 
+
+ QUE 
+
+ 
+
+ PARA LISTS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> TEMOS 'endswith()',
+
+  
+
+
+
+
+
+
+  que é escrita 
+
+
+
+  string.endswith(),
+
+
+
+
+
+
+
+
+
+
+
+  QUE TESTA SE A STRING termina _ COM UMA CERTA SUBSTRING...
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -> TAMBÉM TEMOS 
+
+  '.format()',
+
+  q
+  ue 
+
+
+  É 
+
+
+  UM METHOD QUE LOGO ESTUDAREMOS, DENTRE OUTROS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -----> PODEMOS FAZER BEM MAIS COISAS COM STRINGS... --> STRINGS SÃO 
+
+  BASICAMENTE 
+
+  'LISTS ADAPTADAS PARA TRABALHO COM CHARACTERS',
+
+
+  você poderia dizer... -------->  
+
+
+
+
+
+  E NÓS 
+
+  PODEMOS 
+
+
+LOOPAR ATRAVÉS DE STRINGS,
+
+
+SIM,
+
+
+
+MAS 
+
+
+HÁ UM MONTE DE COISAS QUE PODEMOS FAZER COM LISTS 
+
+QUE 
+
+
+__ NÃO SÃO POSSÍVEIS COM STRINGS,
+
+
+
+
+
+
+POR EXEMPLO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) EDITAR STRINGS ------> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tente ACESSAR UM INDEX EM UMA STRING...
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+my_text[2] = 'C'
+
+
+
+
+
+
+
+
+
+---> Já com uma LIST,
+
+
+O NEGÓCIO FUNCIOAN....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> O ERROR DE 
+
+
+
+TENTAR ASSIGNAR O NEGÓCIO EM UMA STRING É ESTE:
+
+
+
+
+
+'str object does not support item assignment'...
+
+
+
+
+
+
+
+
+
+
+--> OKK... MAS PQ NÃO PODEMOS _ EDITAR ESSA STRING...?
+
+
+
+
+
+--> É PQ AQUI TEMOS UMA COISA BEM FUNDAMENTAL:
+
+
+
+
+
+
+
+
+
+__STRINGS__ EM PYTHON SÃO COMPLETAMENTE ____ IMMUTABLE_.... (MESMA COISA COM JAVASCRIPT)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO SÃO IMMUTABLE, NÃO PODEMOS AS EDITAR...
+
+
+
+
+
+
+
+
+-> VOCê __ PODE __ CRIAR UMA NOVA STRING POR MEIO DO JOIN DE 2 STRINGS,
+
+
+
+POR 
+
+MEIO DO COMBINE DELAS...
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+new_string = string_velha + string_nova...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS VOCê NAÕ PODE EDITAR __ UMA STRING __ JÁ EXISTENTE... --> JÁ COM LISTS,
+
+VOCê PODE FAZÊ-LO.... 
+
+
+
+
+(
+
+
+    ESSA É A GRANDE DIFERENÇA,
+
+
+    ALÉM DOS 
+
+
+    INÚMEROS METHODS DIFERENTES ENTRE OS 2...
+
+)
+
+
+
+
+
+
+
+
+
+
+
+--> SÃO 2 DATA STRUCTURES BEM DIFERENTES... -->]
+
+
+
+
+
+
+
+
+
+
+
+
+ALÉM DISSO:
+
+
+
+
+
+A) STRINGS SÃO PRIMITIVE VALUES, NAÕ TEMOS A LENGA-LENGA DE REFERENCE VALUESa.. (não é necessário copiar de forma immutable , etc)...

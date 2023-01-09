@@ -1,0 +1,280 @@
+ 
+
+
+
+
+
+
+  
+  OK, VIMOS OUTRO MÓDULO IMPORTANTE..
+
+
+
+
+
+
+
+
+
+
+  --> FALAMOS SOBRE LOOPS:
+
+
+
+
+
+
+
+
+
+  1) FOR LOOPS --> VIMOS QUE ELES PODEM SER USADOS PARA ITERATE ATRAVÉS DE 'ITERABLE ELEMENTS'... (lists, por enquanto)...
+
+
+
+
+
+
+
+
+  2) WHILE LOOP -> LOOPS QUE CONTINUAM SE 1 CONDITION FICAR COMO TRUE --> VOCÊ TAMBÉM PODE CRIAR INFINITE LOOPS COM ELE...
+
+
+
+
+
+
+
+
+
+
+
+  --> NÃO SE ESQUEÇA DA FUNCTION DE 'range()', QUE É USADA JUNTO COM O FOR LOOP 
+
+  NOS CASES 
+
+  EM QUE 
+
+
+
+  VOCÊ NÃO QUER LOOP THROUGH OS 'ELEMENTS' DE UMA LIST,
+
+  E SIM 
+
+  POR DENTRO 
+
+  DE SEUS __ INDEXES__ (como 'block_index')....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -----> VIMOS CONDITIONS, COM IF-ELIF-ELSE..
+
+
+
+
+
+
+
+
+
+  --> 1) IF --> CHECAMOS SE UMA CERTA CONDIÇÃO FOI SATISFEITA...
+
+
+
+
+
+
+
+
+
+  2) ELSE --> EXECUTAR CÓDIGO NO CASO DA CONDITION EM IF __ NÃO TER SIDO SATISFEITA (ou APÓS UM FOR/WHILE LOOP, como nos exemplos anteriores)....
+
+
+
+
+
+
+
+
+  3) ELIF ---> REALIZA UM __ CHECK _ ADICIONAL,
+
+
+  NOS CASOS EM QUE AS OUTRAS CONDITIONS __ NÃO FORAM SATISFEITAS...
+
+
+
+
+
+
+
+
+  -----> ELIF --> HANDLE MULTIPLE CONDITIONS...
+
+
+
+
+
+
+
+
+
+
+
+  --> NÃO TEMOS SWITCH STATEMENTS NO 
+
+  PYTHON..
+
+
+
+
+
+
+
+
+
+
+
+  -->>> TEMOS BOOLEAN OPERATORS...
+
+
+
+
+
+
+
+
+
+
+
+  == --> 2 valores são equal?
+
+
+
+  != não são equal?
+
+
+
+
+  > valor é maior doq ue o OUTRO
+
+
+  ...
+
+
+
+
+
+  is --> ESSE VALOR AQUI É TOTALMENTE EQUIVALENTE A ESTE OUTRO? (devem ser objetos EXATAMENTE IGUAIS, E NÃO APENAS SEUS VALORES... IMPORTANTE COM ARRAYS, que sempre serão objects distintos)... 
+
+
+
+
+in --> CHECA SE UM VALUE ESTÁ DENTRO DE OUTRO (lists, iteratorS)...
+
+
+
+
+  not ---> EM CONJUNTO COM 'is' e 'in' ,
+
+  CHECA SE UM VALOR NÃO É DE UM MESMO TYPE/OBJECT, OU SE UM VALUE _ NÃO ESTÁ DENTRO DE UMA LIST...
+
+
+
+
+
+
+
+
+
+--> OPERATORS BEM VERSÁTEIS, QUE AINDA USAREMOS UM MONTE NO NOSSO CURSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NOSSO BLOCKCHAIN:
+
+
+
+
+
+
+
+
+
+1) CHAIN OF DATA 
+
+
+
+2) MINE NEW BLOCKS  --> USER INTERFACE MELHOR, EM QUE O USER PODE ADICIONAR BLOCKS, DISPLAYAR A BLOCKCHAIN, ETC...
+
+
+
+3) BLOCK HASHING (parcial).... --> SEMPRE INCLUÍMOS O ÚLTIMO VALOR __ NO __ VALOR ATUAL QUE ADICIONAMOS A NOSSA BLOCKCHAIN...
+
+
+
+
+
+4) ANALYZE E VERIFY CHAIN ---> TEMOS UM NÍVEL BÁSICO DISSO, PQ TEMOS AQUELE LOOP QUE DETECTA CHAINS INVÁLIDAS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS CONTINUAR... --> NO PRÓXIMO MÓDULO, VEREMOS MAIS SOBRE ALGUNS FINE DETAILS 
+
+
+
+
+
+DE ALGUMAS COISS 
+
+
+
+QUE APRENDEMOS ATÉ AGORA....
+
+
+
+
+
+
+
+More on Loops: https://docs.python.org/3/tutorial/controlflow.html#for-statements
+More on if Statements: https://docs.python.org/3/tutorial/controlflow.html#if-statements
+
+
+

@@ -1,0 +1,791 @@
+
+
+
+
+
+
+
+
+
+
+-> OK,... TRABALHAMOS NA FUNCTION/ROUTE DE 'broadcast_transaction'
+
+NA ÚLTIMA AULA,
+
+
+e fiacmos com 
+
+este código:
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+
+    required = ['sender', 'recipient', 'amount', 'signature']
+    if (not all(field in values for field in required)):
+        response = {'message': 'The request is missing important data.'}
+        return jsonify(response), 400
+    
+    success = blockchain.add_transaction(values['sender'], values['recipient'], values['signature'], values['amount'], True)
+    
+    if success: 
+        response = {
+        'message': 'A new transaction was added.',
+        'transaction': {
+            'sender': values['sender'],
+            'recipient': values['recipient'],
+            'amount': values['amount'],
+            'signature': values['signature']
+        },
+    }
+        return jsonify(response), 200
+    else: 
+        response = {
+            'message': 'Creating a response failed'
+        }
+        return jsonify(response), 500
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ADICIONAMOS ALGUNS CHECKS PARA:
+
+
+1) CONSEGUIR A 'BALANCE' correta (dividir entre a BALANCE DO USER QUE CRIOU A TRANSACTION E DOS USERS QUE VAO RECEBER A INFO DA TRANSACTION, os outros nodes)....
+
+
+
+
+
+
+
+
+
+2) TAMBÉM ADICIONAMOS ALGUNS CHECKS PARA EVITAR 
+
+
+O ENTER EM UM INFINITE LOOP 
+
+
+Lá no nosso method de 
+
+
+
+'add_Transaction' (que 
+
+agora 
+
+só 
+
+
+
+vai disparar requests aos outros nodes SE _ O NODE _ EM QUESTÃO FOR O 'NODE ORIGINÁRIO', QUE REALMENTE CRIOU A TRANSACTION/ADICIONOU A NOVA TRANSACTION...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA É HORA DE SIMPLESMENTE CHECAR ISSO AÍ...
+
+
+
+
+
+
+
+
+
+
+
+--> ESTAMOS COM TODO NOSSO CÓDIGO UPDATADO,
+
+POR ISSO 
+
+
+PRECISAMOS REINICIAR 
+
+
+NOSSOS
+
+SERVERS/NODES...
+
+
+
+
+
+
+
+
+
+
+
+---> AMBOS OS NODES ESTÃO FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS ___TENTAR__ ENVIAR ALGUNS FUNDS DO NODE número 1 AO NODE NÚMERO 2...
+
+
+
+
+
+
+
+
+--> ok...
+
+
+
+
+
+
+mas quando faço isso,
+
+
+
+
+AINDA NÃO VEJO NADA no outro node.... (não aparece coisa alguma nas open transactions)....
+
+
+
+
+
+
+
+
+
+---> PROFESSOR RECEBE A MESMA COISA..
+
+
+
+
+
+
+
+
+
+
+--> A RAZÃO PARA ESSE 
+
+'NÃO CONSEGUI NADA NAS OPEN_tRANSACTIONS
+
+DO OUTRO NODE'
+
+
+
+é que 
+
+
+
+
+AINDA NÃO IMPLEMENTAMOS A LÓGICA DE 'PEER NODES'
+
+de forma correta...
+
+
+
+
+
+
+
+
+---> basta ir até o 
+
+'localhost:xxx/network'
+
+e aí 
+
+
+
+VER OS NODES QUE FORAM ADICIONADOS ATÉ AGORA.... --> ainda não adicionamos esses 
+
+nossos 2 
+
+nodes 
+
+como 
+
+
+
+peer_nodes válidos...
+
+
+
+
+
+
+
+
+
+-- e ainda não editei as routes desses negócios, do 'add_node' 
+
+e 'remove_node'... --> isso lá no frontend....
+
+
+
+
+
+
+
+
+
+
+--> editei essas 2 routes, e 
+
+
+
+
+
+finalmente deu + ou - certo...
+
+
+
+
+
+
+
+
+
+
+
+----> ok.... devemos adicionar alguns peer nodes, tipo isso...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok... agora temos os peer nodes...
+
+
+
+
+
+
+
+
+--> devemos testar o send de um request 
+
+
+
+a 1 
+
+
+de nossas 'public keys.'..
+
+
+
+
+
+
+
+
+
+
+
+--> ok.... mas os funds do outro node NÃO AUMENTARAM...
+
+
+
+
+
+
+
+
+
+
+--> o professor diz que a razão do erro é a ausência do parametro 'methods' 
+
+lá 
+
+
+
+em 
+
+
+'broadcast_transaction'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+@app.route('/broadcast-transaction')
+def broadcast_transaction():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+
+    required = ['sender', 'recipient', 'amount', 'signature']
+    if (not all(field in values for field in required)):
+        response = {'message': 'The request is missing important data.'}
+        return jsonify(response), 400
+    
+    success = blockchain.add_transaction(values['sender'], values['recipient'], values['signature'], values['amount'], True)
+    
+    if success: 
+        response = {
+        'message': 'A new transaction was added.',
+        'transaction': {
+            'sender': values['sender'],
+            'recipient': values['recipient'],
+            'amount': values['amount'],
+            'signature': values['signature']
+        },
+    }
+        return jsonify(response), 200
+    else: 
+        response = {
+            'message': 'Creating a response failed'
+        }
+        return jsonify(response), 500
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ELE COLOCA QUE A ROUTE DEVERÁ SER DE 'post'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> outro erro  é que 
+
+
+    o professor tentou enviar funds PARA SI MESMO (para o localhost:5000) --> isso vai resoltar em um 
+
+    INFINITE LOOP, O QUE NOS DÁ AUTOMATICAMENTE UM TIMEOUT, EVENTUALMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok... com tudo isso adicionado, vamos testar novamente....
+
+
+
+
+
+
+
+
+
+
+--> ok... mas isso (o send da transaction) me deu um ERRO:
+
+
+127.0.0.1 - - [21/Apr/2022 20:39:16] "POST /broadcast-transition HTTP/1.1" 404 -
+
+
+
+
+
+(
+    isso no NODE QUE RECEBE 
+
+    ESSE 
+
+    'request' (request de tipo POST)...
+)
+
+
+
+
+
+
+
+
+-> no código do professor, ele recebeu 'Creating a Transaction failed.' 
+
+
+
+
+
+
+
+
+
+--> devemos  CHECAR ESSA ROUTE DE 
+
+'broadcast-transaction'...
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+@app.route('/broadcast-transaction', methods=['POST'])
+def broadcast_transaction():
+    values = request.get_json()
+    if not values:
+        response = {'message': 'No data found.'}
+        return jsonify(response), 400
+
+    required = ['sender', 'recipient', 'amount', 'signature']
+    if (not all(field in values for field in required)):
+        response = {'message': 'The request is missing important data.'}
+        return jsonify(response), 400
+    
+    success = blockchain.add_transaction(values['sender'], values['recipient'], values['signature'], values['amount'], True)
+    
+    if success: 
+        response = {
+        'message': 'A new transaction was added.',
+        'transaction': {
+            'sender': values['sender'],
+            'recipient': values['recipient'],
+            'amount': values['amount'],
+            'signature': values['signature']
+        },
+    }
+        return jsonify(response), 200
+    else: 
+        response = {
+            'message': 'Creating a transaction failed'
+        }
+        return jsonify(response), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+as 2 blockchains/ open_transactions AINDA ESTÃO SEPARADAS.... (existem de forma separada)...
+
+
+
+
+
+
+
+
+--> e o request 
+
+que chega 
+
+
+ao OUTRO NODE 
+
+não é interpretado corretamente pelo outro node...
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA DO PROFESSOR, DISTINTO DO MEU, É QUE 
+
+
+
+'add_transaction' FALHOU, e isso resultou na mensagem de 
+
+'Creating a transaction failed.'...
+
+
+
+
+
+
+
+
+
+
+
+-> vou criar uma cópia do meu código, para então 
+
+CONSERTAR NA VERSÃO NOVA (copiar o código do professor)...
+
+
+
+
+
+
+
+
+
+
+
+
+ok... dei uma ajustada...
+
+
+
+
+
+
+
+
+
+
+
+-> mas o outro node NÃO ESTÁ CAPTANDO A INFORMAÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> o request está sendo enviado À 'transaction' route do PRÓPRIO NODE (e não está alcançando o outro node, por alguma razão)...
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA É ESTE IF CHECK AQUI:
+
+# if (not is_receiving):
+
+
+
+
+
+
+
+
+
+->_ ele está BLOQUEANDO OS HTTP REQUESTS DISPARADOS AOS OUTROS NODES/servers...
+
+
+
+
+
+
+
+
+
+
+-> acho que esse é o COMPORTAMENTO DESEJADO/ESPERADO PELO PROFESSOR, PQ NO DELE AS COISAS FICAM QUASE IGUAIS...
+
+
+
+
+
+
+
+
+
+
+
+-> o professor demonstra o add de nodes, nada de especial..
+
+
+
+
+
+
+
+
+
+
+
+
+--> no outro node, se tentamos 'load transactions', NAÕ FICAMOS COM A TRANSACTION ADICIONADA PELO OUTRO NODE...
+
+
+
+
+
+
+
+
+
+
+
+--> A RAZÃO PARA ISSO, DIZ O PROFESSOR, E´QUE 'NÃO TEMOS NENHUM PEER NODE'..
+
+
+
+
+
+
+
+
+
+
+
+--> ok.. adicionei os peer nodes,
+
+
+e aí 
+
+
+testo isso das transaction...
+
+
+
+
+
+
+
+
+
+
+
+
+-> NÃO TEMOS A MESMA BLOCKCHAIN EM TODOS OS NODES, PQ AINDA NÃO TEMOS NENHUMA MANEIRA DE FAZER 'BROADCAST DE NEW BLOCKS'
+
+aos nossos outros nodes...
+
+
+
+
+
+
+
+
+
+
+-> PRECISAMOS ADICIONAR ESSA FUNCIONALIDADE DE 'BROADCAST BLOCKCHAIn'
+
+antes de conseguirmos implementar o broadcast de transactions ( que está falhando espetacularmente)...
+
+
+
+
+
+
+
+
+
+--> pq se não temos o MESMO BLOCKCHAIN, HÁ 0% CHANCE DE 
+
+NOSSOS 'balances'
+
+ENTRE USERS 
+
+
+darem 'match'... --> E SÓ SE ISSO ACONTECE __ SERÁ POSSÍVEL 
+
+
+
+CONTINUAR 
+
+
+MELHORANDO A LÓGICA DE 'broadcast transaction'..
+
+
+
+
+
+
+-> é por isso que veremos isso na próxima aula...

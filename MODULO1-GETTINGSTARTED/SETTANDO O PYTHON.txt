@@ -1,0 +1,359 @@
+
+
+
+
+
+
+
+
+
+
+
+--> PARA USAR O PYTHON,
+
+TEMOS QUE O INSTALAR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NO WINDOWS, JÁ INSTALEI..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAC E LINUX JÁ TRAZEM O PYTHON PRÉ-INSTALADO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ok.... ----> já baixei, já instalei...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> você precisa do python no seu path variable...
+
+
+
+
+
+
+
+
+
+
+
+
+--> o installer já traz isso como default...
+
+
+
+
+
+
+
+
+
+
+--> também é bom instalar a documentação do python,
+
+o 
+pip 
+
+
+
+td/tk e IDLE,
+
+
+
+
+
+
+
+Python test suite...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK, TEMOS QUE VER SE O PATH ESTÁ FUNCIONANDO COM O PYTHON....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+quando acabar,
+
+
+
+
+
+
+
+
+ABRA O TERMINAL DO VISUAL STUDIO CODE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> VAMOS USAR PROVISORIAMNETE O CMD,
+
+
+MAS 
+
+MAIS TARDE 
+
+
+VAMOS 
+
+
+USAR 
+
+UM 
+
+EDITOR DE VERDADE (provavelmente o visual studio code)... 
+
+
+
+
+
+
+
+
+
+
+
+
+--> E MAIS TARDE NO CURSO VAMOS FAZER 'ATTACH' DE UMA UI MAIS BONITA... (ué, então não é o visual studio code)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> no cmd,
+ 
+
+
+ digite 'python'...
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ASSIM QUE VOCÊ DIGITAR 'PYTHON',
+
+
+
+ VOCê ENTRARÁ NESSE 'INPUT MODE'..
+
+
+
+
+
+
+
+
+
+
+
+ >>> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ESSAS 3 LINHAS SIGNIFICAM 
+
+ ''ESTAMOS NO 
+
+
+ PYTHON CONSOLE'''
+
+
+
+
+
+
+
+
+
+
+
+ --> ESSE É O 'REPL MODE'  ------> repl é o 'modo calculadora', que 
+
+ executa comandos DIRETAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> A COISA LEGAL É QUE AQUI JÁ PODEMOS RODAR 
+ COMANDOS 
+
+
+ PYTHON E OS EXECUTAR DIRETAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+ ---> MAIS TARDE ARMAZENAREMS 
+
+ C
+ ÓDIGO 
+
+ PYTHON EM ARQUIVOS,
+
+ QUE SÃO 
+
+
+ EXECUTADOS 'IN ONE GO',
+
+
+ mas aqui você já pode realizar cálculos simples,
+
+
+ tipo 
+
+
+
+ 2 + 2..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> DEVEMOS VER NOSSO PRIMEIRO PROGRAMA SIMPLES,
+
+
+ NA PRÓXIMA LIÇÃO....

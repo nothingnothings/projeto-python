@@ -1,0 +1,2061 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NA ÚLTIMA LIÇÃO, APRENDEMOS SOBRE 
+
+
+__COMO _ PODEMOS FAZER 'APPEND' DE CONTEÚDO/STRING A UM ARQUIVO DE TEXTO/ARQUIVO..
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+g = open('demo.txt', mode='a') #MODO DE APPEND --> vamos querer FAZER APPEND DE ALGO AO FINAL DE UM ARQUIVO JÁ EXISTENTE, SEM DELETAR A DATA ANTIGA CONTIDA NELE...
+                                #NA SUA FORMA MAIS BÁSICA, ESSE CÓDIGO DE APPEND FARÁ COM QUE A STRING SEJA COLOCADA EM __ APENAS 1 ÚNICA LINHA DO SEU ARQUIVO DE TEXTO (coisa bem feia)...
+                        
+
+g_content_read = g.write('CONTENT ADDED TO THE END OF YOUR FILE') #necessário pARA CONSEGUIRMOS ACESSAR O VALOR DESSE ARQUIVO 'demo.txt'...
+
+
+
+print(g_content_read, 'LINE')
+
+g.close()
+
+
+user_input2 = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS DESCOBRIMOS QUE O CONTEÚDO É SEMPRE APPENDADO ASSIM:
+
+
+CONTENT ADDED TO THE END OF YOUR FILE'CONTENT ADDED TO THE END OF YOUR FILE'CONTENT ADDED TO THE END OF YOUR FILE'CONTENT ADDED TO THE END OF YOUR FILE'CONTENT ADDED TO THE END OF YOUR FILE'
+
+
+
+
+
+
+
+
+
+
+
+
+
+SEMPRE APPENDADO EM 1 ÚNICA LINHA... ----> MAS É CLARO QUE 
+
+àS VEZES 
+
+VOCÊ 
+
+CERTAMENTE VAI QUERER FAZER 
+
+
+
+APPEND/WRITE __ DE 
+
+
+
+CONTEÚDO MULTI-LINE NOS SEUS ARQUIVOS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ADICIONAR CONTEÚDO ASSIM,
+
+
+PRECISAMOS __ 
+
+
+
+ADICIONAR UM CARACTER 
+
+ESPECIAL DE 
+
+
+
+'ESCAPE CHARACTER'
+
+
+
+
+
+NA NOSSA STRING....
+
+
+
+
+
+
+
+
+
+--> O CARACTER É 
+
+'\n'
+
+
+
+
+
+
+
+
+
+
+
+BACKSLASH E 'n'....
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+h = open('demo.txt', mode='a') 
+
+
+h.write('Add this content in multi-lines!\n')    #meio de fazer WRITE DE SUA STRING EM MULTILINES, NOS SEUS ARQUIVOS...
+
+h.close()
+
+
+user_input3 = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+h.write('Add this content in multi-lines!\n')  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ESSE CARACTER SINALIZA AO PYTHON QUE _ DEPOIS _DESSE TEXT VAMOS QUERER __ PULAR UMA LINHA... (line break)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> LINE BREAK É SÓ UM CARACTER NORMAL, MAS UM CARACTER QUE NÃO CONSEGUIMOS ENXERGAR...
+
+
+
+
+
+
+
+
+
+
+ 
+ O OUTPUT VAI FICAR ASSIM:
+
+
+
+
+
+
+
+ Hello from Python!Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+E O CÓDIGO FICOU ASSIM:
+
+
+
+ h = open('demo.txt', mode='a') 
+
+
+h.write('Add this content in multi-lines!\n')    #meio de fazer WRITE DE SUA STRING EM MULTILINES, NOS SEUS ARQUIVOS...
+
+h.close()
+
+
+user_input3 = input('Enter something... we will bother write script execution:   ')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK.... 
+
+
+
+
+
+
+
+
+
+
+ISSO ACONTECEU POR CAUSA DESSE CARACTER DE 'LINE BREAK' que adicionamos aí....
+
+
+
+
+
+
+-> É UM CARACTER COMPREENDIDO PELO PYTHON, E QUE E´CONSIDERADO COMO UM LINE BREAK...
+
+
+
+
+
+
+
+
+
+
+--> OK, ESSE É O _ WRITE__ DE UM MULTI-LINE CONTENT...
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS COMO PODEMOS __ FAZER __ READ__ 
+
+
+DE UM 
+
+'MULTI-LINE CONTENT'?
+
+
+
+
+
+
+
+
+
+
+
+--> PQ QUANDO TENTO RODAR ESTE CÓDIGO AQUI:
+
+
+
+p = open('demo.txt', mode='r')
+
+
+file_content = p.read()
+
+p.close()
+
+
+
+print(p)
+
+
+
+
+
+
+
+
+
+
+
+--> MEU OUTPUT FICA O MESMO DE ANTES, É PRINTADO 
+
+
+ESSE FORMATO ESTRANHO DE 
+
+
+
+string:
+
+
+PS A:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9> python files.py
+<_io.TextIOWrapper name='demo.txt' mode='r' encoding='cp932'>
+
+
+
+
+
+
+
+-------> ERRADO, ELE É PRINTADO 
+
+ASSIM: 'Add this content in multi-lines!\n''Add this content in multi-lines!\n''Add this content in multi-lines!\n''Add this content in multi-lines!\n''Add this content in multi-lines!\n'
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA, O METHOD DE 'f.read()' __ vai _ sempre _ RETORNAR _ O CONTEÚDO LIDO NO ARQUIVO __ COMO __ UMA 
+
+
+
+STRING _ EM 1 LINHA ÚNICA.... (mesmo que o conteúdo seja multi-string, como agora)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> PROFESSOR EXPLICA QUE __ ANTERIORMENTE__ NÓS HAVÍAMOS USADO 
+
+
+'f.read()' (ou seja,     open('demo.txt', mode='r').read())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, O METHOD CORRETO PARA NÓS, AGORA,
+
+
+
+PROVAVELMENTE SERÁ 
+
+
+
+'f.readlines()'
+
+em vez de 
+
+
+'f.read()'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+p = open('demo.txt', mode='r')
+
+
+file_content = p.readlines()
+
+p.close()
+
+
+
+print(file_content)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---->  BEM, AGORA O CÓDIGO DEU CERTO:
+
+
+
+PS A:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9> python files.py
+Hello from Python!Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+Add this content in multi-lines!
+
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+
+
+
+
+
+
+
+'readlines()' ----> ISSO RESPEITA O ESPAÇO  ENTRE AS STRINGS.... --> É 
+
+RETORNADA UMA 
+
+'LIST OF STRINGS'...
+
+
+
+
+
+
+
+
+
+
+--> E O PROFESSOR EXPLICA A NÓS QUE É __ POSSÍVEL PERCEBER QUE É UMA 'LIST OF STRINGS'
+
+
+POR MEIO 
+
+
+DOS '[
+
+]
+'
+
+
+
+
+QUE 
+
+A ENVOLVEM.... (mas no meu código eu não tenho isso)...
+
+
+
+
+
+
+
+
+
+
+NÃO, ESPERE... --> 
+
+
+
+
+
+NOSSO CÓDIGO QUE ESTÁ SENDO EXECUTADO É:
+
+
+
+p = open('demo.txt', mode='r')
+
+
+# file_content = p.read()
+file_content = p.read()
+
+p.close()
+
+
+
+print(file_content)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E ISSO RETORNA UMA STRING, SIM, 
+
+
+
+MAS 
+
+
+
+UMA STRING COM __ ESPAÇAMENTOS, ACHO... (com '\n' NO MEIO DO TEXTO...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> sim... acho que é isso...
+
+
+
+
+
+
+
+
+
+MAS SE ESCREVEMOS 'f.readlines()',
+
+
+O RESULTADO FICA BEM DIFERENTE,
+
+PQ 
+
+AGORA 
+
+
+
+''CADA LINE SERÁ RETORNADA COMO 1 ITEM DISTINTO, EM UMA LIST DE LINES'....
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+p = open('demo.txt', mode='r')
+
+
+# file_content = p.read()
+file_content = p.readlines()
+
+p.close()
+
+
+
+print(file_content)
+
+
+
+
+
+
+
+
+
+
+RESULTADO:
+
+
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9>python files.py
+['Hello from Python!Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!Add this content in multi-lines!Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n', 'Add this content in multi-lines!\n']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> COMO VOCê PODE VER,
+
+É 
+
+UMA 
+
+
+__LISTA__ DE STRINGS... (e com aquele '\n' AO FINAL DE CADA UMA...)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE VER QUE É UMA LIST POR CONTA DOS '[]'
+
+
+
+
+
+AO REDOR DELA... -> E CADA STRING É 1 LINE...
+
+
+
+
+
+
+
+
+
+--> OK, É ASSIM QUE _ _PODEMOS __ CONSEGUIR 
+
+
+'TODO O CONTEÚDO 
+
+
+
+DE 1 FILE EM _ UMA LIST'... --> E ISSO, É CLARO, PODE __ SER MT CONVENIENTE..
+
+
+
+
+
+
+
+
+
+-_> por exemplo, se VOCÊ QUER FAZER UMA OPERAÇÃO EM 
+
+
+CADA 
+
+LINE 
+
+DO SEU ARQUIVO,
+
+
+
+
+
+
+VOCê __ PODE __ PEGAR 
+
+
+
+TODAS AS LINES ATRAVÉS _ DESSE METHOD, PARA ENTÃO USAR UM FOR LOOP PARA 'GO THROUGH ALL THESES LINES'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PODEMOS CITAR, COMO EXEMPLO, 
+
+
+
+ 
+
+ O 'OUTPUT 
+
+DO CONTEÚDO DE 
+
+CADA 
+
+
+LINE 
+
+_
+
+
+DE NOSSA LIST DE LINES,
+
+
+
+MAS SEM AQUELE CARACTER '\n'  POLUINDO CADA STRING'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, ESCREVEMOS UM FOR LOOP ASSIM:
+
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='r')
+file_content = f.readlines()
+
+f.close()
+
+
+
+
+
+for line in file_content
+    altered_line = line[:-2]
+    print(altered_line)
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+p = open('demo.txt', mode='r')
+
+
+
+# file_content = p.read() #retorna o conteúdo todo dessa text file EM UMA LONGA STRING, tudo junto (e com '\n' sinalizando os LINE BREAKS)...
+
+file_content = p.readlines() #retorna o conteúdo todo dessa text file EM UMA __ LIST__ DE STRINGS, 1 STRING/ELEMENTO NA LIST _ PARA __ CADA __ LINHA...c
+
+p.close()
+
+
+
+print(file_content)
+
+for line in file_content:
+    altered_line = line[:-2]
+    print(altered_line, 'LINE')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> EU USEI AQUELE 'RANGE SELECTOR' ao contrário ('-:' para selecionar todos os caracteres, desde o início.... depois '-2' para EXCLUIR OS 2 ÚLTIMOS CARACTERES, que são '\' e 'n' )
+
+
+
+
+
+
+
+
+
+RESULTADO:
+
+
+
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines!Add this content in multi-lines!Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+Add this content in multi-lines LINE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> claro que eu fui meio ALÉM,
+
+
+
+
+PQ APARENTEMENTE O 
+
+
+'\n'
+
+
+
+
+INTEIRO __ É CONSIDERADO COMO UM CARACTER (2 caracteres que são tratados como 1 único, especial)..
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE A ESCRITA CORRETA É 
+
+
+
+
+line[:-1]
+
+
+
+EM VEZ 
+
+DE 
+
+
+line[:-2]
+
+
+
+
+
+
+
+ex:
+
+
+
+
+p = open('demo.txt', mode='r')
+
+
+
+# file_content = p.read() #retorna o conteúdo todo dessa text file EM UMA LONGA STRING, tudo junto (e com '\n' sinalizando os LINE BREAKS)...
+
+file_content = p.readlines() #retorna o conteúdo todo dessa text file EM UMA __ LIST__ DE STRINGS, 1 STRING/ELEMENTO NA LIST _ PARA __ CADA __ LINHA...c
+
+p.close()
+
+
+
+print(file_content)
+
+for line in file_content:
+    altered_line = line[:-1]  #vai nos retornar cada LINE sem o caracter '\n' ao final, por meio desse RANGE SELECTOR com '-1'... (OBS::: o '\n' CONTA COMO 1 ÚNICO CARACTER, APESAR DE SER 2... )
+    print(altered_line, 'LINE')
+
+
+
+
+
+
+
+
+
+
+
+
+--> CERTO, AGORA MEU OUTPUT FICOU IGUAL AO DO PROFESSOR:
+
+
+
+
+
+
+
+
+
+
+
+Hello from Python!Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines!Add this content in multi-lines!Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+Add this content in multi-lines! LINE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, AGORA SABEMOS 'COMO FAZER O OUTPUT DE TODO O FILE CONTENT DE UMA FILE _ DE UMA VEZ SÓ',
+
+
+
+
+MAS àS VEZES 
+
+
+
+VOCÊ VAI QUERER FAZER 
+
+O 
+
+
+'READ'
+
+
+
+
+DE _ APENAS 1 ÚNICA LINE DO ARQUIVO... (tvz pq o arquivo é mt grande, ou alguma outra razão)...
+
+
+
+
+
+
+
+
+
+
+
+---> OU ENTAÕ VOCÊ QUER 'LET THE USER'
+
+
+FAZER 'STEP-IN'
+
+
+
+
+
+
+por dentro da file,
+
+de acordo com 
+
+
+
+O QUÃO RÁPIDO ELE QUER... (step-by-step)..
+
+
+
+
+
+
+
+
+
+-----> PARA ISSO TEMOS OUTRO METHOD, CUJO NOME É 
+
+
+'readline()'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROF COMENTA NOSSO CVÓDIGO PARA FORA,
+
+
+
+
+
+E AÍ 
+
+ESCREVE:
+
+
+
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='r')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... AÍ _ PODEMOS __ FAZER 'READ' DE 1 ÚNICA LINHA,
+
+E AÍ 
+
+
+IMEDIATAMENTE A OUTPUTTAR,
+
+
+
+
+POR MEIO DO CÓDIGO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+print(f.readline())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEMOS QUE FAZER CLOSE DEPOIS, É CLARO:
+
+
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='r')
+
+
+print(f.readline())
+
+
+f.close()
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='r')
+
+
+
+
+print(f.readline())
+
+
+
+
+f.close()
+
+
+
+
+
+
+--> O OUTPUT SERÁ ESTE:
+
+
+
+Hello from Python!Add this content in multi-lines!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO VOCÊ PODE VER, 
+
+
+
+APENAS __ O CONTEÚDO __ DA PRIMEIRA 'LINE'
+
+FOI OUTPUTTADO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> É CLARO QUE PODEMOS EXECUTAR ISSO 
+
+
+
+
+
+__ MÚLTIPLAS VEZES..
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='r')
+
+
+
+
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+
+
+
+
+
+f.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE FIZERMOS ISSO,
+
+
+ELE VAI 
+
+'IR PRINTANDO'
+
+as lines,
+
+1 POR 1,
+
+
+
+
+
+
+a partir de cada call...
+
+
+
+
+
+ex:
+
+
+
+Hello from Python!Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!Add this content in multi-lines!Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SE EXECUTAMOS ESSE NEGÓCIO ATÉ 'exaurir' 
+
+
+
+o conteúdo de nosso arquivo, veremos LINHAS EM BRANCO, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+f = open('demo.txt', mode='r')
+
+
+
+
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+print(f.readline())
+
+
+
+
+
+
+
+
+
+
+f.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> RESULTADO:
+
+
+
+
+
+
+
+
+PS A:\projeto7-PYTHON\MODULO7-TRABALHANDOCOMARQUIVOSEMPYTHON\novonovoprojeto9> python files2.py
+Hello from Python!Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!Add this content in multi-lines!Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+Add this content in multi-lines!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------> TEMOS ESSAS MUITAS LINHAS EM BRANCO PQ _ NÃO HAVIA MAIS CONTEÚDO NESSAS LINHAS..
+
+
+
+
+
+
+
+
+
+
+
+
+--. É CLARO QUE VOCê PODE 
+
+
+ARMAZENAR O CALL DE 
+
+
+
+'f.readline()'
+
+
+
+EM UMA VARIABLE,
+
+
+
+
+
+OU ENTÃO O UTILIZAR EM UM FOR LOOP...  --------> É ÚTIL
+
+
+
+
+NESSAS HIPÓTESES _ PQ _ 
+
+
+
+ASSIM QUE 
+
+CONSTATAR 
+
+QUE 
+
+O 
+
+CONTEÚDO 
+
+DAS 
+
+
+
+LINES COMEÇOU A FICAR VAZIO,
+
+ELE VAI 
+
+
+'EXIT THE WHILE LOOP'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> É POR ISSO QUE 
+
+VOCÊ 
+
+
+
+PODE ESCREVER 
+
+
+algo como:
+
+
+
+
+
+
+
+
+
+
+
+
+line = f.readline()
+
+
+
+(
+
+
+    ISSO VAI TE DAR A PRIMEIRA LINE, O CONTEÚDO DA PRIMEIRA LINE,
+
+    dessa file....
+)
+
+
+
+
+
+
+
+
+
+-> AÍ VOCÊ ESCREVE UM WHILE LOOP,
+
+
+
+tipo assim:
+
+
+
+
+
+
+line = f.readline()
+
+while line:
+    print(line)
+    line = f.readline()
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO VAI REALMENTE 
+
+
+
+LER TODAS AS LINES __ ATÉ _ SE EXAURIREM.,...
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+
+g = open('demo.txt', mode='r')
+
+
+
+
+line = g.readline()
+number = 0
+
+while line:
+    print(line, number)
+    number += 1
+    line = g.readline()
+else:
+    number = 0
+    print(number)
+
+
+
+
+
+
+
+
+
+
+
+-----> RESULTADO:
+
+
+
+
+
+Hello from Python!Add this content in multi-lines!
+ 0
+Add this content in multi-lines!
+ 1
+Add this content in multi-lines!
+ 2
+Add this content in multi-lines!Add this content in multi-lines!Add this content in multi-lines!
+ 3
+Add this content in multi-lines!
+ 4
+Add this content in multi-lines!
+ 5
+Add this content in multi-lines!
+ 6
+Add this content in multi-lines!
+ 7
+Add this content in multi-lines!
+ 8
+Add this content in multi-lines!
+ 9
+Add this content in multi-lines!
+ 10
+Add this content in multi-lines!
+ 11
+Add this content in multi-lines!
+ 12
+Add this content in multi-lines!
+ 13
+Add this content in multi-lines!
+ 14
+Add this content in multi-lines!
+ 15
+Add this content in multi-lines!
+ 16
+Add this content in multi-lines!
+ 17
+Add this content in multi-lines!
+ 18
+0
+
+
+
+
+
+
+
+
+---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... É ASSIM QUE PODEMOS 'READ ONE LINE AT A TIME'...
+
+
+
+
+
+
+
+
+
+
+--> VIMOS COMO __ PODEMOS USAR 'readlines'
+
+
+PARA 
+
+
+
+
+
+CONSEGUIR UMA LIST DE TODO O CONTENT, EM LINES...
+
+
+
+
+
+
+
+
+--> VIMOS COMO USAR 'read' PARA CONSEGUIR UMA __ LIST __ DE TODO O CONTEÚDO (com uma string agigantada, com '\n' no meio....)
+
+
+
+
+
+
+
+
+
+
+--> e 'readline'
+
+PARA CONSEGUIR O CONTEÚDO STRING __DE 1 LINHA DE CONTEÚDO APENAS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> COMO VOCÊ PODE VER, 
+
+o 
+
+'readline()'
+
+
+AUTOMATICAMENTE FAZ 'step through lines',
+
+
+
+__ 1 POR VEZ,
+
+
+CADA VEZ QUE É EXECUTADO.. .. -> ISSO SIGNIIFCA QUE VOCê NÃO PRECISA 'DIZER A ELE PARA QUE VÁ ATÉ A OUTRA LINHA, PQ ELE FAZ ISSO AUTOMATICAMENTE...'

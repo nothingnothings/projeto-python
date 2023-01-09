@@ -1,0 +1,942 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUANDO NÓS TRABALHAMOS COM CLASSES,
+
+NÓS
+
+
+ACTUALLY 
+
+
+TEMOS UMA ESCOLHA..- ->  podemos 
+
+
+
+
+
+
+
+
+ESCOLHER  ENTRE DIFERENTES 'TIPOS DE CLASSES',
+
+
+
+
+
+MAS MAIS IMPORTANTE DO QUE ISSO,
+
+
+
+TEMOS UMA ESCOLHA QUANTO 
+
+
+
+
+
+
+
+
+AOS 
+
+
+'METHODS' e ATTRIBUTES DESSAS CLASSES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NÓS TEMOS METHODS:
+
+
+
+
+
+
+
+
+
+
+
+1) DE INSTANCES 
+
+
+
+
+
+
+
+
+
+
+
+2) DE CLASSES 
+
+
+
+
+
+
+
+
+
+
+
+3) STATIC...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ESSES SÃO OS GRAUS DE 'ACESSO' aos methods..
+
+
+
+
+
+
+
+
+
+
+
+
+INSTANCE --> 
+
+
+
+
+
+
+
+
+
+É O ACESSO À 'INSTANCE':
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+class myMath:
+    result = 5
+
+
+def add(self, a):
+    print(self.result + a)
+
+
+
+
+my_math = MyMath()
+my_math.add(5)  #RESULTA EM 10...
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... NESSE CÓDIGO AÍ O PROFESSOR DEFINIU O ATTRIBUTE DIRETAMENTE NA CLASS,
+
+O QUE FAZ COM QUE TODAS AS INSTANCES TENHAM ESSE VALOR NESSE ATTRIBUTE... (diretamente na class pq não está dentro do constructor de 'def __init__()'..)
+
+
+
+
+
+
+
+
+
+
+-----> nesse exemplo, o professor INSTANCIOU UM NOVO OBJECT 'my_math' 
+
+
+PARA QUE CONSEGUISSE CHAMAR O METHOD de '.add'...
+
+
+
+
+
+
+
+
+
+
+--> O ARGUMENTO 'self' É PASSADO AUTOMATICAMENTE,
+
+COMO APRENDEMOS ANTERIORMENTE....
+
+
+
+
+
+
+
+
+
+
+--> professor explica que HÁ UMA MANEIRA MELHOR DE DEFINIR aqule 'result',
+
+ 
+
+ pq 
+
+
+ podemos o settar NO CONSTRUCTOR, PARA QUE ELE ACABE 'SCOPED TO AN INSTANCE' específica... (E não a todos os objects instanciados a partir disso)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ OK, HIPÓTESE 2:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ CLASS METHOD ... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ o código fica assim:
+
+
+
+
+
+
+
+
+ class MyMath:
+    result = 5
+    @classmethod
+    def add(cls, a):
+    print(cls.result + a)
+
+
+
+
+
+
+
+MyMath.add(5) #RESULTA EM 10, novamente...
+
+
+
+
+
+
+
+
+
+
+--> OK.... --> É O MESMO CÓDGO DE ANTES,
+
+
+
+
+MAS AGORA 
+
+
+
+
+NOSSO METHOD TEM ESSA ANOTAÇÃO DE '@classmethod' ------> ISSO É UM DECORATOR....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> TAMBÉM RECEBEMOS UM ARGUMENTO ESTRANHO, 'cls'... -> ganhamos isso em vez de 'SELF'..
+
+
+
+
+
+
+
+-----> A DIFERENÇA 
+
+
+PARA O EXEMPLO DO 'INSTANCE METHOD' é que 
+
+aqui 
+
+NÓS CHAMAMOS 
+
+
+
+o method de 'add'
+
+
+
+
+DIRETAMENTE __ 
+
+
+
+
+
+
+NA CLASS,
+
+E NÃO NA ISNTANCE,
+
+
+
+COMO PODEMOS OBSERVAR AQUI:
+
+
+
+
+
+
+
+
+
+
+
+
+MyMath.add(5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OU SEJA, O CALL DESSE METHOD _ DISPENSA__ A NECESSIDADE DE 'INSTANTIATING'..
+
+
+
+
+
+
+
+
+--> ISSO NOS AJUDARIA, DIZ O PROFESSOR,
+
+COM O CASO DE Utility/verification,
+
+
+
+
+
+
+EM QUE 
+EU SÓ 
+
+QUERIA UMA 
+
+
+CLASS QUE ME AJUDA COM O VERIFY DE ALGUNS PARAMETERS,
+
+
+
+SEM TER QUE INSTANCIAR ALGO (um object)
+
+ANTES 
+
+
+DE 
+
+PODER RODAR ESSES VERIFY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''''CLS'''' --> É ALGO __ DE CERTA FORMA COMPARÁVEL COM 'self'.... -->  ELE NOS DÁ 
+
+ACESSO 
+
+
+À CLASS EM SI,
+
+
+
+
+
+
+
+MAS __ POR CONSEQUÊNCIA, VOCê __ SÓ __ TERÁ/TEM ACESSO
+
+
+
+A 'CLASS ATTRIBUTES',
+
+
+
+
+como 
+
+esse 
+'result' -------> OU SEJA,
+
+
+
+
+
+
+
+
+
+SÓ PODEREMOS ACESSAR ESSES 'SHARED ATTRIBUTES',
+
+
+
+PQ 
+
+
+AGORA 
+
+NÃO TEREMOS MAIS A POSSIBILIDADE DE 
+
+DEPENDER/CONTAR COM 'INSTANCES' (as instances não serão usadas para definir values de instance attributes, pq os instance attributes NÃO EXISTIRÃO)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> VOCÊ PODE NOMEAR 'cls' como 'self',
+
+mas isso NÃO VAI MUDAR SEU COMPORTAMENTO:
+
+
+
+
+
+ELE VAI SEMPRE SE REFERIR AOS SHARED ATTRIBUTES E METHODS DE SUA CLASS,
+
+
+
+e nada mais do que isso..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> POR FIM, TEMOS 'STATIC CLASSES' ----> é o tipo final..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM STATIC CLASSES,
+
+NÓS ANOTAMOS NOSSOS METHODS COM 
+
+
+
+
+'@staticmethod'...
+
+
+
+
+
+
+
+
+
+
+
+--> É OUTRO DECORATOR...
+
+
+
+
+
+
+
+
+
+
+
+--> COM STATIC METHODS/CLASSES,
+
+
+
+
+
+NÓS __ NÃO PODEMOS NEM MESMO 
+
+ACESSAR ATTRIBUTES de dentro da class,
+
+O QUE QUER DIZER QUE FICA ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MyMath:
+    result = 5   ####INACESSÍVEL por nossos methods dessa class..
+    @staticmethod
+    def add(a):
+        print(a)
+
+
+
+
+MyMath.add(5)  #RESULTA EM 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+->--> OU SEJA,
+
+
+OS 
+
+STATIC METHODS FICAM INCAPAZES 
+
+TANTO DE 
+
+RECEBER 'self' como 'cls'... -----> ELES __ SOMENTE__ VÃO 
+
+
+
+RECEBER OS VALUES QUE VOCê PASSAR DIRETAMENTE A ELES, com o nome de sua CLASS, 
+
+
+COMO 
+
+
+visto em 
+
+
+ 
+
+'MyMath.add(5)',
+
+NESSE CASO AÍ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE Os 'static methods/attributes/classes'
+
+
+
+SÓ SÃO ÚTEIS SE VOCê _ QUER_ TER UM CONTAINER/BUNDLE DE CERTAS FUNCIONALIDADES,
+
+
+
+
+
+
+
+
+EM QUE 
+
+VOCê SÓ QUER INDICAR AO USER QUE 
+
+
+'ESSAS FUNCTIONS SÃO TODAS AGRUPADAS DEBAIXO DE UM CONTAINER,
+
+
+MAS NÃO VAO USAR QUALQEUR COISA DESSA CLASS'.. (não podem acessar outros attributes/methods)
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> EM OUTRAS PALAVRAS,
+
+ELES 
+
+ESTARÃO 
+
+
+
+
+''AGRUPADOS COMO EM UM NAMESPACE''
+
+
+
+
+
+
+
+
+
+''grouped like in a namespace'' -> E ISSO PODE SER BEM ÚTIL PARA FAZER O __ ORGANIZE DAS COISAS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> E VEREMOS MAIS SOBRE O 
+
+
+
+
+
+@classmethod 
+
+e 
+
+@staticmethod 
+
+
+
+
+
+
+
+
+
+AO LONGO DAS PRÓXIMAS AULAS...
+
+
+
+
+
+
+
+
+
+
+
+-> ok... 
+
+
+
+
+
+
+
+
+
+
+
+MAS VOLTANDO AOS DECORATORS, O QUE SÃO?
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEM, ELES SE PARECEM ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+@something 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> DECORATORS SÃO UMA FEATURE AVANÇADA DO PYTHON, NÃO AS VEREMOS...
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE PENSAR EM DECORATORS COMO _ _ANOTAÇÕES__ ESPECIAIS A METHODS EM CLASSES,
+
+QUE 
+
+
+
+OS ALTERAM DINAMICAMENTE... ------> alteram as functions, essencialemnte...
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+'@staticmethod' ----> ISSO FAZ 
+
+
+'DETACH' 
+
+
+da FUNCTION em relaçaõ à class,
+
+
+PARA QUE VOCÊ NÃO CONSIGA DEFINIR 
+
+
+
+
+
+O 'self' ou 'cls' 
+COMO PRIMEIRO ARGUMENTO DESSE METHOD...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É ISSO QUE OS DECORATORS FAZEM --> COM 1 LINHA DE CÓDIGO, VOCê PODE MUDAR COMPLETAMENTE O COMPORTAMENTO DE ALGO,
+
+PQ POR TRÁS DAS CENAS  ELE PEGA SUA FUNCTION E A MANIPULA...

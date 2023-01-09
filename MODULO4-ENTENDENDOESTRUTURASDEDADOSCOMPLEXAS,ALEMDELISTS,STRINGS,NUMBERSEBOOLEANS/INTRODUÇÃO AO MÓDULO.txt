@@ -1,0 +1,579 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSA BLOCKCHAIN ATÉ AGORA É SÓ UMA LIST DE NUMBERS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA SERMOS MAIS PRECISOS,
+
+
+
+
+É UMA __ LIST __ DE NESTED LISTS,
+
+
+de numbers..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS O PROBLEMA É QUE ISSO NÃO NOS DÁ TUDO QUE É NECESSÁRIO PARA DEFNIR UMA BLOCKCHAIN DE VERDADE...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA DEFINIR UMA BLOCKCHAIN DE VERDADE,
+
+
+
+PRECISAMOS DE MAIS INFO DO QUE APENAS 
+
+
+
+
+
+
+''O NUMBER PARA CADA BLOCK''' --------> SE ESTAMOS FALANDO 
+
+
+
+DE CRYPTOCURRENCIES,
+
+
+
+ESTAMOS FALANDO DE TRANSACTIONS,
+
+
+
+
+
+
+STORE DE TRANSACTIONS,
+
+
+E UMA TRANSACTION É OBVIAMENTE 
+
+
+
+
+
+
+MAIS DO QUE APENAS 1 NUMBER... (
+queremos armazenar MAIS DO QUE APENAS 1 NUMBER, MAIS DE 1 NUMBER
+
+),
+
+
+
+E TBM 
+
+
+É 
+
+'MAIS DO QUE APENAS A QUANTIDADE DE UMA TRANSACTION',
+
+
+
+
+
+PQ TBM QUEREMOS A INFO DE 'QUEM ESTÁ ENVIANDO QUANTO A QUEM'...
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE PRECISAMOS DE DATA STRUCTURES MAIS COMPLEXAS...
+
+
+
+
+
+
+
+
+
+
+
+
+------> NESSE MÓDULO,
+
+
+
+
+VEREMOS MAIS ALGUNS DATA TYPES.....
+
+
+
+
+
+
+
+
+
+
+--> DATA STRUCTURES OFERECIDAS PELO PYTHON A NÓS...
+
+
+
+
+
+
+
+
+
+--> VEREMOS:
+
+
+
+
+
+
+
+
+
+
+
+1) TUPLES 
+
+
+
+
+2) SETS 
+
+
+
+
+3) DICTIONARIES...
+
+
+
+
+
+
+
+
+
+
+--> APRENDEREMOS O QUE SÃO CADA 1 DESSES,
+
+
+
+COMO SE COMPORTAM,
+
+
+
+COMO DIFEREM
+ 
+
+ DE 
+
+ LISTS 
+
+ E 
+
+ 
+
+
+
+ DE AS 
+
+
+
+ _ GENERAL DATA STRUCTURES QUE APRENDEMOS SOBRE ATÉ AGORA.... ->  
+
+
+ E AÍ 
+
+
+ VEREMOS 
+
+
+ COMO 
+
+ PODEMOS 
+
+ AS 
+
+ UTILIZAR 
+
+
+ NA NOSSA 
+
+ BLOCKCHAIN..
+
+
+
+
+
+
+
+
+ TUDO ISSO AÍ,
+
+
+
+
+ AS 
+
+ TUPLES,
+
+ SETS,
+
+
+
+DICTIONARIES 
+
+
+E 
+
+
+
+LISTS 
+
+
+
+
+,
+
+
+
+
+TODAS ELAS ___ SÃO __ 
+
+
+
+ITERABLES... --> 
+
+
+
+
+
+
+
+
+
+
+VEREMOS VÁRIAS 'ITERABLE FUNCTIONS',
+
+
+
+E O COMPORTAMENTO 
+
+DAS ITERABLES COM/SEM ESSAS FUNCTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS COMO ESSES ITERABLES FUNCIONAM,
+
+
+
+COMO OS MANIPULAMOS,
+
+COMO DIFEREM 1 EM RELAÇÃO AO OUTRO,
+
+
+COISAS ASSIM...
+
+
+
+
+
+
+
+
+
+
+
+
+--> 3) HÁ UM TIPO ESPECIAL DE 'COISA' QUE PODEMOS FAZER COM ITERABLES 
+
+
+
+
+QUE É 
+
+
+AQUILO QUE 
+
+
+
+CHAMAM
+
+
+
+
+DE 
+
+
+'LIST COMPREHENSION' -------> 
+
+
+
+
+
+
+
+
+
+ISSO PARECE BEM ESTRANHO,
+
+MAS VEREMOS O QUE É 
+
+E COMO 
+
+PODE 
+
+SER 
+
+BEM ÚTIL A NÓS.. --> VEREMOS COMO ISSO PODE SER USADO NA NOSSA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR ÚLTIMO,
+
+
+
+
+O PROFESSOR VAI NOS EXPLICAR ALGO QUE ELE REFERENCIOU EM UM MÓDULO ANTERIOR:
+
+
+
+
+
+
+
+
+
+
+
+
+
+VEREMOS 
+
+
+4) 'BY REFERENCE' vs 'BY VALUE' 
+
+
+
+
+
+
+
+
+
+
+
+-----> É A DIFERENÇA ENTRE O '==' e o 'is',
+
+
+QUE OBSERVAMOS NO ÚLTIMO MÓDULO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> BEM, E SOBRE O NOSSO PROJETO, A BLOCKCHAIN?
+
+
+
+
+
+
+
+BEM, NESSE MÓDULO VAMOS COMEÇAR A TRABALHAR COM 
+
+'REAL TRANSACTIONS' -------->
+
+
+
+
+
+
+
+
+
+VAMOS COMEÇAR A SER CAPAZES DE 
+
+
+'
+ENVIAR TRANSACTIONS DE A PARA B',
+
+
+
+PQ 
+
+VAMOS 
+
+INCLUIR 
+
+
+
+INFORMATION 
+
+SOBRE 
+
+
+O SENDER E O 'RECEPIENT' 
+
+
+
+
+de nossas transactions...
+
+
+
+
+
+
+
+
+
+
+
+------> TAMBÉM TEREMOS 'OUTSTANDING TRANSACTIONS',
+
+
+
+
+
+E UM 
+
+
+
+SETUP MAIS REALISTA DE 'MINING',
+
+
+
+
+
+EM QUE 
+
+
+
+
+AS PESSOAS VAO ESTAR 'TAKING OUTSTANDING TRANSACTIONS' 
+
+
+
+e então 
+
+
+
+
+estarão 
+
+
+
+'INCLUDING' essas transactions EM UM NOVO BLOCK DE NOSSA BLOCKCHAIn....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM HÁ UM MONTE DE COISAS MINOR QUE VEREMOS....
+
+
+
+
+
+
+
+
+
+
+
+-> AO FINAL DESSE MÓDULO, TEREMOS UMA BLOCKCHAIN MAIS REALISTA,
+TUDO GRAÇAS 
+
+
+
+
+
+A DATA STRUCTURES MAIS COMPLEXAS...

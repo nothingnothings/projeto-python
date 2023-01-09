@@ -1,0 +1,229 @@
+
+
+
+
+
+
+
+
+
+-> ÚLTIMA AULA DO MÓDULO...
+
+
+
+
+
+
+
+
+-> na última aula, terminamos nossa web interface... --> demorou um pouco para 'wire it all up'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> conectamos nosso client, que é um webapp...
+
+
+
+
+
+
+
+
+
+
+-> você também poderia ter escrito um desktop app com qualquer outra linguagem... 
+(ou até mesmo com python)
+
+
+
+
+
+
+
+-> e aí conectamos esse app Às routes que o flask expõe.
+
+
+
+
+
+
+
+--> E NOSSA WEBPAGE também é CARREGADA por esse mesmo server,
+
+através daquela route de 
+
+
+'''
+
+
+
+@app.route('/', methods=['GET'])  ### É ASSIM QUE DEFINIMOS 'ROUTES' no nosso APP FLASK (bem parecido com o NODEEXPRESS SERVER)...
+def get_ui():
+    # return 'This works!'
+    # send_file('exemploDeBoostrap.html') não funciona (preciso construir o path)..
+    # curr_dir = Path(__file__).parent ## estes códigos NÃO FUNCIONAM.... (e 'send_file' é mt inseguro para ser usado para enviar htmlll)
+    # file_path = curr_dir.joinpath('exemploDeBoostrap.html')
+    # print(file_path)
+    # send_file(file_path)
+    return send_from_directory('ui', 'exemploDeBootstrap.html')
+
+
+
+
+
+
+'''
+
+
+
+
+
+
+agora devemos dar uma olhada EM TUDO QUE CONSTRUÍMOS...
+
+
+
+
+
+
+
+
+
+--> para fazer as coisas de nosso app,
+
+
+
+precisamos 
+
+
+CRIAR OU LOAD UMA NOVA WALLET --> O 'LOAD WALLET'
+
+
+CARREGA O ARQUIVO DE TEXTO QUE 
+
+ESTÁ ARMAZENADO NO NOSSO NODE... (
+    e esse node é o nosso computador....
+)
+
+
+
+
+
+
+
+
+
+
+--> ok... já podemos enviar transactions e minerar novos coins.... --> QUANDO CLICAMOS EM MINE COINS,.
+
+
+
+
+NOSSOS FUNDS SÃO UPDATADOS,
+
+
+
+E AÍ __ GANHAMOS UM OUTPUT, VINDO DO SERVER,
+
+MOSTRANDO NOSSA RESPONSE DATA...
+
+
+
+
+
+
+
+
+-> PODEMOS MINERAR MAIS COINS, AÍ OS FUNDS CONTINUAM AUMENTANDO...
+
+
+
+
+--> tudo funcionando...
+
+
+
+
+
+
+--> se vocÊ tenta enviar mais funds do que temos,
+
+ganhamos uma mensagem de erro...
+
+
+
+
+
+
+
+
+--> ou DEVERÍAMOS GANHAR ESSA MENSAGEM DE ERRO... --> MAS MEU CÓDIGO CONTINUA COM AQUELE PROBLEMA DE 
+
+
+'ADICIONAMOS ATÉ MESMO TRANSACTIONS QUE 
+
+
+
+VAO ALEM DOS NOSSOS COINS'...
+
+
+
+
+
+
+
+
+
+
+pronto, agora está funcionando...
+
+
+
+
+
+
+--> a web UI está funcionando, portanto...
+
+
+
+
+
+
+
+
+--> AGORA SÓ ESTÁ FALTANDO A 'INTERAÇÃO COM OUTROS NODES',
+
+para que 
+
+SEMPRE QUE CRIARMOS UM NOVO BLOCK OU ADICIONARMOS UMA NOVA TRANSACTION,
+
+ISSO SEJA 'BROADCAST' 
+
+aos outros nodes... -----> E, TAMBÉM, 
+
+
+QUE 
+
+
+
+
+ENCONTREMOS UMA MANEIRA DE 'SYNCHRONIZE'
+
+todos esses nodes...
+
+
+
+
+
+
+
+--> veremos isso no PRÓXIMO MÓDULO...

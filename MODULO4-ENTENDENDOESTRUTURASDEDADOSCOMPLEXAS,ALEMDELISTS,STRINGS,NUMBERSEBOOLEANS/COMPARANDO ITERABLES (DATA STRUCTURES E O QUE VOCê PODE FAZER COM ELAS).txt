@@ -1,0 +1,1176 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUASE ACABAMOS COM ESSE MÓDULO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS COMPARAR OS 4 TIPOS DE ITERABLES..
+
+
+
+
+
+
+
+
+
+
+
+
+LIST ---> ORDERED, MUTABLE, DUPLICATAS ADMITIDAS ---> FUNCIONA COM LIST COMPREHENSION --> não sei se funcionam com 'UNPACKING'...
+
+
+
+
+
+
+SET --> UNORDERED, MUTABLE, DUPLICATAS NÃO ADMITIDAS  --> FUNCIONA COM LIST COMPREHENSION, SÓ NÃO FUNCIONA COM INDEXING....
+
+
+
+
+
+TUPLE --> ORDERED, IMUTABLE, DUPLICATAS PERMITIDAS   --> FUNCIONA COM LIST COMPREHENSION ---> FUNCIONA COM UNPACKING.... (tuple unpacking)
+
+
+
+DICTIONARY -->  UNORDERED, MUTABLE, KEY-VALUE PAIRS (Acesso com ['nome']) --> FUNCIONA COM DICT COMPREHENSION..  --> funciona com UNPACKING..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> HÁ TBM ALGUMAS FEATURES EXTRAS, QUE VEREMOS DAQUI A POUCo...
+
+
+
+
+
+
+
+
+
+---> LISTS -> USAM LIST COMPREHENSIONS... --> PODEMOS LOOPAR POR DENTRO DE LISTS --> PODEMOS INDEXAR LISTS, TAMBÉM...
+
+
+
+
+
+
+--> LISTS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> NÃO SEI SE LISTS FUNCIONAM COM UNPACKING, TENHO QUE TESTAR AGORA:
+
+
+
+
+
+
+---> voltamos ao REPL,
+
+
+
+
+em que o professor cria uma lista simples:
+
+
+
+
+
+
+
+
+> simple_list = [1, 2, 3]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK... 
+
+
+
+
+UNPACKING É AQUELA FEATURE EM QUE 
+
+
+VOCÊ 
+
+ESCREVE ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+a, b = simple_list 
+
+
+
+
+
+
+
+
+
+--> AÍ AS VARIABLES A e B 
+
+ficam com os valores 1 e 2, respectivamente....
+
+
+
+
+
+
+
+
+---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+----> OK... MAS SE TENTAMOS FAZER ISSO, GANHAMOS UM ERROR:
+
+
+
+
+>>> simple_list = [1, 2, 3]
+>>> a, b = simple_list
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: too many values to unpack (expected 2)
+>>>
+
+
+
+
+
+
+
+
+
+
+
+--> MAS ISSO NÃO QUER DIZER QUE O UNPACKING É IMPOSSÍVEL 
+
+
+
+COM lists, e sim APENAS 
+
+
+QUE 
+
+AQUI TÍNHAMOS ELEMENTOS DEMAIS NA LIST PARA OS VARIABLE NAMES QUE PASSAMOS...
+
+
+
+
+
+
+
+
+
+
+
+
+---->  ok... ------>  unpacking É SUPORTADO,
+
+MAS 
+
+
+SOMOS OBRIGADOS A PASSAR 1 VARIABLE _ PARA __ CADA 
+
+
+
+ELEMENT QUE TEMOS NA NOSSA LIST...
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+>>> a, b, c = simple_list
+>>> a   
+1
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok, mas e quanto a SETS.....
+
+
+
+
+
+
+
+
+
+--> FUNCIONAM COM LIST COMPREHENSION?
+
+
+
+
+
+
+
+NÃO...
+
+
+
+
+
+
+
+
+
+
+----> 
+
+
+
+
+
+
+
+
+
+professor demonstra no repl....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VEJA:
+
+
+>>>
+>>> [element for element in new_set]
+[1, 'Anna', 'Max']
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+----> ISSO SIGNIFICA QUE __ LIST _ COMPREHENSION É SUPORTADA __ NOS SETS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> MAS E QUANTO A FOR LOOPS,
+
+
+INDEXING E UNPACKING?
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> escrevemos um for loop, tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+for el in new_set
+    print(el) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    OK, ISSO TAMBÉM FUNCIONA:
+
+
+
+
+
+>>> for el in new_set:
+...     print(el)
+... 
+1
+Anna
+Max
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS E QUANTO A INDEXING?
+
+
+
+
+
+BEM, O INDEXING CLARAMENTE __ NÃO FUNCIONA___ COM SETS.... (pq é unordered)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK... MAS E QUANTO AO UNPACKING???
+
+
+
+
+
+
+
+
+
+
+
+--> devemos ver:
+
+
+
+
+
+
+
+a, b, c = new_set
+
+
+
+
+
+EX:
+
+
+
+
+>>> a, b, c = new_set
+>>> c
+'Max'
+>>> b
+'Anna'
+>>> a
+1
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, SIGNIFICA QUE _ O UNPACKING __ TAMBÉM FUNCIONA COM SETS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok... entaõ a única coisa que não funcionou, até agora,
+
+
+foi o INDEXING com SETS..
+
+
+
+
+
+
+
+
+
+
+
+
+---> AGORA DEVEMOS TESTAR AS FEATURES COM TUPLES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> aí escrevemos:
+
+
+
+
+
+>>> new_tuple = (1,2,3)
+>>> [el for el in new_tuple]
+[1, 2, 3]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO FUNCIONA, SINAL DE QUE __ PODEMOS APLICAR_  LIST COMPREHENSION EM TUPLES...
+
+
+
+
+
+
+
+
+--> MAS É CLARO QUE A COISA QUE OBTEMOS DE VOLTA É UMA _ LIST, E NÃO UMA TUPLE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DEVEMOS TESTAR ISSO COM UMA TUPLE--> TENTAR GERAR UMA TUPLE POR MEIO DE LIST COMPREHENSION,
+
+
+TIPO ASSIM:
+
+
+(el for el in new_tuple) 
+
+
+
+
+
+
+
+
+
+
+--> ISSO FALHARÁ, PQ __ 
+
+
+TUPLES _ SÃO IMUTABLE... ---> ESSA SINTAXE NÃO FUNCIONA...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> FOR LOOPS TAMBÉM PODEM SER USADOS COM TUPLES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> RULE OF THUMB ---> ''' SE VOCÊ PODE FAZER UMA LIST COMPREHENSION, VOCê TAMBÉM PODE FAZER UM FOR LOOP'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OK... VAMOS TENTAR INDEXAR NOSSA NOVA TUPLE, AQUi...:
+
+
+
+
+
+
+
+
+
+
+
+new_tuple[0] -----> INDEXING FUNCIONA COM   TUPLES.....
+
+
+
+
+
+
+
+
+
+
+
+
+- -. UNPACKING TAMBÉM FUNCIONA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+a,b,c =  new_tuple..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, POR FIM, TEMOS __ OS DICTIONARIES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--. CRIAMOS UM NOVO DICT...
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR NOS MOSTROU QUE É POSSÍVEL TANTO FAZER LIST COMPREHENSIONS COM DICTS (em que os KEYNAMES são considerados na list outputtada pela list comprehension)
+
+
+
+
+COMO __ DICT__ COMPREHENSIONS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> DICT COMPREHENSIONS..
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ QUER TER TANTO AS KEYS COMO OS VALUES DAS KEYS,
+
+
+HÁ AQUELE  __ METHOD__ QUE 
+
+
+USAMOS ANTERIORMENTE,
+
+O 
+
+
+
+
+'dict.items()'
+
+
+
+
+
+(METHOD '.items()', usado em dictionaries),
+
+
+
+
+
+
+
+QUE ___ VAI ACTUALLY TE RETORNAR UMA TUPLE COM 'key e value',
+
+
+
+QUE VOCê ENTÃO 
+
+
+
+
+
+
+USARÁ NA SUA LIST COMPREHENSION..
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+[
+    el for (key, value) in new_dict.items()
+]
+
+
+
+
+
+
+
+
+
+
+AÍ VOCÊ PODE PEGAR A KEY E O VALUE NA ESQUERDA, ALI NO 'el',
+
+tipo assim:
+
+
+
+
+[
+    (key, value) for (key, value) in new_dict.items()
+]
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+>>> [
+...     (key, value) for (key, value) in new_dict.items()
+... ]
+[('name', 'Max'), ('age', 29)]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, O NEGÓCIO RETORNA AS TUPLES PARA CADA KEY-VALUE PAIR,
+
+
+
+NA SUA LIST..
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS E QUANTO A FOR LOOPS?
+
+
+
+
+
+
+
+
+
+
+BEM, SE VOCÊ PODE FAZER LIST COMPREHENSIONS,
+
+VOCÊ _ PODE FAZER FOR LOOPS,
+
+
+POR ISSO FOR LOOPS TAMBÉM SÃO POSSÍVEIS 
+
+
+COM 
+
+
+
+
+
+DICTIONARIES....
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+>>> for l in new_dict:
+...     print(l)
+... 
+name
+age
+>>>
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI PRINTAR AS KEYS, É CLARO....
+
+
+
+
+
+
+
+
+
+
+--> SE VOCÊ QUER CONSEGUIR OS VALUES DESSAS KEYS DO DICT, ESCREVA A MESMA COISA DE ANTES, TIPO ASSIM:
+
+
+
+>>> for (key, value) in new_dict.items():
+...     print(key, value)
+... 
+name Max
+age 29
+>>>
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+JÁ 'dict.values()' TE DÁ __ APENAS __ OS VALUES _ DAS KEYS,
+
+SEM RETORNAR AS KEYS:
+
+
+>>> for value  in new_dict.values():      
+...     print(value)
+... 
+Max
+29
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> OK, MAS E QUANTO AO INDEXING DE DICTS?
+
+
+
+
+
+
+
+
+-> SÓ É PERMITIDO SE USAMOS AS KEY NAMES... tipo assim>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+new_dict['name'] ----> VAI RETORNAR 'Max'...
+
+
+
+
+
+
+
+
+
+
+
+UNPACKING TAMBÉM FUNCIONA, 
+
+
+
+NÃO FALHA,
+
+MAS VAI SÓ RETORNAR AS KEYS:
+
+
+
+
+
+
+
+>>> a, b = new_dict
+>>> 
+>>> a
+'name'
+>>> b
+'age'
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... 
+
+
+
+
+
+
+
+--> NOSSA TABLE/ESQUEMA ESTÁ PRONTO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OS DICTIONARIES FUNCIONAM COM TUDO, COM LS COMPREHENSIONS,
+
+
+
+COM FOR LOOPS,
+
+INDEXING E UNPACKING,
+
+
+MAS GERALMENTE SE REFERIR ÀS KEYS,
+
+
+por isso você precisa usar 
+
+
+'dict.items()'
+
+
+e 'dict.values()'
+
+
+PARA MUDAR ESSE COMPORTAMENTO E PEGAR OS VALUES DAS KEYS....

@@ -1,0 +1,352 @@
+
+
+
+
+
+
+
+
+
+
+
+AGORA NÓS JÁ ESTAMOS RECEBENDO UMA SIGNATURE EM 'add_transaction',
+
+
+
+
+
+POR ISSO TEMOS QUE ADAPTAR O CÓDIGO DE 'add_transaction'
+
+
+PARA A UTILIZAR...
+
+
+
+
+
+
+
+-->  LÁ,
+ 
+ TEMOS ESTE CÓDIGO:
+
+     def add_transaction(self, sender, recipient, signature, amount=1.0):
+        """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+            Arguments:
+        :sender: o sender da transaction (nome ou id)   
+        :recipient: o receiver da transaction (nome ou id)
+        :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+        """
+
+
+
+
+
+
+        new_transaction = Transaction(amount, recipient, sender)
+
+        if not Utility.verify_transaction(new_transaction, self.get_balance):
+            # print('Your funds are not enough for the chosen operation')
+            return False
+        else:
+            self.__open_transactions.append(new_transaction)
+            self.participants.add(sender)
+            self.participants.add(recipient)
+            print(self.__open_transactions)
+
+            # FileAccess.save_data(self._chain, self.__open_transactions)
+            # FileAccess.save_data(self._chain, self.get_open_transactions())
+            self.save_data()
+            return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> O PROFESSOR _ PROVAVELMENTE_ VAI QUERER _ ALTERAR A CLASS de 'Transaction' PARA QUE 
+
+CADA TRANSACTION TAMBÉM TENHA UM instance ATTRIBUTE DE 'signature'..
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+class Transaction(Printable):
+    def __init__(self, amount, recipient, signature, sender):
+        self.amount = amount
+        self.recipient = recipient
+        self.sender = sender
+        self.signature = signature
+
+    def to_ordered_dict(self):
+        return OrderedDict([('amount', self.amount), ('recipient', self.recipient), ('sender', self.sender)])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSA SIGNATURE SERÁ ESPERADA NO CONSTRUCTOR DE ESSA CLASS... 
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+    def add_transaction(self, sender, recipient, signature, amount=1.0):
+        """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+            Arguments:
+        :sender: o sender da transaction (nome ou id)   
+        :recipient: o receiver da transaction (nome ou id)
+        :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+        """
+
+
+
+
+
+
+        new_transaction = Transaction(amount, recipient, signature, sender)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK...
+
+
+
+
+
+AGORA ESSA SIGNATURE SERÁ INCLUÍDA EM CADA TRANSACTION...
+
+
+
+
+
+
+
+
+
+
+
+
+---> PRECISAMOS ALTERAR TODOS OS LOCAIS DE NOSSO CÓDIGO QUE MENCIONAM NOSSA TRANSACTION, PQ AGORA NOSSA TRANSACTION 
+
+TAMBÉM TERÁ ESSE SLOT DE 'signature'...
+
+
+
+
+
+
+
+
+
+
+-> a 'reward transaction' pode ficar assim:
+
+
+
+
+
+
+        reward_transaction = Transaction(
+            MINING_REWARD, self.hosting_node, 'signature', 'ourApp')
+
+
+
+
+
+
+
+
+
+
+
+
+    --> coloquei uma string,
+
+
+
+    mas o professor colocou uma '' (empty string)... --> É PQ NÃO PODEMOS ASSINAR ESSA TRANSACTION,
+
+
+    É UMA TRANSACTION QUE NÃO EXISTE....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok...
+
+
+
+AGORA A SIGNATURE É INCLUÍDA NA TRANSACTION...
+
+
+
+
+
+
+
+
+
+
+--> RESTARTAMOS O NODE, E AÍ TESTAMOS PARA VER SE NOVAS TRANSACTIONS FICAM E 'open_transactions' com esse slot de 'signature'...
+
+
+
+
+
+
+
+
+
+
+
+
+-> O RESULTADO FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+[{"previous_block_hash": "", "index": 0, "processed_transactions": [], "proof": 100, "timestamp": 0}, {"previous_block_hash": "206a68baf5d916b877bfae2cc0b4cc6885c5831fecf96cc50d4c00c39ab2d321", "index": 1, "processed_transactions": [{"amount": 10, "recipient": "b'30819f300d06092a864886f70d010101050003818d0030818902818100cc35463e5095402411f9d7e564f053f9d4e2f834b19a040451df4376ec8b53bb7902913e528b2089ca66205ff9328ca045ed151c32d6048cc75e2a8317d05feb5f32bf8c7d3054ac37aeeb6ad940157120e3b58424ab1bc7be0fcc05bc77ad26f74b63e3e4b5969a394a59bc5112e0d5b009011cf16a03bf36acbd9a08123cfb0203010001'", "sender": "ourApp", "signature": "signature"}], "proof": 91155, "timestamp": 1649801809.5921974}]
+[{"amount": 4.0, "recipient": "Manu", "sender": "b'30819f300d06092a864886f70d010101050003818d0030818902818100cc35463e5095402411f9d7e564f053f9d4e2f834b19a040451df4376ec8b53bb7902913e528b2089ca66205ff9328ca045ed151c32d6048cc75e2a8317d05feb5f32bf8c7d3054ac37aeeb6ad940157120e3b58424ab1bc7be0fcc05bc77ad26f74b63e3e4b5969a394a59bc5112e0d5b009011cf16a03bf36acbd9a08123cfb0203010001'", "signature": "7b7eb8b65f89a27bec686c9de8d5a77f3322d4f10fd1d07e551127c50381d1dfe05eae3724c3eb058da09dfad811c6eec502af23101d9d39de2dc5ede48afb494f6a3e81c6383ff82e97982ecf54afb0ee5a850d9d26e1f3eb756cf2062a724a1953df654fbb336c4d32fd39f085985d59bacf442b25f85039da4aaa97652d0b"}]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, DEU CERTO, NOSSA SIGNATURE FICOU ALGO COMO ISTO:
+
+
+
+
+"signature": "7b7eb8b65f89a27bec686c9de8d5a77f3322d4f
+10fd1d07e551127c50381d1dfe05eae3724c3eb058da09dfad811c
+6eec502af23101d9d39de2dc5ede48afb494f6a3e81c6383ff82e97
+982ecf54afb0ee5a850d9d26e1f3eb756cf2062a724a1953d
+f654fbb336c4d32fd39f085985d59bacf442b25f85039da4aaa97652d0b"
+
+
+
+
+
+
+
+
+
+--> E O SENDER É NOSSA PUBLIC_KEY,
+
+É CLARO....
+
+
+
+
+
+
+
+->  A PRIVATE KEY É USADA NA 'SIGNATURE'... --> significa que TUDO ISSO ESTÁ FUNCIONANDO...
+
+
+
+
+
+
+--> O PRÓXIMO PASSO É CONSEGUIR __ VERIFICAR __ A VALIDADE__ DESSAS SIGNATURES... (pq por enquanto as temos, 
+
+
+
+temos dentro das transactions, mas isso não interessa nada, pq ainda não estão sendo verificadas por um method apropriado....)
+
+
+
+
+
+
+
+
+
+
+
+--> ok....

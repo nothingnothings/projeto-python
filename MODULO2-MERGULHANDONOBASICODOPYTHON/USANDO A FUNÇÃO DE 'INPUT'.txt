@@ -1,0 +1,684 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ok... estamos trabalhando com nossa blockchain...
+
+
+
+
+
+
+
+
+--> ELA ESTÁ MELHORANDO, MAS É CLARO QUE SERIA IDEAL SE O USER FOSSE CAPAZ __ __ DE 
+
+
+
+
+'ENTER THE VALUES WE WANNA APPEND' ---> PRECISAMOS ADICIONAR UMA FUNCIONALIDADE PARA ISSO...
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSEGUIR O USER INPUT 
+
+
+
+
+NO NOSSO CÓDIGO DO PYTHON,
+
+
+
+vamos precisar 
+
+
+da function de 
+
+
+
+'input()'...
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------> essa é uma FUNCTION BUILTIN...
+
+
+
+
+
+
+
+
+-> ESSA FUNCTION NOS __ DEIXA__ PROVIDENCIAR UMA 'STRING' que será outputtada ao user..
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+input('Please enter the value of your transaction')
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ESSA INFO É APRESENTADA AO USER... -> AÍ 
+
+
+
+
+QUALQUER QUE SEJA A COISA QUE O USER INPUTTAR,
+
+
+ESSE NEGÓCIO SERÁ 
+
+
+
+
+
+'PUT BACK' no nosso código, por assim dizer....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... mas se deixarmos esse method no nosso código, ele aparentemente vai 'TRAVAR' a execução de todas as restantes 
+
+linhas de código...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMEÇAMOS ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+blockchain = []
+
+
+def get_last_blockchain_value():
+    return blockchain[-1]
+
+
+
+
+
+
+
+
+input_amount = input('Please enter the value of your transaction: ')
+
+
+
+def add_value(transaction_amount, last_transaction=[1]):  # essa function usa DEFAULT PARAMETERS....
+    blockchain.append([last_transaction, transaction_amount])
+    print(blockchain)
+
+
+print(input_amount)
+add_value(2, [1])
+add_value(0.9, get_last_blockchain_value())
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=0.9)  #EXEMPLO DE ___ 'KEYWORD ARGUMENTS' dentro de nossos calls (ou seja, DEIXAMOS DE LADO AQUELA 'IMPORTÂNCIA DA ORDEM' na call de nossas functions...) -> ESSA FUNCTION TERÁ O MESMO EFEITO DAQUELA DE CIMA, MAS COM UMA SINTAXE DIFERENTEZINHA....
+add_value(transaction_amount=0.9)
+add_value(0.5, get_last_blockchain_value())
+add_value(0.34, get_last_blockchain_value())
+
+
+
+
+
+
+--------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+OK... AÍ O PROFESSOR DIZ QUE É UMA BOA IDEIA SUBSTITUIR O 
+
+'2' em 'add_value'
+
+
+
+POR ESSE VALOR AÍ,
+
+
+
+
+
+
+PARA QUE O PRIMEIRO VALOR __ INPUTTADO_ PELO USER__ REALMENTE_ SEJA ISSO, E NÃO UM VALOR HARDCODEADO POR NÓS..
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+print(input_amount)
+# add_value(2, [1])
+add_value(input_amount, [1])
+add_value(0.9, get_last_blockchain_value())
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=0.9)  #EXEMPLO DE ___ 'KEYWORD ARGUMENTS' dentro de nossos calls (ou seja, DEIXAMOS DE LADO AQUELA 'IMPORTÂNCIA DA ORDEM' na call de nossas functions...) -> ESSA FUNCTION TERÁ O MESMO EFEITO DAQUELA DE CIMA, MAS COM UMA SINTAXE DIFERENTEZINHA....
+add_value(transaction_amount=0.9)
+add_value(0.5, get_last_blockchain_value())
+add_value(0.34, get_last_blockchain_value())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> COMO VOCê PODE VER,
+
+
+A EXECUÇÃO __ PAROU__..
+
+
+
+
+
+
+
+
+--> ela para quando faz esse 'ask' ao user.... -> PROMPTA O USER 
+
+
+PELO 'AMOUNT' requisitado...
+
+
+
+
+
+--> QUANDO DIGITARMOS 'enter',
+
+VEREMOS QUE 
+
+
+
+
+
+NOSSO CÓDIGO CONTINUARÁ SENDO EXECUTADO....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, AQUI TEMOS ALGO __ CURIOSO___.... --> 
+
+
+
+
+com 
+
+
+INPUTS 
+
+DO USUÁRIO, EXTRAÍDOS POR 
+
+'input()',
+
+
+
+
+TODOS ELES _ 
+
+
+
+SÃO EXTRAÍDOS EM 1 FORMATO DE 'string'.
+
+
+
+
+
+
+
+
+
+--> POR ISSO, NO NOSSO CASO, É NECESSÁRIO AS CONVERTER COM 
+
+
+
+'int()'....
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+print(int(input_amount)) #precisamos do int() pq ele VAI CONVERTER ESSE VALOR EM 1 NUMBER, em vez de deixar como uma string (todos os 'inputs' recebidos no nosso código CHEGAM EM UM FORMATO STRING)...
+# add_value(2, [1])
+add_value(input_amount, [1])
+add_value(0.9, get_last_blockchain_value())
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=0.9)  #EXEMPLO DE ___ 'KEYWORD ARGUMENTS' dentro de nossos calls (ou seja, DEIXAMOS DE LADO AQUELA 'IMPORTÂNCIA DA ORDEM' na call de nossas functions...) -> ESSA FUNCTION TERÁ O MESMO EFEITO DAQUELA DE CIMA, MAS COM UMA SINTAXE DIFERENTEZINHA....
+add_value(transaction_amount=0.9)
+add_value(0.5, get_last_blockchain_value())
+add_value(0.34, get_last_blockchain_value())
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO, mas _ isso_ _ NÃO FUNCIONOU...
+
+
+
+
+
+
+O INPUT CONTINUOU FICANDO COMO '977':
+
+
+
+
+
+977
+[[[1], '977']]
+[[[1], '977'], [[[1], '977'], 0.9]]
+[[[1], '977'], [[[1], '977'], 0.9], [[[[1], '977'], 0.9], 0.9]]
+[[[1], '977'], [[[1], '977'], 0.9], [[[[1], '977'], 0.9], 0.9], [[1], 0.9]]
+[[[1], '977'], [[[1], '977'], 0.9], [[[[1], '977'], 0.9], 0.9], [[1], 0.9], [[[1], 0.9], 0.5]]
+[[[1], '977'], [[[1], '977'], 0.9], [[[[1], '977'], 0.9], 0.9], [[1], 0.9], [[[1], 0.9], 0.5], [[[[1], 0.9], 0.5], 0.34]] ]
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+input_amount = int(input('Please enter the value of your transaction: '))
+
+
+RESULTADO:
+
+
+
+
+
+1421541
+[[[1], 1421541]]
+[[[1], 1421541], [[[1], 1421541], 0.9]]
+[[[1], 1421541], [[[1], 1421541], 0.9], [[[[1], 1421541], 0.9], 0.9]]
+[[[1], 1421541], [[[1], 1421541], 0.9], [[[[1], 1421541], 0.9], 0.9], [[1], 0.9]]
+[[[1], 1421541], [[[1], 1421541], 0.9], [[[[1], 1421541], 0.9], 0.9], [[1], 0.9], [[[1], 0.9], 0.5]]
+[[[1], 1421541], [[[1], 1421541], 0.9], [[[[1], 1421541], 0.9], 0.9], [[1], 0.9], [[[1], 0.9], 0.5], [[[[1], 0.9], 0.5], 0.34]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------> TUDO QUE É PASSADO PARA O NOSSO CÓDIOG COM 'int()',
+
+CHEGA 
+
+
+
+COM FORMATO 'STRING'...
+
+
+
+
+
+
+
+
+
+
+--> ENTRETANTO, É CLARO QUE QUEREMOS SUPORTAR 'FLOAT POINT NUMBERS',
+
+
+
+POR ISSO O PROFESSOR ESCREVE:
+
+
+
+ 
+
+
+ float(input('Your transaction amount please: '))
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> OK... RESOLVIDO....
+
+
+
+
+
+
+
+
+
+ --> MAS O PROFESSOR VAI QUERER CHAMARR ESSE METHOD DE 'input'
+
+
+
+
+ TODA VEZ QUE 
+
+
+ FOR ADICIONADO 1  VALUE NA NOSSA DATABASE...
+
+
+
+
+
+
+
+
+
+
+ -> OU SEJA, MÚLTIPLAS PERGUNTAS DE 'your transaction aMOUNT pLEASE'
+
+
+
+
+
+
+
+
+
+
+
+
+
+o código do professor ficou assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# blockchain = [[1]]
+
+blockchain = []
+
+
+def get_last_blockchain_value():
+    return blockchain[-1]
+
+
+
+
+
+
+
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+
+
+
+def add_value(transaction_amount, last_transaction=[1]):  # essa function usa DEFAULT PARAMETERS....
+    blockchain.append([last_transaction, transaction_amount])
+    print(blockchain)
+
+
+
+
+
+print(input_amount) #precisamos do int() pq ele VAI CONVERTER ESSE VALOR EM 1 NUMBER, em vez de deixar como uma string (todos os 'inputs' recebidos no nosso código CHEGAM EM UM FORMATO STRING)... --> MAS ISSO NÃO FUNCIONOu. -_> PRECISA SER COLOCADO NO PRÓPRIO 'input()'..., LÁ EM CIMAA...
+
+add_value(input_amount, [1])
+input_amount = float(input('Please enter the value of your transaction: '))
+
+add_value(0.9, get_last_blockchain_value())
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+add_value(last_transaction=get_last_blockchain_value(), transaction_amount=0.9)  #EXEMPLO DE ___ 'KEYWORD ARGUMENTS' dentro de nossos calls (ou seja, DEIXAMOS DE LADO AQUELA 'IMPORTÂNCIA DA ORDEM' na call de nossas functions...) -> ESSA FUNCTION TERÁ O MESMO EFEITO DAQUELA DE CIMA, MAS COM UMA SINTAXE DIFERENTEZINHA....
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+add_value(transaction_amount=0.9)
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+add_value(0.5, get_last_blockchain_value())
+
+input_amount = float(input('Please enter the value of your transaction: '))
+
+add_value(0.34, get_last_blockchain_value())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> OK, MAS AQUI FICAMOS COM UM PROBLEMA CONSIDERÁVEL, QUE O PROFESSOR MOSTRARÁ COMO RESOLVER, NA PRÓXIMA AULA...
+
+
+
+
+
+
+(o input pede ao usuário o input a CADA ADD DE VALUE AO NOSSO BLOCKCHAIN). ---> isso tvz n seja tão óptimo....
+
+
+
+
+
+
+
+RESULTADO:
+
+
+
+
+
+
+STARTED
+Please enter the value of your transaction: 1
+1.0
+[[[1], 1.0]]
+Please enter the value of your transaction: 2
+[[[1], 1.0], [[[1], 1.0], 0.9]]
+Please enter the value of your transaction: 3
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 0.9]]
+Please enter the value of your transaction: 4
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 0.9], [[1], 0.9]]
+Please enter the value of your transaction: 5
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 0.9], [[1], 0.9], [[[1], 0.9], 0.5]]
+Please enter the value of your transaction: 6
+[[[1], 1.0], [[[1], 1.0], 0.9], [[[[1], 1.0], 0.9], 0.9], [[1], 0.9], [[[1], 0.9], 0.5], [[[[1], 0.9], 0.5], 0.34]]
+PS A:\projeto7-PYTHON\MODULO2-MERGULHANDONOBASICODOPYTHON\novoprojeto>
+
+
+

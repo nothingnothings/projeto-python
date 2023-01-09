@@ -1,0 +1,465 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ ESSAS SÃO FUNCTIONS QUE FUNCIONAM CONJUNTAMENTE COM 'maps'... (map(simple_function, simple_list))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> ESTUDAMOS MAP NA ÚLTIMA LIÇÃO, E O UTILIZAMOS PARA _ FAZER A MESMA COISA QUE 
+
+ UMA LIST COMPREHENSION, MAS DE UMA MANEIRA DIFERENTE:
+
+
+ >>> simple_list = [1, 2, 3 ,4]
+>>>
+>>> def multiply(el):
+...     return el * 2
+
+
+>>> new_list = list(map(multiply, simple_list))
+
+
+>>> new_list
+[2, 4, 6, 8]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... MAS AGORA O PROFESSOR NOS EXPLICA/APONTA QUE __ 
+
+
+
+
+O DEFINE PRÉVIO DAQUELA FUNÇÃO DE 
+
+
+'def multiply(el)'
+
+
+
+
+
+É ALGO BEM CUMBERSOME E DESNECESSÁRIO .... -> ISSO 
+
+
+PQ 
+
+
+
+
+
+ACABAMOS ESCREVENDO BASTANTE CÓDIGO APENAS PARA ESSA TASK EXTREMAMENTE SIMPLES DE 
+
+
+
+'el * 2' ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CASES COMO ESSES,
+EM QUE 
+
+
+
+-__ TEMOS APENAS_ 1 EXPRESSION QUE FAZEMOS 'RETURN',
+
+
+
+O PROFESSOR 
+
+EXPLICA QUE 
+
+
+
+ACTUALLY 
+
+
+
+
+
+
+
+HÁ UM _ CONSTRUCTOR__ EM PYTHON QUE É CHAMADO DE 'Lambda functions'....
+
+
+
+
+
+
+
+
+
+
+
+
+--> LAMBDA FUNCTIONS -->  é tipo arrow functions...
+
+
+
+
+
+
+
+
+
+
+
+
+-> LAMBDA FUNCTIONS EXISTEM EM OUTRAS LINGUAGENS DE PROGRAMAÇÃO..
+
+
+
+
+
+
+
+
+
+
+-> OK, O PROFESSOR PEDE QUE 
+
+ESCREVAMOS 
+
+
+
+ESSE MAP MAIS UMA VEZ,
+
+
+
+
+
+
+MAS DESSA VEZ COM UMA LAMBDA FUNCTION..
+
+
+
+
+
+
+
+
+
+
+
+-> PARA ISSO, ELE TIRA AQUELE PARÂMETRO-FUNCTION DE 'multiply',
+
+
+
+E AÍ 
+
+ 
+
+
+
+
+
+
+
+
+ SIMPLESMENTE 
+
+
+ ESCREVE ESSA LAMBDA FUNCTION...
+
+
+
+
+
+
+
+
+
+ -> PARA ISSO, DEVEMOS USAR A KEYWORD DE 'lambda',
+
+
+ QUE 
+ É UMA KEYWORD 
+ QUE 
+
+ INFORMA O PYTHON DE QUE 
+
+
+
+
+
+ _ VAMOS ESCREVER UMA 'ONE-LINE-ONLY EXPRESSION'...
+
+
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+ list(map(lambda, simple_list))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -> OK... AÍ A SINTAXE DE UMA LAMBDA FUNCTION É ASSIM:
+
+
+
+
+
+
+
+
+
+ 1) PRIMEIRAMENTE TEREMOS UMA _ LIST_ DE TODOS OS ARGUMENTS QUE ESSA FUNCTION VAI RECEBER...
+
+
+
+
+
+
+lambda element, x, y, z, etc 
+
+
+
+(
+
+    se temos mais de um elemento, vamos enumerando com VÍRGULAS...
+)
+
+
+
+
+
+
+
+
+
+ 2) DEPOIS DESSES ARGUMENTOS, 
+
+ TEREMOS UM 
+
+ ':' ... ---> 
+
+
+
+
+
+
+
+ 3) DEPOIS DO ':',
+
+
+
+ TEREMOS O _ FUNCTION _ BODY__ QUE ACTUALLY _SERÁ RETORNADO __ POR _ 
+
+
+ ESSA LAMBDA FUNCTION....
+
+
+
+
+ ex:
+
+
+
+
+
+
+
+
+
+
+ list(map(lambda element: , simple_list))
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> NO NOSSO CASO, O CÓDGO SERÁ 
+
+
+
+ 'element * 2 '
+
+
+
+
+
+
+
+
+
+
+
+ -> OK, ESSE CÓDIGO FAZ A MESMA COISA QUE A FUNCTION DE 'multiply',
+
+
+
+ SÓ QUE DE UMA MANEIRA BEM MAIS CONCISA/MENOR...
+
+
+
+
+
+
+
+
+
+
+
+
+ ------> OK..
+
+
+
+ EX:
+
+
+list(map(lambda element: element * 2 , simple_list))
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+>>> list(map(lambda element: element * 2 , simple_list))
+[2, 4, 6, 8]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM ISSO, FICAMOS COM ESSA SINTAXE DE 1 LINHA SÓ, QUE É BEM MAIS FÁCIL DE SER LIDA.... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E TER CIÊNCIA/SABER QUANDO ESCREVER ESSAS LAMBDA FUNCTIONS __ É MT ÚTIL... --> 
+
+
+
+
+SE VOCê TIVER QUALQUER OUTRO CASE EM QUE 
+
+VOCe^
+
+TEM UAM 
+
+
+
+'VERY SIMPLE', short expression que VOCê 
+
+VAI EXECUTAR,
+
+
+EXPRESSION QUE VOCê NÃO PLANEJA REEXECUTAR AO LONGO DO SEU CÓDIGO mtas vezes (pq isso aí é BASICAMENTE UMA ANONYMOUS FUNCTION)...
+
+
+
+
+
+
+
+-> nesses cases, 
+
+LAMBDA FUNCTIONS PODEM SER UMA BELA SOLUÇAÕ PARA SEU PROBLEMA..

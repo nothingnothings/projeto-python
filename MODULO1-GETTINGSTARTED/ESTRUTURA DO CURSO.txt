@@ -1,0 +1,656 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGORA QUE SABEMOS + OU - O QUE É O PYTHON E O QUE É A BLOCKCHAIN,
+
+
+
+
+DEVEMOS 
+
+
+
+
+
+VER COMO É O OUTLINE DO CURSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> PRIMEIRO, GETTING STARTED...
+
+
+
+
+
+
+
+
+
+
+
+
+PRÓXIMO MÓDULO:
+
+
+
+
+
+
+
+
+--> SINTAXE BÁSICA DO PYTHON...
+
+
+
+--> DEPOIS, VAMOS VER __'COMO CONSTRUIR UMA SIMPLES CHAIN/LISTA DE COINS' -->  por enquanto,
+
+
+
+
+1 'coin' será APENAS 
+
+1 
+
+'AMOUNT',
+
+
+
+
+
+
+
+1 'SINGLE NUMBER' --> mas já é um bom começo...
+
+
+
+
+
+
+
+
+
+
+
+--> SERÁ UMA BLOCKCHAIN BÁSICA, ESSENCIALMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEITO,
+
+PASSAREMOS AO ESTUDO DE 'LOOPS E CONDITIONALS'... ------> SÃO CONSTRUCTS ÚTEIS QUE NOS 
+
+DEIXAM 
+
+
+
+RODAR CÓDIGOS:
+
+
+1) CONTINUAMENTE (mutltiple times) 
+
+
+
+2) DE ACORDO COM CERTAS CONDIÇÕES...
+
+
+
+
+
+
+
+--> NA NOSSA BLOCKCHAIN, SEREMOS CAPAZES DE 'VERIFY' NOSSA BLOCKCHAIN; verificar se 
+
+
+1 BLOCK DE NOSSA BLOCKCHAIN É VÁLIDO OU NÃO... 
+
+(
+    'BLOCKCHAIN WITH CHAIN VALIDATION'
+)
+
+
+
+
+
+
+
+
+''WE WILL CHECK IF THE PREVIOUS BLOCK IS STILL THE BLOCK IT WAS 
+
+WHEN WE ADDED ITS NEXT BLOCK'''  ((
+
+    conexão entre blocks....
+))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS DISSO,
+
+
+
+VAMOS COMEÇAR O TRABALHO COM 
+
+
+ESTRUTURAS DE DADOS MAIS COMPLEXAS.... 
+
+(
+    pq até esse momento só teremos trabalhado com strings, numbers, booleans...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> COM AS DATA STRUCTURES COMPLEXAS,
+
+
+VAMOS VER 
+
+
+O TRABALHO COM 
+
+'REAL BLOCKS'
+
+
+
+e 
+
+'REAL TRANSACTIONS'.. --------> OU SEJA, COISAS QUE SÃO 'OBJECTS', e não coisas como um 'simples number'..
+
+
+
+
+
+
+
+
+
+
+
+-----> VEREMOS 
+
+
+
+MAIS SOBRE AS BUILT-IN FUNCTIONS DO PYTHON,
+
+
+
+e também 
+
+
+
+STRINGS...
+
+
+(
+
+    USAREMOS ISSO NO 
+
+    __CÁLCULO_ E OUTPUT DAS 'BALANCES' 
+
+    DOS 
+
+
+    DIFERENTES USERS DA BLOCKCHAIN...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO FEITO, 
+
+PASSAREMOS AO ESTUDO DA 'STANDARD LIBRARY' --> isso deriva do conceito 'batteries included'  mencionado pelo professor --> 
+
+
+
+SÃO TODA AS PACKAGES QUE O PYTHON JÁ VEM 'BUILT-IN' (
+
+    veremos algumas delas já nesse módulo....
+)
+
+
+
+
+
+
+
+--> USAREMOS A 'STANDARD LIBRARY' 
+
+PARA 
+
+'CRIAR REAL HASHES' 
+
+
+
+e 
+
+'PROOF OF WORK' ------> É UM CONCEITO IMPORTANTE DA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS, PASSAREMOS AO 'WRITE E READ DE FILES'... ->  veremos mais sobre COMO É O PROCESSO 
+
+
+DE 
+
+READ E WRITE,
+
+
+E SOBRE COMO O UTILIZAMOS PARA FAZER DIFERENTES TIPOS DE READ/WRITES...
+
+
+
+(
+
+
+
+    A RESPEITO DO NOSSO BLOCKCHAIN,
+
+    FINALMENTE FICAREMOS CAPAZES DE 
+
+    'STORE' E 'READ' (load) NOSSA BLOCKCHAIN __ EM FILES,
+
+
+    E NÃO SÓ 'IN-MEMORY'...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> DEPOIS,
+
+VAMOS VER O QUE PODEMOS/DEVEMOS FAZER QUANDO AS COISAS DÃO _ERRADO__.... --> 
+
+
+
+('handling errors and debugging code')....
+
+
+
+
+
+
+
+--> VAMOS VER COMO PODEMOS HANDLAR ERRORS 
+
+
+E 
+
+DEBUGGAR NOSSO CÓDIGO... --> achar problemas nele... --> isso 
+
+
+
+
+VAI NOS PERMITIR 
+
+
+DEIXAR 
+
+
+
+
+NOSSA 
+
+BLOCKCHAIN MAIS __ ROBUSTA, E MAIS SAFE...
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ISSO FEITO,
+
+
+VEREMOS 
+
+
+'OBJECT-ORIENTED PROGRAMMING' 
+
+
+,
+
+
+
+COM __ CLASSES --> isso é super importante... --> É UM CONCEITO DE PROGRAMAÇÃO 
+
+
+SUPER RECENTE,
+
+
+QUE 
+NOS 
+
+DEIXA 
+
+
+ESCREVER CÓDIGO MAIS CLEAN,
+
+MAIS FÁCIL DE ENTENDER...
+
+
+
+
+
+
+
+
+
+
+--> VAMOS USAR 
+
+O OOP PARA __ 
+
+MELHORAR 
+
+NOSSA 
+
+BLOCKCHAIN, com classes e objects,
+
+
+e aí 
+
+
+PARA _ ADICIONAR UMA WALLET__... 
+
+
+
+
+
+
+
+
+
+----> WALLET --> É ESSA 'IDENTIFICATION DATA'  QUE VAI, NO FINAL DAS CONTAS,
+
+
+SER SUPER IMPORTANTE PARA O RECEIVE E SEND DE FUNDS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ASSIM QUE ACABARMOS COM ISSO,
+
+VEREMOS 
+
+AS 
+
+MODULES E PACKAGES --> VEREMOS COMO PODEMOS ADICIONAR/INSTALAR 
+
+
+
+
+
+TPPs 
+
+
+e 
+SPLITTAR
+
+
+NOSSO CÓDIGO EM MÚLTIPLOS ARQUIVOS....
+
+
+(
+
+NO ASPECTO DA BLOCKCHAIN,
+
+SEREMOS CAPAZES DE 
+
+fazer 
+
+'SIGN' de transactions  ----------> ESSE É UM MECANISMO DE SEGURANÇA IMPORTANTE...
+
+)
+
+
+
+
+
+
+
+
+
+
+----->  no final do curso,
+
+
+
+
+VEREMOS 
+
+
+
+O
+
+
+
+'HANDLING DE HTTP REQUESTS COM O FLASK'...  -------> incoming http requests com o python e a package de flask... --------> 
+
+
+
+
+
+NO CASO DA BLOCKCHAIN,
+
+
+ISSO 
+
+
+SIGNIFICA QUE 
+
+SEREMOS CAPAZES DE CONTROLAR NOSSA BLOCKCHAIN 
+
+POR MEIO 
+
+
+
+DE UMA 
+
+NICE 
+
+'WEB UI' --------> deixaremos 
+
+
+o 
+
+
+
+'TERMINAL-based UI'
+
+
+que 
+
+
+
+teremos usado até o momento...
+
+
+
+
+
+
+
+
+
+
+
+
+
+DEPOIS,
+
+
+
+VEREMOS 
+
+
+
+COMO _ PODEMOS__ USAR_ O PYTHON __ PARA ENVIAR__ HTTP REQUESTS__ 
+
+
+
+__ ENTRE __ DIFERENTES PROGRAMAS 'PYTHON' ...  -----> VAMOS 
+
+
+USAR 
+
+ISSO 
+
+
+
+NA NOSSA 
+
+BLOCKCHAIN 
+
+
+PARA 
+SIMULAR
+ 
+
+
+
+ MÚLTIPLOS 'NODES' ( 
+
+
+ou seja,
+
+servidores rodando em diferentes máquinas, 
+
+
+
+as quais poderão 
+
+então se comunicar 1 com a outra,
+
+
+PARA ENTÃO 
+
+'BROADCAST' NOVAS TRANSACTIONS, 
+
+BLOCKS E ASSIM POR DIANTE...
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> OK... COM ISSO,
+
+ TEREMOS ACABADO....
+
+
+
+
+
+
+
+
+
+
+
+ OK... O CURSO COBRE TODOS OS BÁSICOS DO PYTHOn...

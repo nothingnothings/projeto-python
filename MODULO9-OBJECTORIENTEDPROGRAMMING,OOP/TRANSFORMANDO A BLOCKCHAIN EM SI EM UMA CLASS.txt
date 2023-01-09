@@ -1,0 +1,1387 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... É HORA DE TRANSFORMAR O PRÓPRIO ARQUIVO DE 
+
+
+
+
+
+
+
+
+'blockchain12' 
+
+
+EM UMA _ CLASS_,
+
+
+pq até agora 
+
+
+ela é só um 
+
+arquivo 
+
+
+
+
+
+
+COM UM PUNHADO DE FUNCTIONS e variables...
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, EMBAIXO DE NOSSOS IMPORTS  adicioanmos a class de 'Blockchain'...
+
+
+
+
+
+
+
+
+
+
+
+
+O CÓDIGO ATÉ AGORA ESTÁ ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OWNER = 'Arthur'
+
+MINING_REWARD = 10
+
+
+blockchain = []
+
+
+open_transactions = []
+
+
+participants = {
+    'Max'
+}
+
+
+def load_data():
+    global blockchain
+    global open_transactions
+    try:
+        with open('blockchain.json', mode='r') as g:
+            # read_blockchain, read_transactions = g.readlines()
+            file_content = g.readlines()
+            blockchain = json.loads(file_content[0][:-1])
+            updated_blockchain = []
+            for block in blockchain:
+                # updated_block = {
+                #     'previous_block_hash': block['previous_block_hash'],
+                #     'index': block['index'],
+                #     'proof': block['proof'],
+                    # 'processed_transactions': [OrderedDict(
+                    #     [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+                # }
+                # converted_transaction = [OrderedDict([('amount', transaction['amount']), ('recipient', transaction['recipient']), ('sender', transaction['sender'])]) for transaction in block['processed_transactions']], block['proof']
+                # updated_block = Block(block['previous_block_hash'], block['index'], converted_transaction, block['timestamp'])
+
+
+
+                # converted_tx = [OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])]) for tx in block['processed_transactions']] ###sem o uso de OBJECTs...
+
+                converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block['processed_transactions']]
+
+                updated_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+                updated_blockchain.append(updated_block)
+                blockchain = updated_blockchain
+                # open_transactions = [OrderedDict([('amount', transaction['amount']), ('recipient', transaction['recipient']), ('sender', transaction['sender'])]) for transaction in json.loads(read_transactions)]  # com list comprehension...
+                open_transactions = json.loads(file_content[1])
+                # print(open_transactions)
+            #     updated_transactions = []
+    
+            #     for tx in open_transactions:
+            #         updated_transaction = OrderedDict([('amount', tx['amount']), ('recipient', tx['recipient']), ('sender', tx['sender'])])
+
+            #         updated_transactions.append(updated_transaction)
+            # open_transactions = updated_transactions
+                updated_transactions = []
+    
+                for tx in open_transactions:
+                    updated_transaction = Transaction(tx['amount'], tx['recipient'], tx['sender'])
+
+                    updated_transactions.append(updated_transaction)
+            open_transactions = updated_transactions
+
+    except (IOError, IndexError):
+        print('File not found!')
+
+        # GENESIS_BLOCK = {
+        # 'previous_block_hash': '',
+        # 'index': 0,
+        # 'processed_transactions': [],
+        # 'proof': 100,
+        # t 'timestamp': 12121212122121
+        # }
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        blockchain = [GENESIS_BLOCK]
+        open_transactions = []
+
+    # except(ValueError): ###usei isto, mas é meio um workaround... o ideal é não usar esse error type....
+    #     blockchain = [GENESIS_BLOCK]
+    #     open_transactions = []
+    finally:
+        print('Your data was or was not loaded. See error statements')
+        print('clean-up work')
+
+
+
+load_data()
+
+def proof_of_work():
+    last_block = blockchain[-1]
+    last_hash = hash_block(last_block)
+    proof = 0
+    # while not valid_proof(open_transactions, last_hash, proof):
+    
+    new_utility = Utility() ####versão bosta do código de 'helper class' (pq vamos querer que essa class tenha METHODS ESTÁTICOS, e não METHODS/ATTRIBUTOS DE 'INSTANCE')...
+    # while not Utility.valid_proof(open_transactions, last_hash, proof):
+    while not new_utility.valid_proof(open_transactions, last_hash, proof):
+        proof += 1
+    return proof
+
+
+
+
+def get_value(person):  # versão com OBJECTS (block) NO LUGAR DE 'dicts'...
+    return [[transaction.amount for transaction in block.processed_transactions if getattr(transaction, person) == OWNER] for block in blockchain]
+
+
+def get_balance(participant):  # versão COM O USO DE REDUCE NA NOSSA LIST...
+    transaction_sender = get_value('sender')
+    open_transactions_sender = [transaction.amount
+                                for transaction in open_transactions if transaction.sender == participant]
+                                 
+    transaction_sender.append(open_transactions_sender)
+
+    print(transaction_sender[0])
+
+    print(transaction_sender)
+
+    amount_sent = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                         if len(tx_amt) > 0 else tx_sum + 0, transaction_sender, 0)
+
+    print(amount_sent)
+
+    transaction_recipient = get_value('recipient')
+
+    amount_received = reduce(lambda tx_sum, tx_amt: tx_sum + sum(tx_amt)
+                             if len(tx_amt) > 0 else tx_sum + 0, transaction_recipient, 0)
+    print(amount_received)
+    return (amount_sent, amount_received, amount_received - amount_sent)
+
+
+def save_data(): ## para o save de nossa data, nesse caso concreto, a 'ORDER DE NOSSAS DICTS' não interessa, pq só vamos ARMAZENAR AS TRANSACTIONS EM UM ARQUIVO JSON, e não 'checar a validade' de nossa blockchain/transactions (isso é apenas feito lá nos methods de VERIFY, em 'hash_util.py')...
+    """Saves the data of the blockchain in a file in your system's storage"""
+    try:
+        # with open('blockchain.txt', mode='w') as f:
+        with open('blockchain.json', mode='w') as f:
+            # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+            # print(open_transactions)
+            # print(open_transactions)
+            # converted_transactions = []
+
+            # for transaction in open_transactions:
+            #     converted_transactions.append(Transaction(transaction['amount'], transaction['recipient'], transaction['sender']))
+            # converted_transactions = [transaction.__dict__ for transaction in converted_transactions]
+            ##mesma coisa que isto:
+            # converted_transactions = [Transaction(transaction['amount'], transaction['recipient'], transaction['sender']).__dict__ for transaction  in open_transactions]
+
+            converted_transactions = [tx.__dict__ for tx in open_transactions]
+
+
+            # converted_blockchain = [] ### meu código, que não funcionou...
+            # for block in blockchain:
+            #     # não é necessário '.__dict__.copy()' aqui pQ NÃO VAMOS MANIPULAR ESSE DICT (situação diferente daquela vista em 'hash_block', pq lá VAMOS MANIPULAR NOSSO DICT)....
+            #     converted_blockchain.append(block.__dict__) ###vai converter todos nossos 'block' (formato OBJECT 'BLOCK') em DICTS, dicts que então poderemos usar naquele CONVERSOR JSON (pq as DICTS são compatíveis com a conversão para json, ao passo que 'objects', não)...
+            
+
+            
+            # for block in converted_blockchain:
+            #     dict_transactions = []
+            #     for transaction in block['processed_transactions']:
+            #         # dict_transactions.append(transaction.to_ordered_dict())
+            #         dict_transactions.append(transaction.__dict__)
+            #     block['processed_transactions'] = dict_transactions
+
+            #código do professor...  --> o objetivo desse código era CONVERTER AO MESMO TEMPO OS BLOCKS E AS TRANSACTIONS (dentro de cada um desses block objects) EM DICTS...
+            converted_blockchain = [block.__dict__ for block in [ Block(block_el.previous_block_hash, block_el.index, [tx.__dict__ for tx in block_el.processed_transactions], block_el.proof, block_el.timestamp) for block_el in blockchain ]  ] ##'block_el' é originalmente um OBJECT.... por isso a refeerncia a seus valores, nessa list comprehension,... --> queremos converter TANTO OS OBJECTS 'Block' como 'Transacion' EM __ DICTS__, PARA QUE POSSAM SER ARMAZENADOS COMO JSON DATA EM ARQUVIOS JSON/TEXT...
+
+            
+            f.write(json.dumps(converted_blockchain))
+            f.write('\n') #line break entre linhas de info...
+            f.write(json.dumps(converted_transactions))
+    except IOError: 
+        print('Saving failed!')
+
+
+def mine_block():
+    """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+
+    previous_block = blockchain[-1]
+    print(previous_block)
+    # print(blockchain[-1])
+    hashed_block = hash_block(previous_block)
+    print(hashed_block)
+    print(hashed_block)
+    # proof = 0
+
+    proof = proof_of_work()
+    # reward_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+    #     ('amount', MINING_REWARD),
+    #     ('recipient', OWNER),
+    #     ('sender', 'ourApp')
+    # ])
+    reward_transaction = Transaction(MINING_REWARD, OWNER, 'ourApp')
+    copied_transactions = open_transactions[:]
+    copied_transactions.append(reward_transaction)
+
+
+    # block = {'previous_block_hash': hashed_block,
+    #          'index': len(blockchain),
+    #          #  ssssssssssssssssssssssssssssssssssssssssssssss'processed_transactions': open_transactions,
+    #          'processed_transactions': copied_transactions,
+    #          'proof': proof
+    #          }
+
+    block = Block(hashed_block, len(blockchain), copied_transactions, proof)
+    blockchain.append(block)
+    # save_data() #código pertinente ---> salva no nosso filesystem, no nosso arquivo 'blockchain.txt', o BLOCKCHAIN E OPEN_tRANSACTIONS ATUAIS..
+    print(blockchain, 'TRIED TO MINE BLOCK')
+    return True
+
+def add_transaction(sender, recipient, amount=1.0):
+    """Faz append de uma NOVA TRANSACTION À LIST DE ' open_transactions, e aí RETORNA TRUE OU FALSE, a depender do sucesso de seu códiogo --> verification para ver se o user pode ou naõ realizar essa operação/send de coins...'....
+
+        Arguments:
+    :sender: o sender da transaction (nome ou id)   
+    :recipient: o receiver da transaction (nome ou id)
+    :amount: a quantidade (DEVE SER UM FLOAT). DEFAULT É 1.0 coin ...            
+    """
+    # new_transaction = OrderedDict([  # sintaxe de CREATE DE DICTIONARIES COM ORDEM/ORDENADOS/ORDERED.... (distintos de DICTIONARIES NORMAIS, QUE NÃO POSSUEM ORDER)...
+    #     ('amount', amount),
+    #     ('recipient', recipient),
+    #     ('sender', sender)
+    # ])
+
+
+    new_transaction = Transaction(amount, recipient, sender)
+    # if not verify_transaction(new_transaction)
+    new_utility = Utility()
+    # if not Utility.verify_transaction(new_transaction, get_balance(OWNER)):
+    if not new_utility.verify_transaction(new_transaction, get_balance(OWNER)):
+        print('Your funds are not enough for the chosen operation')
+        return False
+    else:
+        open_transactions.append(new_transaction)
+        participants.add(sender)
+        participants.add(recipient)
+        print(open_transactions)
+        save_data()
+        return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIPO ALGO ASSIM, POR ENQUANTO:
+
+
+
+
+
+
+
+
+
+class Blockchain:
+
+
+
+    owner = 'Arthur'
+
+    MINING_REWARD = 10
+
+    participants = {
+        'Max'
+    }
+
+
+    def __init__(self):
+
+    
+
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> ok... temos nosso constructor... -> 
+
+
+
+
+
+
+
+DENTRO DA BLOCKCHAIN, VAMOS QUERER SETTAR NOSSA 'CHAIN', É CLARO..
+
+
+
+
+
+
+
+
+
+--> vamos querer definir essa chain como um __ INSTANCE ATTRIBUTE__ DE 'Blockchain'..
+
+
+
+
+
+
+
+
+
+
+--> será tipo assim:
+
+
+
+
+  def __init__(self):
+    self.chain = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> A CHAIN _ SERÁ UMA LIST.. -> ESSA SERÁ UMA __ LIST__ DE OBJECTS 
+
+
+'Block'...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+class Blockchain:
+
+
+
+    owner = 'Arthur'
+
+    MINING_REWARD = 10
+
+    participants = {
+        'Max'
+    }
+
+
+    def __init__(self):
+        self.chain = []
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CERTO....
+
+
+
+
+
+
+
+
+
+
+
+
+-> o que mais?
+
+
+
+
+
+
+
+
+
+
+
+-----> MINING_REWARD__, ISSO DEVE _ SER UMA VARIABLE GLOBAL, DEFINIDA 'FORA DA DEFINIÇAÕ DE NOSSA CLASS' (na concepção do professor),
+
+
+
+
+POR ISSO ESCREVEMOS ASSIM:
+
+
+
+
+
+
+
+
+MINING_REWARD = 10
+
+
+class Blockchain:
+
+
+
+    owner = 'Arthur'
+
+    MINING_REWARD = 10
+
+    participants = {
+        'Max'
+    }
+
+
+    def __init__(self):
+        self.chain = []
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> OPEN_tRANSACTIONS
+
+
+TAMBÉM FARÁ PARTE 
+
+
+
+DA 
+
+
+BLOCKCHAIN INSTANCE, AGORA...
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+MINING_REWARD = 10
+
+
+class Blockchain:
+
+
+
+    owner = 'Arthur'
+
+    MINING_REWARD = 10
+
+    participants = {
+        'Max'
+    }
+
+
+    def __init__(self):
+        self.chain = []
+        self.open_transactions = []
+
+        
+
+
+
+
+
+--------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> O OWNER TAMBÉM  É ALGO  NECESSÁA
+
+
+
+
+
+
+
+ 
+
+
+
+--> MAS VAMOS PASSAR ESSA INFO do 'owner'
+
+LÁ DE DENTRO DO NODE...-_> NO NODE TEREMOS ALGUM ID,
+
+
+E AÍ VAMOS PASSAR 
+
+ISSO 
+
+
+para dentro da blockchain, talvez....
+
+
+-> por isso não teremos 'owner' aqui na blockchain..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> bem, 
+
+'load_data()' 
+
+AINDA SERÁ IMPORTANTE,
+
+MAS 
+
+AGORA 
+
+SERÁ 
+
+UM METHOD DESSA CLASS  de 'blockchain'....
+
+
+
+
+
+
+
+
+
+
+
+
+class Blockchain:
+
+
+    participants = {
+        'Max'
+    }
+
+
+    def __init__(self):
+        self.chain = []
+        self.open_transactions = []
+
+
+        
+    def load_data():
+        global blockchain
+        global open_transactions
+        try:
+            with open('blockchain.json', mode='r') as g:
+                file_content = g.readlines()
+                blockchain = json.loads(file_content[0][:-1])
+                updated_blockchain = []
+                for block in blockchain:
+                    converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block['processed_transactions']]
+
+                    updated_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+                    updated_blockchain.append(updated_block)
+                    blockchain = updated_blockchain
+                    open_transactions = json.loads(file_content[1])
+
+                    updated_transactions = []
+        
+                    for tx in open_transactions:
+                        updated_transaction = Transaction(tx['amount'], tx['recipient'], tx['sender'])
+
+                        updated_transactions.append(updated_transaction)
+                open_transactions = updated_transactions
+
+        except (IOError, IndexError):
+            print('File not found!')
+
+            GENESIS_BLOCK = Block('', 0, [], 100, 0)
+            blockchain = [GENESIS_BLOCK]
+            open_transactions = []
+
+        finally:
+            print('Your data was or was not loaded. See error statements')
+            print('clean-up work')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO....
+
+
+
+
+
+
+
+
+
+
+
+-> esse method também deverá receber 'self'...
+
+
+
+
+
+
+
+
+
+--> MAS A BLOCKCHAIN NÃO TERÁ MAIS LINHAS EM QUE SE REFERE a 'global blockchain' e 'global open_transactions',
+
+PQ NÃO TEMOS MAIS ISSO NO NOSSO CÓDIGO (Agora existem DENTRO DESSE OBJECT 'Blockchain')...
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+class Blockchain:
+
+
+    participants = {
+        'Max'
+    }
+
+
+    def __init__(self):
+        self.chain = []
+        self.open_transactions = []
+
+
+        
+    def load_data(self):
+        # global blockchain  ##agora essas variables serão INTERNAS a 'Blockchain'..
+        # global open_transactions
+        try:
+            with open('blockchain.json', mode='r') as g:
+                file_content = g.readlines()
+                self.blockchain = json.loads(file_content[0][:-1])
+                updated_blockchain = []
+                for block in self.chain:
+                    converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block['processed_transactions']]
+
+                    updated_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+                    updated_blockchain.append(updated_block)
+                    self.blockchain = updated_blockchain
+                    self.open_transactions = json.loads(file_content[1])
+
+                    updated_transactions = []
+        
+                    for tx in self.open_transactions:
+                        updated_transaction = Transaction(tx['amount'], tx['recipient'], tx['sender'])
+
+                        updated_transactions.append(updated_transaction)
+                self.open_transactions = updated_transactions
+
+        except (IOError, IndexError):
+            print('File not found!')
+
+            GENESIS_BLOCK = Block('', 0, [], 100, 0)
+            self.blockchain = [GENESIS_BLOCK]
+            self.open_transactions = []
+
+        finally:
+            print('Your data was or was not loaded. See error statements')
+            print('clean-up work')
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------
+
+
+
+
+
+
+
+--> o 'load_data()" será um method lá da class 'blockchain'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok....
+
+
+
+
+
+
+
+aí temos esse código aqui:
+
+
+
+
+
+
+
+
+
+        except (IOError, IndexError):
+            print('File not found!')
+
+            GENESIS_BLOCK = Block('', 0, [], 100, 0)
+            self.chain = [GENESIS_BLOCK]
+            self.open_transactions = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> esse é o código que é usado quando 'não temos nenhuma blockchain no presente'...
+
+
+
+
+
+
+----> isso aí INICIALIZA UMA NOVA BLOCKCHAIN... -> o professor nos explica, agora,
+
+
+
+que esse INITIALIZE É ALGO QUE 
+
+
+'NÃO PRECISAMOS MAIS FAZER'... ----> podemos pegar esse código inteiro 
+
+
+E TRANSPLANTÁ-LO,
+
+
+SIMPLESMENTE INICIALIZAR NOSSA BLOCKCHAIN com 
+
+
+
+esse 'genesis_block' 
+
+
+
+DIRETAMENTE NO NOSSO CONSTRUCTOR...
+
+
+
+
+
+
+
+--> ué, mas como?
+
+
+isso não faz sentido...
+
+
+
+
+
+
+
+
+
+-->  basicamente escrevemos assim:
+
+ 
+
+
+    def __init__(self):
+
+
+        genesis_block = Block(0, '', [], 100, 0)
+        self.chain = [genesis_block]
+        self.open_transactions = []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> UÉ, MAS ISSO NÃO QUER DIZER QUE 
+
+NOSSA CHAIN VAI SEMPRE FICAR COM ESSE 'GENESIS_BLOCK' no início?
+
+
+
+
+
+
+
+
+
+--> não, isso está errado... -> está errado pq 
+
+
+
+SIM, NÓS VAMOS TER ESSE GENESIS_BLOCK se essa blockchain for inicializada pela primeira vez,
+
+
+no seu app.... entretanto, se o USER __ MINERAR ALGUM NOVO BLOCK,
+
+
+A DATA _ QUE _RESULTAR DESSA MINERAÇÃO, os blocks, 
+
+
+VÃO __ OVERWRITTAR__ 
+
+
+
+
+
+o antigo formato de 
+
+[
+   GENESIS_BLOCK
+]
+
+
+
+por 
+
+coisas como 
+
+[
+
+    GENESIS_BLOCK, BLOCK1, etc....
+]
+
+
+
+
+
+
+
+
+
+
+
+----> OU SEJA, 
+
+SE VOCê TIVER _ ALGUM ARQUIVO __ QUE JÁ TEM UMA BLOCKCHAIN com alguns blocks,
+
+
+
+O VALOR DESSE ATTRIBUTE, DE 'self.chain = [genesis_block],
+
+
+
+SERÁ __ OVERWRITTADO_ PELA DATA CARREGADA NESSE METHDO DE 'load_data'...
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+    def __init__(self):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+        self.chain = [GENESIS_BLOCK]
+        self.open_transactions = []
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR DEIXA O EXCEPT HANDLER, 
+
+mas ele ficou meio inútil..
+
+
+
+
+
+
+
+coloca um print de 'Handled exception....' ------> ISSO FARÁ COM QUE NOSSO PROGRAM NÃO CRASHE AO RECEBER ESSE ERROR..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> CERTO... É CLARO QUE 'load_data()' DEVERÁ SER EXECUTADO SEMPRE/QUANDO _ NOSSA 
+
+BLOCKCHAIN FOR CARREGADA NO NOSSO APP...
+
+
+
+
+
+
+
+
+
+
+
+
+-> é por isso que O PROFESSOR __ VAI __ QUERER __ EXECUTAR__ ESSA FUNCTION __ COMO PARTE DO CONSTRUCTOR do object 
+
+
+'Blockchain'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> AJUSTEI TODO O CÓDIGO, SÓ O 'load_data'
+
+FICOU 
+
+
+COM UM PROBLEMA:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def load_data(self):
+        # global blockchain  ##agora essas variables serão INTERNAS a 'Blockchain'..
+        # global open_transactions
+        try:
+            with open('blockchain.json', mode='r') as g:
+                file_content = g.readlines()
+                self.chain = json.loads(file_content[0][:-1])
+                updated_blockchain = []
+                for block in self.chain:
+                    converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block['processed_transactions']]
+
+                    updated_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+                    updated_blockchain.append(updated_block)
+                self.chain = updated_blockchain
+                self.open_transactions = json.loads(file_content[1])
+
+                updated_transactions = []
+        
+                for tx in self.open_transactions:
+                    updated_transaction = Transaction(tx['amount'], tx['recipient'], tx['sender'])
+
+                    updated_transactions.append(updated_transaction)
+                self.open_transactions = updated_transactions
+
+        except(IOError, IndexError): 
+            print('Handled exception...')
+
+        finally:
+            print('Your data was or was not loaded. See error statements')
+            print('clean-up work')
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> O PROBLEMA É EM 
+
+
+
+
+
+
+
+
+
+
+
+
+''''''''
+
+ converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block['processed_transactions']]
+
+                    updated_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+
+
+
+'''''''
+
+
+
+
+
+
+
+
+
+
+--> ESSAS 2 LINHAS TENTAM ACESSAR  VALORES EM UM SUPOSTO DICT DE 'BLOCK',
+
+
+mas o problema é que BLOCK AGORA __ É _ 
+
+UM OBJECT...
+
+
+
+
+
+
+
+
+
+
+CONSERTEI OS AVISOS, FICOU ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    def load_data(self):
+        # global blockchain  ##agora essas variables serão INTERNAS a 'Blockchain'..
+        # global open_transactions
+        try:
+            with open('blockchain.json', mode='r') as g:
+                file_content = g.readlines()
+                self.chain = json.loads(file_content[0][:-1])
+                updated_blockchain = []
+                for block in self.chain:
+                    converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block.processed_transactions]
+                    # converted_tx = [Transaction(tx['amount'], tx['recipient'], tx['sender']) for tx in block['processed_transactions']]
+                    # updated_block = Block(block['previous_block_hash'], block['index'], converted_tx, block['proof'], block['timestamp'])
+                    updated_block = Block(block.previous_block_hash, block.index, converted_tx, block.proof, block.timestamp)
+                    updated_blockchain.append(updated_block)
+                self.chain = updated_blockchain
+                self.open_transactions = json.loads(file_content[1])
+
+                updated_transactions = []
+        
+                for tx in self.open_transactions:
+                    updated_transaction = Transaction(tx['amount'], tx['recipient'], tx['sender'])
+
+                    updated_transactions.append(updated_transaction)
+                self.open_transactions = updated_transactions
+
+        except(IOError, IndexError): 
+        #     print('File not found!')
+            print('Handled exception...')
+            # GENESIS_BLOCK = Block('', 0, [], 100, 0)  
+            # self.chain = [GENESIS_BLOCK]  ##código desnecessário, pq agora será TRANSPLANTADO LÁ PARA o '__init__()' (vamos INICIALIZAR NOSSA BLOCKCHAIN LÁ... SE UMA BLOCKCHAIN NÃO EXISTIR, ESSA LÓGICA ALI DE BAIXO _ VAI __o CRIAR, com '[genesis_block]' no seu interior... -> esse value de '[genesis_block]' vai ser OVERWRITTADO quando forem minerados mais blocks, por meio da function de 'load_data'...)
+            # self.open_transactions = []
+        finally:
+            print('Your data was or was not loaded. See error statements')
+            print('clean-up work')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> certo...
+
+
+
+
+
+
+
+
+mas não sei se isso ainda estará funcionando..
+
+
+
+
+
+
+
+
+
+AJEITAMOS UM POUCO A CLASS DE 'Blockchain',
+
+
+
+
+E NA PRÓXIMA AULA VAMOS AJEITAR A CLASS DE 'node'...
+
+
+
+
+
+
+
+

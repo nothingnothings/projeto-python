@@ -1,0 +1,1032 @@
+
+
+
+
+
+
+
+
+
+
+
+A ALTERNATIVA DE HASHING DE NOSSOS BLOCKS,
+
+
+ALTERNATIVA DE NÃO USAR 'CONCATENATE DE STRINGS' como hashing de blocks,,
+
+
+
+
+
+ELA __ USA__ 'LIST COMPREHENSION'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSO APPROACH ATUAL É RÚSTICO:
+
+
+
+
+
+
+
+
+
+
+  previous_block = blockchain[-1]
+    hashed_block = ''
+    for key in previous_block:  # nosso loop...
+        value = str(previous_block[key])
+        hashed_block = hashed_block + str(value)
+    print(hashed_block)
+
+
+
+
+
+
+
+
+
+MAS O QUE SÃO 
+
+
+
+
+LIST COMPRENEHSIONS, EM PYTHON?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É ALGO QUE EXISTE SÓ EM PYTHON...
+
+
+
+
+
+
+
+
+---> EIS UMA LIST:
+
+
+
+
+
+
+
+
+['1', '2', '3', '4', '5']
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA DIGAMOS QUE 
+
+
+NOSSO OBJETIVO É 
+
+CONVERTER 
+
+
+TODA ESSA LIST EM UMA LIST QUE SE PARECE ASSIM:
+
+
+
+
+
+[
+    '2', '4', '6', '8', '10'
+]
+
+
+
+
+
+
+
+
+
+
+
+-> TEMOS ALGUMAS ALTERNATIVAS PARA FAZER ISSO...
+
+
+
+
+
+
+
+
+
+ALTERNATIVA:
+
+
+
+
+A) USAR UM FOR LOOP, E AÍ NESSE LOOP __ SIMPLESMENTE __ DUPLICAR __ O VALOR ___ DE CADA__ ELEMENTO/number....
+
+
+
+
+
+
+
+
+
+
+
+B) USAR UMA 'LIST COMPREHENSION'... --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VEREMOS COMO UMA LIST COMPREHENISION FUNCIONA....
+
+
+
+
+
+
+
+
+---> VOLTAMOS AO REPL....
+
+
+
+
+
+
+
+
+
+ESCREVEMOS
+
+
+
+
+
+
+simple_list = [1, 2, 3, 4]
+
+
+
+
+
+
+
+
+
+
+AÍ QUEREMOS UMA 'DOUBLED_LIST',
+
+
+que será um ARRAY VAZIO, INICIALMENTE...
+
+
+
+
+
+
+
+
+
+
+
+------> AÍ VAMOS USAR UM FOR LOOP PARA DUPLICAR ESSA LIST...
+
+
+
+
+
+
+
+
+SERÁ TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+>>> for element in simple_list: 
+...     element * 2
+... 
+2
+4
+6
+8
+>>> simple_list
+[1, 2, 3, 4]
+>>> for element in simple_list:
+...     doubled_list.append(element * 2)
+... 
+>>> 
+>>> 
+>>> doubled_list
+[2, 4, 6, 8]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK.... AGORA TEMOS TODOS OS ELEMENTOS EM 'doubled_list',
+
+
+MAS DUPLICADOS...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS PODEMOS FAZER A MESMA COISA COM UMA 'LIST COMPREHENSION'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> resettamos nossa doubled_list,
+
+
+>>> doubled_list = [
+... [
+
+
+
+
+
+
+
+
+
+--> AÍ VAMOS USAR ESSA SINTAXE DO PROFESSOR, QUE PODE PARECER BEM ESTRANHA PRIMEIRAMENTE,
+
+MAS QUE FAZ SENTIDO... 
+
+
+
+
+
+
+
+
+
+
+--> VAMOS DIZER AO PYTHON ' O QUE QUEREMOS FAZER PARA CADA ELEMENT EM 1 CERTA LIST'' --> 
+
+
+
+
+
+
+A SINTAXE 
+
+
+é 
+
+
+
+
+
+
+
+doubled_list = [el for el in simple_list]
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMO LEMOS ISSO AÍ?
+
+
+
+
+
+------> '''PARA CADA ELEMENT DENTRO DE SIMPLE_LIST,
+            OUTPUTTE ELEMENT COMO 'el' ''' 
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE A ESCRITA 
+
+
+
+''''
+
+
+doubled_list = [el for el in simple_list]
+
+
+
+
+
+
+''''
+
+
+
+
+
+
+
+VAI CRIAR UMA __ EXATA__ CÓPIA __ DA PRIMEIRA LIST,
+
+UNCHANGED...
+
+
+
+
+
+
+-----> MAS SE ESCREVERMOS ALGUMAS EQUAÇÕES NESSA OPERAÇÃO,
+
+O QUADRO MUDA...
+
+
+
+
+
+
+
+-----> PODEMOS ESCREVER COISAS COMO:
+
+
+doubled_list = [el * 2 for el in simple_list]
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO VAI ESSENCIALMENTE DIZER 
+
+
+
+'''PARA CADA ELEMENT EM SIMPLE_LIST,
+
+
+DUPLIQUE __ O VALOR _ DO  ELEMENTO E ENTÃO O ENFIE/COPIE _ NESSA LIST 
+
+
+DE NOME doubled_list''''...
+
+
+
+
+
+
+
+
+
+
+---------> OK...
+
+
+
+
+
+
+
+
+
+VEJA O RESULTADO NO CÓDIGO:
+
+
+
+
+>>>       
+>>> doubled_list = [el * 2 for el in simple_list]
+>>> doubled_list
+[2, 4, 6, 8]
+>>>
+
+
+
+
+
+
+
+
+
+
+-> E LIST COMPREHENSIONS SÃO MT FORTES:
+
+
+
+
+
+
+
+1) VOCÊ PODE AS NESTEAR (pode ter múltiplas list comprehensions, uma nesteada dentro da outra)
+
+
+
+
+
+
+
+
+2) PODE FAZER UM MONTE DE COISAS COM ELAS....
+
+
+
+
+
+
+
+VEREMOS ELAS VÁRIAS VEZES DURANTE NOSSO CURSo... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> ok......
+
+
+
+EM VEZ 
+
+
+
+DE  
+
+
+USARMOS AQUELE FOR LOOP PARA CRIAR AQUELA STRING,
+
+
+
+STRING QUE SERÁ NOSSO HASH ('era' nosso hash, pq o simples concatenate de nossa data do block em uam string n é um hash mt bom)...
+
+
+
+
+
+
+
+,
+em vez disso,
+
+
+
+
+USAREMOS 'list comprehension'
+
+
+
+
+
+
+
+__ pq __ a BOA NOTÍCIA DAS LIST COMP 
+
+
+É QUE 
+
+ELAS 
+
+
+
+
+_______ PODEM SER USADAS EM DICTIONARIES...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+  previous_block = blockchain[-1]
+    hashed_block = ''
+    for key in previous_block:  # nosso loop...
+        value = str(previous_block[key])
+        hashed_block = hashed_block + str(value)
+    print(hashed_block)
+
+
+
+
+
+
+
+
+
+
+
+-> VAMOS CRIAR UMA LIST  EWM 'hashed_block',
+
+
+
+
+
+PQ LIST COMPREHENSIONS __ SEMPRE __ CRIARÃO ... 
+
+
+
+
+
+
+lists....
+
+
+
+
+
+----> 
+
+
+
+  previous_block = blockchain[-1]
+    hashed_block = []
+    for key in previous_block:  # nosso loop...
+        value = str(previous_block[key])
+        hashed_block = hashed_block + str(value)
+    print(hashed_block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> RELEVANTE MENCIONAR QUE TAMBÉM EXISTEM 'DICT COMPREHENSIONS',
+
+
+que são comprehensions que CRIAM DICTIONARIES...
+
+
+
+
+
+
+--> ok.... PROVAVELMENTE ESCREVEREMOS CÓDIGO _ DENTRO DESSA LIST [] em hashed_block..
+
+
+
+
+
+--> TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+  previous_block = blockchain[-1]
+    hashed_block = [key for key in previous_block] ///EIS O CÓDIGO EM QUESTAÕ.
+    for key in previous_block:  # nosso loop...
+        value = str(previous_block[key])
+        hashed_block = hashed_block + str(value)
+    print(hashed_block)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> VAMOS QUERER MANIPULAR ESSAS KEYS NO DICTIONARY, POR ISSO ESSE CÓDIGO..
+
+
+
+
+----> MAS É CLARO QUE O PROFESSOR 
+
+NÃO ESTA INTERESSADO NA KEY ASSIM.... -> ELE QUER SÓ O VALOR DE CADA KEY,
+
+
+
+POR ISSO ELE ESCREVE 
+
+
+
+
+
+
+EX:
+
+
+
+'last_block[key]' 
+
+
+
+
+
+
+em vez de 
+
+'key' 
+
+
+
+
+
+PARA PEGAR O VALUE DESSA KEY....
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+    def mine_block():
+        """É essa função que PROCESSA NOSSAS OPEN TRANSACTIONS, PARA ENTÃO ADICIONAR UM NOVO BLOCK À BLOCKCHAIN """
+        # pass  # pass é usado quando AINDA NÃO QUEREMOS ESCREVER UMA DETERMINADA FUNCTION, QUEREMOS DEIXAR PARA DEPOIS...
+
+        previous_block = blockchain[-1]
+        hashed_block = [previous_block[key] for key in previous_block] #feature da LIST COMPREHENSION.... (faz com que evitemos o write de um loop, que e´cumbersome
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+POR FIM, PODEMOS USAR A FUNÇÃO 'str()"
+
+
+
+
+
+
+PARA WRAPPAR essa list 
+
+
+
+
+
+DE COISAS 
+
+
+CRIADA COM 
+
+
+
+
+''' [previous_block[key] for key in previous_block]''',
+
+
+
+
+
+
+PARA CONVERTÊ-LA EM UMA STRING....
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AÍ PRINTAMOS ESSE HASHED_BLOCK, PARA VER SE FUNCIONOU....
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+    previous_block = blockchain[-1]
+    hashed_block = str([previous_block[key] for key in previous_block]) #feature da LIST COMPREHENSION.... (faz com que evitemos o write de um loop, que e´cumbersome)
+                    # 'str()' converte essa LISTA DE VALUES em uma string única... que será nosso hash...
+    print(hashed_block)
+
+
+
+
+
+
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> AÍ MINERAMOS UMA NOVA TRANSAÇÃO, PARA VER SE ISSO FUNCIONOU...
+
+
+
+
+
+
+
+
+FICOU ASSIM:
+
+
+
+
+
+[{'previous_ block_hash': '', 'index': 0, 'processed_transactions': []}, {'previous_block_hash': "['', 0, []]", 'index': 1, 'processed_transactions': []}]
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROBLEMA É QUE AQUELA STRING-HASH 
+
+
+ainda 
+
+
+SE PARECE COMO UM ARRAY,
+
+
+
+
+UM ARRAY QUE É UMA STRING, MAS ISSO NÃO É BOM... --> O IDEAL SERIA 
+
+
+
+TIRAR A MARCAÇÃO DE ARRAY... ->  O PROFESSOR VAI USAR AUQELA ]
+
+
+
+
+
+
+SINTAXE ESPECIAL QUE VI ANTERIORMENTE,
+
+
+
+AQUELE 
+
+
+
+
+'-'.join(lista de coisas que você quer joinar)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS É CLARO QUE ISSO NOS DARÁ UM ERRO, UM ERRO PQ ESTAMOS TENTANDO FAZER JOIN DE COISAS QUE 
+
+NAÕ SÃO TODAS ELAS STRINGS (há um number) --> para consertar isso,
+
+
+
+apenas wrappe 
+
+
+
+TODOS NOSSOS VALUES (
+
+    que são 
+
+
+
+    'last_block[key]' 
+)
+
+
+
+COM 
+
+'
+str()'...
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+hashed_block = '-'.join([str(previous_block[key]) for key in previous_block]) 
+
+
+
+
+
+
+
+
+SUCESSO:
+
+
+
+
+
+
+[{'previous_ block_hash': '', 'index': 0, 'processed_transactions': []}, {'previous_block_hash': '-0-[]', 'index': 1, 'processed_transactions': []}]
+
+
+
+
+
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+AGORA TEMOS UMA LIST DE STRINGS, QUE É ENTÃO CONCATENADA NESSA LONGA STRING...
+
+
+
+
+
+
+
+
+
+--> OK, ESSAS SÃO UMAS FEATURES BEM NICE, aqui... 
+
+
+--> LIST COMPREHENSIONS E ESSA FUNCTION DE 'join'...

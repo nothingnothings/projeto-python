@@ -1,0 +1,186 @@
+
+
+
+
+
+
+
+
+
+
+
+--> RESUMO DO MÓDULO...
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS UM MONTE DE COISAS DIFERENTES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS:
+
+
+
+
+
+
+
+
+1) QUE PODEMOS CRIAR 'CUSTOM PACKAGES'/modules por meio do 
+
+arquivo '__init__.py' 
+
+
+DENTRO DE UM FOLDER COM VÁRIOS ARQUIVOS '.py'...
+
+
+
+
+
+
+
+
+2) APRENDEMOS SOBRE COMO PODEMOS 'KIND OF' CONTROLAR EXPORTS COM a variable de '__all__',
+
+
+e que ela não é mt boa... (bem limitada, só funciona com 'import *')...
+
+
+
+
+
+
+
+3) APRENDEMOS QUE PODEMOS CONTROLAR A EXECUÇÃO DE MÓDULOS (quais módulos podem ser executados em qual ordem, e quais não podem)
+
+COM 
+
+
+A SPECIAL VARIABLE DE '__name__'....
+
+
+
+(
+    QUE MOSTRA '__main__' se seu arquivo ESTÁ SENDO EXECUTADO DIRETAMENTE,
+
+    OU ENTÃO 
+
+
+    'nome do módulo que o importou',
+
+    SE 
+
+    ESSE ARQUIVO ESTÁ SENDO IMPORTADO POR OUTRO...
+)
+
+
+
+
+
+
+
+
+
+
+
+----> VIMOS TAMBÉM THIRD PARTY PACKAGES,
+
+
+QUE PODEM SER INSTALADAS OU COM O 'pip'
+
+
+OU COM A 'anaconda',
+
+
+QUE 
+O 
+
+PROFESSOR DIZ QUE 
+É MAIS CONVENIENTE E MENOS ERROR PRONE...
+
+
+
+
+
+
+
+
+
+
+
+----> PROFESSOR EXPLICOU QUE TAMBÉM PODEMOS USAR O VIRTUAL ENVIRONMENT DA ANACONDA..
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR EXPLICOU QUE O 'import' com TPPs funciona DE FORMA SIMILAR AO IMPORTS DA STANDARD LIBRARYT,
+
+
+
+
+mas que 
+
+
+O 
+
+
+PACKAGE NAME das coisas PODE _ NÃO SER IGUAL _ AO 'imported name',
+
+
+infelizmente...
+
+
+
+
+
+
+
+
+-> USAMOS TUDO ISSO NA NOSSA BLOCKCHAIN PARA IMPLEMENTAR O BÁSICO DE NOSSA PRIMEIRA WALLET...
+
+
+
+(
+    mas ainda não acabamos...
+)
+
+
+
+
+--> nossa blockchain ficou mais segura....
+
+
+EX>
+
+
+
+
+
+More on Python Modules: https://docs.python.org/3/tutorial/modules.html
+Using Anaconda: https://docs.anaconda.com/anaconda/
+PyCrypto Docs: https://pypi.org/project/pycrypto/
+
+

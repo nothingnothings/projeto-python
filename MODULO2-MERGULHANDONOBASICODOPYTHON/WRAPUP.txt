@@ -1,0 +1,509 @@
+
+
+
+
+
+
+
+
+
+ACABAMOS COM ESTE MÓDULO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS MT SOBRE PYTHON...
+
+
+
+
+
+
+
+
+
+
+
+---> aprendemos:
+
+
+
+
+
+1) que NOSSO CÓDIGO É ESTRUTURADO COM INDENTATIONS...
+
+
+
+
+
+
+2) ENTENDEMOS QUE NOSSOS 'BLOCK STATEMENTS' sempre precisam de ':' (como functions, if statements, etc)... --> APRENDEREMOS SOBRE BLOCK STATEMENTS DIFERENTES NO PRÓXIMO MÓDULO...
+
+
+
+
+
+
+3) ENTENDEMOS QUE FUNCTIONS SÃO DEFINIDAS COM 'def', essa keyword especial..
+
+
+
+
+
+
+
+
+
+4) APRENDEMOS, ADEMAIS, QUE DEVE SER SEGUIDA A RECOMENDAÇÃO 'PEP 8', sobre PYTHON CODING STYLE, para estilizar nosso código...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SOBRE FEATURES, APRENDEMOS:
+
+
+
+
+
+
+1) DATA TYPES:
+
+
+a) NUMBERS (integers e floats)
+
+
+b) STRINGS 
+
+
+c) BOOLEANS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> 2) OPERATORS: 
+
+
+
+
+
+1) aritméticos --> +, -, /, *
+
+
+
+2) MODULUS OPERATOR -->  NÓS DEIXA PEGAR _ O 'REMAINDER' DE UMA DIVISÃO.... --> é '%' -->  ex (15 dividido por 10) --> O 'REMAINDER' é 5, pq 5 CERTAMENTE SOBRARÁ...
+
+
+
+3) FLOOR DIVISION --> '//' -->   SEMPRE VAI RETORNAR UM 'INTEGER' em vez de uma float --> ex: 15 dividido por 10, vai retornar '1' (pq esse 1 era, na verdade, '1,xxxxxx', mas arredondamos para 1... o floor desse negócio)....
+
+
+
+4) POWER OPERATOR --> ** ---> 2 ** 3 ----> RESULTA EM 8, PQ 2 NA 3 É 8....
+
+
+
+
+
+5) APRENDEMOS QUE STRINGS 
+
+
+PODEM __ SER ADICIONADAS_ E MULTIPLICADAS (meio inútil, mas faz coisas como stringstringstringstring)...
+
+
+
+
+
+--> APRENDEMOS TAMBÉM QUE MULTIPLICATION SÓ FUNCIONA COM 1 STRING E 1 NUMBER (é o número vezes a string)...
+
+
+
+
+
+--> APRENDEMOS QUE MULTIPLICATION _ TAMBÉM NÃO FUNCIONA COM '1 FLOAT E 1 STRING'..
+
+
+
+
+
+
+
+
+-> adições só funcionam com 2 numbers ou 2 strings...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM ESTUDAMOS LISTS:
+
+
+
+
+
+
+
+
+
+1) COMO CRIAR LISTS, COM '[]'...
+
+
+
+
+
+
+
+2) APRENDEMOS SOBRE COMO PODEMOS _ aDICIONAR_ ITEMS A LISTS, POR MEIO DA FUNÇÃO DE 'list.append()'...
+
+
+
+
+
+
+
+
+3) APRNEDEMOS QUE PODEMOS ACESSAR ITEMS POR MEIO DO INDEX/de index,
+
+
+
+QUE SEMPRE COMEÇA COM '0'... (comçea pelo 0)... 
+
+
+
+
+
+
+
+4) APRENDEMOS QUE PODEMOS USAR '-1' 
+
+PARA PEGAR O 'LAST VALUE' de uma list...
+
+
+
+
+
+
+
+
+
+
+
+5) APRENDEMOS QUE EXISTEM OUTROS LIST OPERATORS,
+
+COMO 
+
+'pop' e '.append()'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> APRENDEMOS SOBRE _ FUNCTIONS_...
+
+
+
+
+
+
+A) APRNEDEMOS QUE INDENTATIONS E ':' DEFINEM OS CODE BLOCKS...
+
+
+
+
+
+
+
+B) APRENDEMOS QUE PODEMOS USAR ARGUMENTS... 
+
+
+
+
+
+C) APRENDEMOS QUE PODEMOS FAZER RETURN DE VALUEs....
+
+
+
+
+
+D) APRENDEMOS QUE PODEMOS USAR 'DEFAULT ARGUMENTS',
+
+
+
+
+
+como 
+
+
+
+
+def get_name(arg1, arg2='default'):
+    print(arg2)
+
+
+
+
+
+
+
+
+    QUE SÃO 
+
+
+
+    ARGUMENTS QUE NOS __ PERMITEM_ _ FAZER CALL DESSA FUNCTION SEM PASSAR 
+
+
+    esse argument específico (cujo valor será tido como aquele 'default' definido com '='....)
+
+
+
+
+
+
+
+
+
+
+
+
+----> TAMBÉM APRENDEMOS QUE PODEMOS FAZER ASSIGN DE VALUES/DATA 
+
+
+
+
+A __ ARGUMENTS _ POR MEIO DE SEUS NAMES na call,
+
+
+SEM PRECISAR RECORRER A ORDEM....
+
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+add_value(last_transaction=get_last_blockchain_value(),
+          transaction_amount=get_user_input()) 
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO TAMBÉM NOS DEIXA 'OMITIR' CERTOS ARGUMENTS, por meio da simples omissão deles (é só você não mencionar, que ele será 'ignorado'/não passado, o que TRIGGARÁ O 'DEFAULT ARGUMENT' da função, se esse default argument TIVER SIDO DEFINIDO....)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> POR FIM, APRENDEMOS SCOPE...
+
+
+
+
+
+
+
+
+
+
+--> GLOBAL --> É O VISTO EM VARIABLES DEFINIDAS _ NO LAOD __DE FORA __ DE FUNCTIONS....
+
+
+
+
+
+
+
+
+
+
+--> LOCAL --> VARIABLES ARMAZENADAS __ DENTRO DE FUNCTIONS...
+
+-----------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+OK, AGORA DEVEMOS VER O _ STATUS_ DE NOSSA BLOCKCHAIN:
+
+
+
+
+
+
+
+
+1) CHAIN OF DATA --> JÁ TEMOS... --> temos uma list of data... --> CLARO QUE É SÓ UMA BASIC IMPLEMENTATIOn...
+
+
+
+
+
+
+2) MINE NEW BLOCKS --> O MINE BÁSICO, É CLARO.... ----> ATÉ AGORA SÓ ESTAMOS PEDINDO POR USER INPUT, O QUE NÃO É BEM MINING....
+
+
+
+
+3) BLOCK HASHING --> DE MANEIRA BÁSICA, JÁ 'SOMOS CAPAZES DE HASHEAR NOSSO BLOCK' --> ISSO PQ _ JÁ ESTAMOS ''''RECEBENDO A DATA DO PREVIOUS BLOCK''' no nosso novo block... --> é claro que ainda NÃO ESTAMOS TIRANDO VANTAGME DESSE FATO (o hash ainda não foi implementado), 
+
+AINDA NÃO SOMOS CAPAZES DE 'ANALYZE OUR DATA' com base nisso,
+
+mas 
+
+
+JÁ É UMA PRIMEIRA ETAPA...
+
+
+
+
+
+
+
+
+
+
+
+AINDA FALTAM:
+
+
+
+
+
+
+4) analyse e verify chain 
+
+
+
+
+
+
+5) real transactions 
+
+
+
+
+
+6) store chain to disk 
+
+
+
+7) node network 
+
+
+
+
+
+8) share data, resolve conflicts 
+
+
+
+
+
+9) wallets
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> DEVEMOS VER ESSAS COISAS NOS OUTROS MÓDULOS....

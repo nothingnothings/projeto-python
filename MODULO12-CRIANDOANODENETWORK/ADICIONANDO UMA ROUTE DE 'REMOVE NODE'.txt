@@ -1,0 +1,849 @@
+
+
+
+
+
+
+
+
+
+--> JÁ CONSEGUI ESCREVER A LÓGICA DE ESSA FUNCIONALIDADE:
+
+
+
+
+@app.route('/node', methods=['DELETE'])
+def remove_node():
+    values = request.get_json()
+
+    if (not values):
+        response = {
+            'message': 'No data attached.'
+        }
+        return jsonify(response), 400
+    if ('node' not in values):
+        response = {
+            'message': 'No node detected in the request.'
+        }
+    
+    node = values['node']
+    blockchain.remove_peer_node(node)
+    nodes = blockchain.get_peer_nodes()
+
+    response = {
+        'message': 'Node removed successfully.',
+        'all_nodes': nodes
+    }
+
+    return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> ENTRETANTO, PROFESSOR NOS EXPLICA QUE NORMALMENTE COM 
+
+
+    REQUESTS DE TIPO   'DELETE' NÓS NÃO COLOCAMOS 
+
+
+
+    O ID/VALUE 
+
+
+
+    A 
+
+    SER DELETADO _ LÁ NO REQUEST BODY,
+
+
+
+    E SIM COLOCAMOS _ _NA PRÓPRIA URL _ ACESSADA PELO USER... (url dinâmica, paths dinÂmicos, query params)...
+
+
+
+
+
+
+
+
+
+    -> acho que para isso provavelmente escreveremos algo como 
+
+
+
+
+
+
+
+    @app.route('/node/:nodeId', methodw=['DELETE'])
+
+
+
+
+
+
+
+
+
+    -> aí vamos precisar USAR ALGUM METHOD PARA EXTRAIR ESSE VALUE LÁ 
+
+    DE NOSSA URL,
+
+
+esse id aí....
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS EU ESTAVA ENGANADO... A SINTAXE DO FLASK É __ DIFERENTE....__-....
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSEGUIR __ ADICIONAR UM 'SEGMENTO DINÂMICO',
+
+
+
+vocÊ precisa, com o FLASK,
+
+escrever algo assim:
+
+
+
+
+
+
+
+'/node/<node_url>'
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO AÍ VAI SER SUBSTITUÍDO PELO VALUE QUE VOCê INPUTTA QUANDO ENVIA O REQUEST...
+
+
+
+
+
+
+
+
+ok.... o código fica assim:
+
+
+
+
+
+
+@app.route('/node/<nodeId>', methods=['DELETE'])  ##é assim que escrevemos SEGMENTOS DINÂMICOS NO FLASK...
+def remove_node():
+    values = request.get_json()
+
+    if (not values):
+        response = {
+            'message': 'No data attached.'
+        }
+        return jsonify(response), 400
+    if ('node' not in values):
+        response = {
+            'message': 'No node detected in the request.'
+        }
+    
+    node = values['node']
+    blockchain.remove_peer_node(node)
+    nodes = blockchain.get_peer_nodes()
+
+    response = {
+        'message': 'Node removed successfully.',
+        'all_nodes': nodes
+    }
+
+    return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> AGORA TENHO QUE TESTAR ESSE CÓDIGO NO POSTMAN, 
+
+
+
+basta formular o request tipo assim:
+
+
+
+
+
+
+
+localhost:5000/node/21481209-4810-948-809-098as
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, MAS __ COMO __ EXTRAÍMOS_ _ ESSE 'SEGMENTO DINÂMICO?'
+
+
+
+
+
+
+--> provavelmente vamos precisar de um OUTRO PACKAGE DO FLASK...
+
+
+
+
+
+
+
+
+
+
+
+ESCREVI O CÓDIGO ASSIM, MAS ESTÁ ERRADO:
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/node/<nodeId>', methods=['DELETE'])  ##é assim que escrevemos SEGMENTOS DINÂMICOS NO FLASK...
+def remove_node():
+    values = request.get_json()
+
+    query_param = request.query_string()
+    print(query_param)
+
+
+    if (not values):
+        response = {
+            'message': 'No data attached.'
+        }
+        return jsonify(response), 400
+    if ('node' not in values):
+        response = {
+            'message': 'No node detected in the request.'
+        }
+    
+    node = values['node']
+    blockchain.remove_peer_node(node)
+    nodes = blockchain.get_peer_nodes()
+
+    response = {
+        'message': 'Node removed successfully.',
+        'all_nodes': nodes
+    }
+
+    return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ESTÁ ERRADO PQ ESSE METHOD de 'query_string()"
+
+
+NÃO É USADO ASSIM...
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA CONSEGUIR __ O SEU 'SEGMENTO DINÂMICO' nessa function/route de 'remove_node',
+
+
+
+BASTA 
+
+
+REFERENCIAR 
+
+'node_url'
+
+
+
+NO SLOT DE PARÂMETROS, TIPO ASSIM:
+
+
+
+
+
+@app.route('/node/<nodeId>', methods=['DELETE'])  ##é assim que escrevemos SEGMENTOS DINÂMICOS NO FLASK...
+def remove_node(nodeId):
+    values = request.get_json()
+
+
+
+
+    if (not values):
+        response = {
+            'message': 'No data attached.'
+        }
+        return jsonify(response), 400
+    if ('node' not in values):
+        response = {
+            'message': 'No node detected in the request.'
+        }
+    
+    node = values['node']
+    blockchain.remove_peer_node(node)
+    nodes = blockchain.get_peer_nodes()
+
+    response = {
+        'message': 'Node removed successfully.',
+        'all_nodes': nodes
+    }
+
+    return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, ESTÁ FUNCIONANDO... FICOU ASSIM:
+
+
+
+
+
+@app.route('/node/<nodeId>', methods=['DELETE'])  ##é assim que escrevemos SEGMENTOS DINÂMICOS NO FLASK...
+def remove_node(nodeId): #o segmento dinâmico é repassado nessa function/route..
+
+    query_param = nodeId
+    print(query_param, 'LINE')
+
+    if (not query_param):
+        response = {
+            'message': 'No nodeId attached to url.'
+        }
+        jsonify(response), 400
+    
+    blockchain.remove_peer_node(nodeId)
+    nodes = blockchain.get_peer_nodes()
+
+    response = {
+        'message': 'Node removed successfully.',
+        'all_nodes': nodes
+    }
+
+    return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ---> AGORA REALMENTE CONSEGUIMOS 'ADICIONAR/REMOVER NODES' ao nosso app..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> professor coloca alguns if checks para aumentar a segurança...
+
+
+
+
+
+
+
+
+
+
+
+
+    if nodeId == '' or nodeId == None,
+
+
+
+
+
+
+    VAMOS QUERER SIMPLESMENTE NÃO CONTINUAR...
+
+
+
+
+
+
+
+    FICA TIPO ASSIM:
+
+
+
+
+
+
+    
+@app.route('/node/<nodeId>', methods=['DELETE'])  ##é assim que escrevemos SEGMENTOS DINÂMICOS NO FLASK...
+def remove_node(nodeId): #o segmento dinâmico é repassado nessa function/route..
+
+    query_param = nodeId
+    print(query_param, 'LINE')
+
+    if (query_param == '' or query_param == None):
+        response = {
+            'message': 'No nodeId attached to url.'
+        }
+        jsonify(response), 400
+    
+    blockchain.remove_peer_node(nodeId)
+    nodes = blockchain.get_peer_nodes()
+
+    response = {
+        'message': 'Node removed successfully.',
+        'all_nodes': nodes
+    }
+
+    return jsonify(response), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -----> certo....
+    
+
+
+
+
+
+
+
+    -> professor fez exatamente o que eu fiz...
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -> AGORA VAMOS TESTAR SE ISSO FUNCIONA...
+
+
+
+
+
+
+
+
+
+
+
+
+    -------> mas o professor aponta que 
+
+    NOSSO APP TEM UMA PEQUENA IMPERFEIÇÃO...
+
+
+
+
+
+
+
+
+
+
+
+
+    ---> não sei o que é...
+
+
+
+
+
+
+
+
+
+
+
+
+    --> é algo a ver com o 'save' de novos nodes...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --> BEM, O ERRO É ASSIM:
+
+
+
+
+
+
+
+
+    1) ADICIONAMOS VÁRIOS 'nodes' ao arquivo 'blockchain.json', 
+
+
+    e eles passam a existir como a 'última linha' desse arquivo...
+
+
+
+
+
+
+
+    2) QUITTAMOS O SERVER 
+
+
+
+    3) ABRIMOS O SERVER  DE NOVO...
+
+
+
+4) TENTAMOS ADICIONAR UM NOVO 'NODE'.. -> isso vai  APAGAR TODOS OS 
+
+'NODES' ANTIGOS E DEIXAR APENAS ESSE NODE 
+
+ATUAL 
+
+
+
+dentro do array... (vai overwrittar todos os nodes antigos com esse node mais recente)..
+
+
+
+
+
+
+
+
+
+
+
+-> PQ ISSO ACONTECE?
+
+
+
+
+
+
+-> PROVAVELMENTE TEM A VER COM O 'INITIALIZE' DE NOSSA BLOCKCHAIn (com '__init__')...
+
+
+
+
+
+
+
+
+
+-> BEM, O CÓDIGO DE INIT É:
+
+
+
+
+
+class Blockchain:
+
+    def __init__(self, hosting_node_id):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+
+        self._chain = [GENESIS_BLOCK]
+        self.__open_transactions = []
+        self.participants = {'Max'}
+        self.load_data()
+        self.hosting_node = str(hosting_node_id)
+        self.__peer_nodes = set()
+
+
+
+
+
+
+-----> como você pode ver,
+
+
+
+
+nosso 
+
+'peer_nodes'
+COMEÇA COMO UM _ EMPTY SET... --> É ISSO QUE ESTÁ CAUSANDO O PROBLEMA...
+
+
+
+
+
+
+
+
+--> COMO SOLUCIONAR?
+
+
+
+
+
+
+
+
+
+
+-> TALVEZ ADICIONANDO UM NOVO METHOD EM 'blockcahin',
+
+
+ALGO COMO 'load_peer_nodes'... (
+    a ser executado lá no CONSTRUCTOR 
+
+
+    de 
+
+    'blockchain' mesmo..
+)
+
+
+
+
+
+
+
+
+
+
+--> CONSERTEI.. NÃO PRECISEI DESSE METHOD AÍ, 
+
+BASTOU REMOVER O 
+
+
+
+'self.__peer_nodes = set()'
+
+LÁ DO CONSTRUCTOR:
+
+
+
+class Blockchain:
+
+    def __init__(self, hosting_node_id):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+
+        self._chain = [GENESIS_BLOCK]
+        self.__open_transactions = []
+        self.participants = {'Max'}
+        self.load_data()
+        self.hosting_node = str(hosting_node_id)
+        # self.__peer_nodes = set()
+        # FileAccess.load_data(self.chain, self.__open_transactions)
+
+
+
+
+
+-> MAS PODEMOS TROCAR  DE POSIÇÃO ( e não apagar por inteiro),
+
+
+
+COLOCAR O 'self._peer_nodes' NA FRENTE DE 'self.load_data()'....
+
+
+
+
+
+
+EX:
+
+
+
+
+
+    def __init__(self, hosting_node_id):
+        GENESIS_BLOCK = Block('', 0, [], 100, 0)
+
+        self._chain = [GENESIS_BLOCK]
+        self.__open_transactions = []
+        self.participants = {'Max'}
+        self.__peer_nodes = set()
+        self.load_data()
+        self.hosting_node = str(hosting_node_id)
+        #   self.__peer_nodes = set()
+        # FileAccess.load_data(self.chain, self.__open_transactions)
+
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+-----> ok... agora nosso 'loaded nodes'
+
+não serão resettaods por conta desse assignment...
+
+
+
+
+
+
+
+
+
+
+
+--> ok, o delete do node está FUNCIONANDO...
+
+
+
+
+
+
+
+
+
+--> VAMOS ACABAR O ASSUNTO DOS NODES COM O 'FETCHING DE NODES',
+
+E AÍ 
+
+VEREMOS 
+
+
+
+NOSSA 'GRAPHCAL USER INTERFACE' de novo..

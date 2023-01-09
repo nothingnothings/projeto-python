@@ -1,0 +1,588 @@
+
+
+
+
+
+
+
+
+
+
+-------> AGORA DEVEMOS DAR UMA BREVE OLHADA EM COMO ___ DEVEMOS TRABALHAR
+
+
+
+COM STRINGS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> STRINGS SÃO REALMENTE DE FÁCIL USO..
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+
+
+name = 'your string'
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> OK... PODEMOS USAR OU '' ou "" 
+
+
+
+
+
+
+
+
+
+
+--> mas não pdoemos os combinar... 
+
+
+
+
+
+
+
+
+--> devemos ficar CONSISTENTES COM SEU USO..
+
+
+
+
+
+
+
+
+
+
+--> A VANTAGEM DE "" 
+
+
+
+
+
+
+é que podemos usar o '' 
+
+COMO PARTE DO TEXTO DE SEU INTERIOR, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+" I'm pretty cool!" 
+
+
+
+
+
+
+
+
+--> ISSO SERÁ ACEITO...
+
+
+
+
+
+
+
+
+
+
+
+--> já a versão com '' 
+
+vai falhar:
+
+
+
+
+'I'm pretty cool'  -------> ISSO VAI FALHAR...
+
+
+
+
+
+
+
+
+
+
+
+--> MAS HÁ UMA MANEIRA DE EVITAR ISSO....
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ PODE FAZER 'ESCAPE' DESSE CARACTER,
+
+
+
+por meio da escrita de '\' (BACKSLASH) 
+
+
+ANTES DO '...
+
+
+
+
+
+
+tipo assim:
+
+
+
+>>> 'I'm pretty cool!'  
+  File "<stdin>", line 1
+    'I'm pretty cool!'
+    ^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+>>>
+>>> 'I\'m pretty cool!'
+"I'm pretty cool!"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+SE VOCÊ FOR USAR (') 
+
+
+dentro de uma frase, JUNTO COM '' wrappando,
+
+vocÊ deve usar o BACKSLASH para 'escape' esse caracter...
+
+
+
+
+
+
+
+
+
+
+
+'I\'m pretty cool!'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> OK.... 
+
+
+
+
+
+MAS SE VOCÊ CHAMAR ISSO NO CÓDIGO, ELE VAI TE MOSTRAR 
+
+A VERSÃO 
+
+
+com "" wrappando, e não ''....
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+>>> test = 'I\'m pretty cool!'
+>>> test
+"I'm pretty cool!"
+>>>
+
+
+
+
+
+
+
+
+------------------------------
+
+
+
+
+
+
+
+
+
+MAS SE VOCÊ TIVER UM __ TEXTO__ UM POUCO _ MAIOR__ NO SEU CÓDIGO,
+
+
+
+
+
+VOCê 
+
+
+ÀS VEZES VAI QUERER TER 
+
+'MULTI-LINE TEXT'... 
+
+
+
+
+
+
+(
+
+
+
+    no javascript, conseguíamos fazer isso por meio de `` template literal...
+)
+
+
+
+
+
+
+
+
+
+
+
+-----> JÁ NO PYTHON,
+
+NÓS CRIAMOS 
+
+
+'MULTI-LINE TEXT' POR MEIO DO 
+
+USO DE 
+
+
+
+3 
+
+" CONSECUTIVOS WRAPPANDO,
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+""" multi-line text, podemos escrever 
+textos multilinha como queremos, é bem fácil,
+como você pode observar """
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+>>> texto = """ multi-line text, podemos escrever 
+... textos multilinha como queremos, é bem fácil,
+... como você pode observar """
+>>> texto
+' multi-line text, podemos escrever \ntextos multilinha como queremos, é bem fácil,\ncomo você pode observar '
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> NO MEIO DESSES """ """ COLOCAMOS 
+
+
+NOSSO TEXTO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+>>> longer_text = """ blablabalblalblalbalblalblalbla
+... blablalblalblalblabla
+... blalbalblablalblablal """
+>>> longer_text
+' blablabalblalblalbalblalblalbla\nblablalblalblalblabla\nblalbalblablalblablal '
+
+
+
+
+
+
+
+
+
+
+
+
+-------> MAS SE VOCê OUTPUTTAR ESSE NEGÓCIO, COM A ESCRITA DA VARIÁVEL,
+
+VOCÊ 
+
+VERÁ 
+
+QUE ELE SERÁ OUTPUTTADO COM 
+
+
+'\n' 
+
+
+
+no output... 
+
+
+
+
+
+
+
+mas o que é '\n' ?
+
+
+
+
+
+
+
+É O SÍMBOLO/MARCAÇÃO USADO PARA 'LINE BREAKS'...
+
+
+
+
+
+
+ex:
+
+
+' blablabalblalblalbalblalblalbla\nblablalblalblalblabla\nblalbalblablalblablal '
+
+
+
+
+
+
+é, na verdade,
+
+
+
+blablabalblalblalbalblalblalbla
+blablalblalblalblabla
+blalbalblablalblablal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> ISSO MARCA UMA LINE BREAK.... -> MAS 
+
+
+
+
+O 
+
+USO DE 
+
+"""
+
+
+DEIXA 
+
+O TYPE DAS STRINGS BEM MAIS CONVENIENTE,
+
+PQ 
+
+
+TE DEIXA 
+
+
+INPUTTAR ESSA STRING AO LONGO DE MÚLTIPLAS LINHAS....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR VAI VOLTAR 
+
+AO TRABALHO COM STRINGS MAIS TARDE NO CURSO....
+
+
+
+
+
+
+
+
+
+
+
+--> mas por enquanto é bom saber que 
+
+
+
+você pode ter DOUBLE OU SINGLE QUOTATION MARKS,
+
+
+OU TRIPLE 
+
+
+QUOTATION MARKS,
+
+PARA 
+
+
+
+
+TEXTO DE MÚLTIPLAS LINHAS...

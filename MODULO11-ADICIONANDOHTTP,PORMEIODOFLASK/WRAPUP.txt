@@ -1,0 +1,189 @@
+
+
+
+
+
+
+
+
+
+ACABAMOS COM ESTE MÓDULO...
+
+
+
+
+
+
+
+
+VIMOS:
+
+
+
+
+
+
+1) COMO INTEGRAR FUNCIONALIDADES DE HTTP COM O PYTHON  
+
+
+
+
+
+
+
+
+
+2) NÓS CRIAMOS UM SERVER COM O PYTHON, POR MEIO DO FLASK.... -> CRIAMOS UMA API DE SERVIDOR,.
+
+
+
+
+E FOI EXTREMAMENTE FÁCIL... --> pouco código..
+
+
+
+
+--> há alternativas ao flask, é claro...
+
+
+
+
+
+
+
+
+
+
+
+3) DESCOBRIMOS QUE VOCê  CRIA ENDPOINTS/ROUTES por meio do define de um 'path'
+
+e o 'http type'... 
+
+
+
+
+
+
+
+
+4) DESCOBRIMOS QUE PODEMOS EXTRAIR 'VALUES' E RETORNAR JSON, HTML, ETC RESPONSES.. 
+
+(
+
+
+    essa é uma parte crucial de qualquer api/webserver...
+)
+
+
+
+
+
+
+5) DESCOBRIMOS QUE É IMPORTANET HANDLAR ERROR CASES E ERROR RESPONSES...
+
+
+
+
+
+
+6) DESCOBRIMOS QUE VOCÊ PODE CONECTAR QUALQUER APP AO NOSSO SERVER,
+
+
+PODE SER UM DESKTOP APP,
+
+MOBILE APP,
+
+qualquer coisa msm (até mesmo o postman)...
+
+
+
+
+7)  BEM, MAS  HÁ UMA RESTRIÇÃO:
+
+
+NOSSO SERVER ESTÁ RODANDO SÓ NA NOSSA MÁQUINA,
+
+
+
+o que quer dizer que 
+
+
+
+SE VOCê NÃO ABRIR SEU PC AO NETWORK,
+
+SEUS 
+
+MOBILE APPS TERÃO PROBLEMA COM O CONNECT (nodes que existem FORA/REMOTAMENTE AO SEU PC)...
+
+
+
+
+
+
+
+
+
+
+
+
+-> COM ISSO,
+
+
+
+
+CONSTRUÍMOS A PRIMEIRA PARTE DE UMA 'NODE NETWORK'...
+
+
+
+
+
+
+
+
+
+
+-> MAS AINDA NÃO É UMA NETWORK, PQ 
+
+POR ENQUANTO É SÓ  
+
+UM NODE 
+,
+
+
+NODE QUE PODEMOS CONTROLAR ATRAVÉS DE UMA WEB INTERFACE...
+
+
+
+
+
+
+
+
+
+
+-> QUEREMOS CONECTAR OUTROS NODES A NÓS,
+
+TUDO PARA QUE 
+
+CONSIGAMOS TER UMA 'BLOCKCHAIN DESCENTRALIZADA',
+
+PQ AGORA AINDA É CENTRALIZADA (Existe só no nosso pc)...
+
+
+
+
+
+
+
+
+
+--> NO PRÓXIMO MÓDULO ADICIONAREMOS OUTROS NODES,
+
+E AÍ VEREMOS COMO ADICIONAMOS 
+
+DATA 
+
+
+E 
+
+RESOLVEMOS __CONFLICTs__ ENTRE ESSES NODES... 

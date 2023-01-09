@@ -1,0 +1,1398 @@
+
+
+
+
+
+
+FUNCTIONS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> O QUE SÃO FUNCTIONS?
+
+
+
+
+
+
+
+
+
+
+--> SE USAMOS BUILT-IN FUNCTIONS
+,
+
+
+ganhamos alguma utilidade.... --> OCORRE 'MÁGICA POR TRÁS DAS CENAS'...
+
+
+
+
+
+
+
+
+
+--> MAS FUNCTIONS PODEM SER ESCRITAS POR NÓS,
+
+E NOS 
+
+DEIXAM
+ 
+
+
+ ESCREVER CÓDIGO QUE É EXECUTADO DEPOIS,
+
+
+ E POSSIVELMENTE MÚLTIPLAS VEZES....
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> PARA _ _DEFINIR __ UMA FUNCTION NO PYTHON,
+
+ A SINTAXE NÃO É 
+
+
+
+
+
+ function nomeDaFunção() {
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+ --> A SINTAXE É:
+
+
+
+
+
+
+
+
+ def greet(): 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> É DIFERENTE COM O JAVASCRIPT, CLARO..
+
+
+
+
+
+
+
+
+
+
+
+
+ -> ISSO QUER DIZER QUE O PYTHON USA 'def' EM VEZ DA KEYWORD 'function',
+
+
+ E USA 
+
+
+
+ ':' 
+
+ EM VEZ DE 
+
+ '{}'...
+
+
+
+
+
+
+
+ -------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ --> MAS  AÍ O PYTHON USA ALGO _ QUE NÃO EXISTE__ NO 
+
+ JAVASCRIPT...
+
+
+
+
+
+
+
+
+
+ --> ELE USA AQUILO QUE É CONHECIDO COMO 'INDENTATION'... 
+
+
+  
+
+
+  --> INDENTAÇÕES...
+
+
+
+
+
+
+
+
+
+  --> ESPAÇOS BRANCOS PARA A ESQUERDA, TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+def greet():
+    print('Hello') 
+
+
+
+
+
+
+
+
+
+--> É UM ESPAÇO EM BRANCO NA ESQUERDA... -----> PARECE QUE O VALOR É SEMPRE '4 ESPAÇOS EM BRANCO',
+
+
+e isso 
+
+é obtido por meio de um SIMPLES 'TAB'...
+
+
+
+
+
+
+
+--> OU SEJA,
+
+
+
+
+
+
+
+ESCREVER 
+
+
+
+def greet():
+    print('Hello')
+
+
+
+
+
+
+    É A  MESMA COISA QUE ESCREVER 
+
+
+
+
+    function greet() {
+        console.log('Hello')
+    }
+
+
+
+
+
+
+
+
+
+    ----> OK....
+
+
+
+
+
+
+
+
+
+    --> SE VOCÊ QUISER_ CHAMAR UMA FUNÇÃO QUE JÁ FOI DEFINIDA POR VOCÊ,
+
+    VOCê 
+
+
+
+
+    CHAMA ASSIM:
+
+
+
+
+
+
+
+
+
+    greet()
+
+
+
+
+
+
+
+
+
+    -------> QUANDO VOCÊ DEFINE UMA FUNCTION PELA PRIMEIRA VEZ, NADA ACONTECE...
+
+
+
+--> O PYTHON VAI RECONHECER ESSE CÓDIGO, MAS NÃO VAI RODAR O CÓDIGO DENTRO DA FUNCTION..
+
+
+
+
+
+
+
+    --> SÓ QUANDO VOCÊ __ CHAMAR__ ESSA FUNCTION,
+
+
+
+    por meio de 
+
+    'xxxx()',
+
+
+
+
+
+
+    VOCÊ VAI VER ESSE CÓDIGO DA FUNCTION SENDO EXECUTADO....
+
+
+
+
+
+
+
+
+
+
+--> QUANTO À SINTAXE,
+
+VOCê DEVE 
+
+SABER QUE 
+
+EM 
+PYTHON,
+
+
+
+
+
+NÃO SÓ EM FUNCTIONS,
+
+MAS 
+
+
+__ EM TODA __ PARTE,
+
+
+VOCÊ 
+
+
+
+
+_ NÃO _ VAI USAR/NUNCA VAI ADICIONAR 
+
+';'
+
+
+
+
+AO FINAL DAS LINHAS (pq não é javascript)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VOCÊ NÃO USA CURLY BRACES,
+
+VOCê USA ___ INDENTATION...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ALERTA ---> O PROFESSOR DIZ QUE DEVEMOS USAR '4 INDENTATIONS',
+
+
+EM VEZ DE 'TAB', aqui...
+
+
+
+
+
+
+
+
+
+
+
+--> OK.... MAS A BOA NOTÍCIA É QUE EM IDES COMO 
+O 
+
+
+
+VISUAL STUDIO CODE,
+
+
+
+
+O 
+
+
+TAB BUTTON VAI 
+
+ACTUALLY SEMPRE 
+
+
+
+INPUTTAR 4 ESPAÇOS PARA NÓS (isso é bem conveniente)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO É BEM LEGAL....
+
+
+
+
+
+
+
+--> DE VOLTA à FUNCTION.......
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSA FUNCTION É BEM SIMPLES,
+
+
+
+SÓ OUTPUTTA ALGO:
+
+
+
+
+
+
+def greet():
+    print('Hello')
+
+
+
+
+
+
+
+
+
+
+--> BEM, DEVEMOS USAR ESSA FUNCTION EM CONJUNTO COM NOSSA BLOCKCHAIn...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> COMEÇAMOS A BUILDAR NOSSO BLOCKCHAIN COM A AJUDA DE 
+
+FUNCTIONS..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-_> O PROFESSOR RECRIA A VARIABLE DE BLOCKCHAIN,
+
+
+
+
+
+
+AQUELA LIST LÁ... ( não precisamos de var/let/const, só precisamos escrever o nome de nossa variable)..
+
+
+
+
+
+
+
+
+
+
+
+
+--> SERÁ UMA LIST VAZIA NO INÍCIO...
+
+
+
+
+
+
+
+
+
+
+TIPO ASSIM:
+
+
+
+
+
+
+
+
+
+
+
+print('STARTED')
+
+
+
+
+
+
+
+
+
+blockchain = []
+
+
+
+
+
+
+
+
+
+
+def add_value():
+    
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------
+
+
+
+
+
+
+
+
+
+COMO VOCÊ PODE VER, JÁ ESTAMOS USANDO AQUELA NAMING CONVENTION DO PYTHON, QUE É 
+
+
+'add_value' em vez de 'addValue'....
+
+
+
+
+
+
+
+
+
+
+
+-> ISSO TBM SE APLICA A FUNCTIONS, ESSENCIALMENTE..
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, QUANDO DEFINIMOS UMA FUNCTION,
+
+
+PRECISAMOS DE '()' e ':' ...
+
+
+
+
+
+
+
+
+
+
+
+
+----> SE DIGITARMOS 'enter' 
+
+NO VISUAL STUDIO CODE,
+
+
+
+
+JÁ 
+
+
+CONSEGUIMOS INDENTAR CERTINHO....
+
+
+
+
+
+
+
+
+
+
+--> NA PARTE DE BAIXO,
+
+
+ESCREVMOS A LÓGICA QUE QUEREMOS QUE SEJA EXECUTADA
+,
+
+
+QUANDO CHAMARMOS ESSA FUNCTION...
+
+
+
+
+
+
+
+
+
+
+
+-> QUANDO DIGITARMOS 'blockchain',
+
+
+VEREMOS TODOS OS METHODS QUE PODEMOS USAR NESSA LIST/ARRAY....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS ESCREVER ALGO ASSIM:
+
+
+
+
+
+
+
+
+
+print('STARTED')
+
+
+
+blockchain = []
+
+
+
+def add_value(transaction):
+    blockchain.append(transaction)
+
+
+
+
+
+
+
+
+
+
+
+    --------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -----> O IDE DETECTA QUE ESTAMOS LIDANDO COM UMA LIST,
+
+    E QUE TEMOS CERTOS METHODS NESSA LIST...
+
+
+
+
+
+
+
+
+    -----> PROFESSOR QUER APPENDAR '5.3'....
+
+
+
+
+
+
+
+    ex:
+
+
+    
+
+print('STARTED')
+
+
+
+blockchain = []
+
+
+
+def add_value(transaction):
+    blockchain.append(5.3)
+    print()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------
+
+
+
+
+
+
+
+
+ELE TAMBÉM COLOCA ESSE CALL DE 'print', que usará para FAZER CONSOLE.LOG DA ÚLTIMA VERSÃO DA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+print('STARTED')
+
+
+
+blockchain = []
+
+
+
+def add_value(transaction):
+    blockchain.append(5.3)
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, AGORA QUEREMOS__ CHAMAR_ ESSA FUNCTION... --> fazemos 
+
+
+isso 
+
+chamadno 
+
+
+
+
+
+
+
+add_value()
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+print('STARTED')
+
+
+
+blockchain = []
+
+
+
+def add_value(transaction):
+    blockchain.append(5.3)
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> SHIFT + TAB, NO IDE --> REMOVE UMA INDENTATION ('pula' uma indentation... --> no caso, te permite RODAR UMA FUNCTION, PQ VOCÊ SAIRÁ DO CONTEXTO DA FUNCTION)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SHIFT + ENTER É OUTRO COMANDO QUE FAZ ALGUMA COISA, MAS AINDA NÃO SEI O QUE É...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> ok... mas o professor escreve assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+add_value() 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> E ISSO VAI ADICIONAR O ELEMENTO À LIST,
+
+
+
+
+
+
+
+E AÍ VAI OUTPUTTAR A LIST...
+
+
+
+
+
+
+
+
+
+
+
+--> ASSIM QUE ELE OUTPUTTAR A LIST, O PROGRAMA VAI ACABAR, E AÍ 'PERDERÁ SEU STATE' (se reexecutamos esse nosso código, nada do código antigo é mantido)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> SE VOCÊ QUISER QUE SEU 'STATE', o STATE DO SEU APP __ PERSISTE ENTRE RUNs,
+
+
+
+VOCÊ 
+
+
+
+PRECISARÁ __ 
+
+ARMAZENAR_ O 'STATE' (a 'list', no caso)
+
+
+EM UMA 
+
+FILE,
+
+QUE 
+
+É 
+
+
+ALGO QUE FAREMOS MAIS TARDE, CERTAMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK...
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+
+print('STARTED')
+
+
+blockchain = []
+
+
+def add_value(transaction):
+    blockchain.append(5.3)
+    print(transaction)
+    print(blockchain)
+
+
+add_value(2.5)
+add_value(2.5)
+add_value(2.5)
+add_value(2.5)
+add_value(2.5)
+add_value(2.5)
+
+
+
+
+
+
+
+STARTED
+2.5
+[5.3]
+2.5
+[5.3, 5.3]
+2.5
+[5.3, 5.3, 5.3]
+2.5
+[5.3, 5.3, 5.3, 5.3]
+2.5
+[5.3, 5.3, 5.3, 5.3, 5.3]
+2.5
+[5.3, 5.3, 5.3, 5.3, 5.3, 5.3]
+PS A:\projeto7-PYTHON\MODULO2-MERGULHANDONOBASICODOPYTHON\novoprojeto> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... VEREMOS QUE NOSSA CHAIN VAI AUMENTAR...
+
+
+
+
+
+
+
+
+
+
+
+--> POR ENQUANTO,
+
+
+SÓ ESTAMOS ARMAZENANDO FLOAT VALUES.... -> MAS O PROFESSOR EXPLICOU QUE 
+
+
+VAI 
+
+QUERER 
+
+ARMAZENAR 
+
+'NESTED LISTS'
+
+
+
+dentro de cada LIST... -> serão 
+
+
+
+
+
+
+
+LISTS DENTRO DE UMA LIST,
+
+
+
+
+ESSENCIALMENTE (
+
+
+
+    lists com TANTO AS OLD TRANSACTIONS, COMO AS NOVAS TRANSACTIONS...
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QUE O PROFESSOR VAI ESCREVER ASSIm:
+
+
+
+
+
+blockchain = []
+
+
+
+
+def add_value(transaction):
+    blockchain.append([blockchain, transaction])
+    print(blockchain)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------> ELE REFERENCIA A BLOCKCHAIN INTEIRA COMO VALUE..
+
+
+
+
+--> ENTRETANTO, ELE EXPLICA QUE A BLOCKCHAIN NÃO DEVERÁ SER 'INPUTADA INTEIRAMENTE',
+
+
+
+
+
+
+
+E SIM _ APENAS_ _ O ÚLTIMO __ VALOR 
+
+
+
+
+
+
+QUE 
+
+
+
+TEMOS ___ NESSA BLOCKCHAIN/LIST --------> ISSO SIGNIFICA QUE PRECISAMOS DE CERTO ___ INDEX_  
+
+
+NESSA LIST...
+
+
+
+
+
+
+
+
+
+--> E ESSE INDEX SERÁ DINÂMICO, É CLARO, PQ __ VAMOS QUERER QUE SEMPRE SEJA O 'ÚLTIMO VALOR DA LIST'..
+
+
+
+
+
+
+
+
+--> para isso, é CLARO QUE PODEMOS USAR ALGO COMO '.length',
+
+
+
+'.length - 1 '( pq o index é ZERO-BASED)....
+
+
+
+
+
+
+TENTEI FAZER ISSO, MAS NÃO FUNCIONOU...
+
+
+
+
+
+
+-> N FUNCIONOU PQ NÃO TENHO A FUNÇÃO/METHOD/PROPRIEDADE DE 'length' em arrays, no python (aparentemente)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ok... -> PRECISAMOS ACESSAR UM CERTO INDEX... ----> '[0]' é sempre o PRIMEIRO VALUE... 
+
+
+
+
+
+
+
+
+----> MAS SE TENTARMOS EXECUTAR ESSE CÓDIGO, VAMOS OBTER UM ERROR:
+
+
+
+
+
+
+
+
+'indexError: list index out of range'  -------> isso acontece/aconteceu 
+
+
+JUSTAMENTE PQ TENTAMOS ACESSAR 1 ELEMENTO QUE NÃO EXISTIA NO INÍCIO DE NOSSO CÓDIGO ( o código no início tem o blockchain como um array vazio, 
+
+
+
+
+
+
+
+
+
+
+------> OK... -----> MAS SE COMEÇARMOS COM UM VALOR DE 1,
+
+
+
+AÍ ISSO VAI FUNCIONAR.....
+
+
+
+
+
+
+
+
+-----> MAS AÍ SEMPRE TEREMOS ESSE '1' como primeiro valor, o que não é nada ideal....
+
+
+
+
+
+
+
+
+
+--------> MAS O PROFESSOR AGORA NOS EXPLICA QUE __ EXISTE__ UM _ TRUQUE_ CONVENIENTE 
+
+
+SOBRE O INDEXING,
+
+
+
+QUE 
+
+PODE NOS AJUDAR ___ A CONSEGUIR AQUELE __ LAST VALUE_...

@@ -1,0 +1,548 @@
+
+
+
+
+
+
+
+
+
+
+
+
+----> OK... DEMOS UMA OLHADA NA NOSSA PRIMEIRA CLASS,
+VIDE O CÓDIGO:
+
+
+
+
+
+
+# a sintaxe é assim, 'MultiPalavra' (exataemnte como no javascript)....
+class SportsCar:
+    top_speed = 100  # attribute/propriedade
+
+    # 'self' --> É ARGUMENTO AUTOMATICAMENTE 'PASSED IN' pelo python, ele automaticamente passa esse valor a todos os seus methods...  -> e 'self' TE DÁ ACESSO _ A TODOS __OS METHODS_ E ATTRIBUTES _ DE SUA CLASS..
+    def drive(self):
+        # print('I am driving, but certainly not faster than {}'.format(top_speed)) # não acesse seu attribute da class assim...
+        # acesse ASSIM...
+        print('I am driving, but certainly not faster than {}'.format(self.top_speed))
+
+
+# Nova instanciacao/objeto dessa class.... --> podemos rodar METHODS nisso...
+newSportsCar = SportsCar()
+
+
+newSportsCar.drive()
+
+
+
+
+
+
+-----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+ok, MAS AÍ UMA PERGUNTA QUE  VOCê PODE TER É:
+
+
+
+
+
+
+
+''QUAL A DIFERENÇA ENTRE UMA CLASS E UM DICTIONARY'''???
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PQ EM UM DICTIONARY,
+
+TAMBÉM PODEMOS DEFINIR 'VALUES'
+
+
+assim;
+
+também podemos definir KEY-VALUE PAIRS...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> E APESAR __ DE __ SER ___ IMPOSSÍVEL__ PASSAR 
+
+
+
+UMA FUNCTION COMO 'drive()'
+
+
+PARA DENTRO DE UM DICTIONARY,
+
+
+
+
+
+
+
+
+
+
+É CLARO QUE 
+
+
+
+__ PODEMOS __ 
+
+
+
+'''DEFINIR UMA __ FUNCTION ___ DEPOIS__ DO DICTIONARY'''
+
+
+
+E AÍ _ PASSAR _ 
+ 
+
+
+
+ O DICTIONARY EM SI __ COMO UM ARGUMENT A ESSA FUNCTION,
+
+
+ ou algo assim...
+
+
+
+
+
+
+
+
+
+
+ -----> DEVEMOS DAR UMA OLHADA NISSO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+ CLASSES VS OBJECTS (instances) VS DICTIONARIES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ A CLASS --> UMA CLASS É SEMPRE 'FORTEMENTE CONECTADA' a um OBJECT,
+
+ PQ 
+
+ UM OBJECT SEMPRE SERÁ UMA __ INSTANCE_ DE UMA CLASS....
+                                (É BASEADO NA CLASS QUE SIMPLESMENMTE SERVE DE BLUEPRINT)
+
+
+
+
+
+
+
+
+
+    --> classes SERVEM DE BLUEPRINT,
+
+
+    E NÃO FAZEM COISA ALGUMA SE _ UM OBJECT__ NÃO É CRIADO  (
+            ou seja,
+            seu comportamento É PARECIDO COM A _ DE UMA FUNCTION _ QUE NÃO É CHAMADA...
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+--------> EVENTUALMENTE, APRENDEREMOS QUE 
+
+
+
+''TAMBÉM PODEMOS TRABALHAR DIRETAMENTE COM CLASSES'',
+
+
+MAS POR ENQUANTO VAMOS ACEITAR ISSO ASSIM MESMO..
+
+
+
+
+
+
+
+
+
+
+
+
+2) O _ OBJECT__ --> É A COISA COM QUAL NÓS TRABALHASOS.. ----> É A COISA QUE SEGURA 
+
+
+
+'THE CONCRETE DATA',
+
+E É O 
+
+
+NEGÓCIO QUE __ UTILIZAMOS NO NOSSO CÓDIGo...
+
+
+
+
+
+
+
+
+
+
+
+--> E PODEMOS TER MÚLTIPLOS OBJECTS,
+
+TODOS INSTANCIADOS A PARTIR DE UMA MESMA CLASS... (esse é o default, usar a class PARA INSTANCIAR VÁRIOS OBJECTS)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> agora, os DICTIONARIES...
+
+
+
+
+
+
+
+
+
+
+1) PODEM __ SEGURAR DATA_ __ IGUAL _A A DE 1 OBJECT...
+
+
+
+
+
+
+2) MAS A DIFERNEÇA PRINCIPAL__ É QUE __ 
+
+
+OS DICT _ NÃO SÃO BASEADOS EM _ UMA 'CUSTOM BLUEPRINT'...
+
+
+
+
+
+
+
+
+
+
+---> OS OBJECTS SÃO BASEADOS EM UMA 'CUSTOM BLUEPRINTt'... (que é a 'class')..
+
+
+
+
+
+
+3) DICTIONARIES __ TAMBÉM __ NÃO PODEM _ _SEGURAR NENHUM METHOD..
+
+
+
+
+
+---> ISSO QUER DIZER QUE 'NENHUMA ESTRUTURA ESPECÍFICA É GARANTIDA/FORÇADA'...
+
+
+
+
+
+
+----> QUANDO CRIAMOS UM NOVO DICT,
+
+COM 
+
+
+'{}
+ ',
+
+
+
+
+
+
+
+ PODEMOS _ ESCREVER O QUE QUISERMOS..
+
+
+
+
+
+
+
+
+
+ --> JÁ´QUANDO CRIAMOS UM NOVO OBJECT,
+
+
+
+
+A PARTIR DE UMA CLASS,
+
+
+
+
+
+NÓS __ SÓ PODEMOS __ TER 
+
+
+
+, 
+
+NESSE OBJECT,
+
+
+
+AS COISAS QUE TÍNHAMOS NA BLUEPRINT...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO (as classes)
+
+DEIXAM NOSSO CÓDIGO BEM MAIS PREVISÍVEL,
+
+
+E como
+
+
+
+
+
+
+
+NÓS POEDMOS ADICIOANR FUNCTIONS/METHODS A NOSSA CLASS/object,
+
+
+
+N´SO 
+
+
+
+PODEMOS REALMENTE AGRUPAR TODA FUNCIONALDIADE RELACIOANDA A CERTA FEATURE DE NOSSO APP (ou área de nosso app)
+
+
+
+
+EM 
+
+1 LUGAR 
+
+SÓ,
+
+
+
+
+EM 1 OBJECT,
+
+EM VEZ 
+DE 
+
+'SCATTER IT OUT'
+
+
+ao longo de múltiplos dict,
+
+
+
+
+MÚLTIPLAS FUNCTION (functions que SABEMOS QUE POSSUEM RELAÇÃO ENTRE SI, MAS QUE 'NOSSO CÓDIGO NÃO DIZ')...
+
+
+
+
+
+
+
+
+
+
+
+-> É POR ISSO QUE EXISTEM CLASSES E OBJECTS, PORTANTO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QEU 
+
+
+
+
+
+
+'''PARA FEATURES GRANDES DE NOSSO APP''',
+
+
+nós TIPICAMEWNTE 
+
+USAMOS 
+OBJECTS
+
+
+E CLASSES...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, MAS PQ DEVEMOS USAR CLASSES?
+
+
+
+
+1) -_> SÃO BLUEPRINTS PARA OBJECTS 
+
+
+
+2) OBJECTS TEM A EXATA ESTRUTURA DE QUE PRECISAMOS, E TBM PODEM SER 
+CRIADOS RAPIDAMENTE...
+
+
+
+
+
+
+
+
+3) UM OBJECT TAMBÉM PODE INCLUIR METHODS (e não só fields/attributes, como nos dict)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> É POR ISSO QEU 
+
+
+
+OOP 
+
+
+
+TE DEIXA ESCREVER ´CODIGO MAIS 'CLEAN'...
+
+
+
+
+
+
+
+
+
+
+
+--> É ISSO QUE QUEREMOS FAZER, É CLARO...

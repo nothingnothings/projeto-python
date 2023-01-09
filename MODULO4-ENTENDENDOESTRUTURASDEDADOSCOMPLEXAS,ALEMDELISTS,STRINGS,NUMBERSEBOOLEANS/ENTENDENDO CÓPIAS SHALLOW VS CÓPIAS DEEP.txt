@@ -1,0 +1,636 @@
+
+
+
+
+
+
+
+--> O PROFESSOR VOLTA AO REPL,
+E AGORA ]
+
+
+
+NOS FALA DE UMA OUTRA COISA QUE SOMOS OBRIGADOS A SABER SOBRE 
+
+
+AQUELE 
+
+
+
+
+
+'reference vs values (primitive)'
+
+
+
+
+
+
+
+
+
+
+--> ESSA COISA ESTÁ RELACIONADA COM 
+
+'' O QUE 
+
+
+ACONTECE SE VOCê TEM UMA COMPLEX DATA STRUCTURE QUE INCLUÍ OUTRAS DATA STRUCTURES'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ex:
+
+
+
+
+
+
+
+temos uma lista chamada de 'stats',
+
+E ESSA LIST CONTERÁ OUTROS DICTIONARIES NO SEU INTERIOR...
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+
+
+
+
+
+stats = [
+    {
+        'name': 'Max'
+
+    },
+
+    {
+        'age': 29
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+-> OK, TEMOS ESSES 2 DICTIONARIES NA NOSSA LIST..
+
+
+
+
+
+
+
+
+
+
+--> AÍ O PROFESSOR VAI QUERER CRIAR UMA NOVA LIST,
+
+DE NOME 'copied_stats',
+
+
+
+
+
+
+
+EM QUE O PROFESSOR VAI TENTAR COPIAR NOSSA LIST ORIGINAL POR MEIO 
+
+DO USO 
+
+DAQUELE 
+
+RANGE SELECTOR QUE APRENDEMOS NAS ÚLTIMAS AULAS:
+
+
+
+
+
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+
+copied_stats = stats[:]
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO COPIARÁ/TENTARÁ COPIAR TODOS NOSSOS 'DICT' dentro da lista de 'stats' original...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... ISSO FEITO, TEMOS QUE VER COMO FICOU NOSSA VARIABLE DE 'copied_stats':
+
+
+
+
+
+>>> stats = [
+...     {
+...         'name': 'Max'
+...
+...     },
+...
+...     {
+...         'age': 29
+...     }
+... ]
+>>> copied_stats = stats[:]
+>>> copied_stats
+[{'name': 'Max'}, {'age': 29}]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+-> COMO VOCê PODE VER, A CÓPIA FOI 'NORMAL', FOI UMA 'DEEP COPY'... (incluiu os dicts certinhos dentro dessa list, na list nova)...
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, MAS AGORA DIGAMOS QUE O PROFESSOR VAI 
+
+
+
+SELECIONAR UM ELEMENTO DESSA LIST COPIADA,
+
+
+
+por meio DE UM INDEXADOR E DEPOIS O USO DO 'dict'....
+
+
+
+
+
+
+
+
+
+
+
+--> a escrita fica assim:
+
+
+
+
+
+
+
+copied_stats[0]['name'] = 'Manu' --------> 
+
+
+
+
+
+
+
+ISSO FARÁ __ COM QUE __ 
+
+
+
+O  VALOR  DA KEY DE 'name' 
+
+
+
+NO PRIMEIRO ELEMENTO DO DICT SEJA _ ALTERADO PARA FICAR 'Manu'...
+
+
+
+
+EX:
+
+
+
+
+
+
+
+>>> copied_stats[0]['name'] = 'Manu'
+
+>>> copied_stats
+[{'name': 'Manu'}, {'age': 29}]
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> CERTO... ATÉ AÍ, TUDO BEM...
+
+
+
+
+
+
+
+
+
+ --> MAS SE AGORA OUTPUTTARMOS A VARIABLE DE 'stats' ORIGINAL,
+
+
+ QUE SUPOSTAMENTE DEVERIA SER INDEPENDENTE DE 'copied_stats',
+
+
+
+
+ VEREMOS ISTO:
+
+
+
+ >>> stats
+[{'name': 'Manu'}, {'age': 29}]
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------> OU SEJA,
+
+
+
+
+A LIST _ ORIGINAL __ _TAMBÉM _ _FOI ALTERADA __ POR 
+
+
+
+ESSE CALL/DEFINIÇÃO DE 
+
+>>> copied_stats[0]['name'] = 'Manu'
+
+
+
+
+
+
+
+
+
+
+
+--------> WTF, MAS PQ ISSO?
+
+
+
+
+
+
+
+
+--> EU ACHAVA QUE __ 
+
+
+
+NOSSA LIST  DE 'stats''
+
+
+
+
+TERIA SIDO _ COPIADA _ ADEQUADAMENTE COM A SINTAXE DE 
+
+
+
+
+
+'copied_stats = stats[:]' ,
+
+
+
+
+
+
+
+
+
+
+MAS PARECE QUE ESSE NÃO FOI O CASO.... (provavelmente foi feita uma 'SHALLOW COPY' de 'stats'; --> isso significa que APENAS OS POINTERS AOS DICTS FORAM ARMAZENADOS, e NÃO __ OS '''VALORES''' DICT EM SI)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----> O PROFESSOR EXPLICA QUE 
+
+
+
+VOCÊ __ SEMPRE _ DEVE __ TER EM MENTE __ QUE 
+
+O 
+
+
+
+
+'RANGE SELECTOR' (:) 
+
+
+
+
+SEMPRE __ 
+
+
+CRIA __ APENAS __ 
+
+
+
+
+SHALLOW _ COPIES _ DE QUALQUER COISA QUE VOCÊ ESTÁ COPIANDO... -->  ISSO SIGNIFICA QUE 
+
+
+
+
+SE VOCÊ TIVER VALORES  QUE SÃO _ DATA STRUCTURES COMPLEXAS_ _ DENTRO _ 
+
+
+
+DE SUA LIST/tuple,
+
+
+
+VOCÊ DEVE 
+
+
+
+TER MT CUIDADO,
+
+
+PQ 
+O QUE 
+
+TERÁ SIDO COPIADO _ SERÃO 
+
+
+
+__ POINTERS_ _ A ESSES DICT/STRUCTURES NO SEU CÓDIGO, E NÃO OS VALORES EM SI...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> SHALLOW COPY -> ELE VAI TE COPIAR O TOPMOST LEVEL,
+
+
+
+
+TE DÁ UMA NOVA LIST, DE FORMA SIMPLES --> E SE DENTRO DESSA LIST VOCê 
+
+
+
+TEM 
+DATA STRUCTURES MAIS COMPLEXAS,
+
+
+
+
+
+ESSAS STRUCTURES _ NÃO SERÃO  CLONADAS,
+
+O QUE 
+
+QUER DIZER QUE 
+
+
+
+
+ELAS TERÃO 'REFERENCES/POINTERS' aos locais do código QUE VOCê COPIOU ,
+
+
+
+
+
+
+E A 'DATA '
+SERÁ 
+
+
+
+
+
+UMA MESMA DATA,
+
+
+O 
+
+
+
+MESMO OBJETO/DATA STRUCTURE COMPLEXA 
+
+
+
+
+NA MEMORY DO SEU CÓDIGO.... ->  ISSO SIGNIFICA QUE __ COPIAMOS __ 
+
+
+
+
+A LIST (outer list),
+
+
+MAS 
+
+
+
+
+_ NÃO COPIOU A 'NESTED __ DATA IN MEMORY',
+
+dentro dessa list ------> 
+
+
+
+
+
+
+
+É POR ISSO QUE SE ALTERARMOS UM ELEMENTO DENTRO DE 'copied_stats' (qualquer elemento, naõ precisa ser uma DATA STRUCTURE COMPLEXA),
+
+
+
+
+
+
+
+
+_ ISSO TAMBÉM VAI ALTERAR A LIST DE 'stats',
+
+
+
+
+que tem essas mesmas data structures..
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK... --> E SE VOCê QUER TER CERTEZA DE QUE VOCê 
+
+_PODE_ _EDITAR_ COM SEGURANÇA _ 
+
+
+
+UM NESTED ELEMENT EM UMA LIST QUE VOCê COPIOU,
+
+
+
+
+
+
+
+ 
+ __VOCê__ É OBRIGADO _ A FAZER 'COPY' 
+
+
+ DAQUELE ELEMENTO nested EM SI, TAMBÉM... --------> OK,
+
+
+
+
+ MAS FALANDO DESSE ASSUNTO,
+
+
+
+ _cOMO DIABOS__ VOCÊ COPIA UM DICTIONARY? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> BEM, ESSA E UMA BOA PERGUNTA, E UMA PERGUNTA QUE EXAMINAREMOS NA PRÓXIMA AULA.. ---> NA PRÓXIMA AULA EM QUE 
+
+VEREMOS TODOS OS DIFERENTES METHODS QUE 
+
+
+
+ESSAS 
+
+DATA STRUCTURES SUPORTAM... ------->  E ONDE PODEMOS _ APRENDER MAIS SOBRE ESSES METHODS, e o que podemos fazer com eles....

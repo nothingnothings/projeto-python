@@ -1,0 +1,554 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------> O QUE É ISSO?
+
+
+
+
+
+
+
+
+
+
+-> bem, no momento,
+
+
+
+
+
+
+
+
+
+NOSSO CÓDIGO PYTHON ESTÁ ESCRITO EM UM ESTILO 'PROCEDURAL'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE NÓS:
+
+
+
+
+
+1) EXECUTAMOS CÓDIGO 'DE CIMA PARA BAIXO'...
+
+
+
+
+
+
+
+
+
+2) SETTAMOS/DEFINIMOS VÁRIAS VARIABLES 
+
+
+
+
+3) SETTAMOS VÁRIAS FUNCTIONS 
+
+
+
+
+
+
+
+4) AÍ EXECUTAMOS ESSAS FUNCTIONS  
+
+
+
+
+5) TEMOS NOSSO 'WHILE LOOP',
+
+
+
+
+
+
+
+
+
+TUDO ISSO NO 'TOP LEVEL' de nossos arquivos...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----. ISSO QUER DIZER QUE 
+
+
+NÓS BASICAMENTE 
+
+
+'''EXECUTAMOS 1 STEP ATRÁS DA OUTRA'''' --> 
+
+
+
+
+
+
+
+
+
+
+
+
+OU SEJA,
+
+
+'Execute steps SEQUENTIALLY'....
+
+
+
+
+
+
+
+ex:
+
+
+
+
+
+blockchain = []
+
+
+
+
+
+
+def load_data():
+
+
+
+load_data()
+
+
+
+
+...
+
+
+while running:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> ESSE APPROACH É _ FINE, BASICAMENTE É 'FINE',
+
+
+MAS NOSSO CÓDIGO 
+
+FICA 
+
+RELATIVAMENTE 
+
+
+'DESESTRUTURADO'' ----------> É CLARO QUE 
+
+
+
+
+PODERÍAMOS/POEDMOS __ SPLITTAR _ NOSSO CÓDIGO EM MÚLTIPLOS ARQUIVOS,
+
+
+
+
+
+
+
+
+MAS __ AINDA ASSIM,
+
+
+É _ MAIS _ DIFÍCIL 
+
+
+
+
+DE ENTENDER NOSSO CÓDIGO,
+
+
+ISSO 
+
+PQ 
+
+
+
+__ 'NÃO TEMOS NENHUM TIPO DE GROUPINGS'
+
+
+nele...
+
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE QUANDO VOCÊ LÊ O ARQUIVO,
+
+
+NÃO FICAM IMEDIATAMENTE CLARAS SUAS INTENÇÕES,
+
+
+
+
+
+não 
+
+
+
+
+
+fica 'IMEDIATAMENTE CLARO' 
+
+
+
+
+
+QUAIS FUNCTIONS POSSUEM RELAÇÃO 
+
+
+
+
+COM A BLOCKCHAIN (lista em si)
+
+
+
+
+E QUAIS 
+
+
+
+FUNCTIONS SÃO MAIS 'HELPER FUNCTIONS'... (como 'get_balance', por exemplo)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+--> ESSAS SÃO AS 'FRAQUEZAS'/problemas 
+
+
+
+
+DA NOSSA IMPLEMENTAÇÃO ATUAL DO CÓDIGO...
+
+
+
+
+
+
+
+
+
+
+
+
+--> E O OOP (object-oriented programming) __ NOS _ AJUDA _ A 
+
+
+CONSETAR 
+
+
+
+ESSE 
+
+
+PROBLEMA... -> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Object-Oriented:
+
+
+
+
+
+
+
+1) SEMPRE _ TRABALHAMOS COM 'OBJECTS',
+
+
+
+    QUE SÃO FIGURAS __ ''BASICAMENTE BASEADAS EM  CLASSES'''...
+
+
+
+
+
+
+2) NÓS DEFINIMOS CLASSES (qUE SÃO 'blueprints' para os objects, por assim dizer),
+
+
+
+
+
+
+
+AÍ PODEMOS COMEÇAR A __CRIAR _ _OBJECTS__ 
+
+
+A PARTIR 
+
+DESSAS BLUEPRINTS... ------>  __ O BLUEPRINT VAI DESSCREVER 
+
+
+COMO O OBJECT  DEVE: 
+
+
+
+
+1) SE PARECER 
+
+
+2) QUAL DATA ELE SEGURA 
+
+
+3) QUAIS METHODS DEVERÁ TER...
+
+
+
+
+
+
+
+
+
+
+
+
+EX:
+
+
+
+
+
+
+
+
+
+class Blockchain:
+
+blockchain = Blockchain()
+
+
+
+blockchain.load._data()
+
+
+
+
+...
+
+
+
+user_interface = UI()
+
+
+
+
+
+
+
+
+
+
+
+--> AÍ  PODEMOS 'INTERAGIR' COM ESSE CÓDIGO AÍ ,
+
+
+
+
+com esses 'objects',
+
+
+O QUE 
+
+FAZ COM QUE NOSSO CÓDIGO FIQUE UM POUCO MAIS 'UNDERSTANDABLE',
+
+
+
+
+TUDO 
+PQ 
+
+AGORA 
+
+
+
+
+
+
+PASSAREMOS A TER UM GROUPING DE FUNCIONALIDADES 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> OK, ISSO SIGNFIICA QUE VOCÊ DEVE USAR ESSAS CLASSES COMO 'BLUEPRINT',
+
+
+PARA 
+
+ENTÃO 
+
+CRIAR OBJECTS A PARTIR DESSAS CLASSES..
+
+
+
+
+
+
+(
+    pq objects são  'DATA STRUCTURES'
+)
+
+
+
+
+
+
+
+
+-> E __ NÓS FINALMENTE TEMOS UM POUCO DE ESTRUTURA NO NOSSO CÓDIGO, PQ 
+
+AGORA 
+
+ELE 
+
+PASSARÁ A SER REGIDO POR 'object-oriented programming'... -------> E ISSO É, 
+
+
+
+NA VERDADE,
+
+
+UM 
+
+
+ _ PARADIGMA_ QUE VOCê ENCONTRA _ 
+
+ NA GRANDE MAIORIA 
+
+ DOS BROWSERS ATUAIS,
+
+
+
+
+
+
+
+ MAS NA VERDADE ISSO E´ENCONTRADO EM GRANDE PARTE DAS LINGUAGENS DE PROGRAMAÇÃO...
+
+
+
+
+
+
+
+
+
+
+ PYTHON É UMA LINGAUGEM ANTIGA, E TEM ESSE PARADIGMA ADICIONAADA A SI.... --> ISSO 
+
+
+ TE 
+
+ DEIXA ESCREVER CÓDIGO 'UNDERSTANDABLE' de maneira beem mais fácil...

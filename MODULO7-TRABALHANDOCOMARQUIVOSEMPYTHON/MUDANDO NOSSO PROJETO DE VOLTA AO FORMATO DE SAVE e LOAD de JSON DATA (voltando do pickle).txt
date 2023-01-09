@@ -1,0 +1,215 @@
+
+
+
+
+
+
+
+
+
+
+
+
+--> VAMOS VOLTAR A USAR JSON...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> PARA ISSO, 
+
+
+O PROFESSOR 
+
+
+
+COMENTA TUDO 
+
+DO JSON DE VOLTA,
+
+
+E FICA TIPO ASSIM:
+
+
+
+
+
+
+
+
+def load_data():
+    """Loads the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='r') as g:
+    if (not os.path.isfile('blockchain.json')):
+        print('No blockchain file detected, loading starting blockchain...')
+        return
+    with open('blockchain.json', mode='r') as g:
+        read_blockchain, read_transactions = g.readlines()
+        global blockchain
+        global open_transactions
+        blockchain = json.loads(read_blockchain)
+        updated_blockchain = []
+        for block in blockchain:
+            updated_block = {
+                'previous_block_hash': block['previous_block_hash'],
+                'index': block['index'],
+                'proof': block['proof'],
+                'processed_transactions': [OrderedDict(
+                    [('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction in block['processed_transactions']]
+            }
+            updated_blockchain.append(updated_block)
+        blockchain = updated_blockchain
+        # blockchain = json.loads(read_blockchain) #vamos definir nossas  variáveis globais como sendo esse valor....
+        print(json.loads(read_blockchain))
+        # open_transactions = json.loads(read_transactions) #sem list comprehension, e sem UNORDERED DICTS sendo carregados no nosso app (leva a um erro de check/comparação entre PROOF criada a partir de transactions com formato 'ORDERED DICT' e o conteúdo efetivo armazenado nos nossos arquivos, cujo formato das transactions é 'unordered dict')..
+        open_transactions = [OrderedDict([('amount', transaction['amount']),('recipient', transaction['recipient']),('sender', transaction['sender'])]) for transaction  in json.loads(read_transactions)] #com list comprehension...
+        # open_transactions = json.loads(read_transactions)
+        
+        print(json.loads(read_transactions))
+
+
+
+load_data() # start dessa function AUTOMATICAMENTE, COMO PARTE DO FLOW DE NOSSO CÓDIGO..
+
+
+def save_data():
+    """Saves the data of the blockchain in a file in your system's storage"""
+    # with open('blockchain.txt', mode='w') as f:
+    with open('blockchain.json', mode='w') as f:
+        # f.write(str(blockchain))  #vai writtar essa LIST como um value de STRING no seu arquivo de texto.... --> mas não queremos fazer isso, pq é suboptimal... melhor armazenar esses valores como __ JSON_ data...
+        f.write(json.dumps(blockchain))
+        f.write('\n') #line break entre linhas de info...
+        f.write(json.dumps(open_transactions))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------
+
+
+
+
+
+
+
+
+O PROFESSOR CONVERTE TUDO DE VOLTA À JSON DATA _ PARA _QEU 
+
+SEJA _ 
+
+POSSÍVEL _ 
+
+
+
+MANIPULAR 
+
+
+O 
+
+
+ARQUIVO DE TEXT/JSON E CHECAR O FUNCIONAMENTO DO MECANISMO DE SEGURANÇA...
+
+
+
+
+
+
+
+
+
+
+
+
+-> MAS JSON NÃO É ÓPTIMO,
+
+O PICKLING PROVAVELMENTE É PREFERÍVEL, PQ ELE REQUER MENOS CÓDIGO (não requer conversões de TYPES DESCONHECIDOS AO JSON em types conhecidos, como tivemos de fazer com 'OrderedDicts' sendo convertidos em 'UnorderedDicts'...)
+
+
+
+
+
+
+
+
+OK...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> O PROFESSOR REVERTE TUDO... --> até nosso dict que combinava 'ot' e 'chain' (pq agora vamos poder  usar o write manual de '\n')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----> AÍ O PROFESSOR VOLTA AO 
+
+
+'blockchain.txt/blockchain.json'
+
+E TENTA 
+
+
+MANIPULAR O VALOR DE RECIPIENT DE UMA DAS TRANSACTION --> isso imediatamente nos dá um error, o que é ótimo... (a proof foi alterada, o que fez com que todos os blocks subsequentes falhassem)....
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> NOSSOS MECANISMOS DE SEGURANÇA ESTÃO FUNCIONADO, E USAMOS TEXT PARA CHECAR ISSO, PQ É MAIS FÁCIL..

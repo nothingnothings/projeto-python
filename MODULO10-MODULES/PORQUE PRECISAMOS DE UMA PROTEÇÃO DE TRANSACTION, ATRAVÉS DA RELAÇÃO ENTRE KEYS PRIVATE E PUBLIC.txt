@@ -1,0 +1,1519 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CHEGA DE FALAR SOBRE NOSSOS PRÓPRIOS MÓDULOS... (folders)....
+
+
+
+
+
+
+
+
+
+
+
+-> EM VEZ DISSO, DEVEMOS __ FALAR_  SOBRE THIRD PARTY MODULES,
+
+
+
+E AÍ __ VER QUAL UTILIDADE PODERÍAMOS EXTRAIR DELES..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> HÁ ALGUMA COISA TOTALMENTE ERRADA NA NOSSA BLOCKCHAIN?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> bem, certamente há um punhado de coisas que poderíamos melhroar,
+
+dive into,
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+ MAS TEMOS 1 IMPORTANTE FLAW NA NOSSA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+
+
+
+
+ ---> lá no nosso arquivo de 'blockchain14.py',
+
+
+
+
+ TEMOS 
+
+
+ 1
+  PROBLEMA GRANDE COM NOSSAS TRANSACTIONS...
+
+
+
+
+
+
+
+
+
+
+
+
+  -----> quando nós  __aDICIONAMOS__ TRANSACTIONS 
+
+
+  e QUANDO NÓS __ MINERAMOS BLOCKS A PARTIR DELAS,
+
+
+
+  NÓS _ _NÃO ESTAMOS CHECANDO _ SE ESSAS TRANSACTIONS SÃO 
+
+
+  '
+  REALMENTE VÁLIDAS'...
+
+
+
+
+
+
+
+
+
+
+
+  --> UÉ, COMO ASSIM? 
+
+
+
+
+
+
+
+
+
+  COMO ASSIM 'VÁLIDAS'?
+
+
+
+
+
+
+
+
+
+
+
+
+
+  -> bem, SE O PROFESSOR EXECUTAR O ARQUIVO 'node.py',
+
+
+  ELE PODE OBVIAMENTE MINERAR 1 NOVO BLOCK E AÍ ADICIONAR NOVAS TRANSACTIONS...
+
+
+
+
+
+
+
+--> ADICIONOU UMA TRANSACTION DE '5'...
+
+
+
+
+  ------> SE O PROFESSOR 
+
+
+
+
+
+
+  QUITAR __ DE NOSSO APP _ SEM SALVAR ESSA TRANSACTION EM UM NOVO BLOCK,
+
+
+
+  VEREMOS QUE 
+
+
+
+
+  LÁ NA NOSSA BLOCKCHAIN.json,
+
+
+
+  arquivo QUE REGISTRA NOSSA BLOCKCHAIn,
+
+
+
+
+
+
+
+
+
+SERÁ __ POSSÍVEL __ EDITAR O 'OUTSTANDING VALUE' de nossa transaction,
+
+
+
+
+
+
+tipo assim:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> podemos alterar esse value MANUALMENTE, defini-lo como '20'...
+
+
+
+
+
+
+
+
+
+
+
+-----> SE NOS ENTÃO __ INICIARMOS NOSSO APP/NODE MAIS UMA VEZ 
+
+
+
+
+E ENTAÕ 
+
+
+TENTARMOS MINERAR UM NOVO BLOCK,
+
+
+ISSO 
+
+
+SERÁ 
+
+'ADICIONADO COM SUCESSO',
+
+
+
+
+
+mesmo 
+
+com NÓS TENDO _ ALTERADO/MANIPULADO O VALUE DA TRANSACTION..
+
+
+
+
+
+
+
+
+
+
+
+-> certo, mas meu código está COM UM __ PROBLEMA... -> 
+
+
+
+
+
+
+
+
+
+QUANDO ADICIONO UMA TRANSACTION, ELA _ NÃO É SALVA _ NO MEU ARQUIVO 'blockchain.json',
+
+
+
+não é salva no 'open_transactions'...
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> e se QUITTO o programa e então ENTRO DE NOVO,
+
+
+
+o balance de meu user passa a ser 0.... (perdemos a info, essencialmente)....
+
+
+
+
+
+
+
+
+
+
+--> tento resolver esse problema...
+
+
+
+
+
+
+
+
+
+
+
+
+--> o problema persiste...
+
+
+
+
+
+
+
+
+
+--> consertei o problema...
+
+
+
+
+
+
+
+--> prosseguindo com a aula do professor...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok, 'TPPS'....
+
+
+
+
+
+
+
+---> algo errado com nossa blockchain...
+
+
+
+
+
+----> coisas que poderíamos melhorar... --> uma flaw importante...
+
+
+
+
+
+
+
+
+
+
+
+
+---> 1 problema com transactions.. --> naõ estamos checando se elas são 'VALID'...
+
+
+
+
+
+
+
+
+----> podemos mine um novo block, sim.... --> aí podemos adicionar uma nova transaction,
+
+sim,
+
+
+
+
+
+
+
+
+mas podemos manipular os valores das transactions em 'open_transactions' LIVREMENTE...
+
+
+
+
+
+
+
+
+
+
+
+
+---> basta FECHARMOS O APP, MANIPULARMOS O VALOR, E AÍ __ EXECUTARMOS __ NOSSA BLOCKCHAIN/OPERAÇÃO DE MINE MAIS UMA VEZ...
+
+
+
+
+
+
+
+
+--> a transaction MANIPULADA __ VAI SER ACEITA COMO 'VÁLIDA' na nossa blockchain, mesmo tendo sido MANIPULADA...
+
+
+
+
+
+
+
+
+
+
+
+--> ISSO QUER DIZER QUE NOSSAS TRANSACTIONS NÃO FICAM _ SEGURAS__ 
+
+SE NÃO ESTIVEREM _  INCLUÍDAS JÁ EM UM 'block'.... (se ficam em 'open_transactions', a segunda linha do arquivo 'blockchain.json', elas possuem essa falha de segurança)....
+
+
+
+
+
+
+
+
+
+
+
+--> ué, mas no meu código, essa transaction NÃO FOI ADICIONADA AO NOSSO BLOCK... (talvez algum problema em meu código, tvz não escrevi 'copied_transactions')..
+
+
+
+
+
+
+
+
+
+--> touché, era isso mesmo...
+
+
+
+
+
+
+
+--> agora consertei:
+
+
+
+
+
+
+FileAccess.save_data(self._chain, copied_transactions)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mas aí vai SURGIR AQUELA FALHA DE SEGURANÇA DE QUE O PROFESSOR ESTAVA FLAANDO..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> as transactions não ficam seguras SE NÃO ESTIVEREM INCLUÍDAS EM 1 BLOCK...
+
+
+
+
+
+
+
+
+
+
+
+--> ué, mas isso é mentira.... --> se eu tento MANIPULAR O VALOR E 
+
+
+aí armazenar,
+
+
+meu código __ SÓ NÃO ARMAZENA A TRANSACTION (por alguma razão)... (acho que é pq eu não posso REINICIAR MEU APP, perco todas as info...)..
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> não, mas isso que o professor está falando NÃO ESTÁ OCORRENDO.. ---> é por causa do ID, sim ,
+
+que 
+
+deveria estar como 
+
+'
+self.id = 'MAX'
+
+'
+
+
+e não 
+
+
+'self.id = str(uuid4 ())'
+
+
+
+
+
+
+
+
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+ok.... agora CONSEGUI REPLICAR O COMPORTAMENTO DO PROBLEMA DO PROFESSOR...
+
+
+
+
+
+
+
+
+
+
+
+
+------> OK, TEMOS QUE PROTEGER NOSSO APP CONTRA A  'INSEGURANÇA' das 'open_transactions',
+
+
+do fato de que 
+
+
+uma transaction, seu amount,
+
+PODE ACABAR MANIPULADO 
+
+
+
+
+NESSE SLOT AÍ, no seu arquivo 'blockchain.json'...
+
+
+
+
+
+
+
+
+---> não, mas ainda tenho um PROBLEMA NO MEU CÓDIGO.. -->
+ 
+
+ a transaction _aINDA _ NÃO ESTÁ SENDO ADICIONADA QUANDO REINICIO MEU APP... (e a balance continua '0' quando reinico o app)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> mais testes....
+
+
+
+
+
+
+
+
+
+--> vou reorganizar meu código:
+
+
+
+
+
+You would need to, despite it being static, still pass in the object that you want to modify. Static methods can act on instances of a class, it usually just makes more sense to use instance methods, since that's their purpose.
+
+
+
+
+
+
+
+
+
+
+
+----> acho que isso 'consertou' o código...
+
+
+
+--> ainda tenho um erro...
+
+
+
+
+
+
+
+
+
+
+
+
+--> consertei mais coisas, mas o problema de 'perdemos todos os blocks ao reiniciar o app'
+
+
+ainda persiste...
+
+
+
+
+
+---> AS TRANSACTIONS ESTÃO FICANDO ERRADAS... ( 
+
+
+o valor do 'mine' está sendo incluído nas transactions.... não sei se esse é o comportamento desejado/esperado...
+)
+
+
+
+
+
+
+
+
+
+
+---> não, agora o negócio está funcionando do mesmo modo que o app do professor...
+
+
+
+
+
+
+
+
+--> só o 'get_balance' ESTÁ QUEBRADO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> consertei, era o call de 'load_data' no constructor de 'blockchain.py' que estava faltando...
+
+
+
+
+
+
+
+
+
+
+
+--> agora só me resta consertar o comportamento de 'manipulate a transaction enquanto ela está no blockchain.json, para ser malandro'...
+
+
+
+
+
+
+
+
+
+
+
+
+--> testo esse comportamento...
+
+
+
+
+
+
+
+--> mine BEM longo...
+
+
+
+
+
+
+
+
+--> AINDA ASSIM, ESSE PROBLEMA DO PROFESSOR É REAL.. --> VOCê PODE MANIPULAR O NEGÓCIO ENQUANTO ELE ESTÁ DESLIGADO,
+
+
+
+
+e aí minerar um valor que não é/foi o antigo...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---> ok, mas COMO CONSERTAR ISSO AÍ?
+
+
+
+
+
+
+
+
+
+
+
+
+--> PODEMOS NOS DEFENDER DA MANIPULATION DE TRANSACTIONS __ ATRAVÉS _ 
+
+
+
+DE KEYS__ PUBLICAS E PRIVADAS....
+
+
+
+
+
+
+
+
+
+
+
+
+--> FAZEMOS ISSO __ PARA ___ ASSEGURAR__ QUE A TRANSACTION _ É VÁLIDA,
+
+
+E QUE NÃO FOI MANIPULADA.. .
+
+
+
+
+'''PROBLEMA: MAS ___ COMO __ VAMOS SABER SE 
+
+
+A DATA__ EM QUESTÃO É VÁLIDA E NÃO FOI MANIPULADA? '''
+
+
+
+
+
+
+
+
+
+
+---> BEM, USAMOS PRIVATE E PUBLIC KEYS PARA ISSO.... ---> PARA SERMOS MAIS PRECISOS,
+
+
+
+
+A FIGURA QUE USAREMOS É UM 
+
+
+'PAR DE PUBLIC E PRIVATE KEY''.. (key privada <-> key pública, sempre pares assim)....
+
+
+
+
+
+
+
+
+
+
+--> ESSAS 2 KEYS SERÃO CRIADAS 
+
+
+
+CONJUNTAMENTE, AO MESMO TEMPO,
+
+ATRAVÉS DE UM ALGORITMO.... --------> E ELAS SÃO KINDOF 'tied together'...
+
+
+
+
+
+
+
+
+
+
+
+------> E É __ IMPOSSÍVEL__ 'CHUTAR' a private key a partir da public key... -----> E, COMO O NOME SUGERE,
+
+
+A 
+
+
+'private key'
+
+É 
+
+ALGO QUE VOCÊ DEVE MANTER PRIVADA, escondida... --------> A 'PRIVATE' KEY _ 
+
+
+
+
+VAI ___ CONSTRUIR SUA CARTEIRA/WALLET, essencialmente...
+
+
+
+
+
+
+
+
+
+--> É ELA QUE CONSTRÓI SUA 'WALLET'
+
+
+
+
+
+
+
+
+
+
+--> o que é uma wallet?
+
+
+
+
+
+
+-> É UMA _ COMBINAÇÃO DE 'PRIVATE' E 'PUBLIC' KEYS, essencialmente....
+
+
+
+
+
+
+
+
+
+
+
+--> a public key NA NOSSA 'BITCOIN NETWORK' e também na 
+
+
+
+nossa BLOCKCHAIN,
+
+
+será 
+
+aquela 
+
+
+parte 
+
+
+
+de 
+
+
+
+'
+sender' 
+
+
+e 
+
+'recipient'...
+
+
+
+
+
+
+
+
+
+----> PUBLIC KEYS __ SÃO __ ESSENCIALMENTE SEU 'ADDRESS'... ----> VOCÊ VAI __ ENVIAR__ COINS _ 
+
+
+A
+ OUTRAS PUBLIC KEYS,
+
+
+ E VOCê RECEBERÁ __ COINS __ NA SUA PUBLIC KEY... ---- ISSO QUER DIZER QUE 
+
+
+ AS PUBLIC KEYS VAO BASICAMENTE __ SUBSTITUIR__ 
+
+
+
+
+ NOSSOS DUMMY PLACEHOLDERS DE 'Manuel' e 'Max' que hardcodamos lá em 'self.id' na blockchain.... (recipients e senders)....
+
+
+
+
+
+
+
+
+
+
+
+
+ --> JÁ A PRIVATE KEY É _ ALGO QUE __ SÓ VOCÊ CONHECE.... --> ELA __ NÃO DEVE/NÃO DEVERÁ 
+
+
+ FAZER PARTE DAS TRANSACTIONS,
+
+ E VOCÊ 
+
+
+ DEVE A ARMAZENAR EM 1 LUGAR BEM SEGURO.... ---> o ideal seria nem mesmo armazenar isso em um arquivoo,
+
+
+
+ MAS AQUI VAMOS FAZER ISSO POR _ CONVENIÊNCIA.. ----> MAS VOCê DEVE GUARDAR ESSA 
+
+
+ PRIVATE KEY,
+
+
+ PQ 
+
+ SE VOCê A PERDER,
+
+
+
+ VOCê _ NÃO PODE__ MAIS ACESSAR _ SEUS __ COINS... ----->  ISSO PQ __ SUA 
+
+
+ PRIVATE __ KEY _ 
+
+
+ É USADA __ PARA 
+
+
+
+
+
+ CRIAR ___ 
+
+
+
+
+
+
+
+ AQUILO QUE CHAMAMOS de 
+
+
+
+
+
+ 'signature',
+
+
+
+
+
+SUA __ SIGNATURE _ QUE DEVE CONSTAR EM 'outgoing transactions', nas outgoing transactions que vocÊ realizar...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> A SIGNATURE, INCLUÍDA DENTRO DE CADA 'TRANSACTION',
+
+
+contém/conterá:
+
+
+
+
+
+
+
+1) TRANSACTION DATA COMO 'SENDER', 'RECIIPENT'  E 'AMOUNT'...
+
+
+
+
+
+
+
+''2'') a 'private key', que será usada para ENCRIPTAR ESSA TRANSACTION DATA AÍ....
+
+
+
+
+
+
+
+
+
+--> E A SIGNATURE __ SERÁ _ CRIADA__ A PARTIR _ DA PRIVATE KEY....
+
+
+
+
+
+
+
+
+
+
+
+
+--> a signature é BASIACMENTE UM 'ENCODED VALUE' que diz o 'sender','recipient' e 'amount',
+
+
+tudo 
+
+
+de forma ENCODADA, no formato de uma longa string,
+
+
+
+STRING __ QUE __ SÓ ___ PODE __ SER CRIADA __ 
+
+
+
+
+
+
+
+
+COM A COMBINAÇÃO 
+
+
+
+ENTRE __ A 'TRANSACTION DATA' e sua 'actual private key'...
+
+
+
+
+
+
+
+
+
+
+
+
+-----> CERTO... -> A PUBLIC KEY ___ NÃO __ CONSEGUE __ 
+
+
+LER _ ESSA TRANSACTION/A DATA DA TRANSACTION CONTIDA NA SIGNATURE,
+
+
+
+
+
+MAS _ CONSEGUE__ VERIFICAR QUE 
+
+
+
+
+
+
+
+
+'''''ESSA TRANSACTION+YOUR PRIVATE KEY, ESSA STRING ENCODADA AQUI, ELA É 
+
+COMPATÍVEL, OS 2 ELEMENTOS DÃO MATCH,, REALMENTE É ESSA STRING QUE É CRIADA 
+
+
+A PARTIR DE ESSA TRANSACTION E NOSSA SIGNATURE/private key''''' --------> essa é a função 
+
+
+
+
+
+da public key, CHECAR SE  essa SIGNATURE AÍ __ É VÁLIDA....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''the public key CAN VERIFY _ THAT THIS ___ SIGNATURE, FOR A GIVEN TRANSACTION INPUT,
+
+
+WAS __ cREATED__ WITH YOUR PRIVATE KEY''' ------> A PUBLIC __ KEY__ CONSEGUE FAZER ISSO 
+
+
+
+
+
+
+
+
+PELO SIMPLES FATO DE QUE 
+
+ELA 
+
+'KINDA' 
+
+
+
+___ CONHECE/SABE SUA PRIVATE KEY,
+
+
+
+
+
+MESMO __ SEM A INCLUIR/INCLUIR SEU VALUE __ NO SEU __ INTERIOR (a public key _ NÃO INCLUI a private key)...
+
+
+
+
+
+
+
+
+
+
+---> É POR ISSO QUE SE NÓS LEMOS NOSSA PUBLIC KEY, NÃO PODEMOS ADIVINHAR QUAL É NOSSA PRIVATE KEY...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PRIVATE 
+
+
+PUBLIC ------> AS 2 SÃO CRIADAS JUNTAS..
+
+
+
+
+
+
+
+
+
+PRIVATE KEY ---------> CRIA __ A 'SIGNATURE', que é FORMADA A PARTIR DA 'TRANSACTION DATA + private key' 
+
+
+E ENTÃO __ INSERIDA __ NA PRÓPRIA TRANSACTION ----> A PUBLIC KEY (exposta ao público) 
+
+
+
+
+CONSEGUE __ RECONHECER___ SE A 'SIGNATURE' (transaction data + private key) 
+
+
+
+DENTRO DAQUELA TRANSACTION __ REALMENTE É VÁLIDA (se aquela combinação entre transaction  data e a private key realmente resulta nessa string longa gozada)...
+
+
+
+
+
+
+----> MESMO DISPONDO DESSA CAPACIDADE DE 'RECONHECER SE ESSA COMBINAÇÃO É POSSÍVEL',
+
+
+
+a public key não te dá a info acerca do value da PRIVATE KEY...
+
+
+
+
+
+
+
+
+
+
+
+----> OK.... ------> MAS COMO VOCê PODE 'VERIFICAR A SIGNATURE' por meio da public key,
+
+
+__ SE ALGUÉM __ MUDA __ QUALQUER __ COISA __ ACERCA 
+
+DA TRANSACTION (o amount, sender ou recipient),
+
+
+
+
+
+
+
+
+
+ A 'SIGNATURE' (que é composta de 'transaction data' + 'PRIVATE key') 
+
+
+
+
+
+
+ __ VAI IMEDIATAMENTE RESTAR INVÁLIDA,
+
+
+ E ESSE 
+
+ FATO SERÁ CONSTATADO PELA PUBLIC KEY (que vai identificar a incompatibilidade de essa string)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ----> a public key consegue identificar isso pq _ ELA É CRIADA NO MESMO MOMENTO DE ''private key'....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -----> E SE O 'BAD GUY'
+
+
+ TENTAR _ FAZER OUTRA MALANDRAGEM,
+
+ TENTAR MUDAR A 'SIGNATURE' de dentro 
+
+
+
+ da transaction também,
+
+
+
+
+
+ ISSO NÃO VAI DAR CERTO, PQ 
+
+
+
+ISSO SERÁ ALGO QUE ELE SÓ VAI CONSEGUIR FAZER COM 
+
+
+
+
+
+'A PRÓPRIA PRIVATE KEY DELE',
+
+
+
+
+
+
+
+
+
+O QUE _ FARÁ _ COM QUE __ ELE 
+SÓ FIQUE CAPAZ DE 
+
+FAZER 'send'
+
+
+DOS PRÓPRIOS FUNDOS/WALLET DELE...  (pq a 'public key' CONSEGUE IDENTIFICAR QUE VOCÊ COLOCOU SUA 'PRÓPRIA KEY' no lugar da key correta/adequada para aquela transaction...)
+
+
+
+
+
+
+
+
+
+
+
+
+-> PORTANTO, __ APENAS_ A 'PUBLIC KEy' 
+
+
+conseque verificar TRANSACTIONS COM UMA 'SIGNATURE'
+
+
+CRIADA COM A PRIVATE KEY...
+
+
+
+
+
+
+
+
+
+
+--> ESSE É O TAKEAWAY IMPORTANTE... 
+
+
+
+
+
+
+
+
+
+
+--> E ESSE É UM IMPORTANTE LAYER ADICIONAL DE SEGURANÇA...
+
+
+
+
+
+
+
+
+
+JÁ TEMOS VÁRIOS LAYERS DE SEGURANÇA:
+
+
+
+
+
+
+
+1) BLOCKS __CONHECEM 1 AO OUTRO ('BASIC BLOCK MANIPULATION CHECK') ----> visto nas primeiras aulas, 'current block hash' deve ser igual ao BLOCK INTEIRO HASHEADO + O BLOCK ATUAL...
+
+
+
+
+
+
+
+
+2) 'MINED BLOCKS REQUIRE A VALID PROOF OF WORK' --> isso IMPOSSIBILITA A MANIPULAÇAÕ EM MASSA DOS BLOCKS.... (em que tentamos trocar TODOS OS BLOCKS..)
+
+
+
+
+
+
+
+
+
+---> ou seja, cada block tem aquele attribute de 'proof', que é o NUMBER QUE DEVE ENCAIXAR com outras data 
+
+
+de cada block para que seja 'válido'...
+
+
+
+
+
+
+
+
+
+3) FINALMENTE, AGORA TEMOS UM MECANISMO DE SEGURANÇA PARA IMPEDIR _ 
+
+AS 
+
+'open_transactions'
+
+
+de nosso arquivo 
+
+
+
+'blockchain.py' DE SEREM _ ALTERADAS, MANIPULADAS,
+
+
+TUDO POR MEIO DESSA COISA DE 'public-private keys', essa coisa de signature,
+
+
+QUE VAI IMPEDIR _ TRANSACTIONS DE SEREM MANIPULADAS...

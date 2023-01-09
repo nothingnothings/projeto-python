@@ -1,0 +1,253 @@
+
+
+
+
+
+
+
+
+
+
+
+DEPOIS DE VER O ÚLTIMO MÓDULOM, BEM LONGO,
+
+
+
+DEVEMOS 
+
+
+
+
+VER UM POUCO MAIS SOBRE BUILT-IN FUNCTIONS E NOSSAS CUSTOM FUNCTIONS,
+
+
+
+
+PARTICULARMENTE ACERCA DE TEXT...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> TEXTOS NAÕ SÃO TRIVIAIS?
+ 
+
+
+
+
+
+
+ DEVEMOS DAR UMA OLHADA NISSO...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ --> DEVEMOS ESTUDAR:
+
+
+ 1) A DIFERENÇA ENTRE STRINGS E LISTS --> OBVIAMENTE PODEMOS CONSIDERAR 
+
+ STRINGS COMO LISTAS DE CARACTERES,
+
+
+MAS HÁ ALGUMAS DIFERENÇAS....
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM VEREMOS COMO PODEMOS FORMATAR 
+  STRINGS E OUTPUT DINÂMICO QUE PODEMOS 
+
+
+  TER NO NOSSO APP.... --> VAMOS APLICAR ISSO A NOSSA BLOCKCHAIN...
+
+
+
+
+
+
+
+
+=--. TAMBÉM VEREMOS 
+
+
+2
+ FUNCTIONS 
+
+ BUILT-IN,
+
+
+
+QUE SÃO 
+
+
+
+
+
+A) .map()
+
+
+
+
+
+
+
+B) reduce()...
+
+
+
+
+
+
+
+
+
+
+
+
+
+--> VEREMOS O QUE 
+
+ESSAS FUNCTIONS FAZEM,
+
+
+
+
+QUAIS ALTERNATIVAS A ELAS,
+
+
+
+E __ EM QUE _ SITUAÇÕES DEVEMOS AS UTILIZAR...
+
+
+
+
+
+
+
+
+
+
+
+--> TAMBÉM VEREMOS 'FUNCTIONAL ARGUMENT UNPACKING'...
+
+
+
+
+
+
+
+
+
+
+--> E, ALÉM DE TUDO ISSO,
+
+
+
+VEREMOS UMA OUTRA SINTAXE DE FUNCTION QUE 
+
+SERA´
+
+
+
+BEM ÚTIL QUANDO 
+
+PASSARMOS A UTILIZAR 
+
+
+
+MAP E REDUCE...
+
+
+
+
+
+
+
+
+
+
+
+--> OK, É UM BOM CONTEÚDO PARA VER..
+
+
+
+
+
+
+
+
+
+
+
+--> ACERCA DO BLOCKCHAIN,VAMOS:
+
+
+
+
+
+
+
+
+
+1) MELHORAR O CÁLCULO DO 'BALANCE' DO USER ----> VAMOS USAR A 'REDUCED FUNCTION' 
+
+
+para 
+
+
+melhorar isso...]
+
+
+
+
+
+
+
+
+2) VAMOS __MELHORAR__ O OUTPUT DA NOSSA USER INTERFACE... -> O TEXTO QUE É PRINTADO NO CONSOLE.... -> 
+
+
+
+
+VAMOS MELHORAR TUDO ISSO, COM A AJUDA DE STRING FORMATTING..
+
+
+
+
+
+
+
+
+
+
+
+--> DEVEMOS COMEÇAR...
